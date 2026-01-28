@@ -4,7 +4,7 @@ AI Vision Stock Signal Analyzer - 메인 실행 파일
 import asyncio
 from datetime import datetime
 
-from config.settings import CAPTURES_DIR, OUTPUT_DIR
+from config.settings import CAPTURES_DIR, OUTPUT_DIR, ROOT_DIR
 from modules.scraper import run_scraper
 from modules.ai_engine import analyze_stocks
 from modules.utils import get_today_capture_dir, save_json, generate_markdown_report
@@ -41,6 +41,13 @@ async def main():
     }
     save_json(output_data, json_path)
     print(f"JSON 저장: {json_path}")
+
+    # results/latest.json에도 저장 (GitHub Pages용)
+    results_dir = ROOT_DIR / "results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    latest_path = results_dir / "latest.json"
+    save_json(output_data, latest_path)
+    print(f"Latest 저장: {latest_path}")
 
     # 마크다운 리포트 저장
     md_path = OUTPUT_DIR / f"report_{today}.md"
