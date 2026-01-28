@@ -4,9 +4,12 @@ Gemini API 연동 및 프롬프트 관리 (배치 처리 방식)
 from __future__ import annotations
 import time
 import base64
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from google import genai
+
+# KST 시간대
+KST = timezone(timedelta(hours=9))
 
 from config.settings import GEMINI_API_KEYS, GEMINI_MODEL, SIGNAL_CATEGORIES
 from modules.utils import parse_json_response, resize_image
@@ -172,7 +175,7 @@ def analyze_stocks_batch(scrape_results: list[dict], capture_dir: Path, max_retr
 
             if result and "results" in result:
                 analysis_results = result["results"]
-                analysis_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                analysis_time = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
                 # 캡처 시각 및 분석 시각 추가
                 for i, item in enumerate(analysis_results):

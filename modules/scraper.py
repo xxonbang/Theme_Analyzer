@@ -3,9 +3,12 @@ Playwright 기반 리스트 수집 및 스크린샷 캡처 (신버전 stock.nave
 """
 from __future__ import annotations
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright, Page
+
+# KST 시간대
+KST = timezone(timedelta(hours=9))
 
 from config.settings import (
     KOSPI_API_URL,
@@ -59,13 +62,14 @@ async def collect_all_stocks() -> list[dict]:
     return all_stocks
 
 
-async def capture_stock_screenshot(page: Page, stock: dict, capture_dir: Path) -> dict:
-    """개별 종목 페이지 스크린샷 캡처"""
+async def capture_stock_screenshot(page: Page, stock: dict, capture_dir: Path, max_retries: int = 3) -> dict:
+    """개별 종목 페이지 스크린샷 캡처 (재시도 포함)"""
     code = stock["code"]
     name = stock["name"]
     url = STOCK_DETAIL_URL.format(code=code)
 
-    try:
+    for attempt in range(max_retries):
+        try:
         await page.goto(url, wait_until="networkidle", timeout=30000)
         await page.wait_for_timeout(2000)
 
@@ -92,15 +96,21 @@ async def capture_stock_screenshot(page: Page, stock: dict, capture_dir: Path) -
         filepath = capture_dir / f"{code}.png"
         await page.screenshot(path=str(filepath), full_page=True)
 
-        # 캡처 시각 기록
-        capture_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # 캡처 시각 기록 (KST)
+        capture_time = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
         print(f"  [OK] {name} ({code})")
         return {**stock, "success": True, "screenshot": str(filepath), "capture_time": capture_time}
 
-    except Exception as e:
-        print(f"  [FAIL] {name} ({code}): {e}")
-        return {**stock, "success": False, "error": str(e)}
+        except Exception as e:
+            if attempt < max_retries - 1:
+                print(f"  [RETRY {attempt + 1}/{max_retries}] {name} ({code}): {e}")
+                await asyncio.sleep(2)
+                continue
+            print(f"  [FAIL] {name} ({code}): {e}")
+            return {**stock, "success": False, "error": str(e)}
+
+    return {**stock, "success": False, "error": "Max retries exceeded"}
 
 
 async def capture_all_screenshots(stocks: list[dict]) -> list[dict]:
