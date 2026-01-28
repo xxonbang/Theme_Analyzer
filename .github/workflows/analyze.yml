@@ -167,6 +167,7 @@ jobs:
           retention-days: 7
 
       - name: Commit results
+        id: commit
         if: steps.analysis.outputs.analysis_success == 'true'
         run: |
           git config user.name "github-actions[bot]"
@@ -184,12 +185,21 @@ jobs:
               git commit -m "Update analysis results - $KST_TIME KST (${HISTORY_COUNT} days history)"
               git push
               echo "Results committed and pushed. History: ${HISTORY_COUNT} days"
+              echo "committed=true" >> $GITHUB_OUTPUT
             else
               echo "No changes to commit."
             fi
           else
             echo "::warning::results/ directory not found, skipping commit."
           fi
+
+      - name: Trigger GitHub Pages deployment
+        if: steps.commit.outputs.committed == 'true'
+        run: |
+          gh workflow run deploy-pages.yml
+          echo "Triggered deploy-pages.yml workflow"
+        env:
+          GH_TOKEN: ${{ github.token }}
 
   notify-skip:
     needs: check-market
