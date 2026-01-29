@@ -75,7 +75,8 @@ function StockCard({
   isExpanded: boolean;
   onToggle: () => void;
 }) {
-  const priceChangeColor = stock.price.change_rate_pct > 0 ? 'text-red-500' : stock.price.change_rate_pct < 0 ? 'text-blue-500' : 'text-text-secondary';
+  const changeRate = stock.price?.change_rate_pct ?? 0;
+  const priceChangeColor = changeRate > 0 ? 'text-red-500' : changeRate < 0 ? 'text-blue-500' : 'text-text-secondary';
 
   return (
     <div className="bg-bg-secondary border border-border rounded-xl p-3 md:p-4 hover:border-accent-primary transition-all">
@@ -96,9 +97,9 @@ function StockCard({
             </span>
           </div>
           <div className="flex items-baseline gap-1.5 md:gap-2">
-            <span className="text-base md:text-lg font-bold">{formatNumber(stock.price.current)}원</span>
+            <span className="text-base md:text-lg font-bold">{formatNumber(stock.price?.current)}원</span>
             <span className={`text-xs md:text-sm font-medium ${priceChangeColor}`}>
-              {formatPercent(stock.price.change_rate_pct)}
+              {formatPercent(stock.price?.change_rate_pct)}
             </span>
           </div>
         </div>
@@ -107,7 +108,7 @@ function StockCard({
             <SignalBadge signal={analysis.signal} />
           )}
           <div className="text-[0.65rem] md:text-xs text-text-muted mt-1">
-            #{stock.ranking.volume_rank}위
+            #{stock.ranking?.volume_rank ?? '-'}위
           </div>
         </div>
       </div>
@@ -116,20 +117,20 @@ function StockCard({
       <div className="grid grid-cols-4 gap-1 md:gap-2 mb-2 md:mb-3 text-[0.65rem] md:text-xs">
         <div className="bg-bg-primary rounded-lg p-1.5 md:p-2 text-center">
           <div className="text-text-muted mb-0.5">PER</div>
-          <div className="font-medium">{stock.valuation.per > 0 ? stock.valuation.per.toFixed(1) : '-'}</div>
+          <div className="font-medium">{stock.valuation?.per && stock.valuation.per > 0 ? stock.valuation.per.toFixed(1) : '-'}</div>
         </div>
         <div className="bg-bg-primary rounded-lg p-1.5 md:p-2 text-center">
           <div className="text-text-muted mb-0.5">PBR</div>
-          <div className="font-medium">{stock.valuation.pbr > 0 ? stock.valuation.pbr.toFixed(2) : '-'}</div>
+          <div className="font-medium">{stock.valuation?.pbr && stock.valuation.pbr > 0 ? stock.valuation.pbr.toFixed(2) : '-'}</div>
         </div>
         <div className="bg-bg-primary rounded-lg p-1.5 md:p-2 text-center">
           <div className="text-text-muted mb-0.5 truncate">거래량</div>
-          <div className="font-medium text-amber-600">+{stock.ranking.volume_rate_vs_prev.toFixed(0)}%</div>
+          <div className="font-medium text-amber-600">+{stock.ranking?.volume_rate_vs_prev?.toFixed(0) ?? '-'}%</div>
         </div>
         <div className="bg-bg-primary rounded-lg p-1.5 md:p-2 text-center">
           <div className="text-text-muted mb-0.5 truncate">52주</div>
           <div className="font-medium">
-            {((stock.price.current / stock.price.high_52week) * 100).toFixed(0)}%
+            {stock.price?.high_52week ? ((stock.price.current / stock.price.high_52week) * 100).toFixed(0) : '-'}%
           </div>
         </div>
       </div>
@@ -164,9 +165,9 @@ function StockCard({
                   <div><span className="text-text-muted">밸류:</span> {analysis.key_factors.valuation}</div>
                 </div>
               )}
-              {analysis.confidence !== undefined && (
+              {analysis.confidence != null && (
                 <div className="mt-2 text-[0.65rem] md:text-xs text-text-muted">
-                  신뢰도: {(analysis.confidence * 100).toFixed(0)}% | 위험도: {analysis.risk_level || '-'}
+                  신뢰도: {((analysis.confidence ?? 0) * 100).toFixed(0)}% | 위험도: {analysis.risk_level || '-'}
                 </div>
               )}
             </div>
