@@ -2,14 +2,24 @@ name: Stock Analysis
 
 on:
   schedule:
-    # KST 07:30 (UTC 22:30 previous day) - 장 시작 전
-    - cron: '30 22 * * 0-4'
-    # KST 21:30 (UTC 12:30) - 장 마감 후
-    - cron: '30 12 * * 1-5'
+    # KST 07:00 (UTC 22:00 previous day) - 장 시작 전
+    - cron: '0 22 * * 0-4'
+    # KST 21:00 (UTC 12:00) - 장 마감 후
+    - cron: '0 12 * * 1-5'
   workflow_dispatch:
     inputs:
       force_run:
         description: '휴장일에도 강제 실행'
+        required: false
+        default: 'false'
+        type: boolean
+      skip_vision:
+        description: 'Vision AI 분석 건너뛰기'
+        required: false
+        default: 'false'
+        type: boolean
+      skip_kis:
+        description: 'KIS API 분석 건너뛰기'
         required: false
         default: 'false'
         type: boolean
@@ -83,11 +93,16 @@ jobs:
             echo "::notice::시장 휴장일입니다 (${{ steps.check.outputs.market_status }}). 분석을 건너뜁니다."
           fi
 
-  analyze:
+  # Vision AI 분석 (네이버 스크린샷 + Gemini Vision)
+  vision-analysis:
     needs: check-market
-    if: needs.check-market.outputs.is_market_open == 'true'
+    if: |
+      needs.check-market.outputs.is_market_open == 'true' &&
+      github.event.inputs.skip_vision != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      success: ${{ steps.analysis.outputs.analysis_success }}
 
     steps:
       - name: Checkout
@@ -105,7 +120,7 @@ jobs:
           playwright install chromium
           playwright install-deps chromium
 
-      - name: Verify API keys
+      - name: Verify Gemini API keys
         env:
           GEMINI_API_KEY_01: ${{ secrets.GEMINI_API_KEY_01 }}
           GEMINI_API_KEY_02: ${{ secrets.GEMINI_API_KEY_02 }}
@@ -115,15 +130,9 @@ jobs:
             echo "::error::No Gemini API keys configured. Please add at least one GEMINI_API_KEY_XX secret."
             exit 1
           fi
-          echo "API keys verified."
+          echo "Gemini API keys verified."
 
-      - name: Check disk space (before)
-        run: |
-          echo "=== 디스크 공간 (분석 전) ==="
-          df -h .
-          echo ""
-
-      - name: Run analysis
+      - name: Run Vision analysis
         id: analysis
         env:
           GEMINI_API_KEY_01: ${{ secrets.GEMINI_API_KEY_01 }}
@@ -133,58 +142,256 @@ jobs:
           python main.py
           echo "analysis_success=true" >> $GITHUB_OUTPUT
 
-      - name: Check disk space (after)
-        if: always()
-        run: |
-          echo "=== 디스크 공간 (분석 후) ==="
-          df -h .
-          echo ""
-          echo "=== 캡처 폴더 크기 ==="
-          du -sh captures/ 2>/dev/null || echo "captures/ 폴더 없음"
-          echo ""
-          echo "=== 출력 폴더 크기 ==="
-          du -sh output/ 2>/dev/null || echo "output/ 폴더 없음"
-
-      - name: Copy results to web directory
-        if: steps.analysis.outputs.analysis_success == 'true'
-        run: |
-          mkdir -p results
-          LATEST_FILE=$(ls -t output/analysis_*.json 2>/dev/null | head -n1)
-          if [ -n "$LATEST_FILE" ]; then
-            cp "$LATEST_FILE" results/latest.json
-            echo "Copied $LATEST_FILE to results/latest.json"
-          else
-            echo "::warning::No analysis file found in output/"
-          fi
-
-      - name: Upload results artifact
+      - name: Upload Vision results artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: analysis-results-${{ github.run_number }}
+          name: vision-results-${{ github.run_number }}
           path: output/
           if-no-files-found: warn
           retention-days: 7
 
+  # KIS API 분석 (한국투자증권 API + Gemini)
+  kis-analysis:
+    needs: check-market
+    if: |
+      needs.check-market.outputs.is_market_open == 'true' &&
+      github.event.inputs.skip_kis != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      success: ${{ steps.kis_analysis.outputs.kis_success }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check KIS API credentials
+        id: check_kis
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+        run: |
+          if [ -z "$KIS_APP_KEY" ] || [ -z "$KIS_APP_SECRET" ]; then
+            echo "::warning::KIS API credentials not configured. Skipping KIS analysis."
+            echo "has_credentials=false" >> $GITHUB_OUTPUT
+          else
+            echo "KIS API credentials verified."
+            echo "has_credentials=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run KIS data collection
+        if: steps.check_kis.outputs.has_credentials == 'true'
+        id: kis_collect
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          KIS_ACCOUNT_NO: ${{ secrets.KIS_ACCOUNT_NO }}
+        run: |
+          echo "=== KIS API 데이터 수집 ==="
+          python kis_main.py
+          echo "kis_collected=true" >> $GITHUB_OUTPUT
+
+      - name: Run KIS Gemini analysis
+        if: steps.kis_collect.outputs.kis_collected == 'true'
+        id: kis_analysis
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          GEMINI_API_KEY_01: ${{ secrets.GEMINI_API_KEY_01 }}
+          GEMINI_API_KEY_02: ${{ secrets.GEMINI_API_KEY_02 }}
+          GEMINI_API_KEY_03: ${{ secrets.GEMINI_API_KEY_03 }}
+        run: |
+          echo "=== KIS 데이터 Gemini AI 분석 ==="
+          python -c "
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          from modules.kis_data_transformer import KISDataTransformer
+          from modules.ai_engine import analyze_kis_data_batch
+
+          # KIS 데이터 로드
+          kis_data_path = Path('results/kis/latest.json')
+          if not kis_data_path.exists():
+              print('KIS 데이터 파일이 없습니다.')
+              exit(1)
+
+          with open(kis_data_path, 'r', encoding='utf-8') as f:
+              kis_data = json.load(f)
+
+          # 데이터 변환
+          transformer = KISDataTransformer(kis_data)
+          stocks = transformer.transform_all()
+          print(f'변환된 종목 수: {len(stocks)}')
+
+          # Gemini 분석 (배치)
+          analysis_results = analyze_kis_data_batch(stocks, batch_size=10)
+          print(f'분석 완료: {len(analysis_results)}개 종목')
+
+          # 결과 저장
+          output_data = {
+              'analyzed_at': datetime.now().isoformat(),
+              'total_stocks': len(analysis_results),
+              'results': analysis_results,
+          }
+
+          output_path = Path('results/kis/analysis.json')
+          with open(output_path, 'w', encoding='utf-8') as f:
+              json.dump(output_data, f, ensure_ascii=False, indent=2)
+
+          print(f'분석 결과 저장: {output_path}')
+
+          # 시그널 요약
+          signal_counts = {}
+          for r in analysis_results:
+              signal = r.get('signal', '중립')
+              signal_counts[signal] = signal_counts.get(signal, 0) + 1
+
+          print('\\n=== 시그널 요약 ===')
+          for signal, count in sorted(signal_counts.items()):
+              print(f'  {signal}: {count}개')
+          "
+          echo "kis_success=true" >> $GITHUB_OUTPUT
+
+      - name: Upload KIS results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kis-results-${{ github.run_number }}
+          path: results/kis/
+          if-no-files-found: warn
+          retention-days: 7
+
+  # 결과 커밋 및 배포
+  commit-and-deploy:
+    needs: [check-market, vision-analysis, kis-analysis]
+    if: |
+      always() &&
+      needs.check-market.outputs.is_market_open == 'true' &&
+      (needs.vision-analysis.outputs.success == 'true' || needs.kis-analysis.outputs.success == 'true')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Vision results
+        if: needs.vision-analysis.outputs.success == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: vision-results-${{ github.run_number }}
+          path: output/
+        continue-on-error: true
+
+      - name: Download KIS results
+        if: needs.kis-analysis.outputs.success == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: kis-results-${{ github.run_number }}
+          path: results/kis/
+        continue-on-error: true
+
+      - name: Setup results directory
+        run: |
+          mkdir -p results/history
+
+          # Vision 결과 복사
+          if [ -f output/analysis_*.json ]; then
+            LATEST_FILE=$(ls -t output/analysis_*.json 2>/dev/null | head -n1)
+            if [ -n "$LATEST_FILE" ]; then
+              cp "$LATEST_FILE" results/latest.json
+              cp "$LATEST_FILE" "results/history/$(basename $LATEST_FILE)"
+              echo "Vision 결과 복사 완료: $LATEST_FILE"
+            fi
+          fi
+
+          # KIS 결과 확인
+          if [ -f results/kis/analysis.json ]; then
+            echo "KIS 분석 결과 확인됨"
+          fi
+
+      - name: Update history index
+        run: |
+          python -c "
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          results_dir = Path('results')
+          history_dir = results_dir / 'history'
+
+          # 히스토리 파일 목록 수집
+          history_files = []
+          if history_dir.exists():
+              for item in sorted(history_dir.iterdir(), reverse=True):
+                  if item.is_file() and item.suffix == '.json':
+                      try:
+                          date_str = item.stem.replace('analysis_', '')
+                          with open(item, 'r', encoding='utf-8') as f:
+                              data = json.load(f)
+                          signal_counts = {}
+                          for r in data.get('results', []):
+                              signal = r.get('signal', '중립')
+                              signal_counts[signal] = signal_counts.get(signal, 0) + 1
+                          history_files.append({
+                              'date': date_str,
+                              'filename': item.name,
+                              'total_stocks': data.get('total_stocks', 0),
+                              'signals': signal_counts
+                          })
+                      except Exception:
+                          continue
+
+          index_data = {
+              'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+              'retention_days': 30,
+              'total_records': len(history_files),
+              'history': history_files
+          }
+
+          index_path = results_dir / 'history_index.json'
+          with open(index_path, 'w', encoding='utf-8') as f:
+              json.dump(index_data, f, ensure_ascii=False, indent=2)
+
+          print(f'히스토리 인덱스 갱신: {len(history_files)}개 기록')
+          "
+
       - name: Commit results
         id: commit
-        if: steps.analysis.outputs.analysis_success == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # results/ 디렉토리 전체를 스테이징 (latest.json, history/, history_index.json)
+          # results/ 디렉토리 전체를 스테이징
           if [ -d results ]; then
             git add results/
 
             KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
 
             if ! git diff --staged --quiet; then
-              # 히스토리 파일 수 카운트
-              HISTORY_COUNT=$(ls -1 results/history/*.json 2>/dev/null | wc -l | tr -d ' ')
-              git commit -m "Update analysis results - $KST_TIME KST (${HISTORY_COUNT} days history)"
+              # 분석 결과 요약
+              VISION_STATUS="N/A"
+              KIS_STATUS="N/A"
+
+              if [ -f results/latest.json ]; then
+                VISION_STATUS="OK"
+              fi
+              if [ -f results/kis/analysis.json ]; then
+                KIS_STATUS="OK"
+              fi
+
+              git commit -m "Update analysis results - $KST_TIME KST [Vision: $VISION_STATUS, KIS: $KIS_STATUS]"
               git push
-              echo "Results committed and pushed. History: ${HISTORY_COUNT} days"
+              echo "Results committed and pushed."
               echo "committed=true" >> $GITHUB_OUTPUT
             else
               echo "No changes to commit."

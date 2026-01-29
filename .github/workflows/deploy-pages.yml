@@ -38,7 +38,11 @@ jobs:
 
       - name: Copy results to dist
         run: |
+          # Vision AI 분석 결과
           cp -r results dist/ || true
+          echo "Results copied to dist/"
+          ls -la dist/results/ 2>/dev/null || echo "No results directory"
+          ls -la dist/results/kis/ 2>/dev/null || echo "No KIS results"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
