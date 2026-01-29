@@ -203,12 +203,14 @@ jobs:
       - name: Run KIS data collection
         if: steps.check_kis.outputs.has_credentials == 'true'
         id: kis_collect
+        continue-on-error: true
         env:
           KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
           KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
           KIS_ACCOUNT_NO: ${{ secrets.KIS_ACCOUNT_NO }}
         run: |
           echo "=== KIS API 데이터 수집 ==="
+          echo "::notice::KIS API는 등록된 IP에서만 접근 가능합니다. GitHub Actions에서 403 오류 발생 시 IP 제한 때문입니다."
           python kis_main.py
           echo "kis_collected=true" >> $GITHUB_OUTPUT
 
