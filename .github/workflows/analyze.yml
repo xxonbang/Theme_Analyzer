@@ -190,13 +190,20 @@ jobs:
             echo "has_credentials=true" >> $GITHUB_OUTPUT
           fi
 
+      # 캐시 키용 날짜 (토큰은 24시간 유효)
+      - name: Get date for cache key
+        if: steps.check_kis.outputs.has_credentials == 'true'
+        id: cache-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
       # KIS 토큰 캐시 복원 (1일 1회 발급 제한 대응)
       - name: Restore KIS token cache
         if: steps.check_kis.outputs.has_credentials == 'true'
         uses: actions/cache@v4
+        id: kis-cache
         with:
           path: .kis_token_cache.json
-          key: kis-token-${{ github.run_id }}
+          key: kis-token-${{ steps.cache-date.outputs.date }}
           restore-keys: |
             kis-token-
 
@@ -211,8 +218,19 @@ jobs:
         run: |
           echo "=== KIS API 데이터 수집 ==="
           echo "::notice::KIS API는 등록된 IP에서만 접근 가능합니다. GitHub Actions에서 403 오류 발생 시 IP 제한 때문입니다."
-          python kis_main.py
-          echo "kis_collected=true" >> $GITHUB_OUTPUT
+
+          if python kis_main.py; then
+            if [ -f "results/kis/latest.json" ]; then
+              echo "kis_collected=true" >> $GITHUB_OUTPUT
+              echo "KIS 데이터 수집 성공"
+            else
+              echo "kis_collected=false" >> $GITHUB_OUTPUT
+              echo "::warning::KIS 데이터 파일이 생성되지 않았습니다."
+            fi
+          else
+            echo "kis_collected=false" >> $GITHUB_OUTPUT
+            echo "::warning::KIS 데이터 수집 실패"
+          fi
 
       - name: Run KIS Gemini analysis
         if: steps.kis_collect.outputs.kis_collected == 'true'
@@ -285,6 +303,14 @@ jobs:
               print(f'  {signal}: {count}개')
           "
           echo "kis_success=true" >> $GITHUB_OUTPUT
+
+      # KIS 토큰 캐시 저장 (1일 1회 발급 제한 대응)
+      - name: Save KIS token cache
+        if: always() && steps.check_kis.outputs.has_credentials == 'true' && steps.kis-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
 
       - name: Upload KIS results artifact
         if: always()
