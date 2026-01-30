@@ -215,15 +215,22 @@ def analyze_stocks_batch(scrape_results: list[dict], capture_dir: Path, max_retr
                 rotate_to_next_key()
                 return analysis_results
 
-            print("[WARNING] 응답 파싱 실패. 재시도...")
+            # 파싱 실패: API 호출은 성공했으므로 재호출하지 않음 (호출 횟수 절약)
+            print("[ERROR] 응답 파싱 실패 - API 호출은 성공했으나 JSON 파싱 불가")
+            print(f"[DEBUG] 응답 길이: {len(response.text)}자")
+            print(f"[DEBUG] 응답 시작 200자: {response.text[:200]}...")
+            rotate_to_next_key()
+            return []  # 파싱 실패 시 빈 결과 반환, 재호출 안 함
 
         except Exception as e:
             error_msg = str(e)
             print(f"  [KEY #{key_index + 1}] 오류: {error_msg[:100]}")
 
+            # 429 오류 (쿼터 초과): 다른 키로 재시도
             if "429" in error_msg or "quota" in error_msg.lower() or "rate" in error_msg.lower():
                 mark_key_failed(key_index)
                 rotate_to_next_key()
+                print(f"  [KEY #{key_index + 1}] 실패. 남은 키: {len(GEMINI_API_KEYS) - len(_failed_keys)}개")
                 time.sleep(2)
                 continue
 
@@ -231,10 +238,11 @@ def analyze_stocks_batch(scrape_results: list[dict], capture_dir: Path, max_retr
                 print("[ERROR] 모델을 찾을 수 없습니다.")
                 return []
 
+            # 기타 오류: 다른 키로 재시도
             rotate_to_next_key()
             time.sleep(1)
 
-    print(f"[ERROR] {max_retries}회 시도 후 실패")
+    print(f"[ERROR] {max_retries}회 시도 후 실패 (모든 API 키 쿼터 소진)")
     return []
 
 
@@ -385,7 +393,7 @@ def analyze_kis_data(
         stock_data=reduced_json
     )
 
-    # API 호출 시도
+    # API 호출 시도 (429 오류 시에만 재시도, 파싱 실패 시 재시도 안 함)
     for attempt in range(max_retries):
         key_info = get_next_api_key()
         if not key_info:
@@ -433,15 +441,22 @@ def analyze_kis_data(
                 rotate_to_next_key()
                 return analysis_results
 
-            print("[WARNING] 응답 파싱 실패. 재시도...")
+            # 파싱 실패: API 호출은 성공했으므로 재호출하지 않음 (호출 횟수 절약)
+            print("[ERROR] 응답 파싱 실패 - API 호출은 성공했으나 JSON 파싱 불가")
+            print(f"[DEBUG] 응답 길이: {len(response.text)}자")
+            print(f"[DEBUG] 응답 시작 200자: {response.text[:200]}...")
+            rotate_to_next_key()
+            return []  # 파싱 실패 시 빈 결과 반환, 재호출 안 함
 
         except Exception as e:
             error_msg = str(e)
             print(f"  [KEY #{key_index + 1}] 오류: {error_msg[:100]}")
 
+            # 429 오류 (쿼터 초과): 다른 키로 재시도
             if "429" in error_msg or "quota" in error_msg.lower() or "rate" in error_msg.lower():
                 mark_key_failed(key_index)
                 rotate_to_next_key()
+                print(f"  [KEY #{key_index + 1}] 실패. 남은 키: {len(GEMINI_API_KEYS) - len(_failed_keys)}개")
                 time.sleep(2)
                 continue
 
@@ -449,10 +464,11 @@ def analyze_kis_data(
                 print("[ERROR] 모델을 찾을 수 없습니다.")
                 return []
 
+            # 기타 오류: 다른 키로 재시도
             rotate_to_next_key()
             time.sleep(1)
 
-    print(f"[ERROR] {max_retries}회 시도 후 실패")
+    print(f"[ERROR] {max_retries}회 시도 후 실패 (모든 API 키 쿼터 소진)")
     return []
 
 

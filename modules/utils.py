@@ -56,25 +56,55 @@ def load_json(filepath: Path) -> dict:
 
 
 def parse_json_response(text: str) -> dict | None:
-    """AI 응답에서 JSON 파싱"""
+    """AI 응답에서 JSON 파싱 (다양한 형식 지원)"""
     import re
 
-    # 마크다운 코드블록에서 JSON 추출
+    if not text or not text.strip():
+        return None
+
+    # 시도할 JSON 문자열 후보들
+    candidates = []
+
+    # 1. 마크다운 코드블록에서 JSON 추출 (```json ... ``` 또는 ``` ... ```)
     json_match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
     if json_match:
-        json_str = json_match.group(1).strip()
-    else:
-        json_str = text.strip()
+        candidates.append(json_match.group(1).strip())
 
-    try:
-        return json.loads(json_str)
-    except json.JSONDecodeError:
+    # 2. 중괄호로 시작하고 끝나는 JSON 객체 추출
+    brace_match = re.search(r'(\{[\s\S]*\})', text)
+    if brace_match:
+        candidates.append(brace_match.group(1).strip())
+
+    # 3. 원본 텍스트 그대로
+    candidates.append(text.strip())
+
+    # 각 후보에 대해 파싱 시도
+    for json_str in candidates:
+        if not json_str:
+            continue
+
+        # 첫 번째 시도: 그대로 파싱
         try:
-            # 특수문자 제거 후 재시도
+            return json.loads(json_str)
+        except json.JSONDecodeError:
+            pass
+
+        # 두 번째 시도: 특수문자 제거 후 파싱
+        try:
             cleaned = re.sub(r'[\x00-\x1F\x7F]', '', json_str)
             return json.loads(cleaned)
         except json.JSONDecodeError:
-            return None
+            pass
+
+        # 세 번째 시도: 줄바꿈 정리 후 파싱
+        try:
+            cleaned = re.sub(r'\n\s*', ' ', json_str)
+            cleaned = re.sub(r'[\x00-\x1F\x7F]', '', cleaned)
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+
+    return None
 
 
 def generate_markdown_report(results: list, output_path: Path) -> None:
