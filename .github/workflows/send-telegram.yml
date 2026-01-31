@@ -1,0 +1,87 @@
+name: Send Stock Report
+
+on:
+  schedule:
+    # KST 09:30 (UTC 00:30) - 장 시작 후 30분
+    - cron: '30 0 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      skip_news:
+        description: '뉴스 수집 건너뛰기'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: stock-report
+  cancel-in-progress: false
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Verify credentials
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          if [ -z "$KIS_APP_KEY" ] || [ -z "$KIS_APP_SECRET" ]; then
+            echo "::error::KIS API credentials not configured"
+            exit 1
+          fi
+          if [ -z "$TELEGRAM_TOKEN" ] || [ -z "$CHAT_ID" ]; then
+            echo "::error::Telegram credentials not configured"
+            exit 1
+          fi
+          echo "All credentials verified"
+
+      # KIS 토큰 캐시 (24시간 유효)
+      - name: Get date for cache key
+        id: cache-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Restore KIS token cache
+        uses: actions/cache@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
+          restore-keys: kis-token-
+
+      - name: Send Telegram report
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          KIS_ACCOUNT_NO: ${{ secrets.KIS_ACCOUNT_NO }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: |
+          if [ "${{ github.event.inputs.skip_news }}" == "true" ]; then
+            python main.py --skip-news
+          else
+            python main.py
+          fi
+
+      - name: Save KIS token cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
