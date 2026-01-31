@@ -5,7 +5,7 @@ import { LoadingSpinner, EmptyState, Button } from '@/components/common';
 import { SignalSummary } from '@/components/signal';
 import { MarketTabs, StockList } from '@/components/stock';
 import { getSignalCounts, getFilteredStocks, categorizeStocks, getLatestAnalysisTime, formatTimeOnly } from '@/lib/utils';
-import type { AnalysisData } from '@/services/types';
+import type { AnalysisData, SignalType } from '@/services/types';
 
 function TipText({ children }: { children: React.ReactNode }) {
   return (
@@ -18,9 +18,13 @@ function TipText({ children }: { children: React.ReactNode }) {
   );
 }
 
-function FilterIndicator() {
-  const { activeSignal, clearSignalFilter } = useUIStore();
-
+function FilterIndicator({
+  activeSignal,
+  onClear
+}: {
+  activeSignal: SignalType | null;
+  onClear: () => void;
+}) {
   if (!activeSignal) return null;
 
   return (
@@ -28,7 +32,7 @@ function FilterIndicator() {
       <span className="flex-1 font-medium">
         🔍 "{activeSignal}" <span className="hidden sm:inline">시그널 </span>필터 적용 중
       </span>
-      <Button variant="primary" size="sm" onClick={clearSignalFilter}>
+      <Button variant="primary" size="sm" onClick={onClear}>
         해제
       </Button>
     </div>
@@ -94,7 +98,7 @@ function ResultsMeta({ data }: { data: AnalysisData }) {
 }
 
 function AnalysisContent({ data }: { data: AnalysisData }) {
-  const { activeMarket, setMarketFilter, activeSignal, toggleSignalFilter } = useUIStore();
+  const { activeMarket, setMarketFilter, activeSignal, toggleSignalFilter, clearSignalFilter } = useUIStore();
 
   const { kospi, kosdaq } = categorizeStocks(data.results);
   const signalCounts = getSignalCounts(data.results, activeMarket);
@@ -126,7 +130,7 @@ function AnalysisContent({ data }: { data: AnalysisData }) {
         onChange={setMarketFilter}
       />
 
-      <FilterIndicator />
+      <FilterIndicator activeSignal={activeSignal} onClear={clearSignalFilter} />
 
       {filteredStocks.length === 0 ? (
         <EmptyState
