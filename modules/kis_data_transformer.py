@@ -136,9 +136,7 @@ class KISDataTransformer:
         current_price = details.get("current_price", {})
         asking_price = details.get("asking_price", {})
         investor_trend = details.get("investor_trend", {})
-        daily_price = details.get("daily_price", {})
         daily_chart = details.get("daily_chart", {})
-        financial_info = details.get("financial_info", {})
         foreign_inst = details.get("foreign_institution_summary", {})
 
         # 종목명: ranking_info에서 가져오거나 daily_chart에서 가져옴
@@ -207,15 +205,6 @@ class KISDataTransformer:
 
             # === 외인/기관 동향 요약 ===
             "foreign_institution": self._transform_foreign_institution(foreign_inst),
-
-            # === 재무 정보 ===
-            "financials": self._transform_financial_info(financial_info),
-
-            # === 일봉 차트 (최근 20일 요약) ===
-            "price_history": self._transform_daily_chart(daily_chart),
-
-            # === 일자별 시세 (최근 5일) ===
-            "recent_prices": self._transform_daily_price(daily_price),
         }
 
         return stock_data
@@ -309,113 +298,6 @@ class KISDataTransformer:
                 "individual_net": summary_20d.get("individual_net"),
             },
             "description": "양수=순매수, 음수=순매도. 5일/20일 누적 합계",
-        }
-
-    def _transform_financial_info(self, financial_info: Dict[str, Any]) -> Dict[str, Any]:
-        """재무정보 변환"""
-        if not financial_info:
-            return {}
-
-        # financial_data 배열에서 최신 데이터 추출
-        financial_data = financial_info.get("financial_data", [])
-
-        # 유효한 데이터가 있는 첫 번째 항목 찾기
-        latest = {}
-        for fd in financial_data:
-            if fd.get("sales", 0) > 0 or fd.get("roe", 0) != 0:
-                latest = fd
-                break
-
-        if not latest and financial_data:
-            latest = financial_data[0]
-
-        # 연간 재무 데이터 (최근 3년)
-        yearly_data = [
-            {
-                "period": fd.get("year"),
-                "revenue": fd.get("sales"),
-                "operating_profit": fd.get("operating_profit"),
-                "net_income": fd.get("net_income"),
-                "roe_pct": fd.get("roe"),
-                "eps": fd.get("eps"),
-                "bps": fd.get("bps"),
-                "debt_ratio_pct": fd.get("debt_ratio"),
-            }
-            for fd in financial_data[:4]
-        ]
-
-        return {
-            "latest": {
-                "period": latest.get("year"),
-                "revenue": latest.get("sales"),
-                "operating_profit": latest.get("operating_profit"),
-                "net_income": latest.get("net_income"),
-                "roe_pct": latest.get("roe"),
-                "eps": latest.get("eps"),
-                "bps": latest.get("bps"),
-                "debt_ratio_pct": latest.get("debt_ratio"),
-            },
-            "yearly_trend": yearly_data,
-            "description": "최근 분기/연간 재무정보. period 형식: YYYYMM (예: 202412=2024년 연간)",
-        }
-
-    def _transform_daily_chart(self, daily_chart: Dict[str, Any]) -> Dict[str, Any]:
-        """일봉 차트 데이터 변환 (최근 20일 요약)"""
-        if not daily_chart:
-            return {}
-
-        # ohlcv 배열 사용 (candles가 없는 경우)
-        candles = daily_chart.get("ohlcv", daily_chart.get("candles", []))
-        if not candles:
-            return {}
-
-        # 최근 20일만 포함
-        recent = candles[:20]
-
-        return {
-            "recent_20_days": [
-                {
-                    "date": c.get("date"),
-                    "open": c.get("open"),
-                    "high": c.get("high"),
-                    "low": c.get("low"),
-                    "close": c.get("close"),
-                    "volume": c.get("volume"),
-                    "trading_value": c.get("trading_value"),
-                }
-                for c in recent
-            ],
-            "data_points": len(recent),
-            "description": "최근 20거래일 일봉 데이터 (최신순)",
-        }
-
-    def _transform_daily_price(self, daily_price: Dict[str, Any]) -> Dict[str, Any]:
-        """일자별 시세 변환 (최근 5일)"""
-        if not daily_price:
-            return {}
-
-        # daily_prices 배열 사용 (prices가 없는 경우)
-        prices = daily_price.get("daily_prices", daily_price.get("prices", []))
-        if not prices:
-            return {}
-
-        # 최근 5일만 포함
-        recent = prices[:5]
-
-        return {
-            "recent_5_days": [
-                {
-                    "date": p.get("date"),
-                    "open": p.get("open"),
-                    "high": p.get("high"),
-                    "low": p.get("low"),
-                    "close": p.get("close"),
-                    "volume": p.get("volume"),
-                    "change_rate_pct": p.get("change_rate"),
-                }
-                for p in recent
-            ],
-            "description": "최근 5거래일 시세",
         }
 
     def save_transformed_data(

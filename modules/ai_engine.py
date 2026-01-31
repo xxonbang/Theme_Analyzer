@@ -261,14 +261,17 @@ def analyze_stocks(scrape_results: list[dict], capture_dir: Path) -> list[dict]:
     return analyze_stocks_batch(scrape_results, capture_dir)
 
 
-# KIS API 데이터 분석에 사용할 필수 필드 (API 토큰 제한 대응)
+# KIS API 데이터 분석에 사용할 필수 필드
 KIS_ESSENTIAL_FIELDS = [
     'code',                 # 종목코드
     'name',                 # 종목명
     'market',               # 시장구분
     'ranking',              # 거래량 순위 및 변화율
     'price',                # 현재가, 등락률, 시고저종, 52주 고저
+    'trading',              # 거래량, 거래대금, 회전율
+    'market_info',          # 시가총액, 상장주수, 외인소진율
     'valuation',            # PER, PBR, EPS, BPS
+    'order_book',           # 호가 잔량 비율 (수급 압력)
     'investor_flow',        # 외인/기관/개인 순매수 (당일, 5일)
     'foreign_institution',  # 외인/기관 누적 순매수
 ]
@@ -303,18 +306,21 @@ KIS_ANALYSIS_PROMPT = """당신은 20년 경력의 대한민국 주식 시장 �
 - **code**: 종목코드
 - **name**: 종목명
 - **market**: 시장구분 (KOSPI/KOSDAQ)
-- **ranking**: 거래량 순위 및 거래량 변화율
+- **ranking**: 거래량 순위 (volume_rank), 전일대비 거래량 변화율 (volume_rate_vs_prev)
 - **price**: 현재가, 등락률, 시고저종, 52주 고저
+- **trading**: 거래량, 거래대금, 거래량회전율 (volume_turnover_pct)
+- **market_info**: 시가총액 (억원), 상장주수, 외인소진율 (foreign_holding_pct)
 - **valuation**: PER, PBR, EPS, BPS
-- **investor_flow**: 외인/기관/개인 순매수 동향 (당일, 5일)
+- **order_book**: 총매수잔량, 총매도잔량, 매수/매도 잔량비율 (bid_ask_ratio, 100 이상이면 매수세 우위)
+- **investor_flow**: 외인/기관/개인 순매수 동향 (당일, 5일 합계)
 - **foreign_institution**: 외인/기관 5일/20일 누적 순매수
 
 ## 분석 요청
 각 종목에 대해 다음을 수행하세요:
 
-1. **기술적 분석**: 가격 추세, 거래량 변화율, 52주 고저 대비 위치 분석
-2. **수급 분석**: 외인/기관 순매수 동향 및 누적 흐름 분석
-3. **밸류에이션 분석**: PER/PBR 수준 평가
+1. **기술적 분석**: 가격 추세, 거래량 변화율, 52주 고저 대비 위치, 거래량 회전율 분석
+2. **수급 분석**: 호가 잔량비율, 외인/기관 순매수 동향 및 누적 흐름 분석
+3. **밸류에이션 분석**: PER/PBR 수준, 시가총액 대비 거래대금 평가
 4. **시그널 결정**: [적극매수, 매수, 중립, 매도, 적극매도] 중 하나 선택
 5. **분석 근거**: 시그널 결정의 핵심 근거를 2~3문장으로 설명
 
