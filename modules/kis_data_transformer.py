@@ -205,6 +205,9 @@ class KISDataTransformer:
 
             # === 외인/기관 동향 요약 ===
             "foreign_institution": self._transform_foreign_institution(foreign_inst),
+
+            # === 일봉 차트 (최근 20일) ===
+            "price_history": self._transform_daily_chart(daily_chart),
         }
 
         return stock_data
@@ -298,6 +301,33 @@ class KISDataTransformer:
                 "individual_net": summary_20d.get("individual_net"),
             },
             "description": "양수=순매수, 음수=순매도. 5일/20일 누적 합계",
+        }
+
+    def _transform_daily_chart(self, daily_chart: Dict[str, Any]) -> Dict[str, Any]:
+        """일봉 차트 데이터 변환 (최근 20일)"""
+        if not daily_chart:
+            return {}
+
+        ohlcv = daily_chart.get("ohlcv", [])
+        if not ohlcv:
+            return {}
+
+        # 최근 20일만 포함
+        recent = ohlcv[:20]
+
+        return {
+            "days": [
+                {
+                    "date": c.get("date"),
+                    "open": c.get("open"),
+                    "high": c.get("high"),
+                    "low": c.get("low"),
+                    "close": c.get("close"),
+                    "volume": c.get("volume"),
+                }
+                for c in recent
+            ],
+            "count": len(recent),
         }
 
     def save_transformed_data(
