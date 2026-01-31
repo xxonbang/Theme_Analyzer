@@ -84,7 +84,7 @@ class TelegramSender:
             return "➖"
 
     def _format_3day_changes(self, history_data: Dict[str, Any]) -> str:
-        """3일간 등락률 포맷 (D-2 → D-1 → D 순서)"""
+        """3일간 등락률 포맷 (D-2  D-1  D 순서, 화살표 없이)"""
         changes = history_data.get("changes", [])
         if not changes:
             return ""
@@ -96,11 +96,11 @@ class TelegramSender:
             rate = change.get("change_rate", 0)
             sign = "+" if rate > 0 else ""
             label = labels[i] if i < len(labels) else f"D-{i}"
-            parts.append((label, f"{sign}{rate:.1f}%"))
+            parts.append(f"{label} {sign}{rate:.1f}%")
 
-        # 역순으로 (D-2 → D-1 → D)
+        # 역순으로 (D-2  D-1  D)
         parts.reverse()
-        return " → ".join([f"{label}:{val}" for label, val in parts])
+        return "  |  ".join(parts)
 
     def _get_naver_finance_url(self, code: str) -> str:
         """네이버 파이낸스 모바일 URL 생성"""
@@ -144,6 +144,14 @@ class TelegramSender:
         """현재 시각 포맷"""
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    def format_start_barricade(self) -> str:
+        """시작 바리케이트 메시지"""
+        return "🚀🚀🚀 START 🚀🚀🚀"
+
+    def format_end_barricade(self) -> str:
+        """종료 바리케이트 메시지"""
+        return "🏁🏁🏁 END 🏁🏁🏁"
+
     def format_rising_stocks(
         self,
         kospi: List[Dict[str, Any]],
@@ -154,15 +162,13 @@ class TelegramSender:
         history_data = history_data or {}
 
         lines = [
-            "🚀🚀🚀 START 🚀🚀🚀",
-            "",
-            "📈 <b>거래량 + 상승률 TOP</b>",
-            "━━━━━━━━━━━━━━━━━━━━",
+            "📈 <b>거래량 + 상승률 TOP10</b>",
             "",
         ]
 
         # 코스피
         lines.append("🔵 <b>KOSPI</b>")
+        lines.append("")
         if kospi:
             for stock in kospi:
                 code = stock.get("code", "")
@@ -172,11 +178,9 @@ class TelegramSender:
             lines.append("   해당 종목 없음")
             lines.append("")
 
-        lines.append("━━━━━━━━━━━━━━━━━━━━")
-        lines.append("")
-
         # 코스닥
         lines.append("🟢 <b>KOSDAQ</b>")
+        lines.append("")
         if kosdaq:
             for stock in kosdaq:
                 code = stock.get("code", "")
@@ -196,19 +200,18 @@ class TelegramSender:
         kospi: List[Dict[str, Any]],
         kosdaq: List[Dict[str, Any]],
         history_data: Optional[Dict[str, Dict[str, Any]]] = None,
-        is_last_message: bool = False,
     ) -> str:
         """하락 종목 메시지 포맷"""
         history_data = history_data or {}
 
         lines = [
-            "📉 <b>거래량 + 하락률 TOP</b>",
-            "━━━━━━━━━━━━━━━━━━━━",
+            "📉 <b>거래량 + 하락률 TOP10</b>",
             "",
         ]
 
         # 코스피
         lines.append("🔵 <b>KOSPI</b>")
+        lines.append("")
         if kospi:
             for stock in kospi:
                 code = stock.get("code", "")
@@ -218,11 +221,9 @@ class TelegramSender:
             lines.append("   해당 종목 없음")
             lines.append("")
 
-        lines.append("━━━━━━━━━━━━━━━━━━━━")
-        lines.append("")
-
         # 코스닥
         lines.append("🟢 <b>KOSDAQ</b>")
+        lines.append("")
         if kosdaq:
             for stock in kosdaq:
                 code = stock.get("code", "")
@@ -234,11 +235,6 @@ class TelegramSender:
 
         # 타임스탬프
         lines.append(f"⏰ {self._get_timestamp()}")
-
-        # 마지막 메시지면 END 바리케이트 추가
-        if is_last_message:
-            lines.append("")
-            lines.append("🏁🏁🏁 END 🏁🏁🏁")
 
         return "\n".join(lines)
 
@@ -254,13 +250,11 @@ class TelegramSender:
         self,
         news_data: Dict[str, Dict[str, Any]],
         title: str = "📰 종목별 뉴스",
-        is_last_message: bool = True,
     ) -> List[str]:
         """뉴스 메시지 포맷 (제목에 링크 포함)"""
         messages = []
         current_lines = [
             f"{title}",
-            "━━━━━━━━━━━━━━━━━━━━",
             "",
         ]
 
@@ -303,19 +297,14 @@ class TelegramSender:
                 messages.append("\n".join(current_lines))
                 current_lines = [
                     f"{title} (계속)",
-                    "━━━━━━━━━━━━━━━━━━━━",
                     "",
                 ]
 
             current_lines.extend(stock_lines)
 
         # 마지막 메시지 추가
-        if len(current_lines) > 3:
+        if len(current_lines) > 2:
             current_lines.append(f"⏰ {self._get_timestamp()}")
-            # 마지막 메시지면 END 바리케이트 추가
-            if is_last_message:
-                current_lines.append("")
-                current_lines.append("🏁🏁🏁 END 🏁🏁🏁")
             messages.append("\n".join(current_lines))
 
         return messages

@@ -124,6 +124,10 @@ def main(test_mode: bool = False, skip_news: bool = False):
     print("\n[7/7] 텔레그램 메시지 준비...")
     telegram = TelegramSender()
 
+    # 바리케이트 메시지
+    start_barricade = telegram.format_start_barricade()
+    end_barricade = telegram.format_end_barricade()
+
     # 상승 종목 메시지
     rising_message = telegram.format_rising_stocks(
         rising_stocks["kospi"],
@@ -131,12 +135,11 @@ def main(test_mode: bool = False, skip_news: bool = False):
         history_data,
     )
 
-    # 하락 종목 메시지 (뉴스가 없으면 마지막 메시지)
+    # 하락 종목 메시지
     falling_message = telegram.format_falling_stocks(
         falling_stocks["kospi"],
         falling_stocks["kosdaq"],
         history_data,
-        is_last_message=not news_data,
     )
 
     # 뉴스 메시지
@@ -145,6 +148,11 @@ def main(test_mode: bool = False, skip_news: bool = False):
         news_messages = telegram.format_news_message(news_data, "📰 종목별 실시간 뉴스")
 
     if test_mode:
+        print("\n" + "=" * 60)
+        print("🚀 START 바리케이트:")
+        print("=" * 60)
+        print(start_barricade)
+
         print("\n" + "=" * 60)
         print("📈 상승 종목 메시지:")
         print("=" * 60)
@@ -164,19 +172,34 @@ def main(test_mode: bool = False, skip_news: bool = False):
                 clean_msg = msg.replace("<b>", "").replace("</b>", "")
                 clean_msg = clean_msg.replace('<a href="', "[").replace('">', "] ").replace("</a>", "")
                 print(clean_msg)
+
+        print("\n" + "=" * 60)
+        print("🏁 END 바리케이트:")
+        print("=" * 60)
+        print(end_barricade)
     else:
+        # 1. START 바리케이트
+        print("  START 바리케이트 발송 중...")
+        if telegram.send_message(start_barricade):
+            print("  ✓ START 바리케이트 발송 완료")
+        else:
+            print("  ✗ START 바리케이트 발송 실패")
+
+        # 2. 상승 종목 메시지
         print("  상승 종목 메시지 발송 중...")
         if telegram.send_message(rising_message):
             print("  ✓ 상승 종목 메시지 발송 완료")
         else:
             print("  ✗ 상승 종목 메시지 발송 실패")
 
+        # 3. 하락 종목 메시지
         print("  하락 종목 메시지 발송 중...")
         if telegram.send_message(falling_message):
             print("  ✓ 하락 종목 메시지 발송 완료")
         else:
             print("  ✗ 하락 종목 메시지 발송 실패")
 
+        # 4. 뉴스 메시지
         if news_messages:
             print(f"  뉴스 메시지 발송 중... ({len(news_messages)}개)")
             for i, msg in enumerate(news_messages, 1):
@@ -184,6 +207,13 @@ def main(test_mode: bool = False, skip_news: bool = False):
                     print(f"  ✓ 뉴스 메시지 {i}/{len(news_messages)} 발송 완료")
                 else:
                     print(f"  ✗ 뉴스 메시지 {i}/{len(news_messages)} 발송 실패")
+
+        # 5. END 바리케이트
+        print("  END 바리케이트 발송 중...")
+        if telegram.send_message(end_barricade):
+            print("  ✓ END 바리케이트 발송 완료")
+        else:
+            print("  ✗ END 바리케이트 발송 실패")
 
     print("\n" + "=" * 60)
     print("  완료!")
