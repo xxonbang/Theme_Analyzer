@@ -220,9 +220,10 @@ jobs:
           echo "::notice::KIS API는 등록된 IP에서만 접근 가능합니다. GitHub Actions에서 403 오류 발생 시 IP 제한 때문입니다."
 
           if python kis_main.py; then
-            if [ -f "results/kis/latest.json" ]; then
+            if [ -f "results/kis/top50_latest.json" ] || [ -f "results/kis/latest.json" ]; then
               echo "kis_collected=true" >> $GITHUB_OUTPUT
               echo "KIS 데이터 수집 성공"
+              ls -la results/kis/
             else
               echo "kis_collected=false" >> $GITHUB_OUTPUT
               echo "::warning::KIS 데이터 파일이 생성되지 않았습니다."
@@ -250,8 +251,10 @@ jobs:
           from modules.kis_data_transformer import KISDataTransformer
           from modules.ai_engine import analyze_kis_data
 
-          # KIS 원본 데이터 로드
-          kis_raw_path = Path('results/kis/latest.json')
+          # KIS 원본 데이터 로드 (top50_latest.json 또는 latest.json)
+          kis_raw_path = Path('results/kis/top50_latest.json')
+          if not kis_raw_path.exists():
+              kis_raw_path = Path('results/kis/latest.json')
           if not kis_raw_path.exists():
               print('KIS 데이터 파일이 없습니다.')
               exit(1)
@@ -265,14 +268,21 @@ jobs:
           transformer = KISDataTransformer()
           gemini_data = transformer.transform_for_gemini(raw_data)
 
-          # 변환된 데이터 저장 (프론트엔드용)
-          gemini_path = Path('results/kis/latest.json')
+          # 변환된 데이터 저장 (프론트엔드용 - top50_gemini.json)
+          gemini_path = Path('results/kis/top50_gemini.json')
           with open(gemini_path, 'w', encoding='utf-8') as f:
               json.dump(gemini_data, f, ensure_ascii=False, indent=2)
           print(f'변환 데이터 저장: {gemini_path}')
 
           stock_count = len(gemini_data.get('stocks', {}))
           print(f'변환된 종목 수: {stock_count}')
+
+          if stock_count == 0:
+              print('경고: 변환된 종목이 없습니다. 원본 데이터 구조 확인 필요.')
+              print(f'원본 키: {list(raw_data.keys())}')
+              if 'rankings' in raw_data:
+                  print(f'rankings 키: {list(raw_data[\"rankings\"].keys())}')
+              exit(1)
 
           # Gemini 분석 (단일 API 호출 - 모든 종목 한 번에 분석)
           print('\\nGemini AI 분석 시작... (단일 API 호출)')
@@ -368,7 +378,13 @@ jobs:
           if [ -f results/kis/analysis.json ]; then
             echo "KIS 분석 결과 확인됨"
           else
-            echo "::warning::KIS 분석 결과 파일을 찾을 수 없습니다"
+            echo "::warning::KIS 분석 결과 파일(analysis.json)을 찾을 수 없습니다"
+          fi
+
+          if [ -f results/kis/top50_gemini.json ]; then
+            echo "KIS 변환 데이터 확인됨"
+          else
+            echo "::warning::KIS 변환 데이터 파일(top50_gemini.json)을 찾을 수 없습니다"
           fi
 
       - name: Update history index

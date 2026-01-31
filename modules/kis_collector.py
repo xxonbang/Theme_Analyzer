@@ -372,13 +372,14 @@ class KISDataCollector:
             exclude_etf=exclude_etf,
         )
 
-        # 최신 파일로 저장
+        # 최신 파일로 저장 (두 가지 형식)
         self.save_to_json(data, "top50_latest.json")
+        self.save_to_json(data, "latest.json")  # 워크플로우 호환용
 
         # 타임스탬프 파일 저장 (선택)
         if save_timestamped:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            self.save_to_json(data, f"top50_{timestamp}.json")
+            self.save_to_json(data, f"kis_data_{timestamp}.json")
 
         return data
 

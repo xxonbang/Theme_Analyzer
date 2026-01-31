@@ -186,15 +186,26 @@ def collect_stock(stock_code: str):
 
 
 def collect_all():
-    """전체 데이터 수집"""
+    """전체 데이터 수집 (Top50 + 상세 데이터)"""
     try:
         collector = KISDataCollector()
-        data = collector.run(
+        # Top50 데이터 수집 (프론트엔드와 호환되는 구조)
+        data = collector.run_top50(
             include_chart=True,
             include_ticks=False,
+            include_extended=True,
             save_timestamped=True,
         )
-        print_summary(data)
+
+        # 요약 출력
+        meta = data.get("meta", {})
+        print("\n" + "=" * 60)
+        print("[KIS] 수집 결과 요약")
+        print("=" * 60)
+        print(f"수집 시간: {meta.get('collected_at', 'N/A')}")
+        print(f"총 종목 수: {meta.get('total_unique_stocks', 0)}개")
+        print(f"  코스피: {meta.get('kospi_count', 0)}개")
+        print(f"  코스닥: {meta.get('kosdaq_count', 0)}개")
 
     except TokenRefreshLimitError as e:
         print(f"\n[토큰 제한] {e}")
