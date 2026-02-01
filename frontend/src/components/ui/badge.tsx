@@ -18,8 +18,8 @@ const badgeVariants = cva(
         warning:
           "border-transparent bg-warning text-warning-foreground",
         outline: "text-foreground",
-        rising: "border-transparent bg-red-500/10 text-red-500",
-        falling: "border-transparent bg-blue-500/10 text-blue-500",
+        rising: "border-transparent bg-red-500/15 text-red-600 font-semibold",
+        falling: "border-transparent bg-blue-500/15 text-blue-600 font-semibold",
       },
     },
     defaultVariants: {

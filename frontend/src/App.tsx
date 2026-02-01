@@ -8,10 +8,10 @@ function App() {
 
   if (loading && !data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">데이터를 불러오는 중...</p>
+          <p className="text-muted-foreground text-sm">데이터를 불러오는 중...</p>
         </div>
       </div>
     )
@@ -25,14 +25,15 @@ function App() {
         loading={loading}
       />
 
-      <main className="container px-4 py-6">
+      <main className="container px-3 sm:px-4 py-4 sm:py-6">
         {error && (
-          <div className="mb-6 p-4 rounded-lg bg-warning/10 border border-warning/20 text-warning">
-            <p className="text-sm">{error} (데모 데이터를 표시합니다)</p>
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg bg-warning/10 border border-warning/20 text-warning">
+            <p className="text-xs sm:text-sm">{error} (데모 데이터를 표시합니다)</p>
           </div>
         )}
 
-        <div className="grid lg:grid-cols-2 gap-6">
+        {/* Responsive Grid: 1 column on mobile, 2 columns on large screens */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
           {/* Rising Stocks */}
           {data && (
             <StockList
@@ -40,6 +41,7 @@ function App() {
               kospiStocks={data.rising.kospi}
               kosdaqStocks={data.rising.kosdaq}
               history={data.history}
+              news={data.news}
               type="rising"
             />
           )}
@@ -51,13 +53,14 @@ function App() {
               kospiStocks={data.falling.kospi}
               kosdaqStocks={data.falling.kosdaq}
               history={data.history}
+              news={data.news}
               type="falling"
             />
           )}
         </div>
 
         {/* Footer */}
-        <footer className="mt-12 pt-6 border-t text-center text-sm text-muted-foreground">
+        <footer className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t text-center text-xs sm:text-sm text-muted-foreground">
           <p>KIS API + Naver News API 기반 자동 분석</p>
           <p className="mt-1">
             매일 09:30, 21:00 KST 업데이트

@@ -30,11 +30,11 @@ export function getChangeColor(rate: number): string {
 }
 
 export function getChangeBgColor(rate: number): string {
-  if (rate >= 10) return "bg-red-500/10 text-red-500"
-  if (rate >= 5) return "bg-red-400/10 text-red-400"
-  if (rate > 0) return "bg-red-300/10 text-red-400"
-  if (rate <= -10) return "bg-blue-500/10 text-blue-500"
-  if (rate <= -5) return "bg-blue-400/10 text-blue-400"
-  if (rate < 0) return "bg-blue-300/10 text-blue-400"
+  if (rate >= 10) return "bg-red-100 text-red-700"
+  if (rate >= 5) return "bg-red-50 text-red-600"
+  if (rate > 0) return "bg-red-50/70 text-red-500"
+  if (rate <= -10) return "bg-blue-100 text-blue-700"
+  if (rate <= -5) return "bg-blue-50 text-blue-600"
+  if (rate < 0) return "bg-blue-50/70 text-blue-500"
   return "bg-muted text-muted-foreground"
 }
