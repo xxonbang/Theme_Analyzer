@@ -13,6 +13,7 @@ from modules.stock_filter import StockFilter
 from modules.stock_history import StockHistoryAPI
 from modules.naver_news import NaverNewsAPI
 from modules.telegram import TelegramSender
+from modules.data_exporter import export_for_frontend
 
 
 def collect_all_stocks(rising_stocks: Dict, falling_stocks: Dict) -> List[Dict[str, Any]]:
@@ -50,7 +51,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
     print("=" * 60)
 
     # 1. KIS API 연결
-    print("\n[1/7] KIS API 연결 중...")
+    print("\n[1/8] KIS API 연결 중...")
     try:
         client = KISClient()
         rank_api = KISRankAPI(client)
@@ -61,7 +62,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
         return
 
     # 2. 거래량 TOP30 조회
-    print("\n[2/7] 거래량 TOP30 조회 중...")
+    print("\n[2/8] 거래량 TOP30 조회 중...")
     try:
         volume_data = rank_api.get_top30_by_volume(exclude_etf=True)
         print(f"  ✓ 코스피: {len(volume_data.get('kospi', []))}개")
@@ -71,7 +72,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
         return
 
     # 3. 등락폭 TOP30 조회
-    print("\n[3/7] 등락폭 TOP30 조회 중...")
+    print("\n[3/8] 등락폭 TOP30 조회 중...")
     try:
         fluctuation_data = rank_api.get_top30_by_fluctuation(exclude_etf=True)
         print(f"  ✓ 코스피 상승: {len(fluctuation_data.get('kospi_up', []))}개")
@@ -83,7 +84,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
         return
 
     # 4. 교차 필터링
-    print("\n[4/7] 교차 필터링 중...")
+    print("\n[4/8] 교차 필터링 중...")
     stock_filter = StockFilter()
 
     rising_stocks = stock_filter.filter_rising_stocks(volume_data, fluctuation_data)
@@ -97,7 +98,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
     print(f"  ✓ 총 {len(all_stocks)}개 종목")
 
     # 5. 3일간 등락률 조회
-    print("\n[5/7] 3일간 등락률 조회 중...")
+    print("\n[5/8] 3일간 등락률 조회 중...")
     try:
         history_data = history_api.get_multiple_stocks_history(all_stocks, days=3)
         print(f"  ✓ {len(history_data)}개 종목 등락률 조회 완료")
@@ -108,7 +109,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
     # 6. 뉴스 수집
     news_data = {}
     if not skip_news:
-        print("\n[6/7] 종목별 뉴스 수집 중...")
+        print("\n[6/8] 종목별 뉴스 수집 중...")
         try:
             news_api = NaverNewsAPI()
             news_data = news_api.get_multiple_stocks_news(all_stocks, news_count=3)
@@ -118,10 +119,18 @@ def main(test_mode: bool = False, skip_news: bool = False):
             print(f"  ✗ 뉴스 수집 실패: {e}")
             news_data = {}
     else:
-        print("\n[6/7] 뉴스 수집 건너뜀")
+        print("\n[6/8] 뉴스 수집 건너뜀")
 
-    # 7. 텔레그램 발송
-    print("\n[7/7] 텔레그램 메시지 준비...")
+    # 7. 프론트엔드용 데이터 내보내기
+    print("\n[7/8] 프론트엔드 데이터 내보내기...")
+    try:
+        export_path = export_for_frontend(rising_stocks, falling_stocks, history_data, news_data)
+        print(f"  ✓ 데이터 내보내기 완료: {export_path}")
+    except Exception as e:
+        print(f"  ✗ 데이터 내보내기 실패: {e}")
+
+    # 8. 텔레그램 발송
+    print("\n[8/8] 텔레그램 메시지 준비...")
     telegram = TelegramSender()
 
     # 바리케이트 메시지
