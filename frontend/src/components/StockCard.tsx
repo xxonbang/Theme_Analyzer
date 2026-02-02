@@ -134,7 +134,7 @@ export function StockCard({ stock, history, news, type }: StockCardProps) {
                 <span className="text-[10px] font-medium text-muted-foreground">관련 뉴스</span>
               </div>
               <ul className="space-y-1">
-                {news.news.slice(0, 2).map((item, idx) => (
+                {news.news.slice(0, 3).map((item, idx) => (
                   <li key={idx}>
                     <a
                       href={item.link}

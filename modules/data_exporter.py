@@ -2,9 +2,12 @@
 프론트엔드용 JSON 데이터 내보내기 모듈
 """
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Dict, List, Any
+
+# 한국 시간대 (UTC+9)
+KST = timezone(timedelta(hours=9))
 
 # 프로젝트 루트 경로
 ROOT_DIR = Path(__file__).parent.parent
@@ -34,7 +37,7 @@ def export_for_frontend(
 
     # 데이터 구조화
     data = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
         "rising": {
             "kospi": rising_stocks.get("kospi", []),
             "kosdaq": rising_stocks.get("kosdaq", []),
