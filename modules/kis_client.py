@@ -293,6 +293,43 @@ class KISClient:
 
         return self._access_token
 
+    def _force_refresh_token(self) -> str:
+        """강제 토큰 재발급 (1일 1회 제한 무시)
+
+        주의: 기존 토큰이 무효화되어 API 호출이 실패하는 경우에만 사용하세요.
+        KIS API는 실제로 토큰 발급 횟수를 제한하므로, 남용 시 계정에 문제가 생길 수 있습니다.
+        """
+        print(f"[KIS] 강제 토큰 발급 중... (기존 토큰이 무효화된 것으로 판단)")
+
+        url = f"{self.base_url}/oauth2/tokenP"
+        headers = {"Content-Type": "application/json; charset=utf-8"}
+        body = {
+            "grant_type": "client_credentials",
+            "appkey": self.app_key,
+            "appsecret": self.app_secret,
+        }
+
+        response = requests.post(url, headers=headers, json=body)
+        response.raise_for_status()
+
+        data = response.json()
+
+        if 'access_token' not in data:
+            raise Exception(f"토큰 발급 실패: {data}")
+
+        self._access_token = data['access_token']
+        self._token_issued_at = datetime.now()
+
+        # 토큰 만료 시간 (보통 24시간)
+        expires_in = int(data.get('expires_in', 86400))
+        self._token_expires_at = self._token_issued_at + timedelta(seconds=expires_in)
+
+        self._save_token_cache()
+
+        print(f"[KIS] 강제 토큰 발급 완료 (유효기간: {expires_in // 3600}시간)")
+
+        return self._access_token
+
     def _get_headers(self, tr_id: str, tr_cont: str = "") -> Dict[str, str]:
         """API 호출용 헤더 생성"""
         token = self.get_access_token()
@@ -359,9 +396,18 @@ class KISClient:
                 # 500 에러에서도 토큰 만료 메시지 확인 후 재시도
                 if _retry and ("만료" in error_msg or "token" in error_msg.lower() or "expired" in error_msg.lower()):
                     print(f"[KIS] 토큰이 만료되었습니다 (HTTP {response.status_code}, msg: {error_msg}). 재발급 시도...")
-                    self._refresh_token()
-                    return self.request(method, path, tr_id, params, body, tr_cont, _retry=False)
-            except:
+                    try:
+                        self._refresh_token()
+                        return self.request(method, path, tr_id, params, body, tr_cont, _retry=False)
+                    except TokenRefreshLimitError as limit_err:
+                        # 1일 1회 제한이지만 토큰이 무효화된 경우 강제 재발급 시도
+                        print(f"[KIS] {limit_err}")
+                        print(f"[KIS] 토큰이 무효화되어 강제 재발급을 시도합니다...")
+                        self._force_refresh_token()
+                        return self.request(method, path, tr_id, params, body, tr_cont, _retry=False)
+            except TokenRefreshLimitError:
+                raise  # TokenRefreshLimitError는 그대로 전파
+            except json.JSONDecodeError:
                 error_msg = str(e)
             raise Exception(f"API 요청 실패: {error_msg}")
 
