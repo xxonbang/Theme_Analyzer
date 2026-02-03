@@ -144,9 +144,39 @@ class TelegramSender:
         """현재 시각 포맷"""
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    def format_start_barricade(self) -> str:
-        """시작 바리케이트 메시지"""
-        return "🚀🚀🚀 START 🚀🚀🚀"
+    def format_start_barricade(self, exchange_data: Optional[Dict[str, Any]] = None) -> str:
+        """시작 바리케이트 메시지 (환율 정보 포함)"""
+        lines = ["🚀🚀🚀 START 🚀🚀🚀"]
+
+        # 환율 정보 추가
+        if exchange_data and exchange_data.get("rates"):
+            lines.append("")
+            lines.append("💱 <b>실시간 환율</b>")
+
+            for rate in exchange_data["rates"]:
+                currency = rate["currency"]
+                value = rate["rate"]
+                is_100 = rate.get("is_100", False)
+
+                # 통화별 이모지
+                emoji = {
+                    "USD": "🇺🇸",
+                    "JPY": "🇯🇵",
+                    "EUR": "🇪🇺",
+                    "CNY": "🇨🇳",
+                }.get(currency, "💵")
+
+                # 100엔 단위 표시
+                unit = "(100)" if is_100 else ""
+                lines.append(f"{emoji} {currency}{unit}: <b>{value:,.2f}</b>원")
+
+            # 기준일
+            search_date = exchange_data.get("search_date", "")
+            if search_date:
+                formatted_date = f"{search_date[:4]}-{search_date[4:6]}-{search_date[6:]}"
+                lines.append(f"<i>📅 기준일: {formatted_date}</i>")
+
+        return "\n".join(lines)
 
     def format_end_barricade(self) -> str:
         """종료 바리케이트 메시지"""

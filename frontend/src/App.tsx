@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header"
+import { ExchangeRate } from "@/components/ExchangeRate"
 import { StockList } from "@/components/StockList"
 import { useStockData } from "@/hooks/useStockData"
 import { Loader2 } from "lucide-react"
@@ -31,6 +32,9 @@ function App() {
             <p className="text-xs sm:text-sm">{error} (데모 데이터를 표시합니다)</p>
           </div>
         )}
+
+        {/* Exchange Rate - Top section */}
+        {data?.exchange && <ExchangeRate exchange={data.exchange} />}
 
         {/* Stock Lists - Full width with 2-column cards inside */}
         <div className="space-y-4 sm:space-y-6">

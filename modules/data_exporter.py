@@ -18,6 +18,7 @@ def export_for_frontend(
     falling_stocks: Dict[str, List[Dict[str, Any]]],
     history_data: Dict[str, Dict[str, Any]],
     news_data: Dict[str, Dict[str, Any]],
+    exchange_data: Dict[str, Any] = None,
     output_dir: str = "frontend/public/data",
 ) -> str:
     """프론트엔드용 JSON 데이터 내보내기
@@ -27,6 +28,7 @@ def export_for_frontend(
         falling_stocks: 하락 종목 {"kospi": [...], "kosdaq": [...]}
         history_data: 3일간 등락률 데이터
         news_data: 뉴스 데이터
+        exchange_data: 환율 데이터
         output_dir: 출력 디렉토리
 
     Returns:
@@ -38,6 +40,7 @@ def export_for_frontend(
     # 데이터 구조화
     data = {
         "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
+        "exchange": exchange_data or {},
         "rising": {
             "kospi": rising_stocks.get("kospi", []),
             "kosdaq": rising_stocks.get("kosdaq", []),

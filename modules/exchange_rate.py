@@ -1,0 +1,167 @@
+"""
+한국수출입은행 환율 API 클라이언트
+- 실시간 환율 정보 조회
+- 주요 통화(USD, JPY, EUR, CNY) 환율 제공
+"""
+import requests
+from datetime import datetime, timedelta, timezone
+from typing import Dict, List, Any, Optional
+
+# 한국 시간대 (UTC+9)
+KST = timezone(timedelta(hours=9))
+
+# 주요 통화 코드
+MAJOR_CURRENCIES = ["USD", "JPY(100)", "EUR", "CNY"]
+
+
+class ExchangeRateAPI:
+    """한국수출입은행 환율 API 클라이언트"""
+
+    def __init__(self, api_key: str = None):
+        """
+        Args:
+            api_key: 한국수출입은행 API 인증키
+        """
+        self.api_key = api_key or "iiUCA5fWpK1ni8A3BR5JrWk7obCuk5ka"
+        self.api_url = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON"
+
+    def get_exchange_rates(self, search_date: str = None) -> Dict[str, Any]:
+        """환율 정보 조회
+
+        Args:
+            search_date: 조회일자 (yyyyMMdd), None이면 당일
+
+        Returns:
+            {
+                "timestamp": "2026-02-03 11:30:00",
+                "rates": [
+                    {"currency": "USD", "rate": 1450.50, "change": -5.20, ...},
+                    ...
+                ]
+            }
+        """
+        # 조회일자 설정
+        if not search_date:
+            now = datetime.now(KST)
+            search_date = now.strftime("%Y%m%d")
+
+        params = {
+            "authkey": self.api_key,
+            "searchdate": search_date,
+            "data": "AP01",  # 환율
+        }
+
+        try:
+            response = requests.get(self.api_url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+
+            if not data:
+                # 데이터가 없으면 전일 조회 시도
+                yesterday = (datetime.strptime(search_date, "%Y%m%d") - timedelta(days=1)).strftime("%Y%m%d")
+                params["searchdate"] = yesterday
+                response = requests.get(self.api_url, params=params, timeout=10)
+                response.raise_for_status()
+                data = response.json()
+                search_date = yesterday
+
+            # 주요 통화만 필터링
+            rates = []
+            for item in data:
+                cur_unit = item.get("cur_unit", "")
+                if cur_unit in MAJOR_CURRENCIES:
+                    # 숫자 파싱 (쉼표 제거)
+                    deal_bas_r = self._parse_number(item.get("deal_bas_r", "0"))
+                    ttb = self._parse_number(item.get("ttb", "0"))
+                    tts = self._parse_number(item.get("tts", "0"))
+                    bkpr = self._parse_number(item.get("bkpr", "0"))
+                    kftc_deal_bas_r = self._parse_number(item.get("kftc_deal_bas_r", "0"))
+
+                    rates.append({
+                        "currency": cur_unit.replace("(100)", ""),  # JPY(100) -> JPY
+                        "currency_name": item.get("cur_nm", ""),
+                        "rate": deal_bas_r,  # 매매기준율
+                        "ttb": ttb,  # 송금 받을 때 (전신환매입률)
+                        "tts": tts,  # 송금 보낼 때 (전신환매도율)
+                        "is_100": "(100)" in cur_unit,  # 100단위 여부 (JPY)
+                    })
+
+            # 통화 순서 정렬 (USD, JPY, EUR, CNY)
+            currency_order = {"USD": 0, "JPY": 1, "EUR": 2, "CNY": 3}
+            rates.sort(key=lambda x: currency_order.get(x["currency"], 99))
+
+            return {
+                "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
+                "search_date": search_date,
+                "rates": rates,
+            }
+
+        except requests.exceptions.RequestException as e:
+            print(f"[환율] API 요청 실패: {e}")
+            return {"timestamp": "", "search_date": "", "rates": []}
+        except Exception as e:
+            print(f"[환율] 데이터 처리 실패: {e}")
+            return {"timestamp": "", "search_date": "", "rates": []}
+
+    def _parse_number(self, value: str) -> float:
+        """숫자 문자열 파싱 (쉼표 제거)"""
+        if not value:
+            return 0.0
+        try:
+            return float(value.replace(",", ""))
+        except ValueError:
+            return 0.0
+
+    def format_for_telegram(self, exchange_data: Dict[str, Any]) -> str:
+        """텔레그램 메시지용 포맷팅
+
+        Args:
+            exchange_data: get_exchange_rates() 반환값
+
+        Returns:
+            포맷팅된 문자열
+        """
+        if not exchange_data.get("rates"):
+            return ""
+
+        lines = ["💱 <b>실시간 환율</b>"]
+
+        for rate in exchange_data["rates"]:
+            currency = rate["currency"]
+            value = rate["rate"]
+            is_100 = rate["is_100"]
+
+            # 통화별 이모지
+            emoji = {
+                "USD": "🇺🇸",
+                "JPY": "🇯🇵",
+                "EUR": "🇪🇺",
+                "CNY": "🇨🇳",
+            }.get(currency, "💵")
+
+            # 100엔 단위 표시
+            unit = "(100)" if is_100 else ""
+            lines.append(f"{emoji} {currency}{unit}: {value:,.2f}원")
+
+        return "\n".join(lines)
+
+
+def get_exchange_rates() -> Dict[str, Any]:
+    """환율 정보 조회 (편의 함수)"""
+    api = ExchangeRateAPI()
+    return api.get_exchange_rates()
+
+
+if __name__ == "__main__":
+    # 테스트
+    api = ExchangeRateAPI()
+    data = api.get_exchange_rates()
+    print(f"조회 시간: {data['timestamp']}")
+    print(f"기준일: {data['search_date']}")
+    print()
+    for rate in data["rates"]:
+        unit = "(100)" if rate["is_100"] else ""
+        print(f"{rate['currency']}{unit} ({rate['currency_name']}): {rate['rate']:,.2f}원")
+    print()
+    print("텔레그램 메시지:")
+    print(api.format_for_telegram(data))

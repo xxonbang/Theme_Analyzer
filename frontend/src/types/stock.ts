@@ -29,8 +29,24 @@ export interface StockNews {
   news: NewsItem[]
 }
 
+export interface ExchangeRate {
+  currency: string
+  currency_name: string
+  rate: number
+  ttb: number
+  tts: number
+  is_100: boolean
+}
+
+export interface ExchangeData {
+  timestamp: string
+  search_date: string
+  rates: ExchangeRate[]
+}
+
 export interface StockData {
   timestamp: string
+  exchange: ExchangeData
   rising: {
     kospi: Stock[]
     kosdaq: Stock[]
