@@ -40,3 +40,4 @@ results/kis/rankings*.json
 !results/kis/latest.json
 !results/kis/analysis.json
 !results/kis/top50_gemini.json
+*.tsbuildinfo
