@@ -2,7 +2,7 @@ import { TrendingUp, TrendingDown, ExternalLink } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { StockCard } from "@/components/StockCard"
-import { cn, formatPrice, formatChangeRate } from "@/lib/utils"
+import { cn, formatPrice, formatVolume, formatChangeRate } from "@/lib/utils"
 import type { Stock, StockHistory, StockNews } from "@/types/stock"
 
 interface StockListProps {
@@ -39,9 +39,10 @@ function CompactStockRow({ stock, type }: { stock: Stock; type: "rising" | "fall
         <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-50 transition-opacity shrink-0" />
       </div>
 
-      {/* Right: Price + Change */}
-      <div className="flex items-center gap-2 shrink-0">
-        <span className="text-xs font-medium tabular-nums">{formatPrice(stock.current_price)}</span>
+      {/* Right: Volume + Price + Change */}
+      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <span className="text-[10px] text-muted-foreground tabular-nums">{formatVolume(stock.volume)}</span>
+        <span className="text-xs font-medium tabular-nums">{formatPrice(stock.current_price)}<span className="text-[10px] text-muted-foreground">원</span></span>
         <span className={cn(
           "text-[10px] font-semibold px-1.5 py-0.5 rounded",
           isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
