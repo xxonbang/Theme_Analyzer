@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { BarChart3, RefreshCw, LayoutGrid, List, Calendar, Clock } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -12,11 +12,55 @@ interface HeaderProps {
 
 export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact }: HeaderProps) {
   const [showTooltip, setShowTooltip] = useState(false)
+  const [tooltipFading, setTooltipFading] = useState(false)
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [refreshRipple, setRefreshRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
+  const [toggleFocusRing, setToggleFocusRing] = useState(false)
+  const [refreshFocusRing, setRefreshFocusRing] = useState(false)
+  const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Toggle 버튼 Ripple 효과
-  const handleToggleRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // 툴팁 자동 숨김 (3초 후 fade-out)
+  useEffect(() => {
+    if (showTooltip && !tooltipFading) {
+      // 기존 타이머 클리어
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current)
+      }
+      // 3초 후 fade-out 시작
+      tooltipTimeoutRef.current = setTimeout(() => {
+        setTooltipFading(true)
+        // fade-out 애니메이션 후 완전히 숨김
+        setTimeout(() => {
+          setShowTooltip(false)
+          setTooltipFading(false)
+        }, 300)
+      }, 3000)
+    }
+    return () => {
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current)
+      }
+    }
+  }, [showTooltip, tooltipFading])
+
+  // 타임스탬프 클릭 핸들러
+  const handleTimestampClick = () => {
+    if (showTooltip) {
+      // 이미 보이면 즉시 숨김
+      setTooltipFading(true)
+      setTimeout(() => {
+        setShowTooltip(false)
+        setTooltipFading(false)
+      }, 300)
+    } else {
+      // 보이지 않으면 표시
+      setShowTooltip(true)
+      setTooltipFading(false)
+    }
+  }
+
+  // Toggle 버튼 클릭 효과 (Ripple + 임시 Focus Ring)
+  const handleToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     setToggleRipple({
       x: e.clientX - rect.left,
@@ -24,10 +68,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       show: true,
     })
     setTimeout(() => setToggleRipple(prev => ({ ...prev, show: false })), 500)
+
+    // 임시 focus ring
+    setToggleFocusRing(true)
+    setTimeout(() => setToggleFocusRing(false), 400)
+
+    onToggleCompact?.()
   }
 
-  // Refresh 버튼 Ripple 효과
-  const handleRefreshRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // Refresh 버튼 클릭 효과
+  const handleRefreshClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (loading) return
+
     const rect = e.currentTarget.getBoundingClientRect()
     setRefreshRipple({
       x: e.clientX - rect.left,
@@ -35,9 +87,15 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       show: true,
     })
     setTimeout(() => setRefreshRipple(prev => ({ ...prev, show: false })), 500)
+
+    // 임시 focus ring
+    setRefreshFocusRing(true)
+    setTimeout(() => setRefreshFocusRing(false), 400)
+
+    onRefresh?.()
   }
 
-  // 타임스탬프 파싱: "2026-02-03 23:04:50"
+  // 타임스탬프 파싱
   const parseTimestamp = (ts: string) => {
     if (!ts) return null
     const [date, time] = ts.split(" ")
@@ -59,14 +117,12 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     }
   }
 
-  // 요일 계산
   const getWeekday = (year: string, month: string, day: string) => {
     const weekdays = ["일", "월", "화", "수", "목", "금", "토"]
     const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
     return weekdays[date.getDay()]
   }
 
-  // 상대 시간 계산
   const getRelativeTime = (ts: string) => {
     if (!ts) return ""
     const [date, time] = ts.split(" ")
@@ -115,14 +171,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
         {/* Right Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Timestamp Badge */}
+          {/* Timestamp Badge - 클릭 가능 */}
           {parsed && (
-            <div
-              className="relative"
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-            >
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-gradient-to-r from-muted/80 to-muted/50 border border-border/50 shadow-sm cursor-default">
+            <div className="relative">
+              <button
+                onClick={handleTimestampClick}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-gradient-to-r from-muted/80 to-muted/50 border border-border/50 shadow-sm cursor-pointer hover:border-primary/30 hover:shadow-md transition-all duration-200 focus:outline-none"
+              >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -142,9 +197,19 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                     <span className="text-[10px] sm:text-xs font-semibold tabular-nums">{parsed.fullTime}</span>
                   </div>
                 </div>
-              </div>
+              </button>
+
+              {/* Tooltip - 3초 후 자동 fade-out */}
               {showTooltip && relativeTime && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2.5 py-1.5 bg-popover text-popover-foreground text-xs font-medium rounded-md shadow-lg border border-border whitespace-nowrap z-50 animate-in fade-in-0 zoom-in-95 duration-200">
+                <div
+                  className={cn(
+                    "absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2.5 py-1.5",
+                    "bg-popover text-popover-foreground text-xs font-medium",
+                    "rounded-md shadow-lg border border-border whitespace-nowrap z-50",
+                    "transition-all duration-300",
+                    tooltipFading ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"
+                  )}
+                >
                   <span className="text-green-500">●</span> {relativeTime} 업데이트
                   <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45"></div>
                 </div>
@@ -152,13 +217,10 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </div>
           )}
 
-          {/* Compact Mode Toggle - Modern Animated Button */}
+          {/* Compact Mode Toggle Button */}
           {onToggleCompact && (
             <button
-              onClick={(e) => {
-                handleToggleRipple(e)
-                onToggleCompact()
-              }}
+              onClick={handleToggleClick}
               className={cn(
                 "relative overflow-hidden group",
                 "flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10",
@@ -169,17 +231,26 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 "transition-all duration-300 ease-out",
                 "hover:scale-110 active:scale-95",
                 "hover:border-primary/30",
-                "focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 focus:ring-offset-background"
+                "focus:outline-none"
               )}
               title={compactMode ? "상세 보기" : "간단 보기"}
             >
+              {/* 임시 Focus Ring - 나타났다 사라짐 */}
+              <div
+                className={cn(
+                  "absolute inset-0 rounded-xl ring-2 ring-primary/40 ring-offset-2 ring-offset-background",
+                  "transition-opacity duration-300",
+                  toggleFocusRing ? "opacity-100" : "opacity-0"
+                )}
+              />
+
               {/* Glow effect on hover */}
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               {/* Shimmer effect */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-              {/* Icon with rotation animation */}
+              {/* Icon */}
               <div className={cn(
                 "relative z-10 transition-all duration-300",
                 "group-hover:rotate-12 group-active:rotate-0"
@@ -207,15 +278,10 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Refresh Button - Modern Animated Button */}
+          {/* Refresh Button */}
           {onRefresh && (
             <button
-              onClick={(e) => {
-                if (!loading) {
-                  handleRefreshRipple(e)
-                  onRefresh()
-                }
-              }}
+              onClick={handleRefreshClick}
               disabled={loading}
               className={cn(
                 "relative overflow-hidden group",
@@ -231,10 +297,19 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 "hover:scale-105 hover:border-primary/40",
                 "hover:from-primary/20 hover:via-primary/10 hover:to-primary/20",
                 "active:scale-95",
-                "focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 focus:ring-offset-background",
+                "focus:outline-none",
                 "disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-sm"
               )}
             >
+              {/* 임시 Focus Ring */}
+              <div
+                className={cn(
+                  "absolute inset-0 rounded-xl ring-2 ring-primary/40 ring-offset-2 ring-offset-background",
+                  "transition-opacity duration-300",
+                  refreshFocusRing ? "opacity-100" : "opacity-0"
+                )}
+              />
+
               {/* Animated glow border */}
               <div className={cn(
                 "absolute inset-0 rounded-xl",
@@ -258,7 +333,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 loading ? "animate-spin" : "group-hover:rotate-180"
               )} />
 
-              {/* Text with subtle animation */}
+              {/* Text */}
               <span className={cn(
                 "relative z-10 hidden sm:inline",
                 "transition-all duration-300",
@@ -285,7 +360,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
         </div>
       </div>
 
-      {/* Custom styles for ripple animation */}
+      {/* Custom styles */}
       <style>{`
         @keyframes ripple {
           0% {
