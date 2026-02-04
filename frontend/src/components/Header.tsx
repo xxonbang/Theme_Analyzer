@@ -367,21 +367,21 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
               disabled={loading}
               className={cn(
                 "relative overflow-hidden group",
-                "flex items-center gap-1 px-2.5 py-1.5 sm:px-3.5 sm:py-2",
+                "flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9",
                 "rounded-lg",
-                "font-medium text-[11px] sm:text-xs",
                 "bg-gradient-to-br from-primary/10 via-primary/5 to-primary/10",
                 "text-primary",
                 "border border-primary/20",
                 "shadow-sm",
                 "transition-all duration-300 ease-out",
                 "hover:shadow-lg hover:shadow-primary/20",
-                "hover:scale-105 hover:border-primary/40",
+                "hover:scale-110 hover:border-primary/40",
                 "hover:from-primary/20 hover:via-primary/10 hover:to-primary/20",
                 "active:scale-95",
                 "focus:outline-none",
                 "disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-sm"
               )}
+              title={loading ? "갱신 중..." : "새로고침"}
             >
               {/* 임시 Focus Ring */}
               <div
@@ -392,16 +392,10 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 )}
               />
 
-              {/* Animated glow border */}
-              <div className={cn(
-                "absolute inset-0 rounded-lg",
-                "bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0",
-                "opacity-0 group-hover:opacity-100",
-                "transition-opacity duration-300",
-                !loading && "group-hover:animate-pulse"
-              )} />
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              {/* Shimmer sweep effect */}
+              {/* Shimmer effect */}
               <div className={cn(
                 "absolute inset-0 -translate-x-full transition-transform duration-700 ease-out",
                 "bg-gradient-to-r from-transparent via-white/20 to-transparent",
@@ -410,19 +404,10 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
               {/* Icon */}
               <RefreshCw className={cn(
-                "relative z-10 w-3 h-3 sm:w-3.5 sm:h-3.5",
+                "relative z-10 w-3.5 h-3.5 sm:w-4 sm:h-4",
                 "transition-transform duration-500",
                 loading ? "animate-spin" : "group-hover:rotate-180"
               )} />
-
-              {/* Text */}
-              <span className={cn(
-                "relative z-10 hidden sm:inline",
-                "transition-all duration-300",
-                "group-hover:tracking-wide"
-              )}>
-                {loading ? "갱신 중..." : "새로고침"}
-              </span>
 
               {/* Ripple effect */}
               {refreshRipple.show && !loading && (
