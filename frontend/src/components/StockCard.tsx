@@ -2,19 +2,21 @@ import { useState } from "react"
 import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { cn, formatPrice, formatVolume, formatChangeRate, getChangeBgColor } from "@/lib/utils"
-import type { Stock, StockHistory, StockNews } from "@/types/stock"
+import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
+import type { Stock, StockHistory, StockNews, InvestorInfo } from "@/types/stock"
 
 interface StockCardProps {
   stock: Stock
   history?: StockHistory
   news?: StockNews
-  type: "rising" | "falling"
+  type: "rising" | "falling" | "neutral"
+  investorInfo?: InvestorInfo
 }
 
-export function StockCard({ stock, history, news, type }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
-  const isRising = type === "rising"
+  const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
+  const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const hasNews = news && news.news && news.news.length > 0
@@ -62,9 +64,25 @@ export function StockCard({ stock, history, news, type }: StockCardProps) {
         {/* Volume + History */}
         <div className="mt-2 pt-2 border-t border-border/50">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+            {stock.trading_value != null && (
+              <span className="text-muted-foreground">
+                거래대금 <span className="font-medium text-foreground">{formatTradingValue(stock.trading_value)}</span>
+              </span>
+            )}
             <span className="text-muted-foreground">
               거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
             </span>
+
+            {investorInfo && (
+              <>
+                <span className="text-muted-foreground">
+                  외국인 <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
+                </span>
+                <span className="text-muted-foreground">
+                  기관 <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
+                </span>
+              </>
+            )}
 
             {history && history.changes && history.changes.length > 0 && (
               <div className="flex items-center gap-1 flex-wrap">

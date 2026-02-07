@@ -29,6 +29,32 @@ export function getChangeColor(rate: number): string {
   return "text-muted-foreground"
 }
 
+export function formatTradingValue(value: number): string {
+  if (value >= 1_000_000_000_000) {
+    return `${(value / 1_000_000_000_000).toFixed(1)}조`
+  } else if (value >= 100_000_000) {
+    return `${Math.floor(value / 100_000_000)}억`
+  } else if (value >= 10_000) {
+    return `${Math.floor(value / 10_000)}만`
+  }
+  return value.toLocaleString("ko-KR")
+}
+
+export function formatNetBuy(qty: number): string {
+  const sign = qty > 0 ? "+" : ""
+  const abs = Math.abs(qty)
+  if (abs >= 10000) {
+    return `${sign}${Math.round(qty / 10000)}만`
+  }
+  return `${sign}${qty.toLocaleString("ko-KR")}`
+}
+
+export function getNetBuyColor(qty: number): string {
+  if (qty > 0) return "text-red-500"
+  if (qty < 0) return "text-blue-500"
+  return "text-muted-foreground"
+}
+
 export function getChangeBgColor(rate: number): string {
   if (rate >= 10) return "bg-red-100 text-red-700"
   if (rate >= 5) return "bg-red-50 text-red-600"

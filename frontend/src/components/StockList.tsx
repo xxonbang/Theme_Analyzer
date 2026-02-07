@@ -1,9 +1,9 @@
-import { TrendingUp, TrendingDown, ExternalLink } from "lucide-react"
+import { TrendingUp, TrendingDown, BarChart3, ExternalLink } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { StockCard } from "@/components/StockCard"
-import { cn, formatPrice, formatVolume, formatChangeRate } from "@/lib/utils"
-import type { Stock, StockHistory, StockNews } from "@/types/stock"
+import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, formatNetBuy, getNetBuyColor } from "@/lib/utils"
+import type { Stock, StockHistory, StockNews, InvestorInfo } from "@/types/stock"
 
 interface StockListProps {
   title: string
@@ -11,26 +11,36 @@ interface StockListProps {
   kosdaqStocks: Stock[]
   history: Record<string, StockHistory>
   news: Record<string, StockNews>
-  type: "rising" | "falling"
+  type: "rising" | "falling" | "neutral"
   compactMode?: boolean
+  showTradingValue?: boolean
+  investorData?: Record<string, InvestorInfo>
 }
 
 // 컴팩트 모드 컬럼 헤더
-function CompactHeader() {
+function CompactHeader({ showTradingValue, hasInvestorData }: { showTradingValue?: boolean; hasInvestorData?: boolean }) {
   return (
-    <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-2 px-2 py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
+    <div className={cn(
+      "gap-2 px-2 py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50",
+      showTradingValue
+        ? "grid grid-cols-[auto_1fr_auto_auto_auto_auto]"
+        : "grid grid-cols-[auto_1fr_auto_auto_auto]"
+    )}>
       <span className="w-5 text-center">#</span>
       <span className="text-left">종목명</span>
       <span className="text-right w-16 sm:w-20">현재가</span>
+      {showTradingValue && <span className="text-right w-12 sm:w-16">거래대금</span>}
       <span className="text-right w-12 sm:w-14">거래량</span>
+      {hasInvestorData && <span className="text-right w-12 sm:w-14 hidden sm:block">외국인</span>}
+      {hasInvestorData && <span className="text-right w-12 sm:w-14 hidden sm:block">기관</span>}
       <span className="text-center w-14 sm:w-16">등락률</span>
     </div>
   )
 }
 
 // 컴팩트 모드용 간단한 종목 행
-function CompactStockRow({ stock, type }: { stock: Stock; type: "rising" | "falling" }) {
-  const isRising = type === "rising"
+function CompactStockRow({ stock, type, showTradingValue, investorInfo }: { stock: Stock; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo }) {
+  const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
 
   return (
@@ -38,12 +48,19 @@ function CompactStockRow({ stock, type }: { stock: Stock; type: "rising" | "fall
       href={naverUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-2 items-center py-2 px-2 hover:bg-muted/50 rounded-md transition-colors group"
+      className={cn(
+        "gap-2 items-center py-2 px-2 hover:bg-muted/50 rounded-md transition-colors group",
+        showTradingValue
+          ? "grid grid-cols-[auto_1fr_auto_auto_auto_auto]"
+          : "grid grid-cols-[auto_1fr_auto_auto_auto]"
+      )}
     >
       {/* Rank */}
       <span className={cn(
         "w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-full shrink-0",
-        isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
+        type === "neutral"
+          ? "bg-amber-500/10 text-amber-600"
+          : effectiveRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
       )}>
         {stock.rank}
       </span>
@@ -59,15 +76,36 @@ function CompactStockRow({ stock, type }: { stock: Stock; type: "rising" | "fall
         {formatPrice(stock.current_price)}<span className="text-[9px] text-muted-foreground">원</span>
       </span>
 
+      {/* Trading Value (optional) */}
+      {showTradingValue && (
+        <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-16">
+          {stock.trading_value ? formatTradingValue(stock.trading_value) : "-"}
+        </span>
+      )}
+
       {/* Volume */}
       <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-14">
         {formatVolume(stock.volume)}
       </span>
 
+      {/* Foreign Net Buy */}
+      {investorInfo && (
+        <span className={cn("text-[10px] tabular-nums text-right w-12 sm:w-14 hidden sm:block", getNetBuyColor(investorInfo.foreign_net))}>
+          {formatNetBuy(investorInfo.foreign_net)}
+        </span>
+      )}
+
+      {/* Institution Net Buy */}
+      {investorInfo && (
+        <span className={cn("text-[10px] tabular-nums text-right w-12 sm:w-14 hidden sm:block", getNetBuyColor(investorInfo.institution_net))}>
+          {formatNetBuy(investorInfo.institution_net)}
+        </span>
+      )}
+
       {/* Change Rate */}
       <span className={cn(
         "text-[10px] font-semibold px-1.5 py-0.5 rounded text-right w-14 sm:w-16",
-        isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
+        effectiveRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
       )}>
         {formatChangeRate(stock.change_rate)}
       </span>
@@ -81,13 +119,17 @@ function CompactMarketSection({
   stocks,
   type,
   bgColor,
-  showHeader = false
+  showHeader = false,
+  showTradingValue,
+  investorData,
 }: {
   market: string
   stocks: Stock[]
-  type: "rising" | "falling"
+  type: "rising" | "falling" | "neutral"
   bgColor: string
   showHeader?: boolean
+  showTradingValue?: boolean
+  investorData?: Record<string, InvestorInfo>
 }) {
   if (stocks.length === 0) {
     return (
@@ -109,34 +151,37 @@ function CompactMarketSection({
         <span className="font-semibold text-xs">{market}</span>
         <span className="text-[10px] text-muted-foreground">({stocks.length})</span>
       </div>
-      {showHeader && <CompactHeader />}
+      {showHeader && <CompactHeader showTradingValue={showTradingValue} hasInvestorData={!!investorData && Object.keys(investorData).length > 0} />}
       <div className="divide-y divide-border/30">
         {stocks.map((stock) => (
-          <CompactStockRow key={stock.code} stock={stock} type={type} />
+          <CompactStockRow key={stock.code} stock={stock} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} />
         ))}
       </div>
     </div>
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData }: StockListProps) {
+  const isNeutral = type === "neutral"
   const isRising = type === "rising"
-  const Icon = isRising ? TrendingUp : TrendingDown
+  const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
+  const iconColor = isNeutral ? "text-amber-500" : isRising ? "text-red-500" : "text-blue-500"
+  const gradientFrom = isNeutral
+    ? "from-amber-500/5 via-amber-500/3 to-transparent"
+    : isRising
+      ? "from-red-500/5 via-red-500/3 to-transparent"
+      : "from-blue-500/5 via-blue-500/3 to-transparent"
+  const badgeVariant = isNeutral ? "outline" : isRising ? "rising" : "falling"
 
   // 컴팩트 모드
   if (compactMode) {
     return (
       <Card className="overflow-hidden shadow-sm">
-        <CardHeader className={cn(
-          "py-2 sm:py-3",
-          isRising
-            ? "bg-gradient-to-r from-red-500/5 via-red-500/3 to-transparent"
-            : "bg-gradient-to-r from-blue-500/5 via-blue-500/3 to-transparent"
-        )}>
+        <CardHeader className={cn("py-2 sm:py-3", `bg-gradient-to-r ${gradientFrom}`)}>
           <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
-            <Icon className={cn("w-4 h-4", isRising ? "text-red-500" : "text-blue-500")} />
+            <Icon className={cn("w-4 h-4", iconColor)} />
             <span className="truncate">{title}</span>
-            <Badge variant={isRising ? "rising" : "falling"} className="ml-auto text-[9px] sm:text-[10px] shrink-0">
+            <Badge variant={badgeVariant as any} className="ml-auto text-[9px] sm:text-[10px] shrink-0">
               {kospiStocks.length + kosdaqStocks.length}
             </Badge>
           </CardTitle>
@@ -148,6 +193,8 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             type={type}
             bgColor="bg-blue-600"
             showHeader={true}
+            showTradingValue={showTradingValue}
+            investorData={investorData}
           />
           <CompactMarketSection
             market="KOSDAQ"
@@ -155,6 +202,8 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             type={type}
             bgColor="bg-green-600"
             showHeader={true}
+            showTradingValue={showTradingValue}
+            investorData={investorData}
           />
         </CardContent>
       </Card>
@@ -164,11 +213,11 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
   // 기본 모드 (상세 보기)
   return (
     <Card className="overflow-hidden shadow-sm">
-      <CardHeader className={`py-3 sm:py-4 ${isRising ? "bg-gradient-to-r from-red-500/5 via-red-500/3 to-transparent" : "bg-gradient-to-r from-blue-500/5 via-blue-500/3 to-transparent"}`}>
+      <CardHeader className={cn("py-3 sm:py-4", `bg-gradient-to-r ${gradientFrom}`)}>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
-          <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isRising ? "text-red-500" : "text-blue-500"}`} />
+          <Icon className={cn("w-4 h-4 sm:w-5 sm:h-5", iconColor)} />
           <span className="truncate">{title}</span>
-          <Badge variant={isRising ? "rising" : "falling"} className="ml-auto text-[10px] sm:text-xs shrink-0">
+          <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-xs shrink-0">
             {kospiStocks.length + kosdaqStocks.length} 종목
           </Badge>
         </CardTitle>
@@ -190,6 +239,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
                   history={history[stock.code]}
                   news={news[stock.code]}
                   type={type}
+                  investorInfo={investorData?.[stock.code]}
                 />
               ))}
             </div>
@@ -214,6 +264,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
                   history={history[stock.code]}
                   news={news[stock.code]}
                   type={type}
+                  investorInfo={investorData?.[stock.code]}
                 />
               ))}
             </div>

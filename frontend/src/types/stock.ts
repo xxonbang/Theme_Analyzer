@@ -5,6 +5,12 @@ export interface Stock {
   current_price: number
   change_rate: number
   volume: number
+  change_price?: number
+  volume_rate?: number
+  trading_value?: number
+  market?: string
+  is_etf?: boolean
+  direction?: string
 }
 
 export interface HistoryChange {
@@ -44,6 +50,24 @@ export interface ExchangeData {
   rates: ExchangeRate[]
 }
 
+export interface FluctuationData {
+  kospi_up: Stock[]
+  kospi_down: Stock[]
+  kosdaq_up: Stock[]
+  kosdaq_down: Stock[]
+}
+
+export type TabType = "composite" | "trading_value" | "volume" | "fluctuation"
+export type FluctuationMode = "calculated" | "direct"
+export type CompositeMode = "all" | "trading_volume" | "trading_fluc" | "volume_fluc"
+
+export interface InvestorInfo {
+  name: string
+  foreign_net: number
+  institution_net: number
+  individual_net?: number
+}
+
 export interface StockData {
   timestamp: string
   exchange: ExchangeData
@@ -55,6 +79,11 @@ export interface StockData {
     kospi: Stock[]
     kosdaq: Stock[]
   }
+  volume?: { kospi: Stock[]; kosdaq: Stock[] }
+  trading_value?: { kospi: Stock[]; kosdaq: Stock[] }
+  fluctuation?: FluctuationData
+  fluctuation_direct?: FluctuationData
   history: Record<string, StockHistory>
   news: Record<string, StockNews>
+  investor_data?: Record<string, InvestorInfo>
 }

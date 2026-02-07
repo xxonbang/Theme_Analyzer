@@ -1,16 +1,21 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { StockList } from "@/components/StockList"
+import { TabBar } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
 import { Loader2, ArrowLeft, Calendar, Clock } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
+import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
 
 // 로컬 스토리지 키
 const COMPACT_MODE_KEY = "stock-dashboard-compact-mode"
+const ACTIVE_TAB_KEY = "stock-dashboard-active-tab"
+const FLUCTUATION_MODE_KEY = "stock-dashboard-fluctuation-mode"
+const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
   const { data: currentData, loading, error, refetch } = useStockData()
@@ -34,10 +39,41 @@ function App() {
     return saved === "true"
   })
 
+  // 탭 상태 (로컬 스토리지에서 복원)
+  const [activeTab, setActiveTab] = useState<TabType>(() => {
+    const saved = localStorage.getItem(ACTIVE_TAB_KEY)
+    return (saved as TabType) || "composite"
+  })
+
+  // 등락률 모드 상태 (로컬 스토리지에서 복원)
+  const [fluctuationMode, setFluctuationMode] = useState<FluctuationMode>(() => {
+    const saved = localStorage.getItem(FLUCTUATION_MODE_KEY)
+    return (saved as FluctuationMode) || "calculated"
+  })
+
+  // 종합 탭 구성 방식
+  const [compositeMode, setCompositeMode] = useState<CompositeMode>(() => {
+    const saved = localStorage.getItem(COMPOSITE_MODE_KEY)
+    if (saved === "all" || saved === "trading_volume" || saved === "trading_fluc" || saved === "volume_fluc") return saved
+    return "all"
+  })
+
   // 컴팩트 모드 변경 시 로컬 스토리지에 저장
   useEffect(() => {
     localStorage.setItem(COMPACT_MODE_KEY, String(compactMode))
   }, [compactMode])
+
+  useEffect(() => {
+    localStorage.setItem(ACTIVE_TAB_KEY, activeTab)
+  }, [activeTab])
+
+  useEffect(() => {
+    localStorage.setItem(FLUCTUATION_MODE_KEY, fluctuationMode)
+  }, [fluctuationMode])
+
+  useEffect(() => {
+    localStorage.setItem(COMPOSITE_MODE_KEY, compositeMode)
+  }, [compositeMode])
 
   const toggleCompactMode = () => {
     setCompactMode((prev) => !prev)
@@ -46,6 +82,136 @@ function App() {
   // 현재 데이터 or 히스토리 데이터 표시
   const displayData = historyData || currentData
   const isViewingHistory = !!historyData
+
+  // 신규 JSON 여부 (volume 필드가 있으면 신규)
+  const hasNewFields = !!displayData?.volume
+
+  // 등락률 모드에 따른 활성 등락률 데이터
+  const activeFluctuationData = useMemo(() => {
+    if (!displayData) return null
+    if (hasNewFields) {
+      return fluctuationMode === "direct"
+        ? displayData.fluctuation_direct || displayData.fluctuation
+        : displayData.fluctuation
+    }
+    // 이전 JSON 폴백: rising/falling에서 등락률 데이터 합성
+    return {
+      kospi_up: displayData.rising.kospi,
+      kospi_down: displayData.falling.kospi,
+      kosdaq_up: displayData.rising.kosdaq,
+      kosdaq_down: displayData.falling.kosdaq,
+    }
+  }, [displayData, fluctuationMode, hasNewFields])
+
+  // 거래량 탭 폴백 데이터
+  const volumeTabData = useMemo(() => {
+    if (!displayData) return null
+    if (hasNewFields) {
+      return displayData.volume!
+    }
+    // 이전 JSON 폴백: rising+falling 합쳐서 거래량순 정렬
+    const kospiAll = [...displayData.rising.kospi, ...displayData.falling.kospi]
+      .sort((a, b) => b.volume - a.volume)
+      .map((s, i) => ({ ...s, rank: i + 1 }))
+    const kosdaqAll = [...displayData.rising.kosdaq, ...displayData.falling.kosdaq]
+      .sort((a, b) => b.volume - a.volume)
+      .map((s, i) => ({ ...s, rank: i + 1 }))
+    return { kospi: kospiAll, kosdaq: kosdaqAll }
+  }, [displayData, hasNewFields])
+
+  // 거래대금 탭 폴백 데이터
+  const tradingValueTabData = useMemo(() => {
+    if (!displayData) return null
+    if (hasNewFields) {
+      return displayData.trading_value!
+    }
+    // 이전 JSON 폴백: rising+falling 합쳐서 거래대금(또는 거래량)순 정렬
+    const kospiAll = [...displayData.rising.kospi, ...displayData.falling.kospi]
+      .sort((a, b) => (b.trading_value || b.volume) - (a.trading_value || a.volume))
+      .map((s, i) => ({ ...s, rank: i + 1 }))
+    const kosdaqAll = [...displayData.rising.kosdaq, ...displayData.falling.kosdaq]
+      .sort((a, b) => (b.trading_value || b.volume) - (a.trading_value || a.volume))
+      .map((s, i) => ({ ...s, rank: i + 1 }))
+    return { kospi: kospiAll, kosdaq: kosdaqAll }
+  }, [displayData, hasNewFields])
+
+  // 종합 탭: compositeMode에 따른 교집합
+  const compositeData = useMemo(() => {
+    if (!displayData) return null
+    if (!hasNewFields) return null // 이전 JSON이면 null → 폴백
+
+    // 등락률 Set (모든 모드에서 필수)
+    const flucKospiAll = new Set([
+      ...(activeFluctuationData?.kospi_up || []).map((s: Stock) => s.code),
+      ...(activeFluctuationData?.kospi_down || []).map((s: Stock) => s.code),
+    ])
+    const flucKosdaqAll = new Set([
+      ...(activeFluctuationData?.kosdaq_up || []).map((s: Stock) => s.code),
+      ...(activeFluctuationData?.kosdaq_down || []).map((s: Stock) => s.code),
+    ])
+
+    // 거래량 Set (all 모드에서 교차 필터에 사용)
+    const volKospiSet = new Set((displayData.volume?.kospi || []).map((s: Stock) => s.code))
+    const volKosdaqSet = new Set((displayData.volume?.kosdaq || []).map((s: Stock) => s.code))
+
+    // 기준 데이터 (순서 결정) 및 필터 조건
+    let baseKospi: Stock[]
+    let baseKosdaq: Stock[]
+    let filterKospi: (s: Stock) => boolean
+    let filterKosdaq: (s: Stock) => boolean
+
+    if (compositeMode === "all") {
+      // 거래대금 ∩ 거래량 ∩ 등락률 (거래대금 순서 기준)
+      baseKospi = displayData.trading_value?.kospi || []
+      baseKosdaq = displayData.trading_value?.kosdaq || []
+      filterKospi = (s) => flucKospiAll.has(s.code) && volKospiSet.has(s.code)
+      filterKosdaq = (s) => flucKosdaqAll.has(s.code) && volKosdaqSet.has(s.code)
+    } else if (compositeMode === "trading_volume") {
+      // 거래대금 ∩ 거래량 (등락률 필터 없음, 거래대금 순서 기준)
+      baseKospi = displayData.trading_value?.kospi || []
+      baseKosdaq = displayData.trading_value?.kosdaq || []
+      filterKospi = (s) => volKospiSet.has(s.code)
+      filterKosdaq = (s) => volKosdaqSet.has(s.code)
+    } else if (compositeMode === "trading_fluc") {
+      // 거래대금 ∩ 등락률 (거래대금 순서 기준)
+      baseKospi = displayData.trading_value?.kospi || []
+      baseKosdaq = displayData.trading_value?.kosdaq || []
+      filterKospi = (s) => flucKospiAll.has(s.code)
+      filterKosdaq = (s) => flucKosdaqAll.has(s.code)
+    } else {
+      // 거래량 ∩ 등락률 (거래량 순서 기준)
+      baseKospi = displayData.volume?.kospi || []
+      baseKosdaq = displayData.volume?.kosdaq || []
+      filterKospi = (s) => flucKospiAll.has(s.code)
+      filterKosdaq = (s) => flucKosdaqAll.has(s.code)
+    }
+
+    const kospiFiltered = baseKospi.filter(filterKospi)
+    const kosdaqFiltered = baseKosdaq.filter(filterKosdaq)
+
+    // 상승/하락 분리
+    let rank = 0
+    const kospiUp = kospiFiltered.filter((s: Stock) => s.change_rate > 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    rank = 0
+    const kospiDown = kospiFiltered.filter((s: Stock) => s.change_rate < 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    rank = 0
+    const kosdaqUp = kosdaqFiltered.filter((s: Stock) => s.change_rate > 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    rank = 0
+    const kosdaqDown = kosdaqFiltered.filter((s: Stock) => s.change_rate < 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+
+    return {
+      rising: { kospi: kospiUp, kosdaq: kosdaqUp },
+      falling: { kospi: kospiDown, kosdaq: kosdaqDown },
+    }
+  }, [displayData, activeFluctuationData, hasNewFields, compositeMode])
+
+  // 종합 탭 타이틀 (교집합 조건 반영)
+  const compositeTitle = useMemo(() => {
+    if (compositeMode === "all") return "거래대금 + 거래량"
+    if (compositeMode === "trading_volume") return "거래대금 ∩ 거래량"
+    if (compositeMode === "trading_fluc") return "거래대금"
+    return "거래량"
+  }, [compositeMode])
 
   // 히스토리 버튼 클릭 핸들러
   const handleHistoryClick = async () => {
@@ -132,6 +298,18 @@ function App() {
         </div>
       )}
 
+      {/* Tab Bar */}
+      <div className={cn("sticky z-40", isViewingHistory && selectedEntry ? "top-[88px] sm:top-[100px]" : "top-14 sm:top-16")}>
+        <TabBar
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          fluctuationMode={fluctuationMode}
+          onFluctuationModeChange={setFluctuationMode}
+          compositeMode={compositeMode}
+          onCompositeModeChange={setCompositeMode}
+        />
+      </div>
+
       <main className="container px-3 sm:px-4 py-4 sm:py-6">
         {error && !isViewingHistory && (
           <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg bg-warning/10 border border-warning/20 text-warning">
@@ -142,32 +320,118 @@ function App() {
         {/* Exchange Rate - Top section */}
         {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} />}
 
-        {/* Stock Lists - Full width with 2-column cards inside */}
+        {/* Tab Content */}
         <div className="space-y-4 sm:space-y-6">
-          {/* Rising Stocks */}
-          {displayData && (
+          {activeTab === "composite" && displayData && (
+            <>
+              {compositeData ? (
+                <>
+                  <StockList
+                    title={`${compositeTitle} + 상승률 TOP`}
+                    kospiStocks={compositeData.rising.kospi}
+                    kosdaqStocks={compositeData.rising.kosdaq}
+                    history={displayData.history}
+                    news={displayData.news}
+                    type="rising"
+                    compactMode={compactMode}
+                    showTradingValue={true}
+                    investorData={displayData.investor_data}
+                  />
+                  <StockList
+                    title={`${compositeTitle} + 하락률 TOP`}
+                    kospiStocks={compositeData.falling.kospi}
+                    kosdaqStocks={compositeData.falling.kosdaq}
+                    history={displayData.history}
+                    news={displayData.news}
+                    type="falling"
+                    compactMode={compactMode}
+                    showTradingValue={true}
+                    investorData={displayData.investor_data}
+                  />
+                </>
+              ) : (
+                <>
+                  {/* 이전 JSON 폴백: 기존 rising/falling 그대로 사용 */}
+                  <StockList
+                    title={`${compositeTitle} + 상승률 TOP10`}
+                    kospiStocks={displayData.rising.kospi}
+                    kosdaqStocks={displayData.rising.kosdaq}
+                    history={displayData.history}
+                    news={displayData.news}
+                    type="rising"
+                    compactMode={compactMode}
+                    showTradingValue={true}
+                    investorData={displayData.investor_data}
+                  />
+                  <StockList
+                    title={`${compositeTitle} + 하락률 TOP10`}
+                    kospiStocks={displayData.falling.kospi}
+                    kosdaqStocks={displayData.falling.kosdaq}
+                    history={displayData.history}
+                    news={displayData.news}
+                    type="falling"
+                    compactMode={compactMode}
+                    showTradingValue={true}
+                    investorData={displayData.investor_data}
+                  />
+                </>
+              )}
+            </>
+          )}
+
+          {activeTab === "trading_value" && displayData && tradingValueTabData && (
             <StockList
-              title="거래량 + 상승률 TOP10"
-              kospiStocks={displayData.rising.kospi}
-              kosdaqStocks={displayData.rising.kosdaq}
+              title="거래대금 TOP20"
+              kospiStocks={tradingValueTabData.kospi.slice(0, 20)}
+              kosdaqStocks={tradingValueTabData.kosdaq.slice(0, 20)}
               history={displayData.history}
               news={displayData.news}
-              type="rising"
+              type="neutral"
               compactMode={compactMode}
+              showTradingValue={true}
+              investorData={displayData.investor_data}
             />
           )}
 
-          {/* Falling Stocks */}
-          {displayData && (
+          {activeTab === "volume" && displayData && volumeTabData && (
             <StockList
-              title="거래량 + 하락률 TOP10"
-              kospiStocks={displayData.falling.kospi}
-              kosdaqStocks={displayData.falling.kosdaq}
+              title="거래량 TOP20"
+              kospiStocks={volumeTabData.kospi.slice(0, 20)}
+              kosdaqStocks={volumeTabData.kosdaq.slice(0, 20)}
               history={displayData.history}
               news={displayData.news}
-              type="falling"
+              type="neutral"
               compactMode={compactMode}
+              showTradingValue={true}
+              investorData={displayData.investor_data}
             />
+          )}
+
+          {activeTab === "fluctuation" && displayData && activeFluctuationData && (
+            <>
+              <StockList
+                title="등락률 상승 TOP20"
+                kospiStocks={(activeFluctuationData.kospi_up || []).slice(0, 20)}
+                kosdaqStocks={(activeFluctuationData.kosdaq_up || []).slice(0, 20)}
+                history={displayData.history}
+                news={displayData.news}
+                type="rising"
+                compactMode={compactMode}
+                showTradingValue={true}
+                investorData={displayData.investor_data}
+              />
+              <StockList
+                title="등락률 하락 TOP20"
+                kospiStocks={(activeFluctuationData.kospi_down || []).slice(0, 20)}
+                kosdaqStocks={(activeFluctuationData.kosdaq_down || []).slice(0, 20)}
+                history={displayData.history}
+                news={displayData.news}
+                type="falling"
+                compactMode={compactMode}
+                showTradingValue={true}
+                investorData={displayData.investor_data}
+              />
+            </>
           )}
         </div>
 

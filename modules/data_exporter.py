@@ -107,6 +107,13 @@ def update_history_index(output_dir: Path) -> None:
         json.dump(index_data, f, ensure_ascii=False, indent=2)
 
 
+def _strip_meta(data: Dict) -> Dict:
+    """메타 필드(collected_at, category, exclude_etf) 제거하여 JSON 경량화"""
+    if not data:
+        return {}
+    return {k: v for k, v in data.items() if k not in ("collected_at", "category", "exclude_etf")}
+
+
 def export_for_frontend(
     rising_stocks: Dict[str, List[Dict[str, Any]]],
     falling_stocks: Dict[str, List[Dict[str, Any]]],
@@ -115,6 +122,11 @@ def export_for_frontend(
     exchange_data: Dict[str, Any] = None,
     output_dir: str = "frontend/public/data",
     save_history: bool = True,
+    volume_data: Dict = None,
+    trading_value_data: Dict = None,
+    fluctuation_data: Dict = None,
+    fluctuation_direct_data: Dict = None,
+    investor_data: Dict = None,
 ) -> str:
     """프론트엔드용 JSON 데이터 내보내기
 
@@ -126,6 +138,10 @@ def export_for_frontend(
         exchange_data: 환율 데이터
         output_dir: 출력 디렉토리
         save_history: 히스토리 파일 저장 여부 (기본 True)
+        volume_data: 거래량 TOP30 데이터
+        trading_value_data: 거래대금 TOP30 데이터
+        fluctuation_data: 등락률 TOP30 (자체 계산) 데이터
+        fluctuation_direct_data: 등락률 TOP30 (전용 API) 데이터
 
     Returns:
         저장된 파일 경로
@@ -145,9 +161,17 @@ def export_for_frontend(
             "kospi": falling_stocks.get("kospi", []),
             "kosdaq": falling_stocks.get("kosdaq", []),
         },
+        "volume": _strip_meta(volume_data) if volume_data else None,
+        "trading_value": _strip_meta(trading_value_data) if trading_value_data else None,
+        "fluctuation": _strip_meta(fluctuation_data) if fluctuation_data else None,
+        "fluctuation_direct": _strip_meta(fluctuation_direct_data) if fluctuation_direct_data else None,
         "history": history_data,
         "news": news_data,
+        "investor_data": investor_data if investor_data else None,
     }
+
+    # None 값 필드 제거
+    data = {k: v for k, v in data.items() if v is not None}
 
     # JSON 파일 저장 (latest.json)
     file_path = output_path / "latest.json"

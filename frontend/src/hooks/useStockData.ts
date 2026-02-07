@@ -77,6 +77,56 @@ function getMockData(): StockData {
         { rank: 2, code: "293490", name: "카카오게임즈", current_price: 18500, change_rate: -4.12, volume: 2800000 },
       ],
     },
+    volume: {
+      kospi: [
+        { rank: 1, code: "005930", name: "삼성전자", current_price: 87000, change_rate: 3.57, volume: 15000000, trading_value: 1305000000000 },
+        { rank: 2, code: "000660", name: "SK하이닉스", current_price: 178000, change_rate: 5.32, volume: 8000000, trading_value: 1424000000000 },
+        { rank: 3, code: "035420", name: "NAVER", current_price: 215000, change_rate: 2.87, volume: 3500000, trading_value: 752500000000 },
+      ],
+      kosdaq: [
+        { rank: 1, code: "086520", name: "에코프로", current_price: 95000, change_rate: 8.45, volume: 5000000, trading_value: 475000000000 },
+        { rank: 2, code: "247540", name: "에코프로비엠", current_price: 125000, change_rate: 6.78, volume: 4200000, trading_value: 525000000000 },
+      ],
+    },
+    trading_value: {
+      kospi: [
+        { rank: 1, code: "000660", name: "SK하이닉스", current_price: 178000, change_rate: 5.32, volume: 8000000, trading_value: 1424000000000 },
+        { rank: 2, code: "005930", name: "삼성전자", current_price: 87000, change_rate: 3.57, volume: 15000000, trading_value: 1305000000000 },
+      ],
+      kosdaq: [
+        { rank: 1, code: "247540", name: "에코프로비엠", current_price: 125000, change_rate: 6.78, volume: 4200000, trading_value: 525000000000 },
+        { rank: 2, code: "086520", name: "에코프로", current_price: 95000, change_rate: 8.45, volume: 5000000, trading_value: 475000000000 },
+      ],
+    },
+    fluctuation: {
+      kospi_up: [
+        { rank: 1, code: "000660", name: "SK하이닉스", current_price: 178000, change_rate: 5.32, volume: 8000000 },
+        { rank: 2, code: "005930", name: "삼성전자", current_price: 87000, change_rate: 3.57, volume: 15000000 },
+      ],
+      kospi_down: [
+        { rank: 1, code: "003670", name: "포스코퓨처엠", current_price: 245000, change_rate: -4.28, volume: 2100000 },
+      ],
+      kosdaq_up: [
+        { rank: 1, code: "086520", name: "에코프로", current_price: 95000, change_rate: 8.45, volume: 5000000 },
+      ],
+      kosdaq_down: [
+        { rank: 1, code: "263750", name: "펄어비스", current_price: 42000, change_rate: -5.62, volume: 1500000 },
+      ],
+    },
+    fluctuation_direct: {
+      kospi_up: [
+        { rank: 1, code: "005930", name: "삼성전자", current_price: 87000, change_rate: 3.57, volume: 15000000 },
+      ],
+      kospi_down: [
+        { rank: 1, code: "006400", name: "삼성SDI", current_price: 385000, change_rate: -3.15, volume: 1800000 },
+      ],
+      kosdaq_up: [
+        { rank: 1, code: "247540", name: "에코프로비엠", current_price: 125000, change_rate: 6.78, volume: 4200000 },
+      ],
+      kosdaq_down: [
+        { rank: 1, code: "293490", name: "카카오게임즈", current_price: 18500, change_rate: -4.12, volume: 2800000 },
+      ],
+    },
     history: {
       "005930": {
         code: "005930",
@@ -89,5 +139,10 @@ function getMockData(): StockData {
       },
     },
     news: {},
+    investor_data: {
+      "005930": { name: "삼성전자", foreign_net: 1500000, institution_net: -800000, individual_net: -700000 },
+      "000660": { name: "SK하이닉스", foreign_net: 320000, institution_net: 150000, individual_net: -470000 },
+      "086520": { name: "에코프로", foreign_net: -250000, institution_net: 180000, individual_net: 70000 },
+    },
   }
 }

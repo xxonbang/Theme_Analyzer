@@ -17,17 +17,42 @@ from modules.data_exporter import export_for_frontend
 from modules.exchange_rate import ExchangeRateAPI
 
 
-def collect_all_stocks(rising_stocks: Dict, falling_stocks: Dict) -> List[Dict[str, Any]]:
-    """상승/하락 종목에서 중복 제거된 전체 종목 리스트 추출"""
+def collect_all_stocks(
+    rising_stocks: Dict,
+    falling_stocks: Dict,
+    volume_data: Dict = None,
+    trading_value_data: Dict = None,
+    fluctuation_data: Dict = None,
+    fluctuation_direct_data: Dict = None,
+) -> List[Dict[str, Any]]:
+    """상승/하락 종목 + 추가 데이터 소스에서 중복 제거된 전체 종목 리스트 추출"""
     seen_codes = set()
     all_stocks = []
 
-    for stocks in [
+    stock_lists = [
         rising_stocks.get("kospi", []),
         rising_stocks.get("kosdaq", []),
         falling_stocks.get("kospi", []),
         falling_stocks.get("kosdaq", []),
-    ]:
+    ]
+
+    # 추가 데이터 소스
+    if volume_data:
+        stock_lists.extend([volume_data.get("kospi", []), volume_data.get("kosdaq", [])])
+    if trading_value_data:
+        stock_lists.extend([trading_value_data.get("kospi", []), trading_value_data.get("kosdaq", [])])
+    if fluctuation_data:
+        stock_lists.extend([
+            fluctuation_data.get("kospi_up", []), fluctuation_data.get("kospi_down", []),
+            fluctuation_data.get("kosdaq_up", []), fluctuation_data.get("kosdaq_down", []),
+        ])
+    if fluctuation_direct_data:
+        stock_lists.extend([
+            fluctuation_direct_data.get("kospi_up", []), fluctuation_direct_data.get("kospi_down", []),
+            fluctuation_direct_data.get("kosdaq_up", []), fluctuation_direct_data.get("kosdaq_down", []),
+        ])
+
+    for stocks in stock_lists:
         for stock in stocks:
             code = stock.get("code", "")
             if code and code not in seen_codes:
@@ -37,12 +62,13 @@ def collect_all_stocks(rising_stocks: Dict, falling_stocks: Dict) -> List[Dict[s
     return all_stocks
 
 
-def main(test_mode: bool = False, skip_news: bool = False):
+def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool = False):
     """메인 실행 함수
 
     Args:
         test_mode: 테스트 모드 (메시지 미발송, 콘솔 출력만)
         skip_news: 뉴스 수집 건너뛰기
+        skip_investor: 수급 데이터 수집 건너뛰기
     """
     print("=" * 60)
     print("  KIS 거래량+등락폭 TOP10 텔레그램 발송")
@@ -52,7 +78,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
     print("=" * 60)
 
     # 1. 환율 정보 조회
-    print("\n[1/9] 환율 정보 조회 중...")
+    print("\n[1/12] 환율 정보 조회 중...")
     exchange_data = {}
     try:
         exchange_api = ExchangeRateAPI()
@@ -68,7 +94,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
         print(f"  ✗ 환율 조회 실패: {e}")
 
     # 2. KIS API 연결
-    print("\n[2/9] KIS API 연결 중...")
+    print("\n[2/12] KIS API 연결 중...")
     try:
         client = KISClient()
         rank_api = KISRankAPI(client)
@@ -79,7 +105,7 @@ def main(test_mode: bool = False, skip_news: bool = False):
         return
 
     # 3. 거래량 TOP30 조회
-    print("\n[3/9] 거래량 TOP30 조회 중...")
+    print("\n[3/12] 거래량 TOP30 조회 중...")
     try:
         volume_data = rank_api.get_top30_by_volume(exclude_etf=True)
         print(f"  ✓ 코스피: {len(volume_data.get('kospi', []))}개")
@@ -88,8 +114,18 @@ def main(test_mode: bool = False, skip_news: bool = False):
         print(f"  ✗ 거래량 조회 실패: {e}")
         return
 
-    # 4. 등락폭 TOP30 조회
-    print("\n[4/9] 등락폭 TOP30 조회 중...")
+    # 4. 거래대금 TOP30 조회
+    print("\n[4/12] 거래대금 TOP30 조회 중...")
+    trading_value_data = {}
+    try:
+        trading_value_data = rank_api.get_top30_by_trading_value(exclude_etf=True)
+        print(f"  ✓ 코스피: {len(trading_value_data.get('kospi', []))}개")
+        print(f"  ✓ 코스닥: {len(trading_value_data.get('kosdaq', []))}개")
+    except Exception as e:
+        print(f"  ⚠ 거래대금 조회 실패 (빈 데이터로 계속): {e}")
+
+    # 5. 등락폭 TOP30 조회 (자체 계산)
+    print("\n[5/12] 등락폭 TOP30 조회 중...")
     try:
         fluctuation_data = rank_api.get_top30_by_fluctuation(exclude_etf=True)
         print(f"  ✓ 코스피 상승: {len(fluctuation_data.get('kospi_up', []))}개")
@@ -100,8 +136,20 @@ def main(test_mode: bool = False, skip_news: bool = False):
         print(f"  ✗ 등락폭 조회 실패: {e}")
         return
 
-    # 5. 교차 필터링
-    print("\n[5/9] 교차 필터링 중...")
+    # 6. 등락률 전용 API 조회
+    print("\n[6/12] 등락률 전용 API 조회 중...")
+    fluctuation_direct_data = {}
+    try:
+        fluctuation_direct_data = rank_api.get_top_fluctuation_direct(exclude_etf=True)
+        print(f"  ✓ 코스피 상승: {len(fluctuation_direct_data.get('kospi_up', []))}개")
+        print(f"  ✓ 코스피 하락: {len(fluctuation_direct_data.get('kospi_down', []))}개")
+        print(f"  ✓ 코스닥 상승: {len(fluctuation_direct_data.get('kosdaq_up', []))}개")
+        print(f"  ✓ 코스닥 하락: {len(fluctuation_direct_data.get('kosdaq_down', []))}개")
+    except Exception as e:
+        print(f"  ⚠ 등락률 전용 API 조회 실패 (빈 데이터로 계속): {e}")
+
+    # 7. 교차 필터링
+    print("\n[7/12] 교차 필터링 중...")
     stock_filter = StockFilter()
 
     rising_stocks = stock_filter.filter_rising_stocks(volume_data, fluctuation_data)
@@ -111,11 +159,17 @@ def main(test_mode: bool = False, skip_news: bool = False):
     print(f"  ✓ 하락 종목 (코스피: {len(falling_stocks['kospi'])}개, 코스닥: {len(falling_stocks['kosdaq'])}개)")
 
     # 전체 종목 리스트 (중복 제거)
-    all_stocks = collect_all_stocks(rising_stocks, falling_stocks)
+    all_stocks = collect_all_stocks(
+        rising_stocks, falling_stocks,
+        volume_data=volume_data,
+        trading_value_data=trading_value_data,
+        fluctuation_data=fluctuation_data,
+        fluctuation_direct_data=fluctuation_direct_data,
+    )
     print(f"  ✓ 총 {len(all_stocks)}개 종목")
 
-    # 6. 3일간 등락률 조회
-    print("\n[6/9] 3일간 등락률 조회 중...")
+    # 8. 3일간 등락률 조회
+    print("\n[8/12] 3일간 등락률 조회 중...")
     try:
         history_data = history_api.get_multiple_stocks_history(all_stocks, days=3)
         print(f"  ✓ {len(history_data)}개 종목 등락률 조회 완료")
@@ -123,10 +177,23 @@ def main(test_mode: bool = False, skip_news: bool = False):
         print(f"  ✗ 등락률 조회 실패: {e}")
         history_data = {}
 
-    # 7. 뉴스 수집
+    # 9. 수급(투자자) 데이터 수집
+    investor_data = {}
+    if not skip_investor:
+        print("\n[9/12] 수급(투자자) 데이터 수집 중...")
+        try:
+            investor_data = rank_api.get_investor_data(all_stocks)
+            print(f"  ✓ {len(investor_data)}개 종목 수급 데이터 수집 완료")
+        except Exception as e:
+            print(f"  ⚠ 수급 데이터 수집 실패 (빈 데이터로 계속): {e}")
+            investor_data = {}
+    else:
+        print("\n[9/12] 수급 데이터 수집 건너뜀")
+
+    # 10. 뉴스 수집
     news_data = {}
     if not skip_news:
-        print("\n[7/9] 종목별 뉴스 수집 중...")
+        print("\n[10/12] 종목별 뉴스 수집 중...")
         try:
             news_api = NaverNewsAPI()
             news_data = news_api.get_multiple_stocks_news(all_stocks, news_count=3)
@@ -136,20 +203,25 @@ def main(test_mode: bool = False, skip_news: bool = False):
             print(f"  ✗ 뉴스 수집 실패: {e}")
             news_data = {}
     else:
-        print("\n[7/9] 뉴스 수집 건너뜀")
+        print("\n[10/12] 뉴스 수집 건너뜀")
 
-    # 8. 프론트엔드용 데이터 내보내기
-    print("\n[8/9] 프론트엔드 데이터 내보내기...")
+    # 10. 프론트엔드용 데이터 내보내기
+    print("\n[11/12] 프론트엔드 데이터 내보내기...")
     try:
         export_path = export_for_frontend(
-            rising_stocks, falling_stocks, history_data, news_data, exchange_data
+            rising_stocks, falling_stocks, history_data, news_data, exchange_data,
+            volume_data=volume_data,
+            trading_value_data=trading_value_data,
+            fluctuation_data=fluctuation_data,
+            fluctuation_direct_data=fluctuation_direct_data,
+            investor_data=investor_data,
         )
         print(f"  ✓ 데이터 내보내기 완료: {export_path}")
     except Exception as e:
         print(f"  ✗ 데이터 내보내기 실패: {e}")
 
-    # 9. 텔레그램 발송
-    print("\n[9/9] 텔레그램 메시지 준비...")
+    # 11. 텔레그램 발송
+    print("\n[12/12] 텔레그램 메시지 준비...")
     telegram = TelegramSender()
 
     # 바리케이트 메시지 (환율 정보 포함)
@@ -260,6 +332,11 @@ if __name__ == "__main__":
         action="store_true",
         help="뉴스 수집 건너뛰기",
     )
+    parser.add_argument(
+        "--skip-investor",
+        action="store_true",
+        help="수급 데이터 수집 건너뛰기",
+    )
     args = parser.parse_args()
 
-    main(test_mode=args.test, skip_news=args.skip_news)
+    main(test_mode=args.test, skip_news=args.skip_news, skip_investor=args.skip_investor)

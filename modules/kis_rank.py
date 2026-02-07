@@ -1,6 +1,7 @@
 """
 한국투자증권 순위분석 API
 - 거래량 순위
+- 거래대금 순위
 - 등락률 순위 (상승/하락)
 """
 from typing import Dict, Any, List
@@ -104,12 +105,19 @@ class KISRankAPI:
         self,
         price_min: str = "",
         price_max: str = "",
+        blng_cls_code: str = "0",
     ) -> List[Dict[str, Any]]:
         """거래량순위 원본 API 호출 (내부용)
 
         Args:
             price_min: 최소 가격 조건
             price_max: 최대 가격 조건
+            blng_cls_code: 소속 구분 코드
+                - "0": 평균거래량 (기본값)
+                - "1": 거래증가율
+                - "2": 평균거래회전율
+                - "3": 거래금액순 (거래대금순위)
+                - "4": 평균거래금액회전율
 
         Returns:
             API 원본 응답의 output 리스트
@@ -122,7 +130,7 @@ class KISRankAPI:
             "FID_COND_SCR_DIV_CODE": "20171",
             "FID_INPUT_ISCD": "0000",
             "FID_DIV_CLS_CODE": "0",
-            "FID_BLNG_CLS_CODE": "0",
+            "FID_BLNG_CLS_CODE": blng_cls_code,
             "FID_TRGT_CLS_CODE": "0",
             "FID_TRGT_EXLS_CLS_CODE": "0",
             "FID_INPUT_PRICE_1": price_min,
@@ -138,14 +146,22 @@ class KISRankAPI:
 
         return result.get("output", [])
 
-    def _collect_extended_stocks(self) -> List[Dict[str, Any]]:
+    def _collect_extended_stocks(
+        self,
+        blng_cls_code: str = "0",
+        sort_field: str = "acml_vol",
+    ) -> List[Dict[str, Any]]:
         """가격대별 분할 조회로 확장된 종목 수집
 
         KIS API는 1회 최대 30개만 반환하므로,
         가격대별로 세분화하여 분할 조회합니다.
 
+        Args:
+            blng_cls_code: 소속 구분 코드 ("0": 거래량, "3": 거래대금)
+            sort_field: 정렬 기준 필드 ("acml_vol": 거래량, "acml_tr_pbmn": 거래대금)
+
         Returns:
-            중복 제거된 전체 종목 리스트 (거래량 순 정렬)
+            중복 제거된 전체 종목 리스트 (sort_field 기준 정렬)
         """
         # 세분화된 가격대 (15개 구간 → 최대 450개 종목 수집 가능)
         price_ranges = [
@@ -170,15 +186,14 @@ class KISRankAPI:
         seen_codes = set()
 
         for price_min, price_max in price_ranges:
-            stocks = self._fetch_volume_rank_raw(price_min, price_max)
+            stocks = self._fetch_volume_rank_raw(price_min, price_max, blng_cls_code)
             for stock in stocks:
                 code = stock.get("mksc_shrn_iscd", "")
                 if code and code not in seen_codes:
                     seen_codes.add(code)
                     all_stocks.append(stock)
 
-        # 거래량 기준 정렬
-        all_stocks.sort(key=lambda x: safe_int(x.get("acml_vol", 0)), reverse=True)
+        all_stocks.sort(key=lambda x: safe_int(x.get(sort_field, 0)), reverse=True)
 
         return all_stocks
 
@@ -349,6 +364,362 @@ class KISRankAPI:
             "category": "fluctuation",
             "exclude_etf": exclude_etf,
         }
+
+    def get_trading_value_rank(
+        self,
+        market: str = "ALL",
+        limit: int = 30,
+        exclude_etf: bool = False,
+        extended: bool = True,
+    ) -> List[Dict[str, Any]]:
+        """거래대금순위 조회
+
+        거래량순위 API(FHPST01710000)의 FID_BLNG_CLS_CODE="3" 으로
+        서버 측 거래대금 기준 정렬 결과를 반환합니다.
+
+        Args:
+            market: 시장 구분 ("ALL", "KOSPI", "KOSDAQ")
+            limit: 조회 건수
+            exclude_etf: ETF/ETN 제외 여부
+            extended: 확장 조회 모드 (가격대별 분할 조회로 더 많은 종목 수집)
+
+        Returns:
+            거래대금 순위 종목 리스트 (get_volume_rank()와 동일한 출력 구조)
+        """
+        if extended and exclude_etf:
+            stocks = self._collect_extended_stocks(
+                blng_cls_code="3", sort_field="acml_tr_pbmn"
+            )
+        else:
+            stocks = self._fetch_volume_rank_raw(blng_cls_code="3")
+
+        parsed = []
+        for stock in stocks:
+            code = stock.get("mksc_shrn_iscd", "")
+            name = stock.get("hts_kor_isnm", "")
+            stock_market = self._determine_market(code)
+            is_etf = self._is_etf_or_etn(code, name)
+
+            if exclude_etf and is_etf:
+                continue
+
+            market_upper = market.upper()
+            if market_upper != "ALL":
+                if market_upper == "KOSPI" and stock_market != "KOSPI":
+                    continue
+                if market_upper == "KOSDAQ" and stock_market != "KOSDAQ":
+                    continue
+
+            parsed.append({
+                "rank": len(parsed) + 1,
+                "code": code,
+                "name": name,
+                "current_price": safe_int(stock.get("stck_prpr", 0)),
+                "change_rate": safe_float(stock.get("prdy_ctrt", 0)),
+                "change_price": safe_int(stock.get("prdy_vrss", 0)),
+                "volume": safe_int(stock.get("acml_vol", 0)),
+                "volume_rate": safe_float(stock.get("vol_inrt", 0)),
+                "trading_value": safe_int(stock.get("acml_tr_pbmn", 0)),
+                "market": stock_market,
+                "is_etf": is_etf,
+            })
+
+            if len(parsed) >= limit:
+                break
+
+        return parsed
+
+    def get_top30_by_trading_value(
+        self,
+        exclude_etf: bool = True,
+    ) -> Dict[str, Any]:
+        """코스피/코스닥 거래대금 Top30 조회
+
+        Args:
+            exclude_etf: ETF/ETN 제외 여부 (기본값: True)
+
+        Returns:
+            {
+                "kospi": [...],
+                "kosdaq": [...],
+                "collected_at": "...",
+                "category": "trading_value",
+            }
+        """
+        return {
+            "kospi": self.get_trading_value_rank(market="KOSPI", limit=30, exclude_etf=exclude_etf),
+            "kosdaq": self.get_trading_value_rank(market="KOSDAQ", limit=30, exclude_etf=exclude_etf),
+            "collected_at": datetime.now().isoformat(),
+            "category": "trading_value",
+            "exclude_etf": exclude_etf,
+        }
+
+    def _fetch_fluctuation_rank_raw(self) -> List[Dict[str, Any]]:
+        """등락률순위 전용 API 원본 호출 (내부용)
+
+        FHPST01700000 전용 API를 사용합니다.
+        거래량 API(FHPST01710000)와는 별개 데이터 소스입니다.
+
+        Returns:
+            API 원본 응답의 output 리스트
+        """
+        path = "/uapi/domestic-stock/v1/ranking/fluctuation"
+        tr_id = "FHPST01700000"
+
+        params = {
+            "fid_cond_mrkt_div_code": "J",
+            "fid_cond_scr_div_code": "20170",
+            "fid_input_iscd": "0000",
+            "fid_rank_sort_cls_code": "0",
+            "fid_input_cnt_1": "0",
+            "fid_prc_cls_code": "0",
+            "fid_input_price_1": "",
+            "fid_input_price_2": "",
+            "fid_vol_cnt": "",
+            "fid_trgt_cls_code": "0",
+            "fid_trgt_exls_cls_code": "0",
+            "fid_div_cls_code": "0",
+            "fid_rsfl_rate1": "",
+            "fid_rsfl_rate2": "",
+        }
+
+        result = self.client.request("GET", path, tr_id, params=params)
+
+        if result.get("rt_cd") != "0":
+            raise Exception(f"API 오류: {result.get('msg1', 'Unknown error')}")
+
+        return result.get("output", [])
+
+    def get_fluctuation_rank_direct(
+        self,
+        market: str = "ALL",
+        direction: str = "UP",
+        limit: int = 30,
+        exclude_etf: bool = False,
+    ) -> List[Dict[str, Any]]:
+        """등락률순위 전용 API(FHPST01700000)로 직접 조회
+
+        거래량 API 기반 get_fluctuation_rank()와는 별개 데이터 소스입니다.
+        단일 API 호출(최대 30건)에서 파싱/필터링합니다.
+
+        Args:
+            market: 시장 구분 ("ALL", "KOSPI", "KOSDAQ")
+            direction: 상승/하락 ("UP": 상승, "DOWN": 하락)
+            limit: 조회 건수
+            exclude_etf: ETF/ETN 제외 여부
+
+        Returns:
+            등락률 순위 종목 리스트 (get_volume_rank()와 동일한 출력 구조)
+        """
+        raw_stocks = self._fetch_fluctuation_rank_raw()
+
+        parsed = []
+        for stock in raw_stocks:
+            # 전용 API는 stck_shrn_iscd 필드 사용 (거래량 API는 mksc_shrn_iscd)
+            code = stock.get("stck_shrn_iscd", "")
+            name = stock.get("hts_kor_isnm", "")
+            change_rate = safe_float(stock.get("prdy_ctrt", 0))
+            stock_market = self._determine_market(code)
+            is_etf = self._is_etf_or_etn(code, name)
+
+            # ETF/ETN 제외 필터
+            if exclude_etf and is_etf:
+                continue
+
+            # 시장 필터링
+            market_upper = market.upper()
+            if market_upper != "ALL":
+                if market_upper == "KOSPI" and stock_market != "KOSPI":
+                    continue
+                if market_upper == "KOSDAQ" and stock_market != "KOSDAQ":
+                    continue
+
+            # 방향 필터링 (prdy_ctrt 부호 기준)
+            direction_upper = direction.upper()
+            if direction_upper == "UP" and change_rate <= 0:
+                continue
+            if direction_upper == "DOWN" and change_rate >= 0:
+                continue
+
+            parsed.append({
+                "rank": len(parsed) + 1,
+                "code": code,
+                "name": name,
+                "current_price": safe_int(stock.get("stck_prpr", 0)),
+                "change_rate": change_rate,
+                "change_price": safe_int(stock.get("prdy_vrss", 0)),
+                "volume": safe_int(stock.get("acml_vol", 0)),
+                "volume_rate": safe_float(stock.get("vol_inrt", 0)),
+                "trading_value": safe_int(stock.get("acml_tr_pbmn", 0)),
+                "market": stock_market,
+                "is_etf": is_etf,
+                "direction": direction_upper,
+                "consecutive_up_days": safe_int(stock.get("stck_up_days", 0)),
+                "consecutive_down_days": safe_int(stock.get("stck_down_days", 0)),
+            })
+
+            if len(parsed) >= limit:
+                break
+
+        return parsed
+
+    def get_top_fluctuation_direct(
+        self,
+        exclude_etf: bool = True,
+    ) -> Dict[str, Any]:
+        """등락률순위 전용 API로 코스피/코스닥 상승·하락 조합 조회
+
+        단일 API 호출(30건)로 4개 카테고리를 분리하므로,
+        카테고리당 건수가 적을 수 있습니다 (API 한계).
+
+        get_top30_by_fluctuation()과 동일한 반환 구조입니다.
+
+        Args:
+            exclude_etf: ETF/ETN 제외 여부 (기본값: True)
+
+        Returns:
+            {
+                "kospi_up": [...],
+                "kospi_down": [...],
+                "kosdaq_up": [...],
+                "kosdaq_down": [...],
+                "collected_at": "...",
+                "category": "fluctuation_direct",
+            }
+        """
+        raw_stocks = self._fetch_fluctuation_rank_raw()
+
+        categories = {
+            "kospi_up": [],
+            "kospi_down": [],
+            "kosdaq_up": [],
+            "kosdaq_down": [],
+        }
+
+        for stock in raw_stocks:
+            code = stock.get("stck_shrn_iscd", "")
+            name = stock.get("hts_kor_isnm", "")
+            change_rate = safe_float(stock.get("prdy_ctrt", 0))
+            stock_market = self._determine_market(code)
+            is_etf = self._is_etf_or_etn(code, name)
+
+            if exclude_etf and is_etf:
+                continue
+
+            # 보합(0%)은 제외
+            if change_rate == 0:
+                continue
+
+            # 시장 + 방향 결정
+            if stock_market == "KOSPI":
+                market_key = "kospi"
+            elif stock_market == "KOSDAQ":
+                market_key = "kosdaq"
+            else:
+                continue
+
+            direction_key = "up" if change_rate > 0 else "down"
+            category_key = f"{market_key}_{direction_key}"
+
+            target = categories[category_key]
+            target.append({
+                "rank": len(target) + 1,
+                "code": code,
+                "name": name,
+                "current_price": safe_int(stock.get("stck_prpr", 0)),
+                "change_rate": change_rate,
+                "change_price": safe_int(stock.get("prdy_vrss", 0)),
+                "volume": safe_int(stock.get("acml_vol", 0)),
+                "volume_rate": safe_float(stock.get("vol_inrt", 0)),
+                "trading_value": safe_int(stock.get("acml_tr_pbmn", 0)),
+                "market": stock_market,
+                "is_etf": is_etf,
+                "direction": "UP" if change_rate > 0 else "DOWN",
+                "consecutive_up_days": safe_int(stock.get("stck_up_days", 0)),
+                "consecutive_down_days": safe_int(stock.get("stck_down_days", 0)),
+            })
+
+        # 카테고리별 change_rate 기준 재정렬 + 순위 재할당
+        for key in ("kospi_up", "kosdaq_up"):
+            categories[key].sort(key=lambda x: x["change_rate"], reverse=True)
+            for idx, stock in enumerate(categories[key]):
+                stock["rank"] = idx + 1
+
+        for key in ("kospi_down", "kosdaq_down"):
+            categories[key].sort(key=lambda x: x["change_rate"])
+            for idx, stock in enumerate(categories[key]):
+                stock["rank"] = idx + 1
+
+        return {
+            **categories,
+            "collected_at": datetime.now().isoformat(),
+            "category": "fluctuation_direct",
+            "exclude_etf": exclude_etf,
+        }
+
+    def get_investor_data(self, stocks: List[Dict]) -> Dict[str, Dict]:
+        """여러 종목의 투자자(수급) 데이터 일괄 조회
+
+        KIS API FHKST01010900을 종목별로 호출하여
+        외국인/기관 순매수 데이터를 수집
+
+        Args:
+            stocks: 종목 리스트 [{"code": "...", "name": "...", ...}, ...]
+
+        Returns:
+            {종목코드: {"name", "foreign_net", "institution_net", "individual_net"}, ...}
+        """
+        import time
+
+        path = "/uapi/domestic-stock/v1/quotations/inquire-investor"
+        tr_id = "FHKST01010900"
+
+        result = {}
+        total = len(stocks)
+
+        for idx, stock in enumerate(stocks):
+            code = stock.get("code", "")
+            name = stock.get("name", "")
+
+            if not code:
+                continue
+
+            try:
+                params = {
+                    "FID_COND_MRKT_DIV_CODE": "J",
+                    "FID_INPUT_ISCD": code,
+                }
+
+                response = self.client.request("GET", path, tr_id, params=params)
+
+                if response.get("rt_cd") != "0":
+                    continue
+
+                output = response.get("output", [])
+                if not output:
+                    continue
+
+                # 당일 데이터 (첫 번째 항목)
+                today = output[0]
+                result[code] = {
+                    "name": name,
+                    "foreign_net": safe_int(today.get("frgn_ntby_qty", 0)),
+                    "institution_net": safe_int(today.get("orgn_ntby_qty", 0)),
+                    "individual_net": safe_int(today.get("prsn_ntby_qty", 0)),
+                }
+
+            except Exception as e:
+                print(f"  ⚠ {name}({code}) 투자자 데이터 조회 실패: {e}")
+                continue
+
+            # 진행 상황 출력
+            if (idx + 1) % 10 == 0 or idx + 1 == total:
+                print(f"  진행: {idx + 1}/{total}")
+
+            # API 호출 간격 (Rate limit 방지)
+            time.sleep(0.05)
+
+        return result
 
     def get_all_top30(
         self,
