@@ -26,14 +26,14 @@ function CompactHeader({ showTradingValue, hasInvestorData, investorEstimated }:
         <span className="w-5 text-center shrink-0">#</span>
         <span>종목명</span>
       </div>
-      <div className="flex items-center shrink-0 pr-2">
+      <div className="flex items-center shrink-0 ml-auto pr-2">
         <span className="text-right w-16 sm:w-20">현재가</span>
-        {showTradingValue && <span className="text-right w-12 sm:w-16">거래대금</span>}
-        <span className="text-right w-11 sm:w-14">거래량</span>
-        {hasInvestorData && <span className="text-right w-12 sm:w-14">외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
-        {hasInvestorData && <span className="text-right w-12 sm:w-14">기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
-        {hasInvestorData && <span className="text-right w-12 sm:w-14">{investorEstimated ? "" : "개인"}</span>}
-        <span className="text-center w-14 sm:w-16">등락률</span>
+        {showTradingValue && <span className="text-right w-14 sm:w-16">거래대금</span>}
+        <span className="text-right w-12 sm:w-14">거래량</span>
+        {hasInvestorData && <span className="text-right w-14 sm:w-16">외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
+        {hasInvestorData && <span className="text-right w-14 sm:w-16">기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
+        {hasInvestorData && <span className="text-right w-14 sm:w-16">{investorEstimated ? "" : "개인"}</span>}
+        <span className="text-right w-16 sm:w-18">등락률</span>
       </div>
     </div>
   )
@@ -68,35 +68,35 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
       </div>
 
       {/* Scrollable right: Data columns */}
-      <div className="flex items-center shrink-0 pr-2">
+      <div className="flex items-center shrink-0 ml-auto pr-2">
         <span className="text-xs font-medium tabular-nums text-right w-16 sm:w-20">
           {formatPrice(stock.current_price)}<span className="text-[9px] text-muted-foreground">원</span>
         </span>
         {showTradingValue && (
-          <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-16">
+          <span className="text-[10px] text-muted-foreground tabular-nums text-right w-14 sm:w-16">
             {stock.trading_value ? formatTradingValue(stock.trading_value) : "-"}
           </span>
         )}
-        <span className="text-[10px] text-muted-foreground tabular-nums text-right w-11 sm:w-14">
+        <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-14">
           {formatVolume(stock.volume)}
         </span>
         {hasInvestorData && (
-          <span className={cn("text-[10px] tabular-nums text-right w-12 sm:w-14", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
+          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
             {investorInfo ? formatNetBuy(investorInfo.foreign_net) : "-"}
           </span>
         )}
         {hasInvestorData && (
-          <span className={cn("text-[10px] tabular-nums text-right w-12 sm:w-14", investorInfo ? getNetBuyColor(investorInfo.institution_net) : "text-muted-foreground")}>
+          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.institution_net) : "text-muted-foreground")}>
             {investorInfo ? formatNetBuy(investorInfo.institution_net) : "-"}
           </span>
         )}
         {hasInvestorData && (
-          <span className={cn("text-[10px] tabular-nums text-right w-12 sm:w-14", investorInfo?.individual_net != null ? getNetBuyColor(investorInfo.individual_net) : "text-muted-foreground")}>
+          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.individual_net != null ? getNetBuyColor(investorInfo.individual_net) : "text-muted-foreground")}>
             {investorInfo?.individual_net != null ? formatNetBuy(investorInfo.individual_net) : "-"}
           </span>
         )}
         <span className={cn(
-          "text-[10px] font-semibold px-1.5 py-0.5 rounded text-right w-14 sm:w-16",
+          "text-[10px] font-semibold px-1.5 py-0.5 rounded text-right w-16 sm:w-18",
           effectiveRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
         )}>
           {formatChangeRate(stock.change_rate)}
