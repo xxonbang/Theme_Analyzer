@@ -18,7 +18,7 @@ const FLUCTUATION_MODE_KEY = "stock-dashboard-fluctuation-mode"
 const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
-  const { data: currentData, loading, error, refreshFromAPI } = useStockData()
+  const { data: currentData, loading, error, refreshFromAPI, refreshElapsed } = useStockData()
   const {
     groupedHistory,
     selectedData: historyData,
@@ -259,6 +259,7 @@ function App() {
         onToggleCompact={toggleCompactMode}
         onHistoryClick={handleHistoryClick}
         isViewingHistory={isViewingHistory}
+        refreshElapsed={refreshElapsed}
       />
 
       {/* 히스토리 보기 중 배너 */}

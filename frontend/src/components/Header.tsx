@@ -10,9 +10,10 @@ interface HeaderProps {
   onToggleCompact?: () => void
   onHistoryClick?: () => void
   isViewingHistory?: boolean
+  refreshElapsed?: number
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed }: HeaderProps) {
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
@@ -423,6 +424,14 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 />
               )}
             </button>
+          )}
+
+          {/* Refresh Elapsed Time */}
+          {loading && refreshElapsed != null && refreshElapsed > 0 && (
+            <span className="text-xs text-muted-foreground tabular-nums animate-pulse">
+              <span className="hidden sm:inline">갱신 중 </span>
+              {refreshElapsed}초
+            </span>
           )}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import type { StockData } from "@/types/stock"
 
 const DATA_URL = import.meta.env.BASE_URL + "data/latest.json"
@@ -10,12 +10,15 @@ interface UseStockDataReturn {
   error: string | null
   refetch: () => Promise<void>
   refreshFromAPI: () => Promise<void>
+  refreshElapsed: number
 }
 
 export function useStockData(): UseStockDataReturn {
   const [data, setData] = useState<StockData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshElapsed, setRefreshElapsed] = useState(0)
+  const refreshTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -42,10 +45,16 @@ export function useStockData(): UseStockDataReturn {
   const refreshFromAPI = useCallback(async () => {
     setLoading(true)
     setError(null)
+    setRefreshElapsed(0)
+
+    // 1초 간격 경과 시간 카운터
+    refreshTimerRef.current = setInterval(() => {
+      setRefreshElapsed((prev) => prev + 1)
+    }, 1000)
 
     try {
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 90000)
+      const timeoutId = setTimeout(() => controller.abort(), 180000)
 
       const response = await fetch(API_URL + "/api/refresh", {
         signal: controller.signal,
@@ -71,6 +80,11 @@ export function useStockData(): UseStockDataReturn {
       // 폴백: 기존 latest.json 다시 로드
       await fetchData()
     } finally {
+      if (refreshTimerRef.current) {
+        clearInterval(refreshTimerRef.current)
+        refreshTimerRef.current = null
+      }
+      setRefreshElapsed(0)
       setLoading(false)
     }
   }, [fetchData])
@@ -79,7 +93,16 @@ export function useStockData(): UseStockDataReturn {
     fetchData()
   }, [fetchData])
 
-  return { data, loading, error, refetch: fetchData, refreshFromAPI }
+  // Cleanup interval on unmount
+  useEffect(() => {
+    return () => {
+      if (refreshTimerRef.current) {
+        clearInterval(refreshTimerRef.current)
+      }
+    }
+  }, [])
+
+  return { data, loading, error, refetch: fetchData, refreshFromAPI, refreshElapsed }
 }
 
 function getMockData(): StockData {

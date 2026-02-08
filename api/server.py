@@ -5,6 +5,7 @@ Refresh 버튼 클릭 시 최신 주식 데이터를 실시간으로 수집하�
 import os
 import sys
 from datetime import datetime, timezone, timedelta
+from concurrent.futures import ThreadPoolExecutor
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -56,18 +57,11 @@ def refresh():
     """실시간 데이터 수집 - latest.json과 동일한 구조 반환
 
     main.py의 step 1~9를 실행 (뉴스/텔레그램 제외)
+    독립적인 API 호출은 ThreadPoolExecutor로 병렬 실행하여 응답 시간 단축
     """
     errors = []
 
-    # 1. 환율 정보 조회
-    exchange_data = {}
-    try:
-        exchange_api = ExchangeRateAPI()
-        exchange_data = exchange_api.get_exchange_rates()
-    except Exception as e:
-        errors.append(f"환율 조회 실패: {e}")
-
-    # 2. KIS API 연결
+    # === Phase A: KIS Client 초기화 (순차 필수) ===
     try:
         client = KISClient()
         rank_api = KISRankAPI(client)
@@ -75,38 +69,78 @@ def refresh():
     except Exception as e:
         return {"error": f"KIS API 연결 실패: {e}", "errors": errors}
 
-    # 3. 거래량 TOP30
-    try:
-        volume_data = rank_api.get_top30_by_volume(exclude_etf=True)
-    except Exception as e:
-        return {"error": f"거래량 조회 실패: {e}", "errors": errors}
-
-    # 4. 거래대금 TOP30
+    # === Phase B: 환율(별도 스레드) + KIS 랭킹 4종(순차) 병렬 실행 ===
+    # KIS API는 초당 호출 제한이 있어 랭킹 API끼리는 순차 실행 필수
+    # 환율은 별도 서비스(한국수출입은행)이므로 KIS 호출과 병렬 가능
+    exchange_data = {}
+    volume_data = {}
     trading_value_data = {}
-    try:
-        trading_value_data = rank_api.get_top30_by_trading_value(exclude_etf=True)
-    except Exception as e:
-        errors.append(f"거래대금 조회 실패: {e}")
-
-    # 5. 등락폭 TOP30 (자체 계산)
-    try:
-        fluctuation_data = rank_api.get_top30_by_fluctuation(exclude_etf=True)
-    except Exception as e:
-        return {"error": f"등락폭 조회 실패: {e}", "errors": errors}
-
-    # 6. 등락률 전용 API
+    fluctuation_data = {}
     fluctuation_direct_data = {}
-    try:
-        fluctuation_direct_data = rank_api.get_top_fluctuation_direct(exclude_etf=True)
-    except Exception as e:
-        errors.append(f"등락률 전용 API 실패: {e}")
 
-    # 7. 교차 필터링
+    def fetch_exchange():
+        return ExchangeRateAPI().get_exchange_rates()
+
+    def fetch_kis_rankings():
+        """KIS 랭킹 API 4종을 순차 실행하여 rate limit 회피"""
+        results = {}
+        # 거래량 (critical)
+        results["volume"] = rank_api.get_top30_by_volume(exclude_etf=True)
+        # 거래대금 (non-critical)
+        try:
+            results["trading_value"] = rank_api.get_top30_by_trading_value(exclude_etf=True)
+        except Exception as e:
+            results["trading_value_error"] = str(e)
+        # 등락폭 (critical)
+        results["fluctuation"] = rank_api.get_top30_by_fluctuation(exclude_etf=True)
+        # 등락률 전용 API (non-critical)
+        try:
+            results["fluctuation_direct"] = rank_api.get_top_fluctuation_direct(exclude_etf=True)
+        except Exception as e:
+            results["fluctuation_direct_error"] = str(e)
+        return results
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        future_exchange = executor.submit(fetch_exchange)
+        future_kis = executor.submit(fetch_kis_rankings)
+
+        # 환율 (non-critical)
+        try:
+            exchange_data = future_exchange.result()
+        except Exception as e:
+            errors.append(f"환율 조회 실패: {e}")
+
+        # KIS 랭킹 4종
+        try:
+            kis_results = future_kis.result()
+        except Exception as e:
+            return {"error": f"KIS 랭킹 조회 실패: {e}", "errors": errors}
+
+        # critical 결과 추출
+        volume_data = kis_results.get("volume")
+        if not volume_data:
+            return {"error": "거래량 조회 실패", "errors": errors}
+
+        fluctuation_data = kis_results.get("fluctuation")
+        if not fluctuation_data:
+            return {"error": "등락폭 조회 실패", "errors": errors}
+
+        # non-critical 결과 추출
+        if "trading_value_error" in kis_results:
+            errors.append(f"거래대금 조회 실패: {kis_results['trading_value_error']}")
+        else:
+            trading_value_data = kis_results.get("trading_value", {})
+
+        if "fluctuation_direct_error" in kis_results:
+            errors.append(f"등락률 전용 API 실패: {kis_results['fluctuation_direct_error']}")
+        else:
+            fluctuation_direct_data = kis_results.get("fluctuation_direct", {})
+
+    # === Phase C: 교차 필터링 + all_stocks 수집 (in-memory, 순차) ===
     stock_filter = StockFilter()
     rising_stocks = stock_filter.filter_rising_stocks(volume_data, fluctuation_data)
     falling_stocks = stock_filter.filter_falling_stocks(volume_data, fluctuation_data)
 
-    # 전체 종목 리스트 (중복 제거)
     all_stocks = collect_all_stocks(
         rising_stocks, falling_stocks,
         volume_data=volume_data,
@@ -115,21 +149,31 @@ def refresh():
         fluctuation_direct_data=fluctuation_direct_data,
     )
 
-    # 8. 3일간 등락률 조회
+    # === Phase D: 히스토리 + 투자자 데이터 병렬 실행 ===
     history_data = {}
-    try:
-        history_data = history_api.get_multiple_stocks_history(all_stocks, days=3)
-    except Exception as e:
-        errors.append(f"등락률 조회 실패: {e}")
-
-    # 9. 수급(투자자) 데이터
     investor_data = {}
-    try:
-        investor_data = rank_api.get_investor_data(all_stocks)
-    except Exception as e:
-        errors.append(f"수급 데이터 수집 실패: {e}")
 
-    # latest.json과 동일한 구조로 반환
+    def fetch_history():
+        return history_api.get_multiple_stocks_history(all_stocks, days=3)
+
+    def fetch_investor():
+        return rank_api.get_investor_data(all_stocks)
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        future_history = executor.submit(fetch_history)
+        future_investor = executor.submit(fetch_investor)
+
+        try:
+            history_data = future_history.result()
+        except Exception as e:
+            errors.append(f"등락률 조회 실패: {e}")
+
+        try:
+            investor_data = future_investor.result()
+        except Exception as e:
+            errors.append(f"수급 데이터 수집 실패: {e}")
+
+    # === Phase E: 응답 조립 ===
     data = {
         "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
         "exchange": exchange_data or {},
