@@ -110,7 +110,7 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
     <div className="bg-card/80 backdrop-blur-sm border-b border-border/50 shadow-sm">
       <div className="container px-3 sm:px-4 py-2.5 sm:py-3">
         {/* 상단: 탭 */}
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-center">
           <div
             ref={containerRef}
             role="tablist"
@@ -135,7 +135,7 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
                 onClick={() => onTabChange(tab.key)}
                 onKeyDown={(e) => handleTabKeyDown(e, tab.key)}
                 className={cn(
-                  "relative z-10 px-2.5 sm:px-4 py-2 sm:py-2 text-[11px] sm:text-sm font-medium rounded-md",
+                  "relative z-10 px-3 sm:px-4 py-2 sm:py-2 text-[11px] sm:text-sm font-medium rounded-md text-center",
                   "transition-all duration-200 whitespace-nowrap",
                   activeTab === tab.key
                     ? "text-foreground"
