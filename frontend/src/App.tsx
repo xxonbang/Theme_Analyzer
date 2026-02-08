@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { StockList } from "@/components/StockList"
@@ -6,7 +6,7 @@ import { TabBar } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
-import { Loader2, ArrowLeft, Calendar, Clock } from "lucide-react"
+import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
@@ -74,6 +74,21 @@ function App() {
   useEffect(() => {
     localStorage.setItem(COMPOSITE_MODE_KEY, compositeMode)
   }, [compositeMode])
+
+  // Scroll to top 버튼 상태
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300)
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
 
   const toggleCompactMode = () => {
     setCompactMode((prev) => !prev)
@@ -462,6 +477,24 @@ function App() {
         loading={historyLoading}
         error={historyError}
       />
+
+      {/* Scroll to Top */}
+      <button
+        onClick={scrollToTop}
+        aria-label="맨 위로 이동"
+        className={cn(
+          "fixed bottom-6 right-6 z-50",
+          "w-10 h-10 rounded-full",
+          "bg-primary/90 text-primary-foreground",
+          "shadow-lg shadow-primary/20 backdrop-blur-sm",
+          "flex items-center justify-center",
+          "hover:bg-primary hover:scale-110 active:scale-95",
+          "transition-all duration-200",
+          showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
+        )}
+      >
+        <ChevronUp className="w-5 h-5" />
+      </button>
     </div>
   )
 }
