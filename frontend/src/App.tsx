@@ -329,7 +329,7 @@ function App() {
       <main className="container px-3 sm:px-4 py-4 sm:py-6">
         {error && !isViewingHistory && (
           <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg bg-warning/10 border border-warning/20 text-warning">
-            <p className="text-xs sm:text-sm">{error} (데모 데이터를 표시합니다)</p>
+            <p className="text-xs sm:text-sm">{error} (이전 데이터를 표시합니다)</p>
           </div>
         )}
 

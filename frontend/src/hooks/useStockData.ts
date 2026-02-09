@@ -5,9 +5,9 @@ const DATA_URL = import.meta.env.BASE_URL + "data/latest.json"
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || ""
 const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || ""
 
-const POLL_INTERVAL = 5000 // 5초 간격 polling
-const POLL_DELAY = 10000 // 10초 대기 후 polling 시작
-const POLL_TIMEOUT = 300000 // 5분 타임아웃
+const POLL_INTERVAL = 10000 // 10초 간격 polling
+const POLL_DELAY = 60000 // 60초 대기 후 polling 시작 (워크플로우 셋업 시간)
+const POLL_TIMEOUT = 600000 // 10분 타임아웃 (워크플로우 ~6분 + Pages배포 + CDN전파)
 
 interface UseStockDataReturn {
   data: StockData | null
@@ -105,7 +105,9 @@ export function useStockData(): UseStockDataReturn {
             }
 
             try {
-              const res = await fetch(DATA_URL + "?t=" + Date.now())
+              const res = await fetch(DATA_URL + "?t=" + Date.now(), {
+                cache: "no-store",
+              })
               if (!res.ok) return
 
               const json = await res.json()
