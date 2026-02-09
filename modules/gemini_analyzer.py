@@ -91,22 +91,37 @@ def _build_stock_context(stock_data: Dict[str, Any]) -> str:
             lines.append(f"- {s.get('name')}({s.get('code')}) 코스닥 {s.get('change_rate', 0):.2f}% 현재가:{s.get('current_price', 0):,}원")
 
     # 거래대금+등락률 교차 필터 (거래대금 순서 기준, 등락률 TOP에도 포함된 종목)
-    fluc_all_codes = set()
-    for lst in [fluc.get("kospi_up", []), fluc.get("kospi_down", []),
-                fluc.get("kosdaq_up", []), fluc.get("kosdaq_down", [])]:
-        for s in lst:
-            fluc_all_codes.add(s.get("code", ""))
+    fluc_up_codes = set(
+        s.get("code", "") for s in fluc.get("kospi_up", []) + fluc.get("kosdaq_up", [])
+    )
+    fluc_down_codes = set(
+        s.get("code", "") for s in fluc.get("kospi_down", []) + fluc.get("kosdaq_down", [])
+    )
     tv_all_kospi = stock_data.get("trading_value", {}).get("kospi", [])
     tv_all_kosdaq = stock_data.get("trading_value", {}).get("kosdaq", [])
-    cross_kospi = [s for s in tv_all_kospi if s.get("code", "") in fluc_all_codes][:10]
-    cross_kosdaq = [s for s in tv_all_kosdaq if s.get("code", "") in fluc_all_codes][:10]
-    if cross_kospi or cross_kosdaq:
-        lines.append("\n## 거래대금+등락률 교차 종목 (대금 순)")
-        for s in cross_kospi:
+
+    cross_kospi_up = [s for s in tv_all_kospi if s.get("code", "") in fluc_up_codes][:10]
+    cross_kosdaq_up = [s for s in tv_all_kosdaq if s.get("code", "") in fluc_up_codes][:10]
+    if cross_kospi_up or cross_kosdaq_up:
+        lines.append("\n## 거래대금+상승률 교차 종목 (대금 순)")
+        for s in cross_kospi_up:
+            tv = s.get("trading_value", 0)
+            tv_str = f"{tv / 100_000_000:,.0f}억원" if tv else "N/A"
+            lines.append(f"- {s.get('name')}({s.get('code')}) 코스피 등락:+{s.get('change_rate', 0):.2f}% 거래대금:{tv_str}")
+        for s in cross_kosdaq_up:
+            tv = s.get("trading_value", 0)
+            tv_str = f"{tv / 100_000_000:,.0f}억원" if tv else "N/A"
+            lines.append(f"- {s.get('name')}({s.get('code')}) 코스닥 등락:+{s.get('change_rate', 0):.2f}% 거래대금:{tv_str}")
+
+    cross_kospi_down = [s for s in tv_all_kospi if s.get("code", "") in fluc_down_codes][:10]
+    cross_kosdaq_down = [s for s in tv_all_kosdaq if s.get("code", "") in fluc_down_codes][:10]
+    if cross_kospi_down or cross_kosdaq_down:
+        lines.append("\n## 거래대금+하락률 교차 종목 (대금 순)")
+        for s in cross_kospi_down:
             tv = s.get("trading_value", 0)
             tv_str = f"{tv / 100_000_000:,.0f}억원" if tv else "N/A"
             lines.append(f"- {s.get('name')}({s.get('code')}) 코스피 등락:{s.get('change_rate', 0):.2f}% 거래대금:{tv_str}")
-        for s in cross_kosdaq:
+        for s in cross_kosdaq_down:
             tv = s.get("trading_value", 0)
             tv_str = f"{tv / 100_000_000:,.0f}억원" if tv else "N/A"
             lines.append(f"- {s.get('name')}({s.get('code')}) 코스닥 등락:{s.get('change_rate', 0):.2f}% 거래대금:{tv_str}")
