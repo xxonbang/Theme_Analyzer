@@ -1,0 +1,7999 @@
+{
+  "timestamp": "2026-02-07 23:47:33",
+  "exchange": {
+    "timestamp": "",
+    "search_date": "",
+    "rates": []
+  },
+  "rising": {
+    "kospi": [
+      {
+        "rank": 1,
+        "code": "004060",
+        "name": "SG세계물산",
+        "current_price": 491,
+        "change_rate": 10.34,
+        "change_price": 46,
+        "volume": 155125644,
+        "volume_rate": 80.22,
+        "trading_value": 83509722188,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "225190",
+        "name": "LK삼양",
+        "current_price": 2545,
+        "change_rate": 29.91,
+        "change_price": 586,
+        "volume": 75103036,
+        "volume_rate": 651.32,
+        "trading_value": 177866946313,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "033340",
+        "name": "좋은사람들",
+        "current_price": 1916,
+        "change_rate": 16.12,
+        "change_price": 266,
+        "volume": 62017845,
+        "volume_rate": 5908.84,
+        "trading_value": 118276331075,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "009830",
+        "name": "한화솔루션",
+        "current_price": 42000,
+        "change_rate": 15.38,
+        "change_price": 5600,
+        "volume": 53082158,
+        "volume_rate": 161.24,
+        "trading_value": 2169531631450,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "255220",
+        "name": "SG",
+        "current_price": 3350,
+        "change_rate": 12.98,
+        "change_price": 385,
+        "volume": 50427397,
+        "volume_rate": 238.29,
+        "trading_value": 165913899939,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "047770",
+        "name": "코데즈컴바인",
+        "current_price": 3970,
+        "change_rate": 29.95,
+        "change_price": 915,
+        "volume": 31678976,
+        "volume_rate": 3055.13,
+        "trading_value": 115654744330,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "007110",
+        "name": "일신석재",
+        "current_price": 1811,
+        "change_rate": 12.76,
+        "change_price": 205,
+        "volume": 20070485,
+        "volume_rate": 4378.91,
+        "trading_value": 36554374575,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "034940",
+        "name": "조아제약",
+        "current_price": 1028,
+        "change_rate": 13.84,
+        "change_price": 125,
+        "volume": 15700474,
+        "volume_rate": 9999.99,
+        "trading_value": 17059536350,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "019570",
+        "name": "플루토스",
+        "current_price": 332,
+        "change_rate": 29.69,
+        "change_price": 76,
+        "volume": 13281440,
+        "volume_rate": 4065.71,
+        "trading_value": 4309465929,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "092040",
+        "name": "아미코젠",
+        "current_price": 1693,
+        "change_rate": 13.62,
+        "change_price": 203,
+        "volume": 12507785,
+        "volume_rate": 1242.23,
+        "trading_value": 21710347256,
+        "market": "KOSPI",
+        "is_etf": false
+      }
+    ],
+    "kosdaq": [
+      {
+        "rank": 1,
+        "code": "321370",
+        "name": "센서뷰",
+        "current_price": 3590,
+        "change_rate": 8.3,
+        "change_price": 275,
+        "volume": 8720865,
+        "volume_rate": 298.11,
+        "trading_value": 30934563328,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "317240",
+        "name": "TS트릴리온",
+        "current_price": 415,
+        "change_rate": 2.22,
+        "change_price": 9,
+        "volume": 6672333,
+        "volume_rate": 101.18,
+        "trading_value": 2647693068,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "417010",
+        "name": "나노팀",
+        "current_price": 12440,
+        "change_rate": 12.58,
+        "change_price": 1390,
+        "volume": 6399680,
+        "volume_rate": 1129.73,
+        "trading_value": 79406932985,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "474170",
+        "name": "루미르",
+        "current_price": 19460,
+        "change_rate": 7.57,
+        "change_price": 1370,
+        "volume": 6056174,
+        "volume_rate": 360.47,
+        "trading_value": 117501169360,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "347700",
+        "name": "스피어",
+        "current_price": 37350,
+        "change_rate": 29.91,
+        "change_price": 8600,
+        "volume": 6034625,
+        "volume_rate": 404.98,
+        "trading_value": 208733406650,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "332290",
+        "name": "누보",
+        "current_price": 1217,
+        "change_rate": 6.66,
+        "change_price": 76,
+        "volume": 5400282,
+        "volume_rate": 1566.02,
+        "trading_value": 6492303311,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "322000",
+        "name": "HD현대에너지솔루션",
+        "current_price": 84200,
+        "change_rate": 2.81,
+        "change_price": 2300,
+        "volume": 5337805,
+        "volume_rate": 100.84,
+        "trading_value": 460931164500,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "440110",
+        "name": "파두",
+        "current_price": 45150,
+        "change_rate": 1.01,
+        "change_price": 450,
+        "volume": 5142934,
+        "volume_rate": 32.03,
+        "trading_value": 231465459750,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "382800",
+        "name": "지앤비에스 에코",
+        "current_price": 3845,
+        "change_rate": 10.81,
+        "change_price": 375,
+        "volume": 4646521,
+        "volume_rate": 414.84,
+        "trading_value": 18205411027,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "331920",
+        "name": "셀레믹스",
+        "current_price": 4265,
+        "change_rate": 8.8,
+        "change_price": 345,
+        "volume": 3042397,
+        "volume_rate": 114.37,
+        "trading_value": 13652963299,
+        "market": "KOSDAQ",
+        "is_etf": false
+      }
+    ]
+  },
+  "falling": {
+    "kospi": [
+      {
+        "rank": 1,
+        "code": "016600",
+        "name": "큐캐피탈",
+        "current_price": 288,
+        "change_rate": -10.56,
+        "change_price": -34,
+        "volume": 64822239,
+        "volume_rate": 153.6,
+        "trading_value": 20957721944,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "065170",
+        "name": "비엘팜텍",
+        "current_price": 5000,
+        "change_rate": -17.49,
+        "change_price": -1060,
+        "volume": 34072062,
+        "volume_rate": 7377.09,
+        "trading_value": 175860407820,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "083640",
+        "name": "인콘",
+        "current_price": 470,
+        "change_rate": -16.96,
+        "change_price": -96,
+        "volume": 30742561,
+        "volume_rate": 31.68,
+        "trading_value": 15913206373,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "038530",
+        "name": "케이바이오",
+        "current_price": 306,
+        "change_rate": -7.27,
+        "change_price": -24,
+        "volume": 22184035,
+        "volume_rate": 25.11,
+        "trading_value": 7311187222,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "018880",
+        "name": "한온시스템",
+        "current_price": 3760,
+        "change_rate": -6.7,
+        "change_price": -270,
+        "volume": 14546653,
+        "volume_rate": 33.87,
+        "trading_value": 54834640004,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "227950",
+        "name": "엔투텍",
+        "current_price": 387,
+        "change_rate": -13.62,
+        "change_price": -61,
+        "volume": 13463629,
+        "volume_rate": 135.79,
+        "trading_value": 5450042874,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "115530",
+        "name": "씨엔플러스",
+        "current_price": 325,
+        "change_rate": -17.93,
+        "change_price": -71,
+        "volume": 10940441,
+        "volume_rate": 125.32,
+        "trading_value": 3565077264,
+        "market": "KOSPI",
+        "is_etf": false
+      }
+    ],
+    "kosdaq": [
+      {
+        "rank": 1,
+        "code": "452260",
+        "name": "한화갤러리아",
+        "current_price": 2140,
+        "change_rate": -1.15,
+        "change_price": -25,
+        "volume": 14113847,
+        "volume_rate": 41.34,
+        "trading_value": 30681222844,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "389680",
+        "name": "유디엠텍",
+        "current_price": 1153,
+        "change_rate": -15.84,
+        "change_price": -217,
+        "volume": 8694976,
+        "volume_rate": 19.39,
+        "trading_value": 10299212001,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "365330",
+        "name": "에스와이스틸텍",
+        "current_price": 4080,
+        "change_rate": -1.92,
+        "change_price": -80,
+        "volume": 7027760,
+        "volume_rate": 32.99,
+        "trading_value": 28733158593,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "373110",
+        "name": "엑셀세라퓨틱스",
+        "current_price": 1621,
+        "change_rate": -15.22,
+        "change_price": -291,
+        "volume": 4668721,
+        "volume_rate": 84.31,
+        "trading_value": 8191215758,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "323410",
+        "name": "카카오뱅크",
+        "current_price": 26000,
+        "change_rate": -3.17,
+        "change_price": -850,
+        "volume": 4237840,
+        "volume_rate": 20.55,
+        "trading_value": 109828025875,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "451700",
+        "name": "엔에이치스팩29호",
+        "current_price": 2440,
+        "change_rate": -6.15,
+        "change_price": -160,
+        "volume": 3536275,
+        "volume_rate": 0.0,
+        "trading_value": 8807995696,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "319400",
+        "name": "현대무벡스",
+        "current_price": 31050,
+        "change_rate": -6.62,
+        "change_price": -2200,
+        "volume": 3026755,
+        "volume_rate": 161.75,
+        "trading_value": 92707080100,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "336570",
+        "name": "원텍",
+        "current_price": 8070,
+        "change_rate": -8.92,
+        "change_price": -790,
+        "volume": 2280575,
+        "volume_rate": 217.34,
+        "trading_value": 18708551135,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "380540",
+        "name": "옵티코어",
+        "current_price": 3700,
+        "change_rate": -8.19,
+        "change_price": -330,
+        "volume": 2147398,
+        "volume_rate": 41.49,
+        "trading_value": 7902709962,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "340930",
+        "name": "유일에너테크",
+        "current_price": 1343,
+        "change_rate": -4.34,
+        "change_price": -61,
+        "volume": 2013113,
+        "volume_rate": 68.95,
+        "trading_value": 2694300557,
+        "market": "KOSDAQ",
+        "is_etf": false
+      }
+    ]
+  },
+  "volume": {
+    "kospi": [
+      {
+        "rank": 1,
+        "code": "004060",
+        "name": "SG세계물산",
+        "current_price": 491,
+        "change_rate": 10.34,
+        "change_price": 46,
+        "volume": 155125644,
+        "volume_rate": 80.22,
+        "trading_value": 83509722188,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "225190",
+        "name": "LK삼양",
+        "current_price": 2545,
+        "change_rate": 29.91,
+        "change_price": 586,
+        "volume": 75103036,
+        "volume_rate": 651.32,
+        "trading_value": 177866946313,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 1,
+        "code": "016600",
+        "name": "큐캐피탈",
+        "current_price": 288,
+        "change_rate": -10.56,
+        "change_price": -34,
+        "volume": 64822239,
+        "volume_rate": 153.6,
+        "trading_value": 20957721944,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "033340",
+        "name": "좋은사람들",
+        "current_price": 1916,
+        "change_rate": 16.12,
+        "change_price": 266,
+        "volume": 62017845,
+        "volume_rate": 5908.84,
+        "trading_value": 118276331075,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "038500",
+        "name": "삼표시멘트",
+        "current_price": 19650,
+        "change_rate": 6.56,
+        "change_price": 1210,
+        "volume": 59988353,
+        "volume_rate": 0.0,
+        "trading_value": 1186238362045,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "009830",
+        "name": "한화솔루션",
+        "current_price": 42000,
+        "change_rate": 15.38,
+        "change_price": 5600,
+        "volume": 53082158,
+        "volume_rate": 161.24,
+        "trading_value": 2169531631450,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "255220",
+        "name": "SG",
+        "current_price": 3350,
+        "change_rate": 12.98,
+        "change_price": 385,
+        "volume": 50427397,
+        "volume_rate": 238.29,
+        "trading_value": 165913899939,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "005930",
+        "name": "삼성전자",
+        "current_price": 158600,
+        "change_rate": -0.44,
+        "change_price": -700,
+        "volume": 36358081,
+        "volume_rate": 94.6,
+        "trading_value": 5664674804196,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "043200",
+        "name": "파루",
+        "current_price": 1179,
+        "change_rate": 8.66,
+        "change_price": 94,
+        "volume": 35124042,
+        "volume_rate": 124.18,
+        "trading_value": 43297026716,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "011930",
+        "name": "신성이엔지",
+        "current_price": 2205,
+        "change_rate": 4.75,
+        "change_price": 100,
+        "volume": 34653386,
+        "volume_rate": 101.81,
+        "trading_value": 73853421102,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "065170",
+        "name": "비엘팜텍",
+        "current_price": 5000,
+        "change_rate": -17.49,
+        "change_price": -1060,
+        "volume": 34072062,
+        "volume_rate": 7377.09,
+        "trading_value": 175860407820,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "047770",
+        "name": "코데즈컴바인",
+        "current_price": 3970,
+        "change_rate": 29.95,
+        "change_price": 915,
+        "volume": 31678976,
+        "volume_rate": 3055.13,
+        "trading_value": 115654744330,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "083640",
+        "name": "인콘",
+        "current_price": 470,
+        "change_rate": -16.96,
+        "change_price": -96,
+        "volume": 30742561,
+        "volume_rate": 31.68,
+        "trading_value": 15913206373,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 14,
+        "code": "090710",
+        "name": "휴림로봇",
+        "current_price": 13770,
+        "change_rate": 3.07,
+        "change_price": 410,
+        "volume": 27235479,
+        "volume_rate": 256.81,
+        "trading_value": 377471983705,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 15,
+        "code": "044180",
+        "name": "KD",
+        "current_price": 392,
+        "change_rate": 6.23,
+        "change_price": 23,
+        "volume": 23288022,
+        "volume_rate": 281.74,
+        "trading_value": 10053649208,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "038530",
+        "name": "케이바이오",
+        "current_price": 306,
+        "change_rate": -7.27,
+        "change_price": -24,
+        "volume": 22184035,
+        "volume_rate": 25.11,
+        "trading_value": 7311187222,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "007110",
+        "name": "일신석재",
+        "current_price": 1811,
+        "change_rate": 12.76,
+        "change_price": 205,
+        "volume": 20070485,
+        "volume_rate": 4378.91,
+        "trading_value": 36554374575,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 18,
+        "code": "004410",
+        "name": "서울식품",
+        "current_price": 146,
+        "change_rate": -4.58,
+        "change_price": -7,
+        "volume": 17090389,
+        "volume_rate": 85.17,
+        "trading_value": 2594926319,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 19,
+        "code": "219750",
+        "name": "한국비티비",
+        "current_price": 948,
+        "change_rate": 6.88,
+        "change_price": 61,
+        "volume": 16770734,
+        "volume_rate": 2192.76,
+        "trading_value": 17756907533,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "034940",
+        "name": "조아제약",
+        "current_price": 1028,
+        "change_rate": 13.84,
+        "change_price": 125,
+        "volume": 15700474,
+        "volume_rate": 9999.99,
+        "trading_value": 17059536350,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "018880",
+        "name": "한온시스템",
+        "current_price": 3760,
+        "change_rate": -6.7,
+        "change_price": -270,
+        "volume": 14546653,
+        "volume_rate": 33.87,
+        "trading_value": 54834640004,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "227950",
+        "name": "엔투텍",
+        "current_price": 387,
+        "change_rate": -13.62,
+        "change_price": -61,
+        "volume": 13463629,
+        "volume_rate": 135.79,
+        "trading_value": 5450042874,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "019570",
+        "name": "플루토스",
+        "current_price": 332,
+        "change_rate": 29.69,
+        "change_price": 76,
+        "volume": 13281440,
+        "volume_rate": 4065.71,
+        "trading_value": 4309465929,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 24,
+        "code": "049630",
+        "name": "재영솔루텍",
+        "current_price": 4335,
+        "change_rate": -2.58,
+        "change_price": -115,
+        "volume": 13106252,
+        "volume_rate": 167.84,
+        "trading_value": 57763471606,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "092040",
+        "name": "아미코젠",
+        "current_price": 1693,
+        "change_rate": 13.62,
+        "change_price": 203,
+        "volume": 12507785,
+        "volume_rate": 1242.23,
+        "trading_value": 21710347256,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 26,
+        "code": "076610",
+        "name": "해성옵틱스",
+        "current_price": 1305,
+        "change_rate": 3.57,
+        "change_price": 45,
+        "volume": 11413897,
+        "volume_rate": 680.98,
+        "trading_value": 15723815782,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 27,
+        "code": "027360",
+        "name": "아주IB투자",
+        "current_price": 4690,
+        "change_rate": 1.19,
+        "change_price": 55,
+        "volume": 11268770,
+        "volume_rate": 270.89,
+        "trading_value": 53487555207,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "115530",
+        "name": "씨엔플러스",
+        "current_price": 325,
+        "change_rate": -17.93,
+        "change_price": -71,
+        "volume": 10940441,
+        "volume_rate": 125.32,
+        "trading_value": 3565077264,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 29,
+        "code": "032820",
+        "name": "우리기술",
+        "current_price": 9490,
+        "change_rate": 1.5,
+        "change_price": 140,
+        "volume": 10896510,
+        "volume_rate": 96.08,
+        "trading_value": 100274984815,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 30,
+        "code": "263050",
+        "name": "유틸렉스",
+        "current_price": 959,
+        "change_rate": 29.95,
+        "change_price": 221,
+        "volume": 9848152,
+        "volume_rate": 224.81,
+        "trading_value": 8875771140,
+        "market": "KOSPI",
+        "is_etf": false
+      }
+    ],
+    "kosdaq": [
+      {
+        "rank": 1,
+        "code": "452260",
+        "name": "한화갤러리아",
+        "current_price": 2140,
+        "change_rate": -1.15,
+        "change_price": -25,
+        "volume": 14113847,
+        "volume_rate": 41.34,
+        "trading_value": 30681222844,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 1,
+        "code": "321370",
+        "name": "센서뷰",
+        "current_price": 3590,
+        "change_rate": 8.3,
+        "change_price": 275,
+        "volume": 8720865,
+        "volume_rate": 298.11,
+        "trading_value": 30934563328,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "389680",
+        "name": "유디엠텍",
+        "current_price": 1153,
+        "change_rate": -15.84,
+        "change_price": -217,
+        "volume": 8694976,
+        "volume_rate": 19.39,
+        "trading_value": 10299212001,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "365330",
+        "name": "에스와이스틸텍",
+        "current_price": 4080,
+        "change_rate": -1.92,
+        "change_price": -80,
+        "volume": 7027760,
+        "volume_rate": 32.99,
+        "trading_value": 28733158593,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "317240",
+        "name": "TS트릴리온",
+        "current_price": 415,
+        "change_rate": 2.22,
+        "change_price": 9,
+        "volume": 6672333,
+        "volume_rate": 101.18,
+        "trading_value": 2647693068,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "417010",
+        "name": "나노팀",
+        "current_price": 12440,
+        "change_rate": 12.58,
+        "change_price": 1390,
+        "volume": 6399680,
+        "volume_rate": 1129.73,
+        "trading_value": 79406932985,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "474170",
+        "name": "루미르",
+        "current_price": 19460,
+        "change_rate": 7.57,
+        "change_price": 1370,
+        "volume": 6056174,
+        "volume_rate": 360.47,
+        "trading_value": 117501169360,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "347700",
+        "name": "스피어",
+        "current_price": 37350,
+        "change_rate": 29.91,
+        "change_price": 8600,
+        "volume": 6034625,
+        "volume_rate": 404.98,
+        "trading_value": 208733406650,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "332290",
+        "name": "누보",
+        "current_price": 1217,
+        "change_rate": 6.66,
+        "change_price": 76,
+        "volume": 5400282,
+        "volume_rate": 1566.02,
+        "trading_value": 6492303311,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "322000",
+        "name": "HD현대에너지솔루션",
+        "current_price": 84200,
+        "change_rate": 2.81,
+        "change_price": 2300,
+        "volume": 5337805,
+        "volume_rate": 100.84,
+        "trading_value": 460931164500,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "440110",
+        "name": "파두",
+        "current_price": 45150,
+        "change_rate": 1.01,
+        "change_price": 450,
+        "volume": 5142934,
+        "volume_rate": 32.03,
+        "trading_value": 231465459750,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "373110",
+        "name": "엑셀세라퓨틱스",
+        "current_price": 1621,
+        "change_rate": -15.22,
+        "change_price": -291,
+        "volume": 4668721,
+        "volume_rate": 84.31,
+        "trading_value": 8191215758,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "382800",
+        "name": "지앤비에스 에코",
+        "current_price": 3845,
+        "change_rate": 10.81,
+        "change_price": 375,
+        "volume": 4646521,
+        "volume_rate": 414.84,
+        "trading_value": 18205411027,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "323410",
+        "name": "카카오뱅크",
+        "current_price": 26000,
+        "change_rate": -3.17,
+        "change_price": -850,
+        "volume": 4237840,
+        "volume_rate": 20.55,
+        "trading_value": 109828025875,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "451700",
+        "name": "엔에이치스팩29호",
+        "current_price": 2440,
+        "change_rate": -6.15,
+        "change_price": -160,
+        "volume": 3536275,
+        "volume_rate": 0.0,
+        "trading_value": 8807995696,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "331920",
+        "name": "셀레믹스",
+        "current_price": 4265,
+        "change_rate": 8.8,
+        "change_price": 345,
+        "volume": 3042397,
+        "volume_rate": 114.37,
+        "trading_value": 13652963299,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "319400",
+        "name": "현대무벡스",
+        "current_price": 31050,
+        "change_rate": -6.62,
+        "change_price": -2200,
+        "volume": 3026755,
+        "volume_rate": 161.75,
+        "trading_value": 92707080100,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 18,
+        "code": "489790",
+        "name": "한화비전",
+        "current_price": 66800,
+        "change_rate": 7.57,
+        "change_price": 4700,
+        "volume": 2922544,
+        "volume_rate": 311.04,
+        "trading_value": 192697688350,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 19,
+        "code": "316140",
+        "name": "우리금융지주",
+        "current_price": 32450,
+        "change_rate": 1.72,
+        "change_price": 550,
+        "volume": 2762317,
+        "volume_rate": 159.03,
+        "trading_value": 88073856125,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "336570",
+        "name": "원텍",
+        "current_price": 8070,
+        "change_rate": -8.92,
+        "change_price": -790,
+        "volume": 2280575,
+        "volume_rate": 217.34,
+        "trading_value": 18708551135,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 21,
+        "code": "489500",
+        "name": "엘케이켐",
+        "current_price": 49350,
+        "change_rate": 11.27,
+        "change_price": 5000,
+        "volume": 2267862,
+        "volume_rate": 99.73,
+        "trading_value": 106520081175,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "380540",
+        "name": "옵티코어",
+        "current_price": 3700,
+        "change_rate": -8.19,
+        "change_price": -330,
+        "volume": 2147398,
+        "volume_rate": 41.49,
+        "trading_value": 7902709962,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 23,
+        "code": "451760",
+        "name": "컨텍",
+        "current_price": 20800,
+        "change_rate": 11.83,
+        "change_price": 2200,
+        "volume": 2112998,
+        "volume_rate": 210.66,
+        "trading_value": 41788182985,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 24,
+        "code": "403870",
+        "name": "HPSP",
+        "current_price": 45850,
+        "change_rate": 1.66,
+        "change_price": 750,
+        "volume": 2063486,
+        "volume_rate": 132.36,
+        "trading_value": 94157850525,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 25,
+        "code": "317850",
+        "name": "대모",
+        "current_price": 9330,
+        "change_rate": 0.32,
+        "change_price": 30,
+        "volume": 2059794,
+        "volume_rate": 55.56,
+        "trading_value": 19331413500,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 26,
+        "code": "396270",
+        "name": "넥스트칩",
+        "current_price": 4045,
+        "change_rate": 5.75,
+        "change_price": 220,
+        "volume": 2016666,
+        "volume_rate": 187.65,
+        "trading_value": 8026963614,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "340930",
+        "name": "유일에너테크",
+        "current_price": 1343,
+        "change_rate": -4.34,
+        "change_price": -61,
+        "volume": 2013113,
+        "volume_rate": 68.95,
+        "trading_value": 2694300557,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 28,
+        "code": "462350",
+        "name": "이노스페이스",
+        "current_price": 21150,
+        "change_rate": 1.2,
+        "change_price": 250,
+        "volume": 1958211,
+        "volume_rate": 126.24,
+        "trading_value": 40536046415,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 29,
+        "code": "417840",
+        "name": "저스템",
+        "current_price": 7120,
+        "change_rate": 8.87,
+        "change_price": 580,
+        "volume": 1905137,
+        "volume_rate": 165.94,
+        "trading_value": 13056708935,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 30,
+        "code": "354200",
+        "name": "엔젠바이오",
+        "current_price": 2435,
+        "change_rate": 5.41,
+        "change_price": 125,
+        "volume": 1595228,
+        "volume_rate": 132.44,
+        "trading_value": 3876576804,
+        "market": "KOSDAQ",
+        "is_etf": false
+      }
+    ]
+  },
+  "trading_value": {
+    "kospi": [
+      {
+        "rank": 1,
+        "code": "005930",
+        "name": "삼성전자",
+        "current_price": 158600,
+        "change_rate": -0.44,
+        "change_price": -700,
+        "volume": 36358081,
+        "volume_rate": 94.6,
+        "trading_value": 5664674804196,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "000660",
+        "name": "SK하이닉스",
+        "current_price": 839000,
+        "change_rate": -0.36,
+        "change_price": -3000,
+        "volume": 5581574,
+        "volume_rate": 101.97,
+        "trading_value": 4578256265860,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "009830",
+        "name": "한화솔루션",
+        "current_price": 42000,
+        "change_rate": 15.38,
+        "change_price": 5600,
+        "volume": 53082158,
+        "volume_rate": 161.24,
+        "trading_value": 2169531631450,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "038500",
+        "name": "삼표시멘트",
+        "current_price": 19650,
+        "change_rate": 6.56,
+        "change_price": 1210,
+        "volume": 59988353,
+        "volume_rate": 0.0,
+        "trading_value": 1186238362045,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "005380",
+        "name": "현대차",
+        "current_price": 467500,
+        "change_rate": -4.3,
+        "change_price": -21000,
+        "volume": 2023516,
+        "volume_rate": 122.39,
+        "trading_value": 938552051750,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "105560",
+        "name": "KB금융",
+        "current_price": 149300,
+        "change_rate": 7.03,
+        "change_price": 9800,
+        "volume": 3931844,
+        "volume_rate": 379.3,
+        "trading_value": 581930906600,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "086520",
+        "name": "에코프로",
+        "current_price": 155800,
+        "change_rate": -6.99,
+        "change_price": -11700,
+        "volume": 3372413,
+        "volume_rate": 97.08,
+        "trading_value": 530930673350,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "034020",
+        "name": "두산에너빌리티",
+        "current_price": 89000,
+        "change_rate": -1.77,
+        "change_price": -1600,
+        "volume": 5838705,
+        "volume_rate": 76.88,
+        "trading_value": 511209173550,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "035420",
+        "name": "NAVER",
+        "current_price": 249000,
+        "change_rate": -3.11,
+        "change_price": -8000,
+        "volume": 1919017,
+        "volume_rate": 123.69,
+        "trading_value": 474845029500,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "005935",
+        "name": "삼성전자우",
+        "current_price": 112400,
+        "change_rate": -0.97,
+        "change_price": -1100,
+        "volume": 4026071,
+        "volume_rate": 93.9,
+        "trading_value": 442845044550,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 11,
+        "code": "090710",
+        "name": "휴림로봇",
+        "current_price": 13770,
+        "change_rate": 3.07,
+        "change_price": 410,
+        "volume": 27235479,
+        "volume_rate": 256.81,
+        "trading_value": 377471983705,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 12,
+        "code": "006800",
+        "name": "미래에셋증권",
+        "current_price": 48000,
+        "change_rate": -3.23,
+        "change_price": -1600,
+        "volume": 7748719,
+        "volume_rate": 163.58,
+        "trading_value": 363881215475,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 13,
+        "code": "012450",
+        "name": "한화에어로스페이스",
+        "current_price": 1181000,
+        "change_rate": -3.75,
+        "change_price": -46000,
+        "volume": 295504,
+        "volume_rate": 88.57,
+        "trading_value": 342100412000,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 14,
+        "code": "272210",
+        "name": "한화시스템",
+        "current_price": 103000,
+        "change_rate": -7.46,
+        "change_price": -8300,
+        "volume": 3168488,
+        "volume_rate": 90.34,
+        "trading_value": 325616678250,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 15,
+        "code": "042700",
+        "name": "한미반도체",
+        "current_price": 196000,
+        "change_rate": 1.29,
+        "change_price": 2500,
+        "volume": 1470302,
+        "volume_rate": 121.41,
+        "trading_value": 281799635700,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 16,
+        "code": "006400",
+        "name": "삼성SDI",
+        "current_price": 370000,
+        "change_rate": -4.02,
+        "change_price": -15500,
+        "volume": 727300,
+        "volume_rate": 63.24,
+        "trading_value": 266107619000,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 17,
+        "code": "055550",
+        "name": "신한지주",
+        "current_price": 93600,
+        "change_rate": 2.97,
+        "change_price": 2700,
+        "volume": 2556081,
+        "volume_rate": 203.68,
+        "trading_value": 234418136500,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 18,
+        "code": "042660",
+        "name": "한화오션",
+        "current_price": 130600,
+        "change_rate": -3.69,
+        "change_price": -5000,
+        "volume": 1800746,
+        "volume_rate": 73.51,
+        "trading_value": 233107456550,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 19,
+        "code": "028260",
+        "name": "삼성물산",
+        "current_price": 289500,
+        "change_rate": -5.39,
+        "change_price": -16500,
+        "volume": 779733,
+        "volume_rate": 171.78,
+        "trading_value": 223213010500,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 20,
+        "code": "247540",
+        "name": "에코프로비엠",
+        "current_price": 198200,
+        "change_rate": -6.29,
+        "change_price": -13300,
+        "volume": 1121283,
+        "volume_rate": 115.06,
+        "trading_value": 221215747900,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 21,
+        "code": "035720",
+        "name": "카카오",
+        "current_price": 56200,
+        "change_rate": -3.44,
+        "change_price": -2000,
+        "volume": 3889924,
+        "volume_rate": 134.47,
+        "trading_value": 217728941050,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 22,
+        "code": "068270",
+        "name": "셀트리온",
+        "current_price": 220000,
+        "change_rate": 1.15,
+        "change_price": 2500,
+        "volume": 989519,
+        "volume_rate": 71.89,
+        "trading_value": 213833371500,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 23,
+        "code": "047810",
+        "name": "한국항공우주",
+        "current_price": 158300,
+        "change_rate": -2.28,
+        "change_price": -3700,
+        "volume": 1359849,
+        "volume_rate": 133.5,
+        "trading_value": 211243236000,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 24,
+        "code": "277810",
+        "name": "레인보우로보틱스",
+        "current_price": 658000,
+        "change_rate": -7.45,
+        "change_price": -53000,
+        "volume": 313432,
+        "volume_rate": 139.04,
+        "trading_value": 204899232000,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 25,
+        "code": "005490",
+        "name": "POSCO홀딩스",
+        "current_price": 359500,
+        "change_rate": -2.04,
+        "change_price": -7500,
+        "volume": 569731,
+        "volume_rate": 49.39,
+        "trading_value": 202957315500,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 26,
+        "code": "017670",
+        "name": "SK텔레콤",
+        "current_price": 69200,
+        "change_rate": -10.71,
+        "change_price": -8300,
+        "volume": 2886610,
+        "volume_rate": 175.51,
+        "trading_value": 200472707350,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 27,
+        "code": "196170",
+        "name": "알테오젠",
+        "current_price": 361000,
+        "change_rate": -4.12,
+        "change_price": -15500,
+        "volume": 545120,
+        "volume_rate": 92.49,
+        "trading_value": 196041660750,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 28,
+        "code": "008830",
+        "name": "대동기어",
+        "current_price": 22200,
+        "change_rate": -2.84,
+        "change_price": -650,
+        "volume": 8034144,
+        "volume_rate": 44.72,
+        "trading_value": 194989000875,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 29,
+        "code": "000270",
+        "name": "기아",
+        "current_price": 151900,
+        "change_rate": -2.75,
+        "change_price": -4300,
+        "volume": 1269545,
+        "volume_rate": 79.88,
+        "trading_value": 192692436900,
+        "market": "KOSPI",
+        "is_etf": false
+      },
+      {
+        "rank": 30,
+        "code": "100790",
+        "name": "미래에셋벤처투자",
+        "current_price": 24650,
+        "change_rate": 7.64,
+        "change_price": 1750,
+        "volume": 7701709,
+        "volume_rate": 338.68,
+        "trading_value": 190261394175,
+        "market": "KOSPI",
+        "is_etf": false
+      }
+    ],
+    "kosdaq": [
+      {
+        "rank": 1,
+        "code": "402340",
+        "name": "SK스퀘어",
+        "current_price": 514000,
+        "change_rate": -3.75,
+        "change_price": -20000,
+        "volume": 1175181,
+        "volume_rate": 106.03,
+        "trading_value": 596353753685,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 2,
+        "code": "322000",
+        "name": "HD현대에너지솔루션",
+        "current_price": 84200,
+        "change_rate": 2.81,
+        "change_price": 2300,
+        "volume": 5337805,
+        "volume_rate": 100.84,
+        "trading_value": 460931164500,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 3,
+        "code": "352820",
+        "name": "하이브",
+        "current_price": 355500,
+        "change_rate": -2.47,
+        "change_price": -9000,
+        "volume": 1159713,
+        "volume_rate": 390.37,
+        "trading_value": 419160059000,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 4,
+        "code": "440110",
+        "name": "파두",
+        "current_price": 45150,
+        "change_rate": 1.01,
+        "change_price": 450,
+        "volume": 5142934,
+        "volume_rate": 32.03,
+        "trading_value": 231465459750,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 5,
+        "code": "347700",
+        "name": "스피어",
+        "current_price": 37350,
+        "change_rate": 29.91,
+        "change_price": 8600,
+        "volume": 6034625,
+        "volume_rate": 404.98,
+        "trading_value": 208733406650,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 6,
+        "code": "489790",
+        "name": "한화비전",
+        "current_price": 66800,
+        "change_rate": 7.57,
+        "change_price": 4700,
+        "volume": 2922544,
+        "volume_rate": 311.04,
+        "trading_value": 192697688350,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 7,
+        "code": "348340",
+        "name": "뉴로메카",
+        "current_price": 90800,
+        "change_rate": -7.35,
+        "change_price": -7200,
+        "volume": 1443199,
+        "volume_rate": 105.25,
+        "trading_value": 139058039250,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 8,
+        "code": "474170",
+        "name": "루미르",
+        "current_price": 19460,
+        "change_rate": 7.57,
+        "change_price": 1370,
+        "volume": 6056174,
+        "volume_rate": 360.47,
+        "trading_value": 117501169360,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 9,
+        "code": "323410",
+        "name": "카카오뱅크",
+        "current_price": 26000,
+        "change_rate": -3.17,
+        "change_price": -850,
+        "volume": 4237840,
+        "volume_rate": 20.55,
+        "trading_value": 109828025875,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 10,
+        "code": "489500",
+        "name": "엘케이켐",
+        "current_price": 49350,
+        "change_rate": 11.27,
+        "change_price": 5000,
+        "volume": 2267862,
+        "volume_rate": 99.73,
+        "trading_value": 106520081175,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 11,
+        "code": "403870",
+        "name": "HPSP",
+        "current_price": 45850,
+        "change_rate": 1.66,
+        "change_price": 750,
+        "volume": 2063486,
+        "volume_rate": 132.36,
+        "trading_value": 94157850525,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 12,
+        "code": "319400",
+        "name": "현대무벡스",
+        "current_price": 31050,
+        "change_rate": -6.62,
+        "change_price": -2200,
+        "volume": 3026755,
+        "volume_rate": 161.75,
+        "trading_value": 92707080100,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 13,
+        "code": "491000",
+        "name": "리브스메드",
+        "current_price": 79200,
+        "change_rate": -3.41,
+        "change_price": -2800,
+        "volume": 1140712,
+        "volume_rate": 143.37,
+        "trading_value": 90496137050,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 14,
+        "code": "316140",
+        "name": "우리금융지주",
+        "current_price": 32450,
+        "change_rate": 1.72,
+        "change_price": 550,
+        "volume": 2762317,
+        "volume_rate": 159.03,
+        "trading_value": 88073856125,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 15,
+        "code": "347850",
+        "name": "디앤디파마텍",
+        "current_price": 77500,
+        "change_rate": -9.67,
+        "change_price": -8300,
+        "volume": 1042111,
+        "volume_rate": 145.6,
+        "trading_value": 81874828550,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 16,
+        "code": "417010",
+        "name": "나노팀",
+        "current_price": 12440,
+        "change_rate": 12.58,
+        "change_price": 1390,
+        "volume": 6399680,
+        "volume_rate": 1129.73,
+        "trading_value": 79406932985,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 17,
+        "code": "478340",
+        "name": "나라스페이스테크놀로지",
+        "current_price": 53600,
+        "change_rate": 2.88,
+        "change_price": 1500,
+        "volume": 1350562,
+        "volume_rate": 170.45,
+        "trading_value": 71889884425,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 18,
+        "code": "457190",
+        "name": "이수스페셜티케미컬",
+        "current_price": 100000,
+        "change_rate": -5.3,
+        "change_price": -5600,
+        "volume": 615179,
+        "volume_rate": 47.41,
+        "trading_value": 61362791400,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 19,
+        "code": "377300",
+        "name": "카카오페이",
+        "current_price": 64900,
+        "change_rate": -4.28,
+        "change_price": -2900,
+        "volume": 913932,
+        "volume_rate": 53.06,
+        "trading_value": 59141797400,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 20,
+        "code": "474650",
+        "name": "링크솔루션",
+        "current_price": 74400,
+        "change_rate": 0.68,
+        "change_price": 500,
+        "volume": 775479,
+        "volume_rate": 34.47,
+        "trading_value": 55875805900,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 21,
+        "code": "353200",
+        "name": "대덕전자",
+        "current_price": 58900,
+        "change_rate": 0.51,
+        "change_price": 300,
+        "volume": 921310,
+        "volume_rate": 151.48,
+        "trading_value": 53969818500,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 22,
+        "code": "454910",
+        "name": "두산로보틱스",
+        "current_price": 101700,
+        "change_rate": -5.66,
+        "change_price": -6100,
+        "volume": 414856,
+        "volume_rate": 119.12,
+        "trading_value": 41889345600,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 23,
+        "code": "451760",
+        "name": "컨텍",
+        "current_price": 20800,
+        "change_rate": 11.83,
+        "change_price": 2200,
+        "volume": 2112998,
+        "volume_rate": 210.66,
+        "trading_value": 41788182985,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 24,
+        "code": "466100",
+        "name": "클로봇",
+        "current_price": 62700,
+        "change_rate": -8.6,
+        "change_price": -5900,
+        "volume": 655100,
+        "volume_rate": 160.81,
+        "trading_value": 41427478350,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 25,
+        "code": "462350",
+        "name": "이노스페이스",
+        "current_price": 21150,
+        "change_rate": 1.2,
+        "change_price": 250,
+        "volume": 1958211,
+        "volume_rate": 126.24,
+        "trading_value": 40536046415,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 26,
+        "code": "456160",
+        "name": "지투지바이오",
+        "current_price": 79700,
+        "change_rate": -5.12,
+        "change_price": -4300,
+        "volume": 508265,
+        "volume_rate": 76.44,
+        "trading_value": 39705181650,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 27,
+        "code": "475960",
+        "name": "토모큐브",
+        "current_price": 55200,
+        "change_rate": 11.97,
+        "change_price": 5900,
+        "volume": 713979,
+        "volume_rate": 494.51,
+        "trading_value": 38228879350,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 28,
+        "code": "476830",
+        "name": "알지노믹스",
+        "current_price": 128500,
+        "change_rate": -7.82,
+        "change_price": -10900,
+        "volume": 265317,
+        "volume_rate": 141.41,
+        "trading_value": 33965341050,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 29,
+        "code": "450080",
+        "name": "에코프로머티",
+        "current_price": 63000,
+        "change_rate": -4.83,
+        "change_price": -3200,
+        "volume": 533529,
+        "volume_rate": 80.98,
+        "trading_value": 33242727100,
+        "market": "KOSDAQ",
+        "is_etf": false
+      },
+      {
+        "rank": 30,
+        "code": "326030",
+        "name": "SK바이오팜",
+        "current_price": 108500,
+        "change_rate": -2.69,
+        "change_price": -3000,
+        "volume": 297717,
+        "volume_rate": 83.85,
+        "trading_value": 32100921000,
+        "market": "KOSDAQ",
+        "is_etf": false
+      }
+    ]
+  },
+  "fluctuation": {
+    "kospi_up": [
+      {
+        "rank": 1,
+        "code": "047770",
+        "name": "코데즈컴바인",
+        "current_price": 3970,
+        "change_rate": 29.95,
+        "change_price": 915,
+        "volume": 31678976,
+        "volume_rate": 3055.13,
+        "trading_value": 115654744330,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 2,
+        "code": "263050",
+        "name": "유틸렉스",
+        "current_price": 959,
+        "change_rate": 29.95,
+        "change_price": 221,
+        "volume": 9848152,
+        "volume_rate": 224.81,
+        "trading_value": 8875771140,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 3,
+        "code": "225190",
+        "name": "LK삼양",
+        "current_price": 2545,
+        "change_rate": 29.91,
+        "change_price": 586,
+        "volume": 75103036,
+        "volume_rate": 651.32,
+        "trading_value": 177866946313,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 4,
+        "code": "043590",
+        "name": "웰킵스하이텍",
+        "current_price": 787,
+        "change_rate": 29.87,
+        "change_price": 181,
+        "volume": 1279652,
+        "volume_rate": 844.48,
+        "trading_value": 980536014,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 5,
+        "code": "225430",
+        "name": "케이엠제약",
+        "current_price": 666,
+        "change_rate": 29.82,
+        "change_price": 153,
+        "volume": 3802201,
+        "volume_rate": 223.94,
+        "trading_value": 2458045145,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 6,
+        "code": "019570",
+        "name": "플루토스",
+        "current_price": 332,
+        "change_rate": 29.69,
+        "change_price": 76,
+        "volume": 13281440,
+        "volume_rate": 4065.71,
+        "trading_value": 4309465929,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 7,
+        "code": "001550",
+        "name": "조비",
+        "current_price": 13410,
+        "change_rate": 23.14,
+        "change_price": 2520,
+        "volume": 3221211,
+        "volume_rate": 9999.99,
+        "trading_value": 42763676770,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 8,
+        "code": "041920",
+        "name": "메디아나",
+        "current_price": 28650,
+        "change_rate": 20.63,
+        "change_price": 4900,
+        "volume": 1633699,
+        "volume_rate": 215.16,
+        "trading_value": 43433404425,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 9,
+        "code": "033340",
+        "name": "좋은사람들",
+        "current_price": 1916,
+        "change_rate": 16.12,
+        "change_price": 266,
+        "volume": 62017845,
+        "volume_rate": 5908.84,
+        "trading_value": 118276331075,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 10,
+        "code": "009190",
+        "name": "대양금속",
+        "current_price": 1369,
+        "change_rate": 15.62,
+        "change_price": 185,
+        "volume": 2594362,
+        "volume_rate": 841.15,
+        "trading_value": 3461796803,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 11,
+        "code": "009830",
+        "name": "한화솔루션",
+        "current_price": 42000,
+        "change_rate": 15.38,
+        "change_price": 5600,
+        "volume": 53082158,
+        "volume_rate": 161.24,
+        "trading_value": 2169531631450,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 12,
+        "code": "171090",
+        "name": "선익시스템",
+        "current_price": 91300,
+        "change_rate": 15.13,
+        "change_price": 12000,
+        "volume": 1009455,
+        "volume_rate": 99.05,
+        "trading_value": 88915444250,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 13,
+        "code": "196700",
+        "name": "웹스",
+        "current_price": 2685,
+        "change_rate": 14.99,
+        "change_price": 350,
+        "volume": 1491025,
+        "volume_rate": 462.09,
+        "trading_value": 3853747064,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 14,
+        "code": "034940",
+        "name": "조아제약",
+        "current_price": 1028,
+        "change_rate": 13.84,
+        "change_price": 125,
+        "volume": 15700474,
+        "volume_rate": 9999.99,
+        "trading_value": 17059536350,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 15,
+        "code": "092040",
+        "name": "아미코젠",
+        "current_price": 1693,
+        "change_rate": 13.62,
+        "change_price": 203,
+        "volume": 12507785,
+        "volume_rate": 1242.23,
+        "trading_value": 21710347256,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 16,
+        "code": "255220",
+        "name": "SG",
+        "current_price": 3350,
+        "change_rate": 12.98,
+        "change_price": 385,
+        "volume": 50427397,
+        "volume_rate": 238.29,
+        "trading_value": 165913899939,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 17,
+        "code": "019210",
+        "name": "와이지-원",
+        "current_price": 9850,
+        "change_rate": 12.96,
+        "change_price": 1130,
+        "volume": 4536475,
+        "volume_rate": 444.42,
+        "trading_value": 44148041455,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 18,
+        "code": "007110",
+        "name": "일신석재",
+        "current_price": 1811,
+        "change_rate": 12.76,
+        "change_price": 205,
+        "volume": 20070485,
+        "volume_rate": 4378.91,
+        "trading_value": 36554374575,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 19,
+        "code": "021880",
+        "name": "메이슨캐피탈",
+        "current_price": 277,
+        "change_rate": 12.15,
+        "change_price": 30,
+        "volume": 8080301,
+        "volume_rate": 271.61,
+        "trading_value": 2170822837,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 20,
+        "code": "054300",
+        "name": "팬스타엔터프라이즈",
+        "current_price": 738,
+        "change_rate": 11.99,
+        "change_price": 79,
+        "volume": 5455275,
+        "volume_rate": 1054.21,
+        "trading_value": 3838989031,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 21,
+        "code": "009835",
+        "name": "한화솔루션우",
+        "current_price": 30250,
+        "change_rate": 11.83,
+        "change_price": 3200,
+        "volume": 1596264,
+        "volume_rate": 151.62,
+        "trading_value": 50427811225,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 22,
+        "code": "123010",
+        "name": "아이윈플러스",
+        "current_price": 1335,
+        "change_rate": 11.72,
+        "change_price": 140,
+        "volume": 2003592,
+        "volume_rate": 275.35,
+        "trading_value": 2574748434,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 23,
+        "code": "083470",
+        "name": "이엠앤아이",
+        "current_price": 1372,
+        "change_rate": 11.45,
+        "change_price": 141,
+        "volume": 4254976,
+        "volume_rate": 123.36,
+        "trading_value": 5751904302,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 24,
+        "code": "295310",
+        "name": "에이치브이엠",
+        "current_price": 86700,
+        "change_rate": 11.44,
+        "change_price": 8900,
+        "volume": 848719,
+        "volume_rate": 119.63,
+        "trading_value": 70171420900,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 25,
+        "code": "045390",
+        "name": "대아티아이",
+        "current_price": 4660,
+        "change_rate": 11.35,
+        "change_price": 475,
+        "volume": 8144843,
+        "volume_rate": 1046.79,
+        "trading_value": 37225832996,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 26,
+        "code": "025980",
+        "name": "아난티",
+        "current_price": 8900,
+        "change_rate": 10.83,
+        "change_price": 870,
+        "volume": 7194765,
+        "volume_rate": 810.91,
+        "trading_value": 61606128800,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 27,
+        "code": "026040",
+        "name": "제이에스티나",
+        "current_price": 3280,
+        "change_rate": 10.81,
+        "change_price": 320,
+        "volume": 2500917,
+        "volume_rate": 1284.81,
+        "trading_value": 8142621123,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 28,
+        "code": "014990",
+        "name": "인디에프",
+        "current_price": 834,
+        "change_rate": 10.76,
+        "change_price": 81,
+        "volume": 2277085,
+        "volume_rate": 1457.13,
+        "trading_value": 1854564178,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 29,
+        "code": "004060",
+        "name": "SG세계물산",
+        "current_price": 491,
+        "change_rate": 10.34,
+        "change_price": 46,
+        "volume": 155125644,
+        "volume_rate": 80.22,
+        "trading_value": 83509722188,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 30,
+        "code": "095340",
+        "name": "ISC",
+        "current_price": 163500,
+        "change_rate": 9.88,
+        "change_price": 14700,
+        "volume": 490259,
+        "volume_rate": 99.36,
+        "trading_value": 76587104250,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP"
+      }
+    ],
+    "kospi_down": [
+      {
+        "rank": 1,
+        "code": "121850",
+        "name": "코이즈",
+        "current_price": 4460,
+        "change_rate": -29.87,
+        "change_price": -1900,
+        "volume": 2282451,
+        "volume_rate": 49.06,
+        "trading_value": 10751032928,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 2,
+        "code": "035290",
+        "name": "골드앤에스",
+        "current_price": 686,
+        "change_rate": -18.14,
+        "change_price": -152,
+        "volume": 3583205,
+        "volume_rate": 144.55,
+        "trading_value": 2626080985,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 3,
+        "code": "115530",
+        "name": "씨엔플러스",
+        "current_price": 325,
+        "change_rate": -17.93,
+        "change_price": -71,
+        "volume": 10940441,
+        "volume_rate": 125.32,
+        "trading_value": 3565077264,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 4,
+        "code": "065170",
+        "name": "비엘팜텍",
+        "current_price": 5000,
+        "change_rate": -17.49,
+        "change_price": -1060,
+        "volume": 34072062,
+        "volume_rate": 7377.09,
+        "trading_value": 175860407820,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 5,
+        "code": "083640",
+        "name": "인콘",
+        "current_price": 470,
+        "change_rate": -16.96,
+        "change_price": -96,
+        "volume": 30742561,
+        "volume_rate": 31.68,
+        "trading_value": 15913206373,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 6,
+        "code": "128820",
+        "name": "대성산업",
+        "current_price": 8430,
+        "change_rate": -13.98,
+        "change_price": -1370,
+        "volume": 4840723,
+        "volume_rate": 51.76,
+        "trading_value": 42878716030,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 7,
+        "code": "227950",
+        "name": "엔투텍",
+        "current_price": 387,
+        "change_rate": -13.62,
+        "change_price": -61,
+        "volume": 13463629,
+        "volume_rate": 135.79,
+        "trading_value": 5450042874,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 8,
+        "code": "066430",
+        "name": "아이로보틱스",
+        "current_price": 3205,
+        "change_rate": -13.14,
+        "change_price": -485,
+        "volume": 6127042,
+        "volume_rate": 25.4,
+        "trading_value": 20164915867,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 9,
+        "code": "234340",
+        "name": "헥토파이낸셜",
+        "current_price": 23550,
+        "change_rate": -11.13,
+        "change_price": -2950,
+        "volume": 1846365,
+        "volume_rate": 77.3,
+        "trading_value": 44445230225,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 10,
+        "code": "017670",
+        "name": "SK텔레콤",
+        "current_price": 69200,
+        "change_rate": -10.71,
+        "change_price": -8300,
+        "volume": 2886610,
+        "volume_rate": 175.51,
+        "trading_value": 200472707350,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 11,
+        "code": "016600",
+        "name": "큐캐피탈",
+        "current_price": 288,
+        "change_rate": -10.56,
+        "change_price": -34,
+        "volume": 64822239,
+        "volume_rate": 153.6,
+        "trading_value": 20957721944,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 12,
+        "code": "056090",
+        "name": "시지메드텍",
+        "current_price": 1835,
+        "change_rate": -9.61,
+        "change_price": -195,
+        "volume": 4608758,
+        "volume_rate": 54.58,
+        "trading_value": 8628867953,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 13,
+        "code": "004310",
+        "name": "현대약품",
+        "current_price": 11880,
+        "change_rate": -9.24,
+        "change_price": -1210,
+        "volume": 3287916,
+        "volume_rate": 17.9,
+        "trading_value": 39843775185,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 14,
+        "code": "033100",
+        "name": "제룡전기",
+        "current_price": 57600,
+        "change_rate": -8.72,
+        "change_price": -5500,
+        "volume": 940478,
+        "volume_rate": 26.36,
+        "trading_value": 54951601650,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 15,
+        "code": "058610",
+        "name": "에스피지",
+        "current_price": 136100,
+        "change_rate": -8.41,
+        "change_price": -12500,
+        "volume": 729310,
+        "volume_rate": 146.15,
+        "trading_value": 99776829050,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 16,
+        "code": "115610",
+        "name": "이미지스",
+        "current_price": 2055,
+        "change_rate": -8.26,
+        "change_price": -185,
+        "volume": 1950376,
+        "volume_rate": 40.85,
+        "trading_value": 4012110111,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 17,
+        "code": "079900",
+        "name": "전진건설로봇",
+        "current_price": 56800,
+        "change_rate": -7.79,
+        "change_price": -4800,
+        "volume": 724352,
+        "volume_rate": 32.59,
+        "trading_value": 40700148900,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 18,
+        "code": "278470",
+        "name": "에이피알",
+        "current_price": 256500,
+        "change_rate": -7.73,
+        "change_price": -21500,
+        "volume": 711817,
+        "volume_rate": 37.99,
+        "trading_value": 186058718750,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 19,
+        "code": "252990",
+        "name": "샘씨엔에스",
+        "current_price": 10720,
+        "change_rate": -7.67,
+        "change_price": -890,
+        "volume": 2682594,
+        "volume_rate": 75.43,
+        "trading_value": 28927733585,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 20,
+        "code": "272210",
+        "name": "한화시스템",
+        "current_price": 103000,
+        "change_rate": -7.46,
+        "change_price": -8300,
+        "volume": 3168488,
+        "volume_rate": 90.34,
+        "trading_value": 325616678250,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 21,
+        "code": "101330",
+        "name": "모베이스",
+        "current_price": 6650,
+        "change_rate": -7.38,
+        "change_price": -530,
+        "volume": 1608178,
+        "volume_rate": 24.07,
+        "trading_value": 10681645710,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 22,
+        "code": "226950",
+        "name": "올릭스",
+        "current_price": 122400,
+        "change_rate": -7.34,
+        "change_price": -9700,
+        "volume": 476537,
+        "volume_rate": 148.88,
+        "trading_value": 57597781150,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 23,
+        "code": "038530",
+        "name": "케이바이오",
+        "current_price": 306,
+        "change_rate": -7.27,
+        "change_price": -24,
+        "volume": 22184035,
+        "volume_rate": 25.11,
+        "trading_value": 7311187222,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 24,
+        "code": "125490",
+        "name": "한라캐스트",
+        "current_price": 19300,
+        "change_rate": -7.21,
+        "change_price": -1500,
+        "volume": 1340167,
+        "volume_rate": 88.53,
+        "trading_value": 25583092850,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 25,
+        "code": "078890",
+        "name": "가온그룹",
+        "current_price": 5200,
+        "change_rate": -7.14,
+        "change_price": -400,
+        "volume": 691909,
+        "volume_rate": 146.9,
+        "trading_value": 3609038075,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 26,
+        "code": "950250",
+        "name": "테라뷰",
+        "current_price": 9390,
+        "change_rate": -7.12,
+        "change_price": -720,
+        "volume": 3478004,
+        "volume_rate": 32.97,
+        "trading_value": 33004020710,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 27,
+        "code": "290660",
+        "name": "네오펙트",
+        "current_price": 1017,
+        "change_rate": -7.04,
+        "change_price": -77,
+        "volume": 2737752,
+        "volume_rate": 36.79,
+        "trading_value": 2700632373,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 28,
+        "code": "086520",
+        "name": "에코프로",
+        "current_price": 155800,
+        "change_rate": -6.99,
+        "change_price": -11700,
+        "volume": 3372413,
+        "volume_rate": 97.08,
+        "trading_value": 530930673350,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 29,
+        "code": "018880",
+        "name": "한온시스템",
+        "current_price": 3760,
+        "change_rate": -6.7,
+        "change_price": -270,
+        "volume": 14546653,
+        "volume_rate": 33.87,
+        "trading_value": 54834640004,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 30,
+        "code": "141080",
+        "name": "리가켐바이오",
+        "current_price": 169800,
+        "change_rate": -6.7,
+        "change_price": -12200,
+        "volume": 383947,
+        "volume_rate": 118.98,
+        "trading_value": 65541421650,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "DOWN"
+      }
+    ],
+    "kosdaq_up": [
+      {
+        "rank": 1,
+        "code": "347700",
+        "name": "스피어",
+        "current_price": 37350,
+        "change_rate": 29.91,
+        "change_price": 8600,
+        "volume": 6034625,
+        "volume_rate": 404.98,
+        "trading_value": 208733406650,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 2,
+        "code": "417010",
+        "name": "나노팀",
+        "current_price": 12440,
+        "change_rate": 12.58,
+        "change_price": 1390,
+        "volume": 6399680,
+        "volume_rate": 1129.73,
+        "trading_value": 79406932985,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 3,
+        "code": "475960",
+        "name": "토모큐브",
+        "current_price": 55200,
+        "change_rate": 11.97,
+        "change_price": 5900,
+        "volume": 713979,
+        "volume_rate": 494.51,
+        "trading_value": 38228879350,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 4,
+        "code": "451760",
+        "name": "컨텍",
+        "current_price": 20800,
+        "change_rate": 11.83,
+        "change_price": 2200,
+        "volume": 2112998,
+        "volume_rate": 210.66,
+        "trading_value": 41788182985,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 5,
+        "code": "489500",
+        "name": "엘케이켐",
+        "current_price": 49350,
+        "change_rate": 11.27,
+        "change_price": 5000,
+        "volume": 2267862,
+        "volume_rate": 99.73,
+        "trading_value": 106520081175,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 6,
+        "code": "382800",
+        "name": "지앤비에스 에코",
+        "current_price": 3845,
+        "change_rate": 10.81,
+        "change_price": 375,
+        "volume": 4646521,
+        "volume_rate": 414.84,
+        "trading_value": 18205411027,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 7,
+        "code": "417840",
+        "name": "저스템",
+        "current_price": 7120,
+        "change_rate": 8.87,
+        "change_price": 580,
+        "volume": 1905137,
+        "volume_rate": 165.94,
+        "trading_value": 13056708935,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 8,
+        "code": "331920",
+        "name": "셀레믹스",
+        "current_price": 4265,
+        "change_rate": 8.8,
+        "change_price": 345,
+        "volume": 3042397,
+        "volume_rate": 114.37,
+        "trading_value": 13652963299,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 9,
+        "code": "321370",
+        "name": "센서뷰",
+        "current_price": 3590,
+        "change_rate": 8.3,
+        "change_price": 275,
+        "volume": 8720865,
+        "volume_rate": 298.11,
+        "trading_value": 30934563328,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 10,
+        "code": "474170",
+        "name": "루미르",
+        "current_price": 19460,
+        "change_rate": 7.57,
+        "change_price": 1370,
+        "volume": 6056174,
+        "volume_rate": 360.47,
+        "trading_value": 117501169360,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 11,
+        "code": "489790",
+        "name": "한화비전",
+        "current_price": 66800,
+        "change_rate": 7.57,
+        "change_price": 4700,
+        "volume": 2922544,
+        "volume_rate": 311.04,
+        "trading_value": 192697688350,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 12,
+        "code": "332290",
+        "name": "누보",
+        "current_price": 1217,
+        "change_rate": 6.66,
+        "change_price": 76,
+        "volume": 5400282,
+        "volume_rate": 1566.02,
+        "trading_value": 6492303311,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 13,
+        "code": "396270",
+        "name": "넥스트칩",
+        "current_price": 4045,
+        "change_rate": 5.75,
+        "change_price": 220,
+        "volume": 2016666,
+        "volume_rate": 187.65,
+        "trading_value": 8026963614,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 14,
+        "code": "337930",
+        "name": "젝시믹스",
+        "current_price": 5800,
+        "change_rate": 5.45,
+        "change_price": 300,
+        "volume": 1358214,
+        "volume_rate": 313.98,
+        "trading_value": 7751950980,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 15,
+        "code": "354200",
+        "name": "엔젠바이오",
+        "current_price": 2435,
+        "change_rate": 5.41,
+        "change_price": 125,
+        "volume": 1595228,
+        "volume_rate": 132.44,
+        "trading_value": 3876576804,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 16,
+        "code": "478340",
+        "name": "나라스페이스테크놀로지",
+        "current_price": 53600,
+        "change_rate": 2.88,
+        "change_price": 1500,
+        "volume": 1350562,
+        "volume_rate": 170.45,
+        "trading_value": 71889884425,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 17,
+        "code": "322000",
+        "name": "HD현대에너지솔루션",
+        "current_price": 84200,
+        "change_rate": 2.81,
+        "change_price": 2300,
+        "volume": 5337805,
+        "volume_rate": 100.84,
+        "trading_value": 460931164500,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 18,
+        "code": "317240",
+        "name": "TS트릴리온",
+        "current_price": 415,
+        "change_rate": 2.22,
+        "change_price": 9,
+        "volume": 6672333,
+        "volume_rate": 101.18,
+        "trading_value": 2647693068,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 19,
+        "code": "316140",
+        "name": "우리금융지주",
+        "current_price": 32450,
+        "change_rate": 1.72,
+        "change_price": 550,
+        "volume": 2762317,
+        "volume_rate": 159.03,
+        "trading_value": 88073856125,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 20,
+        "code": "403870",
+        "name": "HPSP",
+        "current_price": 45850,
+        "change_rate": 1.66,
+        "change_price": 750,
+        "volume": 2063486,
+        "volume_rate": 132.36,
+        "trading_value": 94157850525,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 21,
+        "code": "462350",
+        "name": "이노스페이스",
+        "current_price": 21150,
+        "change_rate": 1.2,
+        "change_price": 250,
+        "volume": 1958211,
+        "volume_rate": 126.24,
+        "trading_value": 40536046415,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 22,
+        "code": "440110",
+        "name": "파두",
+        "current_price": 45150,
+        "change_rate": 1.01,
+        "change_price": 450,
+        "volume": 5142934,
+        "volume_rate": 32.03,
+        "trading_value": 231465459750,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 23,
+        "code": "474650",
+        "name": "링크솔루션",
+        "current_price": 74400,
+        "change_rate": 0.68,
+        "change_price": 500,
+        "volume": 775479,
+        "volume_rate": 34.47,
+        "trading_value": 55875805900,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 24,
+        "code": "456070",
+        "name": "이엔셀",
+        "current_price": 16590,
+        "change_rate": 0.55,
+        "change_price": 90,
+        "volume": 1368629,
+        "volume_rate": 557.53,
+        "trading_value": 23691695265,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 25,
+        "code": "353200",
+        "name": "대덕전자",
+        "current_price": 58900,
+        "change_rate": 0.51,
+        "change_price": 300,
+        "volume": 921310,
+        "volume_rate": 151.48,
+        "trading_value": 53969818500,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      },
+      {
+        "rank": 26,
+        "code": "317850",
+        "name": "대모",
+        "current_price": 9330,
+        "change_rate": 0.32,
+        "change_price": 30,
+        "volume": 2059794,
+        "volume_rate": 55.56,
+        "trading_value": 19331413500,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP"
+      }
+    ],
+    "kosdaq_down": [
+      {
+        "rank": 1,
+        "code": "389680",
+        "name": "유디엠텍",
+        "current_price": 1153,
+        "change_rate": -15.84,
+        "change_price": -217,
+        "volume": 8694976,
+        "volume_rate": 19.39,
+        "trading_value": 10299212001,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 2,
+        "code": "373110",
+        "name": "엑셀세라퓨틱스",
+        "current_price": 1621,
+        "change_rate": -15.22,
+        "change_price": -291,
+        "volume": 4668721,
+        "volume_rate": 84.31,
+        "trading_value": 8191215758,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 3,
+        "code": "347850",
+        "name": "디앤디파마텍",
+        "current_price": 77500,
+        "change_rate": -9.67,
+        "change_price": -8300,
+        "volume": 1042111,
+        "volume_rate": 145.6,
+        "trading_value": 81874828550,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 4,
+        "code": "336570",
+        "name": "원텍",
+        "current_price": 8070,
+        "change_rate": -8.92,
+        "change_price": -790,
+        "volume": 2280575,
+        "volume_rate": 217.34,
+        "trading_value": 18708551135,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 5,
+        "code": "466100",
+        "name": "클로봇",
+        "current_price": 62700,
+        "change_rate": -8.6,
+        "change_price": -5900,
+        "volume": 655100,
+        "volume_rate": 160.81,
+        "trading_value": 41427478350,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 6,
+        "code": "380540",
+        "name": "옵티코어",
+        "current_price": 3700,
+        "change_rate": -8.19,
+        "change_price": -330,
+        "volume": 2147398,
+        "volume_rate": 41.49,
+        "trading_value": 7902709962,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 7,
+        "code": "348340",
+        "name": "뉴로메카",
+        "current_price": 90800,
+        "change_rate": -7.35,
+        "change_price": -7200,
+        "volume": 1443199,
+        "volume_rate": 105.25,
+        "trading_value": 139058039250,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 8,
+        "code": "319400",
+        "name": "현대무벡스",
+        "current_price": 31050,
+        "change_rate": -6.62,
+        "change_price": -2200,
+        "volume": 3026755,
+        "volume_rate": 161.75,
+        "trading_value": 92707080100,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 9,
+        "code": "451700",
+        "name": "엔에이치스팩29호",
+        "current_price": 2440,
+        "change_rate": -6.15,
+        "change_price": -160,
+        "volume": 3536275,
+        "volume_rate": 0.0,
+        "trading_value": 8807995696,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 10,
+        "code": "454910",
+        "name": "두산로보틱스",
+        "current_price": 101700,
+        "change_rate": -5.66,
+        "change_price": -6100,
+        "volume": 414856,
+        "volume_rate": 119.12,
+        "trading_value": 41889345600,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 11,
+        "code": "457190",
+        "name": "이수스페셜티케미컬",
+        "current_price": 100000,
+        "change_rate": -5.3,
+        "change_price": -5600,
+        "volume": 615179,
+        "volume_rate": 47.41,
+        "trading_value": 61362791400,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 12,
+        "code": "456160",
+        "name": "지투지바이오",
+        "current_price": 79700,
+        "change_rate": -5.12,
+        "change_price": -4300,
+        "volume": 508265,
+        "volume_rate": 76.44,
+        "trading_value": 39705181650,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 13,
+        "code": "340930",
+        "name": "유일에너테크",
+        "current_price": 1343,
+        "change_rate": -4.34,
+        "change_price": -61,
+        "volume": 2013113,
+        "volume_rate": 68.95,
+        "trading_value": 2694300557,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 14,
+        "code": "377300",
+        "name": "카카오페이",
+        "current_price": 64900,
+        "change_rate": -4.28,
+        "change_price": -2900,
+        "volume": 913932,
+        "volume_rate": 53.06,
+        "trading_value": 59141797400,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 15,
+        "code": "332570",
+        "name": "PS일렉트로닉스",
+        "current_price": 6400,
+        "change_rate": -3.76,
+        "change_price": -250,
+        "volume": 1324995,
+        "volume_rate": 53.87,
+        "trading_value": 8405892195,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 16,
+        "code": "402340",
+        "name": "SK스퀘어",
+        "current_price": 514000,
+        "change_rate": -3.75,
+        "change_price": -20000,
+        "volume": 1175181,
+        "volume_rate": 106.03,
+        "trading_value": 596353753685,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 17,
+        "code": "491000",
+        "name": "리브스메드",
+        "current_price": 79200,
+        "change_rate": -3.41,
+        "change_price": -2800,
+        "volume": 1140712,
+        "volume_rate": 143.37,
+        "trading_value": 90496137050,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 18,
+        "code": "323410",
+        "name": "카카오뱅크",
+        "current_price": 26000,
+        "change_rate": -3.17,
+        "change_price": -850,
+        "volume": 4237840,
+        "volume_rate": 20.55,
+        "trading_value": 109828025875,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 19,
+        "code": "326030",
+        "name": "SK바이오팜",
+        "current_price": 108500,
+        "change_rate": -2.69,
+        "change_price": -3000,
+        "volume": 297717,
+        "volume_rate": 83.85,
+        "trading_value": 32100921000,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 20,
+        "code": "352820",
+        "name": "하이브",
+        "current_price": 355500,
+        "change_rate": -2.47,
+        "change_price": -9000,
+        "volume": 1159713,
+        "volume_rate": 390.37,
+        "trading_value": 419160059000,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 21,
+        "code": "365330",
+        "name": "에스와이스틸텍",
+        "current_price": 4080,
+        "change_rate": -1.92,
+        "change_price": -80,
+        "volume": 7027760,
+        "volume_rate": 32.99,
+        "trading_value": 28733158593,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      },
+      {
+        "rank": 22,
+        "code": "452260",
+        "name": "한화갤러리아",
+        "current_price": 2140,
+        "change_rate": -1.15,
+        "change_price": -25,
+        "volume": 14113847,
+        "volume_rate": 41.34,
+        "trading_value": 30681222844,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "DOWN"
+      }
+    ]
+  },
+  "fluctuation_direct": {
+    "kospi_up": [
+      {
+        "rank": 1,
+        "code": "263050",
+        "name": "유틸렉스",
+        "current_price": 959,
+        "change_rate": 29.95,
+        "change_price": 221,
+        "volume": 9848152,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 2,
+        "code": "047770",
+        "name": "코데즈컴바인",
+        "current_price": 3970,
+        "change_rate": 29.95,
+        "change_price": 915,
+        "volume": 31678976,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 3,
+        "code": "225190",
+        "name": "LK삼양",
+        "current_price": 2545,
+        "change_rate": 29.91,
+        "change_price": 586,
+        "volume": 75103036,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 4,
+        "code": "043590",
+        "name": "웰킵스하이텍",
+        "current_price": 787,
+        "change_rate": 29.87,
+        "change_price": 181,
+        "volume": 1279652,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 5,
+        "code": "225430",
+        "name": "케이엠제약",
+        "current_price": 666,
+        "change_rate": 29.82,
+        "change_price": 153,
+        "volume": 3802201,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 6,
+        "code": "019570",
+        "name": "플루토스",
+        "current_price": 332,
+        "change_rate": 29.69,
+        "change_price": 76,
+        "volume": 13281440,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 7,
+        "code": "001550",
+        "name": "조비",
+        "current_price": 13410,
+        "change_rate": 23.14,
+        "change_price": 2520,
+        "volume": 3221211,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 8,
+        "code": "041920",
+        "name": "메디아나",
+        "current_price": 28650,
+        "change_rate": 20.63,
+        "change_price": 4900,
+        "volume": 1633699,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 9,
+        "code": "033340",
+        "name": "좋은사람들",
+        "current_price": 1916,
+        "change_rate": 16.12,
+        "change_price": 266,
+        "volume": 62017845,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 10,
+        "code": "171090",
+        "name": "선익시스템",
+        "current_price": 91300,
+        "change_rate": 15.13,
+        "change_price": 12000,
+        "volume": 1009455,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 11,
+        "code": "196700",
+        "name": "웹스",
+        "current_price": 2685,
+        "change_rate": 14.99,
+        "change_price": 350,
+        "volume": 1491025,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 12,
+        "code": "272110",
+        "name": "케이엔제이",
+        "current_price": 32200,
+        "change_rate": 14.18,
+        "change_price": 4000,
+        "volume": 632817,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 13,
+        "code": "092040",
+        "name": "아미코젠",
+        "current_price": 1693,
+        "change_rate": 13.62,
+        "change_price": 203,
+        "volume": 12507785,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 14,
+        "code": "083470",
+        "name": "이엠앤아이",
+        "current_price": 1372,
+        "change_rate": 11.45,
+        "change_price": 141,
+        "volume": 4254976,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 15,
+        "code": "295310",
+        "name": "에이치브이엠",
+        "current_price": 86700,
+        "change_rate": 11.44,
+        "change_price": 8900,
+        "volume": 848719,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 16,
+        "code": "038500",
+        "name": "삼표시멘트",
+        "current_price": 19650,
+        "change_rate": 6.56,
+        "change_price": 1210,
+        "volume": 59988353,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 17,
+        "code": "210120",
+        "name": "캔버스엔",
+        "current_price": 1905,
+        "change_rate": 3.25,
+        "change_price": 60,
+        "volume": 1000525,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSPI",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      }
+    ],
+    "kospi_down": [],
+    "kosdaq_up": [
+      {
+        "rank": 1,
+        "code": "347700",
+        "name": "스피어",
+        "current_price": 37350,
+        "change_rate": 29.91,
+        "change_price": 8600,
+        "volume": 6034625,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 2,
+        "code": "371950",
+        "name": "풍원정밀",
+        "current_price": 13740,
+        "change_rate": 29.5,
+        "change_price": 3130,
+        "volume": 888718,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 3,
+        "code": "417010",
+        "name": "나노팀",
+        "current_price": 12440,
+        "change_rate": 12.58,
+        "change_price": 1390,
+        "volume": 6399680,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 4,
+        "code": "354320",
+        "name": "알멕",
+        "current_price": 64100,
+        "change_rate": 12.06,
+        "change_price": 6900,
+        "volume": 329104,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 5,
+        "code": "451760",
+        "name": "컨텍",
+        "current_price": 20800,
+        "change_rate": 11.83,
+        "change_price": 2200,
+        "volume": 2112998,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      },
+      {
+        "rank": 6,
+        "code": "489500",
+        "name": "엘케이켐",
+        "current_price": 49350,
+        "change_rate": 11.27,
+        "change_price": 5000,
+        "volume": 2267862,
+        "volume_rate": 0.0,
+        "trading_value": 0,
+        "market": "KOSDAQ",
+        "is_etf": false,
+        "direction": "UP",
+        "consecutive_up_days": 0,
+        "consecutive_down_days": 0
+      }
+    ],
+    "kosdaq_down": []
+  },
+  "history": {
+    "004060": {
+      "code": "004060",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 491,
+          "change_rate": 10.34
+        },
+        {
+          "date": "2026-02-05",
+          "close": 445,
+          "change_rate": 6.97
+        },
+        {
+          "date": "2026-02-04",
+          "close": 416,
+          "change_rate": 30.0
+        }
+      ],
+      "total_change_rate": 53.44
+    },
+    "225190": {
+      "code": "225190",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2545,
+          "change_rate": 29.91
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1959,
+          "change_rate": -10.34
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2185,
+          "change_rate": 17.66
+        }
+      ],
+      "total_change_rate": 37.05
+    },
+    "033340": {
+      "code": "033340",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1916,
+          "change_rate": 16.12
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1650,
+          "change_rate": -4.07
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1720,
+          "change_rate": 0.88
+        }
+      ],
+      "total_change_rate": 12.38
+    },
+    "009830": {
+      "code": "009830",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 42000,
+          "change_rate": 15.38
+        },
+        {
+          "date": "2026-02-05",
+          "close": 36400,
+          "change_rate": -0.14
+        },
+        {
+          "date": "2026-02-04",
+          "close": 36450,
+          "change_rate": 29.95
+        }
+      ],
+      "total_change_rate": 49.73
+    },
+    "255220": {
+      "code": "255220",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3350,
+          "change_rate": 12.98
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2965,
+          "change_rate": -2.63
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3045,
+          "change_rate": -6.02
+        }
+      ],
+      "total_change_rate": 3.4
+    },
+    "047770": {
+      "code": "047770",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3970,
+          "change_rate": 29.95
+        },
+        {
+          "date": "2026-02-05",
+          "close": 3055,
+          "change_rate": 0.33
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3045,
+          "change_rate": -0.33
+        }
+      ],
+      "total_change_rate": 29.95
+    },
+    "007110": {
+      "code": "007110",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1811,
+          "change_rate": 12.76
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1606,
+          "change_rate": -1.59
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1632,
+          "change_rate": 0.87
+        }
+      ],
+      "total_change_rate": 11.93
+    },
+    "034940": {
+      "code": "034940",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1028,
+          "change_rate": 13.84
+        },
+        {
+          "date": "2026-02-05",
+          "close": 903,
+          "change_rate": 0.11
+        },
+        {
+          "date": "2026-02-04",
+          "close": 902,
+          "change_rate": 0.0
+        }
+      ],
+      "total_change_rate": 13.97
+    },
+    "019570": {
+      "code": "019570",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 332,
+          "change_rate": 29.69
+        },
+        {
+          "date": "2026-02-05",
+          "close": 256,
+          "change_rate": -2.29
+        },
+        {
+          "date": "2026-02-04",
+          "close": 262,
+          "change_rate": 1.55
+        }
+      ],
+      "total_change_rate": 28.68
+    },
+    "092040": {
+      "code": "092040",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1693,
+          "change_rate": 13.62
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1490,
+          "change_rate": -0.86
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1503,
+          "change_rate": -9.84
+        }
+      ],
+      "total_change_rate": 1.56
+    },
+    "321370": {
+      "code": "321370",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3590,
+          "change_rate": 8.3
+        },
+        {
+          "date": "2026-02-05",
+          "close": 3315,
+          "change_rate": -9.18
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3650,
+          "change_rate": -7.83
+        }
+      ],
+      "total_change_rate": -9.34
+    },
+    "317240": {
+      "code": "317240",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 415,
+          "change_rate": 2.22
+        },
+        {
+          "date": "2026-02-05",
+          "close": 406,
+          "change_rate": -8.35
+        },
+        {
+          "date": "2026-02-04",
+          "close": 443,
+          "change_rate": 4.73
+        }
+      ],
+      "total_change_rate": -1.89
+    },
+    "417010": {
+      "code": "417010",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 12440,
+          "change_rate": 12.58
+        },
+        {
+          "date": "2026-02-05",
+          "close": 11050,
+          "change_rate": -8.68
+        },
+        {
+          "date": "2026-02-04",
+          "close": 12100,
+          "change_rate": 1.26
+        }
+      ],
+      "total_change_rate": 4.1
+    },
+    "474170": {
+      "code": "474170",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 19460,
+          "change_rate": 7.57
+        },
+        {
+          "date": "2026-02-05",
+          "close": 18090,
+          "change_rate": -10.67
+        },
+        {
+          "date": "2026-02-04",
+          "close": 20250,
+          "change_rate": 0.0
+        }
+      ],
+      "total_change_rate": -3.9
+    },
+    "347700": {
+      "code": "347700",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 37350,
+          "change_rate": 29.91
+        },
+        {
+          "date": "2026-02-05",
+          "close": 28750,
+          "change_rate": 0.7
+        },
+        {
+          "date": "2026-02-04",
+          "close": 28550,
+          "change_rate": 0.0
+        }
+      ],
+      "total_change_rate": 30.82
+    },
+    "332290": {
+      "code": "332290",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1217,
+          "change_rate": 6.66
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1141,
+          "change_rate": 0.09
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1140,
+          "change_rate": -0.09
+        }
+      ],
+      "total_change_rate": 6.66
+    },
+    "322000": {
+      "code": "322000",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 84200,
+          "change_rate": 2.81
+        },
+        {
+          "date": "2026-02-05",
+          "close": 81900,
+          "change_rate": 16.17
+        },
+        {
+          "date": "2026-02-04",
+          "close": 70500,
+          "change_rate": 29.83
+        }
+      ],
+      "total_change_rate": 55.06
+    },
+    "440110": {
+      "code": "440110",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 45150,
+          "change_rate": 1.01
+        },
+        {
+          "date": "2026-02-05",
+          "close": 44700,
+          "change_rate": 24.69
+        },
+        {
+          "date": "2026-02-04",
+          "close": 35850,
+          "change_rate": 29.89
+        }
+      ],
+      "total_change_rate": 63.59
+    },
+    "382800": {
+      "code": "382800",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3845,
+          "change_rate": 10.81
+        },
+        {
+          "date": "2026-02-05",
+          "close": 3470,
+          "change_rate": -7.34
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3745,
+          "change_rate": 14.0
+        }
+      ],
+      "total_change_rate": 17.05
+    },
+    "331920": {
+      "code": "331920",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4265,
+          "change_rate": 8.8
+        },
+        {
+          "date": "2026-02-05",
+          "close": 3920,
+          "change_rate": 9.5
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3580,
+          "change_rate": -7.49
+        }
+      ],
+      "total_change_rate": 10.21
+    },
+    "016600": {
+      "code": "016600",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 288,
+          "change_rate": -10.56
+        },
+        {
+          "date": "2026-02-05",
+          "close": 322,
+          "change_rate": 29.84
+        },
+        {
+          "date": "2026-02-04",
+          "close": 248,
+          "change_rate": 1.22
+        }
+      ],
+      "total_change_rate": 17.55
+    },
+    "065170": {
+      "code": "065170",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 5000,
+          "change_rate": -17.49
+        },
+        {
+          "date": "2026-02-05",
+          "close": 6060,
+          "change_rate": 29.9
+        },
+        {
+          "date": "2026-02-04",
+          "close": 4665,
+          "change_rate": 29.94
+        }
+      ],
+      "total_change_rate": 39.28
+    },
+    "083640": {
+      "code": "083640",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 470,
+          "change_rate": -16.96
+        },
+        {
+          "date": "2026-02-05",
+          "close": 566,
+          "change_rate": -11.84
+        },
+        {
+          "date": "2026-02-04",
+          "close": 642,
+          "change_rate": 29.96
+        }
+      ],
+      "total_change_rate": -4.86
+    },
+    "038530": {
+      "code": "038530",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 306,
+          "change_rate": -7.27
+        },
+        {
+          "date": "2026-02-05",
+          "close": 330,
+          "change_rate": -12.0
+        },
+        {
+          "date": "2026-02-04",
+          "close": 375,
+          "change_rate": 29.76
+        }
+      ],
+      "total_change_rate": 5.88
+    },
+    "018880": {
+      "code": "018880",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3760,
+          "change_rate": -6.7
+        },
+        {
+          "date": "2026-02-05",
+          "close": 4030,
+          "change_rate": 8.19
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3725,
+          "change_rate": 9.88
+        }
+      ],
+      "total_change_rate": 10.91
+    },
+    "227950": {
+      "code": "227950",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 387,
+          "change_rate": -13.62
+        },
+        {
+          "date": "2026-02-05",
+          "close": 448,
+          "change_rate": 29.86
+        },
+        {
+          "date": "2026-02-04",
+          "close": 345,
+          "change_rate": 0.88
+        }
+      ],
+      "total_change_rate": 13.16
+    },
+    "115530": {
+      "code": "115530",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 325,
+          "change_rate": -17.93
+        },
+        {
+          "date": "2026-02-05",
+          "close": 396,
+          "change_rate": 29.84
+        },
+        {
+          "date": "2026-02-04",
+          "close": 305,
+          "change_rate": 2.01
+        }
+      ],
+      "total_change_rate": 8.7
+    },
+    "452260": {
+      "code": "452260",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2140,
+          "change_rate": -1.15
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2165,
+          "change_rate": -3.13
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2235,
+          "change_rate": 11.47
+        }
+      ],
+      "total_change_rate": 6.73
+    },
+    "389680": {
+      "code": "389680",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1153,
+          "change_rate": -15.84
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1370,
+          "change_rate": -2.28
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1402,
+          "change_rate": 29.94
+        }
+      ],
+      "total_change_rate": 6.86
+    },
+    "365330": {
+      "code": "365330",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4080,
+          "change_rate": -1.92
+        },
+        {
+          "date": "2026-02-05",
+          "close": 4160,
+          "change_rate": 3.1
+        },
+        {
+          "date": "2026-02-04",
+          "close": 4035,
+          "change_rate": -1.59
+        }
+      ],
+      "total_change_rate": -0.49
+    },
+    "373110": {
+      "code": "373110",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1621,
+          "change_rate": -15.22
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1912,
+          "change_rate": 29.98
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1471,
+          "change_rate": -1.8
+        }
+      ],
+      "total_change_rate": 8.21
+    },
+    "323410": {
+      "code": "323410",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 26000,
+          "change_rate": -3.17
+        },
+        {
+          "date": "2026-02-05",
+          "close": 26850,
+          "change_rate": 7.4
+        },
+        {
+          "date": "2026-02-04",
+          "close": 25000,
+          "change_rate": 8.23
+        }
+      ],
+      "total_change_rate": 12.55
+    },
+    "451700": {
+      "code": "451700",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2440,
+          "change_rate": -6.12
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2599,
+          "change_rate": 0.0
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2599,
+          "change_rate": 0.0
+        }
+      ],
+      "total_change_rate": -6.12
+    },
+    "319400": {
+      "code": "319400",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 31050,
+          "change_rate": -6.62
+        },
+        {
+          "date": "2026-02-05",
+          "close": 33250,
+          "change_rate": -4.18
+        },
+        {
+          "date": "2026-02-04",
+          "close": 34700,
+          "change_rate": 0.58
+        }
+      ],
+      "total_change_rate": -10.0
+    },
+    "336570": {
+      "code": "336570",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 8070,
+          "change_rate": -8.92
+        },
+        {
+          "date": "2026-02-05",
+          "close": 8860,
+          "change_rate": -4.73
+        },
+        {
+          "date": "2026-02-04",
+          "close": 9300,
+          "change_rate": 0.32
+        }
+      ],
+      "total_change_rate": -12.94
+    },
+    "380540": {
+      "code": "380540",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3700,
+          "change_rate": -8.19
+        },
+        {
+          "date": "2026-02-05",
+          "close": 4030,
+          "change_rate": 6.05
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3800,
+          "change_rate": 4.11
+        }
+      ],
+      "total_change_rate": 1.37
+    },
+    "340930": {
+      "code": "340930",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1343,
+          "change_rate": -4.34
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1404,
+          "change_rate": -4.55
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1471,
+          "change_rate": 3.23
+        }
+      ],
+      "total_change_rate": -5.75
+    },
+    "038500": {
+      "code": "038500",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 19650,
+          "change_rate": 6.56
+        },
+        {
+          "date": "2026-02-05",
+          "close": 18440,
+          "change_rate": 0.0
+        },
+        {
+          "date": "2026-02-04",
+          "close": 18440,
+          "change_rate": 29.95
+        }
+      ],
+      "total_change_rate": 38.48
+    },
+    "005930": {
+      "code": "005930",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 158600,
+          "change_rate": -0.44
+        },
+        {
+          "date": "2026-02-05",
+          "close": 159300,
+          "change_rate": -5.8
+        },
+        {
+          "date": "2026-02-04",
+          "close": 169100,
+          "change_rate": 0.96
+        }
+      ],
+      "total_change_rate": -5.31
+    },
+    "043200": {
+      "code": "043200",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1179,
+          "change_rate": 8.66
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1085,
+          "change_rate": 7.32
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1011,
+          "change_rate": 29.95
+        }
+      ],
+      "total_change_rate": 51.54
+    },
+    "011930": {
+      "code": "011930",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2205,
+          "change_rate": 4.75
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2105,
+          "change_rate": 7.45
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1959,
+          "change_rate": 6.53
+        }
+      ],
+      "total_change_rate": 19.9
+    },
+    "090710": {
+      "code": "090710",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 13770,
+          "change_rate": 3.07
+        },
+        {
+          "date": "2026-02-05",
+          "close": 13360,
+          "change_rate": -6.83
+        },
+        {
+          "date": "2026-02-04",
+          "close": 14340,
+          "change_rate": -2.12
+        }
+      ],
+      "total_change_rate": -6.01
+    },
+    "044180": {
+      "code": "044180",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 392,
+          "change_rate": 6.23
+        },
+        {
+          "date": "2026-02-05",
+          "close": 369,
+          "change_rate": -15.75
+        },
+        {
+          "date": "2026-02-04",
+          "close": 438,
+          "change_rate": 29.97
+        }
+      ],
+      "total_change_rate": 16.32
+    },
+    "004410": {
+      "code": "004410",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 146,
+          "change_rate": -4.58
+        },
+        {
+          "date": "2026-02-05",
+          "close": 153,
+          "change_rate": 5.52
+        },
+        {
+          "date": "2026-02-04",
+          "close": 145,
+          "change_rate": 2.84
+        }
+      ],
+      "total_change_rate": 3.55
+    },
+    "219750": {
+      "code": "219750",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 948,
+          "change_rate": 6.88
+        },
+        {
+          "date": "2026-02-05",
+          "close": 887,
+          "change_rate": 29.87
+        },
+        {
+          "date": "2026-02-04",
+          "close": 683,
+          "change_rate": -4.61
+        }
+      ],
+      "total_change_rate": 32.4
+    },
+    "049630": {
+      "code": "049630",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4335,
+          "change_rate": -2.58
+        },
+        {
+          "date": "2026-02-05",
+          "close": 4450,
+          "change_rate": -5.52
+        },
+        {
+          "date": "2026-02-04",
+          "close": 4710,
+          "change_rate": -4.27
+        }
+      ],
+      "total_change_rate": -11.89
+    },
+    "076610": {
+      "code": "076610",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1305,
+          "change_rate": 3.57
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1260,
+          "change_rate": -4.62
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1321,
+          "change_rate": -0.53
+        }
+      ],
+      "total_change_rate": -1.73
+    },
+    "027360": {
+      "code": "027360",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4690,
+          "change_rate": 1.19
+        },
+        {
+          "date": "2026-02-05",
+          "close": 4635,
+          "change_rate": -8.04
+        },
+        {
+          "date": "2026-02-04",
+          "close": 5040,
+          "change_rate": -1.37
+        }
+      ],
+      "total_change_rate": -8.22
+    },
+    "032820": {
+      "code": "032820",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 9490,
+          "change_rate": 1.5
+        },
+        {
+          "date": "2026-02-05",
+          "close": 9350,
+          "change_rate": -1.37
+        },
+        {
+          "date": "2026-02-04",
+          "close": 9480,
+          "change_rate": 3.38
+        }
+      ],
+      "total_change_rate": 3.49
+    },
+    "263050": {
+      "code": "263050",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 959,
+          "change_rate": 29.95
+        },
+        {
+          "date": "2026-02-05",
+          "close": 738,
+          "change_rate": 8.05
+        },
+        {
+          "date": "2026-02-04",
+          "close": 683,
+          "change_rate": -2.43
+        }
+      ],
+      "total_change_rate": 37.0
+    },
+    "489790": {
+      "code": "489790",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 66800,
+          "change_rate": 7.57
+        },
+        {
+          "date": "2026-02-05",
+          "close": 62100,
+          "change_rate": -3.12
+        },
+        {
+          "date": "2026-02-04",
+          "close": 64100,
+          "change_rate": 0.31
+        }
+      ],
+      "total_change_rate": 4.54
+    },
+    "316140": {
+      "code": "316140",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 32450,
+          "change_rate": 1.72
+        },
+        {
+          "date": "2026-02-05",
+          "close": 31900,
+          "change_rate": -0.47
+        },
+        {
+          "date": "2026-02-04",
+          "close": 32050,
+          "change_rate": 2.4
+        }
+      ],
+      "total_change_rate": 3.67
+    },
+    "489500": {
+      "code": "489500",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 49350,
+          "change_rate": 11.27
+        },
+        {
+          "date": "2026-02-05",
+          "close": 44350,
+          "change_rate": 12.14
+        },
+        {
+          "date": "2026-02-04",
+          "close": 39550,
+          "change_rate": 29.89
+        }
+      ],
+      "total_change_rate": 62.07
+    },
+    "451760": {
+      "code": "451760",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 20800,
+          "change_rate": 11.83
+        },
+        {
+          "date": "2026-02-05",
+          "close": 18600,
+          "change_rate": -12.88
+        },
+        {
+          "date": "2026-02-04",
+          "close": 21350,
+          "change_rate": -4.47
+        }
+      ],
+      "total_change_rate": -6.94
+    },
+    "403870": {
+      "code": "403870",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 45850,
+          "change_rate": 1.66
+        },
+        {
+          "date": "2026-02-05",
+          "close": 45100,
+          "change_rate": -1.64
+        },
+        {
+          "date": "2026-02-04",
+          "close": 45850,
+          "change_rate": -2.03
+        }
+      ],
+      "total_change_rate": -2.03
+    },
+    "317850": {
+      "code": "317850",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 9330,
+          "change_rate": 0.32
+        },
+        {
+          "date": "2026-02-05",
+          "close": 9300,
+          "change_rate": -2.62
+        },
+        {
+          "date": "2026-02-04",
+          "close": 9550,
+          "change_rate": -7.28
+        }
+      ],
+      "total_change_rate": -9.42
+    },
+    "396270": {
+      "code": "396270",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4045,
+          "change_rate": 5.75
+        },
+        {
+          "date": "2026-02-05",
+          "close": 3825,
+          "change_rate": -3.29
+        },
+        {
+          "date": "2026-02-04",
+          "close": 3955,
+          "change_rate": -1.74
+        }
+      ],
+      "total_change_rate": 0.5
+    },
+    "462350": {
+      "code": "462350",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 21150,
+          "change_rate": 1.2
+        },
+        {
+          "date": "2026-02-05",
+          "close": 20900,
+          "change_rate": -12.73
+        },
+        {
+          "date": "2026-02-04",
+          "close": 23950,
+          "change_rate": -1.64
+        }
+      ],
+      "total_change_rate": -13.14
+    },
+    "417840": {
+      "code": "417840",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 7120,
+          "change_rate": 8.87
+        },
+        {
+          "date": "2026-02-05",
+          "close": 6540,
+          "change_rate": -8.02
+        },
+        {
+          "date": "2026-02-04",
+          "close": 7110,
+          "change_rate": -5.2
+        }
+      ],
+      "total_change_rate": -5.07
+    },
+    "354200": {
+      "code": "354200",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2435,
+          "change_rate": 5.41
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2310,
+          "change_rate": -8.51
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2525,
+          "change_rate": -0.59
+        }
+      ],
+      "total_change_rate": -4.13
+    },
+    "000660": {
+      "code": "000660",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 839000,
+          "change_rate": -0.36
+        },
+        {
+          "date": "2026-02-05",
+          "close": 842000,
+          "change_rate": -6.44
+        },
+        {
+          "date": "2026-02-04",
+          "close": 900000,
+          "change_rate": -0.77
+        }
+      ],
+      "total_change_rate": -7.5
+    },
+    "005380": {
+      "code": "005380",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 467500,
+          "change_rate": -4.3
+        },
+        {
+          "date": "2026-02-05",
+          "close": 488500,
+          "change_rate": -3.08
+        },
+        {
+          "date": "2026-02-04",
+          "close": 504000,
+          "change_rate": 2.54
+        }
+      ],
+      "total_change_rate": -4.88
+    },
+    "105560": {
+      "code": "105560",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 149300,
+          "change_rate": 7.03
+        },
+        {
+          "date": "2026-02-05",
+          "close": 139500,
+          "change_rate": -1.83
+        },
+        {
+          "date": "2026-02-04",
+          "close": 142100,
+          "change_rate": 2.38
+        }
+      ],
+      "total_change_rate": 7.56
+    },
+    "086520": {
+      "code": "086520",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 155800,
+          "change_rate": -6.99
+        },
+        {
+          "date": "2026-02-05",
+          "close": 167500,
+          "change_rate": -4.72
+        },
+        {
+          "date": "2026-02-04",
+          "close": 175800,
+          "change_rate": 3.53
+        }
+      ],
+      "total_change_rate": -8.24
+    },
+    "034020": {
+      "code": "034020",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 89000,
+          "change_rate": -1.77
+        },
+        {
+          "date": "2026-02-05",
+          "close": 90600,
+          "change_rate": -6.11
+        },
+        {
+          "date": "2026-02-04",
+          "close": 96500,
+          "change_rate": 5.81
+        }
+      ],
+      "total_change_rate": -2.41
+    },
+    "035420": {
+      "code": "035420",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 249000,
+          "change_rate": -3.11
+        },
+        {
+          "date": "2026-02-05",
+          "close": 257000,
+          "change_rate": -2.84
+        },
+        {
+          "date": "2026-02-04",
+          "close": 264500,
+          "change_rate": -1.67
+        }
+      ],
+      "total_change_rate": -7.43
+    },
+    "005935": {
+      "code": "005935",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 112400,
+          "change_rate": -0.97
+        },
+        {
+          "date": "2026-02-05",
+          "close": 113500,
+          "change_rate": -5.81
+        },
+        {
+          "date": "2026-02-04",
+          "close": 120500,
+          "change_rate": -0.08
+        }
+      ],
+      "total_change_rate": -6.8
+    },
+    "006800": {
+      "code": "006800",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 48000,
+          "change_rate": -3.23
+        },
+        {
+          "date": "2026-02-05",
+          "close": 49600,
+          "change_rate": -3.12
+        },
+        {
+          "date": "2026-02-04",
+          "close": 51200,
+          "change_rate": 2.5
+        }
+      ],
+      "total_change_rate": -3.9
+    },
+    "012450": {
+      "code": "012450",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1181000,
+          "change_rate": -3.75
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1227000,
+          "change_rate": -7.33
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1324000,
+          "change_rate": 1.92
+        }
+      ],
+      "total_change_rate": -9.08
+    },
+    "272210": {
+      "code": "272210",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 103000,
+          "change_rate": -7.46
+        },
+        {
+          "date": "2026-02-05",
+          "close": 111300,
+          "change_rate": -9.51
+        },
+        {
+          "date": "2026-02-04",
+          "close": 123000,
+          "change_rate": 2.93
+        }
+      ],
+      "total_change_rate": -13.81
+    },
+    "042700": {
+      "code": "042700",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 196000,
+          "change_rate": 1.29
+        },
+        {
+          "date": "2026-02-05",
+          "close": 193500,
+          "change_rate": -4.44
+        },
+        {
+          "date": "2026-02-04",
+          "close": 202500,
+          "change_rate": 1.61
+        }
+      ],
+      "total_change_rate": -1.66
+    },
+    "006400": {
+      "code": "006400",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 370000,
+          "change_rate": -4.02
+        },
+        {
+          "date": "2026-02-05",
+          "close": 385500,
+          "change_rate": -1.53
+        },
+        {
+          "date": "2026-02-04",
+          "close": 391500,
+          "change_rate": 4.54
+        }
+      ],
+      "total_change_rate": -1.2
+    },
+    "055550": {
+      "code": "055550",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 93600,
+          "change_rate": 2.97
+        },
+        {
+          "date": "2026-02-05",
+          "close": 90900,
+          "change_rate": 0.66
+        },
+        {
+          "date": "2026-02-04",
+          "close": 90300,
+          "change_rate": 2.61
+        }
+      ],
+      "total_change_rate": 6.36
+    },
+    "042660": {
+      "code": "042660",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 130600,
+          "change_rate": -3.69
+        },
+        {
+          "date": "2026-02-05",
+          "close": 135600,
+          "change_rate": -5.83
+        },
+        {
+          "date": "2026-02-04",
+          "close": 144000,
+          "change_rate": 1.84
+        }
+      ],
+      "total_change_rate": -7.64
+    },
+    "028260": {
+      "code": "028260",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 289500,
+          "change_rate": -5.39
+        },
+        {
+          "date": "2026-02-05",
+          "close": 306000,
+          "change_rate": -3.32
+        },
+        {
+          "date": "2026-02-04",
+          "close": 316500,
+          "change_rate": 0.48
+        }
+      ],
+      "total_change_rate": -8.1
+    },
+    "247540": {
+      "code": "247540",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 198200,
+          "change_rate": -6.29
+        },
+        {
+          "date": "2026-02-05",
+          "close": 211500,
+          "change_rate": -4.94
+        },
+        {
+          "date": "2026-02-04",
+          "close": 222500,
+          "change_rate": 1.6
+        }
+      ],
+      "total_change_rate": -9.5
+    },
+    "035720": {
+      "code": "035720",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 56200,
+          "change_rate": -3.44
+        },
+        {
+          "date": "2026-02-05",
+          "close": 58200,
+          "change_rate": -0.51
+        },
+        {
+          "date": "2026-02-04",
+          "close": 58500,
+          "change_rate": -1.18
+        }
+      ],
+      "total_change_rate": -5.07
+    },
+    "068270": {
+      "code": "068270",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 220000,
+          "change_rate": 1.15
+        },
+        {
+          "date": "2026-02-05",
+          "close": 217500,
+          "change_rate": 1.4
+        },
+        {
+          "date": "2026-02-04",
+          "close": 214500,
+          "change_rate": 3.37
+        }
+      ],
+      "total_change_rate": 6.02
+    },
+    "047810": {
+      "code": "047810",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 158300,
+          "change_rate": -2.28
+        },
+        {
+          "date": "2026-02-05",
+          "close": 162000,
+          "change_rate": -5.37
+        },
+        {
+          "date": "2026-02-04",
+          "close": 171200,
+          "change_rate": 4.58
+        }
+      ],
+      "total_change_rate": -3.3
+    },
+    "277810": {
+      "code": "277810",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 658000,
+          "change_rate": -7.45
+        },
+        {
+          "date": "2026-02-05",
+          "close": 711000,
+          "change_rate": -6.08
+        },
+        {
+          "date": "2026-02-04",
+          "close": 757000,
+          "change_rate": 0.13
+        }
+      ],
+      "total_change_rate": -12.96
+    },
+    "005490": {
+      "code": "005490",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 359500,
+          "change_rate": -2.04
+        },
+        {
+          "date": "2026-02-05",
+          "close": 367000,
+          "change_rate": 0.96
+        },
+        {
+          "date": "2026-02-04",
+          "close": 363500,
+          "change_rate": 1.82
+        }
+      ],
+      "total_change_rate": 0.7
+    },
+    "017670": {
+      "code": "017670",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 69200,
+          "change_rate": -10.71
+        },
+        {
+          "date": "2026-02-05",
+          "close": 77500,
+          "change_rate": -0.51
+        },
+        {
+          "date": "2026-02-04",
+          "close": 77900,
+          "change_rate": 5.84
+        }
+      ],
+      "total_change_rate": -5.98
+    },
+    "196170": {
+      "code": "196170",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 361000,
+          "change_rate": -4.12
+        },
+        {
+          "date": "2026-02-05",
+          "close": 376500,
+          "change_rate": -4.68
+        },
+        {
+          "date": "2026-02-04",
+          "close": 395000,
+          "change_rate": -1.99
+        }
+      ],
+      "total_change_rate": -10.42
+    },
+    "008830": {
+      "code": "008830",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 22200,
+          "change_rate": -2.84
+        },
+        {
+          "date": "2026-02-05",
+          "close": 22850,
+          "change_rate": 15.99
+        },
+        {
+          "date": "2026-02-04",
+          "close": 19700,
+          "change_rate": -5.29
+        }
+      ],
+      "total_change_rate": 6.73
+    },
+    "000270": {
+      "code": "000270",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 151900,
+          "change_rate": -2.75
+        },
+        {
+          "date": "2026-02-05",
+          "close": 156200,
+          "change_rate": -0.38
+        },
+        {
+          "date": "2026-02-04",
+          "close": 156800,
+          "change_rate": 1.82
+        }
+      ],
+      "total_change_rate": -1.36
+    },
+    "100790": {
+      "code": "100790",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 24650,
+          "change_rate": 7.64
+        },
+        {
+          "date": "2026-02-05",
+          "close": 22900,
+          "change_rate": -8.4
+        },
+        {
+          "date": "2026-02-04",
+          "close": 25000,
+          "change_rate": 13.12
+        }
+      ],
+      "total_change_rate": 11.54
+    },
+    "402340": {
+      "code": "402340",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 514000,
+          "change_rate": -3.75
+        },
+        {
+          "date": "2026-02-05",
+          "close": 534000,
+          "change_rate": -6.15
+        },
+        {
+          "date": "2026-02-04",
+          "close": 569000,
+          "change_rate": 4.21
+        }
+      ],
+      "total_change_rate": -5.86
+    },
+    "352820": {
+      "code": "352820",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 355500,
+          "change_rate": -2.47
+        },
+        {
+          "date": "2026-02-05",
+          "close": 364500,
+          "change_rate": -1.35
+        },
+        {
+          "date": "2026-02-04",
+          "close": 369500,
+          "change_rate": 0.27
+        }
+      ],
+      "total_change_rate": -3.53
+    },
+    "348340": {
+      "code": "348340",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 90800,
+          "change_rate": -7.35
+        },
+        {
+          "date": "2026-02-05",
+          "close": 98000,
+          "change_rate": 7.1
+        },
+        {
+          "date": "2026-02-04",
+          "close": 91500,
+          "change_rate": 3.74
+        }
+      ],
+      "total_change_rate": 2.95
+    },
+    "491000": {
+      "code": "491000",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 79200,
+          "change_rate": -3.41
+        },
+        {
+          "date": "2026-02-05",
+          "close": 82000,
+          "change_rate": -6.18
+        },
+        {
+          "date": "2026-02-04",
+          "close": 87400,
+          "change_rate": 17.16
+        }
+      ],
+      "total_change_rate": 6.17
+    },
+    "347850": {
+      "code": "347850",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 77500,
+          "change_rate": -9.67
+        },
+        {
+          "date": "2026-02-05",
+          "close": 85800,
+          "change_rate": -0.23
+        },
+        {
+          "date": "2026-02-04",
+          "close": 86000,
+          "change_rate": -4.76
+        }
+      ],
+      "total_change_rate": -14.17
+    },
+    "478340": {
+      "code": "478340",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 53600,
+          "change_rate": 2.88
+        },
+        {
+          "date": "2026-02-05",
+          "close": 52100,
+          "change_rate": -10.33
+        },
+        {
+          "date": "2026-02-04",
+          "close": 58100,
+          "change_rate": -5.83
+        }
+      ],
+      "total_change_rate": -13.13
+    },
+    "457190": {
+      "code": "457190",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 100000,
+          "change_rate": -5.3
+        },
+        {
+          "date": "2026-02-05",
+          "close": 105600,
+          "change_rate": -13.58
+        },
+        {
+          "date": "2026-02-04",
+          "close": 122200,
+          "change_rate": 13.67
+        }
+      ],
+      "total_change_rate": -6.98
+    },
+    "377300": {
+      "code": "377300",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 64900,
+          "change_rate": -4.28
+        },
+        {
+          "date": "2026-02-05",
+          "close": 67800,
+          "change_rate": -1.17
+        },
+        {
+          "date": "2026-02-04",
+          "close": 68600,
+          "change_rate": 2.69
+        }
+      ],
+      "total_change_rate": -2.84
+    },
+    "474650": {
+      "code": "474650",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 74400,
+          "change_rate": 0.68
+        },
+        {
+          "date": "2026-02-05",
+          "close": 73900,
+          "change_rate": 17.86
+        },
+        {
+          "date": "2026-02-04",
+          "close": 62700,
+          "change_rate": -2.34
+        }
+      ],
+      "total_change_rate": 15.89
+    },
+    "353200": {
+      "code": "353200",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 58900,
+          "change_rate": 0.51
+        },
+        {
+          "date": "2026-02-05",
+          "close": 58600,
+          "change_rate": -4.72
+        },
+        {
+          "date": "2026-02-04",
+          "close": 61500,
+          "change_rate": -4.95
+        }
+      ],
+      "total_change_rate": -8.96
+    },
+    "454910": {
+      "code": "454910",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 101700,
+          "change_rate": -5.66
+        },
+        {
+          "date": "2026-02-05",
+          "close": 107800,
+          "change_rate": -5.11
+        },
+        {
+          "date": "2026-02-04",
+          "close": 113600,
+          "change_rate": 2.34
+        }
+      ],
+      "total_change_rate": -8.38
+    },
+    "466100": {
+      "code": "466100",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 62700,
+          "change_rate": -8.6
+        },
+        {
+          "date": "2026-02-05",
+          "close": 68600,
+          "change_rate": -3.38
+        },
+        {
+          "date": "2026-02-04",
+          "close": 71000,
+          "change_rate": -1.39
+        }
+      ],
+      "total_change_rate": -12.92
+    },
+    "456160": {
+      "code": "456160",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 79700,
+          "change_rate": -5.12
+        },
+        {
+          "date": "2026-02-05",
+          "close": 84000,
+          "change_rate": -4.33
+        },
+        {
+          "date": "2026-02-04",
+          "close": 87800,
+          "change_rate": 4.9
+        }
+      ],
+      "total_change_rate": -4.78
+    },
+    "475960": {
+      "code": "475960",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 55200,
+          "change_rate": 11.97
+        },
+        {
+          "date": "2026-02-05",
+          "close": 49300,
+          "change_rate": -3.52
+        },
+        {
+          "date": "2026-02-04",
+          "close": 51100,
+          "change_rate": 1.19
+        }
+      ],
+      "total_change_rate": 9.31
+    },
+    "476830": {
+      "code": "476830",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 128500,
+          "change_rate": -7.82
+        },
+        {
+          "date": "2026-02-05",
+          "close": 139400,
+          "change_rate": -5.56
+        },
+        {
+          "date": "2026-02-04",
+          "close": 147600,
+          "change_rate": 0.2
+        }
+      ],
+      "total_change_rate": -12.76
+    },
+    "450080": {
+      "code": "450080",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 63000,
+          "change_rate": -4.83
+        },
+        {
+          "date": "2026-02-05",
+          "close": 66200,
+          "change_rate": -6.89
+        },
+        {
+          "date": "2026-02-04",
+          "close": 71100,
+          "change_rate": 6.28
+        }
+      ],
+      "total_change_rate": -5.83
+    },
+    "326030": {
+      "code": "326030",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 108500,
+          "change_rate": -2.69
+        },
+        {
+          "date": "2026-02-05",
+          "close": 111500,
+          "change_rate": -3.13
+        },
+        {
+          "date": "2026-02-04",
+          "close": 115100,
+          "change_rate": 0.0
+        }
+      ],
+      "total_change_rate": -5.73
+    },
+    "043590": {
+      "code": "043590",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 787,
+          "change_rate": 29.87
+        },
+        {
+          "date": "2026-02-05",
+          "close": 606,
+          "change_rate": -6.19
+        },
+        {
+          "date": "2026-02-04",
+          "close": 646,
+          "change_rate": -0.31
+        }
+      ],
+      "total_change_rate": 21.45
+    },
+    "225430": {
+      "code": "225430",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 666,
+          "change_rate": 29.82
+        },
+        {
+          "date": "2026-02-05",
+          "close": 513,
+          "change_rate": 2.4
+        },
+        {
+          "date": "2026-02-04",
+          "close": 501,
+          "change_rate": 0.4
+        }
+      ],
+      "total_change_rate": 33.47
+    },
+    "001550": {
+      "code": "001550",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 13410,
+          "change_rate": 23.14
+        },
+        {
+          "date": "2026-02-05",
+          "close": 10890,
+          "change_rate": -0.27
+        },
+        {
+          "date": "2026-02-04",
+          "close": 10920,
+          "change_rate": 1.39
+        }
+      ],
+      "total_change_rate": 24.51
+    },
+    "041920": {
+      "code": "041920",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 28650,
+          "change_rate": 20.63
+        },
+        {
+          "date": "2026-02-05",
+          "close": 23750,
+          "change_rate": -1.25
+        },
+        {
+          "date": "2026-02-04",
+          "close": 24050,
+          "change_rate": -6.05
+        }
+      ],
+      "total_change_rate": 11.91
+    },
+    "009190": {
+      "code": "009190",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1369,
+          "change_rate": 15.62
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1184,
+          "change_rate": -4.82
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1244,
+          "change_rate": 1.22
+        }
+      ],
+      "total_change_rate": 11.39
+    },
+    "171090": {
+      "code": "171090",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 91300,
+          "change_rate": 15.13
+        },
+        {
+          "date": "2026-02-05",
+          "close": 79300,
+          "change_rate": 3.39
+        },
+        {
+          "date": "2026-02-04",
+          "close": 76700,
+          "change_rate": 30.0
+        }
+      ],
+      "total_change_rate": 54.75
+    },
+    "196700": {
+      "code": "196700",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2685,
+          "change_rate": 14.99
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2335,
+          "change_rate": -2.1
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2385,
+          "change_rate": 1.27
+        }
+      ],
+      "total_change_rate": 14.01
+    },
+    "019210": {
+      "code": "019210",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 9850,
+          "change_rate": 12.96
+        },
+        {
+          "date": "2026-02-05",
+          "close": 8720,
+          "change_rate": 0.46
+        },
+        {
+          "date": "2026-02-04",
+          "close": 8680,
+          "change_rate": -3.34
+        }
+      ],
+      "total_change_rate": 9.69
+    },
+    "021880": {
+      "code": "021880",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 277,
+          "change_rate": 12.15
+        },
+        {
+          "date": "2026-02-05",
+          "close": 247,
+          "change_rate": 3.35
+        },
+        {
+          "date": "2026-02-04",
+          "close": 239,
+          "change_rate": -1.65
+        }
+      ],
+      "total_change_rate": 13.99
+    },
+    "054300": {
+      "code": "054300",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 738,
+          "change_rate": 11.99
+        },
+        {
+          "date": "2026-02-05",
+          "close": 659,
+          "change_rate": -2.37
+        },
+        {
+          "date": "2026-02-04",
+          "close": 675,
+          "change_rate": 0.45
+        }
+      ],
+      "total_change_rate": 9.82
+    },
+    "009835": {
+      "code": "009835",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 30250,
+          "change_rate": 11.83
+        },
+        {
+          "date": "2026-02-05",
+          "close": 27050,
+          "change_rate": -2.17
+        },
+        {
+          "date": "2026-02-04",
+          "close": 27650,
+          "change_rate": 29.81
+        }
+      ],
+      "total_change_rate": 42.02
+    },
+    "123010": {
+      "code": "123010",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1335,
+          "change_rate": 11.72
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1195,
+          "change_rate": -6.64
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1280,
+          "change_rate": 6.67
+        }
+      ],
+      "total_change_rate": 11.25
+    },
+    "083470": {
+      "code": "083470",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1372,
+          "change_rate": 11.45
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1231,
+          "change_rate": 6.12
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1160,
+          "change_rate": 29.9
+        }
+      ],
+      "total_change_rate": 53.64
+    },
+    "295310": {
+      "code": "295310",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 86700,
+          "change_rate": 11.44
+        },
+        {
+          "date": "2026-02-05",
+          "close": 77800,
+          "change_rate": -15.43
+        },
+        {
+          "date": "2026-02-04",
+          "close": 92000,
+          "change_rate": 0.33
+        }
+      ],
+      "total_change_rate": -5.45
+    },
+    "045390": {
+      "code": "045390",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4660,
+          "change_rate": 11.35
+        },
+        {
+          "date": "2026-02-05",
+          "close": 4185,
+          "change_rate": -4.01
+        },
+        {
+          "date": "2026-02-04",
+          "close": 4360,
+          "change_rate": 1.16
+        }
+      ],
+      "total_change_rate": 8.12
+    },
+    "025980": {
+      "code": "025980",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 8900,
+          "change_rate": 10.83
+        },
+        {
+          "date": "2026-02-05",
+          "close": 8030,
+          "change_rate": -2.55
+        },
+        {
+          "date": "2026-02-04",
+          "close": 8240,
+          "change_rate": -0.12
+        }
+      ],
+      "total_change_rate": 7.88
+    },
+    "026040": {
+      "code": "026040",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3280,
+          "change_rate": 10.81
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2960,
+          "change_rate": 0.17
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2955,
+          "change_rate": 0.68
+        }
+      ],
+      "total_change_rate": 11.75
+    },
+    "014990": {
+      "code": "014990",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 834,
+          "change_rate": 10.76
+        },
+        {
+          "date": "2026-02-05",
+          "close": 753,
+          "change_rate": -2.59
+        },
+        {
+          "date": "2026-02-04",
+          "close": 773,
+          "change_rate": 1.18
+        }
+      ],
+      "total_change_rate": 9.16
+    },
+    "095340": {
+      "code": "095340",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 163500,
+          "change_rate": 9.88
+        },
+        {
+          "date": "2026-02-05",
+          "close": 148800,
+          "change_rate": 3.98
+        },
+        {
+          "date": "2026-02-04",
+          "close": 143100,
+          "change_rate": -4.41
+        }
+      ],
+      "total_change_rate": 9.22
+    },
+    "121850": {
+      "code": "121850",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 4460,
+          "change_rate": -29.87
+        },
+        {
+          "date": "2026-02-05",
+          "close": 6360,
+          "change_rate": 13.77
+        },
+        {
+          "date": "2026-02-04",
+          "close": 5590,
+          "change_rate": 30.0
+        }
+      ],
+      "total_change_rate": 3.72
+    },
+    "035290": {
+      "code": "035290",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 686,
+          "change_rate": -18.14
+        },
+        {
+          "date": "2026-02-05",
+          "close": 838,
+          "change_rate": 29.92
+        },
+        {
+          "date": "2026-02-04",
+          "close": 645,
+          "change_rate": -1.98
+        }
+      ],
+      "total_change_rate": 4.26
+    },
+    "128820": {
+      "code": "128820",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 8430,
+          "change_rate": -13.98
+        },
+        {
+          "date": "2026-02-05",
+          "close": 9800,
+          "change_rate": -12.81
+        },
+        {
+          "date": "2026-02-04",
+          "close": 11240,
+          "change_rate": 29.94
+        }
+      ],
+      "total_change_rate": -2.54
+    },
+    "066430": {
+      "code": "066430",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 3205,
+          "change_rate": -13.14
+        },
+        {
+          "date": "2026-02-05",
+          "close": 3690,
+          "change_rate": 27.02
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2905,
+          "change_rate": 9.83
+        }
+      ],
+      "total_change_rate": 21.17
+    },
+    "234340": {
+      "code": "234340",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 23550,
+          "change_rate": -11.13
+        },
+        {
+          "date": "2026-02-05",
+          "close": 26500,
+          "change_rate": 0.95
+        },
+        {
+          "date": "2026-02-04",
+          "close": 26250,
+          "change_rate": 7.8
+        }
+      ],
+      "total_change_rate": -3.29
+    },
+    "056090": {
+      "code": "056090",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1835,
+          "change_rate": -9.61
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2030,
+          "change_rate": 8.27
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1875,
+          "change_rate": 14.75
+        }
+      ],
+      "total_change_rate": 12.3
+    },
+    "004310": {
+      "code": "004310",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 11880,
+          "change_rate": -9.24
+        },
+        {
+          "date": "2026-02-05",
+          "close": 13090,
+          "change_rate": 11.69
+        },
+        {
+          "date": "2026-02-04",
+          "close": 11720,
+          "change_rate": 3.53
+        }
+      ],
+      "total_change_rate": 4.95
+    },
+    "033100": {
+      "code": "033100",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 57600,
+          "change_rate": -8.72
+        },
+        {
+          "date": "2026-02-05",
+          "close": 63100,
+          "change_rate": 4.47
+        },
+        {
+          "date": "2026-02-04",
+          "close": 60400,
+          "change_rate": 26.76
+        }
+      ],
+      "total_change_rate": 20.88
+    },
+    "058610": {
+      "code": "058610",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 136100,
+          "change_rate": -8.41
+        },
+        {
+          "date": "2026-02-05",
+          "close": 148600,
+          "change_rate": -4.5
+        },
+        {
+          "date": "2026-02-04",
+          "close": 155600,
+          "change_rate": -0.45
+        }
+      ],
+      "total_change_rate": -12.92
+    },
+    "115610": {
+      "code": "115610",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 2055,
+          "change_rate": -8.26
+        },
+        {
+          "date": "2026-02-05",
+          "close": 2240,
+          "change_rate": 0.22
+        },
+        {
+          "date": "2026-02-04",
+          "close": 2235,
+          "change_rate": -8.02
+        }
+      ],
+      "total_change_rate": -15.43
+    },
+    "079900": {
+      "code": "079900",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 56800,
+          "change_rate": -7.79
+        },
+        {
+          "date": "2026-02-05",
+          "close": 61600,
+          "change_rate": -4.5
+        },
+        {
+          "date": "2026-02-04",
+          "close": 64500,
+          "change_rate": -1.53
+        }
+      ],
+      "total_change_rate": -13.28
+    },
+    "278470": {
+      "code": "278470",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 256500,
+          "change_rate": -7.73
+        },
+        {
+          "date": "2026-02-05",
+          "close": 278000,
+          "change_rate": 5.3
+        },
+        {
+          "date": "2026-02-04",
+          "close": 264000,
+          "change_rate": -2.94
+        }
+      ],
+      "total_change_rate": -5.7
+    },
+    "252990": {
+      "code": "252990",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 10720,
+          "change_rate": -7.67
+        },
+        {
+          "date": "2026-02-05",
+          "close": 11610,
+          "change_rate": 6.42
+        },
+        {
+          "date": "2026-02-04",
+          "close": 10910,
+          "change_rate": -2.06
+        }
+      ],
+      "total_change_rate": -3.77
+    },
+    "101330": {
+      "code": "101330",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 6650,
+          "change_rate": -7.38
+        },
+        {
+          "date": "2026-02-05",
+          "close": 7180,
+          "change_rate": 1.13
+        },
+        {
+          "date": "2026-02-04",
+          "close": 7100,
+          "change_rate": 10.08
+        }
+      ],
+      "total_change_rate": 3.1
+    },
+    "226950": {
+      "code": "226950",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 122400,
+          "change_rate": -7.34
+        },
+        {
+          "date": "2026-02-05",
+          "close": 132100,
+          "change_rate": -4.9
+        },
+        {
+          "date": "2026-02-04",
+          "close": 138900,
+          "change_rate": 0.87
+        }
+      ],
+      "total_change_rate": -11.11
+    },
+    "125490": {
+      "code": "125490",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 19300,
+          "change_rate": -7.21
+        },
+        {
+          "date": "2026-02-05",
+          "close": 20800,
+          "change_rate": -8.77
+        },
+        {
+          "date": "2026-02-04",
+          "close": 22800,
+          "change_rate": 1.56
+        }
+      ],
+      "total_change_rate": -14.03
+    },
+    "078890": {
+      "code": "078890",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 5200,
+          "change_rate": -7.14
+        },
+        {
+          "date": "2026-02-05",
+          "close": 5600,
+          "change_rate": -9.68
+        },
+        {
+          "date": "2026-02-04",
+          "close": 6200,
+          "change_rate": -4.76
+        }
+      ],
+      "total_change_rate": -20.12
+    },
+    "950250": {
+      "code": "950250",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 9390,
+          "change_rate": -7.12
+        },
+        {
+          "date": "2026-02-05",
+          "close": 10110,
+          "change_rate": 0.1
+        },
+        {
+          "date": "2026-02-04",
+          "close": 10100,
+          "change_rate": 6.88
+        }
+      ],
+      "total_change_rate": -0.63
+    },
+    "290660": {
+      "code": "290660",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1017,
+          "change_rate": -7.04
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1094,
+          "change_rate": 1.67
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1076,
+          "change_rate": -9.58
+        }
+      ],
+      "total_change_rate": -14.54
+    },
+    "141080": {
+      "code": "141080",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 169800,
+          "change_rate": -6.7
+        },
+        {
+          "date": "2026-02-05",
+          "close": 182000,
+          "change_rate": -1.99
+        },
+        {
+          "date": "2026-02-04",
+          "close": 185700,
+          "change_rate": -3.98
+        }
+      ],
+      "total_change_rate": -12.2
+    },
+    "337930": {
+      "code": "337930",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 5800,
+          "change_rate": 5.45
+        },
+        {
+          "date": "2026-02-05",
+          "close": 5500,
+          "change_rate": -2.65
+        },
+        {
+          "date": "2026-02-04",
+          "close": 5650,
+          "change_rate": -0.7
+        }
+      ],
+      "total_change_rate": 1.93
+    },
+    "456070": {
+      "code": "456070",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 16590,
+          "change_rate": 0.55
+        },
+        {
+          "date": "2026-02-05",
+          "close": 16500,
+          "change_rate": -4.84
+        },
+        {
+          "date": "2026-02-04",
+          "close": 17340,
+          "change_rate": -1.98
+        }
+      ],
+      "total_change_rate": -6.22
+    },
+    "332570": {
+      "code": "332570",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 6400,
+          "change_rate": -3.76
+        },
+        {
+          "date": "2026-02-05",
+          "close": 6650,
+          "change_rate": -6.86
+        },
+        {
+          "date": "2026-02-04",
+          "close": 7140,
+          "change_rate": -7.27
+        }
+      ],
+      "total_change_rate": -16.88
+    },
+    "272110": {
+      "code": "272110",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 32200,
+          "change_rate": 14.18
+        },
+        {
+          "date": "2026-02-05",
+          "close": 28200,
+          "change_rate": -6.62
+        },
+        {
+          "date": "2026-02-04",
+          "close": 30200,
+          "change_rate": 3.96
+        }
+      ],
+      "total_change_rate": 10.84
+    },
+    "210120": {
+      "code": "210120",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 1905,
+          "change_rate": 3.25
+        },
+        {
+          "date": "2026-02-05",
+          "close": 1845,
+          "change_rate": -1.86
+        },
+        {
+          "date": "2026-02-04",
+          "close": 1880,
+          "change_rate": -0.79
+        }
+      ],
+      "total_change_rate": 0.53
+    },
+    "371950": {
+      "code": "371950",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 13740,
+          "change_rate": 29.5
+        },
+        {
+          "date": "2026-02-05",
+          "close": 10610,
+          "change_rate": -16.46
+        },
+        {
+          "date": "2026-02-04",
+          "close": 12700,
+          "change_rate": -1.93
+        }
+      ],
+      "total_change_rate": 6.1
+    },
+    "354320": {
+      "code": "354320",
+      "changes": [
+        {
+          "date": "2026-02-06",
+          "close": 64100,
+          "change_rate": 12.06
+        },
+        {
+          "date": "2026-02-05",
+          "close": 57200,
+          "change_rate": -12.8
+        },
+        {
+          "date": "2026-02-04",
+          "close": 65600,
+          "change_rate": -3.67
+        }
+      ],
+      "total_change_rate": -5.87
+    }
+  },
+  "news": {},
+  "investor_data": {
+    "004060": {
+      "name": "SG세계물산",
+      "foreign_net": -541688,
+      "institution_net": -1002723,
+      "individual_net": 1546247
+    },
+    "225190": {
+      "name": "LK삼양",
+      "foreign_net": 904389,
+      "institution_net": 100,
+      "individual_net": -901290
+    },
+    "033340": {
+      "name": "좋은사람들",
+      "foreign_net": -3175682,
+      "institution_net": 0,
+      "individual_net": 3160124
+    },
+    "009830": {
+      "name": "한화솔루션",
+      "foreign_net": 1502885,
+      "institution_net": 1364458,
+      "individual_net": -2804235
+    },
+    "255220": {
+      "name": "SG",
+      "foreign_net": 2010023,
+      "institution_net": 60982,
+      "individual_net": -165980
+    },
+    "047770": {
+      "name": "코데즈컴바인",
+      "foreign_net": -530374,
+      "institution_net": 100,
+      "individual_net": 403679
+    },
+    "007110": {
+      "name": "일신석재",
+      "foreign_net": 34439,
+      "institution_net": -362,
+      "individual_net": -43721
+    },
+    "034940": {
+      "name": "조아제약",
+      "foreign_net": 45649,
+      "institution_net": -116,
+      "individual_net": -45543
+    },
+    "019570": {
+      "name": "플루토스",
+      "foreign_net": 467287,
+      "institution_net": 0,
+      "individual_net": -498001
+    },
+    "092040": {
+      "name": "아미코젠",
+      "foreign_net": -335668,
+      "institution_net": -17728,
+      "individual_net": 353691
+    },
+    "321370": {
+      "name": "센서뷰",
+      "foreign_net": -33015,
+      "institution_net": -97807,
+      "individual_net": 111685
+    },
+    "317240": {
+      "name": "TS트릴리온",
+      "foreign_net": 277355,
+      "institution_net": 0,
+      "individual_net": -277322
+    },
+    "417010": {
+      "name": "나노팀",
+      "foreign_net": 247316,
+      "institution_net": 0,
+      "individual_net": -250002
+    },
+    "474170": {
+      "name": "루미르",
+      "foreign_net": 57222,
+      "institution_net": -37610,
+      "individual_net": 90866
+    },
+    "347700": {
+      "name": "스피어",
+      "foreign_net": 576080,
+      "institution_net": 149146,
+      "individual_net": -687848
+    },
+    "332290": {
+      "name": "누보",
+      "foreign_net": -61354,
+      "institution_net": 0,
+      "individual_net": -78125
+    },
+    "322000": {
+      "name": "HD현대에너지솔루션",
+      "foreign_net": 49669,
+      "institution_net": 34092,
+      "individual_net": -90379
+    },
+    "440110": {
+      "name": "파두",
+      "foreign_net": -157538,
+      "institution_net": 334456,
+      "individual_net": -110512
+    },
+    "382800": {
+      "name": "지앤비에스 에코",
+      "foreign_net": 78066,
+      "institution_net": 19,
+      "individual_net": -82231
+    },
+    "331920": {
+      "name": "셀레믹스",
+      "foreign_net": 26837,
+      "institution_net": 67292,
+      "individual_net": -92372
+    },
+    "016600": {
+      "name": "큐캐피탈",
+      "foreign_net": -144071,
+      "institution_net": -49062,
+      "individual_net": 184733
+    },
+    "065170": {
+      "name": "비엘팜텍",
+      "foreign_net": -366110,
+      "institution_net": -100,
+      "individual_net": 365798
+    },
+    "083640": {
+      "name": "인콘",
+      "foreign_net": -171767,
+      "institution_net": -655395,
+      "individual_net": 870196
+    },
+    "038530": {
+      "name": "케이바이오",
+      "foreign_net": 184023,
+      "institution_net": 0,
+      "individual_net": -319039
+    },
+    "018880": {
+      "name": "한온시스템",
+      "foreign_net": -803106,
+      "institution_net": 180126,
+      "individual_net": 604403
+    },
+    "227950": {
+      "name": "엔투텍",
+      "foreign_net": 131073,
+      "institution_net": 0,
+      "individual_net": -140073
+    },
+    "115530": {
+      "name": "씨엔플러스",
+      "foreign_net": 242253,
+      "institution_net": 0,
+      "individual_net": -117671
+    },
+    "452260": {
+      "name": "한화갤러리아",
+      "foreign_net": 257346,
+      "institution_net": -8675,
+      "individual_net": -245800
+    },
+    "389680": {
+      "name": "유디엠텍",
+      "foreign_net": -57604,
+      "institution_net": 0,
+      "individual_net": 57604
+    },
+    "365330": {
+      "name": "에스와이스틸텍",
+      "foreign_net": 177893,
+      "institution_net": 0,
+      "individual_net": -200771
+    },
+    "373110": {
+      "name": "엑셀세라퓨틱스",
+      "foreign_net": -213745,
+      "institution_net": 0,
+      "individual_net": 369894
+    },
+    "323410": {
+      "name": "카카오뱅크",
+      "foreign_net": 48099,
+      "institution_net": 112857,
+      "individual_net": -145854
+    },
+    "451700": {
+      "name": "엔에이치스팩29호",
+      "foreign_net": -712,
+      "institution_net": -1034949,
+      "individual_net": 1024867
+    },
+    "319400": {
+      "name": "현대무벡스",
+      "foreign_net": -55868,
+      "institution_net": -18083,
+      "individual_net": 96063
+    },
+    "336570": {
+      "name": "원텍",
+      "foreign_net": -79978,
+      "institution_net": -57966,
+      "individual_net": 122070
+    },
+    "380540": {
+      "name": "옵티코어",
+      "foreign_net": -144038,
+      "institution_net": 0,
+      "individual_net": 141248
+    },
+    "340930": {
+      "name": "유일에너테크",
+      "foreign_net": 101303,
+      "institution_net": 0,
+      "individual_net": -103783
+    },
+    "038500": {
+      "name": "삼표시멘트",
+      "foreign_net": 168280,
+      "institution_net": 2969,
+      "individual_net": -14228
+    },
+    "005930": {
+      "name": "삼성전자",
+      "foreign_net": -5705438,
+      "institution_net": 1252824,
+      "individual_net": 3328122
+    },
+    "043200": {
+      "name": "파루",
+      "foreign_net": 406822,
+      "institution_net": 0,
+      "individual_net": -416495
+    },
+    "011930": {
+      "name": "신성이엔지",
+      "foreign_net": 1109368,
+      "institution_net": 632778,
+      "individual_net": -1608042
+    },
+    "090710": {
+      "name": "휴림로봇",
+      "foreign_net": 63233,
+      "institution_net": 2387,
+      "individual_net": 154582
+    },
+    "044180": {
+      "name": "KD",
+      "foreign_net": -469492,
+      "institution_net": 0,
+      "individual_net": 469504
+    },
+    "004410": {
+      "name": "서울식품",
+      "foreign_net": -2003957,
+      "institution_net": 1231,
+      "individual_net": 2002726
+    },
+    "219750": {
+      "name": "한국비티비",
+      "foreign_net": -61382,
+      "institution_net": 0,
+      "individual_net": 47813
+    },
+    "049630": {
+      "name": "재영솔루텍",
+      "foreign_net": 89077,
+      "institution_net": 15584,
+      "individual_net": -91095
+    },
+    "076610": {
+      "name": "해성옵틱스",
+      "foreign_net": -528031,
+      "institution_net": 0,
+      "individual_net": 521306
+    },
+    "027360": {
+      "name": "아주IB투자",
+      "foreign_net": -421759,
+      "institution_net": -6907,
+      "individual_net": 402283
+    },
+    "032820": {
+      "name": "우리기술",
+      "foreign_net": -192392,
+      "institution_net": -249066,
+      "individual_net": 315966
+    },
+    "263050": {
+      "name": "유틸렉스",
+      "foreign_net": 68901,
+      "institution_net": 0,
+      "individual_net": -29602
+    },
+    "489790": {
+      "name": "한화비전",
+      "foreign_net": 109400,
+      "institution_net": 156182,
+      "individual_net": -239378
+    },
+    "316140": {
+      "name": "우리금융지주",
+      "foreign_net": -565675,
+      "institution_net": 201629,
+      "individual_net": 364428
+    },
+    "489500": {
+      "name": "엘케이켐",
+      "foreign_net": -17244,
+      "institution_net": 44618,
+      "individual_net": -58071
+    },
+    "451760": {
+      "name": "컨텍",
+      "foreign_net": 185698,
+      "institution_net": 83666,
+      "individual_net": -270333
+    },
+    "403870": {
+      "name": "HPSP",
+      "foreign_net": 4416,
+      "institution_net": 186408,
+      "individual_net": -181623
+    },
+    "317850": {
+      "name": "대모",
+      "foreign_net": -278,
+      "institution_net": 0,
+      "individual_net": 225
+    },
+    "396270": {
+      "name": "넥스트칩",
+      "foreign_net": 256451,
+      "institution_net": 350,
+      "individual_net": -259575
+    },
+    "462350": {
+      "name": "이노스페이스",
+      "foreign_net": 34019,
+      "institution_net": 26769,
+      "individual_net": -61786
+    },
+    "417840": {
+      "name": "저스템",
+      "foreign_net": 55809,
+      "institution_net": -2686,
+      "individual_net": -55830
+    },
+    "354200": {
+      "name": "엔젠바이오",
+      "foreign_net": 18062,
+      "institution_net": 0,
+      "individual_net": -22631
+    },
+    "000660": {
+      "name": "SK하이닉스",
+      "foreign_net": -1176821,
+      "institution_net": 416711,
+      "individual_net": 746217
+    },
+    "005380": {
+      "name": "현대차",
+      "foreign_net": -301512,
+      "institution_net": -36154,
+      "individual_net": 301805
+    },
+    "105560": {
+      "name": "KB금융",
+      "foreign_net": -355197,
+      "institution_net": 760187,
+      "individual_net": -402798
+    },
+    "086520": {
+      "name": "에코프로",
+      "foreign_net": -43232,
+      "institution_net": -118159,
+      "individual_net": 179723
+    },
+    "034020": {
+      "name": "두산에너빌리티",
+      "foreign_net": -1393259,
+      "institution_net": 46790,
+      "individual_net": 1278893
+    },
+    "035420": {
+      "name": "NAVER",
+      "foreign_net": -226068,
+      "institution_net": -308261,
+      "individual_net": 536270
+    },
+    "005935": {
+      "name": "삼성전자우",
+      "foreign_net": -224311,
+      "institution_net": 122706,
+      "individual_net": 80983
+    },
+    "006800": {
+      "name": "미래에셋증권",
+      "foreign_net": -189104,
+      "institution_net": -140888,
+      "individual_net": 296599
+    },
+    "012450": {
+      "name": "한화에어로스페이스",
+      "foreign_net": -71910,
+      "institution_net": 29352,
+      "individual_net": 41616
+    },
+    "272210": {
+      "name": "한화시스템",
+      "foreign_net": -198319,
+      "institution_net": -45439,
+      "individual_net": 249659
+    },
+    "042700": {
+      "name": "한미반도체",
+      "foreign_net": -48580,
+      "institution_net": 191840,
+      "individual_net": -141838
+    },
+    "006400": {
+      "name": "삼성SDI",
+      "foreign_net": -72484,
+      "institution_net": -75822,
+      "individual_net": 148527
+    },
+    "055550": {
+      "name": "신한지주",
+      "foreign_net": 19611,
+      "institution_net": 247804,
+      "individual_net": -49596
+    },
+    "042660": {
+      "name": "한화오션",
+      "foreign_net": -456863,
+      "institution_net": 39360,
+      "individual_net": 409167
+    },
+    "028260": {
+      "name": "삼성물산",
+      "foreign_net": -113627,
+      "institution_net": 31751,
+      "individual_net": 91115
+    },
+    "247540": {
+      "name": "에코프로비엠",
+      "foreign_net": -43994,
+      "institution_net": -39652,
+      "individual_net": 82323
+    },
+    "035720": {
+      "name": "카카오",
+      "foreign_net": -1546399,
+      "institution_net": -380252,
+      "individual_net": 1912536
+    },
+    "068270": {
+      "name": "셀트리온",
+      "foreign_net": 164274,
+      "institution_net": 117177,
+      "individual_net": -279726
+    },
+    "047810": {
+      "name": "한국항공우주",
+      "foreign_net": -415673,
+      "institution_net": 235990,
+      "individual_net": 171531
+    },
+    "277810": {
+      "name": "레인보우로보틱스",
+      "foreign_net": 1900,
+      "institution_net": -51342,
+      "individual_net": 51552
+    },
+    "005490": {
+      "name": "POSCO홀딩스",
+      "foreign_net": -89491,
+      "institution_net": 46021,
+      "individual_net": 43344
+    },
+    "017670": {
+      "name": "SK텔레콤",
+      "foreign_net": -676780,
+      "institution_net": 61296,
+      "individual_net": 594176
+    },
+    "196170": {
+      "name": "알테오젠",
+      "foreign_net": -11465,
+      "institution_net": 36954,
+      "individual_net": -21120
+    },
+    "008830": {
+      "name": "대동기어",
+      "foreign_net": 34420,
+      "institution_net": -1574,
+      "individual_net": -31463
+    },
+    "000270": {
+      "name": "기아",
+      "foreign_net": 48693,
+      "institution_net": -101352,
+      "individual_net": 52773
+    },
+    "100790": {
+      "name": "미래에셋벤처투자",
+      "foreign_net": -165434,
+      "institution_net": -81686,
+      "individual_net": 221363
+    },
+    "402340": {
+      "name": "SK스퀘어",
+      "foreign_net": -179434,
+      "institution_net": 71299,
+      "individual_net": 104500
+    },
+    "352820": {
+      "name": "하이브",
+      "foreign_net": 35398,
+      "institution_net": -42000,
+      "individual_net": 9174
+    },
+    "348340": {
+      "name": "뉴로메카",
+      "foreign_net": 20598,
+      "institution_net": -71305,
+      "individual_net": 50145
+    },
+    "491000": {
+      "name": "리브스메드",
+      "foreign_net": -46841,
+      "institution_net": 19172,
+      "individual_net": 38197
+    },
+    "347850": {
+      "name": "디앤디파마텍",
+      "foreign_net": 84716,
+      "institution_net": -258942,
+      "individual_net": 178514
+    },
+    "478340": {
+      "name": "나라스페이스테크놀로지",
+      "foreign_net": 16280,
+      "institution_net": -7916,
+      "individual_net": -9642
+    },
+    "457190": {
+      "name": "이수스페셜티케미컬",
+      "foreign_net": 21372,
+      "institution_net": -80151,
+      "individual_net": 65173
+    },
+    "377300": {
+      "name": "카카오페이",
+      "foreign_net": -82434,
+      "institution_net": 2859,
+      "individual_net": 79676
+    },
+    "474650": {
+      "name": "링크솔루션",
+      "foreign_net": -11543,
+      "institution_net": -2405,
+      "individual_net": 12798
+    },
+    "353200": {
+      "name": "대덕전자",
+      "foreign_net": -160345,
+      "institution_net": 186426,
+      "individual_net": -30332
+    },
+    "454910": {
+      "name": "두산로보틱스",
+      "foreign_net": 10853,
+      "institution_net": -19745,
+      "individual_net": 13536
+    },
+    "466100": {
+      "name": "클로봇",
+      "foreign_net": 6266,
+      "institution_net": -15166,
+      "individual_net": 14565
+    },
+    "456160": {
+      "name": "지투지바이오",
+      "foreign_net": -136159,
+      "institution_net": -22609,
+      "individual_net": 146700
+    },
+    "475960": {
+      "name": "토모큐브",
+      "foreign_net": 77123,
+      "institution_net": 23486,
+      "individual_net": -112650
+    },
+    "476830": {
+      "name": "알지노믹스",
+      "foreign_net": 1934,
+      "institution_net": -55395,
+      "individual_net": 55082
+    },
+    "450080": {
+      "name": "에코프로머티",
+      "foreign_net": -2240,
+      "institution_net": -35908,
+      "individual_net": 40929
+    },
+    "326030": {
+      "name": "SK바이오팜",
+      "foreign_net": -40141,
+      "institution_net": -57198,
+      "individual_net": 101811
+    },
+    "043590": {
+      "name": "웰킵스하이텍",
+      "foreign_net": -48798,
+      "institution_net": 0,
+      "individual_net": -57217
+    },
+    "225430": {
+      "name": "케이엠제약",
+      "foreign_net": -155293,
+      "institution_net": 0,
+      "individual_net": 155107
+    },
+    "001550": {
+      "name": "조비",
+      "foreign_net": -5262,
+      "institution_net": -987,
+      "individual_net": 4993
+    },
+    "041920": {
+      "name": "메디아나",
+      "foreign_net": -60808,
+      "institution_net": -1722,
+      "individual_net": 58504
+    },
+    "009190": {
+      "name": "대양금속",
+      "foreign_net": 160419,
+      "institution_net": 115,
+      "individual_net": -164998
+    },
+    "171090": {
+      "name": "선익시스템",
+      "foreign_net": 12504,
+      "institution_net": 71476,
+      "individual_net": -109000
+    },
+    "196700": {
+      "name": "웹스",
+      "foreign_net": 17969,
+      "institution_net": 59,
+      "individual_net": -15588
+    },
+    "019210": {
+      "name": "와이지-원",
+      "foreign_net": 247845,
+      "institution_net": 178042,
+      "individual_net": -328930
+    },
+    "021880": {
+      "name": "메이슨캐피탈",
+      "foreign_net": 223754,
+      "institution_net": 0,
+      "individual_net": -227515
+    },
+    "054300": {
+      "name": "팬스타엔터프라이즈",
+      "foreign_net": 580534,
+      "institution_net": 0,
+      "individual_net": -580534
+    },
+    "009835": {
+      "name": "한화솔루션우",
+      "foreign_net": 22736,
+      "institution_net": -5443,
+      "individual_net": -16814
+    },
+    "123010": {
+      "name": "아이윈플러스",
+      "foreign_net": 349072,
+      "institution_net": -4431,
+      "individual_net": -402008
+    },
+    "083470": {
+      "name": "이엠앤아이",
+      "foreign_net": 126363,
+      "institution_net": 89,
+      "individual_net": -133804
+    },
+    "295310": {
+      "name": "에이치브이엠",
+      "foreign_net": 86760,
+      "institution_net": -2197,
+      "individual_net": -72045
+    },
+    "045390": {
+      "name": "대아티아이",
+      "foreign_net": 649453,
+      "institution_net": -1503,
+      "individual_net": -689607
+    },
+    "025980": {
+      "name": "아난티",
+      "foreign_net": -767567,
+      "institution_net": -3055,
+      "individual_net": 765173
+    },
+    "026040": {
+      "name": "제이에스티나",
+      "foreign_net": 300414,
+      "institution_net": -270094,
+      "individual_net": -30020
+    },
+    "014990": {
+      "name": "인디에프",
+      "foreign_net": 55921,
+      "institution_net": 53,
+      "individual_net": -55974
+    },
+    "095340": {
+      "name": "ISC",
+      "foreign_net": 20188,
+      "institution_net": 43596,
+      "individual_net": -62378
+    },
+    "121850": {
+      "name": "코이즈",
+      "foreign_net": 112241,
+      "institution_net": -281712,
+      "individual_net": 175471
+    },
+    "035290": {
+      "name": "골드앤에스",
+      "foreign_net": 74165,
+      "institution_net": 0,
+      "individual_net": -65507
+    },
+    "128820": {
+      "name": "대성산업",
+      "foreign_net": -91215,
+      "institution_net": -1040,
+      "individual_net": 80983
+    },
+    "066430": {
+      "name": "아이로보틱스",
+      "foreign_net": -51636,
+      "institution_net": 0,
+      "individual_net": 42939
+    },
+    "234340": {
+      "name": "헥토파이낸셜",
+      "foreign_net": 28189,
+      "institution_net": -120349,
+      "individual_net": 120771
+    },
+    "056090": {
+      "name": "시지메드텍",
+      "foreign_net": -510415,
+      "institution_net": -5933,
+      "individual_net": 444078
+    },
+    "004310": {
+      "name": "현대약품",
+      "foreign_net": -143458,
+      "institution_net": -847,
+      "individual_net": 146103
+    },
+    "033100": {
+      "name": "제룡전기",
+      "foreign_net": 11566,
+      "institution_net": -39774,
+      "individual_net": 32181
+    },
+    "058610": {
+      "name": "에스피지",
+      "foreign_net": 111111,
+      "institution_net": -140365,
+      "individual_net": 47268
+    },
+    "115610": {
+      "name": "이미지스",
+      "foreign_net": 34134,
+      "institution_net": 0,
+      "individual_net": -33271
+    },
+    "079900": {
+      "name": "전진건설로봇",
+      "foreign_net": 10618,
+      "institution_net": -6312,
+      "individual_net": 5158
+    },
+    "278470": {
+      "name": "에이피알",
+      "foreign_net": -160445,
+      "institution_net": -14194,
+      "individual_net": 177818
+    },
+    "252990": {
+      "name": "샘씨엔에스",
+      "foreign_net": -108083,
+      "institution_net": 68901,
+      "individual_net": 408778
+    },
+    "101330": {
+      "name": "모베이스",
+      "foreign_net": 153037,
+      "institution_net": 0,
+      "individual_net": -152217
+    },
+    "226950": {
+      "name": "올릭스",
+      "foreign_net": 12542,
+      "institution_net": -70637,
+      "individual_net": 50366
+    },
+    "125490": {
+      "name": "한라캐스트",
+      "foreign_net": -59111,
+      "institution_net": -65320,
+      "individual_net": 124326
+    },
+    "078890": {
+      "name": "가온그룹",
+      "foreign_net": 74565,
+      "institution_net": -128687,
+      "individual_net": 75834
+    },
+    "950250": {
+      "name": "테라뷰",
+      "foreign_net": -56469,
+      "institution_net": -23529,
+      "individual_net": 81830
+    },
+    "290660": {
+      "name": "네오펙트",
+      "foreign_net": 136101,
+      "institution_net": 0,
+      "individual_net": -142506
+    },
+    "141080": {
+      "name": "리가켐바이오",
+      "foreign_net": 58452,
+      "institution_net": -88012,
+      "individual_net": 32075
+    },
+    "337930": {
+      "name": "젝시믹스",
+      "foreign_net": 91000,
+      "institution_net": -314,
+      "individual_net": -88705
+    },
+    "456070": {
+      "name": "이엔셀",
+      "foreign_net": -11999,
+      "institution_net": 5384,
+      "individual_net": 8510
+    },
+    "332570": {
+      "name": "PS일렉트로닉스",
+      "foreign_net": 196170,
+      "institution_net": 1577,
+      "individual_net": -212259
+    },
+    "272110": {
+      "name": "케이엔제이",
+      "foreign_net": 62500,
+      "institution_net": 33761,
+      "individual_net": -93600
+    },
+    "210120": {
+      "name": "캔버스엔",
+      "foreign_net": 103394,
+      "institution_net": 428,
+      "individual_net": -86257
+    },
+    "371950": {
+      "name": "풍원정밀",
+      "foreign_net": 28104,
+      "institution_net": 2550,
+      "individual_net": -31517
+    },
+    "354320": {
+      "name": "알멕",
+      "foreign_net": 14047,
+      "institution_net": 29961,
+      "individual_net": -54589
+    }
+  }
+}

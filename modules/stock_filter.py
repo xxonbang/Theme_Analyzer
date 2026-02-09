@@ -81,6 +81,46 @@ class StockFilter:
             ),
         }
 
+    def filter_rising_stocks_by_trading_value(
+        self,
+        trading_value_data: Dict[str, Any],
+        fluctuation_data: Dict[str, Any],
+        limit: int = 10,
+    ) -> Dict[str, List[Dict[str, Any]]]:
+        """상승 종목 필터링: 거래대금 TOP30 ∩ 상승률 TOP30"""
+        return {
+            "kospi": self._filter_intersection(
+                trading_value_data.get("kospi", []),
+                fluctuation_data.get("kospi_up", []),
+                limit,
+            ),
+            "kosdaq": self._filter_intersection(
+                trading_value_data.get("kosdaq", []),
+                fluctuation_data.get("kosdaq_up", []),
+                limit,
+            ),
+        }
+
+    def filter_falling_stocks_by_trading_value(
+        self,
+        trading_value_data: Dict[str, Any],
+        fluctuation_data: Dict[str, Any],
+        limit: int = 10,
+    ) -> Dict[str, List[Dict[str, Any]]]:
+        """하락 종목 필터링: 거래대금 TOP30 ∩ 하락률 TOP30"""
+        return {
+            "kospi": self._filter_intersection(
+                trading_value_data.get("kospi", []),
+                fluctuation_data.get("kospi_down", []),
+                limit,
+            ),
+            "kosdaq": self._filter_intersection(
+                trading_value_data.get("kosdaq", []),
+                fluctuation_data.get("kosdaq_down", []),
+                limit,
+            ),
+        }
+
     def filter_falling_stocks(
         self,
         volume_data: Dict[str, Any],

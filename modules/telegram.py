@@ -187,12 +187,13 @@ class TelegramSender:
         kospi: List[Dict[str, Any]],
         kosdaq: List[Dict[str, Any]],
         history_data: Optional[Dict[str, Dict[str, Any]]] = None,
+        title: str = "📈 거래량 + 상승률 TOP10",
     ) -> str:
         """상승 종목 메시지 포맷"""
         history_data = history_data or {}
 
         lines = [
-            "📈 <b>거래량 + 상승률 TOP10</b>",
+            f"<b>{title}</b>",
             "",
         ]
 
@@ -230,12 +231,13 @@ class TelegramSender:
         kospi: List[Dict[str, Any]],
         kosdaq: List[Dict[str, Any]],
         history_data: Optional[Dict[str, Dict[str, Any]]] = None,
+        title: str = "📉 거래량 + 하락률 TOP10",
     ) -> str:
         """하락 종목 메시지 포맷"""
         history_data = history_data or {}
 
         lines = [
-            "📉 <b>거래량 + 하락률 TOP10</b>",
+            f"<b>{title}</b>",
             "",
         ]
 
