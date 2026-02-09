@@ -63,22 +63,27 @@ function ThemeCard({ theme, index }: { theme: MarketTheme; index: number }) {
 
       {/* 뉴스 근거 상세 */}
       {expanded && (
-        <div className="space-y-3 pt-1">
+        <div className="space-y-3 pt-1 border-t border-border/50">
           {theme.leader_stocks.map((stock) => (
-            <div key={stock.code} className="space-y-1">
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium text-xs sm:text-sm">{stock.name}</span>
-                <span className="text-[10px] sm:text-xs text-muted-foreground">— {stock.reason}</span>
+            <div key={stock.code} className="pt-2.5 first:pt-2">
+              <div className="mb-1.5">
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-foreground/5 font-semibold text-xs sm:text-sm">
+                  {stock.name}
+                </span>
               </div>
+              <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed mb-2 pl-0.5">
+                {stock.reason}
+              </p>
               {stock.news_evidence.length > 0 && (
-                <ul className="space-y-0.5 pl-3">
+                <ul className="space-y-1 pl-0.5">
                   {stock.news_evidence.map((news, i) => (
-                    <li key={i} className="text-[10px] sm:text-xs">
+                    <li key={i} className="flex items-start gap-1.5 text-[11px] sm:text-xs">
+                      <span className="text-muted-foreground/50 shrink-0 mt-px">{'•'}</span>
                       <a
                         href={news.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground hover:underline transition-colors line-clamp-1"
+                        className="text-muted-foreground hover:text-foreground hover:underline transition-colors break-words"
                       >
                         {news.title}
                       </a>
