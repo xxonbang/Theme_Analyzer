@@ -32,7 +32,7 @@ function ThemeCard({ theme, index }: { theme: MarketTheme; index: number }) {
 
       {/* 대장주 칩 */}
       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-        <span className="text-[10px] sm:text-xs text-muted-foreground font-medium shrink-0">대장주</span>
+        <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs">대장주</Badge>
         {theme.leader_stocks.map((stock) => (
           <a
             key={stock.code}
