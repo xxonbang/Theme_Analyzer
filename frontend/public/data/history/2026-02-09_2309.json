@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-09 23:20:08",
+  "timestamp": "2026-02-09 23:09:33",
   "exchange": {
     "timestamp": "",
     "search_date": "",
@@ -10379,18 +10379,18 @@
       "name": "유투바이오",
       "news": [
         {
-          "title": "[HIT알공] 대웅제약, 매출 1조5708억…고마진 제품 실적 견인",
-          "link": "https://www.hitnews.co.kr/news/articleView.html?idxno=73715",
-          "description": "⑧ 유투바이오, 물적분할·주총·배당 동시 추진 = 지구홀딩스가 CRO·BT사업을 존속하고 진단·의료IT... ㉕ 압타바이오, 2025년 실적 및 주식매수청구권 부여 = 매출액 37억원으로 전년 대비 10.0% 증가....",
-          "pubDate": "02-09 19:40",
-          "originallink": "https://www.hitnews.co.kr/news/articleView.html?idxno=73715"
-        },
-        {
           "title": "[주식마감] 삼성전자 '세계 최초' HBM4 양산 소식에 하이딥·아이엠티·...",
           "link": "https://www.ggilbo.com/news/articleView.html?idxno=1141113",
           "description": "이는 오가닉티코스메틱이 적정 유통주식수 유지를 통한 주가 안정화 및 기업가치 제고를 위해 주식... 헥토파이낸셜, 유투바이오, 아주IB투자, SDN, 씨피시스템, 재영솔루텍, 레이저쎌, 나무기술이다. 이날 코스피는...",
           "pubDate": "02-09 19:40",
           "originallink": "https://www.ggilbo.com/news/articleView.html?idxno=1141113"
+        },
+        {
+          "title": "[HIT알공] 대웅제약, 매출 1조5708억…고마진 제품 실적 견인",
+          "link": "https://www.hitnews.co.kr/news/articleView.html?idxno=73715",
+          "description": "⑧ 유투바이오, 물적분할·주총·배당 동시 추진 = 지구홀딩스가 CRO·BT사업을 존속하고 진단·의료IT... ㉕ 압타바이오, 2025년 실적 및 주식매수청구권 부여 = 매출액 37억원으로 전년 대비 10.0% 증가....",
+          "pubDate": "02-09 19:40",
+          "originallink": "https://www.hitnews.co.kr/news/articleView.html?idxno=73715"
         },
         {
           "title": "유투바이오, 물적분할 결정…지주사 체제 전환",
@@ -10653,11 +10653,11 @@
           "originallink": "http://www.finomy.com/news/articleView.html?idxno=249117"
         },
         {
-          "title": "홍성만 전무, 모베이스전자 주식 1만5000주 매도",
-          "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=627070",
-          "description": "이번 매도로 인해 홍성만 전무의 모베이스전자 주식 보유 수는 5만8671주에서 4만3671주로 감소했다. 이에 따라 지분율은 0.08%에서 0.06%로 줄어들었다. 모베이스전자는 자동차용 전자부품을 제조하는...",
+          "title": "차종익 상무, 모베이스전자 주식 1만642주 매도",
+          "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=627071",
+          "description": "담당자소속회사주식회사 모베이스전자부 서국내기획팀직 위매니저전화번호031-51*******성 명이승준팩스번호031-51*******이메일 주소******@mobaseelec.com3. 특정증권등의 소유상황가. 소유 특정증권등의 수 및...",
           "pubDate": "02-04 18:06",
-          "originallink": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=627070"
+          "originallink": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=627071"
         }
       ]
     },
@@ -11573,191 +11573,183 @@
     }
   },
   "theme_analysis": {
-    "analyzed_at": "2026-02-09 23:19:48",
+    "analyzed_at": "2026-02-09 23:09:14",
     "analysis_date": "2026년 02월 09일",
-    "market_summary": "오늘 한국 주식시장은 미국 증시의 긍정적인 영향과 함께 로봇, 우주항공, 핀테크, 화장품 등 다양한 첨단 기술 및 소비재 섹터의 강세가 두드러지며 전반적인 상승세를 보였습니다. 특히 주주환원 정책 강화에 대한 기대감으로 금융주 또한 크게 상승하며 시장의 활력을 더했습니다.",
+    "market_summary": "오늘 한국 주식시장은 미국 증시의 훈풍과 삼성전자의 HBM4 양산 소식에 힘입어 반도체 관련주가 강세를 보였으며, 태양광 등 신재생에너지, 도시 개발 및 특수 페인트, 화장품 원료 등 다양한 섹터에서 개별 종목의 강세가 두드러졌습니다. 코스피는 3거래일 만에 상승하며 5300선에 근접했고, 코스닥도 강한 상승세를 나타냈습니다.",
     "themes": [
       {
-        "theme_name": "로봇 및 인공지능 (Robotics & AI)",
-        "theme_description": "인간의 형태를 모방하거나 자율주행 기술을 활용하는 로봇 산업과 인공지능 기술의 발전 및 상용화에 대한 기대감이 커지면서 관련 기업들의 주가가 강세를 보이고 있습니다.",
+        "theme_name": "AI 및 첨단 반도체 (HBM)",
+        "theme_description": "인공지능(AI) 산업의 폭발적인 성장과 함께 고대역폭 메모리(HBM)를 중심으로 한 반도체 시장의 슈퍼사이클 기대감이 증폭되고 있습니다. 삼성전자의 HBM4 세계 최초 양산 소식과 엔비디아 CEO의 AI 투자 지속 발언이 시장에 긍정적인 영향을 미치고 있습니다.",
         "leader_stocks": [
           {
-            "name": "유진로봇",
-            "code": "056080",
-            "reason": "휴머노이드 로봇 시장의 성장 기대감과 자율주행 로봇 기술력 부각으로 시장의 주목을 받고 있으며, 관련 테마의 강세를 이끌고 있습니다.",
+            "name": "삼성전자",
+            "code": "005930",
+            "reason": "삼성전자가 세계 최초의 6세대 고대역폭 메모리인 HBM4의 대량 생산을 시작할 계획이며, 음력 설 연휴 이후 빠르면 다음 주부터 칩 출하를 시작할 수 있다는 보도에 주가가 큰 폭으로 상승하며 AI 반도체 시장의 선두 주자임을 확인했습니다.",
             "news_evidence": [
               {
-                "title": "[강세 토픽] 휴머노이드 테마, 뉴로메카 +10.80%, 유진로봇 +5.69% - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFTlBVtHdoE7xbjiW1bAd2BS3bbAS9dwAGEvuGjXfOwovU9YtnRJ7ch8pEg-e-hyfSt6dmeiCO_nUXXp3Ks3CbCmQXcC0RAf9mhxeGNA4aFPJEF9KCQmfMyTgbOREsH7MDm-JBigOHD11CoU38AnG11J3P3dgx3FRMCzDASgP43r_j_BZ1HG3o="
+                "title": "삼성전자, 이달 말 HBM4 양산 보도에 주가 상승",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH2OxAZqUZiFWhmY7bE31cFb6E6jZ4swZfqU7tHS_9MJSbpnjD_XivkKjVI_XuY57T3l5TEcrEsXCGVnZiaaatrTdNS8ELCCnzibPY6ddM5Gnh_CMxrHUvvpXYUxBDF07Sc6izqw91PPwcjzuF6C3TOiw1FodrNDE7R"
               },
               {
-                "title": "'오천피' '천스닥' 견인한 로봇주…상승 흐름 어디까지 갈까. [시사저널]",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrFJMMcj-aPa6XTg3jzT2Rp-x2wAOswGSpnPOeprLUOVJVekyWYRndjLI3Zuqhzh1dRl6Lt3uJ-xQosYH7zcwRRZIFfhQvyoDHvfFm8NTTgGt3yU0FyuwMmW_ICYqpBCafwCy4fUV62w=="
+                "title": "[주도 섹터] \"삼성의 역전 홈런!\" HBM4 세계 최초 양산에 코스피 4% 폭등 - 2026.2.9",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHAQI73rPb6Sm8gQK7WSVkSvXz8yTMmpf8ZPF7iXSmMIJ4zPwMwN43oqTyLgLiB6Q_VqPi9pb3cB6cKgJDa7HDJNonw3w1kKAZwGS-HRwPTyRN3MWikMiYVQ8g4sEUtxLjkyQi3kdZQbxgCRYiFGJy7yizjDQ9OYglPS1oydeId-PF6iep94IIKO2g4-A=="
               },
               {
-                "title": "[속보] 유진로봇 VI 발동…주가 19% 도약 - CBC뉴스",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpkaINtiZtNaDrLmbOjNFHDcjN23hi1AD58o7gdFHChDc6D2uwXiMXmu8AXiojgyKKR54KXrjb_wwl8MtRaSUoVrdRvFjMNGHVJDyTQGlV-F0O6C3Tgal0otMoN8cg2TxFy5LKLQcuww0YAs7GKgmeJt0a"
+                "title": "[0209마감체크] 코스피, 美 증시 훈풍에 3거래일 만에 상승... 5300선 눈앞",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE1Gqr0Ok4s1YDTicUPoTm5fGr9I3J_ybApK7HVqBGbdWUsgpa0ffbkZjxxhhy586zDyyOVloNT1aoOIBimxotlgT8EuV9X2QiMzRHffs8t5a5k0lBoyauqmje8m-CdmiFoZ58JSrrxNxSZXV2WaKkfkbfAhh2TjCWIWbsuvQ=="
               }
             ]
           },
           {
-            "name": "뉴로메카",
-            "code": "348340",
-            "reason": "협동로봇 제조 사업을 영위하며 휴머노이드 로봇 테마의 강세에 힘입어 시장의 주목을 받고 있습니다. 다만, 전환사채(CB) 전환에 따른 오버행 우려가 존재합니다.",
+            "name": "SK하이닉스",
+            "code": "000660",
+            "reason": "삼성전자와 함께 HBM 시장을 주도하는 기업으로, AI 인프라 특수 및 HBM4 양산 기대감에 동반 강세를 보였습니다. 필라델피아 반도체 지수 폭등과 AI 저가 매수세가 긍정적인 영향을 미쳤습니다.",
             "news_evidence": [
               {
-                "title": "[강세 토픽] 휴머노이드 테마, 뉴로메카 +10.80%, 유진로봇 +5.69% - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFTlBVtHdoE7xbjiW1bAd2BS3bbAS9dwAGEvuGjXfOwovU9YtnRJ7ch8pEg-e-hyfSt6dmeiCO_nUXXp3Ks3CbCmQXcC0RAf9mhxeGNA4aFPJEF9KCQmfMyTgbOREsH7MDm-JBigOHD11CoU38AnG11J3P3dgx3FRMCzDASgP43r_j_BZ1HG3o="
+                "title": "롤러코스터 주가에…SK하이닉스, 임직원 보상 주식 수 줄었다",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqK5ZGPZuXUi_KI6brB_gGD9LUEy8VGTzUdWArw0DjAL6rwPsfqSJUGx5JiLFGB0oD-RxXJTYyKF7eBnll-r7u5jyQpL7de3e9EsoRabK7FIGfitjY7fF-TySRRKrPJpW4cmxzUKRTSIrScqQPfZdK6igVbAJgn-rP"
               },
               {
-                "title": "뉴로메카, 로봇 테마 하락세 속 '휘청'… 전 거래일 대비 7.35% 급락, 고공행진속 변동성 - CBC뉴스",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEaSSONGggwl0aC1g2RDfIoM5qNHtZTstW38oOR2t2IaxtPcC_lb6dtDr92igcxa21hwyx_rWw3jGGVUPX5C4xkQGdSzsjoc_nEjgHKk6mAn4AdRjck3P5iniBz76arIJoFTb0cBnKMLd5UuL6_T0ZInher"
+                "title": "[특징주] SK하이닉스 오르자…SK스퀘어도 9%대 급등",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGxO5lIm4UHiIbPC4JkrjlbxvB5LfBeI1Rvfj2eSLrYjLLM8LqjPvdEgnMH9s7KH49rwutDsRtXiKLvW91AdDMH2SjAaw26hgLAV5mbRpeLfCTpYJ1fX-sxiaePPAe0XDEWgnSGf6saSwj7V6vwZHuF0zrpm4urXrOADDi4robM8fJlSHeSHzcwnYkM"
               },
               {
-                "title": "허영진 마스터, 뉴로메카 주식 1500주 증가 - 디지털투데이",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGjUtNZn0xuPO8NBWZmsJ7jYZNOlLVxtmGxwZMWsG5rjbu1qWWiYYTWL7_Dttymhe1gKvq2iBZYOPmNYQDad2fjzVk-yPDRrer-4dGYJ_5B4DrUhOE7f2mOw17Vd0qYwLayjyvp26xq9ubXn9LnY_Xm2rXa-pD504NXzp4="
-              },
-              {
-                "title": "[핀포인트] [뉴로메카] 13만원 찍자 CB전환 줄이어…오버행 우려↑ - DealSite경제TV",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3qme3YCpI2JgU5jcQwn2yCJgWgsv-crIuz8Rf39Gmd6bfBAfNKgyyPNcMbWmrRu9rJAhLWcEEABZHAhxlKEg5FvQJ2CpYZJbq3SNP67OV7ZfaXrovFVPdmUdDpS39NLNl4LwcQQ=="
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "theme_name": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
-        "theme_description": "스페이스X 상장 기대감과 위성 발사 계약 검토 등 우주항공 산업의 성장 모멘텀이 부각되고 있으며, 2차전지 핵심 소재 및 부품 기술을 보유한 기업들이 시장의 관심을 받고 있습니다.",
-        "leader_stocks": [
-          {
-            "name": "나노팀",
-            "code": "417010",
-            "reason": "스페이스X 상장 기대감과 연관된 테마로 부각되며 높은 상승률을 기록했습니다. 또한 2차전지 부품 사업을 영위하고 있어 복합적인 성장 동력을 가지고 있습니다.",
-            "news_evidence": [
-              {
-                "title": "나노팀(417010)(+12.22%) - 스페이스X 상장 기대감 지속 등에 스페이스X(SpaceX) 테마 상승 [인포스탁데일리]",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSA2QzcZuQerGkRqz-_cUYcDONcXBd3TNlt1_6bc-qEY0wOLfcvxHXWnqxnyIpeP1E36tUwNOfa4BDHBbvvXXiLtdcFes-CbciLIPVMoCYzCbmSrUiQpRA3Q8q9hTkmh6OPcuW2ObNCYpu1NY_JhyMKK3uazrQDQ8qNGwYrg=="
-              },
-              {
-                "title": "나노팀, +3.22% 상승폭 확대 - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9s42PCn6GwvlfsilcGfRCCSgj-ZU4x1Uc1_eRCDJ3hPDa7fROArPZC3lYEJUhUysuGsSPXjMfLTRl-F5EVINgOPZZoHbFPT9QIxDPgGN8PxGJedM8Q-S9Zwf5FWNH6tuUb--swurUeeMZcA90YHhiidd0QNq17_sF-qysSGbCBL4Zb86ZA_c="
+                "title": "SK하이닉스 000660 코스피 - 다음 금융",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHQU1A4j-zmi72lBfe7Ue2HhkOZq_2XQOaIde5fxW7lDnwHE74be8GcIZJqlP0typXtZOfd2QLbsphQpOAfb_4GSNeudzfmuGoX_7UV-UmLIlHQcbPRuoboCUDaNanO50AERFpQ8i2dOw=="
               }
             ]
           },
           {
-            "name": "루미르",
-            "code": "474170",
-            "reason": "우주항공산업 테마에 속하며, 스페이스X를 포함한 복수 기업과 차기 위성 발사 계약 검토 모멘텀이 지속되면서 투자 심리를 자극하고 있습니다.",
+            "name": "비아이매트릭스",
+            "code": "413640",
+            "reason": "인공지능(AI) 테마로 분류되며 코스닥 시장에서 상한가를 기록했습니다. AI 산업 성장에 대한 기대감이 반영된 것으로 보입니다.",
             "news_evidence": [
               {
-                "title": "루미르(474170)(+9.71%) - 우주항공산업(누리호/인공위성 등) 테마 상승 속 스페이스X 포함 복수기업과 차기 위성 발사 계약 검토 모멘텀 지속 [인포스탁데일리]",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSA2QzcZuQerGkRqz-_cUYcDONcXBd3TNlt1_6bc-qEY0wOLfcvxHXWnqxnyIpeP1E36tUwNOfa4BDHBbvvXXiLtdcFes-CbciLIPVMoCYzCbmSrUiQpRA3Q8q9hTkmh6OPcuW2ObNCYpu1NY_JhyMKK3uazrQDQ8qNGwYrg=="
+                "title": "[급등락주 짚어보기] 삼화페인트, '깜짝' 상한가⋯HBM4 양산 기대감에 레이저쎌ㆍ하이딥ㆍ아이엠티 등 '上'",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgGZbNDHyUTlSRSESmTcOVtkZiaznmAI0vA6_Dmvl9JiLBOriaVC-cYmnENRWbKY0Ki0oNm5HHHqEp37Cx0rZS8YviSDIZheCCNQhyzzf6F02gCScl3XpSYBZRuw3163ugwuJ05n6zRA3Ag000Ct06KY8zJ0NkZgAxf4R6"
               },
               {
-                "title": "루미르 주가 21% 점프…13000원선 돌파 - CBC뉴스",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6E-9k0HtFUT4yVfnficsP5SvsnF7LAYTjg3IMBIrjpurT5eN9SgfglvaXLd1YuK8QoCsU2Xy2tbFveurveR5Y0BrPz8UyJl9Ds09VfG56kUb1DqjDD7EKdsIOgs2Dcui8ResOp4eVZAzW2l03fURlfdl8"
+                "title": "거래량 증가 상위 20선 - 코스닥 - 조선비즈",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHiihlwImiSaWVbXDNGclhfDg4plw3vrJB5KyTbZc_dCn3XWLkjYOYeGfFfXR3TJbAUv6RdhxRWwBoJEhL39Of3dKF2_8alfh-_hC7uv6ud65kLO0SPzHNEs6cD_ZlxjSZyDwKGGfJrbhTvjeqbVimqqOMf2SGUzZm5MRdlcmgl9LegBxo8_SA="
+              },
+              {
+                "title": "크라우드웍스, +1.01% 상승폭 확대 - 조선비즈",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVb3deN8Yj3i_FPyhWAyNYJSruRMIHyoOoe1Tio1dOiSPMZwvuNJkI36hLFXZoZYRva191T3L2LEJXNlripAwuZW731IX-7jU_HYUbjibxwUb0afF2Hf3H-3y10AhLpNRfvy3Ut3aSp-9kOzGoGcQlg5-sOohaXavXASQA-rU3zWV8yHNyO5g="
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "theme_name": "신재생 에너지 및 우주 산업",
+        "theme_description": "일론 머스크의 태양광 발전을 이용한 우주 데이터센터 운영 계획 등 우주 산업 확장 모멘텀이 부각되며 태양광 등 신재생에너지 관련 기업들에 대한 투자자들의 관심이 집중되고 있습니다.",
+        "leader_stocks": [
+          {
+            "name": "한화솔루션",
+            "code": "009830",
+            "reason": "일본 수출 규제 테마의 상승세와 태양광 에너지 테마 내의 전반적인 상승 흐름 속에서 급등세를 보였습니다. 특히 1분기 신재생에너지 사업 부문 흑자 전환 예상과 미국 카터스빌 셀 공장 가동 기대감이 주가에 긍정적으로 작용했습니다.",
+            "news_evidence": [
+              {
+                "title": "특징주, 한화솔루션-日 수출 규제 테마 상승세에 6.55% ↑ - 매일경제",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgHym-Zda_R1R5jhLiaTzwUxeNmd9Ebjt7TXv3HDRrwCzQfqGj4ZV6KGn3NofW3f4nRsy2J74nqxqGpREMyyhXszbeC5SRjagxBMBEYzvvD_8o4UbCFdo7MDxe_NzN_ls6Pw=="
+              },
+              {
+                "title": "한화솔루션 \"1분기 신재생 흑자 전환 예상…3분기 카터스빌 셀 공장 가동\" - 연합인포맥스",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHQHnDVTdeq_Slhjo3Q06NDZGWbS0A3JuBH2eE8HfoQ5Qn2cVR3GzVJvueBa2N0Aymufd2v28tFAcd0oJtkE7JqHioQom8K7ILLr_pBNcQM4Pmf1KWvZ9getHOEua74VoJu-QJ9WtKoRYeMiNnTLeYGSbTN1bZdNfiu"
+              },
+              {
+                "title": "[증시키워드] 한화솔루션ㆍ삼표시멘트에 주목↑⋯조정 겪은 삼전ㆍSK하닉 - 이투데이",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHFoYVx_t97eymZQIjEUz71FavdF7occaPUfHJm4ybzvTJbGqNzeDP6WGoVM5DCZuOQ24YEAR_WY8wtKRMLgqx0dxM7I67AM_EvD7UOkYeRR45FfPy6-RL0x1DvLUCh1REYxEyn"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "theme_name": "도시 개발 및 건설 자재",
+        "theme_description": "서울 성수동 옛 삼표레미콘 부지를 최고 79층 규모의 복합단지로 개발하는 세부 계획이 고시되는 등 대규모 도시 개발 프로젝트에 대한 기대감이 건설 자재 관련 기업들의 주가에 긍정적인 영향을 미치고 있습니다.",
+        "leader_stocks": [
+          {
+            "name": "삼표시멘트",
+            "code": "038500",
+            "reason": "성수동 부지 개발 기대감에 힘입어 전 거래일 대비 급등하며 투자자들의 높은 관심을 받았습니다. 3거래일 연속 상한가를 기록하는 등 강한 상승세를 보였습니다.",
+            "news_evidence": [
+              {
+                "title": "삼표시멘트, +22.44% 상승폭 확대 - 조선비즈",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGQ63R4mc1WiypNB21lJp3IHq5MHigJ6m6ukymAHIJFCmluC-3l6DGoiFsiGquPuwPy01DfKVCX6ieuh9k_KdYTQg-nGoHB7cNG7hCB_BQFHmfnbvjB9ZHdwlmez1qOTxr2qjzBJdc8E6fDcvqEbR6Z9QJf3LNH81DNGJtYdszNNvoDGZrzkfA="
+              },
+              {
+                "title": "삼표시멘트 주가 3연속 상한가 이후는?…'지난달 말과 비교하면 2배 상회' - CBC뉴스",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElC1K-SV8R_BxvaIpHarOQnLkoDYn5MUzv067tvK5jJnz_fooytcuSN8_fBQCjJrJHh6S2PKooQV9T0vxA7QFrq37l8j_xAQhNjmWb8QyYUZeRl8XLOd3q0-6n0JNSn-NK4iN8zqW-8SADbHxOiK3FHvox"
+              },
+              {
+                "title": "[증시키워드] 한화솔루션ㆍ삼표시멘트에 주목↑⋯조정 겪은 삼전ㆍSK하닉 - 이투데이",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHFoYVx_t97eymZQIjEUz71FavdF7occaPUfHJm4ybzvTJbGqNzeDP6WGoVM5DCZuOQ24YEAR_WY8wtKRMLgqx0dxM7I67AM_EvD7UOkYeRR45FfPy6-RL0x1DvLUCh1REYxEyn"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "theme_name": "특수 화학 및 방위 산업",
+        "theme_description": "조선 및 방산 기업의 실적 호조와 함께 선박, 방산 등에 쓰이는 특수 페인트 수요 증가 기대감이 페인트 업계의 실적 개선으로 이어질 것으로 전망됩니다. 특히 스텔스 기술 관련 연구 및 국방용 특수 코팅제 개발이 주목받고 있습니다.",
+        "leader_stocks": [
+          {
+            "name": "삼화페인트",
+            "code": "000390",
+            "reason": "전파를 흡수하거나 차단하는 스텔스 기술 관련 연구를 지속하고 있으며, 이런 특수 화학 기술력이 군용 장비의 위장 및 보호 도료 분야로 확장될 수 있다는 기대감에 상한가를 기록했습니다.",
+            "news_evidence": [
+              {
+                "title": "[급등락주 짚어보기] 삼화페인트, '깜짝' 상한가⋯HBM4 양산 기대감에 레이저쎌ㆍ하이딥ㆍ아이엠티 등 '上'",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgGZbNDHyUTlSRSESmTcOVtkZiaznmAI0vA6_Dmvl9JiLBOriaVC-cYmnENRWbKY0Ki0oNm5HHHqEp37Cx0rZS8YviSDIZheCCNQhyzzf6F02gCScl3XpSYBZRuw3163ugwuJ05n6zRA3Ag000Ct06KY8zJ0NkZgAxf4R6"
+              },
+              {
+                "title": "삼화페인트 상한가 마감, 외국인·기관 수급 엇갈림… 거래량 급증 배경은? (+000390, 상한가, 거래량급증, 외국인기관수급, 2026년 2월 9일 월요일) - 민심뉴스",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEva6noMfvJbEwfCWvgh6i9g_jg6ezN-l7IVsWu-IdgvY8cfZyg2ZHH89I7viiYTKv74tGgPtyeczCgnBwxz8MmjtjiEiW6FRFtoK2NHiRG163E_r0jMwcR2TLRpN8LK7XIt_kgDjFIiBmEiKhhmA8GBFL2PNo="
+              },
+              {
+                "title": "오후 이슈 [페인트] : 삼화페인트, 노루페인트, 벽산, KCC, 노루홀딩스 - 파이낸셜뉴스",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHn0ME1ncIYSMmPsZC5wZuF-dhmTNMKeHqDnVUBDZIkk7enpuOkMYamF5B9R85aRi0TQFZY3561a30EL4SV9LT1ED9GCA1NwMAhueD5h6TwFXpmPYYlAJ4wScFgWdYgmfgn-bYtg4-1dQ=="
+              },
+              {
+                "title": "[특징주] 조선·방산 뜨자 페인트 업계도 '청신호'…삼화·노루페인트 등 강세 - 이투데이",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqySkD9qitmwbMFiaMndCVATuWdlwh9mI1EJ9aVlpreNPEQAFCqaMoHSHM8lmsD64jTVai2l6BljEdJ3I0HBjMdOfJ122GGJsfnbKh3s52jd8XG_hPPdCYElgdXgIq2wAyL78X"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "theme_name": "화장품 및 미용 원료",
+        "theme_description": "화장품 원료 및 부자재 관련 기업들이 시장에서 주목받고 있으며, 기업의 자체적인 가치 제고 노력(주식병합, 배당 결정 등)이 주가에 긍정적인 영향을 미치고 있습니다.",
+        "leader_stocks": [
+          {
+            "name": "엔에프씨",
+            "code": "265740",
+            "reason": "결산배당으로 보통주 1주당 60원 현금배당을 결정했다고 공시하며 투자 매력이 부각되었고, 화장품 원재료 및 부자재 테마로 분류되며 코스닥 시장에서 상한가를 기록했습니다.",
+            "news_evidence": [
+              {
+                "title": "[급등락주 짚어보기] 삼화페인트, '깜짝' 상한가⋯HBM4 양산 기대감에 레이저쎌ㆍ하이딥ㆍ아이엠티 등 '上'",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgGZbNDHyUTlSRSESmTcOVtkZiaznmAI0vA6_Dmvl9JiLBOriaVC-cYmnENRWbKY0Ki0oNm5HHHqEp37Cx0rZS8YviSDIZheCCNQhyzzf6F02gCScl3XpSYBZRuw3163ugwuJ05n6zRA3Ag000Ct06KY8zJ0NkZgAxf4R6"
+              },
+              {
+                "title": "엔에프씨, 보통주 1주당 60원 현금배당 결정 - 디지털투데이 (DigitalToday)",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVFTIF34YjccllSk5uWbWfroZLMQWVd1nds8mYx8VcRZNFQpFjaEFvodRcmdv6E-IiJLK8vwoYVQ28hmsM1McSNuRzpG36ArdW3FRGj21-tK5Sb8_asMiNqgr8r9rt5RuU5CMDX7sfiM1rkXdPosb0B-TWPlG0E5-w4jI="
+              },
+              {
+                "title": "엔에프씨, +11.45% VI 발동 - 조선비즈",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEn33B5W_sYFvrO8CzdY1-8qPtEawT0nwuUcZ5sNIJ9YD6JqHV-ZE9HDd6q-AkRtoMugSRJ1hAtQt0yeL_BjTiVY-eLdWeQgHEhm0Dxxav8LRkTRAZ1ZiRvWkzfVjqFWYiLSN3U8ckAgMXwoozYvnnKEDu1UEA-V2RhzJSpTOu3TrV-WpTLf0o="
               }
             ]
           },
           {
-            "name": "대주전자재료",
-            "code": "078600",
-            "reason": "실리콘 음극재, 형광체, MLCC 등 2차전지 및 첨단 전자재료 분야에서 신규 고객사 확보를 통한 매출 다변화가 기대되고 있으며, 1분기 이익 개선 전망이 긍정적입니다.",
+            "name": "오가닉티코스메틱",
+            "code": "900300",
+            "reason": "적정 유통주식수 유지를 통한 주가 안정화 및 기업가치 제고를 위해 주식 병합을 결정했다고 공시한 후 상한가를 기록했습니다. 이는 기업의 적극적인 주주 가치 제고 노력으로 해석됩니다.",
             "news_evidence": [
               {
-                "title": "대주전자재료, +0.92% 상승폭 확대 - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQERTf8yO15VxT7j-SeVhUpFvRN15IfQ4Y5XtebXivqWfFN3SgKH0UnyDUXD28O1qVTm6xngeTLYCuNHAqZ_WHzbSC03smm3zboHBG9wm_MfK_ebEkqSPJkjOTRrwh_gAynZnmRmoD9wnLh5w3zAFZY19E2NStvOl6a-4lVgihAzPWe-Fi_3sBY="
-              },
-              {
-                "title": "[모닝 리포트] \"대주전자재료, 목표가 10만원 유지\" - 뉴스핌",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHfp6clbFEk--sRM0pe0SoPmvQa7uLlXkpTy4IPREEF0Fe8JTb-ktHJtSz4k4TC3Q-jPBC4alguniNv-fc6tPbQKsNU2MnT5U61V2_20H0sz0SlCO-3JIOTdxvvrBKPbovC-crxHzQsS31-"
-              },
-              {
-                "title": "[강세 토픽] MLCC 테마, 대주전자재료 +7.38%, 코스모신소재 +7.23% - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHh6XvjypTd9KD72wQM-TAq0hjWABvTpefbo2Oifsth9JFqhb9m92kp-y-DgmyYWC-kucS1w6AhjA6IQY0TdEPBmSf6GULsnWY34f9JQgD6YHF970amZZHl9u2HgHCaJhNm3NJXl6wZXOrXTEcydpuvjcPuzL11SnOTjSQP2hosWomaDVAOdUI="
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "theme_name": "핀테크 및 디지털 결제 (Fintech & Digital Payment)",
-        "theme_description": "스테이블코인 기반 결제 및 정산 서비스 구축 등 새로운 디지털 금융 기술과 서비스에 대한 기대감이 커지면서 관련 핀테크 기업들이 강세를 보이고 있습니다.",
-        "leader_stocks": [
-          {
-            "name": "헥토파이낸셜",
-            "code": "234340",
-            "reason": "스테이블코인 정산의 핵심 수혜주로 분석되며, 싱가포르 스테이블코인 결제 기업 트리플에이와의 업무협약(MOU)을 통해 글로벌 결제·정산 서비스 구축에 대한 기대감이 높습니다.",
-            "news_evidence": [
-              {
-                "title": "헥토파이낸셜(234340)(+22.29%) - 스테이블코인 정산 핵심 수혜주 분석 [인포스탁데일리]",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSA2QzcZuQerGkRqz-_cUYcDONcXBd3TNlt1_6bc-qEY0wOLfcvxHXWnqxnyIpeP1E36tUwNOfa4BDHBbvvXXiLtdcFes-CbciLIPVMoCYzCbmSrUiQpRA3Q8q9hTkmh6OPcuW2ObNCYpu1NY_JhyMKK3uazrQDQ8qNGwYrg=="
-              },
-              {
-                "title": "헥토파이낸셜, 트리플에이와 스테이블코인 기반 결제·정산 MOU - 매일경제",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMVA0Cvxb7pPoxtNV5LndyAwxp2rbKOBnnOjERJt2_LaU6CLycgdrewHhb6wBzL_GUIvcX5Gr-nNoN8-6qYmF-HJpI1Ql9w9g_X3qKXhgS1RMRMaE9JIF5dC8A7jcWXpu6UQ=="
-              },
-              {
-                "title": "[강세 토픽] 결제서비스 테마, 헥토파이낸셜 +7.01%, 코나아이 +4.88% - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVETdVQ1QnujKyz0C09TKuux0t56UWW8UMZS4nTH5amin5oGfeqNaS1u0T6QFK0y_PB9-VVgZ6XZpNB21CbsNIbHSKrp4FRMmvW36rc1MhEkkBwKW07Bm0300ryutP1VOA8G4QvJwPqgw2VXcUlIGR4PIrLgODWR5zzkc9SWikrXqLfVH1Th8="
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "theme_name": "화장품 및 소비재 회복 (Cosmetics & Consumer Goods Rebound)",
-        "theme_description": "작년 실적 호조, 증권가 목표주가 상향, 자회사 실적 개선 및 비용 절감 노력 등 긍정적인 요인들이 복합적으로 작용하며 화장품 및 소비재 섹터의 회복 기대감을 높이고 있습니다.",
-        "leader_stocks": [
-          {
-            "name": "아모레퍼시픽",
-            "code": "090430",
-            "reason": "지난해 연결 기준 매출액과 영업이익이 큰 폭으로 증가하며 실적 호조를 기록했고, 증권사들이 목표주가를 일제히 상향 조정하는 등 긍정적인 평가가 이어지고 있습니다. 특히 자회사 코스알엑스의 선전과 인건비 절감 효과가 기대됩니다.",
-            "news_evidence": [
-              {
-                "title": "아모레퍼시픽(090430)(+20.25%) - 화장품 테마 상승 속 지난해 실적 호조 [인포스탁데일리]",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSA2QzcZuQerGkRqz-_cUYcDONcXBd3TNlt1_6bc-qEY0wOLfcvxHXWnqxnyIpeP1E36tUwNOfa4BDHBbvvXXiLtdcFes-CbciLIPVMoCYzCbmSrUiQpRA3Q8q9hTkmh6OPcuW2ObNCYpu1NY_JhyMKK3uazrQDQ8qNGwYrg=="
-              },
-              {
-                "title": "[특징주] 아모레퍼시픽, 작년 실적 호평에 장중 17% 급등 - 연합뉴스",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHk-Dp5GP5Yj8GtT2swMAlIT3or5HNuoUZK2ggefC8ZYwgSAtFRK6w7-JBVSq3wJIMtGRVNTkUpMnYd73yOGu_YxJlzk5gtaNrkQu4j8wq2BYGscwmdH-9-jAyJxwxzy6uOGQzv3QhfUiQ="
-              },
-              {
-                "title": "[특징주] 아모레퍼시픽, 증권가 목표가 상향에 16%대 급등 - 조선비즈",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEa7IGVEkXAzmAvjorUIUJvjs0X--1S7PI5rKkjh_E7jJRjBAodo9mB9N1S7blqSvrTQGJR3yhlhT6484y7MIj2p4rq69DEO7LlX9vMckotv47lJxf2ruex1bSekv7koWIgR2SAwjLc_sI7OzTq2CJ8s81EdX7B9wvqJqV_pY7swr5q94hyNHTtPcCf"
-              },
-              {
-                "title": "“아모레 18만원까지 간다”…코스알엑스 턴어라운드에 목표가 줄상향 [오늘 나온 보고서] - 매일경제",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG_-nI36N7ik2oG4dgFBpXAHqKRTi9TCOX0VzLVTza7NYN1BhFo39ioxJN8OU_9csPye4fsvXlr07QhAFuwdDvfdJCOezs6q_cI2kXA_1vRDJtGO4LOlYj-h2nOLpY0x2r_nw=="
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "theme_name": "금융주 주주환원 강화 (Financials & Enhanced Shareholder Returns)",
-        "theme_description": "비과세 배당 시행, 증권·보험 인수·합병(M&A) 효과, 높은 배당수익률 및 적극적인 주주환원 정책에 대한 기대감으로 금융주들이 강세를 보이며 시장의 주목을 받고 있습니다.",
-        "leader_stocks": [
-          {
-            "name": "우리금융지주",
-            "code": "316140",
-            "reason": "비과세 배당 시행과 증권·보험 M&A 효과 등 타 금융지주 대비 돋보이는 모멘텀을 보유하고 있습니다. 또한, 높은 배당수익률과 적극적인 자사주 매입·소각 등 주주환원 정책 강화에 대한 기대감이 주가 상승의 주요 원동력입니다.",
-            "news_evidence": [
-              {
-                "title": "신한투자 \"우리금융, 비과세 배당 시행 등 돋보여…목표가↑\" - 연합뉴스",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGBoTNSjIJY_C4FKDpgXQgTrz9C2Yap4-8mqbOC3U5Dqv_7t61h7UTm_GB0ecxuS_kLSawdL-9etRQP48piA0NPvp_c7iUsHHnoKpAnwCf-TqCPEYeu-tQiKrISHksgzcsNZYuyHAWzFdE="
-              },
-              {
-                "title": "\"은행株 중 배당수익률 가장 높다\"…우리금융 7%대 급등 [핫종목] - 뉴스1",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEphXko3TmlIgmgNqGqhUL5p2I9dOaq2Wkyfd1zcH0bD4XFA7rxIRU4chK3c1K0Br4lr0C5OwJBPJs38lMgNBe6QZtPuztQ733zhrvOK7WhniJIiahJHjHiAUv9fAnjrphp8-GM1N92H-gvHr4="
-              },
-              {
-                "title": "\"은행株 중 배당수익률 가장 높다\"…우리금융 7%대 급등 [핫종목] - 데일리머니",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYZfGv0ZBHHskApNG59NsTKmHZjxmHJppyHcI7RAcZ9AJQwuY64U480EwlE_N8HEnnqjGyxAj7g4AqNRix9B0oVjaNnyD_hBAcseHQik1dKbfrHRLhyMrzoMxoqgq--MK8Fo_t1sAWmIN5YCl8Tm7r7sIw1BgUBGl9bg=="
-              },
-              {
-                "title": "[리포트 브리핑]우리금융지주, '기업가치제고계획 업그레이드' 목표가 42,000원 - 키움증권",
-                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvK9QwtcHlwZfaguGnMZ_A2VNw51ocuzLriEfSNkYJPrxkarcWeYyHEsan4YTkU7GaiIm9yvK0HH_Sp1gkQZNbFQGU1LkLUwhenApUKBY3LT0ln0VztG4sPNSDLUeny9JfuQBfS_qJSA=="
+                "title": "[특징주] 오가닉티코스메틱, 주식병합 결정에 '上' | 아주경제",
+                "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECc1RNc7BPOrve-V5FcoL39SUYQBG8HImt-epcpXFBXCN7l_kTKktcJiF-bPrmtp9Yi-qJVjOBdM4p6kIZazUp8OU2gRw8vwINJMakM5fuJBV-yCVS_ljQeMKRbIr8rHyWnOqCxWdhyQ=="
               }
             ]
           }
