@@ -51,7 +51,7 @@ app.add_middleware(
 @app.get("/api/health")
 def health():
     """헬스체크 (keep-alive ping용)"""
-    return {"status": "ok", "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")}
+    return {"status": "ok", "version": "v3", "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")}
 
 
 def _check_kis_connectivity() -> "str | None":
