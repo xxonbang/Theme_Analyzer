@@ -26,22 +26,11 @@ export function PaperTradingPage() {
     resetExcluded,
   } = usePaperTradingData()
 
+  const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
+
   useEffect(() => {
     fetchIndex()
   }, [fetchIndex])
-
-  if (loading && index.length === 0) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-6 h-6 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">모의투자 데이터를 불러오는 중...</p>
-        </div>
-      </div>
-    )
-  }
-
-  const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
 
   const toggleCollapse = (date: string) => {
     setCollapsedDates(prev => {
@@ -53,6 +42,17 @@ export function PaperTradingPage() {
       }
       return next
     })
+  }
+
+  if (loading && index.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">모의투자 데이터를 불러오는 중...</p>
+        </div>
+      </div>
+    )
   }
 
   // 선택된 날짜의 데이터를 날짜순으로 정렬
