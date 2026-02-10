@@ -1,88 +1,88 @@
 {
   "trade_date": "2026-02-10",
-  "morning_timestamp": "2026-02-09 23:20:08",
-  "collected_at": "2026-02-10 22:05:48",
+  "morning_timestamp": "2026-02-10 09:39:06",
+  "collected_at": "2026-02-10 22:16:29",
   "stocks": [
     {
       "code": "056080",
       "name": "유진로봇",
-      "theme": "로봇 및 인공지능 (Robotics & AI)",
-      "buy_price": 37550,
+      "theme": "로봇 및 스마트 모빌리티",
+      "buy_price": 44150,
       "close_price": 45700,
-      "profit_rate": 21.7,
-      "profit_amount": 8150
+      "profit_rate": 3.51,
+      "profit_amount": 1550
     },
     {
-      "code": "348340",
-      "name": "뉴로메카",
-      "theme": "로봇 및 인공지능 (Robotics & AI)",
-      "buy_price": 93500,
-      "close_price": 88600,
-      "profit_rate": -5.24,
-      "profit_amount": -4900
+      "code": "307950",
+      "name": "현대오토에버",
+      "theme": "로봇 및 스마트 모빌리티",
+      "buy_price": 450000,
+      "close_price": 431000,
+      "profit_rate": -4.22,
+      "profit_amount": -19000
     },
     {
-      "code": "417010",
-      "name": "나노팀",
-      "theme": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
-      "buy_price": 13960,
-      "close_price": 13900,
-      "profit_rate": -0.43,
-      "profit_amount": -60
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설 및 인프라 투자 (원전 및 건축자재 포함)",
+      "buy_price": 7090,
+      "close_price": 7060,
+      "profit_rate": -0.42,
+      "profit_amount": -30
     },
     {
-      "code": "474170",
-      "name": "루미르",
-      "theme": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
-      "buy_price": 21350,
-      "close_price": 20700,
-      "profit_rate": -3.04,
-      "profit_amount": -650
+      "code": "000390",
+      "name": "삼화페인트",
+      "theme": "건설 및 인프라 투자 (원전 및 건축자재 포함)",
+      "buy_price": 12350,
+      "close_price": 12350,
+      "profit_rate": 0.0,
+      "profit_amount": 0
     },
     {
       "code": "078600",
       "name": "대주전자재료",
-      "theme": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
-      "buy_price": 91100,
+      "theme": "첨단소재 및 반도체/2차전지 장비",
+      "buy_price": 96700,
       "close_price": 95500,
-      "profit_rate": 4.83,
-      "profit_amount": 4400
+      "profit_rate": -1.24,
+      "profit_amount": -1200
     },
     {
-      "code": "234340",
-      "name": "헥토파이낸셜",
-      "theme": "핀테크 및 디지털 결제 (Fintech & Digital Payment)",
-      "buy_price": 28800,
-      "close_price": 29050,
-      "profit_rate": 0.87,
-      "profit_amount": 250
+      "code": "412350",
+      "name": "레이저쎌",
+      "theme": "첨단소재 및 반도체/2차전지 장비",
+      "buy_price": 3780,
+      "close_price": 3850,
+      "profit_rate": 1.85,
+      "profit_amount": 70
     },
     {
-      "code": "090430",
-      "name": "아모레퍼시픽",
-      "theme": "화장품 및 소비재 회복 (Cosmetics & Consumer Goods Rebound)",
-      "buy_price": 165100,
-      "close_price": 164200,
-      "profit_rate": -0.55,
-      "profit_amount": -900
+      "code": "139480",
+      "name": "이마트",
+      "theme": "유통 및 금융 시장 변화",
+      "buy_price": 117500,
+      "close_price": 117600,
+      "profit_rate": 0.09,
+      "profit_amount": 100
     },
     {
       "code": "316140",
       "name": "우리금융지주",
-      "theme": "금융주 주주환원 강화 (Financials & Enhanced Shareholder Returns)",
-      "buy_price": 34550,
+      "theme": "유통 및 금융 시장 변화",
+      "buy_price": 35550,
       "close_price": 35600,
-      "profit_rate": 3.04,
-      "profit_amount": 1050
+      "profit_rate": 0.14,
+      "profit_amount": 50
     }
   ],
   "summary": {
     "total_stocks": 8,
     "profit_stocks": 4,
-    "loss_stocks": 4,
-    "total_invested": 485910,
-    "total_value": 493250,
-    "total_profit": 7340,
-    "total_profit_rate": 1.51
+    "loss_stocks": 3,
+    "total_invested": 767120,
+    "total_value": 748660,
+    "total_profit": -18460,
+    "total_profit_rate": -2.41
   }
 }
