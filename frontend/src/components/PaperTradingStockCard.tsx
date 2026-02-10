@@ -6,13 +6,17 @@ interface PaperTradingStockCardProps {
   stock: PaperTradingStock
   isExcluded: boolean
   onToggle: (code: string) => void
+  morningTimestamp?: string
 }
 
-export function PaperTradingStockCard({ stock, isExcluded, onToggle }: PaperTradingStockCardProps) {
+export function PaperTradingStockCard({ stock, isExcluded, onToggle, morningTimestamp }: PaperTradingStockCardProps) {
   const isProfit = stock.profit_rate > 0
   const isLoss = stock.profit_rate < 0
 
   const sign = stock.profit_rate >= 0 ? "+" : ""
+
+  // "2026-02-10 09:39:06" → "09:39"
+  const buyTime = morningTimestamp?.split(" ")[1]?.slice(0, 5) || ""
 
   return (
     <div
@@ -86,7 +90,7 @@ export function PaperTradingStockCard({ stock, isExcluded, onToggle }: PaperTrad
 
       {/* 가격 정보 */}
       <div className="mt-2 flex items-center gap-3 text-[11px] sm:text-xs text-muted-foreground">
-        <span>매수 <span className="font-medium text-foreground">{stock.buy_price.toLocaleString()}</span></span>
+        <span>매수{buyTime && <span className="text-muted-foreground/70">({buyTime})</span>} <span className="font-medium text-foreground">{stock.buy_price.toLocaleString()}</span></span>
         <span className="text-border">→</span>
         <span>종가 <span className="font-medium text-foreground">{stock.close_price.toLocaleString()}</span></span>
       </div>

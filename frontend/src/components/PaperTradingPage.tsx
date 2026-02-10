@@ -115,6 +115,7 @@ export function PaperTradingPage() {
                   stock={stock}
                   isExcluded={excludedStocks.has(stock.code)}
                   onToggle={toggleStock}
+                  morningTimestamp={data.morning_timestamp}
                 />
               ))}
             </div>
