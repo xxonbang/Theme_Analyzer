@@ -1,6 +1,6 @@
 import { ExternalLink, X, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { PaperTradingStock } from "@/types/stock"
+import type { PaperTradingStock, PaperTradingMode } from "@/types/stock"
 
 interface PaperTradingStockCardProps {
   stock: PaperTradingStock
@@ -8,13 +8,18 @@ interface PaperTradingStockCardProps {
   isExcluded: boolean
   onToggle: (date: string, code: string) => void
   morningTimestamp?: string
+  mode: PaperTradingMode
 }
 
-export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp }: PaperTradingStockCardProps) {
-  const isProfit = stock.profit_rate > 0
-  const isLoss = stock.profit_rate < 0
+export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode }: PaperTradingStockCardProps) {
+  const displayProfitRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
+  const displayProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
+  const displaySellPrice = mode === "high" ? (stock.high_price ?? stock.close_price) : stock.close_price
 
-  const sign = stock.profit_rate >= 0 ? "+" : ""
+  const isProfit = displayProfitRate > 0
+  const isLoss = displayProfitRate < 0
+
+  const sign = displayProfitRate >= 0 ? "+" : ""
 
   // "2026-02-10 09:39:06" → "09:39"
   const buyTime = morningTimestamp?.split(" ")[1]?.slice(0, 5) || ""
@@ -57,7 +62,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
               !isExcluded && isProfit && "text-red-600",
               !isExcluded && isLoss && "text-blue-600",
             )}>
-              {sign}{stock.profit_rate}%
+              {sign}{displayProfitRate}%
             </div>
             <div className={cn(
               "text-[10px] sm:text-xs tabular-nums",
@@ -65,7 +70,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
               !isExcluded && isLoss && "text-blue-500/70",
               (isExcluded || (!isProfit && !isLoss)) && "text-muted-foreground",
             )}>
-              {sign}{stock.profit_amount.toLocaleString()}원
+              {sign}{displayProfitAmount.toLocaleString()}원
             </div>
           </div>
 
@@ -93,7 +98,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
       <div className="mt-2 flex items-center gap-3 text-[11px] sm:text-xs text-muted-foreground">
         <span>매수{buyTime && <span className="text-muted-foreground/70">({buyTime})</span>} <span className="font-medium text-foreground">{stock.buy_price.toLocaleString()}</span></span>
         <span className="text-border">→</span>
-        <span>종가 <span className="font-medium text-foreground">{stock.close_price.toLocaleString()}</span></span>
+        <span>{mode === "high" ? "최고가" : "종가"} <span className="font-medium text-foreground">{displaySellPrice.toLocaleString()}</span></span>
       </div>
     </div>
   )

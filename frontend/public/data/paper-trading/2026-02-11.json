@@ -1,0 +1,129 @@
+{
+  "trade_date": "2026-02-11",
+  "morning_timestamp": "2026-02-10 12:48:33",
+  "collected_at": "2026-02-11 08:06:00",
+  "stocks": [
+    {
+      "code": "056080",
+      "name": "유진로봇",
+      "theme": "로봇 산업",
+      "buy_price": 44400,
+      "close_price": 45700,
+      "profit_rate": 2.93,
+      "profit_amount": 1300,
+      "high_price": 45700,
+      "high_profit_rate": 2.93,
+      "high_profit_amount": 1300
+    },
+    {
+      "code": "090710",
+      "name": "휴림로봇",
+      "theme": "로봇 산업",
+      "buy_price": 14880,
+      "close_price": 14670,
+      "profit_rate": -1.41,
+      "profit_amount": -210,
+      "high_price": 14670,
+      "high_profit_rate": -1.41,
+      "high_profit_amount": -210
+    },
+    {
+      "code": "380550",
+      "name": "뉴로핏",
+      "theme": "로봇 산업",
+      "buy_price": 31200,
+      "close_price": 30700,
+      "profit_rate": -1.6,
+      "profit_amount": -500,
+      "high_price": 30700,
+      "high_profit_rate": -1.6,
+      "high_profit_amount": -500
+    },
+    {
+      "code": "246690",
+      "name": "TS인베스트먼트",
+      "theme": "벤처캐피탈/투자",
+      "buy_price": 1840,
+      "close_price": 1840,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1840,
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "241520",
+      "name": "DSC인베스트먼트",
+      "theme": "벤처캐피탈/투자",
+      "buy_price": 11500,
+      "close_price": 11500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 11500,
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설/인프라",
+      "buy_price": 7200,
+      "close_price": 7060,
+      "profit_rate": -1.94,
+      "profit_amount": -140,
+      "high_price": 7060,
+      "high_profit_rate": -1.94,
+      "high_profit_amount": -140
+    },
+    {
+      "code": "412350",
+      "name": "레이저쎌",
+      "theme": "디스플레이/반도체 후공정",
+      "buy_price": 3990,
+      "close_price": 3850,
+      "profit_rate": -3.51,
+      "profit_amount": -140,
+      "high_price": 3850,
+      "high_profit_rate": -3.51,
+      "high_profit_amount": -140
+    },
+    {
+      "code": "451220",
+      "name": "아이엠티",
+      "theme": "디스플레이/반도체 후공정",
+      "buy_price": 13920,
+      "close_price": 13540,
+      "profit_rate": -2.73,
+      "profit_amount": -380,
+      "high_price": 13540,
+      "high_profit_rate": -2.73,
+      "high_profit_amount": -380
+    },
+    {
+      "code": "389140",
+      "name": "포바이포",
+      "theme": "콘텐츠/메타버스",
+      "buy_price": 9330,
+      "close_price": 9330,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 9330,
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 1,
+    "loss_stocks": 5,
+    "total_invested": 138260,
+    "total_value": 138190,
+    "total_profit": -70,
+    "total_profit_rate": -0.05,
+    "high_total_value": 138190,
+    "high_total_profit": -70,
+    "high_total_profit_rate": -0.05,
+    "high_profit_stocks": 1,
+    "high_loss_stocks": 5
+  }
+}

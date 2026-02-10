@@ -1,6 +1,6 @@
 import { CheckSquare, Square, CheckCheck, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { PaperTradingIndexEntry, PaperTradingData } from "@/types/stock"
+import type { PaperTradingIndexEntry, PaperTradingData, PaperTradingMode } from "@/types/stock"
 
 interface PaperTradingDateSelectorProps {
   entries: PaperTradingIndexEntry[]
@@ -9,6 +9,7 @@ interface PaperTradingDateSelectorProps {
   isStockExcluded: (date: string, code: string) => boolean
   onToggleDate: (date: string) => void
   onToggleAll: () => void
+  mode: PaperTradingMode
 }
 
 function getWeekday(dateStr: string) {
@@ -25,6 +26,7 @@ export function PaperTradingDateSelector({
   isStockExcluded,
   onToggleDate,
   onToggleAll,
+  mode,
 }: PaperTradingDateSelectorProps) {
   const allSelected = entries.length > 0 && selectedDates.size === entries.length
 
@@ -58,11 +60,15 @@ export function PaperTradingDateSelector({
             const data = dailyData.get(entry.date)
             // 제외된 종목을 반영한 활성 종목 기준 계산
             const activeStocks = data?.stocks.filter(s => !isStockExcluded(entry.date, s.code)) ?? []
-            const profitCount = activeStocks.filter(s => s.profit_rate > 0).length
-            const lossCount = activeStocks.filter(s => s.profit_rate < 0).length
-            const flatCount = activeStocks.filter(s => s.profit_rate === 0).length
+            const rateOf = (s: typeof activeStocks[number]) =>
+              mode === "high" ? (s.high_profit_rate ?? s.profit_rate) : s.profit_rate
+            const profitCount = activeStocks.filter(s => rateOf(s) > 0).length
+            const lossCount = activeStocks.filter(s => rateOf(s) < 0).length
+            const flatCount = activeStocks.filter(s => rateOf(s) === 0).length
             const totalInvested = activeStocks.reduce((sum, s) => sum + s.buy_price, 0)
-            const totalValue = activeStocks.reduce((sum, s) => sum + s.close_price, 0)
+            const totalValue = mode === "high"
+              ? activeStocks.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
+              : activeStocks.reduce((sum, s) => sum + s.close_price, 0)
             const activeProfitRate = totalInvested > 0
               ? Math.round(((totalValue - totalInvested) / totalInvested) * 10000) / 100
               : 0

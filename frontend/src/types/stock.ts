@@ -124,6 +124,9 @@ export interface PaperTradingStock {
   close_price: number
   profit_rate: number
   profit_amount: number
+  high_price?: number
+  high_profit_rate?: number
+  high_profit_amount?: number
 }
 
 export interface PaperTradingSummary {
@@ -134,7 +137,14 @@ export interface PaperTradingSummary {
   total_value: number
   total_profit: number
   total_profit_rate: number
+  high_total_value?: number
+  high_total_profit?: number
+  high_total_profit_rate?: number
+  high_profit_stocks?: number
+  high_loss_stocks?: number
 }
+
+export type PaperTradingMode = "close" | "high"
 
 export interface PaperTradingData {
   trade_date: string

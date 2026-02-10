@@ -87,19 +87,27 @@ def find_morning_price(data: dict, code: str) -> Optional[int]:
     return None
 
 
-def get_close_price(client: KISClient, code: str) -> Optional[int]:
-    """KIS API로 종가 조회"""
+def get_stock_prices(client: KISClient, code: str) -> Optional[dict]:
+    """KIS API로 종가 + 최고가 조회"""
     try:
         result = client.get_stock_price(code)
         if result.get("rt_cd") == "0":
             output = result.get("output", {})
-            price_str = output.get("stck_prpr", "0")
-            return int(price_str) if price_str else None
+            close_str = output.get("stck_prpr", "0")
+            high_str = output.get("stck_hgpr", "0")
+            close_price = int(close_str) if close_str else None
+            high_price = int(high_str) if high_str else None
+            if close_price is None:
+                return None
+            return {
+                "close_price": close_price,
+                "high_price": high_price if high_price else close_price,
+            }
         else:
             print(f"  [오류] {code} API 응답: {result.get('msg1', 'Unknown')}")
             return None
     except Exception as e:
-        print(f"  [오류] {code} 종가 조회 실패: {e}")
+        print(f"  [오류] {code} 가격 조회 실패: {e}")
         return None
 
 
@@ -147,14 +155,21 @@ def collect_paper_trading_data(
         if i > 0:
             time.sleep(0.3)
 
-        close_price = get_close_price(client, code)
-        if close_price is None:
-            print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}) - 종가 조회 실패, 건너뜀")
+        prices = get_stock_prices(client, code)
+        if prices is None:
+            print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}) - 가격 조회 실패, 건너뜀")
             continue
 
-        # 수익률 계산
+        close_price = prices["close_price"]
+        high_price = prices["high_price"]
+
+        # 종가 기준 수익률
         profit_amount = close_price - buy_price
         profit_rate = round((profit_amount / buy_price) * 100, 2) if buy_price > 0 else 0
+
+        # 최고가 기준 수익률
+        high_profit_amount = high_price - buy_price
+        high_profit_rate = round((high_profit_amount / buy_price) * 100, 2) if buy_price > 0 else 0
 
         results.append({
             "code": code,
@@ -164,22 +179,32 @@ def collect_paper_trading_data(
             "close_price": close_price,
             "profit_rate": profit_rate,
             "profit_amount": profit_amount,
+            "high_price": high_price,
+            "high_profit_rate": high_profit_rate,
+            "high_profit_amount": high_profit_amount,
         })
 
         sign = "+" if profit_rate >= 0 else ""
-        print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}): {buy_price:,} -> {close_price:,} ({sign}{profit_rate}%)")
+        print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}): {buy_price:,} -> {close_price:,} ({sign}{profit_rate}%) [최고 {high_price:,}]")
 
     if not results:
         print("[결과] 수집된 종목이 없습니다.")
         return None
 
-    # 요약 계산
+    # 종가 기준 요약 계산
     profit_stocks = sum(1 for r in results if r["profit_rate"] > 0)
     loss_stocks = sum(1 for r in results if r["profit_rate"] < 0)
     total_invested = sum(r["buy_price"] for r in results)
     total_value = sum(r["close_price"] for r in results)
     total_profit = total_value - total_invested
     total_profit_rate = round((total_profit / total_invested) * 100, 2) if total_invested > 0 else 0
+
+    # 최고가 기준 요약 계산
+    high_profit_stocks = sum(1 for r in results if r["high_profit_rate"] > 0)
+    high_loss_stocks = sum(1 for r in results if r["high_profit_rate"] < 0)
+    high_total_value = sum(r["high_price"] for r in results)
+    high_total_profit = high_total_value - total_invested
+    high_total_profit_rate = round((high_total_profit / total_invested) * 100, 2) if total_invested > 0 else 0
 
     now = datetime.now()
     trade_date = now.strftime("%Y-%m-%d")
@@ -198,6 +223,11 @@ def collect_paper_trading_data(
             "total_value": total_value,
             "total_profit": total_profit,
             "total_profit_rate": total_profit_rate,
+            "high_total_value": high_total_value,
+            "high_total_profit": high_total_profit,
+            "high_total_profit_rate": high_total_profit_rate,
+            "high_profit_stocks": high_profit_stocks,
+            "high_loss_stocks": high_loss_stocks,
         },
     }
 

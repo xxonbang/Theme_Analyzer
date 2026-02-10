@@ -28,6 +28,12 @@ interface UsePaperTradingDataReturn {
     totalValue: number
     totalProfit: number
     totalProfitRate: number
+    highTotalValue: number
+    highTotalProfit: number
+    highTotalProfitRate: number
+    highProfitStocks: number
+    highLossStocks: number
+    highFlatStocks: number
   }
   fetchIndex: () => Promise<void>
   toggleDate: (date: string) => void
@@ -190,6 +196,17 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
       ? Math.round((totalProfit / totalInvested) * 10000) / 100
       : 0
 
+    // 최고가 기준 계산 (fallback: close 값 사용)
+    const highProfitRateOf = (s: PaperTradingStock) => s.high_profit_rate ?? s.profit_rate
+    const highProfitStocks = activeStocks.filter(s => highProfitRateOf(s) > 0).length
+    const highLossStocks = activeStocks.filter(s => highProfitRateOf(s) < 0).length
+    const highFlatStocks = activeStocks.filter(s => highProfitRateOf(s) === 0).length
+    const highTotalValue = activeStocks.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
+    const highTotalProfit = highTotalValue - totalInvested
+    const highTotalProfitRate = totalInvested > 0
+      ? Math.round((highTotalProfit / totalInvested) * 10000) / 100
+      : 0
+
     return {
       totalDays: selectedDates.size,
       totalStocks,
@@ -200,6 +217,12 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
       totalValue,
       totalProfit,
       totalProfitRate,
+      highTotalValue,
+      highTotalProfit,
+      highTotalProfitRate,
+      highProfitStocks,
+      highLossStocks,
+      highFlatStocks,
     }
   }, [activeStocks, selectedDates])
 

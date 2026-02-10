@@ -1,6 +1,7 @@
 import { TrendingUp, TrendingDown, Minus, Wallet, BarChart3 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import type { PaperTradingMode } from "@/types/stock"
 
 interface PaperTradingSummaryProps {
   summary: {
@@ -13,13 +14,27 @@ interface PaperTradingSummaryProps {
     totalValue: number
     totalProfit: number
     totalProfitRate: number
+    highTotalValue: number
+    highTotalProfit: number
+    highTotalProfitRate: number
+    highProfitStocks: number
+    highLossStocks: number
+    highFlatStocks: number
   }
+  mode: PaperTradingMode
 }
 
-export function PaperTradingSummary({ summary }: PaperTradingSummaryProps) {
-  const isProfit = summary.totalProfitRate > 0
-  const isLoss = summary.totalProfitRate < 0
-  const sign = summary.totalProfitRate >= 0 ? "+" : ""
+export function PaperTradingSummary({ summary, mode }: PaperTradingSummaryProps) {
+  const profitRate = mode === "high" ? summary.highTotalProfitRate : summary.totalProfitRate
+  const profit = mode === "high" ? summary.highTotalProfit : summary.totalProfit
+  const value = mode === "high" ? summary.highTotalValue : summary.totalValue
+  const profitStocks = mode === "high" ? summary.highProfitStocks : summary.profitStocks
+  const lossStocks = mode === "high" ? summary.highLossStocks : summary.lossStocks
+  const flatStocks = mode === "high" ? summary.highFlatStocks : summary.flatStocks
+
+  const isProfit = profitRate > 0
+  const isLoss = profitRate < 0
+  const sign = profitRate >= 0 ? "+" : ""
 
   return (
     <Card className="overflow-hidden shadow-sm">
@@ -35,7 +50,7 @@ export function PaperTradingSummary({ summary }: PaperTradingSummaryProps) {
             isProfit && "text-red-600",
             isLoss && "text-blue-600",
           )}>
-            {sign}{summary.totalProfitRate}%
+            {sign}{profitRate}%
           </div>
         </div>
 
@@ -46,7 +61,7 @@ export function PaperTradingSummary({ summary }: PaperTradingSummaryProps) {
           isLoss && "text-blue-500/80",
           !isProfit && !isLoss && "text-muted-foreground",
         )}>
-          {sign}{summary.totalProfit.toLocaleString()}원
+          {sign}{profit.toLocaleString()}원
         </div>
 
         <hr className="border-border/50 mb-3" />
@@ -64,29 +79,29 @@ export function PaperTradingSummary({ summary }: PaperTradingSummaryProps) {
             <Wallet className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
             <div>
               <div className="text-muted-foreground">평가금</div>
-              <div className="font-medium tabular-nums">{summary.totalValue.toLocaleString()}원</div>
+              <div className="font-medium tabular-nums">{value.toLocaleString()}원</div>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm">
             <TrendingUp className="w-3.5 h-3.5 text-red-500 shrink-0" />
             <div>
               <div className="text-muted-foreground">수익 종목</div>
-              <div className="font-medium text-red-600 tabular-nums">{summary.profitStocks}개</div>
+              <div className="font-medium text-red-600 tabular-nums">{profitStocks}개</div>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm">
             <TrendingDown className="w-3.5 h-3.5 text-blue-500 shrink-0" />
             <div>
               <div className="text-muted-foreground">손실 종목</div>
-              <div className="font-medium text-blue-600 tabular-nums">{summary.lossStocks}개</div>
+              <div className="font-medium text-blue-600 tabular-nums">{lossStocks}개</div>
             </div>
           </div>
-          {summary.flatStocks > 0 && (
+          {flatStocks > 0 && (
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <Minus className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
               <div>
                 <div className="text-muted-foreground">보합 종목</div>
-                <div className="font-medium text-muted-foreground tabular-nums">{summary.flatStocks}개</div>
+                <div className="font-medium text-muted-foreground tabular-nums">{flatStocks}개</div>
               </div>
             </div>
           )}

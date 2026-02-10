@@ -10,7 +10,10 @@
       "buy_price": 44150,
       "close_price": 45700,
       "profit_rate": 3.51,
-      "profit_amount": 1550
+      "profit_amount": 1550,
+      "high_price": 46950,
+      "high_profit_rate": 6.34,
+      "high_profit_amount": 2800
     },
     {
       "code": "307950",
@@ -19,7 +22,10 @@
       "buy_price": 450000,
       "close_price": 431000,
       "profit_rate": -4.22,
-      "profit_amount": -19000
+      "profit_amount": -19000,
+      "high_price": 465000,
+      "high_profit_rate": 3.33,
+      "high_profit_amount": 15000
     },
     {
       "code": "047040",
@@ -28,7 +34,10 @@
       "buy_price": 7090,
       "close_price": 7060,
       "profit_rate": -0.42,
-      "profit_amount": -30
+      "profit_amount": -30,
+      "high_price": 7430,
+      "high_profit_rate": 4.8,
+      "high_profit_amount": 340
     },
     {
       "code": "000390",
@@ -37,7 +46,10 @@
       "buy_price": 12350,
       "close_price": 12350,
       "profit_rate": 0.0,
-      "profit_amount": 0
+      "profit_amount": 0,
+      "high_price": 12350,
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
     },
     {
       "code": "078600",
@@ -46,7 +58,10 @@
       "buy_price": 96700,
       "close_price": 95500,
       "profit_rate": -1.24,
-      "profit_amount": -1200
+      "profit_amount": -1200,
+      "high_price": 99400,
+      "high_profit_rate": 2.79,
+      "high_profit_amount": 2700
     },
     {
       "code": "412350",
@@ -55,7 +70,10 @@
       "buy_price": 3780,
       "close_price": 3850,
       "profit_rate": 1.85,
-      "profit_amount": 70
+      "profit_amount": 70,
+      "high_price": 4100,
+      "high_profit_rate": 8.47,
+      "high_profit_amount": 320
     },
     {
       "code": "139480",
@@ -64,7 +82,10 @@
       "buy_price": 117500,
       "close_price": 117600,
       "profit_rate": 0.09,
-      "profit_amount": 100
+      "profit_amount": 100,
+      "high_price": 121000,
+      "high_profit_rate": 2.98,
+      "high_profit_amount": 3500
     },
     {
       "code": "316140",
@@ -73,7 +94,10 @@
       "buy_price": 35550,
       "close_price": 35600,
       "profit_rate": 0.14,
-      "profit_amount": 50
+      "profit_amount": 50,
+      "high_price": 36500,
+      "high_profit_rate": 2.67,
+      "high_profit_amount": 950
     }
   ],
   "summary": {
@@ -83,6 +107,11 @@
     "total_invested": 767120,
     "total_value": 748660,
     "total_profit": -18460,
-    "total_profit_rate": -2.41
+    "total_profit_rate": -2.41,
+    "high_total_value": 792730,
+    "high_total_profit": 25610,
+    "high_total_profit_rate": 3.34,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 0
   }
 }
