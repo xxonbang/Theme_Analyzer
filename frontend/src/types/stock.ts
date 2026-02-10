@@ -114,3 +114,39 @@ export interface StockData {
   investor_estimated?: boolean
   theme_analysis?: ThemeAnalysis
 }
+
+// 모의투자 관련 타입
+export interface PaperTradingStock {
+  code: string
+  name: string
+  theme: string
+  buy_price: number
+  close_price: number
+  profit_rate: number
+  profit_amount: number
+}
+
+export interface PaperTradingSummary {
+  total_stocks: number
+  profit_stocks: number
+  loss_stocks: number
+  total_invested: number
+  total_value: number
+  total_profit: number
+  total_profit_rate: number
+}
+
+export interface PaperTradingData {
+  trade_date: string
+  morning_timestamp: string
+  collected_at: string
+  stocks: PaperTradingStock[]
+  summary: PaperTradingSummary
+}
+
+export interface PaperTradingIndexEntry {
+  date: string
+  filename: string
+  total_profit_rate: number
+  stock_count: number
+}

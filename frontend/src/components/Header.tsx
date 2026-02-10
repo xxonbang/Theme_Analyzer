@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react"
-import { BarChart3, RefreshCw, LayoutGrid, List, Calendar, History } from "lucide-react"
+import { BarChart3, RefreshCw, LayoutGrid, List, Calendar, History, LineChart, Home } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+type PageType = "home" | "paper-trading"
 
 interface HeaderProps {
   timestamp?: string
@@ -11,17 +13,21 @@ interface HeaderProps {
   onHistoryClick?: () => void
   isViewingHistory?: boolean
   refreshElapsed?: number
+  currentPage?: PageType
+  onPageChange?: (page: PageType) => void
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange }: HeaderProps) {
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [refreshRipple, setRefreshRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [historyRipple, setHistoryRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
+  const [pageRipple, setPageRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [toggleFocusRing, setToggleFocusRing] = useState(false)
   const [refreshFocusRing, setRefreshFocusRing] = useState(false)
   const [historyFocusRing, setHistoryFocusRing] = useState(false)
+  const [pageFocusRing, setPageFocusRing] = useState(false)
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // 툴팁 자동 숨김 (3초 후 fade-out)
@@ -115,6 +121,22 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     setTimeout(() => setHistoryFocusRing(false), 400)
 
     onHistoryClick?.()
+  }
+
+  // Page Navigation 버튼 클릭 효과
+  const handlePageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setPageRipple({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      show: true,
+    })
+    setTimeout(() => setPageRipple(prev => ({ ...prev, show: false })), 500)
+
+    setPageFocusRing(true)
+    setTimeout(() => setPageFocusRing(false), 400)
+
+    onPageChange?.(currentPage === "home" ? "paper-trading" : "home")
   }
 
   // 타임스탬프 파싱
@@ -238,6 +260,73 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 </div>
               )}
             </div>
+          )}
+
+          {/* Page Navigation Button */}
+          {onPageChange && (
+            <button
+              onClick={handlePageClick}
+              className={cn(
+                "relative overflow-hidden group",
+                "flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9",
+                "rounded-lg",
+                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                "border border-border/50",
+                "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                "transition-all duration-300 ease-out",
+                "hover:scale-110 active:scale-95",
+                "hover:border-primary/30",
+                "focus:outline-none",
+                currentPage === "paper-trading" && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
+              )}
+              title={currentPage === "home" ? "모의투자" : "홈으로"}
+            >
+              {/* 임시 Focus Ring */}
+              <div
+                className={cn(
+                  "absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background",
+                  "transition-opacity duration-300",
+                  pageFocusRing ? "opacity-100" : "opacity-0"
+                )}
+              />
+
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+              {/* Icon */}
+              <div className={cn(
+                "relative z-10 transition-all duration-300",
+                "group-hover:rotate-12 group-active:rotate-0"
+              )}>
+                {currentPage === "home" ? (
+                  <LineChart className={cn(
+                    "w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
+                  )} />
+                ) : (
+                  <Home className={cn(
+                    "w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
+                    "text-primary"
+                  )} />
+                )}
+              </div>
+
+              {/* Ripple effect */}
+              {pageRipple.show && (
+                <span
+                  className="absolute rounded-full bg-primary/30 animate-ripple"
+                  style={{
+                    left: pageRipple.x,
+                    top: pageRipple.y,
+                    width: '4px',
+                    height: '4px',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+              )}
+            </button>
           )}
 
           {/* History Button */}

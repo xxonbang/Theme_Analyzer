@@ -1,0 +1,88 @@
+{
+  "trade_date": "2026-02-10",
+  "morning_timestamp": "2026-02-09 23:20:08",
+  "collected_at": "2026-02-10 22:05:48",
+  "stocks": [
+    {
+      "code": "056080",
+      "name": "유진로봇",
+      "theme": "로봇 및 인공지능 (Robotics & AI)",
+      "buy_price": 37550,
+      "close_price": 45700,
+      "profit_rate": 21.7,
+      "profit_amount": 8150
+    },
+    {
+      "code": "348340",
+      "name": "뉴로메카",
+      "theme": "로봇 및 인공지능 (Robotics & AI)",
+      "buy_price": 93500,
+      "close_price": 88600,
+      "profit_rate": -5.24,
+      "profit_amount": -4900
+    },
+    {
+      "code": "417010",
+      "name": "나노팀",
+      "theme": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
+      "buy_price": 13960,
+      "close_price": 13900,
+      "profit_rate": -0.43,
+      "profit_amount": -60
+    },
+    {
+      "code": "474170",
+      "name": "루미르",
+      "theme": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
+      "buy_price": 21350,
+      "close_price": 20700,
+      "profit_rate": -3.04,
+      "profit_amount": -650
+    },
+    {
+      "code": "078600",
+      "name": "대주전자재료",
+      "theme": "우주항공 및 2차전지 소재 (Aerospace & Secondary Battery Materials)",
+      "buy_price": 91100,
+      "close_price": 95500,
+      "profit_rate": 4.83,
+      "profit_amount": 4400
+    },
+    {
+      "code": "234340",
+      "name": "헥토파이낸셜",
+      "theme": "핀테크 및 디지털 결제 (Fintech & Digital Payment)",
+      "buy_price": 28800,
+      "close_price": 29050,
+      "profit_rate": 0.87,
+      "profit_amount": 250
+    },
+    {
+      "code": "090430",
+      "name": "아모레퍼시픽",
+      "theme": "화장품 및 소비재 회복 (Cosmetics & Consumer Goods Rebound)",
+      "buy_price": 165100,
+      "close_price": 164200,
+      "profit_rate": -0.55,
+      "profit_amount": -900
+    },
+    {
+      "code": "316140",
+      "name": "우리금융지주",
+      "theme": "금융주 주주환원 강화 (Financials & Enhanced Shareholder Returns)",
+      "buy_price": 34550,
+      "close_price": 35600,
+      "profit_rate": 3.04,
+      "profit_amount": 1050
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 4,
+    "loss_stocks": 4,
+    "total_invested": 485910,
+    "total_value": 493250,
+    "total_profit": 7340,
+    "total_profit_rate": 1.51
+  }
+}

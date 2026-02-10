@@ -5,12 +5,15 @@ import { AIThemeAnalysis } from "@/components/AIThemeAnalysis"
 import { StockList } from "@/components/StockList"
 import { TabBar } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
+import { PaperTradingPage } from "@/components/PaperTradingPage"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
+
+type PageType = "home" | "paper-trading"
 
 // 로컬 스토리지 키
 const COMPACT_MODE_KEY = "stock-dashboard-compact-mode"
@@ -19,6 +22,7 @@ const FLUCTUATION_MODE_KEY = "stock-dashboard-fluctuation-mode"
 const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
+  const [currentPage, setCurrentPage] = useState<PageType>("home")
   const { data: currentData, loading, error, refreshFromAPI, refreshElapsed } = useStockData()
   const {
     groupedHistory,
@@ -276,8 +280,19 @@ function App() {
         onHistoryClick={handleHistoryClick}
         isViewingHistory={isViewingHistory}
         refreshElapsed={refreshElapsed}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
       />
 
+      {/* 모의투자 페이지 */}
+      {currentPage === "paper-trading" && (
+        <main className="container px-3 sm:px-4 py-4 sm:py-6">
+          <PaperTradingPage />
+        </main>
+      )}
+
+      {/* 메인 대시보드 */}
+      {currentPage === "home" && <>
       {/* 히스토리 보기 중 배너 */}
       {isViewingHistory && selectedEntry && (
         <div className="sticky top-14 sm:top-16 z-40 bg-muted/80 border-b border-border backdrop-blur-sm">
@@ -471,6 +486,8 @@ function App() {
           </p>
         </footer>
       </main>
+
+      </>}
 
       {/* History Modal */}
       <HistoryModal
