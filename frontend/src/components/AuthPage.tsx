@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { Loader2, Mail, Lock } from "lucide-react"
+import { Loader2, Mail, Lock, Ticket } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
+import { supabase } from "@/lib/supabase"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,7 @@ export function AuthPage() {
   const [tab, setTab] = useState<AuthTab>("login")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [inviteCode, setInviteCode] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [signUpSuccess, setSignUpSuccess] = useState(false)
@@ -26,6 +28,18 @@ export function AuthPage() {
       const result = await signIn(email, password)
       if (result.error) setError(result.error)
     } else {
+      // 초대코드 검증
+      const { data: codes } = await supabase
+        .from("invite_codes")
+        .select("id")
+        .eq("code", inviteCode.trim())
+        .eq("is_active", true)
+        .limit(1)
+      if (!codes || codes.length === 0) {
+        setError("유효하지 않은 가입코드입니다.")
+        setLoading(false)
+        return
+      }
       const result = await signUp(email, password)
       if (result.error) {
         setError(result.error)
@@ -117,6 +131,20 @@ export function AuthPage() {
                   autoComplete={tab === "login" ? "current-password" : "new-password"}
                 />
               </div>
+              {tab === "signup" && (
+                <div className="relative">
+                  <Ticket className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="가입코드"
+                    value={inviteCode}
+                    onChange={(e) => setInviteCode(e.target.value)}
+                    required
+                    className="pl-10"
+                    autoComplete="off"
+                  />
+                </div>
+              )}
             </div>
 
             {error && (
