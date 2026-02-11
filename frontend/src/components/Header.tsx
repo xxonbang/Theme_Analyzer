@@ -17,9 +17,10 @@ interface HeaderProps {
   refreshElapsed?: number
   currentPage?: PageType
   onPageChange?: (page: PageType) => void
+  isAdmin?: boolean
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin }: HeaderProps) {
   const { signOut } = useAuth()
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
@@ -454,8 +455,8 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Refresh Button */}
-          {onRefresh && (
+          {/* Refresh Button (admin only) */}
+          {isAdmin && onRefresh && (
             <button
               onClick={handleRefreshClick}
               disabled={loading}
@@ -519,8 +520,8 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Refresh Elapsed Time */}
-          {loading && refreshElapsed != null && refreshElapsed > 0 && (
+          {/* Refresh Elapsed Time (admin only) */}
+          {isAdmin && loading && refreshElapsed != null && refreshElapsed > 0 && (
             <span className="text-xs text-muted-foreground tabular-nums animate-pulse">
               {refreshElapsed <= 15 ? (
                 <span className="hidden sm:inline">시작 중...</span>

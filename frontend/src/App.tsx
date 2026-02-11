@@ -24,7 +24,7 @@ const FLUCTUATION_MODE_KEY = "stock-dashboard-fluctuation-mode"
 const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
-  const { user, loading: authLoading } = useAuth()
+  const { user, loading: authLoading, isAdmin } = useAuth()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
   const { data: currentData, loading, error, refreshFromAPI, refreshElapsed } = useStockData()
   const {
@@ -298,6 +298,7 @@ function App() {
         refreshElapsed={refreshElapsed}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
+        isAdmin={isAdmin}
       />
 
       {/* 모의투자 페이지 */}
