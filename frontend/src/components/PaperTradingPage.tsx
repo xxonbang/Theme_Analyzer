@@ -188,7 +188,7 @@ export function PaperTradingPage() {
                     (() => {
                       const t = data.morning_timestamp?.split(" ")[1]?.slice(0, 5)
                       return t ? (
-                        <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground">
+                        <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-1 sm:py-0.5 text-foreground inline-block">
                           매수 {t}
                         </span>
                       ) : null
