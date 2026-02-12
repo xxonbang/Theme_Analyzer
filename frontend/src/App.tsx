@@ -24,8 +24,13 @@ const FLUCTUATION_MODE_KEY = "stock-dashboard-fluctuation-mode"
 const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
-  const { user, loading: authLoading, isAdmin } = useAuth()
+  const { user, loading: authLoading, isAdmin, recordVisit } = useAuth()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
+
+  // 페이지 전환 시 방문 이력 기록
+  useEffect(() => {
+    recordVisit()
+  }, [currentPage, recordVisit])
   const { data: currentData, loading, error, refreshFromAPI, refreshElapsed } = useStockData()
   const {
     groupedHistory,
