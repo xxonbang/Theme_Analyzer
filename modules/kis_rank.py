@@ -40,6 +40,9 @@ class KISRankAPI:
             client: KIS 클라이언트 (없으면 새로 생성)
         """
         self.client = client or KISClient()
+        # blng_cls_code별 _collect_extended_stocks 결과 캐시
+        # 동일 blng_cls_code는 시장 무관하게 같은 데이터를 반환하므로 1회만 호출
+        self._extended_stocks_cache: Dict[str, List[Dict[str, Any]]] = {}
 
     def _determine_market(self, code: str) -> str:
         """종목코드로 시장 구분
@@ -152,10 +155,11 @@ class KISRankAPI:
         blng_cls_code: str = "0",
         sort_field: str = "acml_vol",
     ) -> List[Dict[str, Any]]:
-        """가격대별 분할 조회로 확장된 종목 수집
+        """가격대별 분할 조회로 확장된 종목 수집 (캐시 적용)
 
         KIS API는 1회 최대 30개만 반환하므로,
         가격대별로 세분화하여 분할 조회합니다.
+        동일 blng_cls_code 결과는 캐시하여 중복 API 호출을 방지합니다.
 
         Args:
             blng_cls_code: 소속 구분 코드 ("0": 거래량, "3": 거래대금)
@@ -164,6 +168,14 @@ class KISRankAPI:
         Returns:
             중복 제거된 전체 종목 리스트 (sort_field 기준 정렬)
         """
+        # 캐시 히트: 동일 blng_cls_code 데이터 재사용
+        if blng_cls_code in self._extended_stocks_cache:
+            cached = self._extended_stocks_cache[blng_cls_code]
+            # sort_field만 다를 수 있으므로 복사 후 재정렬
+            result = list(cached)
+            result.sort(key=lambda x: safe_int(x.get(sort_field, 0)), reverse=True)
+            return result
+
         # 세분화된 가격대 (15개 구간 → 최대 450개 종목 수집 가능)
         price_ranges = [
             ("", "500"),
@@ -193,6 +205,9 @@ class KISRankAPI:
                 if code and code not in seen_codes:
                     seen_codes.add(code)
                     all_stocks.append(stock)
+
+        # 캐시 저장 (정렬 전 원본)
+        self._extended_stocks_cache[blng_cls_code] = list(all_stocks)
 
         all_stocks.sort(key=lambda x: safe_int(x.get(sort_field, 0)), reverse=True)
 
