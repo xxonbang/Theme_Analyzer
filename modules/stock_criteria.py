@@ -87,18 +87,14 @@ def check_momentum_history(daily_prices: List[Dict]) -> Dict[str, Any]:
 
     reasons = []
     for p in daily_prices:
-        change_str = p.get("prdy_ctrt") or p.get("prdy_vrss_sign_name")
         change_rate = None
-        # 등락률 직접 계산: (종가 - 전일종가) / 전일종가
+        # 등락률 계산: prdy_vrss(전일대비, 부호 포함) 이용
         close = _safe_int(p.get("stck_clpr"))
-        prev_close = _safe_int(p.get("stck_sdpr"))  # 시작가 or 기준가
-        if close and prev_close and prev_close > 0:
-            change_rate = (close - prev_close) / prev_close * 100
-        elif change_str:
-            try:
-                change_rate = float(change_str)
-            except (ValueError, TypeError):
-                pass
+        prdy_vrss = _safe_int(p.get("prdy_vrss"))
+        if close and prdy_vrss is not None:
+            prev_close = close - prdy_vrss
+            if prev_close > 0:
+                change_rate = (prdy_vrss / prev_close) * 100
 
         if change_rate is None:
             continue
