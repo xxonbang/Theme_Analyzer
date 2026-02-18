@@ -23,7 +23,7 @@ def _get_api_keys() -> List[str]:
     return [k for k in keys if k]
 
 
-def _build_stock_context(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None) -> str:
+def _build_stock_context(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None, investor_data: Dict[str, Dict] = None) -> str:
     """수집된 종목 데이터에서 Gemini 프롬프트용 컨텍스트 생성"""
     lines = []
 
@@ -91,30 +91,30 @@ def _build_stock_context(stock_data: Dict[str, Any], fundamental_data: Dict[str,
             tv_str = f"{tv / 100_000_000:,.0f}억원" if tv else "N/A"
             lines.append(f"- {s.get('name')}({s.get('code')}) 코스닥 등락:+{s.get('change_rate', 0):.2f}% 거래대금:{tv_str}")
 
+    # 종목코드 → 종목명 매핑 구성 (펀더멘탈/수급 섹션에서 공용)
+    code_to_name = {}
+    all_sections = [
+        stock_data.get("rising", {}),
+        stock_data.get("falling", {}),
+        stock_data.get("volume", {}),
+        stock_data.get("trading_value", {}),
+    ]
+    fluc_data = stock_data.get("fluctuation", {})
+    for section in all_sections:
+        for market_stocks in section.values():
+            if isinstance(market_stocks, list):
+                for s in market_stocks:
+                    c = s.get("code", "")
+                    if c:
+                        code_to_name[c] = s.get("name", c)
+    for key in ("kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"):
+        for s in fluc_data.get(key, []):
+            c = s.get("code", "")
+            if c:
+                code_to_name[c] = s.get("name", c)
+
     # 펀더멘탈 데이터 섹션
     if fundamental_data:
-        # 종목코드 → 종목명 매핑 구성
-        code_to_name = {}
-        all_sections = [
-            stock_data.get("rising", {}),
-            stock_data.get("falling", {}),
-            stock_data.get("volume", {}),
-            stock_data.get("trading_value", {}),
-        ]
-        fluc_data = stock_data.get("fluctuation", {})
-        for section in all_sections:
-            for market_stocks in section.values():
-                if isinstance(market_stocks, list):
-                    for s in market_stocks:
-                        c = s.get("code", "")
-                        if c:
-                            code_to_name[c] = s.get("name", c)
-        for key in ("kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"):
-            for s in fluc_data.get(key, []):
-                c = s.get("code", "")
-                if c:
-                    code_to_name[c] = s.get("name", c)
-
         lines.append("\n## 종목별 밸류에이션/재무 지표")
         for code, f in fundamental_data.items():
             name = code_to_name.get(code, code)
@@ -140,6 +140,41 @@ def _build_stock_context(stock_data: Dict[str, Any], fundamental_data: Dict[str,
             if parts:
                 lines.append(f"- {name}({code}): {' | '.join(parts)}")
 
+    # 외국인/기관 수급 데이터 섹션
+    if investor_data:
+        lines.append("\n## 종목별 외국인/기관 수급 동향")
+        for code, inv in investor_data.items():
+            name = code_to_name.get(code, code)
+            parts = []
+            foreign = inv.get("foreign_net")
+            institution = inv.get("institution_net")
+            individual = inv.get("individual_net")
+            if foreign is not None and foreign != 0:
+                sign = "+" if foreign > 0 else ""
+                parts.append(f"외국인:{sign}{foreign:,}주")
+            if institution is not None and institution != 0:
+                sign = "+" if institution > 0 else ""
+                parts.append(f"기관:{sign}{institution:,}주")
+            if individual is not None and individual != 0:
+                sign = "+" if individual > 0 else ""
+                parts.append(f"개인:{sign}{individual:,}주")
+            if parts:
+                lines.append(f"- {name}({code}): {' | '.join(parts)}")
+
+    # 프로그램 매매 데이터 섹션 (fundamental_data에서 추출)
+    if fundamental_data:
+        pgtr_lines = []
+        for code, f in fundamental_data.items():
+            pgtr = f.get("pgtr_ntby_qty")
+            if pgtr is not None and pgtr != 0:
+                name = code_to_name.get(code, code)
+                sign = "+" if pgtr > 0 else ""
+                label = "순매수" if pgtr > 0 else "순매도"
+                pgtr_lines.append(f"- {name}({code}): 프로그램 {label} {sign}{pgtr:,}주")
+        if pgtr_lines:
+            lines.append("\n## 종목별 프로그램 매매 동향")
+            lines.extend(pgtr_lines)
+
     return "\n".join(lines)
 
 
@@ -156,7 +191,7 @@ def _build_prompt(stock_context: str) -> str:
 오늘의 한국 주식시장에서 핵심 투자 테마 3~5개를 도출하고, 각 테마의 대장주를 선정하세요.
 
 ### 데이터 활용 방법
-- 위에 제공된 종목 데이터(등락률, 거래대금, 거래량, 밸류에이션)를 1차 근거로 사용
+- 위에 제공된 종목 데이터(등락률, 거래대금, 거래량, 밸류에이션, 수급, 프로그램 매매)를 1차 근거로 사용
 - Google Search로 각 종목의 최신 뉴스를 검색하여 테마 연관성 확인 (반드시 오늘 {today} 기준)
 - Google Search로 "{{종목명}} 실적" 키워드를 검색하여 최신 실적 정보 보완
 - 과거 학습 데이터가 아닌 Google Search를 통해 실시간 뉴스를 확인할 것
@@ -169,6 +204,7 @@ def _build_prompt(stock_context: str) -> str:
 3. **수급 강도**: 거래량 급증(거래량 TOP 포함 여부), 기관/외국인 수급 방향
 4. **밸류에이션 적정성**: PER/PBR이 동종업계 대비 과도하지 않은 종목 우선
 5. **뉴스 모멘텀**: 오늘 기준 긍정적 뉴스(수주, 실적, 정책 수혜 등)가 있는 종목
+6. **프로그램 매매**: 프로그램 순매수 종목 우선, 대규모 프로그램 매매가 유입된 종목 주목
 
 ### 밸류에이션 평가 기준
 각 대장주에 대해 아래 지표를 활용하여 고평가/적정/저평가를 판단하세요:
@@ -263,12 +299,13 @@ def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
     return _extract_json(text)
 
 
-def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None) -> Optional[Dict]:
+def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None, investor_data: Dict[str, Dict] = None) -> Optional[Dict]:
     """수집된 종목 데이터로 AI 테마 분석 수행
 
     Args:
         stock_data: rising, falling, volume, trading_value 등 수집 데이터
-        fundamental_data: {종목코드: {"per": ..., "pbr": ..., ...}} 펀더멘탈 데이터
+        fundamental_data: {종목코드: {"per": ..., "pbr": ..., ...}} 펀더멘탈 데이터 (프로그램 매매 포함)
+        investor_data: {종목코드: {"foreign_net": ..., "institution_net": ..., ...}} 수급 데이터
 
     Returns:
         분석 결과 dict 또는 실패 시 None
@@ -278,7 +315,7 @@ def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict]
         print("  ⚠ Gemini API 키가 설정되지 않았습니다")
         return None
 
-    stock_context = _build_stock_context(stock_data, fundamental_data)
+    stock_context = _build_stock_context(stock_data, fundamental_data, investor_data)
     if not stock_context.strip():
         print("  ⚠ 분석할 종목 데이터가 없습니다")
         return None

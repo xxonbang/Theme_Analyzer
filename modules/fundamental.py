@@ -89,6 +89,7 @@ class FundamentalCollector:
             "roe": None, "debt_ratio": None, "eps_growth": None,
             "opm": None,
             "peg": None, "rsi": None,
+            "pgtr_ntby_qty": None,
         }
 
         # 1) inquire-price -> per, pbr, eps, bps, hts_avls(시가총액)
@@ -101,6 +102,13 @@ class FundamentalCollector:
                 result["eps"] = safe_float(output.get("eps"))
                 result["bps"] = safe_float(output.get("bps"))
                 result["market_cap"] = safe_float(output.get("hts_avls"))
+                # 프로그램 매매 순매수 수량
+                pgtr = output.get("pgtr_ntby_qty")
+                if pgtr is not None and pgtr != "":
+                    try:
+                        result["pgtr_ntby_qty"] = int(pgtr)
+                    except (ValueError, TypeError):
+                        pass
         except Exception:
             pass
 

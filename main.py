@@ -282,7 +282,11 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 "trading_value": trading_value_data,
                 "fluctuation": fluctuation_data,
             }
-            theme_analysis = analyze_themes(stock_context, fundamental_data=fundamental_data)
+            theme_analysis = analyze_themes(
+                stock_context,
+                fundamental_data=fundamental_data,
+                investor_data=investor_data,
+            )
             if theme_analysis:
                 theme_count = len(theme_analysis.get("themes", []))
                 print(f"  ✓ AI 테마 분석 완료 ({theme_count}개 테마 도출)")
