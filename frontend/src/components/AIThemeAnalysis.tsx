@@ -3,15 +3,29 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Sparkles, ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { ThemeAnalysis, MarketTheme } from "@/types/stock"
+import type { ThemeAnalysis, MarketTheme, StockCriteria } from "@/types/stock"
+
+/** 대장주 칩용 기준 도트 색상 (다른 컴포넌트와 동일 체계) */
+const LEADER_CRITERIA = [
+  { key: "high_breakout", dot: "bg-red-500" },
+  { key: "momentum_history", dot: "bg-orange-500" },
+  { key: "resistance_breakout", dot: "bg-yellow-400" },
+  { key: "ma_alignment", dot: "bg-green-500" },
+  { key: "supply_demand", dot: "bg-blue-500" },
+  { key: "program_trading", dot: "bg-lime-400" },
+  { key: "top30_trading_value", dot: "bg-pink-500" },
+] as const
 
 interface AIThemeAnalysisProps {
   themeAnalysis: ThemeAnalysis
   showRefresh?: boolean
+  criteriaData?: Record<string, StockCriteria>
+  isAdmin?: boolean
 }
 
-function ThemeCard({ theme, index }: { theme: MarketTheme; index: number }) {
+function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean }) {
   const [expanded, setExpanded] = useState(false)
+  const showCriteria = isAdmin && criteriaData
 
   return (
     <div className="border rounded-lg p-3 sm:p-4 space-y-2.5">
@@ -33,23 +47,42 @@ function ThemeCard({ theme, index }: { theme: MarketTheme; index: number }) {
       {/* 대장주 칩 */}
       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs">대장주</Badge>
-        {theme.leader_stocks.map((stock) => (
-          <a
-            key={stock.code}
-            href={`https://m.stock.naver.com/domestic/stock/${stock.code}/total`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "inline-flex items-center gap-1 px-2 py-1 rounded-md",
-              "text-xs sm:text-sm font-medium",
-              "bg-primary/10 hover:bg-primary/20 text-primary",
-              "transition-colors duration-150"
-            )}
-          >
-            {stock.name}
-            <ExternalLink className="w-3 h-3 opacity-50" />
-          </a>
-        ))}
+        {theme.leader_stocks.map((stock) => {
+          const criteria = showCriteria ? criteriaData[stock.code] : undefined
+          const allMet = criteria?.all_met
+          const metDots = criteria ? LEADER_CRITERIA.filter(({ key }) => {
+            const c = criteria[key as keyof StockCriteria]
+            return typeof c !== "boolean" && c?.met
+          }) : []
+          const hasDots = metDots.length > 0
+
+          return (
+            <a
+              key={stock.code}
+              href={`https://m.stock.naver.com/domestic/stock/${stock.code}/total`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "inline-flex items-center gap-1 px-2 py-1 rounded-md",
+                "text-xs sm:text-sm font-medium",
+                "transition-all duration-150",
+                allMet
+                  ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 ring-1 ring-yellow-400/60 animate-[shimmer_3s_ease-in-out_infinite]"
+                  : "bg-primary/10 hover:bg-primary/20 text-primary"
+              )}
+            >
+              {hasDots && (
+                <span className="inline-flex items-center gap-px mr-0.5">
+                  {metDots.map(({ key, dot }) => (
+                    <span key={key} className={cn("w-1.5 h-1.5 rounded-full", dot)} />
+                  ))}
+                </span>
+              )}
+              {stock.name}
+              <ExternalLink className="w-3 h-3 opacity-50" />
+            </a>
+          )
+        })}
       </div>
 
       <hr className="border-border/50" />
@@ -104,7 +137,7 @@ function ThemeCard({ theme, index }: { theme: MarketTheme; index: number }) {
   )
 }
 
-export function AIThemeAnalysis({ themeAnalysis }: AIThemeAnalysisProps) {
+export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin }: AIThemeAnalysisProps) {
   const [collapsed, setCollapsed] = useState(true)
 
   if (!themeAnalysis?.themes?.length) {
@@ -143,7 +176,7 @@ export function AIThemeAnalysis({ themeAnalysis }: AIThemeAnalysisProps) {
         {!collapsed && (
           <div className="space-y-2.5">
             {themeAnalysis.themes.map((theme, index) => (
-              <ThemeCard key={index} theme={theme} index={index} />
+              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} />
             ))}
           </div>
         )}

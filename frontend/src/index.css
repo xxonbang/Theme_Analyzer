@@ -70,10 +70,10 @@ body {
 /* Shimmer animation for all-criteria-met stocks */
 @keyframes shimmer {
   0%, 100% {
-    box-shadow: 0 0 8px rgba(234, 179, 8, 0.2);
+    box-shadow: 0 0 6px 1px rgba(234, 179, 8, 0.25);
   }
   50% {
-    box-shadow: 0 0 16px rgba(234, 179, 8, 0.4);
+    box-shadow: 0 0 20px 4px rgba(234, 179, 8, 0.5);
   }
 }
 

@@ -400,7 +400,13 @@ function App() {
         {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} />}
 
         {/* AI Theme Analysis */}
-        {displayData?.theme_analysis && <AIThemeAnalysis themeAnalysis={displayData.theme_analysis} />}
+        {displayData?.theme_analysis && (
+          <AIThemeAnalysis
+            themeAnalysis={displayData.theme_analysis}
+            criteriaData={displayData?.criteria_data}
+            isAdmin={isAdmin}
+          />
+        )}
 
         {/* Criteria Legend (admin only) */}
         {isAdmin && displayData?.criteria_data && (
