@@ -35,17 +35,13 @@ class StockFilter:
         # 등락률 TOP30 종목 코드 집합
         fluctuation_codes = self._get_stock_codes(fluctuation_stocks)
 
-        # 거래량 순위 기준으로 순회하며 교집합 추출
+        # 거래량 순위 기준으로 순회하며 교집합 추출 (원본 보존을 위해 복사)
         result = []
         for stock in volume_stocks:
             if stock["code"] in fluctuation_codes:
-                result.append(stock)
+                result.append({**stock, "rank": len(result) + 1})
                 if len(result) >= limit:
                     break
-
-        # 순위 재계산
-        for idx, stock in enumerate(result):
-            stock["rank"] = idx + 1
 
         return result
 
