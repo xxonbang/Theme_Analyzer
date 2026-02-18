@@ -10,10 +10,10 @@ const LEADER_CRITERIA = [
   { key: "high_breakout", dot: "bg-red-500" },
   { key: "momentum_history", dot: "bg-orange-500" },
   { key: "resistance_breakout", dot: "bg-yellow-400" },
-  { key: "ma_alignment", dot: "bg-green-500" },
+  { key: "ma_alignment", dot: "bg-teal-500" },
   { key: "supply_demand", dot: "bg-blue-500" },
-  { key: "program_trading", dot: "bg-lime-400" },
-  { key: "top30_trading_value", dot: "bg-pink-500" },
+  { key: "program_trading", dot: "bg-violet-500" },
+  { key: "top30_trading_value", dot: "bg-fuchsia-500" },
 ] as const
 
 interface AIThemeAnalysisProps {

@@ -2,10 +2,10 @@ const CRITERIA_LEGEND = [
   { color: "bg-red-500", label: "전고점 돌파" },
   { color: "bg-orange-500", label: "끼 보유" },
   { color: "bg-yellow-400", label: "저항선 돌파" },
-  { color: "bg-green-500", label: "정배열" },
+  { color: "bg-teal-500", label: "정배열" },
   { color: "bg-blue-500", label: "외국인/기관 수급" },
-  { color: "bg-lime-400", label: "프로그램 매매" },
-  { color: "bg-pink-500", label: "거래대금 TOP30" },
+  { color: "bg-violet-500", label: "프로그램 매매" },
+  { color: "bg-fuchsia-500", label: "거래대금 TOP30" },
 ] as const
 
 export function CriteriaLegend() {

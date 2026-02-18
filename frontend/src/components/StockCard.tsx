@@ -10,10 +10,10 @@ const CRITERIA_CONFIG = [
   { key: "high_breakout", dot: "bg-red-500", badge: "bg-red-100 text-red-700", label: "전고점 돌파", shortLabel: "전고점" },
   { key: "momentum_history", dot: "bg-orange-500", badge: "bg-orange-100 text-orange-700", label: "끼 보유", shortLabel: "끼" },
   { key: "resistance_breakout", dot: "bg-yellow-400", badge: "bg-yellow-100 text-yellow-700", label: "저항선 돌파", shortLabel: "저항선" },
-  { key: "ma_alignment", dot: "bg-green-500", badge: "bg-green-100 text-green-700", label: "정배열", shortLabel: "정배열" },
+  { key: "ma_alignment", dot: "bg-teal-500", badge: "bg-teal-100 text-teal-700", label: "정배열", shortLabel: "정배열" },
   { key: "supply_demand", dot: "bg-blue-500", badge: "bg-blue-100 text-blue-700", label: "외국인/기관 수급", shortLabel: "수급" },
-  { key: "program_trading", dot: "bg-lime-400", badge: "bg-lime-100 text-lime-700", label: "프로그램 매매", shortLabel: "프로그램" },
-  { key: "top30_trading_value", dot: "bg-pink-500", badge: "bg-pink-100 text-pink-700", label: "거래대금 TOP30", shortLabel: "TOP30" },
+  { key: "program_trading", dot: "bg-violet-500", badge: "bg-violet-100 text-violet-700", label: "프로그램 매매", shortLabel: "프로그램" },
+  { key: "top30_trading_value", dot: "bg-fuchsia-500", badge: "bg-fuchsia-100 text-fuchsia-700", label: "거래대금 TOP30", shortLabel: "TOP30" },
 ] as const
 
 interface StockCardProps {
