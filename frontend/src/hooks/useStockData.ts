@@ -36,7 +36,7 @@ export function useStockData(): UseStockDataReturn {
     setError(null)
 
     try {
-      const response = await fetch(DATA_URL + "?t=" + Date.now())
+      const response = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
