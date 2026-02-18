@@ -10,7 +10,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/Theme_Analyzer/",
+  base: "/theme-analyzer/",
   build: {
     outDir: "dist",
   },
