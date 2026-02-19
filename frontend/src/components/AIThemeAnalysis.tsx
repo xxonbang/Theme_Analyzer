@@ -19,7 +19,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme
   const showCriteria = isAdmin && criteriaData
 
   return (
-    <div className="border rounded-lg p-3 sm:p-4 space-y-2.5 overflow-visible">
+    <div className="border rounded-lg p-3 sm:p-4 space-y-2.5">
       {/* 테마 헤더 */}
       <div className="flex items-start gap-2">
         <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs">
@@ -149,7 +149,7 @@ export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin }: AIThem
   const themeCount = themeAnalysis.themes.length
 
   return (
-    <Card className="mb-4 sm:mb-6 overflow-visible shadow-sm">
+    <Card className="mb-4 sm:mb-6 shadow-sm">
       <CardContent className="p-3 sm:p-4 space-y-3">
         {/* 헤더 (클릭으로 전체 토글) */}
         <button

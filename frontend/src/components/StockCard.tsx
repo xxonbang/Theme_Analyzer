@@ -1,9 +1,10 @@
 import { useState, Fragment } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, X } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
+import { CriteriaPopup } from "@/components/CriteriaPopup"
 import type { Stock, StockHistory, StockNews, InvestorInfo, StockCriteria } from "@/types/stock"
 
 interface StockCardProps {
@@ -19,7 +20,7 @@ interface StockCardProps {
 
 export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
-  const [popupCriterion, setPopupCriterion] = useState<string | null>(null)
+  const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
@@ -29,10 +30,10 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const shortWarning = isAdmin && criteria?.short_selling?.met
   const showCriteria = isAdmin && criteria
 
-  const handleDotClick = (e: React.MouseEvent, key: string) => {
+  const handleDotClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    setPopupCriterion(popupCriterion === key ? null : key)
+    setShowCriteriaPopup(true)
   }
 
   return (
@@ -79,7 +80,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       <Fragment key={key}>
                         {/* 모바일: 도트 */}
                         <button
-                          onClick={(e) => handleDotClick(e, key)}
+                          onClick={(e) => handleDotClick(e)}
                           className={cn(
                             "w-2.5 h-2.5 rounded-full shrink-0 cursor-pointer sm:hidden",
                             "transition-transform hover:scale-125 shadow-sm",
@@ -89,7 +90,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         />
                         {is52w && (
                           <button
-                            onClick={(e) => handleDotClick(e, key)}
+                            onClick={(e) => handleDotClick(e)}
                             className={cn(
                               "w-2.5 h-2.5 rounded-full shrink-0 cursor-pointer sm:hidden",
                               "transition-transform hover:scale-125 shadow-sm",
@@ -100,7 +101,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         )}
                         {/* PC/태블릿: 뱃지 */}
                         <button
-                          onClick={(e) => handleDotClick(e, key)}
+                          onClick={(e) => handleDotClick(e)}
                           className={cn(
                             "hidden sm:inline-flex items-center gap-0.5 text-[9px] px-1.5 py-0.5 rounded-full font-medium cursor-pointer",
                             "transition-opacity hover:opacity-80",
@@ -115,30 +116,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   })}
 
                   {/* 팝업 */}
-                  {popupCriterion && (() => {
-                    const cfg = CRITERIA_CONFIG.find(c => c.key === popupCriterion)
-                    const criterion = criteria[popupCriterion as keyof StockCriteria]
-                    if (!cfg || typeof criterion === "boolean") return null
-                    return (
-                      <div className="absolute left-0 top-full mt-1 z-50 w-64 sm:w-72 bg-popover text-popover-foreground rounded-lg shadow-lg border border-border p-2.5">
-                        <div className="flex items-center justify-between mb-1.5">
-                          <div className="flex items-center gap-1.5">
-                            <span className={cn("w-2.5 h-2.5 rounded-full", cfg.dot)} />
-                            <span className="text-xs font-semibold">{cfg.label}</span>
-                          </div>
-                          <button
-                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setPopupCriterion(null) }}
-                            className="text-muted-foreground hover:text-foreground"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                        <p className="text-[11px] text-muted-foreground leading-relaxed">
-                          {criterion?.reason || "근거 없음"}
-                        </p>
-                      </div>
-                    )
-                  })()}
+                  {showCriteriaPopup && (
+                    <CriteriaPopup stockName={stock.name} criteria={criteria} onClose={() => setShowCriteriaPopup(false)} />
+                  )}
                 </div>
               )}
             </div>
