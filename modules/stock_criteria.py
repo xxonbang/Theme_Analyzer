@@ -80,41 +80,49 @@ def check_high_breakout(
 # 2. 끼 보유 여부 (주황색)
 # ────────────────────────────────────────────────────────────
 
+MOMENTUM_TRADING_VALUE_MIN = 100_000_000_000  # 거래대금 1,000억원
+
+
 def check_momentum_history(daily_prices: List[Dict]) -> Dict[str, Any]:
-    """과거 상한가 이력 또는 +10% 이상 상승 종가 유지 이력 (당일 제외)"""
-    result = {"met": False, "had_limit_up": False, "had_10pct_rise": False, "reason": None}
+    """과거 끼 이력 (당일 제외)
+    1) 거래대금 1,000억 이상 + 시초가 대비 종가 10% 이상 상승
+    2) 상한가 달성 이력
+    """
+    result = {"met": False, "had_limit_up": False, "had_momentum_day": False, "reason": None}
 
     if not daily_prices or len(daily_prices) < 2:
         return result
 
     reasons = []
     for p in daily_prices[1:]:  # 당일(최신) 제외, 과거 데이터만
-        change_rate = None
-        # 등락률 계산: prdy_vrss(전일대비, 부호 포함) 이용
-        close = _safe_int(p.get("stck_clpr"))
-        prdy_vrss = _safe_int(p.get("prdy_vrss"))
-        if close and prdy_vrss is not None:
-            prev_close = close - prdy_vrss
-            if prev_close > 0:
-                change_rate = (prdy_vrss / prev_close) * 100
-
-        if change_rate is None:
-            continue
-
         date_str = p.get("stck_bsop_date", "")
         formatted = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:]}" if len(date_str) == 8 else date_str
 
-        if change_rate >= 29.0 and not result["had_limit_up"]:
-            result["had_limit_up"] = True
-            result["met"] = True
-            reasons.append(f"상한가 기록 ({formatted}, +{change_rate:.1f}%)")
+        # 상한가 체크: 전일대비 등락률 29% 이상
+        close = _safe_int(p.get("stck_clpr"))
+        prdy_vrss = _safe_int(p.get("prdy_vrss"))
+        if close and prdy_vrss is not None and not result["had_limit_up"]:
+            prev_close = close - prdy_vrss
+            if prev_close > 0:
+                change_rate = (prdy_vrss / prev_close) * 100
+                if change_rate >= 29.0:
+                    result["had_limit_up"] = True
+                    result["met"] = True
+                    reasons.append(f"상한가 기록 ({formatted}, +{change_rate:.1f}%)")
 
-        if change_rate >= 10.0 and not result["had_10pct_rise"]:
-            result["had_10pct_rise"] = True
-            result["met"] = True
-            reasons.append(f"+10% 이상 상승 유지 ({formatted}, +{change_rate:.1f}%)")
+        # 끼 체크: 거래대금 1,000억+ AND 시초가→종가 10%+ 상승
+        if not result["had_momentum_day"]:
+            open_price = _safe_int(p.get("stck_oprc"))
+            trading_value = _safe_int(p.get("acml_tr_pbmn"))
+            if close and open_price and open_price > 0 and trading_value:
+                open_to_close_rate = (close - open_price) / open_price * 100
+                if trading_value >= MOMENTUM_TRADING_VALUE_MIN and open_to_close_rate >= 10.0:
+                    result["had_momentum_day"] = True
+                    result["met"] = True
+                    tv_display = f"{trading_value / 100_000_000:,.0f}억"
+                    reasons.append(f"거래대금 {tv_display} + 시초가 대비 +{open_to_close_rate:.1f}% ({formatted})")
 
-        if result["had_limit_up"] and result["had_10pct_rise"]:
+        if result["had_limit_up"] and result["had_momentum_day"]:
             break
 
     if reasons:
