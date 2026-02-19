@@ -4,6 +4,8 @@ KIS 거래량+등락폭 TOP10 텔레그램 발송
 - 종목별 실시간 뉴스 포함
 """
 import argparse
+import json
+import os
 from datetime import datetime
 from typing import Dict, List, Any
 
@@ -349,6 +351,20 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
 
     # 10. AI 테마 분석
     theme_analysis = None
+    if skip_ai:
+        # 기존 데이터에서 theme_analysis 보존
+        try:
+            existing_path = os.path.join("frontend", "public", "data", "latest.json")
+            if os.path.exists(existing_path):
+                with open(existing_path, "r", encoding="utf-8") as f:
+                    existing = json.load(f)
+                theme_analysis = existing.get("theme_analysis")
+                if theme_analysis:
+                    print("\n[10/13] AI 테마 분석 건너뜀 (기존 분석 결과 보존)")
+                else:
+                    print("\n[10/13] AI 테마 분석 건너뜀 (보존할 기존 결과 없음)")
+        except Exception:
+            print("\n[10/13] AI 테마 분석 건너뜀")
     if not skip_ai:
         print("\n[10/13] AI 테마 분석 중...")
         try:
