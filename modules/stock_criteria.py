@@ -1,6 +1,6 @@
 """종목 선정 기준 평가 모듈
 
-7개 기준에 따라 각 종목의 충족 여부를 판정하고 근거를 반환한다.
+9개 기준에 따라 각 종목의 충족 여부를 판정하고 근거를 반환한다.
 1. 전고점 돌파 (빨간색)
 2. 끼 보유 (주황색)
 3. 심리적 저항선 돌파 (노랑색)
@@ -8,6 +8,8 @@
 5. 외국인/기관 수급 (파랑색)
 5-2. 프로그램 매매 (형광색)
 6. 거래대금 TOP30 (분홍색)
+7. 시가총액 3천억~10조원 (초록색)
+8. 공매도 비중 경고 (빨간색, 5% 이상)
 """
 
 from typing import Dict, List, Any, Optional
@@ -295,6 +297,59 @@ def check_top30_trading_value(
 
 
 # ────────────────────────────────────────────────────────────
+# 7. 시가총액 기준 (초록색)
+# ────────────────────────────────────────────────────────────
+
+MARKET_CAP_MIN = 3000     # 3천억원 (hts_avls 단위: 억원)
+MARKET_CAP_MAX = 100000   # 10조원
+
+
+def check_market_cap(
+    market_cap: Optional[float] = None,
+) -> Dict[str, Any]:
+    """시가총액 3천억~10조원 범위 여부"""
+    result = {"met": False, "reason": None}
+    if market_cap is None:
+        result["reason"] = "시가총액 데이터 없음"
+        return result
+
+    if market_cap >= 10000:
+        display = f"{market_cap/10000:.1f}조원"
+    else:
+        display = f"{market_cap:,.0f}억원"
+
+    if MARKET_CAP_MIN <= market_cap <= MARKET_CAP_MAX:
+        result["met"] = True
+        result["reason"] = f"시가총액 {display} (기준: 3천억~10조원)"
+    else:
+        result["reason"] = f"시가총액 {display} (범위 밖: 3천억~10조원)"
+    return result
+
+
+# ────────────────────────────────────────────────────────────
+# 8. 공매도 비중 경고 (빨간색)
+# ────────────────────────────────────────────────────────────
+
+SHORT_SELLING_WARNING_THRESHOLD = 5.0  # 5% 이상이면 경고
+
+
+def check_short_selling(
+    short_ratio: Optional[float] = None,
+    short_volume: Optional[int] = None,
+) -> Dict[str, Any]:
+    """공매도 비중 경고 (전체 거래량 대비 5% 이상이면 경고)"""
+    result = {"met": False, "warning": True, "reason": None}
+    if short_ratio is not None and short_ratio >= SHORT_SELLING_WARNING_THRESHOLD:
+        result["met"] = True
+        result["reason"] = f"공매도 비중 {short_ratio:.1f}% (경고 기준: {SHORT_SELLING_WARNING_THRESHOLD}%)"
+        if short_volume:
+            result["reason"] += f" | 공매도 수량 {short_volume:,}주"
+    elif short_ratio is not None and short_ratio > 0:
+        result["reason"] = f"공매도 비중 {short_ratio:.1f}% (정상 범위)"
+    return result
+
+
+# ────────────────────────────────────────────────────────────
 # 통합 평가
 # ────────────────────────────────────────────────────────────
 
@@ -304,18 +359,20 @@ def evaluate_stock_criteria(
     fundamental: Optional[Dict] = None,
     investor_info: Optional[Dict] = None,
     trading_value_top30_codes: set = None,
+    short_selling_info: Optional[Dict] = None,
 ) -> Dict[str, Any]:
-    """단일 종목에 대해 6개 기준 모두 평가
+    """단일 종목에 대해 9개 기준 모두 평가
 
     Args:
         stock: 종목 정보 (code, name, current_price, change_price 등)
         daily_prices: 일봉 데이터 (최신순 정렬)
-        fundamental: 펀더멘탈 데이터 (w52_hgpr, pgtr_ntby_qty 등)
+        fundamental: 펀더멘탈 데이터 (w52_hgpr, pgtr_ntby_qty, hts_avls 등)
         investor_info: 수급 데이터 (foreign_net, institution_net)
         trading_value_top30_codes: 거래대금 TOP30 종목코드 집합
+        short_selling_info: 공매도 데이터 (ratio, volume)
 
     Returns:
-        6개 기준 평가 결과 dict
+        9개 기준 평가 결과 dict
     """
     current_price = stock.get("current_price", 0)
     change_price = stock.get("change_price", 0)
@@ -323,9 +380,13 @@ def evaluate_stock_criteria(
 
     w52_hgpr = fundamental.get("w52_hgpr") if fundamental else None
     pgtr = fundamental.get("pgtr_ntby_qty") if fundamental else None
+    market_cap = fundamental.get("hts_avls") if fundamental else None
 
     if trading_value_top30_codes is None:
         trading_value_top30_codes = set()
+
+    short_ratio = short_selling_info.get("ratio") if short_selling_info else None
+    short_volume = short_selling_info.get("volume") if short_selling_info else None
 
     criteria = {
         "high_breakout": check_high_breakout(current_price, daily_prices, w52_hgpr),
@@ -335,9 +396,13 @@ def evaluate_stock_criteria(
         "supply_demand": check_supply_demand(investor_info),
         "program_trading": check_program_trading(pgtr),
         "top30_trading_value": check_top30_trading_value(stock.get("code", ""), trading_value_top30_codes),
+        "market_cap": check_market_cap(market_cap),
+        "short_selling": check_short_selling(short_ratio, short_volume),
     }
 
-    all_met = all(c["met"] for c in criteria.values())
+    # all_met 계산: warning 기준(short_selling)은 제외
+    non_warning = {k: v for k, v in criteria.items() if not (isinstance(v, dict) and v.get("warning"))}
+    all_met = all(c["met"] for c in non_warning.values())
     criteria["all_met"] = all_met
 
     return criteria
@@ -349,6 +414,7 @@ def evaluate_all_stocks(
     fundamental_data: Dict[str, Dict] = None,
     investor_data: Dict[str, Dict] = None,
     trading_value_data: Dict = None,
+    short_selling_data: Dict = None,
 ) -> Dict[str, Dict]:
     """모든 종목에 대해 기준 평가 실행
 
@@ -359,6 +425,8 @@ def evaluate_all_stocks(
         fundamental_data = {}
     if investor_data is None:
         investor_data = {}
+    if short_selling_data is None:
+        short_selling_data = {}
 
     # 거래대금 TOP30 종목 코드 집합 구성
     tv_top30_codes = set()
@@ -385,6 +453,7 @@ def evaluate_all_stocks(
             fundamental=fundamental_data.get(code),
             investor_info=investor_data.get(code),
             trading_value_top30_codes=tv_top30_codes,
+            short_selling_info=short_selling_data.get(code),
         )
         result[code] = criteria
 

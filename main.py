@@ -151,6 +151,48 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print(f"  ✗ KIS API 연결 실패: {e}")
         return
 
+    # 2-1. 코스닥 지수 이동평균선 분석
+    kosdaq_index_data = None
+    try:
+        print("\n[2-1/13] 코스닥 지수 이동평균선 분석 중...")
+        idx_resp = client.get_index_daily_price("2001")  # 코스닥 종합
+        if idx_resp.get("rt_cd") == "0":
+            output2 = idx_resp.get("output2", [])
+            closes = []
+            for item in output2:
+                try:
+                    closes.append(float(item.get("bstp_nmix_prpr", 0)))
+                except (ValueError, TypeError):
+                    continue
+
+            if len(closes) >= 120:
+                current = closes[0]
+                ma5 = sum(closes[:5]) / 5
+                ma10 = sum(closes[:10]) / 10
+                ma20 = sum(closes[:20]) / 20
+                ma60 = sum(closes[:60]) / 60
+                ma120 = sum(closes[:120]) / 120
+
+                values = [current, ma5, ma10, ma20, ma60, ma120]
+                is_aligned = all(values[i] > values[i+1] for i in range(len(values)-1))
+                is_reversed = all(values[i] < values[i+1] for i in range(len(values)-1))
+
+                status = "정배열" if is_aligned else ("역배열" if is_reversed else "혼합")
+                kosdaq_index_data = {
+                    "current": round(current, 2),
+                    "ma5": round(ma5, 2),
+                    "ma10": round(ma10, 2),
+                    "ma20": round(ma20, 2),
+                    "ma60": round(ma60, 2),
+                    "ma120": round(ma120, 2),
+                    "status": status,
+                }
+                print(f"  ✓ 코스닥 지수: {current:.2f} ({status})")
+            else:
+                print(f"  ⚠ 코스닥 지수 데이터 부족 ({len(closes)}일분)")
+    except Exception as e:
+        print(f"  ⚠ 코스닥 지수 분석 실패: {e}")
+
     # 3. 거래량 TOP30 조회
     print("\n[3/13] 거래량 TOP30 조회 중...")
     try:
@@ -256,6 +298,40 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     else:
         print("\n[8-1/13] 펀더멘탈 데이터 수집 건너뜀 (--skip-ai)")
 
+    # 8-2. 공매도 비중 수집
+    short_selling_data = {}
+    print("\n[8-2/13] 공매도 비중 수집 중...")
+    try:
+        today = datetime.now().strftime("%Y%m%d")
+        for idx, stock in enumerate(all_stocks):
+            code = stock.get("code", "")
+            if not code:
+                continue
+            try:
+                resp = client.get_daily_short_sale(code, today, today)
+                if resp.get("rt_cd") == "0":
+                    output1 = resp.get("output1", [])
+                    if output1:
+                        ratio_str = output1[0].get("ssts_vol_rlim", "0")
+                        volume_str = output1[0].get("ssts_cntg_qty", "0")
+                        try:
+                            ratio = float(ratio_str)
+                            volume = int(volume_str)
+                            if ratio > 0:
+                                short_selling_data[code] = {
+                                    "ratio": ratio,
+                                    "volume": volume,
+                                }
+                        except (ValueError, TypeError):
+                            pass
+            except Exception:
+                pass
+            if (idx + 1) % 50 == 0 or idx + 1 == len(all_stocks):
+                print(f"  진행: {idx + 1}/{len(all_stocks)}")
+        print(f"  ✓ {len(short_selling_data)}개 종목 공매도 데이터 수집 완료")
+    except Exception as e:
+        print(f"  ⚠ 공매도 수집 실패: {e}")
+
     # 9. 수급(투자자) 데이터 수집
     investor_data = {}
     investor_estimated = False
@@ -308,6 +384,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             fundamental_data=fundamental_data,
             investor_data=investor_data,
             trading_value_data=trading_value_data,
+            short_selling_data=short_selling_data,
         )
         met_all = sum(1 for v in criteria_data.values() if v.get("all_met"))
         print(f"  ✓ {len(criteria_data)}개 종목 평가 완료 (전 기준 충족: {met_all}개)")
@@ -342,6 +419,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             investor_estimated=investor_estimated,
             criteria_data=criteria_data,
             theme_analysis=theme_analysis,
+            kosdaq_index=kosdaq_index_data,
         )
         print(f"  ✓ 데이터 내보내기 완료: {export_path}")
     except Exception as e:

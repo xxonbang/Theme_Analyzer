@@ -8,6 +8,7 @@ import { HistoryModal } from "@/components/HistoryModal"
 import { PaperTradingPage } from "@/components/PaperTradingPage"
 import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
+import { KosdaqIndexAlert } from "@/components/KosdaqIndexAlert"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
 import { useAuth } from "@/hooks/useAuth"
@@ -398,6 +399,9 @@ function App() {
 
         {/* Exchange Rate - Top section */}
         {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} />}
+
+        {/* Kosdaq Index Alert */}
+        {displayData?.kosdaq_index && <KosdaqIndexAlert data={displayData.kosdaq_index} />}
 
         {/* AI Theme Analysis */}
         {displayData?.theme_analysis && (

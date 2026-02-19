@@ -6,15 +6,17 @@ import { StockCard } from "@/components/StockCard"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import type { Stock, StockHistory, StockNews, InvestorInfo, StockCriteria } from "@/types/stock"
 
-/** 컴팩트 모드용 기준별 도트 색상 */
+/** 컴팩트 모드용 기준별 도트 색상 (우선순위 순) */
 const COMPACT_CRITERIA = [
   { key: "high_breakout", dot: "bg-red-500", label: "전고점 돌파" },
+  { key: "supply_demand", dot: "bg-blue-500", label: "외국인/기관 수급" },
+  { key: "program_trading", dot: "bg-violet-500", label: "프로그램 매매" },
   { key: "momentum_history", dot: "bg-orange-500", label: "끼 보유" },
   { key: "resistance_breakout", dot: "bg-yellow-400", label: "저항선 돌파" },
   { key: "ma_alignment", dot: "bg-teal-500", label: "정배열" },
-  { key: "supply_demand", dot: "bg-blue-500", label: "외국인/기관 수급" },
-  { key: "program_trading", dot: "bg-violet-500", label: "프로그램 매매" },
   { key: "top30_trading_value", dot: "bg-fuchsia-500", label: "거래대금 TOP30" },
+  { key: "market_cap", dot: "bg-emerald-500", label: "시가총액" },
+  { key: "short_selling", dot: "bg-red-600", label: "공매도 경고" },
 ] as const
 
 interface StockListProps {
@@ -58,6 +60,7 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const allMet = isAdmin && criteria?.all_met
+  const shortWarning = isAdmin && criteria?.short_selling?.met
   const showDots = isAdmin && criteria
   const [criteriaExpanded, setCriteriaExpanded] = useState(false)
   const metCriteria = showDots ? COMPACT_CRITERIA.filter(({ key }) => {
@@ -66,7 +69,7 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
   }) : []
 
   return (
-    <div className={cn(allMet && "border-l-[3px] border-yellow-400")}>
+    <div className={cn(shortWarning ? "border-l-[3px] border-red-500" : allMet && "border-l-[3px] border-yellow-400")}>
       <div className="flex items-center py-2 hover:bg-muted/50 transition-colors group">
       {/* Sticky left: Rank + Name */}
       <div className={cn(

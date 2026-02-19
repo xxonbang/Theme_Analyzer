@@ -5,15 +5,17 @@ import { Sparkles, ChevronDown, ChevronUp, ExternalLink, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { ThemeAnalysis, MarketTheme, StockCriteria } from "@/types/stock"
 
-/** 대장주 칩용 기준 도트 색상 (다른 컴포넌트와 동일 체계) */
+/** 대장주 칩용 기준 도트 색상 (우선순위 순, 다른 컴포넌트와 동일 체계) */
 const LEADER_CRITERIA = [
   { key: "high_breakout", dot: "bg-red-500", label: "전고점 돌파" },
+  { key: "supply_demand", dot: "bg-blue-500", label: "외국인/기관 수급" },
+  { key: "program_trading", dot: "bg-violet-500", label: "프로그램 매매" },
   { key: "momentum_history", dot: "bg-orange-500", label: "끼 보유" },
   { key: "resistance_breakout", dot: "bg-yellow-400", label: "저항선 돌파" },
   { key: "ma_alignment", dot: "bg-teal-500", label: "정배열" },
-  { key: "supply_demand", dot: "bg-blue-500", label: "외국인/기관 수급" },
-  { key: "program_trading", dot: "bg-violet-500", label: "프로그램 매매" },
   { key: "top30_trading_value", dot: "bg-fuchsia-500", label: "거래대금 TOP30" },
+  { key: "market_cap", dot: "bg-emerald-500", label: "시가총액" },
+  { key: "short_selling", dot: "bg-red-600", label: "공매도 경고" },
 ] as const
 
 interface AIThemeAnalysisProps {

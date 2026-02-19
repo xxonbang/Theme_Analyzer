@@ -96,6 +96,7 @@ export interface InvestorInfo {
 export interface CriterionResult {
   met: boolean
   reason?: string | null
+  warning?: boolean
   is_52w_high?: boolean
   had_limit_up?: boolean
   had_15pct_rise?: boolean
@@ -110,7 +111,19 @@ export interface StockCriteria {
   supply_demand: CriterionResult
   program_trading: CriterionResult
   top30_trading_value: CriterionResult
+  market_cap: CriterionResult
+  short_selling: CriterionResult
   all_met: boolean
+}
+
+export interface KosdaqIndex {
+  current: number
+  ma5: number
+  ma10: number
+  ma20: number
+  ma60: number
+  ma120: number
+  status: "정배열" | "역배열" | "혼합"
 }
 
 export interface StockData {
@@ -134,6 +147,7 @@ export interface StockData {
   investor_estimated?: boolean
   theme_analysis?: ThemeAnalysis
   criteria_data?: Record<string, StockCriteria>
+  kosdaq_index?: KosdaqIndex
 }
 
 // 모의투자 관련 타입

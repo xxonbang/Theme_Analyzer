@@ -130,6 +130,7 @@ def export_for_frontend(
     investor_estimated: bool = False,
     theme_analysis: Dict = None,
     criteria_data: Dict = None,
+    kosdaq_index: Dict = None,
 ) -> str:
     """프론트엔드용 JSON 데이터 내보내기
 
@@ -174,6 +175,7 @@ def export_for_frontend(
         "investor_estimated": investor_estimated if investor_data else None,
         "theme_analysis": theme_analysis,
         "criteria_data": criteria_data if criteria_data else None,
+        "kosdaq_index": kosdaq_index,
     }
 
     # None 값 필드 제거

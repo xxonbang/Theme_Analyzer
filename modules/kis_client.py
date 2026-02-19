@@ -572,6 +572,50 @@ class KISClient:
         }
         return self.request("GET", path, tr_id, params=params)
 
+    def get_index_daily_price(
+        self,
+        index_code: str = "2001",  # 2001 = 코스닥 종합
+        period: str = "D",
+        start_date: str = None,
+        end_date: str = None,
+    ) -> Dict[str, Any]:
+        """업종 기간별 시세 조회 (코스닥 지수 일봉)"""
+        path = "/uapi/domestic-stock/v1/quotations/inquire-daily-indexchartprice"
+        tr_id = "FHKUP03500100"
+        if end_date is None:
+            end_date = datetime.now().strftime("%Y%m%d")
+        if start_date is None:
+            start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "U",
+            "FID_INPUT_ISCD": index_code,
+            "FID_INPUT_DATE_1": start_date,
+            "FID_INPUT_DATE_2": end_date,
+            "FID_PERIOD_DIV_CODE": period,
+        }
+        return self.request("GET", path, tr_id, params=params)
+
+    def get_daily_short_sale(
+        self,
+        stock_code: str,
+        start_date: str = None,
+        end_date: str = None,
+    ) -> Dict[str, Any]:
+        """주식 공매도 일별추이 조회"""
+        path = "/uapi/domestic-stock/v1/quotations/daily-short-sale"
+        tr_id = "FHPST04830000"
+        if end_date is None:
+            end_date = datetime.now().strftime("%Y%m%d")
+        if start_date is None:
+            start_date = end_date  # 당일만
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_INPUT_DATE_1": start_date,
+            "FID_INPUT_DATE_2": end_date,
+        }
+        return self.request("GET", path, tr_id, params=params)
+
     def get_profit_ratio(self, stock_code: str, div_cls_code: str = "1") -> Dict[str, Any]:
         """주식 수익성비율 조회 (매출순이익률, 매출총이익률 등)
 

@@ -79,6 +79,16 @@ body {
   }
 }
 
+/* Red shimmer animation for short selling warning */
+@keyframes red-shimmer {
+  0%, 100% {
+    box-shadow: 0 0 6px 1px rgba(239, 68, 68, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(239, 68, 68, 0.5);
+  }
+}
+
 /* Container responsive */
 .container {
   width: 100%;
