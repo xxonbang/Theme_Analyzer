@@ -308,10 +308,10 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 try:
                     resp = client.get_daily_short_sale(code, today, today)
                     if resp.get("rt_cd") == "0":
-                        output1 = resp.get("output1", [])
-                        if output1:
-                            ratio_str = output1[0].get("ssts_vol_rlim", "0")
-                            volume_str = output1[0].get("ssts_cntg_qty", "0")
+                        output2 = resp.get("output2", [])
+                        if output2:
+                            ratio_str = output2[0].get("ssts_vol_rlim", "0")
+                            volume_str = output2[0].get("ssts_cntg_qty", "0")
                             try:
                                 ratio = float(ratio_str)
                                 volume = int(volume_str)

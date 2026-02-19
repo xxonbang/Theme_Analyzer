@@ -48,9 +48,9 @@ def check_high_breakout(
     if not current_price:
         return result
 
-    # 6개월 최고가 (일봉 고가 기준, 최신순 → 120개)
+    # 6개월 최고가 (일봉 고가 기준, 당일 제외)
     highs = []
-    for p in daily_prices[:120]:
+    for p in daily_prices[1:121]:
         h = _safe_int(p.get("stck_hgpr") or p.get("stck_high"))
         if h:
             highs.append(h)
@@ -163,14 +163,13 @@ def check_resistance_breakout(
                     reasons.append(f"호가 단위 변경 구간 {boundary:,}원 돌파 직전 ({pct:.1f}% 남음)")
                     break
 
-    # 라운드 넘버 돌파
+    # 라운드 넘버 돌파 (가장 높은 저항선 기준)
     if prev_close:
         for threshold, unit in ROUND_LEVELS:
             if current_price >= threshold:
-                # 전일 종가와 현재가 사이에 라운드 넘버가 있는지
-                lower_round = (prev_close // unit + 1) * unit
-                if prev_close < lower_round <= current_price:
-                    reasons.append(f"심리적 저항선 {lower_round:,}원 돌파")
+                upper_round = (current_price // unit) * unit
+                if prev_close < upper_round <= current_price:
+                    reasons.append(f"심리적 저항선 {upper_round:,}원 돌파")
                 break
 
     if reasons:
