@@ -272,31 +272,28 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print(f"  ✗ 등락률 조회 실패: {e}")
         history_data = {}
 
-    # 8-1. 펀더멘탈 데이터 수집
+    # 8-1. 펀더멘탈 데이터 수집 (criteria 평가에 필요하므로 항상 실행)
     fundamental_data = {}
-    if not skip_ai:
-        print("\n[8-1/13] 펀더멘탈 데이터 수집 중...")
-        try:
-            fundamental_collector = FundamentalCollector(client)
+    print("\n[8-1/13] 펀더멘탈 데이터 수집 중...")
+    try:
+        fundamental_collector = FundamentalCollector(client)
 
-            # Gemini에 전달할 주요 종목만 추출
-            stock_context_for_targets = {
-                "rising": rising_stocks,
-                "volume": volume_data,
-                "trading_value": trading_value_data,
-                "fluctuation": fluctuation_data,
-            }
-            target_stocks = _get_gemini_target_stocks(stock_context_for_targets)
+        # Gemini에 전달할 주요 종목만 추출
+        stock_context_for_targets = {
+            "rising": rising_stocks,
+            "volume": volume_data,
+            "trading_value": trading_value_data,
+            "fluctuation": fluctuation_data,
+        }
+        target_stocks = _get_gemini_target_stocks(stock_context_for_targets)
 
-            # RSI 계산용 raw 일봉 데이터
-            daily_raw = {code: h.get("raw_daily_prices", []) for code, h in history_data.items()}
+        # RSI 계산용 raw 일봉 데이터
+        daily_raw = {code: h.get("raw_daily_prices", []) for code, h in history_data.items()}
 
-            fundamental_data = fundamental_collector.collect_all_fundamentals(target_stocks, daily_raw)
-            print(f"  \u2713 {len(fundamental_data)}개 종목 펀더멘탈 수집 완료")
-        except Exception as e:
-            print(f"  \u26a0 펀더멘탈 수집 실패 (빈 데이터로 계속): {e}")
-    else:
-        print("\n[8-1/13] 펀더멘탈 데이터 수집 건너뜀 (--skip-ai)")
+        fundamental_data = fundamental_collector.collect_all_fundamentals(target_stocks, daily_raw)
+        print(f"  \u2713 {len(fundamental_data)}개 종목 펀더멘탈 수집 완료")
+    except Exception as e:
+        print(f"  \u26a0 펀더멘탈 수집 실패 (빈 데이터로 계속): {e}")
 
     # 8-2. 공매도 비중 수집 (펀더멘탈 수집 대상 종목만)
     short_selling_data = {}
