@@ -16,6 +16,8 @@
   --color-accent-foreground: oklch(25% 0.02 260);
   --color-destructive: oklch(55% 0.25 25);
   --color-destructive-foreground: oklch(100% 0 0);
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(20% 0.02 260);
   --color-border: oklch(90% 0.01 260);
   --color-input: oklch(92% 0.01 260);
   --color-ring: oklch(45% 0.2 260);
