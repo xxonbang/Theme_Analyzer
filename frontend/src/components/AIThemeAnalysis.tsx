@@ -11,9 +11,10 @@ interface AIThemeAnalysisProps {
   themeAnalysis: ThemeAnalysis
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
+  stockMarketMap?: Record<string, string>
 }
 
-function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean }) {
+function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean; stockMarketMap?: Record<string, string> }) {
   const [expanded, setExpanded] = useState(false)
   const [popupStockCode, setPopupStockCode] = useState<string | null>(null)
   const showCriteria = isAdmin && criteriaData
@@ -36,11 +37,13 @@ function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme
       <hr className="border-border/50" />
 
       {/* 대장주 칩 */}
-      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-        <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs">대장주</Badge>
+      <div className="flex items-start gap-1.5 sm:gap-2">
+        <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs mt-1">대장주</Badge>
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         {theme.leader_stocks.map((stock) => {
           const criteria = showCriteria ? criteriaData[stock.code] : undefined
           const allMet = criteria?.all_met
+          const market = stockMarketMap?.[stock.code]
           const metDots = criteria ? CRITERIA_CONFIG.filter(({ key }) => {
             const c = criteria[key as keyof StockCriteria]
             return typeof c !== "boolean" && c?.met
@@ -56,7 +59,9 @@ function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme
                 "transition-all duration-150",
                 allMet
                   ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 ring-1 ring-yellow-400/60 animate-[shimmer_3s_ease-in-out_infinite]"
-                  : "bg-primary/10 hover:bg-primary/20 text-primary"
+                  : market === "kosdaq"
+                    ? "bg-rose-500/10 hover:bg-rose-500/20 text-rose-600"
+                    : "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
               )}
             >
               {hasDots && (
@@ -85,6 +90,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme
             </span>
           )
         })}
+        </div>
       </div>
 
       <hr className="border-border/50" />
@@ -139,7 +145,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin }: { theme: MarketTheme
   )
 }
 
-export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin }: AIThemeAnalysisProps) {
+export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMarketMap }: AIThemeAnalysisProps) {
   const [collapsed, setCollapsed] = useState(false)
 
   if (!themeAnalysis?.themes?.length) {
@@ -178,7 +184,7 @@ export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin }: AIThem
         {!collapsed && (
           <div className="space-y-2.5">
             {themeAnalysis.themes.map((theme, index) => (
-              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} />
+              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} stockMarketMap={stockMarketMap} />
             ))}
           </div>
         )}

@@ -402,6 +402,16 @@ function App() {
             themeAnalysis={displayData.theme_analysis}
             criteriaData={displayData?.criteria_data}
             isAdmin={isAdmin}
+            stockMarketMap={(() => {
+              const map: Record<string, string> = {}
+              const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
+              for (const sec of sections) {
+                if (!sec) continue
+                for (const s of sec.kospi || []) map[s.code] = 'kospi'
+                for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
+              }
+              return map
+            })()}
           />
         )}
 
