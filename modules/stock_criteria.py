@@ -81,14 +81,14 @@ def check_high_breakout(
 # ────────────────────────────────────────────────────────────
 
 def check_momentum_history(daily_prices: List[Dict]) -> Dict[str, Any]:
-    """과거 상한가 이력 또는 +15% 이상 상승 종가 유지 이력"""
-    result = {"met": False, "had_limit_up": False, "had_15pct_rise": False, "reason": None}
+    """과거 상한가 이력 또는 +10% 이상 상승 종가 유지 이력 (당일 제외)"""
+    result = {"met": False, "had_limit_up": False, "had_10pct_rise": False, "reason": None}
 
-    if not daily_prices:
+    if not daily_prices or len(daily_prices) < 2:
         return result
 
     reasons = []
-    for p in daily_prices:
+    for p in daily_prices[1:]:  # 당일(최신) 제외, 과거 데이터만
         change_rate = None
         # 등락률 계산: prdy_vrss(전일대비, 부호 포함) 이용
         close = _safe_int(p.get("stck_clpr"))
@@ -109,12 +109,12 @@ def check_momentum_history(daily_prices: List[Dict]) -> Dict[str, Any]:
             result["met"] = True
             reasons.append(f"상한가 기록 ({formatted}, +{change_rate:.1f}%)")
 
-        if change_rate >= 15.0 and not result["had_15pct_rise"]:
-            result["had_15pct_rise"] = True
+        if change_rate >= 10.0 and not result["had_10pct_rise"]:
+            result["had_10pct_rise"] = True
             result["met"] = True
-            reasons.append(f"+15% 이상 상승 유지 ({formatted}, +{change_rate:.1f}%)")
+            reasons.append(f"+10% 이상 상승 유지 ({formatted}, +{change_rate:.1f}%)")
 
-        if result["had_limit_up"] and result["had_15pct_rise"]:
+        if result["had_limit_up"] and result["had_10pct_rise"]:
             break
 
     if reasons:
