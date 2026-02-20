@@ -11,7 +11,7 @@ from typing import Dict, List, Any, Optional
 from modules.utils import KST
 
 # 주요 통화 코드
-MAJOR_CURRENCIES = ["USD", "JPY(100)", "EUR", "CNY"]
+MAJOR_CURRENCIES = ["USD", "JPY(100)", "EUR", "CNH"]
 
 
 class ExchangeRateAPI:
@@ -98,7 +98,7 @@ class ExchangeRateAPI:
                     tts = self._parse_number(item.get("tts", "0"))
 
                     rates.append({
-                        "currency": cur_unit.replace("(100)", ""),  # JPY(100) -> JPY
+                        "currency": cur_unit.replace("(100)", "").replace("CNH", "CNY"),  # JPY(100)->JPY, CNH->CNY
                         "currency_name": item.get("cur_nm", ""),
                         "rate": deal_bas_r,  # 매매기준율
                         "ttb": ttb,  # 송금 받을 때 (전신환매입률)
