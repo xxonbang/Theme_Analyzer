@@ -204,3 +204,31 @@ export interface PaperTradingIndexEntry {
   total_profit_rate: number
   stock_count: number
 }
+
+// 유망 테마 예측 관련 타입
+export interface ForecastStock {
+  priority: number
+  name: string
+  code: string
+  reason: string
+  data_verified: boolean
+}
+
+export interface ForecastTheme {
+  theme_name: string
+  description: string
+  catalyst: string
+  confidence: "높음" | "보통" | "낮음"
+  target_period?: string
+  leader_stocks: ForecastStock[]
+}
+
+export interface ThemeForecast {
+  forecast_date: string
+  generated_at: string
+  market_context: string
+  us_market_summary: string
+  today: ForecastTheme[]
+  short_term: ForecastTheme[]
+  long_term: ForecastTheme[]
+}

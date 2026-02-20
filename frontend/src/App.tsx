@@ -6,6 +6,7 @@ import { StockList } from "@/components/StockList"
 import { TabBar } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
 import { PaperTradingPage } from "@/components/PaperTradingPage"
+import { ThemeForecastPage } from "@/components/ThemeForecastPage"
 import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
 import { KosdaqIndexAlert } from "@/components/KosdaqIndexAlert"
@@ -17,7 +18,7 @@ import { cn, getWeekday } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
 
-type PageType = "home" | "paper-trading"
+type PageType = "home" | "paper-trading" | "theme-forecast"
 
 // 로컬 스토리지 키
 const COMPACT_MODE_KEY = "stock-dashboard-compact-mode"
@@ -329,6 +330,13 @@ function App() {
       {currentPage === "paper-trading" && (
         <main className="container px-3 sm:px-4 py-4 sm:py-6">
           <PaperTradingPage />
+        </main>
+      )}
+
+      {/* 유망 테마 예측 페이지 */}
+      {currentPage === "theme-forecast" && (
+        <main className="container px-3 sm:px-4 py-4 sm:py-6">
+          <ThemeForecastPage />
         </main>
       )}
 

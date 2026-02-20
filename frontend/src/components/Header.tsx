@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, Home, LogOut } from "lucide-react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
 
-type PageType = "home" | "paper-trading"
+type PageType = "home" | "paper-trading" | "theme-forecast"
 
 interface HeaderProps {
   timestamp?: string
@@ -27,11 +27,9 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [refreshRipple, setRefreshRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [historyRipple, setHistoryRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
-  const [pageRipple, setPageRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [toggleFocusRing, setToggleFocusRing] = useState(false)
   const [refreshFocusRing, setRefreshFocusRing] = useState(false)
   const [historyFocusRing, setHistoryFocusRing] = useState(false)
-  const [pageFocusRing, setPageFocusRing] = useState(false)
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // 툴팁 자동 숨김 (3초 후 fade-out)
@@ -125,22 +123,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     setTimeout(() => setHistoryFocusRing(false), 400)
 
     onHistoryClick?.()
-  }
-
-  // Page Navigation 버튼 클릭 효과
-  const handlePageClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    setPageRipple({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      show: true,
-    })
-    setTimeout(() => setPageRipple(prev => ({ ...prev, show: false })), 500)
-
-    setPageFocusRing(true)
-    setTimeout(() => setPageFocusRing(false), 400)
-
-    onPageChange?.(currentPage === "home" ? "paper-trading" : "home")
   }
 
   // 타임스탬프 파싱
@@ -260,71 +242,59 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </div>
           )}
 
-          {/* Page Navigation Button */}
+          {/* Page Navigation Buttons */}
           {onPageChange && (
-            <button
-              onClick={handlePageClick}
-              className={cn(
-                "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none",
-                currentPage === "paper-trading" && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
-              )}
-              title={currentPage === "home" ? "모의투자" : "홈으로"}
-            >
-              {/* 임시 Focus Ring */}
-              <div
+            <>
+              {/* 테마 예측 버튼 (admin only) */}
+              {isAdmin && <button
+                onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
                 className={cn(
-                  "absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background",
-                  "transition-opacity duration-300",
-                  pageFocusRing ? "opacity-100" : "opacity-0"
+                  "relative overflow-hidden group",
+                  "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                  "rounded-lg",
+                  "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                  "border border-border/50",
+                  "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                  "transition-all duration-300 ease-out",
+                  "hover:scale-110 active:scale-95",
+                  "hover:border-primary/30",
+                  "focus:outline-none",
+                  currentPage === "theme-forecast" && "ring-2 ring-amber-500/50 border-amber-500/30 bg-amber-500/5"
                 )}
-              />
+                title="테마 예측"
+              >
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Sparkles className={cn(
+                  "relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
+                  currentPage === "theme-forecast" && "text-amber-500"
+                )} />
+              </button>}
 
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-              {/* Icon */}
-              <div className={cn(
-                "relative z-10 transition-all duration-300",
-                "group-hover:rotate-12 group-active:rotate-0"
-              )}>
-                {currentPage === "home" ? (
-                  <LineChart className={cn(
-                    "w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
-                  )} />
-                ) : (
-                  <Home className={cn(
-                    "w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
-                    "text-primary"
-                  )} />
+              {/* 모의투자 버튼 */}
+              <button
+                onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
+                className={cn(
+                  "relative overflow-hidden group",
+                  "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                  "rounded-lg",
+                  "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                  "border border-border/50",
+                  "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                  "transition-all duration-300 ease-out",
+                  "hover:scale-110 active:scale-95",
+                  "hover:border-primary/30",
+                  "focus:outline-none",
+                  currentPage === "paper-trading" && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
                 )}
-              </div>
-
-              {/* Ripple effect */}
-              {pageRipple.show && (
-                <span
-                  className="absolute rounded-full bg-primary/30 animate-ripple"
-                  style={{
-                    left: pageRipple.x,
-                    top: pageRipple.y,
-                    width: '4px',
-                    height: '4px',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
-              )}
-            </button>
+                title="모의투자"
+              >
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <LineChart className={cn(
+                  "relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
+                  currentPage === "paper-trading" && "text-primary"
+                )} />
+              </button>
+            </>
           )}
 
           {/* History Button */}
