@@ -12,9 +12,10 @@ interface AIThemeAnalysisProps {
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
   stockMarketMap?: Record<string, string>
+  stockTradingRankMap?: Record<string, number>
 }
 
-function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean; stockMarketMap?: Record<string, string> }) {
+function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockTradingRankMap }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean; stockMarketMap?: Record<string, string>; stockTradingRankMap?: Record<string, number> }) {
   const [expanded, setExpanded] = useState(false)
   const [popupStockCode, setPopupStockCode] = useState<string | null>(null)
   const showCriteria = isAdmin && criteriaData
@@ -40,7 +41,9 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap }: { th
       <div className="flex items-start gap-1.5 sm:gap-2">
         <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs mt-1">대장주</Badge>
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-        {theme.leader_stocks.map((stock) => {
+        {[...theme.leader_stocks]
+          .sort((a, b) => (stockTradingRankMap?.[a.code] ?? 999) - (stockTradingRankMap?.[b.code] ?? 999))
+          .map((stock) => {
           const criteria = showCriteria ? criteriaData[stock.code] : undefined
           const allMet = criteria?.all_met
           const market = stockMarketMap?.[stock.code]
@@ -64,6 +67,11 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap }: { th
                     : "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
               )}
             >
+              {stockTradingRankMap?.[stock.code] != null && (
+                <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-foreground/10 text-[9px] sm:text-[10px] font-bold leading-none shrink-0">
+                  {stockTradingRankMap[stock.code]}
+                </span>
+              )}
               {hasDots && (
                 <button
                   onClick={() => setPopupStockCode(popupStockCode === stock.code ? null : stock.code)}
@@ -145,7 +153,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap }: { th
   )
 }
 
-export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMarketMap }: AIThemeAnalysisProps) {
+export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMarketMap, stockTradingRankMap }: AIThemeAnalysisProps) {
   const [collapsed, setCollapsed] = useState(false)
 
   if (!themeAnalysis?.themes?.length) {
@@ -184,7 +192,7 @@ export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMar
         {!collapsed && (
           <div className="space-y-2.5">
             {themeAnalysis.themes.map((theme, index) => (
-              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} stockMarketMap={stockMarketMap} />
+              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} stockMarketMap={stockMarketMap} stockTradingRankMap={stockTradingRankMap} />
             ))}
           </div>
         )}

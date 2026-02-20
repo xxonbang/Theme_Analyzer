@@ -412,6 +412,15 @@ function App() {
               }
               return map
             })()}
+            stockTradingRankMap={(() => {
+              const map: Record<string, number> = {}
+              const tv = displayData.trading_value
+              if (tv) {
+                for (const s of tv.kospi || []) map[s.code] = s.rank
+                for (const s of tv.kosdaq || []) map[s.code] = s.rank
+              }
+              return map
+            })()}
           />
         )}
 
