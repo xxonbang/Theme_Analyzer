@@ -5,11 +5,29 @@
 import requests
 import re
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Any, Optional
 from html import unescape
 
 from config.settings import NAVER_CLIENT_ID, NAVER_CLIENT_SECRET
+
+# 영문 종목명 → 한글 별칭 매핑
+_KNOWN_ALIASES = {
+    "naver": "네이버",
+    "ncsoft": "엔씨소프트",
+    "posco": "포스코",
+    "s-oil": "에쓰오일",
+    "celltrion": "셀트리온",
+    "coupang": "쿠팡",
+    "kakao": "카카오",
+}
+
+# 별칭 자동 감지 시 제외할 일반 단어
+_ALIAS_STOPWORDS = {
+    "주가", "주식", "종목", "기업", "코스피", "코스닥", "관련", "오늘",
+    "증시", "시장", "투자", "매매", "상승", "하락", "급등", "급락",
+    "전망", "분석", "목표", "실적", "매출", "영업", "이익", "배당",
+}
 
 
 class NaverNewsAPI:
@@ -122,6 +140,7 @@ class NaverNewsAPI:
                             "description": self._clean_html(item.get("description", "")),
                             "pubDate": self._parse_date(item.get("pubDate", "")),
                             "originallink": item.get("originallink", ""),
+                            "_raw_pubDate": item.get("pubDate", ""),
                         })
 
                     return news_list
@@ -154,22 +173,118 @@ class NaverNewsAPI:
 
         return []
 
+    def _parse_datetime(self, date_str: str) -> Optional[datetime]:
+        """RFC 822 날짜 문자열을 datetime으로 파싱"""
+        try:
+            return datetime.strptime(date_str, "%a, %d %b %Y %H:%M:%S %z")
+        except Exception:
+            return None
+
+    def _get_korean_alias(self, stock_name: str, articles: List[Dict[str, Any]]) -> Optional[str]:
+        """영문 종목명의 한글 별칭 감지
+
+        1) 알려진 매핑에서 확인
+        2) 없으면 기사 제목에서 자주 등장하는 한글 단어로 자동 추정
+        """
+        if not re.search(r'[a-zA-Z]', stock_name):
+            return None
+
+        # 알려진 별칭 확인
+        name_lower = stock_name.lower()
+        for eng, kor in _KNOWN_ALIASES.items():
+            if eng in name_lower:
+                return kor
+
+        # 자동 감지: 제목에서 빈도 높은 한글 단어 추출
+        word_counts: Dict[str, int] = {}
+        for article in articles:
+            title = article.get("title", "")
+            words = re.findall(r'[가-힣]{2,}', title)
+            for w in words:
+                if w not in _ALIAS_STOPWORDS:
+                    word_counts[w] = word_counts.get(w, 0) + 1
+
+        if word_counts:
+            best_word, best_count = max(word_counts.items(), key=lambda x: x[1])
+            if best_count >= 3:
+                return best_word
+
+        return None
+
+    def _filter_articles(
+        self,
+        articles: List[Dict[str, Any]],
+        name_variants: List[str],
+        cutoff: datetime,
+        bot_pattern: "re.Pattern[str]",
+    ) -> List[Dict[str, Any]]:
+        """기사 필터링 (제목 매칭 + 봇 제외 + 날짜 필터)"""
+        filtered = []
+        for article in articles:
+            title = article["title"]
+            if not any(v in title for v in name_variants):
+                continue
+            if bot_pattern.search(title):
+                continue
+            pub_dt = self._parse_datetime(article.get("_raw_pubDate", ""))
+            if pub_dt and pub_dt < cutoff:
+                continue
+            filtered.append(article)
+        return filtered
+
     def get_stock_news(
         self,
         stock_name: str,
         count: int = 3,
     ) -> List[Dict[str, Any]]:
-        """종목명으로 뉴스 검색
+        """종목명으로 뉴스 검색 (필터링 파이프라인 적용)
 
-        Args:
-            stock_name: 종목명 (예: "삼성전자")
-            count: 뉴스 개수
-
-        Returns:
-            뉴스 리스트
+        1) "{종목명} 주가" 정확도순 20개 검색 + 필터링
+        2) 결과 부족 시 한글 별칭으로 재검색
+        3) pubDate 내림차순 정렬, 상위 count개 반환
         """
-        # 종목명 + "주식" 키워드 추가하여 관련성 높이기
-        return self.search_news(f"{stock_name} 주식", display=count, sort="date")
+        # 공통 필터 설정
+        kst = timezone(timedelta(hours=9))
+        cutoff = datetime.now(kst) - timedelta(days=7)
+        bot_pattern = re.compile(r'주가[,]?\s*\d')
+
+        # 1. 원본 종목명으로 검색
+        raw_results = self.search_news(f"{stock_name} 주가", display=20, sort="sim")
+        if not raw_results:
+            return []
+
+        # 별칭 감지
+        alias = self._get_korean_alias(stock_name, raw_results)
+        name_variants = [stock_name]
+        if alias and alias != stock_name:
+            name_variants.append(alias)
+
+        # 필터링
+        filtered = self._filter_articles(raw_results, name_variants, cutoff, bot_pattern)
+
+        # 2. 결과 부족 시 한글 별칭으로 재검색
+        if len(filtered) < count and alias and alias != stock_name:
+            alias_raw = self.search_news(f"{alias} 주가", display=20, sort="sim")
+            if alias_raw:
+                alias_filtered = self._filter_articles(alias_raw, name_variants, cutoff, bot_pattern)
+                existing_links = {a["link"] for a in filtered}
+                for a in alias_filtered:
+                    if a["link"] not in existing_links:
+                        filtered.append(a)
+
+        # 3. pubDate 내림차순 정렬
+        filtered.sort(
+            key=lambda x: self._parse_datetime(x.get("_raw_pubDate", "")) or datetime.min.replace(tzinfo=kst),
+            reverse=True,
+        )
+
+        # 4. 상위 count개 반환 (_raw_pubDate 제거)
+        result = []
+        for article in filtered[:count]:
+            clean = {k: v for k, v in article.items() if not k.startswith("_")}
+            result.append(clean)
+
+        return result
 
     def get_multiple_stocks_news(
         self,
