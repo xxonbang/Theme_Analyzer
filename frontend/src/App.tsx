@@ -336,7 +336,7 @@ function App() {
       {/* 유망 테마 예측 페이지 */}
       {currentPage === "theme-forecast" && (
         <main className="container px-3 sm:px-4 py-4 sm:py-6">
-          <ThemeForecastPage />
+          <ThemeForecastPage criteriaData={displayData?.criteria_data} isAdmin={isAdmin} />
         </main>
       )}
 

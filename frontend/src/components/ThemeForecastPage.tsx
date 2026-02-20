@@ -3,8 +3,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { CRITERIA_CONFIG } from "@/lib/criteria"
+import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
-import type { ForecastTheme, ForecastStock } from "@/types/stock"
+import type { ForecastTheme, ForecastStock, StockCriteria } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
   "높음": { badge: "bg-red-100 text-red-700", dot: "bg-red-500" },
@@ -12,37 +14,65 @@ const CONFIDENCE_CONFIG = {
   "낮음": { badge: "bg-slate-100 text-slate-600", dot: "bg-slate-400" },
 } as const
 
-function LeaderStockChip({ stock }: { stock: ForecastStock }) {
+function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastStock; criteria?: StockCriteria; showCriteria?: boolean }) {
+  const [showPopup, setShowPopup] = useState(false)
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
+
+  const metDots = showCriteria && criteria ? CRITERIA_CONFIG.filter(({ key }) => {
+    const c = criteria[key as keyof StockCriteria]
+    return typeof c !== "boolean" && c?.met
+  }) : []
+  const allMet = criteria?.all_met
+
   return (
-    <a
-      href={naverUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+    <span
       className={cn(
-        "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md",
+        "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md relative",
         "text-xs sm:text-sm font-medium",
-        "transition-all duration-150 hover:shadow-sm",
-        stock.data_verified
-          ? "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
-          : "bg-slate-500/10 hover:bg-slate-500/15 text-slate-500"
+        "transition-all duration-150",
+        allMet
+          ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 ring-1 ring-yellow-400/60"
+          : stock.data_verified
+            ? "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
+            : "bg-slate-500/10 hover:bg-slate-500/15 text-slate-500"
       )}
     >
       <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-foreground/10 text-[9px] sm:text-[10px] font-bold leading-none shrink-0">
         {stock.priority}
       </span>
-      <span>{stock.name}</span>
-      <ExternalLink className="w-3 h-3 opacity-50 shrink-0" />
+      {metDots.length > 0 && (
+        <button
+          onClick={() => setShowPopup(!showPopup)}
+          className="inline-flex items-center gap-px hover:opacity-70 transition-opacity"
+        >
+          {metDots.map(({ key, dot }) => (
+            <span key={key} className={cn("w-1.5 h-1.5 rounded-full", dot)} />
+          ))}
+        </button>
+      )}
+      <a
+        href={naverUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 hover:underline"
+      >
+        {stock.name}
+        <ExternalLink className="w-3 h-3 opacity-50 shrink-0" />
+      </a>
       {!stock.data_verified && (
         <span className="text-[8px] text-amber-500 shrink-0" title="전일 데이터 미확인">추정</span>
       )}
-    </a>
+      {showPopup && criteria && (
+        <CriteriaPopup stockName={stock.name} criteria={criteria} onClose={() => setShowPopup(false)} />
+      )}
+    </span>
   )
 }
 
-function ForecastThemeCard({ theme }: { theme: ForecastTheme }) {
+function ForecastThemeCard({ theme, criteriaData, isAdmin }: { theme: ForecastTheme; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean }) {
   const [expanded, setExpanded] = useState(false)
   const config = CONFIDENCE_CONFIG[theme.confidence] || CONFIDENCE_CONFIG["보통"]
+  const showCriteria = isAdmin && criteriaData
 
   return (
     <div className="border rounded-lg p-3 sm:p-4 space-y-2.5">
@@ -81,7 +111,7 @@ function ForecastThemeCard({ theme }: { theme: ForecastTheme }) {
         <Badge variant="secondary" className="shrink-0 text-[10px] sm:text-xs mt-1">대장주</Badge>
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           {theme.leader_stocks.map((stock) => (
-            <LeaderStockChip key={stock.code} stock={stock} />
+            <LeaderStockChip key={stock.code} stock={stock} criteria={showCriteria ? criteriaData[stock.code] : undefined} showCriteria={!!showCriteria} />
           ))}
         </div>
       </div>
@@ -114,11 +144,13 @@ function ForecastThemeCard({ theme }: { theme: ForecastTheme }) {
   )
 }
 
-function ForecastSection({ title, icon, themes, emptyText }: {
+function ForecastSection({ title, icon, themes, emptyText, criteriaData, isAdmin }: {
   title: string
   icon: React.ReactNode
   themes: ForecastTheme[]
   emptyText: string
+  criteriaData?: Record<string, StockCriteria>
+  isAdmin?: boolean
 }) {
   return (
     <div className="space-y-2.5">
@@ -130,7 +162,7 @@ function ForecastSection({ title, icon, themes, emptyText }: {
       {themes.length > 0 ? (
         <div className="space-y-2.5">
           {themes.map((theme, idx) => (
-            <ForecastThemeCard key={idx} theme={theme} />
+            <ForecastThemeCard key={idx} theme={theme} criteriaData={criteriaData} isAdmin={isAdmin} />
           ))}
         </div>
       ) : (
@@ -142,7 +174,12 @@ function ForecastSection({ title, icon, themes, emptyText }: {
   )
 }
 
-export function ThemeForecastPage() {
+interface ThemeForecastPageProps {
+  criteriaData?: Record<string, StockCriteria>
+  isAdmin?: boolean
+}
+
+export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPageProps) {
   const { data, loading, error } = useThemeForecast()
 
   if (loading) {
@@ -206,6 +243,8 @@ export function ThemeForecastPage() {
             icon={<TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />}
             themes={data.today}
             emptyText="오늘의 유망 테마가 없습니다"
+            criteriaData={criteriaData}
+            isAdmin={isAdmin}
           />
         </CardContent>
       </Card>
@@ -218,6 +257,8 @@ export function ThemeForecastPage() {
             icon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />}
             themes={data.short_term}
             emptyText="단기 유망 테마가 없습니다"
+            criteriaData={criteriaData}
+            isAdmin={isAdmin}
           />
         </CardContent>
       </Card>
@@ -230,6 +271,8 @@ export function ThemeForecastPage() {
             icon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />}
             themes={data.long_term}
             emptyText="장기 유망 테마가 없습니다"
+            criteriaData={criteriaData}
+            isAdmin={isAdmin}
           />
         </CardContent>
       </Card>

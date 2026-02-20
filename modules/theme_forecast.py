@@ -227,12 +227,13 @@ def _build_forecast_prompt(context: str) -> str:
 - 이미 전일 테마에 반영 완료되어 추가 모멘텀이 없는 재탕 뉴스
 
 ### 대장주 선정 규칙
-- 각 테마당 최대 3개 종목, 우선순위 순서대로 배치
-- 선정 우선순위:
-  1순위: 전일 해당 테마 거래대금 상위 + 외국인/기관 순매수
-  2순위: 전일 해당 테마 거래대금 상위
-  3순위: 테마 대표성이 높으나 전일 데이터에서 확인 불가한 종목
-- 3순위 종목은 반드시 reason에 "전일 데이터 미확인"을 명시
+- 각 테마당 최대 3개 종목, priority 값으로 우선순위 차별화
+- priority 값은 반드시 아래 기준에 따라 1, 2, 3 중 하나를 부여 (모두 같은 값 금지):
+  priority 1: 전일 해당 테마 거래대금 최상위 + 외국인/기관 동반 순매수 → 핵심 대장주
+  priority 2: 전일 해당 테마 거래대금 상위이나 수급 조건 부분 충족 → 주요 관련주
+  priority 3: 테마 대표성은 높으나 전일 거래대금/수급 데이터 미흡 → 관련주
+- 3개 종목 선정 시 priority는 반드시 1, 2, 3으로 차등 배분할 것 (예: 1, 2, 3 또는 1, 1, 2)
+- priority 3 종목이면서 전일 데이터 미확인 시 data_verified를 false로 설정
 - 종목 선정 시 반드시 Google Search로 "종목명 테마명 2026" 검색하여 해당 종목이 실제로 이 테마와 관련 있는지 교차 검증
 
 ### 출력 형식
@@ -248,13 +249,9 @@ def _build_forecast_prompt(context: str) -> str:
       "catalyst": "핵심 촉매 이벤트 1줄 요약",
       "confidence": "높음|보통|낮음",
       "leader_stocks": [
-        {{
-          "priority": 1,
-          "name": "종목명",
-          "code": "종목코드",
-          "reason": "선정 근거 — 전일 데이터 수치 인용 + 테마 관련성",
-          "data_verified": true
-        }}
+        {{"priority": 1, "name": "핵심 대장주", "code": "000000", "reason": "선정 근거 — 거래대금 1위 + 외국인/기관 동반 순매수", "data_verified": true}},
+        {{"priority": 2, "name": "주요 관련주", "code": "000001", "reason": "선정 근거 — 거래대금 상위 + 수급 부분 충족", "data_verified": true}},
+        {{"priority": 3, "name": "관련주", "code": "000002", "reason": "선정 근거 — 테마 대표성 높음", "data_verified": false}}
       ]
     }}
   ],
