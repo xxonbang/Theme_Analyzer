@@ -29,7 +29,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const allMet = criteria?.all_met ?? false
   const shortWarning = isAdmin && criteria?.short_selling?.met
   const overheatWarning = isAdmin && criteria?.overheating?.met
-  const overheatLevel = criteria?.overheating?.level
   const reverseWarning = isAdmin && criteria?.reverse_alignment?.met
   const showCriteria = isAdmin && criteria
 
@@ -44,18 +43,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
       "group hover:shadow-lg transition-all duration-200 hover:border-primary/30 bg-card relative",
       allMet && isAdmin
         ? "ring-2 ring-yellow-400/70 shadow-[0_0_12px_rgba(234,179,8,0.3)] animate-[shimmer_3s_ease-in-out_infinite]"
-        : shortWarning
-          ? "ring-2 ring-red-500/70 shadow-[0_0_12px_rgba(239,68,68,0.3)] animate-[red-shimmer_2s_ease-in-out_infinite]"
-          : overheatWarning
-            ? cn(
-                "ring-2 ring-orange-500/70 shadow-[0_0_12px_rgba(234,88,12,0.3)]",
-                overheatLevel === "위험" ? "animate-[orange-shimmer_1.5s_ease-in-out_infinite]"
-                  : overheatLevel === "경고" ? "animate-[orange-shimmer_2s_ease-in-out_infinite]"
-                  : "animate-[orange-shimmer_3s_ease-in-out_infinite]"
-              )
-            : reverseWarning
-              ? "ring-2 ring-indigo-500/70 shadow-[0_0_12px_rgba(99,102,241,0.3)] animate-[blue-shimmer_2s_ease-in-out_infinite]"
-              : ""
+        : ""
     )}>
       {/* 경고 알림 뱃지 */}
       {isAdmin && (shortWarning || overheatWarning || reverseWarning) && (

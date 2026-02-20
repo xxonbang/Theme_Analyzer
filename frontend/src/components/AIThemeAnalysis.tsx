@@ -48,7 +48,6 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
           const allMet = criteria?.all_met
           const shortWarning = criteria?.short_selling?.met
           const overheatWarning = criteria?.overheating?.met
-          const overheatLevel = criteria?.overheating?.level
           const reverseWarning = criteria?.reverse_alignment?.met
           const market = stockMarketMap?.[stock.code]
           const metDots = criteria ? CRITERIA_CONFIG.filter(({ key }) => {
@@ -66,20 +65,9 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
                 "transition-all duration-150",
                 allMet
                   ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 ring-1 ring-yellow-400/60 animate-[shimmer_3s_ease-in-out_infinite]"
-                  : shortWarning
-                    ? "bg-red-500/10 hover:bg-red-500/20 text-red-700 ring-1 ring-red-500/60 animate-[red-shimmer_2s_ease-in-out_infinite]"
-                    : overheatWarning
-                      ? cn(
-                          "bg-orange-500/10 hover:bg-orange-500/20 text-orange-700 ring-1 ring-orange-500/60",
-                          overheatLevel === "위험" ? "animate-[orange-shimmer_1.5s_ease-in-out_infinite]"
-                            : overheatLevel === "경고" ? "animate-[orange-shimmer_2s_ease-in-out_infinite]"
-                            : "animate-[orange-shimmer_3s_ease-in-out_infinite]"
-                        )
-                      : reverseWarning
-                        ? "bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-700 ring-1 ring-indigo-500/60 animate-[blue-shimmer_2s_ease-in-out_infinite]"
-                        : market === "kosdaq"
-                          ? "bg-rose-500/10 hover:bg-rose-500/20 text-rose-600"
-                          : "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
+                  : market === "kosdaq"
+                    ? "bg-rose-500/10 hover:bg-rose-500/20 text-rose-600"
+                    : "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
               )}
             >
               {/* 경고 알림 뱃지 */}

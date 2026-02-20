@@ -66,13 +66,7 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
         "sticky left-0 z-10 group-hover:bg-muted/50 flex items-center gap-2 shrink-0 w-28 sm:w-40 pr-1 transition-colors",
         allMet
           ? "border-l-[3px] border-l-yellow-400 bg-yellow-50 pl-[5px]"
-          : shortWarning
-            ? "border-l-[3px] border-l-red-500 bg-card pl-[5px]"
-            : overheatWarning
-              ? "border-l-[3px] border-l-orange-500 bg-orange-50 pl-[5px]"
-              : reverseWarning
-                ? "border-l-[3px] border-l-indigo-500 bg-indigo-50 pl-[5px]"
-                : "bg-card pl-2"
+          : "bg-card pl-2"
       )}>
         <span className={cn(
           "w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-full shrink-0 relative",
