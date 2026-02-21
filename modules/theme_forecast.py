@@ -25,19 +25,42 @@ def _get_api_keys() -> List[str]:
     return [k for k in keys if k]
 
 
+def _sanitize_json(text: str) -> str:
+    """Gemini가 반환한 비표준 JSON 정리 (trailing comma, 주석 제거)"""
+    # 한 줄 주석 제거 (// ...)
+    text = re.sub(r'//[^\n]*', '', text)
+    # trailing comma 제거: ,} 또는 ,]
+    text = re.sub(r',\s*([}\]])', r'\1', text)
+    return text
+
+
 def _extract_json(text: str) -> Optional[Dict]:
     """응답 텍스트에서 JSON 블록 추출"""
+    candidates = []
     match = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
     if match:
-        return json.loads(match.group(1))
+        candidates.append(match.group(1))
     match = re.search(r"```\s*(.*?)\s*```", text, re.DOTALL)
     if match:
         candidate = match.group(1).strip()
         if candidate.startswith("{"):
-            return json.loads(candidate)
+            candidates.append(candidate)
     match = re.search(r"\{.*\}", text, re.DOTALL)
     if match:
-        return json.loads(match.group(0))
+        candidates.append(match.group(0))
+
+    for raw in candidates:
+        # 먼저 그대로 시도
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            pass
+        # sanitize 후 재시도
+        try:
+            return json.loads(_sanitize_json(raw))
+        except json.JSONDecodeError:
+            continue
+
     return None
 
 
