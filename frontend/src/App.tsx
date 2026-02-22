@@ -611,8 +611,8 @@ function App() {
         className={cn(
           "fixed bottom-6 right-6 z-50",
           "w-10 h-10 rounded-full",
-          "bg-card/60 text-foreground/60 border border-border/50",
-          "backdrop-blur-md shadow-lg",
+          "bg-foreground/10 text-foreground/60 border border-border/30",
+          "backdrop-blur-lg shadow-lg",
           "flex items-center justify-center",
           "hover:bg-card/80 hover:text-foreground hover:scale-110 active:scale-95",
           "transition-all duration-200",
