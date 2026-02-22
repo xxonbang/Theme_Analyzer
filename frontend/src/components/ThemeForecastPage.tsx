@@ -221,6 +221,9 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
 
   return (
     <div className="space-y-4 sm:space-y-6">
+      {/* 백테스트 적중률 */}
+      <BacktestDashboard stats={backtestStats} />
+
       {/* 헤더 카드 */}
       <Card className="shadow-sm">
         <CardContent className="p-3 sm:p-4 space-y-3">
@@ -266,9 +269,6 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           </div>
         </CardContent>
       </Card>
-
-      {/* 백테스트 적중률 */}
-      <BacktestDashboard stats={backtestStats} />
 
       {/* 오늘의 유망 테마 */}
       <Card className="shadow-sm">
