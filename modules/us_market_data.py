@@ -56,6 +56,11 @@ def fetch_us_market_data() -> Optional[Dict]:
         return result if result else None
     except Exception as e:
         print(f"  ⚠ US 시장 데이터 수집 실패: {e}")
+        try:
+            from modules.api_health import report_key_failure
+            report_key_failure("YFINANCE", "connection_error", str(e)[:200])
+        except Exception:
+            pass
         return None
 
 
@@ -133,6 +138,12 @@ def fetch_global_market_news() -> Optional[List[Dict]]:
         return result if result else None
     except Exception as e:
         print(f"  ⚠ Finnhub 글로벌 뉴스 수집 실패: {e}")
+        try:
+            from modules.api_health import report_key_failure
+            err_type = "rate_limit" if "429" in str(e) else "invalid"
+            report_key_failure("FINNHUB_API_KEY", err_type, str(e)[:200])
+        except Exception:
+            pass
         return None
 
 

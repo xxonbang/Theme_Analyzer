@@ -190,6 +190,14 @@ def main():
         else:
             print("  ⏭ Supabase 저장 건너뜀 (테스트 모드)")
 
+    # 정상 완료 시 알림 해제
+    try:
+        from modules.api_health import resolve_key_alert
+        resolve_key_alert("GEMINI_API_KEY")
+        resolve_key_alert("FINNHUB_API_KEY")
+    except Exception:
+        pass
+
     print("\n" + "=" * 50)
     print("✅ 유망 테마 예측 완료")
     print("=" * 50)

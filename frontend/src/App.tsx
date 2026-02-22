@@ -10,6 +10,8 @@ import { ThemeForecastPage } from "@/components/ThemeForecastPage"
 import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
 import { KosdaqIndexAlert } from "@/components/KosdaqIndexAlert"
+import { ApiKeyAlertBanner } from "@/components/ApiKeyAlertBanner"
+import { useApiAlerts } from "@/hooks/useApiAlerts"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
 import { useAuth } from "@/hooks/useAuth"
@@ -35,6 +37,7 @@ function App() {
     recordVisit()
     logActivity("page_view", { page: currentPage })
   }, [currentPage, recordVisit, logActivity])
+  const apiAlerts = useApiAlerts(isAdmin)
   const { data: currentData, loading, error, refreshFromAPI, refreshElapsed } = useStockData()
   const {
     groupedHistory,
@@ -392,6 +395,8 @@ function App() {
       </div>
 
       <main className="container px-3 sm:px-4 py-4 sm:py-6">
+        {apiAlerts.length > 0 && <ApiKeyAlertBanner alerts={apiAlerts} />}
+
         {error && !isViewingHistory && (
           <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg bg-warning/10 border border-warning/20 text-warning">
             <p className="text-xs sm:text-sm">{error} (이전 데이터를 표시합니다)</p>

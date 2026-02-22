@@ -85,6 +85,8 @@ jobs:
           GEMINI_API_KEY_03: ${{ secrets.GEMINI_API_KEY_03 }}
           GEMINI_API_KEY_04: ${{ secrets.GEMINI_API_KEY_04 }}
           GEMINI_API_KEY_05: ${{ secrets.GEMINI_API_KEY_05 }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           if [ "${{ github.event.inputs.skip_news }}" == "true" ]; then
             python main.py --skip-news

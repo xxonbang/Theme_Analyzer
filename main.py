@@ -152,6 +152,11 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print("  ✓ KIS API 연결 성공")
     except Exception as e:
         print(f"  ✗ KIS API 연결 실패: {e}")
+        try:
+            from modules.api_health import report_key_failure
+            report_key_failure("KIS_APP_KEY", "connection_error", str(e)[:200])
+        except Exception:
+            pass
         return
 
     # 2-1. 코스닥 지수 이동평균선 분석 (API 페이지당 50건 제한 → 여러 페이지 조회)
@@ -657,6 +662,13 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             print("  ✓ END 바리케이트 발송 완료")
         else:
             print("  ✗ END 바리케이트 발송 실패")
+
+    # 정상 완료 시 알림 해제
+    try:
+        from modules.api_health import resolve_key_alert
+        resolve_key_alert("KIS_APP_KEY")
+    except Exception:
+        pass
 
     print("\n" + "=" * 60)
     print("  완료!")

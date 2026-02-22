@@ -831,6 +831,12 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
                 print(f"  ⚠ 서버 오류 ({status}), 다음 키로 전환")
                 continue
             print(f"  ✗ Gemini API 오류 ({status}): {e}")
+            if status in (400, 401, 403):
+                try:
+                    from modules.api_health import report_key_failure
+                    report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
+                except Exception:
+                    pass
             return None
         except Exception as e:
             print(f"  ⚠ 경량 파이프라인 오류: {e}")
@@ -868,6 +874,12 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
                 print(f"  ⚠ 서버 오류 ({status}), 다음 키로 전환")
                 continue
             print(f"  ✗ Gemini API 오류 ({status}): {e}")
+            if status in (400, 401, 403):
+                try:
+                    from modules.api_health import report_key_failure
+                    report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
+                except Exception:
+                    pass
             return None
         except Exception as e:
             print(f"  ⚠ 2-Phase 실행 오류: {e}")
@@ -909,6 +921,12 @@ def _run_single_call_fallback(context: str, api_keys: List[str]) -> Optional[Dic
                         break
                 else:
                     print(f"  ✗ Gemini API 오류 ({status}): {e}")
+                    if status in (400, 401, 403):
+                        try:
+                            from modules.api_health import report_key_failure
+                            report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
+                        except Exception:
+                            pass
                     return None
             except json.JSONDecodeError as e:
                 print(f"  ⚠ JSON 파싱 실패: {e}")

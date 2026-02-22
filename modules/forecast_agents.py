@@ -33,6 +33,16 @@ def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Optional
     try:
         resp = requests.post(url, json=payload, timeout=180)
         resp.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        status = e.response.status_code if e.response is not None else 0
+        print(f"    ⚠ 에이전트 호출 실패: {e}")
+        if status in (400, 401, 403):
+            try:
+                from modules.api_health import report_key_failure
+                report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
+            except Exception:
+                pass
+        return None
     except Exception as e:
         print(f"    ⚠ 에이전트 호출 실패: {e}")
         return None

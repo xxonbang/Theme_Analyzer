@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
+import { useBacktestStats } from "@/hooks/useBacktestStats"
+import { BacktestDashboard } from "@/components/BacktestDashboard"
 import type { ForecastTheme, ForecastStock, StockCriteria } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
@@ -191,6 +193,7 @@ interface ThemeForecastPageProps {
 
 export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPageProps) {
   const { data, loading, error } = useThemeForecast()
+  const backtestStats = useBacktestStats()
 
   if (loading) {
     return (
@@ -256,9 +259,16 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
               <Clock className="w-3 h-3" />
               <span>— 예상 부각 시점</span>
             </span>
+            <span className="flex items-center gap-1">
+              <span className="text-amber-500 font-medium">추정</span>
+              <span>— 전일 거래 데이터 미확인 종목</span>
+            </span>
           </div>
         </CardContent>
       </Card>
+
+      {/* 백테스트 적중률 */}
+      <BacktestDashboard stats={backtestStats} />
 
       {/* 오늘의 유망 테마 */}
       <Card className="shadow-sm">
