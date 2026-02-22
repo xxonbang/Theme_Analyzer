@@ -361,7 +361,7 @@ def build_forecast_context(
         latest_data: 전일 latest.json 데이터
         theme_history: 최근 7일간 테마 분석 이력 [{date, themes: [...]}]
         us_data: 미국 시장 정량 데이터
-        sentiment_data: 시장 심리 지표 (Fear & Greed)
+        sentiment_data: 시장 심리 지표 (VIX 공포지수)
         momentum_scores: 테마 모멘텀 분석 결과
         rotation_data: 섹터 로테이션 분석 결과
     """
@@ -413,7 +413,8 @@ def build_forecast_context(
     # 시장 심리 지표
     if sentiment_data:
         lines.append("\n## 시장 심리 지표")
-        lines.append(f"- CNN Fear & Greed Index: {sentiment_data['score']} ({sentiment_data['rating']})")
+        lines.append(f"- VIX 공포지수: {sentiment_data['score']} ({sentiment_data['rating']})")
+        lines.append("  (VIX: 0~15 안정, 15~25 보통, 25~35 불안, 35+ 공포)")
 
     # 테마 모멘텀 분석
     if momentum_scores:

@@ -1,9 +1,5 @@
 """미국 시장 데이터 + 심리지표 + 테마 모멘텀 모듈"""
-import requests
-from datetime import datetime
 from typing import Dict, List, Optional
-
-from modules.utils import KST
 
 
 def fetch_us_market_data() -> Optional[Dict]:
@@ -46,23 +42,35 @@ def fetch_us_market_data() -> Optional[Dict]:
         return None
 
 
-def fetch_fear_greed_index() -> Optional[Dict]:
-    """CNN Fear & Greed Index 조회"""
+def fetch_vix_index() -> Optional[Dict]:
+    """VIX(공포지수) 조회 — yfinance 사용
+
+    VIX 수치별 시장 심리:
+      0~15  안정(Low)  | 15~25 보통(Normal)
+      25~35 불안(High) | 35+   공포(Extreme)
+    """
     try:
-        today = datetime.now(KST).strftime("%Y-%m-%d")
-        url = f"https://production.dataviz.cnn.io/index/fearandgreed/graphdata/{today}"
-        headers = {"User-Agent": "Mozilla/5.0"}
-        resp = requests.get(url, headers=headers, timeout=10)
-        resp.raise_for_status()
-        data = resp.json()
-        fg = data.get("fear_and_greed", {})
-        score = fg.get("score")
-        rating = fg.get("rating")
-        if score is not None:
-            return {"score": round(float(score), 2), "rating": rating or "N/A"}
-        return None
+        import yfinance as yf
+
+        vix = yf.Ticker("^VIX")
+        hist = vix.history(period="2d")
+        if hist.empty or len(hist) < 1:
+            return None
+
+        current = float(hist["Close"].iloc[-1])
+        # 심리 등급 판정
+        if current < 15:
+            rating = "안정 (Low Volatility)"
+        elif current < 25:
+            rating = "보통 (Normal)"
+        elif current < 35:
+            rating = "불안 (High Volatility)"
+        else:
+            rating = "공포 (Extreme Fear)"
+
+        return {"score": round(current, 2), "rating": rating}
     except Exception as e:
-        print(f"  ⚠ Fear & Greed Index 수집 실패: {e}")
+        print(f"  ⚠ VIX 지수 수집 실패: {e}")
         return None
 
 

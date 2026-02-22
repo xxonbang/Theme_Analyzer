@@ -22,7 +22,7 @@ from modules.theme_forecast import (
 )
 from modules.us_market_data import (
     fetch_us_market_data,
-    fetch_fear_greed_index,
+    fetch_vix_index,
     calculate_theme_momentum,
 )
 
@@ -67,11 +67,11 @@ def main():
     else:
         print("  ⚠ US 시장 데이터 수집 실패 (계속 진행)")
 
-    sentiment_data = fetch_fear_greed_index()
+    sentiment_data = fetch_vix_index()
     if sentiment_data:
-        print(f"  ✓ Fear & Greed Index: {sentiment_data['score']} ({sentiment_data['rating']})")
+        print(f"  ✓ VIX 공포지수: {sentiment_data['score']} ({sentiment_data['rating']})")
     else:
-        print("  ⚠ Fear & Greed Index 수집 실패 (계속 진행)")
+        print("  ⚠ VIX 지수 수집 실패 (계속 진행)")
 
     # Step 3: 테마 히스토리 + 모멘텀 분석
     print("\n[3/6] 테마 히스토리 + 모멘텀 분석...")
