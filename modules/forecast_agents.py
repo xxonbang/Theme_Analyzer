@@ -9,7 +9,9 @@ from typing import Dict, List, Optional
 
 from modules.theme_forecast import (
     GEMINI_API_URL,
+    GeminiDailyQuotaExhausted,
     _extract_text_from_response,
+    _gemini_post,
     _call_gemini_phase2,
     _self_consistency_vote,
 )
@@ -31,8 +33,9 @@ def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Optional
         payload["tools"] = [{"google_search": {}}]
 
     try:
-        resp = requests.post(url, json=payload, timeout=180)
-        resp.raise_for_status()
+        resp = _gemini_post(url, payload, timeout=180)
+    except GeminiDailyQuotaExhausted:
+        raise  # 파이프라인에서 키 로테이션 처리
     except requests.exceptions.HTTPError as e:
         status = e.response.status_code if e.response is not None else 0
         print(f"    ⚠ 에이전트 호출 실패: {e}")
@@ -228,6 +231,9 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
                 result = _call_gemini_phase2(reasoning, fallback_key)
                 if result:
                     break
+            except GeminiDailyQuotaExhausted:
+                print(f"    ⚠ 일일 할당 초과, 다음 키로 전환")
+                continue
             except Exception:
                 continue
 

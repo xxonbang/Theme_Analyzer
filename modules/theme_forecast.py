@@ -5,6 +5,7 @@
 오늘/단기/장기 유망 테마를 예측합니다.
 """
 import json
+import random
 import re
 import time
 import requests
@@ -17,6 +18,11 @@ from modules.utils import KST
 
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 ROOT_DIR = Path(__file__).parent.parent
+
+
+class GeminiDailyQuotaExhausted(Exception):
+    """429 RPD (일일 할당 초과) — 이 키의 일일 한도 소진, 다른 키로 전환 필요"""
+    pass
 
 
 def _get_api_keys() -> List[str]:
@@ -64,6 +70,85 @@ def _extract_json(text: str) -> Optional[Dict]:
     return None
 
 
+def _is_daily_quota(response: requests.Response) -> bool:
+    """429 응답이 일일 할당(RPD) 초과인지 판단"""
+    try:
+        body = response.json()
+        for detail in body.get("error", {}).get("details", []):
+            for violation in detail.get("violations", []):
+                if "PerDay" in violation.get("quotaId", ""):
+                    return True
+    except Exception:
+        pass
+    return False
+
+
+def _parse_retry_delay(response: requests.Response) -> Optional[float]:
+    """429 응답의 RetryInfo.retryDelay 파싱 (초 단위 float)"""
+    try:
+        body = response.json()
+        for detail in body.get("error", {}).get("details", []):
+            retry_delay = detail.get("retryDelay")
+            if retry_delay and isinstance(retry_delay, str):
+                # "1.5s" 형식
+                return float(retry_delay.rstrip("s"))
+    except Exception:
+        pass
+    return None
+
+
+def _gemini_post(url: str, payload: dict, timeout: int = 180, max_retries: int = 3) -> requests.Response:
+    """requests.post + raise_for_status 대체 — 에러 코드별 재시도 로직
+
+    같은 키로 최대 max_retries회 재시도. 실패 시 HTTPError 전파 → 파이프라인이 다음 키로 전환.
+    """
+    base_delay = 2
+
+    for attempt in range(max_retries):
+        resp = requests.post(url, json=payload, timeout=timeout)
+
+        if resp.ok:
+            return resp
+
+        status = resp.status_code
+
+        # 400/401/403: 즉시 raise (재시도 불가)
+        if status in (400, 401, 403):
+            resp.raise_for_status()
+
+        # 429: 할당 초과
+        if status == 429:
+            if _is_daily_quota(resp):
+                raise GeminiDailyQuotaExhausted("일일 API 할당 초과 (RPD)")
+            # RPM 또는 불명: backoff 재시도
+            if attempt < max_retries - 1:
+                server_delay = _parse_retry_delay(resp)
+                if server_delay:
+                    delay = server_delay + random.uniform(0, base_delay * 0.1)
+                else:
+                    delay = base_delay * (2 ** attempt) + random.uniform(0, base_delay * 0.1)
+                print(f"    ⏳ 429 Rate Limit, {delay:.1f}초 후 재시도 ({attempt + 1}/{max_retries})...")
+                time.sleep(delay)
+                continue
+            resp.raise_for_status()
+
+        # 500/502/503/504: backoff 재시도
+        if status in (500, 502, 503, 504):
+            if attempt < max_retries - 1:
+                delay = base_delay * (2 ** attempt) + random.uniform(0, base_delay * 0.1)
+                print(f"    ⏳ 서버 오류 ({status}), {delay:.1f}초 후 재시도 ({attempt + 1}/{max_retries})...")
+                time.sleep(delay)
+                continue
+            resp.raise_for_status()
+
+        # 기타 에러: 즉시 raise
+        resp.raise_for_status()
+
+    # 여기 도달하면 안 되지만 방어적으로
+    resp.raise_for_status()
+    return resp  # unreachable
+
+
 def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
     """Gemini API 호출 (Google Search grounding)"""
     url = f"{GEMINI_API_URL}?key={api_key}"
@@ -78,8 +163,7 @@ def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
         },
     }
 
-    resp = requests.post(url, json=payload, timeout=180)
-    resp.raise_for_status()
+    resp = _gemini_post(url, payload, timeout=180)
 
     data = resp.json()
     candidates = data.get("candidates", [])
@@ -126,8 +210,7 @@ def _call_gemini_phase1(prompt: str, api_key: str, use_search: bool = True) -> O
     if use_search:
         payload["tools"] = [{"google_search": {}}]
 
-    resp = requests.post(url, json=payload, timeout=180)
-    resp.raise_for_status()
+    resp = _gemini_post(url, payload, timeout=180)
 
     text = _extract_text_from_response(resp.json())
     return text.strip() if text.strip() else None
@@ -152,20 +235,20 @@ def _call_gemini_phase2(reasoning: str, api_key: str) -> Optional[Dict]:
     }
 
     try:
-        resp = requests.post(url, json=payload, timeout=120)
-        resp.raise_for_status()
+        resp = _gemini_post(url, payload, timeout=120)
         text = _extract_text_from_response(resp.json())
         if text.strip():
             result = _extract_json(text)
             if result:
                 return result
+    except GeminiDailyQuotaExhausted:
+        raise  # fallback으로 빠지지 않도록 전파
     except Exception:
         pass  # response_schema 실패 시 아래 fallback으로
 
     # Fallback: responseMimeType 없이 재시도
     payload["generationConfig"].pop("responseMimeType", None)
-    resp = requests.post(url, json=payload, timeout=120)
-    resp.raise_for_status()
+    resp = _gemini_post(url, payload, timeout=120)
 
     text = _extract_text_from_response(resp.json())
     if not text.strip():
@@ -822,6 +905,9 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
                 return result
 
             print(f"  ⚠ Phase 2 실패, 다음 키로 전환")
+        except GeminiDailyQuotaExhausted:
+            print(f"  ⚠ 일일 할당 초과 (키 {key_idx + 1}), 다음 키로 전환")
+            continue
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else 0
             if status in (429, 503):
@@ -865,6 +951,9 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
                 return result
 
             print(f"  ⚠ Phase 2 실패, 다음 키로 전환")
+        except GeminiDailyQuotaExhausted:
+            print(f"  ⚠ 일일 할당 초과 (키 {key_idx + 1}), 다음 키로 전환")
+            continue
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else 0
             if status in (429, 503):
@@ -889,54 +978,38 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
 
 
 def _run_single_call_fallback(context: str, api_keys: List[str]) -> Optional[Dict]:
-    """기존 단일 호출 fallback"""
+    """기존 단일 호출 fallback (재시도는 _gemini_post에서 처리)"""
     prompt = _build_forecast_prompt(context)
-    max_retries_per_key = 3
 
     for key_idx, api_key in enumerate(api_keys):
-        for attempt in range(max_retries_per_key):
-            try:
-                print(f"  Fallback 호출 중... (키 {key_idx + 1}/{len(api_keys)}, 시도 {attempt + 1}/{max_retries_per_key})")
-                result = _call_gemini(prompt, api_key)
-                if result:
-                    return result
-                print("  ⚠ Gemini 응답이 비어있습니다")
-            except requests.exceptions.HTTPError as e:
-                status = e.response.status_code if e.response is not None else 0
-                if status in (429, 503):
-                    if attempt < max_retries_per_key - 1:
-                        wait = 2 ** (attempt + 1)
-                        print(f"  ⚠ API 제한 ({status}), {wait}초 후 재시도...")
-                        time.sleep(wait)
-                        continue
-                    else:
-                        break
-                elif status in (500, 502, 504):
-                    if attempt < max_retries_per_key - 1:
-                        wait = 2 ** (attempt + 1)
-                        print(f"  ⚠ 서버 오류 ({status}), {wait}초 후 재시도...")
-                        time.sleep(wait)
-                        continue
-                    else:
-                        break
-                else:
-                    print(f"  ✗ Gemini API 오류 ({status}): {e}")
-                    if status in (400, 401, 403):
-                        try:
-                            from modules.api_health import report_key_failure
-                            report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
-                        except Exception:
-                            pass
-                    return None
-            except json.JSONDecodeError as e:
-                print(f"  ⚠ JSON 파싱 실패: {e}")
-                if attempt < max_retries_per_key - 1:
-                    time.sleep(2)
-                    continue
-                break
-            except Exception as e:
-                print(f"  ✗ API 호출 실패: {e}")
-                return None
+        try:
+            print(f"  Fallback 호출 중... (키 {key_idx + 1}/{len(api_keys)})")
+            result = _call_gemini(prompt, api_key)
+            if result:
+                return result
+            print("  ⚠ Gemini 응답이 비어있습니다")
+        except GeminiDailyQuotaExhausted:
+            print(f"  ⚠ 일일 할당 초과 (키 {key_idx + 1}), 다음 키로 전환")
+            continue
+        except requests.exceptions.HTTPError as e:
+            status = e.response.status_code if e.response is not None else 0
+            if status in (429, 503):
+                print(f"  ⚠ API 제한 ({status}), 다음 키로 전환")
+                continue
+            if status in (500, 502, 504):
+                print(f"  ⚠ 서버 오류 ({status}), 다음 키로 전환")
+                continue
+            print(f"  ✗ Gemini API 오류 ({status}): {e}")
+            if status in (400, 401, 403):
+                try:
+                    from modules.api_health import report_key_failure
+                    report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
+                except Exception:
+                    pass
+            return None
+        except Exception as e:
+            print(f"  ✗ API 호출 실패: {e}")
+            return None
 
     return None
 
