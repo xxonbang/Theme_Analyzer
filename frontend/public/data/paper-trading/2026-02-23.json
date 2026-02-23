@@ -1,0 +1,178 @@
+{
+  "trade_date": "2026-02-23",
+  "morning_timestamp": "2026-02-23 09:16:24",
+  "collected_at": "2026-02-23 06:40:34",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-02-23 09:16:24",
+      "prices": {
+        "000400": 3280,
+        "085620": 16120,
+        "000540": 7140,
+        "012510": 118700,
+        "389140": 13800,
+        "006340": 4890,
+        "035810": 7720,
+        "066360": 1263
+      }
+    },
+    {
+      "timestamp": "2026-02-23 09:39:45",
+      "prices": {
+        "000400": 2715,
+        "085620": 15620,
+        "000540": 6270,
+        "012510": 118300,
+        "389140": 13950,
+        "006340": 5330,
+        "035810": 7720,
+        "066360": 1202
+      }
+    },
+    {
+      "timestamp": "2026-02-23 11:42:39",
+      "prices": {
+        "000400": 2645,
+        "085620": 14930,
+        "012510": 118600,
+        "389140": 13695,
+        "006340": 5440,
+        "035810": 7720,
+        "066360": 1235
+      }
+    },
+    {
+      "timestamp": "2026-02-23 13:47:47",
+      "prices": {
+        "000400": 3080,
+        "085620": 16120,
+        "000540": 6950,
+        "012510": 118700,
+        "389140": 13420,
+        "006340": 5440,
+        "035810": 7720,
+        "066360": 1179
+      }
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000400",
+      "name": "롯데손해보험",
+      "theme": "보험업 강세",
+      "buy_price": 3280,
+      "close_price": 2725,
+      "profit_rate": -16.92,
+      "profit_amount": -555,
+      "high_price": 3280,
+      "high_time": "09:06",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "085620",
+      "name": "미래에셋생명",
+      "theme": "보험업 강세",
+      "buy_price": 16120,
+      "close_price": 16120,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 16120,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "000540",
+      "name": "흥국화재",
+      "theme": "보험업 강세",
+      "buy_price": 7140,
+      "close_price": 6590,
+      "profit_rate": -7.7,
+      "profit_amount": -550,
+      "high_price": 7480,
+      "high_time": "09:05",
+      "high_profit_rate": 4.76,
+      "high_profit_amount": 340
+    },
+    {
+      "code": "012510",
+      "name": "더존비즈온",
+      "theme": "IT 솔루션 및 콘텐츠",
+      "buy_price": 118700,
+      "close_price": 118600,
+      "profit_rate": -0.08,
+      "profit_amount": -100,
+      "high_price": 119000,
+      "high_time": "09:02",
+      "high_profit_rate": 0.25,
+      "high_profit_amount": 300
+    },
+    {
+      "code": "389140",
+      "name": "포바이포",
+      "theme": "IT 솔루션 및 콘텐츠",
+      "buy_price": 13800,
+      "close_price": 13280,
+      "profit_rate": -3.77,
+      "profit_amount": -520,
+      "high_price": 14710,
+      "high_time": "09:08",
+      "high_profit_rate": 6.59,
+      "high_profit_amount": 910
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전력 인프라 및 전선",
+      "buy_price": 4890,
+      "close_price": 5440,
+      "profit_rate": 11.25,
+      "profit_amount": 550,
+      "high_price": 5440,
+      "high_time": "15:30",
+      "high_profit_rate": 11.25,
+      "high_profit_amount": 550
+    },
+    {
+      "code": "035810",
+      "name": "이지홀딩스",
+      "theme": "식품/육계 관련주",
+      "buy_price": 7720,
+      "close_price": 7720,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 7720,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "066360",
+      "name": "체리부로",
+      "theme": "식품/육계 관련주",
+      "buy_price": 1263,
+      "close_price": 1171,
+      "profit_rate": -7.28,
+      "profit_amount": -92,
+      "high_price": 1344,
+      "high_time": "10:41",
+      "high_profit_rate": 6.41,
+      "high_profit_amount": 81
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 1,
+    "loss_stocks": 5,
+    "total_invested": 172913,
+    "total_value": 171646,
+    "total_profit": -1267,
+    "total_profit_rate": -0.73,
+    "high_total_value": 175094,
+    "high_total_profit": 2181,
+    "high_total_profit_rate": 1.26,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 0
+  }
+}
