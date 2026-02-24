@@ -19,7 +19,29 @@ const CATEGORY_LABEL: Record<string, string> = {
   long_term: "장기",
 }
 
-function ThemeListPopup({ stock, onClose }: { stock: StockPrediction; onClose: () => void }) {
+type CategoryFilter = "all" | "today" | "short_term" | "long_term"
+
+/** 필터 기준으로 종목의 수익률·적중 여부를 결정 */
+function getStockDisplay(stock: StockPrediction, filter: CategoryFilter): { returnPct: number | null; hit: boolean | null } {
+  if (filter !== "all") {
+    if (!stock.evaluatedByCategory[filter]) return { returnPct: null, hit: null }
+    const ret = stock.returnByCategory[filter] ?? null
+    return { returnPct: ret, hit: ret != null ? ret >= 2.0 : null }
+  }
+  // 전체: 카테고리가 1개면 평가, 여러 개면 보류
+  const categories = [...new Set(stock.themes.map(t => t.category))]
+  if (categories.length > 1) return { returnPct: null, hit: null }
+  const cat = categories[0]
+  if (!stock.evaluatedByCategory[cat]) return { returnPct: null, hit: null }
+  const ret = stock.returnByCategory[cat] ?? null
+  return { returnPct: ret, hit: ret != null ? ret >= 2.0 : null }
+}
+
+function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
+  stockName: string; stockCode: string
+  themes: StockPrediction["themes"]
+  onClose: () => void
+}) {
   useEffect(() => {
     const scrollY = window.scrollY
     document.body.style.overflow = "hidden"
@@ -45,13 +67,13 @@ function ThemeListPopup({ stock, onClose }: { stock: StockPrediction; onClose: (
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold">{stock.name} ({stock.code}) 예측 테마</span>
+          <span className="text-sm font-semibold">{stockName} ({stockCode}) 예측 테마</span>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>
         <div className="space-y-1.5">
-          {stock.themes.map((t, i) => {
+          {themes.map((t, i) => {
             const sc = STATUS_CONFIG[t.status] || STATUS_CONFIG.active
             return (
               <div key={i} className="flex items-center gap-1.5 flex-wrap">
@@ -71,11 +93,13 @@ function ThemeListPopup({ stock, onClose }: { stock: StockPrediction; onClose: (
   )
 }
 
-function StockRow({ stock }: { stock: StockPrediction }) {
+function StockRow({ stock, categoryFilter }: { stock: StockPrediction; categoryFilter: CategoryFilter }) {
   const [showThemes, setShowThemes] = useState(false)
+  const { returnPct, hit } = getStockDisplay(stock, categoryFilter)
+  const filteredThemes = categoryFilter === "all" ? stock.themes : stock.themes.filter(t => t.category === categoryFilter)
 
-  const hitIcon = stock.hit === true ? "O" : stock.hit === false ? "X" : "-"
-  const hitColor = stock.hit === true ? "text-emerald-600" : stock.hit === false ? "text-red-500" : "text-slate-400"
+  const hitIcon = hit === true ? "O" : hit === false ? "X" : "-"
+  const hitColor = hit === true ? "text-emerald-600" : hit === false ? "text-red-500" : "text-slate-400"
 
   return (
     <>
@@ -91,29 +115,29 @@ function StockRow({ stock }: { stock: StockPrediction }) {
           <span className="text-[10px] text-muted-foreground">({stock.code})</span>
           <ExternalLink className="w-2.5 h-2.5 opacity-30 shrink-0" />
         </a>
-        {stock.returnPct != null && (
-          <span className={cn("tabular-nums font-medium shrink-0", stock.returnPct > 0 ? "text-red-500" : stock.returnPct < 0 ? "text-blue-500" : "")}>
-            {stock.returnPct > 0 ? "+" : ""}{stock.returnPct}%
-          </span>
-        )}
-        {stock.excess != null && (
-          <span className={cn("text-[10px] tabular-nums shrink-0", stock.excess > 0 ? "text-red-400" : "text-blue-400")}>
-            초과{stock.excess > 0 ? "+" : ""}{stock.excess}%p
+        {returnPct != null && (
+          <span className={cn("tabular-nums font-medium shrink-0", returnPct > 0 ? "text-red-500" : returnPct < 0 ? "text-blue-500" : "")}>
+            {returnPct > 0 ? "+" : ""}{returnPct}%
           </span>
         )}
         <button
           onClick={() => setShowThemes(true)}
           className="ml-auto text-[10px] text-violet-500 hover:text-violet-700 whitespace-nowrap shrink-0"
         >
-          {stock.themes.length}개 테마
+          {filteredThemes.length}개 테마
         </button>
       </div>
-      {showThemes && <ThemeListPopup stock={stock} onClose={() => setShowThemes(false)} />}
+      {showThemes && (
+        <ThemeListPopup
+          stockName={stock.name}
+          stockCode={stock.code}
+          themes={filteredThemes}
+          onClose={() => setShowThemes(false)}
+        />
+      )}
     </>
   )
 }
-
-type CategoryFilter = "all" | "today" | "short_term" | "long_term"
 
 function filterStocks(stocks: StockPrediction[], filter: CategoryFilter) {
   if (filter === "all") return stocks
@@ -122,9 +146,16 @@ function filterStocks(stocks: StockPrediction[], filter: CategoryFilter) {
 
 function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; categoryFilter: CategoryFilter }) {
   const [expanded, setExpanded] = useState(false)
-  const stocks = filterStocks(group.stocks, categoryFilter)
-  const evaluable = stocks.filter(s => s.hit != null)
-  const hitCount = evaluable.filter(s => s.hit).length
+  const filtered = filterStocks(group.stocks, categoryFilter)
+  const stocks = [...filtered].sort((a, b) => {
+    const ra = getStockDisplay(a, categoryFilter).returnPct
+    const rb = getStockDisplay(b, categoryFilter).returnPct
+    return (rb ?? -999) - (ra ?? -999)
+  })
+
+  const displays = stocks.map(s => getStockDisplay(s, categoryFilter))
+  const evaluable = displays.filter(d => d.hit != null)
+  const hitCount = evaluable.filter(d => d.hit).length
   const missCount = evaluable.length - hitCount
 
   if (stocks.length === 0) return null
@@ -151,7 +182,7 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
       {expanded && (
         <div className="px-1 pb-2 space-y-0.5">
           {stocks.map(stock => (
-            <StockRow key={stock.code} stock={stock} />
+            <StockRow key={stock.code} stock={stock} categoryFilter={categoryFilter} />
           ))}
         </div>
       )}

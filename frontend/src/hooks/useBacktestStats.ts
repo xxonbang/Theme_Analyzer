@@ -53,18 +53,15 @@ export function useBacktestStats(): BacktestStats {
           try { perf = JSON.parse(perf) } catch { perf = null }
         }
 
-        const indexReturn = perf?.["index_return"] ?? null
-
         for (const s of stocks as { code: string; name: string }[]) {
           const key = `${row.prediction_date}:${s.code}`
           if (seen.has(key)) continue
           seen.add(key)
 
           const ret = perf?.[s.code] ?? null
-          if (ret == null || indexReturn == null) continue
+          if (ret == null) continue
 
-          const excess = ret - indexReturn
-          const isHit = excess > 2.0
+          const isHit = ret >= 2.0
 
           totalCount++
           if (isHit) totalHit++

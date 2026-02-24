@@ -21,18 +21,14 @@ export interface PredictionsByDate {
 export interface StockPrediction {
   code: string
   name: string
-  returnPct: number | null
-  indexReturn: number | null
-  excess: number | null
-  hit: boolean | null
+  returnByCategory: Record<string, number | null>
+  evaluatedByCategory: Record<string, boolean>
   themes: { theme_name: string; status: string; confidence: string; category: string }[]
 }
 
 export interface StockPredictionsByDate {
   date: string
   stocks: StockPrediction[]
-  hitCount: number
-  totalEvaluable: number
 }
 
 export interface PredictionHistoryState {
@@ -47,26 +43,31 @@ function toStockDates(dates: PredictionsByDate[]): StockPredictionsByDate[] {
 
     for (const pred of predictions) {
       const perf = pred.actual_performance
-      const indexReturn = perf?.["index_return"] ?? null
+      const evaluated = pred.status === "hit" || pred.status === "missed"
 
       for (const s of pred.leader_stocks) {
-        const existing = stockMap.get(s.code)
+        const ret = perf?.[s.code] ?? null
         const themeInfo = { theme_name: pred.theme_name, status: pred.status, confidence: pred.confidence, category: pred.category }
+        const existing = stockMap.get(s.code)
 
         if (existing) {
           existing.themes.push(themeInfo)
+          if (existing.returnByCategory[pred.category] == null && ret != null) {
+            existing.returnByCategory[pred.category] = ret
+          }
+          if (evaluated) existing.evaluatedByCategory[pred.category] = true
         } else {
-          const ret = perf?.[s.code] ?? null
-          const excess = ret != null && indexReturn != null ? Math.round((ret - indexReturn) * 10) / 10 : null
-          const hit = excess != null ? excess > 2.0 : null
-          stockMap.set(s.code, { code: s.code, name: s.name, returnPct: ret, indexReturn, excess, hit, themes: [themeInfo] })
+          stockMap.set(s.code, {
+            code: s.code, name: s.name,
+            returnByCategory: { [pred.category]: ret },
+            evaluatedByCategory: { [pred.category]: evaluated },
+            themes: [themeInfo],
+          })
         }
       }
     }
 
-    const stocks = Array.from(stockMap.values()).sort((a, b) => (b.returnPct ?? -999) - (a.returnPct ?? -999))
-    const evaluable = stocks.filter(s => s.hit != null)
-    return { date, stocks, hitCount: evaluable.filter(s => s.hit).length, totalEvaluable: evaluable.length }
+    return { date, stocks: Array.from(stockMap.values()) }
   })
 }
 
