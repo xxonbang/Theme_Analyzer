@@ -153,7 +153,7 @@ def fetch_daily_index_return(target_date: str) -> float:
 def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float) -> str:
     """단일 예측 평가
 
-    hit 기준: 수익률 확인 가능한 대장주 중 과반수가 지수 대비 +1%p 초과 수익
+    hit 기준: 수익률 확인 가능한 대장주 중 과반수가 지수 대비 +2%p 초과 수익
     (1개만 확인 가능한 경우 해당 종목 기준 판정)
     """
     category = prediction.get("category", "today")
@@ -202,13 +202,13 @@ def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float) ->
         stock_return = returns.get(code)
         if stock_return is not None:
             excess = stock_return - index_return
-            evaluated.append(excess > 1.0)
+            evaluated.append(excess > 2.0)
 
     # 평가 가능 종목이 없으면 expired
     if not evaluated:
         return "expired"
 
-    # 과반수가 지수 대비 +1%p 초과하면 hit
+    # 과반수가 지수 대비 +2%p 초과하면 hit
     hit_count = sum(1 for is_hit in evaluated if is_hit)
     threshold = max(1, (len(evaluated) + 1) // 2)  # 과반수 (1개면 1, 2개면 1, 3개면 2)
     if hit_count >= threshold:

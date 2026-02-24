@@ -21,7 +21,6 @@ const CATEGORY_LABEL: Record<string, string> = {
 function PredictionRow({ pred }: { pred: PredictionRecord }) {
   const sc = STATUS_CONFIG[pred.status] || STATUS_CONFIG.active
   const perf = pred.actual_performance
-  const indexReturn = perf?.index_return
 
   return (
     <div className="flex items-center justify-between gap-2 py-1.5">
@@ -60,11 +59,6 @@ function PredictionRow({ pred }: { pred: PredictionRecord }) {
                 </a>
               )
             })}
-            {indexReturn != null && (
-              <span className="text-[10px] text-muted-foreground">
-                KOSPI {indexReturn > 0 ? "+" : ""}{indexReturn}%
-              </span>
-            )}
           </div>
         )}
       </div>
