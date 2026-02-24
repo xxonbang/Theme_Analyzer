@@ -18,14 +18,62 @@ export interface PredictionsByDate {
   predictions: PredictionRecord[]
 }
 
+export interface StockPrediction {
+  code: string
+  name: string
+  returnPct: number | null
+  indexReturn: number | null
+  excess: number | null
+  hit: boolean | null
+  themes: { theme_name: string; status: string; confidence: string; category: string }[]
+}
+
+export interface StockPredictionsByDate {
+  date: string
+  stocks: StockPrediction[]
+  hitCount: number
+  totalEvaluable: number
+}
+
 export interface PredictionHistoryState {
   dates: PredictionsByDate[]
+  stockDates: StockPredictionsByDate[]
   loading: boolean
+}
+
+function toStockDates(dates: PredictionsByDate[]): StockPredictionsByDate[] {
+  return dates.map(({ date, predictions }) => {
+    const stockMap = new Map<string, StockPrediction>()
+
+    for (const pred of predictions) {
+      const perf = pred.actual_performance
+      const indexReturn = perf?.["index_return"] ?? null
+
+      for (const s of pred.leader_stocks) {
+        const existing = stockMap.get(s.code)
+        const themeInfo = { theme_name: pred.theme_name, status: pred.status, confidence: pred.confidence, category: pred.category }
+
+        if (existing) {
+          existing.themes.push(themeInfo)
+        } else {
+          const ret = perf?.[s.code] ?? null
+          const excess = ret != null && indexReturn != null ? Math.round((ret - indexReturn) * 10) / 10 : null
+          const hit = excess != null ? excess > 2.0 : null
+          stockMap.set(s.code, { code: s.code, name: s.name, returnPct: ret, indexReturn, excess, hit, themes: [themeInfo] })
+        }
+      }
+    }
+
+    const stocks = Array.from(stockMap.values()).sort((a, b) => (b.returnPct ?? -999) - (a.returnPct ?? -999))
+    const evaluable = stocks.filter(s => s.hit != null)
+    return { date, stocks, hitCount: evaluable.filter(s => s.hit).length, totalEvaluable: evaluable.length }
+  })
 }
 
 export function usePredictionHistory(): PredictionHistoryState {
   const [state, setState] = useState<PredictionHistoryState>({
     dates: [],
+    stockDates: [],
     loading: true,
   })
 
@@ -40,7 +88,7 @@ export function usePredictionHistory(): PredictionHistoryState {
         .limit(200)
 
       if (error || !data) {
-        setState({ dates: [], loading: false })
+        setState({ dates: [], stockDates: [], loading: false })
         return
       }
 
@@ -71,7 +119,7 @@ export function usePredictionHistory(): PredictionHistoryState {
         .sort(([a], [b]) => b.localeCompare(a))
         .map(([date, predictions]) => ({ date, predictions }))
 
-      setState({ dates, loading: false })
+      setState({ dates, stockDates: toStockDates(dates), loading: false })
     }
 
     fetchHistory()

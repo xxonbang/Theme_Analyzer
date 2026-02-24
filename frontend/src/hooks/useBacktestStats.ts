@@ -26,7 +26,7 @@ export function useBacktestStats(): BacktestStats {
     const fetch = async () => {
       const { data, error } = await supabase
         .from("theme_predictions")
-        .select("status, confidence, category")
+        .select("prediction_date, status, confidence, category, leader_stocks, actual_performance")
         .in("status", ["hit", "missed"])
 
       if (error || !data) {
@@ -34,19 +34,51 @@ export function useBacktestStats(): BacktestStats {
         return
       }
 
+      // 종목 기준 집계: 날짜+종목코드로 중복 제거
+      const seen = new Set<string>()
+      let totalCount = 0
       let totalHit = 0
       const byConf: Record<string, { total: number; hit: number }> = {}
       const byCat: Record<string, { total: number; hit: number }> = {}
 
       for (const row of data) {
-        const isHit = row.status === "hit"
-        if (isHit) totalHit++
+        let stocks = row.leader_stocks
+        if (typeof stocks === "string") {
+          try { stocks = JSON.parse(stocks) } catch { stocks = [] }
+        }
+        if (!Array.isArray(stocks)) stocks = []
 
-        for (const [map, key] of [[byConf, row.confidence], [byCat, row.category]] as const) {
-          const k = (key as string) || "N/A"
-          if (!map[k]) map[k] = { total: 0, hit: 0 }
-          map[k].total++
-          if (isHit) map[k].hit++
+        let perf = row.actual_performance
+        if (typeof perf === "string") {
+          try { perf = JSON.parse(perf) } catch { perf = null }
+        }
+
+        const indexReturn = perf?.["index_return"] ?? null
+
+        for (const s of stocks as { code: string; name: string }[]) {
+          const key = `${row.prediction_date}:${s.code}`
+          if (seen.has(key)) continue
+          seen.add(key)
+
+          const ret = perf?.[s.code] ?? null
+          if (ret == null || indexReturn == null) continue
+
+          const excess = ret - indexReturn
+          const isHit = excess > 2.0
+
+          totalCount++
+          if (isHit) totalHit++
+
+          const conf = row.confidence || "N/A"
+          const cat = row.category || "N/A"
+
+          if (!byConf[conf]) byConf[conf] = { total: 0, hit: 0 }
+          byConf[conf].total++
+          if (isHit) byConf[conf].hit++
+
+          if (!byCat[cat]) byCat[cat] = { total: 0, hit: 0 }
+          byCat[cat].total++
+          if (isHit) byCat[cat].hit++
         }
       }
 
@@ -54,7 +86,7 @@ export function useBacktestStats(): BacktestStats {
         Object.fromEntries(Object.entries(m).map(([k, v]) => [k, makeGroup(v.total, v.hit)]))
 
       setStats({
-        overall: makeGroup(data.length, totalHit),
+        overall: makeGroup(totalCount, totalHit),
         byConfidence: toGroups(byConf),
         byCategory: toGroups(byCat),
         loading: false,

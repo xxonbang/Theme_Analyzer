@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ChevronUp, History, ExternalLink } from "lucide-react"
+import { ChevronDown, ChevronUp, History, X, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { PredictionsByDate, PredictionRecord } from "@/hooks/usePredictionHistory"
+import type { StockPrediction, StockPredictionsByDate } from "@/hooks/usePredictionHistory"
 
 const STATUS_CONFIG: Record<string, { label: string; cls: string }> = {
   hit: { label: "적중", cls: "bg-emerald-100 text-emerald-700" },
@@ -18,59 +19,103 @@ const CATEGORY_LABEL: Record<string, string> = {
   long_term: "장기",
 }
 
-function PredictionRow({ pred }: { pred: PredictionRecord }) {
-  const sc = STATUS_CONFIG[pred.status] || STATUS_CONFIG.active
-  const perf = pred.actual_performance
+function ThemeListPopup({ stock, onClose }: { stock: StockPrediction; onClose: () => void }) {
+  useEffect(() => {
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
+    }
+  }, [])
 
-  return (
-    <div className="flex items-center justify-between gap-2 py-1.5">
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <Badge className={cn("text-[9px] sm:text-[10px] px-1.5 py-0", sc.cls)}>{sc.label}</Badge>
-          <Badge variant="outline" className="text-[9px] sm:text-[10px] px-1.5 py-0">
-            {CATEGORY_LABEL[pred.category] || pred.category}
-          </Badge>
-          <span className="text-xs sm:text-sm font-medium truncate">{pred.theme_name}</span>
-          <span className="text-[10px] text-muted-foreground">{pred.confidence}</span>
+  return createPortal(
+    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+      <div className="absolute inset-0 bg-black/25" onClick={onClose} />
+      <div className="relative w-full sm:w-80 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 sm:p-4">
+        <div className="sm:hidden flex justify-center mb-2">
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
-        {/* 대장주 + 수익률 */}
-        {pred.leader_stocks.length > 0 && (
-          <div className="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5 pl-0.5">
-            {pred.leader_stocks.slice(0, 3).map((s) => {
-              const ret = perf?.[s.code]
-              return (
-                <a
-                  key={s.code}
-                  href={`https://m.stock.naver.com/domestic/stock/${s.code}/total`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 text-[10px] sm:text-xs text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {s.name}
-                  {ret != null && (
-                    <span className={cn(
-                      "font-medium",
-                      ret > 0 ? "text-red-500" : ret < 0 ? "text-blue-500" : ""
-                    )}>
-                      {ret > 0 ? "+" : ""}{ret}%
-                    </span>
-                  )}
-                  <ExternalLink className="w-2.5 h-2.5 opacity-30" />
-                </a>
-              )
-            })}
-          </div>
-        )}
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-semibold">{stock.name} ({stock.code}) 예측 테마</span>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="space-y-1.5">
+          {stock.themes.map((t, i) => {
+            const sc = STATUS_CONFIG[t.status] || STATUS_CONFIG.active
+            return (
+              <div key={i} className="flex items-center gap-1.5 flex-wrap">
+                <Badge className={cn("text-[9px] px-1.5 py-0", sc.cls)}>{sc.label}</Badge>
+                <Badge variant="outline" className="text-[9px] px-1.5 py-0">
+                  {CATEGORY_LABEL[t.category] || t.category}
+                </Badge>
+                <span className="text-xs truncate">{t.theme_name}</span>
+                <span className="text-[10px] text-muted-foreground">{t.confidence}</span>
+              </div>
+            )
+          })}
+        </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 
-function DateGroup({ group }: { group: PredictionsByDate }) {
+function StockRow({ stock }: { stock: StockPrediction }) {
+  const [showThemes, setShowThemes] = useState(false)
+
+  const hitIcon = stock.hit === true ? "O" : stock.hit === false ? "X" : "-"
+  const hitColor = stock.hit === true ? "text-emerald-600" : stock.hit === false ? "text-red-500" : "text-slate-400"
+
+  return (
+    <>
+      <div className="flex items-center gap-1.5 py-1.5 text-xs sm:text-sm">
+        <span className={cn("font-bold w-4 text-center shrink-0", hitColor)}>{hitIcon}</span>
+        <a
+          href={`https://m.stock.naver.com/domestic/stock/${stock.code}/total`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium truncate hover:underline inline-flex items-center gap-0.5"
+        >
+          {stock.name}
+          <span className="text-[10px] text-muted-foreground">({stock.code})</span>
+          <ExternalLink className="w-2.5 h-2.5 opacity-30 shrink-0" />
+        </a>
+        {stock.returnPct != null && (
+          <span className={cn("tabular-nums font-medium shrink-0", stock.returnPct > 0 ? "text-red-500" : stock.returnPct < 0 ? "text-blue-500" : "")}>
+            {stock.returnPct > 0 ? "+" : ""}{stock.returnPct}%
+          </span>
+        )}
+        {stock.excess != null && (
+          <span className={cn("text-[10px] tabular-nums shrink-0", stock.excess > 0 ? "text-red-400" : "text-blue-400")}>
+            초과{stock.excess > 0 ? "+" : ""}{stock.excess}%p
+          </span>
+        )}
+        <button
+          onClick={() => setShowThemes(true)}
+          className="ml-auto text-[10px] text-violet-500 hover:text-violet-700 whitespace-nowrap shrink-0"
+        >
+          {stock.themes.length}개 테마
+        </button>
+      </div>
+      {showThemes && <ThemeListPopup stock={stock} onClose={() => setShowThemes(false)} />}
+    </>
+  )
+}
+
+function DateGroup({ group }: { group: StockPredictionsByDate }) {
   const [expanded, setExpanded] = useState(false)
-  const hitCount = group.predictions.filter(p => p.status === "hit").length
-  const missCount = group.predictions.filter(p => p.status === "missed").length
-  const activeCount = group.predictions.filter(p => p.status === "active").length
+  const missCount = group.totalEvaluable - group.hitCount
 
   return (
     <div className="border-b border-border/50 last:border-0">
@@ -80,12 +125,9 @@ function DateGroup({ group }: { group: PredictionsByDate }) {
       >
         <div className="flex items-center gap-2 text-xs sm:text-sm">
           <span className="font-medium tabular-nums">{group.date}</span>
-          <span className="text-muted-foreground">
-            {group.predictions.length}건
-          </span>
-          {hitCount > 0 && <span className="text-emerald-600 text-[10px]">{hitCount}적중</span>}
+          <span className="text-muted-foreground">{group.stocks.length}종목</span>
+          {group.hitCount > 0 && <span className="text-emerald-600 text-[10px]">{group.hitCount}적중</span>}
           {missCount > 0 && <span className="text-red-500 text-[10px]">{missCount}미스</span>}
-          {activeCount > 0 && <span className="text-blue-500 text-[10px]">{activeCount}평가중</span>}
         </div>
         {expanded ? (
           <ChevronUp className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -96,8 +138,8 @@ function DateGroup({ group }: { group: PredictionsByDate }) {
 
       {expanded && (
         <div className="px-1 pb-2 space-y-0.5">
-          {group.predictions.map(pred => (
-            <PredictionRow key={pred.id} pred={pred} />
+          {group.stocks.map(stock => (
+            <StockRow key={stock.code} stock={stock} />
           ))}
         </div>
       )}
@@ -105,10 +147,10 @@ function DateGroup({ group }: { group: PredictionsByDate }) {
   )
 }
 
-export function PredictionHistory({ dates }: { dates: PredictionsByDate[] }) {
+export function PredictionHistory({ stockDates }: { stockDates: StockPredictionsByDate[] }) {
   const [expanded, setExpanded] = useState(false)
 
-  if (dates.length === 0) return null
+  if (stockDates.length === 0) return null
 
   return (
     <Card className="shadow-sm">
@@ -120,7 +162,7 @@ export function PredictionHistory({ dates }: { dates: PredictionsByDate[] }) {
           <div className="flex items-center gap-2 text-sm">
             <History className="w-4 h-4 text-violet-500 shrink-0" />
             <span className="font-medium">예측 이력</span>
-            <span className="text-muted-foreground">{dates.length}일</span>
+            <span className="text-muted-foreground">{stockDates.length}일</span>
           </div>
           {expanded ? (
             <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -131,7 +173,7 @@ export function PredictionHistory({ dates }: { dates: PredictionsByDate[] }) {
 
         {expanded && (
           <div className="px-3 sm:px-4 pb-3 sm:pb-4">
-            {dates.map(group => (
+            {stockDates.map(group => (
               <DateGroup key={group.date} group={group} />
             ))}
           </div>

@@ -228,7 +228,7 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
       <BacktestDashboard stats={backtestStats} />
 
       {/* 예측 이력 */}
-      {!predictionHistory.loading && <PredictionHistory dates={predictionHistory.dates} />}
+      {!predictionHistory.loading && <PredictionHistory stockDates={predictionHistory.stockDates} />}
 
       {/* 헤더 카드 */}
       <Card className="shadow-sm">
