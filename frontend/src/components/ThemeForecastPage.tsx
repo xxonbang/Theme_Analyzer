@@ -7,7 +7,9 @@ import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
 import { useBacktestStats } from "@/hooks/useBacktestStats"
+import { usePredictionHistory } from "@/hooks/usePredictionHistory"
 import { BacktestDashboard } from "@/components/BacktestDashboard"
+import { PredictionHistory } from "@/components/PredictionHistory"
 import type { ForecastTheme, ForecastStock, StockCriteria } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
@@ -194,6 +196,7 @@ interface ThemeForecastPageProps {
 export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPageProps) {
   const { data, loading, error } = useThemeForecast()
   const backtestStats = useBacktestStats()
+  const predictionHistory = usePredictionHistory()
 
   if (loading) {
     return (
@@ -223,6 +226,9 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
     <div className="space-y-4 sm:space-y-6">
       {/* 백테스트 적중률 */}
       <BacktestDashboard stats={backtestStats} />
+
+      {/* 예측 이력 */}
+      {!predictionHistory.loading && <PredictionHistory dates={predictionHistory.dates} />}
 
       {/* 헤더 카드 */}
       <Card className="shadow-sm">

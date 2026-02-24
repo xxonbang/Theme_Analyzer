@@ -209,6 +209,61 @@ def find_high_price_time(client: KISClient, code: str, high_price: int) -> Optio
     return None
 
 
+def find_high_price_after(client: KISClient, code: str, after_time: str) -> Optional[dict]:
+    """매수 시점 이후의 최고가 + 달성 시간 조회
+
+    분봉 데이터를 15:30부터 역순으로 탐색하여
+    after_time 이후 캔들 중 최고가를 찾습니다.
+
+    Args:
+        client: KIS API 클라이언트
+        code: 종목코드
+        after_time: 매수 시점 "HH:MM" (예: "09:22")
+
+    Returns:
+        {"high_price": int, "high_time": "HH:MM"} or None
+    """
+    path = "/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice"
+    tr_id = "FHKST03010200"
+    cursor = "153000"
+    after_hhmmss = after_time.replace(":", "") + "00"
+
+    best_price = 0
+    best_time = None
+
+    for _ in range(15):
+        params = {
+            "FID_ETC_CLS_CODE": "",
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": code,
+            "FID_INPUT_HOUR_1": cursor,
+            "FID_PW_DATA_INCU_YN": "N",
+        }
+        try:
+            result = client.request("GET", path, tr_id, params=params)
+            items = result.get("output2", [])
+            if not items:
+                break
+            for item in items:
+                t = item.get("stck_cntg_hour", "")
+                if t < after_hhmmss:
+                    continue
+                candle_high = int(item.get("stck_hgpr", "0"))
+                if candle_high > best_price:
+                    best_price = candle_high
+                    best_time = f"{t[:2]}:{t[2:4]}"
+            cursor = items[-1].get("stck_cntg_hour", "")
+            if not cursor or cursor <= "090000":
+                break
+            time.sleep(0.1)
+        except Exception:
+            break
+
+    if best_price > 0 and best_time:
+        return {"high_price": best_price, "high_time": best_time}
+    return None
+
+
 def collect_paper_trading_data(
     stocks_override: Optional[list[str]] = None,
     test_mode: bool = False,
@@ -219,6 +274,14 @@ def collect_paper_trading_data(
 
     # git 히스토리에서 오늘 모든 스냅샷 수집
     snapshots = get_all_latest_snapshots(today_str)
+
+    # 09:00 이후 스냅샷만 사용 (장 개시 후)
+    snapshots = [
+        s for s in snapshots
+        if len(s["timestamp"]) >= 16 and s["timestamp"][11:16] >= "09:00"
+    ]
+    if snapshots:
+        print(f"[스냅샷] 09:00 이후 유효 스냅샷: {len(snapshots)}개")
 
     if snapshots:
         # 첫 번째(가장 이른) 스냅샷을 기본 매수가로 사용
@@ -290,9 +353,27 @@ def collect_paper_trading_data(
 
         close_price = prices["close_price"]
         high_price = prices["high_price"]
+        high_price_adjusted = False
 
         # 최고가 달성 시간 조회
         high_time = find_high_price_time(client, code, high_price)
+
+        # 매수 시점 이후 최고가 검증
+        buy_time_str = morning_timestamp.split(" ")[1][:5] if " " in morning_timestamp else ""
+        if high_time and buy_time_str and high_time < buy_time_str:
+            # 최고가가 매수 시점보다 빠름 → 매수 후 최고가 재탐색
+            print(f"    ↳ 최고가({high_time}) < 매수({buy_time_str}) → 매수 후 최고가 탐색")
+            adjusted = find_high_price_after(client, code, buy_time_str)
+            if adjusted:
+                high_price = adjusted["high_price"]
+                high_time = adjusted["high_time"]
+                print(f"    ↳ 매수 후 최고가: {high_price:,}원 ({high_time})")
+            else:
+                # 분봉 탐색 실패 → 종가 적용
+                high_price = close_price
+                high_time = "15:30"
+                high_price_adjusted = True
+                print(f"    ↳ 분봉 탐색 실패 → 종가({close_price:,}원) 적용")
 
         # 종가 기준 수익률
         profit_amount = close_price - buy_price
@@ -314,6 +395,7 @@ def collect_paper_trading_data(
             "high_time": high_time,
             "high_profit_rate": high_profit_rate,
             "high_profit_amount": high_profit_amount,
+            **({"high_price_adjusted": True} if high_price_adjusted else {}),
         })
 
         sign = "+" if profit_rate >= 0 else ""

@@ -170,6 +170,7 @@ export interface PaperTradingStock {
   high_time?: string
   high_profit_rate?: number
   high_profit_amount?: number
+  high_price_adjusted?: boolean
 }
 
 export interface PaperTradingSummary {

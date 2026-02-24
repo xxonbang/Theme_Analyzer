@@ -343,3 +343,54 @@ class TelegramSender:
 
         return messages
 
+    def format_investor_data(
+        self,
+        investor_data: Dict[str, Dict[str, Any]],
+        leader_info: Dict[str, Dict[str, Any]],
+        is_estimated: bool = False,
+    ) -> str:
+        """대장주 수급 데이터 텔레그램 메시지 포맷
+
+        Args:
+            investor_data: {code: {name, foreign_net, institution_net, individual_net}}
+            leader_info: {code: {name, theme}}
+            is_estimated: 추정치 여부
+        """
+        label = "추정" if is_estimated else "확정"
+        lines = [
+            f"📊 <b>대장주 수급 현황</b> ({label})",
+            "",
+        ]
+
+        for code, data in investor_data.items():
+            name = data.get("name", leader_info.get(code, {}).get("name", code))
+            theme = leader_info.get(code, {}).get("theme", "")
+            foreign = data.get("foreign_net", 0)
+            institution = data.get("institution_net", 0)
+            individual = data.get("individual_net")
+
+            url = self._get_naver_finance_url(code)
+
+            # 순매수 부호 + 포맷
+            def fmt_net(val):
+                if val is None:
+                    return "-"
+                sign = "+" if val > 0 else ""
+                return f"{sign}{val:,}"
+
+            # 외국인/기관 동시 순매수면 강조
+            both_buy = foreign > 0 and institution > 0
+
+            lines.append(f"{'🔥 ' if both_buy else ''}<a href=\"{url}\"><b>{name}</b></a> <code>{code}</code>")
+            if theme:
+                lines.append(f"   {theme}")
+
+            parts = [f"외국인 {fmt_net(foreign)}", f"기관 {fmt_net(institution)}"]
+            if individual is not None:
+                parts.append(f"개인 {fmt_net(individual)}")
+            lines.append(f"   {' | '.join(parts)}")
+            lines.append("")
+
+        lines.append(f"⏰ {self._get_timestamp()}")
+        return "\n".join(lines)
+
