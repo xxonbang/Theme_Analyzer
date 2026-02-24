@@ -1,0 +1,161 @@
+{
+  "trade_date": "2026-02-24",
+  "morning_timestamp": "2026-02-24 09:22:26",
+  "collected_at": "2026-02-24 06:40:45",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-02-24 09:22:26",
+      "prices": {
+        "039860": 7670,
+        "476060": 22150,
+        "187660": 14580,
+        "006400": 413500,
+        "066970": 120700,
+        "388050": 12790,
+        "457550": 33700
+      }
+    },
+    {
+      "timestamp": "2026-02-24 09:44:48",
+      "prices": {
+        "039860": 7670,
+        "476060": 25450,
+        "187660": 14790,
+        "006400": 416500,
+        "066970": 121000,
+        "388050": 12900,
+        "457550": 32300
+      }
+    },
+    {
+      "timestamp": "2026-02-24 11:44:00",
+      "prices": {
+        "039860": 7670,
+        "476060": 25450,
+        "187660": 15670,
+        "006400": 424000,
+        "066970": 126500,
+        "388050": 12310,
+        "457550": 32100
+      }
+    },
+    {
+      "timestamp": "2026-02-24 13:43:51",
+      "prices": {
+        "039860": 7670,
+        "476060": 25450,
+        "187660": 15670,
+        "006400": 417500,
+        "388050": 12230,
+        "457550": 31800
+      }
+    }
+  ],
+  "stocks": [
+    {
+      "code": "039860",
+      "name": "나노엔텍",
+      "theme": "바이오/헬스케어",
+      "buy_price": 7670,
+      "close_price": 7670,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 7670,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "476060",
+      "name": "온코닉테라퓨틱스",
+      "theme": "바이오/헬스케어",
+      "buy_price": 22150,
+      "close_price": 25450,
+      "profit_rate": 14.9,
+      "profit_amount": 3300,
+      "high_price": 25450,
+      "high_time": "15:30",
+      "high_profit_rate": 14.9,
+      "high_profit_amount": 3300
+    },
+    {
+      "code": "187660",
+      "name": "현대ADM",
+      "theme": "바이오/헬스케어",
+      "buy_price": 14580,
+      "close_price": 15670,
+      "profit_rate": 7.48,
+      "profit_amount": 1090,
+      "high_price": 15670,
+      "high_time": "15:30",
+      "high_profit_rate": 7.48,
+      "high_profit_amount": 1090
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "2차전지/ESS",
+      "buy_price": 413500,
+      "close_price": 421500,
+      "profit_rate": 1.93,
+      "profit_amount": 8000,
+      "high_price": 427000,
+      "high_time": "10:04",
+      "high_profit_rate": 3.26,
+      "high_profit_amount": 13500
+    },
+    {
+      "code": "066970",
+      "name": "엘앤에프",
+      "theme": "2차전지/ESS",
+      "buy_price": 120700,
+      "close_price": 124500,
+      "profit_rate": 3.15,
+      "profit_amount": 3800,
+      "high_price": 127500,
+      "high_time": "11:05",
+      "high_profit_rate": 5.63,
+      "high_profit_amount": 6800
+    },
+    {
+      "code": "388050",
+      "name": "지투파워",
+      "theme": "원자력/신재생에너지",
+      "buy_price": 12790,
+      "close_price": 12220,
+      "profit_rate": -4.46,
+      "profit_amount": -570,
+      "high_price": 13430,
+      "high_time": "09:32",
+      "high_profit_rate": 5.0,
+      "high_profit_amount": 640
+    },
+    {
+      "code": "457550",
+      "name": "우진엔텍",
+      "theme": "원자력/신재생에너지",
+      "buy_price": 33700,
+      "close_price": 32250,
+      "profit_rate": -4.3,
+      "profit_amount": -1450,
+      "high_price": 34900,
+      "high_time": "09:02",
+      "high_profit_rate": 3.56,
+      "high_profit_amount": 1200
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 4,
+    "loss_stocks": 2,
+    "total_invested": 625090,
+    "total_value": 639260,
+    "total_profit": 14170,
+    "total_profit_rate": 2.27,
+    "high_total_value": 651620,
+    "high_total_profit": 26530,
+    "high_total_profit_rate": 4.24,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 0
+  }
+}
