@@ -113,9 +113,21 @@ function StockRow({ stock }: { stock: StockPrediction }) {
   )
 }
 
-function DateGroup({ group }: { group: StockPredictionsByDate }) {
+type CategoryFilter = "all" | "today" | "short_term" | "long_term"
+
+function filterStocks(stocks: StockPrediction[], filter: CategoryFilter) {
+  if (filter === "all") return stocks
+  return stocks.filter(s => s.themes.some(t => t.category === filter))
+}
+
+function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; categoryFilter: CategoryFilter }) {
   const [expanded, setExpanded] = useState(false)
-  const missCount = group.totalEvaluable - group.hitCount
+  const stocks = filterStocks(group.stocks, categoryFilter)
+  const evaluable = stocks.filter(s => s.hit != null)
+  const hitCount = evaluable.filter(s => s.hit).length
+  const missCount = evaluable.length - hitCount
+
+  if (stocks.length === 0) return null
 
   return (
     <div className="border-b border-border/50 last:border-0">
@@ -125,8 +137,8 @@ function DateGroup({ group }: { group: StockPredictionsByDate }) {
       >
         <div className="flex items-center gap-2 text-xs sm:text-sm">
           <span className="font-medium tabular-nums">{group.date}</span>
-          <span className="text-muted-foreground">{group.stocks.length}종목</span>
-          {group.hitCount > 0 && <span className="text-emerald-600 text-[10px]">{group.hitCount}적중</span>}
+          <span className="text-muted-foreground">{stocks.length}종목</span>
+          {hitCount > 0 && <span className="text-emerald-600 text-[10px]">{hitCount}적중</span>}
           {missCount > 0 && <span className="text-red-500 text-[10px]">{missCount}미스</span>}
         </div>
         {expanded ? (
@@ -138,7 +150,7 @@ function DateGroup({ group }: { group: StockPredictionsByDate }) {
 
       {expanded && (
         <div className="px-1 pb-2 space-y-0.5">
-          {group.stocks.map(stock => (
+          {stocks.map(stock => (
             <StockRow key={stock.code} stock={stock} />
           ))}
         </div>
@@ -147,8 +159,16 @@ function DateGroup({ group }: { group: StockPredictionsByDate }) {
   )
 }
 
+const CATEGORY_FILTERS: { value: CategoryFilter; label: string }[] = [
+  { value: "all", label: "전체" },
+  { value: "today", label: "당일" },
+  { value: "short_term", label: "단기" },
+  { value: "long_term", label: "장기" },
+]
+
 export function PredictionHistory({ stockDates }: { stockDates: StockPredictionsByDate[] }) {
   const [expanded, setExpanded] = useState(false)
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all")
 
   if (stockDates.length === 0) return null
 
@@ -173,8 +193,24 @@ export function PredictionHistory({ stockDates }: { stockDates: StockPredictions
 
         {expanded && (
           <div className="px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="flex gap-1 mb-2">
+              {CATEGORY_FILTERS.map(f => (
+                <button
+                  key={f.value}
+                  onClick={() => setCategoryFilter(f.value)}
+                  className={cn(
+                    "text-[10px] sm:text-xs px-2 py-0.5 rounded-full border transition-colors",
+                    categoryFilter === f.value
+                      ? "bg-violet-100 text-violet-700 border-violet-300"
+                      : "text-muted-foreground border-border hover:bg-muted/50"
+                  )}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
             {stockDates.map(group => (
-              <DateGroup key={group.date} group={group} />
+              <DateGroup key={group.date} group={group} categoryFilter={categoryFilter} />
             ))}
           </div>
         )}
