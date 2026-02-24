@@ -16,6 +16,8 @@ from modules.backtest import (
     get_active_predictions,
     fetch_stock_returns,
     fetch_index_return,
+    fetch_daily_returns,
+    fetch_daily_index_return,
     evaluate_prediction,
     update_prediction_status,
     calculate_accuracy_report,
@@ -55,10 +57,24 @@ def main():
         print("\n✅ 백테스팅 완료")
         return
 
-    # Step 2: 대장주 종목코드 수집 + 카테고리별 수익률 조회
+    # Step 2: (prediction_date, category) 그룹별 종목코드 수집 + 수익률 조회
     print("\n[2/4] 주식 수익률 조회...")
-    all_codes = set()
+
+    # 달력일 매핑: 영업일 → 달력일 (yfinance용)
+    category_cal_days = {"short_term": 12, "long_term": 45}
+
+    # (pred_date, category) 그룹별 종목코드 수집
+    pred_groups = {}  # key: (pred_date_str, category) -> set of codes
     for pred in predictions:
+        category = pred.get("category", "today")
+        pred_date = pred.get("prediction_date", "")
+        if not pred_date:
+            continue
+
+        key = (pred_date, category)
+        if key not in pred_groups:
+            pred_groups[key] = set()
+
         leader_stocks = pred.get("leader_stocks", "[]")
         if isinstance(leader_stocks, str):
             try:
@@ -68,31 +84,29 @@ def main():
         for s in leader_stocks:
             code = s.get("code", "")
             if code:
-                all_codes.add(code)
+                pred_groups[key].add(code)
 
-    # 카테고리별 평가 기간 (영업일 기준이지만 yfinance는 달력일로 조회)
-    end_date = datetime.now(KST).strftime("%Y-%m-%d")
-    category_periods = {
-        "today": 3,       # 1 영업일 ≈ 3 달력일 (주말 포함 여유)
-        "short_term": 12,  # 7 영업일 ≈ 12 달력일
-        "long_term": 45,   # 30 영업일 ≈ 45 달력일
-    }
-
-    # 카테고리별 수익률 + 지수 수익률 캐시
-    returns_by_category = {}
-    index_by_category = {}
-    for cat, cal_days in category_periods.items():
-        start = (datetime.now(KST) - timedelta(days=cal_days)).strftime("%Y-%m-%d")
-        if all_codes:
-            returns_by_category[cat] = fetch_stock_returns(list(all_codes), start, end_date)
+    # 그룹별 수익률 + 지수 수익률 조회
+    returns_by_group = {}   # key: (pred_date_str, category) -> {code: return_pct}
+    index_by_group = {}     # key: (pred_date_str, category) -> float
+    for (pred_date, category), codes in pred_groups.items():
+        if category == "today":
+            returns_by_group[(pred_date, category)] = fetch_daily_returns(list(codes), pred_date)
+            index_by_group[(pred_date, category)] = fetch_daily_index_return(pred_date)
         else:
-            returns_by_category[cat] = {}
-        index_by_category[cat] = fetch_index_return(start, end_date)
+            cal_days = category_cal_days.get(category, 12)
+            dt = datetime.strptime(pred_date, "%Y-%m-%d")
+            end = (dt + timedelta(days=cal_days)).strftime("%Y-%m-%d")
+            returns_by_group[(pred_date, category)] = fetch_stock_returns(list(codes), pred_date, end)
+            index_by_group[(pred_date, category)] = fetch_index_return(pred_date, end)
 
-    total_codes = sum(len(r) for r in returns_by_category.values())
-    print(f"  ✓ 카테고리별 수익률 조회 완료 (종목 {len(all_codes)}개)")
-    for cat in category_periods:
-        print(f"    - {cat}: KOSPI {index_by_category[cat]:+.2f}%, 종목 {len(returns_by_category[cat])}개")
+    all_codes = set()
+    for codes in pred_groups.values():
+        all_codes |= codes
+    print(f"  ✓ 그룹별 수익률 조회 완료 ({len(pred_groups)}개 그룹, 종목 {len(all_codes)}개)")
+    for (pd, cat), rets in returns_by_group.items():
+        idx = index_by_group[(pd, cat)]
+        print(f"    - {pd}/{cat}: KOSPI {idx:+.2f}%, 종목 {len(rets)}개")
 
     # Step 3: 예측 평가
     print("\n[3/4] 예측 평가...")
@@ -100,8 +114,10 @@ def main():
 
     for pred in predictions:
         category = pred.get("category", "today")
-        returns = returns_by_category.get(category, {})
-        index_return = index_by_category.get(category, 0.0)
+        pred_date = pred.get("prediction_date", "")
+        key = (pred_date, category)
+        returns = returns_by_group.get(key, {})
+        index_return = index_by_group.get(key, 0.0)
 
         status = evaluate_prediction(pred, returns, index_return)
         results[status] += 1

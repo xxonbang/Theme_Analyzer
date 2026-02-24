@@ -82,6 +82,74 @@ def fetch_index_return(start: str, end: str) -> float:
     return 0.0
 
 
+def fetch_daily_returns(codes: List[str], target_date: str) -> Dict:
+    """특정 일자의 일간 수익률 조회 (전일 종가 대비 당일 종가)
+
+    today 카테고리 전용. yfinance에서 target_date 전후 데이터를 가져와
+    전일 종가 → 당일 종가 변동률을 계산합니다.
+
+    Args:
+        codes: 종목코드 리스트 (예: ["005930"])
+        target_date: 대상일 YYYY-MM-DD
+
+    Returns:
+        {code: return_pct} 딕셔너리
+    """
+    try:
+        import yfinance as yf
+    except ImportError:
+        print("  ⚠ yfinance 미설치")
+        return {}
+
+    dt = datetime.strptime(target_date, "%Y-%m-%d")
+    start = (dt - timedelta(days=5)).strftime("%Y-%m-%d")
+    end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    returns = {}
+    for code in codes:
+        for suffix in [".KS", ".KQ"]:
+            ticker = f"{code}{suffix}"
+            try:
+                data = yf.download(ticker, start=start, end=end, progress=False)
+                if data.empty or len(data) < 2:
+                    continue
+                close = data["Close"]
+                prev_price = float(close.iloc[-2])
+                cur_price = float(close.iloc[-1])
+                if prev_price > 0:
+                    returns[code] = round(((cur_price - prev_price) / prev_price) * 100, 2)
+                    break
+            except Exception:
+                continue
+
+    return returns
+
+
+def fetch_daily_index_return(target_date: str) -> float:
+    """특정 일자의 KOSPI 일간 수익률 (전일 종가 대비 당일 종가)"""
+    try:
+        import yfinance as yf
+    except ImportError:
+        return 0.0
+
+    dt = datetime.strptime(target_date, "%Y-%m-%d")
+    start = (dt - timedelta(days=5)).strftime("%Y-%m-%d")
+    end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    try:
+        data = yf.download("^KS11", start=start, end=end, progress=False)
+        if data.empty or len(data) < 2:
+            return 0.0
+        close = data["Close"]
+        prev_val = float(close.iloc[-2])
+        cur_val = float(close.iloc[-1])
+        if prev_val > 0:
+            return round(((cur_val - prev_val) / prev_val) * 100, 2)
+    except Exception:
+        pass
+    return 0.0
+
+
 def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float) -> str:
     """단일 예측 평가
 
@@ -97,19 +165,24 @@ def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float) ->
     pred_date = datetime.strptime(prediction_date, "%Y-%m-%d")
     now = datetime.now(KST).replace(tzinfo=None)
 
-    # 영업일 기준 경과일 계산 (주말 + 공휴일 제외)
-    days_elapsed = 0
-    d = pred_date + timedelta(days=1)
-    while d <= now:
-        if d.weekday() < 5 and d.strftime("%Y-%m-%d") not in KRX_HOLIDAYS_2026:
-            days_elapsed += 1
-        d += timedelta(days=1)
+    # 카테고리별 평가 시점 판정
+    if category == "today":
+        # today: 당일 18:00(장 마감 후) 이후 즉시 평가 가능
+        market_close = pred_date.replace(hour=18, minute=0, second=0)
+        if now < market_close:
+            return "active"
+    else:
+        # short_term/long_term: 영업일 기준 경과일 계산 (주말 + 공휴일 제외)
+        days_elapsed = 0
+        d = pred_date + timedelta(days=1)
+        while d <= now:
+            if d.weekday() < 5 and d.strftime("%Y-%m-%d") not in KRX_HOLIDAYS_2026:
+                days_elapsed += 1
+            d += timedelta(days=1)
 
-    # 카테고리별 판정 기간
-    max_days = {"today": 1, "short_term": 7, "long_term": 30}.get(category, 7)
-
-    if days_elapsed < max_days:
-        return "active"  # 아직 판정 불가
+        max_days = {"short_term": 7, "long_term": 30}.get(category, 7)
+        if days_elapsed < max_days:
+            return "active"
 
     # 대장주 수익률 확인
     leader_stocks = prediction.get("leader_stocks", "[]")
