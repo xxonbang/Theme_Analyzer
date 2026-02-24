@@ -117,7 +117,14 @@ def main():
     label = "추정" if is_estimated else "확정"
     print(f"  {len(investor_data)}개 종목 수급 수집 완료 ({label})")
 
-    # 4. latest.json 갱신
+    # 4. 수집 성공 검증 — 대상의 절반 이상 수집되어야 유효
+    min_required = max(1, len(all_stocks) // 2)
+    if len(investor_data) < min_required:
+        print(f"\n  수집 실패: {len(investor_data)}/{len(all_stocks)}개 ({min_required}개 이상 필요)")
+        print("  latest.json 갱신 및 텔레그램 전송을 건너뜁니다.")
+        sys.exit(1)
+
+    # 5. latest.json 갱신
     if not test_mode:
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
@@ -127,7 +134,7 @@ def main():
     else:
         print(f"\n  [테스트] latest.json 갱신 건너뜀")
 
-    # 5. 대장주 수급 텔레그램 전송
+    # 6. 대장주 수급 텔레그램 전송
     leader_investor = {}
     for code in leader_codes:
         if code in investor_data:
