@@ -91,6 +91,23 @@ export interface InvestorInfo {
   foreign_net: number
   institution_net: number
   individual_net?: number
+  program_net?: number
+}
+
+export interface MemberBroker {
+  name: string
+  qty: number
+  ratio: number
+  is_foreign: boolean
+}
+
+export interface MemberInfo {
+  name: string
+  buy_top5: MemberBroker[]
+  sell_top5: MemberBroker[]
+  foreign_buy: number
+  foreign_sell: number
+  foreign_net: number
 }
 
 export interface CriterionResult {
@@ -151,6 +168,7 @@ export interface StockData {
   theme_analysis?: ThemeAnalysis
   criteria_data?: Record<string, StockCriteria>
   kosdaq_index?: KosdaqIndex
+  member_data?: Record<string, MemberInfo>
 }
 
 // 모의투자 관련 타입

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
-import type { Stock, StockHistory, StockNews, InvestorInfo, StockCriteria } from "@/types/stock"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
 interface StockCardProps {
   stock: Stock
@@ -14,11 +14,12 @@ interface StockCardProps {
   type: "rising" | "falling" | "neutral"
   investorInfo?: InvestorInfo
   investorEstimated?: boolean
+  memberInfo?: MemberInfo
   criteria?: StockCriteria
   isAdmin?: boolean
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, criteria, isAdmin }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, memberInfo, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
@@ -173,6 +174,29 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   </span>
                 )}
               </>
+            )}
+
+            {memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
+              <div className="w-full grid grid-cols-2 gap-2 mt-1 pt-1 border-t border-border/30">
+                <div>
+                  <p className="text-[9px] text-muted-foreground mb-0.5">매수 TOP5</p>
+                  {memberInfo.buy_top5.map((b, i) => (
+                    <div key={i} className="flex items-center justify-between text-[9px] sm:text-[10px]">
+                      <span className={b.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{b.name}</span>
+                      <span className="text-muted-foreground tabular-nums">{b.ratio.toFixed(1)}%</span>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <p className="text-[9px] text-muted-foreground mb-0.5">매도 TOP5</p>
+                  {memberInfo.sell_top5.map((s, i) => (
+                    <div key={i} className="flex items-center justify-between text-[9px] sm:text-[10px]">
+                      <span className={s.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{s.name}</span>
+                      <span className="text-muted-foreground tabular-nums">{s.ratio.toFixed(1)}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
 
             {history && history.changes && history.changes.length > 0 && (

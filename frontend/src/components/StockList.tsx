@@ -6,7 +6,7 @@ import { StockCard } from "@/components/StockCard"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
-import type { Stock, StockHistory, StockNews, InvestorInfo, StockCriteria } from "@/types/stock"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
 interface StockListProps {
   title: string
@@ -19,15 +19,16 @@ interface StockListProps {
   showTradingValue?: boolean
   investorData?: Record<string, InvestorInfo>
   investorEstimated?: boolean
+  memberData?: Record<string, MemberInfo>
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
 }
 
 // 컴팩트 모드 컬럼 헤더 (flex: sticky left + scrollable right)
-function CompactHeader({ showTradingValue, hasInvestorData, investorEstimated }: { showTradingValue?: boolean; hasInvestorData?: boolean; investorEstimated?: boolean }) {
+function CompactHeader({ showTradingValue, hasInvestorData, hasMemberData, investorEstimated }: { showTradingValue?: boolean; hasInvestorData?: boolean; hasMemberData?: boolean; investorEstimated?: boolean }) {
   return (
     <div className="flex items-center py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
-      <div className="sticky left-0 z-10 bg-card flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
+      <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
         <span className="w-5 text-center shrink-0">#</span>
         <span>종목명</span>
       </div>
@@ -38,6 +39,9 @@ function CompactHeader({ showTradingValue, hasInvestorData, investorEstimated }:
         {hasInvestorData && <span className="text-right w-14 sm:w-16">외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
         {hasInvestorData && <span className="text-right w-14 sm:w-16">기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
         {hasInvestorData && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">장중</span>}</span>}
+        {hasInvestorData && <span className="text-right w-14 sm:w-16">프로그램</span>}
+        {hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
+        {hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}
         <span className="text-right w-16 ml-2">등락률</span>
       </div>
     </div>
@@ -45,7 +49,7 @@ function CompactHeader({ showTradingValue, hasInvestorData, investorEstimated }:
 }
 
 // 컴팩트 모드용 간단한 종목 행 (flex: sticky left + scrollable right)
-function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInvestorData, criteria, isAdmin }: { stock: Stock; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; hasInvestorData?: boolean; criteria?: StockCriteria; isAdmin?: boolean }) {
+function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInvestorData, memberInfo, hasMemberData, criteria, isAdmin }: { stock: Stock; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; hasInvestorData?: boolean; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean }) {
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const allMet = isAdmin && criteria?.all_met
@@ -59,11 +63,11 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
     return typeof c !== "boolean" && c?.met
   }) : []
   return (
-    <div>
+    <div className="relative">
       <div className="flex items-center py-2 hover:bg-muted/50 transition-colors group">
       {/* Sticky left: Rank + Name */}
       <div className={cn(
-        "sticky left-0 z-10 group-hover:bg-muted/50 flex items-center gap-2 shrink-0 w-28 sm:w-40 pr-1 transition-colors",
+        "sticky left-0 z-20 group-hover:bg-muted/50 self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pr-1 transition-colors",
         allMet
           ? "border-l-[3px] border-l-yellow-400 bg-yellow-50 pl-[5px]"
           : "bg-card pl-2"
@@ -143,6 +147,21 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
             {investorInfo?.individual_net != null ? formatNetBuy(investorInfo.individual_net) : "-"}
           </span>
         )}
+        {hasInvestorData && (
+          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.program_net != null ? getNetBuyColor(investorInfo.program_net) : "text-muted-foreground")}>
+            {investorInfo?.program_net != null ? formatNetBuy(investorInfo.program_net) : "-"}
+          </span>
+        )}
+        {hasMemberData && (
+          <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.buy_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
+            {memberInfo?.buy_top5?.[0]?.name || "-"}
+          </span>
+        )}
+        {hasMemberData && (
+          <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.sell_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
+            {memberInfo?.sell_top5?.[0]?.name || "-"}
+          </span>
+        )}
         <span className={cn(
           "text-[10px] font-semibold px-1.5 py-0.5 rounded text-right w-16 ml-2",
           effectiveRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
@@ -166,6 +185,7 @@ function CompactMarketSection({
   showTradingValue,
   investorData,
   investorEstimated,
+  memberData,
   criteriaData,
   isAdmin,
 }: {
@@ -177,10 +197,12 @@ function CompactMarketSection({
   showTradingValue?: boolean
   investorData?: Record<string, InvestorInfo>
   investorEstimated?: boolean
+  memberData?: Record<string, MemberInfo>
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
 }) {
   const hasInvestorData = !!investorData && Object.keys(investorData).length > 0
+  const hasMemberData = !!memberData && Object.keys(memberData).length > 0
 
   if (stocks.length === 0) {
     return (
@@ -204,10 +226,10 @@ function CompactMarketSection({
       </div>
       <div className="overflow-x-auto scrollbar-hide">
         <div className="min-w-fit">
-          {showHeader && <CompactHeader showTradingValue={showTradingValue} hasInvestorData={hasInvestorData} investorEstimated={investorEstimated} />}
+          {showHeader && <CompactHeader showTradingValue={showTradingValue} hasInvestorData={hasInvestorData} hasMemberData={hasMemberData} investorEstimated={investorEstimated} />}
           <div className="divide-y divide-border/30">
             {stocks.map((stock) => (
-              <CompactStockRow key={stock.code} stock={stock} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} hasInvestorData={hasInvestorData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
+              <CompactStockRow key={stock.code} stock={stock} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} hasInvestorData={hasInvestorData} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
             ))}
           </div>
         </div>
@@ -216,7 +238,7 @@ function CompactMarketSection({
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, criteriaData, isAdmin }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, memberData, criteriaData, isAdmin }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -251,6 +273,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             showTradingValue={showTradingValue}
             investorData={investorData}
             investorEstimated={investorEstimated}
+            memberData={memberData}
             criteriaData={criteriaData}
             isAdmin={isAdmin}
           />
@@ -263,6 +286,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             showTradingValue={showTradingValue}
             investorData={investorData}
             investorEstimated={investorEstimated}
+            memberData={memberData}
             criteriaData={criteriaData}
             isAdmin={isAdmin}
           />
@@ -302,6 +326,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
                   type={type}
                   investorInfo={investorData?.[stock.code]}
                   investorEstimated={investorEstimated}
+                  memberInfo={memberData?.[stock.code]}
                   criteria={criteriaData?.[stock.code]}
                   isAdmin={isAdmin}
                 />
@@ -330,6 +355,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
                   type={type}
                   investorInfo={investorData?.[stock.code]}
                   investorEstimated={investorEstimated}
+                  memberInfo={memberData?.[stock.code]}
                   criteria={criteriaData?.[stock.code]}
                   isAdmin={isAdmin}
                 />

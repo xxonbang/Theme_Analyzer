@@ -797,6 +797,90 @@ class KISRankAPI:
             data = self.get_investor_data(stocks)
             return data, False
 
+    def get_member_data(self, stocks: List[Dict]) -> Dict[str, Dict]:
+        """여러 종목의 거래원(회원사) 데이터 일괄 조회
+
+        KIS API FHKST01010600을 종목별로 호출하여
+        매수/매도 상위 5개 증권사 + 외국계 집계 수집
+
+        Args:
+            stocks: 종목 리스트 [{"code": "...", "name": "...", ...}, ...]
+
+        Returns:
+            {종목코드: {"buy_top5": [...], "sell_top5": [...], "foreign_buy": int, "foreign_sell": int, "foreign_net": int}, ...}
+        """
+        import time
+
+        path = "/uapi/domestic-stock/v1/quotations/inquire-member"
+        tr_id = "FHKST01010600"
+
+        result = {}
+        total = len(stocks)
+
+        for idx, stock in enumerate(stocks):
+            code = stock.get("code", "")
+            name = stock.get("name", "")
+
+            if not code:
+                continue
+
+            try:
+                params = {
+                    "FID_COND_MRKT_DIV_CODE": "J",
+                    "FID_INPUT_ISCD": code,
+                }
+
+                response = self.client.request("GET", path, tr_id, params=params)
+
+                if response.get("rt_cd") != "0":
+                    continue
+
+                output = response.get("output", {})
+                if not output:
+                    continue
+
+                buy_top5 = []
+                sell_top5 = []
+                for i in range(1, 6):
+                    # 매수 상위
+                    buy_name = output.get(f"shnu_mbcr_name{i}", "").strip()
+                    if buy_name:
+                        buy_top5.append({
+                            "name": buy_name,
+                            "qty": safe_int(output.get(f"total_shnu_qty{i}", 0)),
+                            "ratio": safe_float(output.get(f"shnu_mbcr_rlim{i}", 0)),
+                            "is_foreign": output.get(f"shnu_mbcr_glob_yn_{i}", "") == "Y",
+                        })
+                    # 매도 상위
+                    sell_name = output.get(f"seln_mbcr_name{i}", "").strip()
+                    if sell_name:
+                        sell_top5.append({
+                            "name": sell_name,
+                            "qty": safe_int(output.get(f"total_seln_qty{i}", 0)),
+                            "ratio": safe_float(output.get(f"seln_mbcr_rlim{i}", 0)),
+                            "is_foreign": output.get(f"seln_mbcr_glob_yn_{i}", "") == "Y",
+                        })
+
+                result[code] = {
+                    "name": name,
+                    "buy_top5": buy_top5,
+                    "sell_top5": sell_top5,
+                    "foreign_buy": safe_int(output.get("glob_total_shnu_qty", 0)),
+                    "foreign_sell": safe_int(output.get("glob_total_seln_qty", 0)),
+                    "foreign_net": safe_int(output.get("glob_ntby_qty", 0)),
+                }
+
+            except Exception as e:
+                print(f"  ⚠ {name}({code}) 거래원 데이터 조회 실패: {e}")
+                continue
+
+            if (idx + 1) % 10 == 0 or idx + 1 == total:
+                print(f"  진행: {idx + 1}/{total}")
+
+            time.sleep(0.05)
+
+        return result
+
 
 def test_rank_api():
     """순위 API 테스트"""

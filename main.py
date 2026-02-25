@@ -389,6 +389,61 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     else:
         print("\n[9/13] 수급 데이터 수집 건너뜀")
 
+    # 9-1. 프로그램 매매 데이터를 investor_data에 병합
+    if investor_data and fundamental_data:
+        merged = 0
+        for code, fdata in fundamental_data.items():
+            pgtr = fdata.get("pgtr_ntby_qty")
+            if pgtr is not None and code in investor_data:
+                investor_data[code]["program_net"] = pgtr
+                merged += 1
+        if merged:
+            print(f"  ✓ 프로그램 매매 데이터 {merged}개 종목 병합 완료")
+
+    # 9-2. 거래원(회원사) 데이터 수집 (대장주 + 거래대금 TOP20)
+    member_data = {}
+    if not skip_investor:
+        print("\n[9-2/13] 거래원 데이터 수집 중...")
+        try:
+            # 대장주 코드 추출 (기존 theme-forecast.json에서)
+            member_target_codes = set()
+            forecast_path = os.path.join("frontend", "public", "data", "theme-forecast.json")
+            if os.path.exists(forecast_path):
+                with open(forecast_path, "r", encoding="utf-8") as f:
+                    forecast = json.load(f)
+                for category in ["today", "short_term", "long_term"]:
+                    for theme in forecast.get(category, []):
+                        for stock in theme.get("leader_stocks", []):
+                            code = stock.get("code", "")
+                            if code:
+                                member_target_codes.add(code)
+                print(f"  대장주: {len(member_target_codes)}개")
+
+            # 거래대금 TOP20 코드 추출
+            tv_count = 0
+            if trading_value_data:
+                for market in ["kospi", "kosdaq"]:
+                    for stock in trading_value_data.get(market, [])[:20]:
+                        code = stock.get("code", "")
+                        if code:
+                            member_target_codes.add(code)
+                            tv_count += 1
+            print(f"  거래대금 TOP20: {tv_count}개 (중복 제거 후 총 {len(member_target_codes)}개)")
+
+            # all_stocks에서 대상 종목 추출
+            member_stocks = [s for s in all_stocks if s.get("code", "") in member_target_codes]
+            # all_stocks에 없는 대장주 추가
+            existing = {s.get("code", "") for s in member_stocks}
+            for code in member_target_codes - existing:
+                member_stocks.append({"code": code, "name": code})
+
+            member_data = rank_api.get_member_data(member_stocks)
+            print(f"  ✓ {len(member_data)}개 종목 거래원 데이터 수집 완료")
+        except Exception as e:
+            print(f"  ⚠ 거래원 데이터 수집 실패 (빈 데이터로 계속): {e}")
+    else:
+        print("\n[9-2/13] 거래원 데이터 수집 건너뜀")
+
     # 10. AI 테마 분석
     theme_analysis = None
     if skip_ai:
@@ -518,6 +573,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             criteria_data=criteria_data,
             theme_analysis=theme_analysis,
             kosdaq_index=kosdaq_index_data,
+            member_data=member_data,
         )
         print(f"  ✓ 데이터 내보내기 완료: {export_path}")
     except Exception as e:
