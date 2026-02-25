@@ -173,16 +173,86 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
     for (const [date, data] of dailyData) {
       const snapIdx = selectedSnapshotIndex.get(date) ?? 0
       const snapshots = data.price_snapshots
-      if (!snapshots || snapshots.length <= 1 || snapIdx === 0) {
+      const snapshot = snapshots?.[snapIdx]
+      const leaderStocks = snapshot?.leader_stocks
+
+      // leader_stocks가 있는 새 데이터 → 종목 동적 전환
+      if (leaderStocks && leaderStocks.length > 0) {
+        const leaderCodes = new Set(leaderStocks.map(l => l.code))
+        const leaderMap = new Map(leaderStocks.map(l => [l.code, l]))
+
+        // 해당 스냅샷의 대장주만 필터링 + 가격 교체
+        const newStocks: PaperTradingStock[] = data.stocks
+          .filter(stock => leaderCodes.has(stock.code))
+          .map(stock => {
+            const newBuyPrice = snapshot.prices[stock.code] ?? stock.buy_price
+            const leader = leaderMap.get(stock.code)
+            const profitAmount = stock.close_price - newBuyPrice
+            const profitRate = newBuyPrice > 0
+              ? Math.round((profitAmount / newBuyPrice) * 10000) / 100
+              : 0
+            const highPrice = stock.high_price ?? stock.close_price
+            const highProfitAmount = highPrice - newBuyPrice
+            const highProfitRate = newBuyPrice > 0
+              ? Math.round((highProfitAmount / newBuyPrice) * 10000) / 100
+              : 0
+            return {
+              ...stock,
+              buy_price: newBuyPrice,
+              theme: leader?.theme ?? stock.theme,
+              profit_rate: profitRate,
+              profit_amount: profitAmount,
+              high_profit_rate: highProfitRate,
+              high_profit_amount: highProfitAmount,
+            }
+          })
+
+        // 요약 재계산
+        const profitStocks = newStocks.filter(s => s.profit_rate > 0).length
+        const lossStocks = newStocks.filter(s => s.profit_rate < 0).length
+        const totalInvested = newStocks.reduce((sum, s) => sum + s.buy_price, 0)
+        const totalValue = newStocks.reduce((sum, s) => sum + s.close_price, 0)
+        const totalProfit = totalValue - totalInvested
+        const totalProfitRate = totalInvested > 0
+          ? Math.round((totalProfit / totalInvested) * 10000) / 100
+          : 0
+        const highTotalValue = newStocks.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
+        const highTotalProfit = highTotalValue - totalInvested
+        const highTotalProfitRate = totalInvested > 0
+          ? Math.round((highTotalProfit / totalInvested) * 10000) / 100
+          : 0
+        const highProfitStocks = newStocks.filter(s => (s.high_profit_rate ?? s.profit_rate) > 0).length
+        const highLossStocks = newStocks.filter(s => (s.high_profit_rate ?? s.profit_rate) < 0).length
+
+        adjusted.set(date, {
+          ...data,
+          morning_timestamp: snapshot.timestamp,
+          stocks: newStocks,
+          summary: {
+            total_stocks: newStocks.length,
+            profit_stocks: profitStocks,
+            loss_stocks: lossStocks,
+            total_invested: totalInvested,
+            total_value: totalValue,
+            total_profit: totalProfit,
+            total_profit_rate: totalProfitRate,
+            high_total_value: highTotalValue,
+            high_total_profit: highTotalProfit,
+            high_total_profit_rate: highTotalProfitRate,
+            high_profit_stocks: highProfitStocks,
+            high_loss_stocks: highLossStocks,
+          },
+        })
+        continue
+      }
+
+      // 하위 호환: leader_stocks 없는 옛 데이터
+      if (!snapshots || snapshots.length <= 1 || snapIdx === 0 || !snapshot) {
         adjusted.set(date, data)
         continue
       }
-      const snapshot = snapshots[snapIdx]
-      if (!snapshot) {
-        adjusted.set(date, data)
-        continue
-      }
-      // 선택된 스냅샷 가격으로 재계산
+
+      // 기존 동작: 가격만 교체 (leader_stocks 없는 경우)
       const newStocks: PaperTradingStock[] = data.stocks.map(stock => {
         const newBuyPrice = snapshot.prices[stock.code]
         if (newBuyPrice == null) return stock

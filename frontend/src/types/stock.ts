@@ -175,6 +175,7 @@ export interface StockData {
 export interface PriceSnapshot {
   timestamp: string
   prices: Record<string, number>
+  leader_stocks?: Array<{ code: string; name: string; theme: string }>
 }
 export interface PaperTradingStock {
   code: string

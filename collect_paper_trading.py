@@ -299,29 +299,50 @@ def collect_paper_trading_data(
             {"code": code.strip(), "name": code.strip(), "theme": "수동 지정"}
             for code in stocks_override
         ]
+        per_snapshot_leaders = [leader_stocks] * len(snapshots) if snapshots else []
+        all_leader_stocks = {s["code"]: s for s in leader_stocks}
     else:
-        leader_stocks = extract_leader_stocks(data)
+        # 각 스냅샷별 대장주 추출
+        per_snapshot_leaders = []
+        all_leader_stocks = {}  # code -> {code, name, theme} (첫 등장 기준)
 
-    if not leader_stocks:
+        for snap in snapshots:
+            leaders = extract_leader_stocks(snap["data"])
+            per_snapshot_leaders.append(leaders)
+            for leader in leaders:
+                if leader["code"] not in all_leader_stocks:
+                    all_leader_stocks[leader["code"]] = leader
+
+        # 기본 대장주 = 첫 스냅샷
+        leader_stocks = per_snapshot_leaders[0] if per_snapshot_leaders else extract_leader_stocks(data)
+        # fallback: 스냅샷 없으면 현재 데이터에서 추출
+        if not all_leader_stocks:
+            leader_stocks = extract_leader_stocks(data)
+            all_leader_stocks = {s["code"]: s for s in leader_stocks}
+
+    all_codes = list(all_leader_stocks.keys())
+
+    if not leader_stocks and not all_codes:
         print("[결과] 대장주가 없습니다.")
         return None
 
-    print(f"\n[모의투자] 대장주 {len(leader_stocks)}종목 수집 시작")
+    print(f"\n[모의투자] 대장주 {len(all_codes)}종목 수집 시작 (첫 스냅샷 {len(leader_stocks)}종목)")
     print(f"  오전 데이터: {morning_timestamp}")
 
-    # price_snapshots 구성: 각 스냅샷에서 대장주 가격 추출
-    leader_codes = [s["code"] for s in leader_stocks]
+    # price_snapshots 구성: 각 스냅샷에서 모든 고유 종목 가격 추출 + 대장주 목록
     price_snapshots = []
-    for snap in snapshots:
+    for i, snap in enumerate(snapshots):
         snap_prices = {}
-        for code in leader_codes:
+        for code in all_codes:
             price = find_morning_price(snap["data"], code)
             if price is not None:
                 snap_prices[code] = price
+        leaders = per_snapshot_leaders[i] if i < len(per_snapshot_leaders) else []
         if snap_prices:
             price_snapshots.append({
                 "timestamp": snap["timestamp"],
                 "prices": snap_prices,
+                "leader_stocks": [{"code": l["code"], "name": l["name"], "theme": l["theme"]} for l in leaders],
             })
 
     if price_snapshots:
@@ -330,8 +351,10 @@ def collect_paper_trading_data(
     # KIS 클라이언트 초기화
     client = KISClient()
 
+    # 모든 고유 종목에 대해 KIS API 호출
+    all_stock_list = list(all_leader_stocks.values())
     results = []
-    for i, stock in enumerate(leader_stocks):
+    for i, stock in enumerate(all_stock_list):
         code = stock["code"]
         name = stock["name"]
         theme = stock["theme"]
@@ -339,7 +362,7 @@ def collect_paper_trading_data(
         # 오전 매수가 (첫 번째 스냅샷 기준)
         buy_price = find_morning_price(data, code)
         if buy_price is None:
-            print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}) - 오전 가격 없음, 건너뜀")
+            print(f"  [{i+1}/{len(all_stock_list)}] {name}({code}) - 오전 가격 없음, 건너뜀")
             continue
 
         # 종가 조회 (API 호출 간격)
@@ -348,7 +371,7 @@ def collect_paper_trading_data(
 
         prices = get_stock_prices(client, code)
         if prices is None:
-            print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}) - 가격 조회 실패, 건너뜀")
+            print(f"  [{i+1}/{len(all_stock_list)}] {name}({code}) - 가격 조회 실패, 건너뜀")
             continue
 
         close_price = prices["close_price"]
@@ -399,7 +422,7 @@ def collect_paper_trading_data(
         })
 
         sign = "+" if profit_rate >= 0 else ""
-        print(f"  [{i+1}/{len(leader_stocks)}] {name}({code}): {buy_price:,} -> {close_price:,} ({sign}{profit_rate}%) [최고 {high_price:,}]")
+        print(f"  [{i+1}/{len(all_stock_list)}] {name}({code}): {buy_price:,} -> {close_price:,} ({sign}{profit_rate}%) [최고 {high_price:,}]")
 
     if not results:
         print("[결과] 수집된 종목이 없습니다.")
