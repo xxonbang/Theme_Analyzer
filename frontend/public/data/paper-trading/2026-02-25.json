@@ -1,0 +1,110 @@
+{
+  "trade_date": "2026-02-25",
+  "morning_timestamp": "2026-02-25 09:19:17",
+  "collected_at": "2026-02-25 06:40:41",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-02-25 09:19:17",
+      "prices": {
+        "103590": 91200,
+        "308080": 7960,
+        "108320": 63500,
+        "417200": 19270
+      }
+    },
+    {
+      "timestamp": "2026-02-25 09:43:02",
+      "prices": {
+        "103590": 92400,
+        "308080": 7960,
+        "108320": 63200,
+        "417200": 18980
+      }
+    },
+    {
+      "timestamp": "2026-02-25 11:44:07",
+      "prices": {
+        "103590": 87300,
+        "308080": 7960,
+        "108320": 63300,
+        "417200": 17840
+      }
+    },
+    {
+      "timestamp": "2026-02-25 13:43:44",
+      "prices": {
+        "103590": 85100,
+        "108320": 63000,
+        "417200": 17970
+      }
+    }
+  ],
+  "stocks": [
+    {
+      "code": "103590",
+      "name": "일진전기",
+      "theme": "전력 인프라 투자 확대 (AI 데이터센터 및 노후 전력망 교체)",
+      "buy_price": 91200,
+      "close_price": 84600,
+      "profit_rate": -7.24,
+      "profit_amount": -6600,
+      "high_price": 94600,
+      "high_time": "09:25",
+      "high_profit_rate": 3.73,
+      "high_profit_amount": 3400
+    },
+    {
+      "code": "308080",
+      "name": "바이젠셀",
+      "theme": "바이오 신약 개발 (임상 성공 및 상업화 기대)",
+      "buy_price": 7960,
+      "close_price": 7960,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 7960,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "108320",
+      "name": "LX세미콘",
+      "theme": "디스플레이 구동칩(DDI) 고객사 다각화 (AI 반도체 수요 증가 기대)",
+      "buy_price": 63500,
+      "close_price": 62900,
+      "profit_rate": -0.94,
+      "profit_amount": -600,
+      "high_price": 64000,
+      "high_time": "09:19",
+      "high_profit_rate": 0.79,
+      "high_profit_amount": 500
+    },
+    {
+      "code": "417200",
+      "name": "LS머트리얼즈",
+      "theme": "차세대 2차전지 및 전력 그리드 (울트라커패시터)",
+      "buy_price": 19270,
+      "close_price": 17990,
+      "profit_rate": -6.64,
+      "profit_amount": -1280,
+      "high_price": 19040,
+      "high_time": "09:28",
+      "high_profit_rate": -1.19,
+      "high_profit_amount": -230
+    }
+  ],
+  "summary": {
+    "total_stocks": 4,
+    "profit_stocks": 0,
+    "loss_stocks": 3,
+    "total_invested": 181930,
+    "total_value": 173450,
+    "total_profit": -8480,
+    "total_profit_rate": -4.66,
+    "high_total_value": 185600,
+    "high_total_profit": 3670,
+    "high_total_profit_rate": 2.02,
+    "high_profit_stocks": 2,
+    "high_loss_stocks": 1
+  }
+}
