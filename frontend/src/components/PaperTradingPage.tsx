@@ -158,7 +158,7 @@ export function PaperTradingPage() {
           <Card key={date} className="overflow-hidden shadow-sm">
             <CardContent className="p-3 sm:p-4 space-y-3">
               {/* 일별 헤더 */}
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-y-1">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => toggleCollapse(date)}
@@ -173,7 +173,7 @@ export function PaperTradingPage() {
                       {date.replace(/-/g, ".")}
                     </span>
                   </button>
-                  <span className="text-[10px] sm:text-xs text-muted-foreground">
+                  <span className="text-[10px] sm:text-xs text-muted-foreground whitespace-nowrap">
                     {activeStocksForDay.length}/{data.stocks.length}종목
                   </span>
                   {snapshots && snapshots.length > 1 ? (
@@ -195,7 +195,7 @@ export function PaperTradingPage() {
                     (() => {
                       const t = data.morning_timestamp?.split(" ")[1]?.slice(0, 5)
                       return t ? (
-                        <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-1 sm:py-0.5 text-foreground inline-block">
+                        <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground inline-block">
                           매수 {t}
                         </span>
                       ) : null
