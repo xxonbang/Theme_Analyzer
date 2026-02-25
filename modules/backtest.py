@@ -44,7 +44,7 @@ def fetch_stock_returns(codes: List[str], start: str, end: str) -> Dict:
         for suffix in [".KS", ".KQ"]:
             ticker = f"{code}{suffix}"
             try:
-                data = yf.download(ticker, start=start, end=end, progress=False)
+                data = yf.download(ticker, start=start, end=end, progress=False, multi_level_index=False)
                 if data.empty or len(data) < 2:
                     continue
                 close = data["Close"]
@@ -69,7 +69,7 @@ def fetch_index_return(start: str, end: str) -> float:
     """KOSPI 지수 수익률 조회"""
     try:
         import yfinance as yf
-        data = yf.download("^KS11", start=start, end=end, progress=False)
+        data = yf.download("^KS11", start=start, end=end, progress=False, multi_level_index=False)
         if data.empty or len(data) < 2:
             return 0.0
         close = data["Close"]
@@ -110,7 +110,7 @@ def fetch_daily_returns(codes: List[str], target_date: str) -> Dict:
         for suffix in [".KS", ".KQ"]:
             ticker = f"{code}{suffix}"
             try:
-                data = yf.download(ticker, start=start, end=end, progress=False)
+                data = yf.download(ticker, start=start, end=end, progress=False, multi_level_index=False)
                 if data.empty or len(data) < 2:
                     continue
                 close = data["Close"]
@@ -137,7 +137,7 @@ def fetch_daily_index_return(target_date: str) -> float:
     end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
 
     try:
-        data = yf.download("^KS11", start=start, end=end, progress=False)
+        data = yf.download("^KS11", start=start, end=end, progress=False, multi_level_index=False)
         if data.empty or len(data) < 2:
             return 0.0
         close = data["Close"]
