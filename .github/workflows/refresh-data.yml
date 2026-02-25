@@ -74,7 +74,7 @@ jobs:
               git add frontend/public/data/history-index.json
             fi
             if [ -d frontend/public/data/history ]; then
-              git add -f frontend/public/data/history/*.json 2>/dev/null || true
+              git add frontend/public/data/history/*.json 2>/dev/null || true
             fi
 
             if ! git diff --staged --quiet; then

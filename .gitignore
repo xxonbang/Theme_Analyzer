@@ -24,9 +24,6 @@ docs/
 # Demo files
 frontend/public/demo-criteria.html
 
-# History data (auto-generated)
-frontend/public/data/history/
-
 # Tests
 tests/
 
