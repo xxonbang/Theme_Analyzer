@@ -63,7 +63,7 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
     return typeof c !== "boolean" && c?.met && !c?.warning
   }) : []
   return (
-    <div className="relative">
+    <div id={`stock-${stock.code}`} className="relative">
       <div className="flex items-center py-2 hover:bg-muted/50 transition-colors group">
       {/* Sticky left: Rank + Name */}
       <div className={cn(
