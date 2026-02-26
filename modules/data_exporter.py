@@ -129,6 +129,7 @@ def export_for_frontend(
     investor_estimated: bool = False,
     theme_analysis: Dict = None,
     criteria_data: Dict = None,
+    kospi_index: Dict = None,
     kosdaq_index: Dict = None,
     member_data: Dict = None,
 ) -> str:
@@ -175,6 +176,7 @@ def export_for_frontend(
         "investor_estimated": investor_estimated if investor_data else None,
         "theme_analysis": theme_analysis,
         "criteria_data": criteria_data if criteria_data else None,
+        "kospi_index": kospi_index,
         "kosdaq_index": kosdaq_index,
         "member_data": member_data if member_data else None,
     }

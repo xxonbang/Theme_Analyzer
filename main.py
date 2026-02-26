@@ -159,9 +159,84 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             pass
         return
 
-    # 2-1. 코스닥 지수 이동평균선 분석 (API 페이지당 50건 제한 → 여러 페이지 조회)
+    # 2-1. 코스피 지수 이동평균선 분석
+    kospi_index_data = None
+    print("\n[2-1/13] 코스피 지수 이동평균선 분석 중...")
+    for attempt in range(3):
+        try:
+            if attempt > 0:
+                time.sleep(3 * attempt)
+                print(f"  재시도 ({attempt + 1}/3)...")
+
+            all_items = []
+            end_date = datetime.now().strftime("%Y%m%d")
+            for page in range(3):
+                start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
+                idx_resp = client.get_index_daily_price(
+                    "0001", start_date=start_date, end_date=end_date
+                )
+                rt_cd = idx_resp.get("rt_cd")
+                if rt_cd != "0":
+                    msg = idx_resp.get("msg1", "알 수 없음")
+                    print(f"  ⚠ 코스피 지수 API 응답 오류 (rt_cd={rt_cd}, msg={msg})")
+                    break
+                page_items = idx_resp.get("output2", [])
+                if not page_items:
+                    break
+                all_items.extend(page_items)
+                if len(all_items) >= 120:
+                    break
+                last_date = page_items[-1].get("stck_bsop_date", "")
+                if not last_date:
+                    break
+                end_date = (datetime.strptime(last_date, "%Y%m%d") - timedelta(days=1)).strftime("%Y%m%d")
+
+            closes = []
+            for item in all_items:
+                try:
+                    val = float(item.get("bstp_nmix_prpr", 0))
+                    if val > 0:
+                        closes.append(val)
+                except (ValueError, TypeError):
+                    continue
+
+            if len(closes) >= 60:
+                current = closes[0]
+                ma5 = sum(closes[:5]) / 5
+                ma10 = sum(closes[:10]) / 10
+                ma20 = sum(closes[:20]) / 20
+                ma60 = sum(closes[:60]) / 60
+                ma120 = sum(closes[:120]) / 120 if len(closes) >= 120 else 0
+
+                values = [current, ma5, ma10, ma20, ma60]
+                if ma120 > 0:
+                    values.append(ma120)
+                is_aligned = all(values[i] > values[i+1] for i in range(len(values)-1))
+                is_reversed = all(values[i] < values[i+1] for i in range(len(values)-1))
+
+                status = "정배열" if is_aligned else ("역배열" if is_reversed else "혼합")
+                kospi_index_data = {
+                    "current": round(current, 2),
+                    "ma5": round(ma5, 2),
+                    "ma10": round(ma10, 2),
+                    "ma20": round(ma20, 2),
+                    "ma60": round(ma60, 2),
+                    "ma120": round(ma120, 2) if ma120 > 0 else 0,
+                    "status": status,
+                }
+                print(f"  ✓ 코스피 지수: {current:.2f} ({status}) [{len(closes)}일분 데이터]")
+                break
+            else:
+                print(f"  ⚠ 코스피 지수 데이터 부족 ({len(closes)}일분, 전체 {len(all_items)}건)")
+                break
+        except Exception as e:
+            print(f"  ⚠ 코스피 지수 분석 실패: {e}")
+            if attempt == 2:
+                break
+
+    # 2-2. 코스닥 지수 이동평균선 분석 (API 페이지당 50건 제한 → 여러 페이지 조회)
     kosdaq_index_data = None
-    print("\n[2-1/13] 코스닥 지수 이동평균선 분석 중...")
+    print("\n[2-2/13] 코스닥 지수 이동평균선 분석 중...")
     for attempt in range(3):
         try:
             if attempt > 0:
@@ -519,7 +594,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
 
     # 11-1. 수집 실패 데이터 기존 값 폴백
     _existing_data = None
-    if not exchange_data.get("rates") or kosdaq_index_data is None or theme_analysis is None:
+    if not exchange_data.get("rates") or kospi_index_data is None or kosdaq_index_data is None or theme_analysis is None:
         try:
             existing_path = os.path.join("frontend", "public", "data", "latest.json")
             if os.path.exists(existing_path):
@@ -532,6 +607,10 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         if not exchange_data.get("rates") and _existing_data.get("exchange", {}).get("rates"):
             exchange_data = _existing_data["exchange"]
             print(f"  ℹ 환율: 기존 데이터 보존 (기준일: {exchange_data.get('search_date', '')})")
+
+        if kospi_index_data is None and _existing_data.get("kospi_index"):
+            kospi_index_data = _existing_data["kospi_index"]
+            print(f"  ℹ 코스피 지수: 기존 데이터 보존 ({kospi_index_data.get('status', '')})")
 
         if kosdaq_index_data is None and _existing_data.get("kosdaq_index"):
             kosdaq_index_data = _existing_data["kosdaq_index"]
@@ -572,6 +651,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             investor_estimated=investor_estimated,
             criteria_data=criteria_data,
             theme_analysis=theme_analysis,
+            kospi_index=kospi_index_data,
             kosdaq_index=kosdaq_index_data,
             member_data=member_data,
         )

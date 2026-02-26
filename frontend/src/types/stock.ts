@@ -167,6 +167,7 @@ export interface StockData {
   investor_estimated?: boolean
   theme_analysis?: ThemeAnalysis
   criteria_data?: Record<string, StockCriteria>
+  kospi_index?: KosdaqIndex
   kosdaq_index?: KosdaqIndex
   member_data?: Record<string, MemberInfo>
 }

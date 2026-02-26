@@ -9,7 +9,7 @@ import { PaperTradingPage } from "@/components/PaperTradingPage"
 import { ThemeForecastPage } from "@/components/ThemeForecastPage"
 import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
-import { KosdaqIndexAlert } from "@/components/KosdaqIndexAlert"
+import { IndexAlertSection } from "@/components/KosdaqIndexAlert"
 import { ApiKeyAlertBanner } from "@/components/ApiKeyAlertBanner"
 import { useApiAlerts } from "@/hooks/useApiAlerts"
 import { useStockData } from "@/hooks/useStockData"
@@ -406,8 +406,8 @@ function App() {
         {/* Exchange Rate - Top section */}
         {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} />}
 
-        {/* Kosdaq Index Alert */}
-        {displayData?.kosdaq_index && <KosdaqIndexAlert data={displayData.kosdaq_index} />}
+        {/* Index MA Alert (KOSPI + KOSDAQ) */}
+        <IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} />
 
         {/* AI Theme Analysis */}
         {displayData?.theme_analysis && (
