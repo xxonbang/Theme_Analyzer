@@ -66,23 +66,25 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
         <div className="sm:hidden flex justify-center mb-2">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-semibold">{stockName} ({stockCode}) 예측 테마</span>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {themes.map((t, i) => {
             const sc = STATUS_CONFIG[t.status] || STATUS_CONFIG.active
             return (
-              <div key={i} className="flex items-center gap-1.5 flex-wrap">
-                <Badge className={cn("text-[9px] px-1.5 py-0", sc.cls)}>{sc.label}</Badge>
-                <Badge variant="outline" className="text-[9px] px-1.5 py-0">
-                  {CATEGORY_LABEL[t.category] || t.category}
-                </Badge>
-                <span className="text-xs truncate">{t.theme_name}</span>
-                <span className="text-[10px] text-muted-foreground">{t.confidence}</span>
+              <div key={i} className="rounded-lg bg-muted/40 px-3 py-2">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Badge className={cn("text-[10px] px-1.5 py-0.5 font-semibold", sc.cls)}>{sc.label}</Badge>
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0.5">
+                    {CATEGORY_LABEL[t.category] || t.category}
+                  </Badge>
+                  <span className="ml-auto text-[10px] text-muted-foreground">신뢰도 {t.confidence}</span>
+                </div>
+                <span className="text-sm font-medium">{t.theme_name}</span>
               </div>
             )
           })}
