@@ -4,3 +4,4 @@ supabase>=2.0.0
 fastapi>=0.100.0
 uvicorn[standard]>=0.20.0
 yfinance>=0.2.31
+pykrx>=1.0.0

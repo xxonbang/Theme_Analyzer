@@ -150,6 +150,41 @@ def main():
         print("  latest.json 갱신 및 텔레그램 전송을 건너뜁니다.")
         sys.exit(1)
 
+    # 4-1. pykrx 교차검증 + 세분화 (장후 18:00 이후, 확정 데이터일 때만)
+    if not is_estimated:
+        try:
+            from modules.pykrx_investor import is_pykrx_available, get_investor_data_bulk, extract_detail
+            from modules.investor_validator import cross_validate, print_validation_report
+
+            if is_pykrx_available():
+                print("\n[pykrx 교차검증]")
+                today_str = now.strftime("%Y%m%d")
+                stock_codes = [s["code"] for s in all_stocks if s["code"] in investor_data]
+                pykrx_data = get_investor_data_bulk(today_str, stock_codes)
+
+                if pykrx_data:
+                    # 교차검증
+                    validation = cross_validate(investor_data, pykrx_data)
+                    print_validation_report(validation)
+
+                    # 세분화 데이터 병합 (detail 필드)
+                    merged_count = 0
+                    for code, pkx in pykrx_data.items():
+                        if code in investor_data:
+                            detail = extract_detail(pkx)
+                            if detail:
+                                investor_data[code]["detail"] = detail
+                                merged_count += 1
+                    print(f"  세분화 데이터 병합: {merged_count}개 종목")
+                else:
+                    print("  pykrx 데이터 수집 결과 없음")
+            else:
+                print("\n[pykrx] 18:00 이전 — 교차검증 건너뜀")
+        except ImportError:
+            print("\n[pykrx] 모듈 미설치 — 교차검증 건너뜀 (pip install pykrx)")
+        except Exception as e:
+            print(f"\n[pykrx] 교차검증 실패 (KIS 데이터로 계속): {e}")
+
     # 5. latest.json 갱신
     if not test_mode:
         # 기존 investor_data의 program_net 보존 (main.py에서 병합한 값)

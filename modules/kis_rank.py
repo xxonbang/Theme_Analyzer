@@ -790,10 +790,70 @@ class KISRankAPI:
 
         return result
 
+    def get_investor_data_semi_confirmed(self, stocks: List[Dict]) -> Dict[str, Dict]:
+        """장중 외인/기관 가집계 수급 데이터 수집
+
+        KIS API FHKST01010700(국내기관_외국인 매매종목가집계)을 종목별로 호출.
+        증권사 직원이 장중 수동 집계한 데이터로, 추정치보다 정합성이 높다.
+        (외국인: 09:30/11:20/13:20/14:30, 기관: 10:00/11:20/13:20/14:30 입력)
+
+        Args:
+            stocks: 종목 리스트
+
+        Returns:
+            {종목코드: {"name", "foreign_net", "institution_net", "individual_net"}, ...}
+        """
+        import time
+
+        result = {}
+        total = len(stocks)
+
+        for idx, stock in enumerate(stocks):
+            code = stock.get("code", "")
+            name = stock.get("name", "")
+
+            if not code:
+                continue
+
+            try:
+                response = self.client.get_foreign_institution_total(code)
+
+                if response.get("rt_cd") != "0":
+                    continue
+
+                output = response.get("output", [])
+                if not output:
+                    continue
+
+                # 당일 최신 데이터 (첫 번째 항목)
+                today = output[0]
+                foreign_net = safe_int(today.get("frgn_ntby_qty", 0))
+                institution_net = safe_int(today.get("orgn_ntby_qty", 0))
+                individual_net = safe_int(today.get("prsn_ntby_qty", 0))
+
+                result[code] = {
+                    "name": name,
+                    "foreign_net": foreign_net,
+                    "institution_net": institution_net,
+                    "individual_net": individual_net if individual_net else None,
+                }
+
+            except Exception as e:
+                print(f"  ⚠ {name}({code}) 가집계 수급 조회 실패: {e}")
+                continue
+
+            if (idx + 1) % 10 == 0 or idx + 1 == total:
+                print(f"  진행: {idx + 1}/{total}")
+
+            time.sleep(0.05)
+
+        return result
+
     def get_investor_data_auto(self, stocks: List[Dict]) -> Tuple[Dict[str, Dict], bool]:
         """장중/장외 자동 전환 수급 데이터 수집
 
-        장중(09:00~15:30)이면 추정 API, 장외면 확정 API 호출
+        장중(09:00~15:30)이면 가집계 API, 장외면 확정 API 호출.
+        가집계 실패 시 기존 추정 API로 fallback.
 
         Args:
             stocks: 종목 리스트
@@ -802,8 +862,11 @@ class KISRankAPI:
             (data_dict, is_estimated) 튜플
         """
         if is_market_hours():
-            print("[수급] 장중 → 추정 데이터(HHPTJ04160200) 사용")
-            data = self.get_investor_data_estimate(stocks)
+            print("[수급] 장중 → 가집계 데이터(FHKST01010700) 사용")
+            data = self.get_investor_data_semi_confirmed(stocks)
+            if len(data) < max(1, len(stocks) // 4):
+                print(f"  가집계 수집 부족({len(data)}건) → 추정 API(HHPTJ04160200) fallback")
+                data = self.get_investor_data_estimate(stocks)
             return data, True
         else:
             print("[수급] 장외 → 확정 데이터(FHKST01010900) 사용")

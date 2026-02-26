@@ -496,6 +496,16 @@ class KISClient:
         params = {"MKSC_SHRN_ISCD": stock_code}
         return self.request("GET", path, tr_id, params=params)
 
+    def get_foreign_institution_total(self, stock_code: str) -> Dict[str, Any]:
+        """국내기관_외국인 매매종목가집계 (장중 가집계)"""
+        path = "/uapi/domestic-stock/v1/quotations/foreign-institution-total"
+        tr_id = "FHKST01010700"
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+        }
+        return self.request("GET", path, tr_id, params=params)
+
     def get_stock_daily_price(
         self,
         stock_code: str,
