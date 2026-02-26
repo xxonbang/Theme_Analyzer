@@ -836,6 +836,8 @@ class KISRankAPI:
                     continue
 
                 output = response.get("output", {})
+                if isinstance(output, list):
+                    output = output[0] if output else {}
                 if not output:
                     continue
 

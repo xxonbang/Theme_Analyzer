@@ -126,6 +126,12 @@ def main():
 
     # 5. latest.json 갱신
     if not test_mode:
+        # 기존 investor_data의 program_net 보존 (main.py에서 병합한 값)
+        old_investor = latest.get("investor_data", {})
+        for code, new_inv in investor_data.items():
+            pgtr = old_investor.get(code, {}).get("program_net")
+            if pgtr is not None:
+                new_inv["program_net"] = pgtr
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
         with open(LATEST_PATH, "w", encoding="utf-8") as f:
