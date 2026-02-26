@@ -216,8 +216,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             })()}
           </div>
 
-          {/* 투자자 수급 */}
-          {investorInfo && (
+          {/* 투자자 수급 (admin만 표시) */}
+          {isAdmin && investorInfo && (
             <div className="pt-1.5 border-t border-border/30">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
                 <span className="text-muted-foreground">
@@ -262,8 +262,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             </div>
           )}
 
-          {/* 수급원 TOP5 */}
-          {memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
+          {/* 수급원 TOP5 (admin만 표시) */}
+          {isAdmin && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
             <div className="grid grid-cols-2 gap-3 pt-1.5 border-t border-border/30">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>

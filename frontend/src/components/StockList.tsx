@@ -25,7 +25,7 @@ interface StockListProps {
 }
 
 // 컴팩트 모드 컬럼 헤더 (flex: sticky left + scrollable right)
-function CompactHeader({ showTradingValue, hasInvestorData, hasMemberData, investorEstimated }: { showTradingValue?: boolean; hasInvestorData?: boolean; hasMemberData?: boolean; investorEstimated?: boolean }) {
+function CompactHeader({ showTradingValue, hasInvestorData, hasMemberData, investorEstimated, isAdmin }: { showTradingValue?: boolean; hasInvestorData?: boolean; hasMemberData?: boolean; investorEstimated?: boolean; isAdmin?: boolean }) {
   return (
     <div className="flex items-center py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
       <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
@@ -36,12 +36,12 @@ function CompactHeader({ showTradingValue, hasInvestorData, hasMemberData, inves
         <span className="text-right w-16 sm:w-20">현재가</span>
         {showTradingValue && <span className="text-right w-14 sm:w-16">거래대금</span>}
         <span className="text-right w-12 sm:w-14">거래량</span>
-        {hasInvestorData && <span className="text-right w-14 sm:w-16">외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
-        {hasInvestorData && <span className="text-right w-14 sm:w-16">기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
-        {hasInvestorData && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">장중</span>}</span>}
-        {hasInvestorData && <span className="text-right w-14 sm:w-16">프로그램</span>}
-        {hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
-        {hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}
+        {isAdmin && hasInvestorData && <span className="text-right w-14 sm:w-16">외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
+        {isAdmin && hasInvestorData && <span className="text-right w-14 sm:w-16">기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>}</span>}
+        {isAdmin && hasInvestorData && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">장중</span>}</span>}
+        {isAdmin && hasInvestorData && <span className="text-right w-14 sm:w-16">프로그램</span>}
+        {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
+        {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}
         <span className="text-right w-16 ml-2">등락률</span>
       </div>
     </div>
@@ -140,32 +140,32 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
         <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-14">
           {formatVolume(stock.volume)}
         </span>
-        {hasInvestorData && (
+        {isAdmin && hasInvestorData && (
           <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
             {investorInfo ? formatNetBuy(investorInfo.foreign_net) : "-"}
           </span>
         )}
-        {hasInvestorData && (
+        {isAdmin && hasInvestorData && (
           <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.institution_net) : "text-muted-foreground")}>
             {investorInfo ? formatNetBuy(investorInfo.institution_net) : "-"}
           </span>
         )}
-        {hasInvestorData && (
+        {isAdmin && hasInvestorData && (
           <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.individual_net != null ? getNetBuyColor(investorInfo.individual_net) : "text-muted-foreground")}>
             {investorInfo?.individual_net != null ? formatNetBuy(investorInfo.individual_net) : "-"}
           </span>
         )}
-        {hasInvestorData && (
+        {isAdmin && hasInvestorData && (
           <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.program_net != null ? getNetBuyColor(investorInfo.program_net) : "text-muted-foreground")}>
             {investorInfo?.program_net != null ? formatNetBuy(investorInfo.program_net) : "-"}
           </span>
         )}
-        {hasMemberData && (
+        {isAdmin && hasMemberData && (
           <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.buy_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
             {memberInfo?.buy_top5?.[0]?.name || "-"}
           </span>
         )}
-        {hasMemberData && (
+        {isAdmin && hasMemberData && (
           <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.sell_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
             {memberInfo?.sell_top5?.[0]?.name || "-"}
           </span>
@@ -234,7 +234,7 @@ function CompactMarketSection({
       </div>
       <div className="overflow-x-auto scrollbar-hide">
         <div className="min-w-fit">
-          {showHeader && <CompactHeader showTradingValue={showTradingValue} hasInvestorData={hasInvestorData} hasMemberData={hasMemberData} investorEstimated={investorEstimated} />}
+          {showHeader && <CompactHeader showTradingValue={showTradingValue} hasInvestorData={hasInvestorData} hasMemberData={hasMemberData} investorEstimated={investorEstimated} isAdmin={isAdmin} />}
           <div className="divide-y divide-border/30">
             {stocks.map((stock) => (
               <CompactStockRow key={stock.code} stock={stock} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} hasInvestorData={hasInvestorData} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
