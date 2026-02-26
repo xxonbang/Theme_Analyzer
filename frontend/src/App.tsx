@@ -111,7 +111,12 @@ function App() {
   }, [])
 
   const scrollToStock = useCallback((code: string) => {
-    document.getElementById(`stock-${code}`)?.scrollIntoView({ behavior: "smooth", block: "center" })
+    const el = document.getElementById(`stock-${code}`)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" })
+    } else {
+      alert("현재 리스트에 해당 종목이 없습니다.")
+    }
   }, [])
 
   const toggleCompactMode = () => {
