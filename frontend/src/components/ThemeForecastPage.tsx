@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle } from "lucide-react"
+import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
@@ -17,6 +18,63 @@ const CONFIDENCE_CONFIG = {
   "보통": { badge: "bg-amber-100 text-amber-700", dot: "bg-amber-500" },
   "낮음": { badge: "bg-slate-100 text-slate-600", dot: "bg-slate-400" },
 } as const
+
+const LEGEND_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
+  "신뢰도": {
+    title: "신뢰도",
+    description: "AI가 촉매 강도, 데이터 뒷받침 정도, 테마 지속성을 종합 판정합니다. 높음=강한 확신, 보통=일반적 확신, 낮음=탐색적 분석",
+  },
+  "예상 부각 시점": {
+    title: "예상 부각 시점",
+    description: "테마가 시장에서 부각될 것으로 예상하는 시점입니다. 당일=오늘 장중, 단기=7영업일 이내, 장기=1개월 이내",
+  },
+  "추정": {
+    title: "추정",
+    description: "전일 거래 데이터(거래대금, 시가총액 등)를 yfinance에서 조회하지 못한 종목입니다. 실적·펀더멘털 기반 필터링 없이 AI 분석만으로 선정되었습니다.",
+  },
+}
+
+function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose: () => void }) {
+  const info = LEGEND_DESCRIPTIONS[legendKey]
+
+  useEffect(() => {
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
+    }
+  }, [])
+
+  if (!info) return null
+
+  return createPortal(
+    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+      <div className="absolute inset-0 bg-black/25" onClick={onClose} />
+      <div className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
+        <div className="sm:hidden flex justify-center mb-2">
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+        </div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-semibold">{info.title}</span>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{info.description}</p>
+      </div>
+    </div>,
+    document.body
+  )
+}
 
 function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastStock; criteria?: StockCriteria; showCriteria?: boolean }) {
   const [showPopup, setShowPopup] = useState(false)
@@ -188,6 +246,35 @@ function ForecastSection({ title, icon, themes, emptyText, criteriaData, isAdmin
   )
 }
 
+function LegendBar() {
+  const [legendPopup, setLegendPopup] = useState<string | null>(null)
+
+  return (
+    <>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] sm:text-xs text-muted-foreground border-t border-border/50 pt-2">
+        <span className="font-medium text-foreground/70">범례</span>
+        <button onClick={() => setLegendPopup("신뢰도")} className="flex items-center gap-1 hover:text-foreground transition-colors">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500" />높음
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 ml-1" />보통
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-400 ml-1" />낮음
+          <span className="ml-0.5">— 신뢰도</span>
+        </button>
+        <button onClick={() => setLegendPopup("예상 부각 시점")} className="flex items-center gap-1 hover:text-foreground transition-colors">
+          <Clock className="w-3 h-3" />
+          <span>— 예상 부각 시점</span>
+        </button>
+        <button onClick={() => setLegendPopup("추정")} className="flex items-center gap-1 hover:text-foreground transition-colors">
+          <span className="text-amber-500 font-medium">추정</span>
+          <span>— 전일 거래 데이터 미확인 종목</span>
+        </button>
+      </div>
+      {legendPopup && (
+        <LegendExplainPopup legendKey={legendPopup} onClose={() => setLegendPopup(null)} />
+      )}
+    </>
+  )
+}
+
 interface ThemeForecastPageProps {
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
@@ -256,23 +343,7 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           </div>
 
           {/* 범례 */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] sm:text-xs text-muted-foreground border-t border-border/50 pt-2">
-            <span className="font-medium text-foreground/70">범례</span>
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />높음
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 ml-1" />보통
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-400 ml-1" />낮음
-              <span className="ml-0.5">— 신뢰도</span>
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              <span>— 예상 부각 시점</span>
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="text-amber-500 font-medium">추정</span>
-              <span>— 전일 거래 데이터 미확인 종목</span>
-            </span>
-          </div>
+          <LegendBar />
         </CardContent>
       </Card>
 

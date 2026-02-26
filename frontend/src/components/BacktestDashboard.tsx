@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, ChevronUp, BarChart3, Info } from "lucide-react"
+import { ChevronDown, ChevronUp, BarChart3, Info, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { BacktestStats } from "@/hooks/useBacktestStats"
+import type { BacktestStats, StockDetail } from "@/hooks/useBacktestStats"
 
 const CATEGORY_CONFIG: Record<string, { label: string; period: string }> = {
-  today: { label: "오늘", period: "당일" },
+  today: { label: "당일", period: "당일" },
   short_term: { label: "단기", period: "7일 이내" },
   long_term: { label: "장기", period: "1개월 이내" },
 }
@@ -33,19 +34,98 @@ function ProgressBar({ accuracy }: { accuracy: number }) {
   )
 }
 
-function StatCell({ label, sub, total, hit, accuracy }: { label: string; sub?: string; total: number; hit: number; accuracy: number }) {
-  return (
-    <div className="text-center space-y-1">
+function StatCell({ label, sub, total, hit, accuracy, onClick }: { label: string; sub?: string; total: number; hit: number; accuracy: number; onClick?: () => void }) {
+  const content = (
+    <>
       <p className="text-xs text-muted-foreground">{label}</p>
       {sub && <p className="text-[10px] text-muted-foreground/70">{sub}</p>}
       <p className="text-sm sm:text-base font-semibold">{accuracy}%</p>
       <p className="text-[10px] text-muted-foreground">{hit}/{total}</p>
-    </div>
+    </>
+  )
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} className="text-center space-y-1 hover:bg-muted/50 rounded-md py-1 transition-colors">
+        {content}
+      </button>
+    )
+  }
+  return <div className="text-center space-y-1">{content}</div>
+}
+
+function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: string; details: StockDetail[]; onClose: () => void }) {
+  useEffect(() => {
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
+    }
+  }, [])
+
+  // 날짜별 그룹
+  const byDate = new Map<string, StockDetail[]>()
+  for (const d of details) {
+    const arr = byDate.get(d.date) || []
+    arr.push(d)
+    byDate.set(d.date, arr)
+  }
+
+  return createPortal(
+    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+      <div className="absolute inset-0 bg-black/25" onClick={onClose} />
+      <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[75vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
+        <div className="sm:hidden flex justify-center mb-2">
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+        </div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-semibold">{confidence} 신뢰도 상세 내역</span>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <p className="text-[10px] text-muted-foreground mb-3">
+          상승률: 예측일 전일종가 대비 평가일 종가 변동률 · 적중 기준: +2% 이상
+        </p>
+        <div className="space-y-3">
+          {[...byDate.entries()].map(([date, stocks]) => (
+            <div key={date}>
+              <p className="text-[11px] font-medium text-muted-foreground mb-1">{date}</p>
+              <div className="space-y-1">
+                {stocks.map((s, i) => (
+                  <div key={i} className="flex items-center gap-1.5 text-xs sm:text-sm py-0.5">
+                    <span className={cn("font-bold w-4 text-center shrink-0", s.isHit ? "text-emerald-600" : "text-red-500")}>
+                      {s.isHit ? "O" : "X"}
+                    </span>
+                    <span className="font-medium truncate">{s.stockName}</span>
+                    {s.themeName && <span className="text-[10px] text-muted-foreground truncate">({s.themeName})</span>}
+                    <span className={cn("ml-auto tabular-nums font-medium shrink-0", s.returnPct > 0 ? "text-red-500" : s.returnPct < 0 ? "text-blue-500" : "")}>
+                      {s.returnPct > 0 ? "+" : ""}{s.returnPct}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>,
+    document.body
   )
 }
 
 export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
   const [expanded, setExpanded] = useState(false)
+  const [selectedConfidence, setSelectedConfidence] = useState<string | null>(null)
 
   if (stats.loading) return null
 
@@ -88,7 +168,8 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
                 {stats.dateRange
                   ? `${stats.dateRange.from} ~ ${stats.dateRange.to} · `
                   : ""}
-                적중 기준: 수익률 +2% 이상
+
+                상승률: 전일종가 대비 변동률 · 적중 기준: 수익률 +2% 이상
               </span>
             </div>
 
@@ -109,15 +190,15 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
                   const g = stats.byConfidence[key]
                   const conf = CONFIDENCE_CONFIG[key]
                   return g ? (
-                    <StatCell key={key} label={key} sub={conf?.desc} total={g.total} hit={g.hit} accuracy={g.accuracy} />
+                    <StatCell key={key} label={key} sub={conf?.desc} total={g.total} hit={g.hit} accuracy={g.accuracy} onClick={() => setSelectedConfidence(key)} />
                   ) : null
                 })}
               </div>
             </div>
 
-            {/* 예측 기간별 */}
+            {/* 부각 시점별 */}
             <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground font-medium">예측 기간별</p>
+              <p className="text-xs text-muted-foreground font-medium">부각 시점별</p>
               <div className="grid grid-cols-3 gap-2">
                 {CATEGORY_ORDER.map(key => {
                   const g = stats.byCategory[key]
@@ -131,6 +212,14 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
           </div>
         )}
       </CardContent>
+
+      {selectedConfidence && stats.detailsByConfidence[selectedConfidence] && (
+        <ConfidenceDetailPopup
+          confidence={selectedConfidence}
+          details={stats.detailsByConfidence[selectedConfidence]}
+          onClose={() => setSelectedConfidence(null)}
+        />
+      )}
     </Card>
   )
 }

@@ -3,10 +3,20 @@ import { supabase } from "@/lib/supabase"
 
 interface AccuracyGroup { total: number; hit: number; accuracy: number }
 
+export interface StockDetail {
+  date: string
+  stockName: string
+  stockCode: string
+  themeName: string
+  returnPct: number
+  isHit: boolean
+}
+
 export interface BacktestStats {
   overall: AccuracyGroup
   byConfidence: Record<string, AccuracyGroup>
   byCategory: Record<string, AccuracyGroup>
+  detailsByConfidence: Record<string, StockDetail[]>
   dateRange: { from: string; to: string } | null
   loading: boolean
 }
@@ -20,6 +30,7 @@ export function useBacktestStats(): BacktestStats {
     overall: { total: 0, hit: 0, accuracy: 0 },
     byConfidence: {},
     byCategory: {},
+    detailsByConfidence: {},
     dateRange: null,
     loading: true,
   })
@@ -28,7 +39,7 @@ export function useBacktestStats(): BacktestStats {
     const fetch = async () => {
       const { data, error } = await supabase
         .from("theme_predictions")
-        .select("prediction_date, status, confidence, category, leader_stocks, actual_performance")
+        .select("prediction_date, status, confidence, category, leader_stocks, actual_performance, theme_name")
         .in("status", ["hit", "missed"])
 
       if (error || !data) {
@@ -42,6 +53,7 @@ export function useBacktestStats(): BacktestStats {
       let totalHit = 0
       const byConf: Record<string, { total: number; hit: number }> = {}
       const byCat: Record<string, { total: number; hit: number }> = {}
+      const detailsByConf: Record<string, StockDetail[]> = {}
 
       for (const row of data) {
         let stocks = row.leader_stocks
@@ -54,6 +66,8 @@ export function useBacktestStats(): BacktestStats {
         if (typeof perf === "string") {
           try { perf = JSON.parse(perf) } catch { perf = null }
         }
+
+        const themeName = (row as Record<string, unknown>).theme_name as string || ""
 
         for (const s of stocks as { code: string; name: string }[]) {
           const key = `${row.prediction_date}:${s.code}`
@@ -78,7 +92,22 @@ export function useBacktestStats(): BacktestStats {
           if (!byCat[cat]) byCat[cat] = { total: 0, hit: 0 }
           byCat[cat].total++
           if (isHit) byCat[cat].hit++
+
+          if (!detailsByConf[conf]) detailsByConf[conf] = []
+          detailsByConf[conf].push({
+            date: row.prediction_date as string,
+            stockName: s.name,
+            stockCode: s.code,
+            themeName,
+            returnPct: ret,
+            isHit,
+          })
         }
+      }
+
+      // 날짜 내림차순 정렬
+      for (const arr of Object.values(detailsByConf)) {
+        arr.sort((a, b) => b.date.localeCompare(a.date))
       }
 
       const toGroups = (m: Record<string, { total: number; hit: number }>) =>
@@ -91,6 +120,7 @@ export function useBacktestStats(): BacktestStats {
         overall: makeGroup(totalCount, totalHit),
         byConfidence: toGroups(byConf),
         byCategory: toGroups(byCat),
+        detailsByConfidence: detailsByConf,
         dateRange,
         loading: false,
       })
