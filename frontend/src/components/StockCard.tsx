@@ -184,7 +184,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
               {/* 3일 히스토리 토글 */}
-              {history?.changes && history.changes.length > 1 && history.changes.some(c => c.volume || c.trading_value) && (
+              {history?.changes && history.changes.length > 1 && (
                 <button
                   onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
                   className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
@@ -205,6 +205,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     return (
                       <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
                         <span className="font-medium w-6">{label}</span>
+                        <span className={cn("font-medium", c.change_rate >= 0 ? "text-red-500" : "text-blue-500")}>{c.change_rate > 0 ? "+" : ""}{c.change_rate.toFixed(1)}%</span>
                         {c.trading_value != null && <span>거래대금 <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></span>}
                         {c.volume != null && <span>거래량 <span className="text-foreground font-medium">{formatVolume(c.volume)}</span></span>}
                       </div>
