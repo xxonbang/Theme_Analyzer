@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -84,6 +84,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     const criterion = criteria[key as keyof StockCriteria]
                     if (typeof criterion === "boolean") return null
                     if (!criterion?.met) return null
+                    if (criterion?.warning) return null
 
                     const is52w = key === "high_breakout" && criterion?.is_52w_high
 
@@ -102,13 +103,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         {is52w && (
                           <button
                             onClick={(e) => handleDotClick(e)}
-                            className={cn(
-                              "w-2.5 h-2.5 rounded-full shrink-0 cursor-pointer sm:hidden",
-                              "transition-transform hover:scale-125 shadow-sm",
-                              dot
-                            )}
-                            title={`${label} (52주 신고가)`}
-                          />
+                            className="shrink-0 cursor-pointer sm:hidden transition-transform hover:scale-125"
+                            title="52주 신고가"
+                          >
+                            <Crown className="w-3 h-3 text-amber-500" />
+                          </button>
                         )}
                         {/* PC/태블릿: 뱃지 */}
                         <button
@@ -119,7 +118,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                             badge
                           )}
                         >
-                          <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", dot)} />
+                          {is52w ? <Crown className="w-3 h-3 text-amber-500" /> : <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", dot)} />}
                           {is52w ? "52주 신고가" : shortLabel}
                         </button>
                       </Fragment>
@@ -149,7 +148,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         </div>
 
         {/* Volume + History */}
-        <div className="mt-2 pt-2 border-t border-border/50">
+        <div className="mt-2 pt-2 border-t border-border/50 space-y-1.5">
+          {/* 거래 정보 */}
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
             {stock.trading_value != null && (
               <span className="text-muted-foreground">
@@ -159,65 +159,74 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             <span className="text-muted-foreground">
               거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
             </span>
-
-            {investorInfo && (
-              <>
-                <span className="text-muted-foreground">
-                  외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
-                </span>
-                <span className="text-muted-foreground">
-                  기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
-                </span>
-                {investorInfo.individual_net != null && (
-                  <span className="text-muted-foreground">
-                    개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
-                  </span>
-                )}
-              </>
-            )}
-
-            {memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
-              <div className="w-full grid grid-cols-2 gap-2 mt-1 pt-1 border-t border-border/30">
-                <div>
-                  <p className="text-[9px] text-muted-foreground mb-0.5">매수 TOP5</p>
-                  {memberInfo.buy_top5.map((b, i) => (
-                    <div key={i} className="flex items-center justify-between text-[9px] sm:text-[10px]">
-                      <span className={b.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{b.name}</span>
-                      <span className="text-muted-foreground tabular-nums">{b.ratio.toFixed(1)}%</span>
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <p className="text-[9px] text-muted-foreground mb-0.5">매도 TOP5</p>
-                  {memberInfo.sell_top5.map((s, i) => (
-                    <div key={i} className="flex items-center justify-between text-[9px] sm:text-[10px]">
-                      <span className={s.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{s.name}</span>
-                      <span className="text-muted-foreground tabular-nums">{s.ratio.toFixed(1)}%</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {history && history.changes && history.changes.length > 0 && (
-              <div className="flex items-center gap-1 flex-wrap">
-                {[...history.changes].reverse().slice(0, 3).map((change, idx) => {
-                  const labels = ["D-2", "D-1", "D"]
-                  return (
-                    <span
-                      key={idx}
-                      className={cn(
-                        "text-[9px] sm:text-[10px] px-1 py-0.5 rounded font-medium whitespace-nowrap",
-                        getChangeBgColor(change.change_rate)
-                      )}
-                    >
-                      {labels[idx]} {change.change_rate > 0 ? "+" : ""}{change.change_rate.toFixed(1)}%
-                    </span>
-                  )
-                })}
-              </div>
-            )}
           </div>
+
+          {/* 투자자 수급 */}
+          {investorInfo && (
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs pt-1.5 border-t border-border/30">
+              <span className="text-muted-foreground">
+                외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
+              </span>
+              <span className="text-muted-foreground">
+                기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
+              </span>
+              {investorInfo.individual_net != null && (
+                <span className="text-muted-foreground">
+                  개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* 수급원 TOP5 */}
+          {memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
+            <div className="grid grid-cols-2 gap-3 pt-1.5 border-t border-border/30">
+              <div>
+                <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
+                {memberInfo.buy_top5.map((b, i) => (
+                  <div key={i} className={cn(
+                    "flex items-center justify-between text-[10px] sm:text-[11px] px-1 py-px rounded",
+                    i % 2 === 0 && "bg-muted/50"
+                  )}>
+                    <span className={b.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{b.name}</span>
+                    <span className="text-muted-foreground tabular-nums">{b.ratio.toFixed(1)}%</span>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매도 TOP5</p>
+                {memberInfo.sell_top5.map((s, i) => (
+                  <div key={i} className={cn(
+                    "flex items-center justify-between text-[10px] sm:text-[11px] px-1 py-px rounded",
+                    i % 2 === 0 && "bg-muted/50"
+                  )}>
+                    <span className={s.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{s.name}</span>
+                    <span className="text-muted-foreground tabular-nums">{s.ratio.toFixed(1)}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 등락률 히스토리 */}
+          {history && history.changes && history.changes.length > 0 && (
+            <div className="flex items-center gap-1 flex-wrap">
+              {[...history.changes].reverse().slice(0, 3).map((change, idx) => {
+                const labels = ["D-2", "D-1", "D"]
+                return (
+                  <span
+                    key={idx}
+                    className={cn(
+                      "text-[9px] sm:text-[10px] px-1 py-0.5 rounded font-medium whitespace-nowrap",
+                      getChangeBgColor(change.change_rate)
+                    )}
+                  >
+                    {labels[idx]} {change.change_rate > 0 ? "+" : ""}{change.change_rate.toFixed(1)}%
+                  </span>
+                )
+              })}
+            </div>
+          )}
         </div>
 
         {/* News Section */}

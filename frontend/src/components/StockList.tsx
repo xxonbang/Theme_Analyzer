@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { TrendingUp, TrendingDown, BarChart3, ExternalLink } from "lucide-react"
+import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { StockCard } from "@/components/StockCard"
@@ -60,7 +60,7 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
   const [criteriaExpanded, setCriteriaExpanded] = useState(false)
   const metCriteria = showDots ? CRITERIA_CONFIG.filter(({ key }) => {
     const c = criteria[key as keyof StockCriteria]
-    return typeof c !== "boolean" && c?.met
+    return typeof c !== "boolean" && c?.met && !c?.warning
   }) : []
   return (
     <div className="relative">
@@ -81,10 +81,11 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
           {stock.rank}
           {/* 경고 알림 뱃지 */}
           {(shortWarning || overheatWarning || reverseWarning) && (
-            <span className={cn(
-              "absolute -top-1 -right-1 w-2 h-2 rounded-full border border-white animate-pulse",
-              shortWarning ? "bg-red-500" : overheatWarning ? "bg-amber-500" : "bg-indigo-500"
-            )} />
+            <span className="absolute -top-1 -right-1 flex gap-px">
+              {shortWarning && <span className="w-2 h-2 rounded-full border border-white animate-pulse bg-red-500" title="공매도 경고" />}
+              {overheatWarning && <span className="w-2 h-2 rounded-full border border-white animate-pulse bg-amber-500" title="과열 경고" />}
+              {reverseWarning && <span className="w-2 h-2 rounded-full border border-white animate-pulse bg-indigo-500" title="역배열 경고" />}
+            </span>
           )}
         </span>
         <div className="min-w-0 relative">
@@ -102,9 +103,16 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, hasInves
               onClick={() => setCriteriaExpanded(!criteriaExpanded)}
               className="flex items-center gap-px mt-0.5 hover:opacity-70 transition-opacity"
             >
-              {metCriteria.map(({ key, dot }) => (
-                <span key={key} className={cn("w-1.5 h-1.5 rounded-full", dot)} />
-              ))}
+              {metCriteria.map(({ key, dot }) => {
+                const c = criteria![key as keyof StockCriteria]
+                const is52w = key === "high_breakout" && typeof c !== "boolean" && c?.is_52w_high
+                return (
+                  <span key={key} className="flex items-center gap-px">
+                    <span className={cn("w-1.5 h-1.5 rounded-full", dot, is52w && "ring-1 ring-amber-400")} />
+                    {is52w && <Crown className="w-2.5 h-2.5 text-amber-500" />}
+                  </span>
+                )
+              })}
             </button>
           )}
           {/* Criteria popup */}

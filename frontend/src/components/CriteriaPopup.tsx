@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
-import { X } from "lucide-react"
+import { X, Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import type { StockCriteria } from "@/types/stock"
@@ -72,11 +72,14 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
             {metItems.map(({ key, dot, label }) => {
               const c = criteria[key as keyof StockCriteria]
               if (typeof c === "boolean") return null
+              const is52w = key === "high_breakout" && c?.is_52w_high
               return (
                 <div key={key}>
                   <div className="flex items-center gap-1.5">
                     <span className={cn("w-2 h-2 rounded-full shrink-0", dot)} />
                     <span className="text-[10px] font-semibold">{label}</span>
+                    {is52w && <Crown className="w-3 h-3 text-amber-500" />}
+                    {is52w && <span className="text-[9px] text-amber-600 font-medium">52주 신고가</span>}
                   </div>
                   <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed pl-3.5">{c?.reason || "근거 없음"}</p>
                 </div>
