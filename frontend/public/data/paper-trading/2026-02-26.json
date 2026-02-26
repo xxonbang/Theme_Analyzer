@@ -1,0 +1,393 @@
+{
+  "trade_date": "2026-02-26",
+  "morning_timestamp": "2026-02-26 09:22:59",
+  "collected_at": "2026-02-26 06:40:45",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-02-26 09:22:59",
+      "prices": {
+        "042700": 228750,
+        "403870": 41950,
+        "377300": 72300,
+        "064260": 9210,
+        "336260": 41500,
+        "319400": 36850,
+        "277810": 814000,
+        "242040": 5420,
+        "229000": 4060,
+        "308080": 9340,
+        "001510": 1866,
+        "011070": 323000
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI 관련주"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 관련주"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "핀테크/결제 관련주"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "핀테크/결제 관련주"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "수소/친환경 에너지 관련주"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/스마트팩토리 관련주"
+        },
+        {
+          "code": "277810",
+          "name": "레인보우로보틱스",
+          "theme": "로봇/스마트팩토리 관련주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26 09:46:01",
+      "prices": {
+        "042700": 240500,
+        "403870": 41900,
+        "377300": 69400,
+        "064260": 9030,
+        "336260": 41350,
+        "319400": 36150,
+        "277810": 827000,
+        "242040": 5880,
+        "229000": 4510,
+        "308080": 9790,
+        "001510": 1993,
+        "011070": 329000
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 클라우드"
+        },
+        {
+          "code": "242040",
+          "name": "나무기술",
+          "theme": "AI 반도체 및 클라우드"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오 혁신 신약"
+        },
+        {
+          "code": "308080",
+          "name": "바이젠셀",
+          "theme": "바이오 혁신 신약"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "핀테크 및 증권업 재편"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "핀테크 및 증권업 재편"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "로봇 및 자율주행 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26 11:42:43",
+      "prices": {
+        "042700": 245500,
+        "403870": 43150,
+        "377300": 70800,
+        "336260": 40850,
+        "319400": 34650,
+        "277810": 881000,
+        "242040": 6040,
+        "229000": 4195,
+        "308080": 8990,
+        "001510": 2230,
+        "011070": 344750
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 클라우드"
+        },
+        {
+          "code": "242040",
+          "name": "나무기술",
+          "theme": "AI 반도체 및 클라우드"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오 혁신 신약"
+        },
+        {
+          "code": "308080",
+          "name": "바이젠셀",
+          "theme": "바이오 혁신 신약"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "핀테크 및 증권업 재편"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "핀테크 및 증권업 재편"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "로봇 및 자율주행 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-26 13:41:22",
+      "prices": {
+        "042700": 276500,
+        "403870": 45450,
+        "377300": 69200,
+        "336260": 40200,
+        "319400": 33650,
+        "277810": 890000,
+        "242040": 5870,
+        "229000": 3920,
+        "308080": 8630,
+        "001510": 2215,
+        "011070": 348500
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 클라우드"
+        },
+        {
+          "code": "242040",
+          "name": "나무기술",
+          "theme": "AI 반도체 및 클라우드"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오 혁신 신약"
+        },
+        {
+          "code": "308080",
+          "name": "바이젠셀",
+          "theme": "바이오 혁신 신약"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "핀테크 및 증권업 재편"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "핀테크 및 증권업 재편"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "로봇 및 자율주행 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "반도체/AI 관련주",
+      "buy_price": 228750,
+      "close_price": 275500,
+      "profit_rate": 20.44,
+      "profit_amount": 46750,
+      "high_price": 277500,
+      "high_time": "13:34",
+      "high_profit_rate": 21.31,
+      "high_profit_amount": 48750
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체/AI 관련주",
+      "buy_price": 41950,
+      "close_price": 43300,
+      "profit_rate": 3.22,
+      "profit_amount": 1350,
+      "high_price": 45750,
+      "high_time": "13:28",
+      "high_profit_rate": 9.06,
+      "high_profit_amount": 3800
+    },
+    {
+      "code": "377300",
+      "name": "카카오페이",
+      "theme": "핀테크/결제 관련주",
+      "buy_price": 72300,
+      "close_price": 68300,
+      "profit_rate": -5.53,
+      "profit_amount": -4000,
+      "high_price": 71500,
+      "high_time": "11:21",
+      "high_profit_rate": -1.11,
+      "high_profit_amount": -800
+    },
+    {
+      "code": "064260",
+      "name": "다날",
+      "theme": "핀테크/결제 관련주",
+      "buy_price": 9210,
+      "close_price": 8630,
+      "profit_rate": -6.3,
+      "profit_amount": -580,
+      "high_price": 9050,
+      "high_time": "09:28",
+      "high_profit_rate": -1.74,
+      "high_profit_amount": -160
+    },
+    {
+      "code": "336260",
+      "name": "두산퓨얼셀",
+      "theme": "수소/친환경 에너지 관련주",
+      "buy_price": 41500,
+      "close_price": 39800,
+      "profit_rate": -4.1,
+      "profit_amount": -1700,
+      "high_price": 41600,
+      "high_time": "09:28",
+      "high_profit_rate": 0.24,
+      "high_profit_amount": 100
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/스마트팩토리 관련주",
+      "buy_price": 36850,
+      "close_price": 34100,
+      "profit_rate": -7.46,
+      "profit_amount": -2750,
+      "high_price": 36550,
+      "high_time": "09:22",
+      "high_profit_rate": -0.81,
+      "high_profit_amount": -300
+    },
+    {
+      "code": "277810",
+      "name": "레인보우로보틱스",
+      "theme": "로봇/스마트팩토리 관련주",
+      "buy_price": 814000,
+      "close_price": 880000,
+      "profit_rate": 8.11,
+      "profit_amount": 66000,
+      "high_price": 904000,
+      "high_time": "13:02",
+      "high_profit_rate": 11.06,
+      "high_profit_amount": 90000
+    },
+    {
+      "code": "242040",
+      "name": "나무기술",
+      "theme": "AI 반도체 및 클라우드",
+      "buy_price": 5420,
+      "close_price": 5950,
+      "profit_rate": 9.78,
+      "profit_amount": 530,
+      "high_price": 6140,
+      "high_time": "10:24",
+      "high_profit_rate": 13.28,
+      "high_profit_amount": 720
+    },
+    {
+      "code": "229000",
+      "name": "젠큐릭스",
+      "theme": "바이오 혁신 신약",
+      "buy_price": 4060,
+      "close_price": 4510,
+      "profit_rate": 11.08,
+      "profit_amount": 450,
+      "high_price": 4510,
+      "high_time": "15:30",
+      "high_profit_rate": 11.08,
+      "high_profit_amount": 450
+    },
+    {
+      "code": "308080",
+      "name": "바이젠셀",
+      "theme": "바이오 혁신 신약",
+      "buy_price": 9340,
+      "close_price": 7960,
+      "profit_rate": -14.78,
+      "profit_amount": -1380,
+      "high_price": 10210,
+      "high_time": "09:23",
+      "high_profit_rate": 9.31,
+      "high_profit_amount": 870
+    },
+    {
+      "code": "001510",
+      "name": "SK증권",
+      "theme": "핀테크 및 증권업 재편",
+      "buy_price": 1866,
+      "close_price": 2150,
+      "profit_rate": 15.22,
+      "profit_amount": 284,
+      "high_price": 2345,
+      "high_time": "10:24",
+      "high_profit_rate": 25.67,
+      "high_profit_amount": 479
+    },
+    {
+      "code": "011070",
+      "name": "LG이노텍",
+      "theme": "로봇 및 자율주행 부품",
+      "buy_price": 323000,
+      "close_price": 345000,
+      "profit_rate": 6.81,
+      "profit_amount": 22000,
+      "high_price": 353500,
+      "high_time": "11:17",
+      "high_profit_rate": 9.44,
+      "high_profit_amount": 30500
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 7,
+    "loss_stocks": 5,
+    "total_invested": 1588246,
+    "total_value": 1715200,
+    "total_profit": 126954,
+    "total_profit_rate": 7.99,
+    "high_total_value": 1762655,
+    "high_total_profit": 174409,
+    "high_total_profit_rate": 10.98,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 3
+  }
+}
