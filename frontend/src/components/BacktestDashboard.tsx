@@ -1,13 +1,19 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, ChevronUp, BarChart3 } from "lucide-react"
+import { ChevronDown, ChevronUp, BarChart3, Info } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { BacktestStats } from "@/hooks/useBacktestStats"
 
-const CATEGORY_LABEL: Record<string, string> = {
-  today: "오늘",
-  short_term: "단기",
-  long_term: "장기",
+const CATEGORY_CONFIG: Record<string, { label: string; period: string }> = {
+  today: { label: "오늘", period: "당일" },
+  short_term: { label: "단기", period: "7일 이내" },
+  long_term: { label: "장기", period: "1개월 이내" },
+}
+
+const CONFIDENCE_CONFIG: Record<string, { desc: string }> = {
+  "높음": { desc: "강한 확신" },
+  "보통": { desc: "일반적 확신" },
+  "낮음": { desc: "탐색적 분석" },
 }
 
 const CONFIDENCE_ORDER = ["높음", "보통", "낮음"]
@@ -27,10 +33,11 @@ function ProgressBar({ accuracy }: { accuracy: number }) {
   )
 }
 
-function StatCell({ label, total, hit, accuracy }: { label: string; total: number; hit: number; accuracy: number }) {
+function StatCell({ label, sub, total, hit, accuracy }: { label: string; sub?: string; total: number; hit: number; accuracy: number }) {
   return (
     <div className="text-center space-y-1">
       <p className="text-xs text-muted-foreground">{label}</p>
+      {sub && <p className="text-[10px] text-muted-foreground/70">{sub}</p>}
       <p className="text-sm sm:text-base font-semibold">{accuracy}%</p>
       <p className="text-[10px] text-muted-foreground">{hit}/{total}</p>
     </div>
@@ -74,6 +81,17 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
         {/* Expanded detail */}
         {expanded && hasData && (
           <div className="px-3 sm:px-4 pb-3 sm:pb-4 space-y-4">
+            {/* 집계 기간 + 적중 기준 */}
+            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground bg-muted/40 rounded-md px-2 py-1.5">
+              <Info className="w-3 h-3 shrink-0" />
+              <span>
+                {stats.dateRange
+                  ? `${stats.dateRange.from} ~ ${stats.dateRange.to} · `
+                  : ""}
+                적중 기준: 수익률 +2% 이상
+              </span>
+            </div>
+
             {/* 전체 적중률 */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -85,25 +103,27 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
 
             {/* 신뢰도별 */}
             <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground font-medium">신뢰도별</p>
+              <p className="text-xs text-muted-foreground font-medium">AI 신뢰도별</p>
               <div className="grid grid-cols-3 gap-2">
                 {CONFIDENCE_ORDER.map(key => {
                   const g = stats.byConfidence[key]
+                  const conf = CONFIDENCE_CONFIG[key]
                   return g ? (
-                    <StatCell key={key} label={key} total={g.total} hit={g.hit} accuracy={g.accuracy} />
+                    <StatCell key={key} label={key} sub={conf?.desc} total={g.total} hit={g.hit} accuracy={g.accuracy} />
                   ) : null
                 })}
               </div>
             </div>
 
-            {/* 카테고리별 */}
+            {/* 예측 기간별 */}
             <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground font-medium">카테고리별</p>
+              <p className="text-xs text-muted-foreground font-medium">예측 기간별</p>
               <div className="grid grid-cols-3 gap-2">
                 {CATEGORY_ORDER.map(key => {
                   const g = stats.byCategory[key]
+                  const cat = CATEGORY_CONFIG[key]
                   return g ? (
-                    <StatCell key={key} label={CATEGORY_LABEL[key] || key} total={g.total} hit={g.hit} accuracy={g.accuracy} />
+                    <StatCell key={key} label={cat?.label || key} sub={cat?.period} total={g.total} hit={g.hit} accuracy={g.accuracy} />
                   ) : null
                 })}
               </div>

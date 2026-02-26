@@ -7,6 +7,7 @@ export interface BacktestStats {
   overall: AccuracyGroup
   byConfidence: Record<string, AccuracyGroup>
   byCategory: Record<string, AccuracyGroup>
+  dateRange: { from: string; to: string } | null
   loading: boolean
 }
 
@@ -19,6 +20,7 @@ export function useBacktestStats(): BacktestStats {
     overall: { total: 0, hit: 0, accuracy: 0 },
     byConfidence: {},
     byCategory: {},
+    dateRange: null,
     loading: true,
   })
 
@@ -82,10 +84,14 @@ export function useBacktestStats(): BacktestStats {
       const toGroups = (m: Record<string, { total: number; hit: number }>) =>
         Object.fromEntries(Object.entries(m).map(([k, v]) => [k, makeGroup(v.total, v.hit)]))
 
+      const dates = data.map(r => r.prediction_date as string).filter(Boolean).sort()
+      const dateRange = dates.length > 0 ? { from: dates[0], to: dates[dates.length - 1] } : null
+
       setStats({
         overall: makeGroup(totalCount, totalHit),
         byConfidence: toGroups(byConf),
         byCategory: toGroups(byCat),
+        dateRange,
         loading: false,
       })
     }
