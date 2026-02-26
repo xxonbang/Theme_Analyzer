@@ -65,6 +65,17 @@ def extract_leader_codes(forecast: dict) -> set[str]:
     return codes
 
 
+def extract_top20_stocks(data: dict) -> list[dict]:
+    """latest.json에서 거래대금 TOP20 종목 추출 (KOSPI+KOSDAQ 합산 후 거래대금 순 정렬)"""
+    stocks = []
+    tv_data = data.get("trading_value", {})
+    for market in ["kospi", "kosdaq"]:
+        for stock in tv_data.get(market, []):
+            stocks.append(stock)
+    stocks.sort(key=lambda x: x.get("trading_value", 0), reverse=True)
+    return stocks[:20]
+
+
 def build_leader_info(forecast: dict) -> dict[str, dict]:
     """대장주 코드 → {name, theme} 매핑"""
     info = {}
@@ -141,6 +152,7 @@ def main():
         print(f"\n  [테스트] latest.json 갱신 건너뜀")
 
     # 6. 대장주 수급 텔레그램 전송
+    member_data = latest.get("member_data") or {}
     leader_investor = {}
     for code in leader_codes:
         if code in investor_data:
@@ -148,18 +160,34 @@ def main():
 
     print(f"\n[텔레그램] 대장주 수급 {len(leader_investor)}개 종목")
 
+    telegram = TelegramSender()
+
     if not leader_investor:
         print("  수급 데이터 있는 대장주 없음 — 전송 건너뜀")
-        return
-
-    telegram = TelegramSender()
-    msg = telegram.format_investor_data(leader_investor, leader_info, is_estimated)
-
-    if test_mode:
-        print(f"\n--- 텔레그램 메시지 미리보기 ---\n{msg}\n---")
     else:
-        ok = telegram.send_message(msg)
-        print(f"  전송 {'성공' if ok else '실패'}")
+        msg = telegram.format_investor_data(leader_investor, leader_info, is_estimated, member_data)
+        if test_mode:
+            print(f"\n--- 텔레그램 메시지 미리보기 (대장주) ---\n{msg}\n---")
+        else:
+            ok = telegram.send_message(msg)
+            print(f"  전송 {'성공' if ok else '실패'}")
+
+    # 7. 거래대금 TOP20 수급 텔레그램 전송
+    top20_stocks = extract_top20_stocks(latest)
+    # 대장주와 중복되는 종목 제외
+    top20_stocks = [s for s in top20_stocks if s.get("code", "") not in leader_codes]
+    top20_with_data = [s for s in top20_stocks if s.get("code", "") in investor_data]
+
+    print(f"\n[텔레그램] 거래대금 TOP20 수급 {len(top20_with_data)}개 종목 (대장주 제외)")
+
+    if top20_with_data:
+        top20_msg = telegram.format_top20_investor_data(investor_data, top20_with_data, is_estimated, member_data)
+
+        if test_mode:
+            print(f"\n--- 텔레그램 메시지 미리보기 (거래대금 TOP20) ---\n{top20_msg}\n---")
+        else:
+            ok2 = telegram.send_message(top20_msg)
+            print(f"  전송 {'성공' if ok2 else '실패'}")
 
     print("\n수급 수집 완료")
 

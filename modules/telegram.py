@@ -343,19 +343,35 @@ class TelegramSender:
 
         return messages
 
+    @staticmethod
+    def _fmt_net(val) -> str:
+        """순매수량 부호 + 쉼표 포맷"""
+        if val is None:
+            return "-"
+        sign = "+" if val > 0 else ""
+        return f"{sign}{val:,}"
+
+    def _format_member_line(self, member: Dict[str, Any]) -> str:
+        """거래원 이름 포맷 (외국계면 * 표시)"""
+        name = member.get("name", "")
+        return f"{name}*" if member.get("is_foreign") else name
+
     def format_investor_data(
         self,
         investor_data: Dict[str, Dict[str, Any]],
         leader_info: Dict[str, Dict[str, Any]],
         is_estimated: bool = False,
+        member_data: Optional[Dict[str, Dict[str, Any]]] = None,
     ) -> str:
         """대장주 수급 데이터 텔레그램 메시지 포맷
 
         Args:
-            investor_data: {code: {name, foreign_net, institution_net, individual_net}}
+            investor_data: {code: {name, foreign_net, institution_net, individual_net, program_net}}
             leader_info: {code: {name, theme}}
             is_estimated: 추정치 여부
+            member_data: {code: {buy_top5, sell_top5, ...}}
         """
+        member_data = member_data or {}
         label = "추정" if is_estimated else "확정"
         lines = [
             f"📊 <b>대장주 수급 현황</b> ({label})",
@@ -368,15 +384,9 @@ class TelegramSender:
             foreign = data.get("foreign_net", 0)
             institution = data.get("institution_net", 0)
             individual = data.get("individual_net")
+            program = data.get("program_net")
 
             url = self._get_naver_finance_url(code)
-
-            # 순매수 부호 + 포맷
-            def fmt_net(val):
-                if val is None:
-                    return "-"
-                sign = "+" if val > 0 else ""
-                return f"{sign}{val:,}"
 
             # 외국인/기관 동시 순매수면 강조
             both_buy = foreign > 0 and institution > 0
@@ -385,10 +395,89 @@ class TelegramSender:
             if theme:
                 lines.append(f"   {theme}")
 
-            parts = [f"외국인 {fmt_net(foreign)}", f"기관 {fmt_net(institution)}"]
+            parts = [f"외국인 {self._fmt_net(foreign)}", f"기관 {self._fmt_net(institution)}"]
             if individual is not None:
-                parts.append(f"개인 {fmt_net(individual)}")
+                parts.append(f"개인 {self._fmt_net(individual)}")
             lines.append(f"   {' | '.join(parts)}")
+
+            if program is not None:
+                lines.append(f"   프로그램 {self._fmt_net(program)}")
+
+            # 거래원 (매수/매도 상위 1~3위)
+            member = member_data.get(code)
+            if member:
+                buy_names = [self._format_member_line(b) for b in member.get("buy_top5", [])[:3]]
+                sell_names = [self._format_member_line(s) for s in member.get("sell_top5", [])[:3]]
+                if buy_names:
+                    lines.append(f"   매수▶ {', '.join(buy_names)}")
+                if sell_names:
+                    lines.append(f"   매도▶ {', '.join(sell_names)}")
+
+            lines.append("")
+
+        lines.append(f"⏰ {self._get_timestamp()}")
+        return "\n".join(lines)
+
+    def format_top20_investor_data(
+        self,
+        investor_data: Dict[str, Dict[str, Any]],
+        top20_stocks: List[Dict[str, Any]],
+        is_estimated: bool = False,
+        member_data: Optional[Dict[str, Dict[str, Any]]] = None,
+    ) -> str:
+        """거래대금 TOP20 수급 데이터 텔레그램 메시지 포맷
+
+        Args:
+            investor_data: {code: {name, foreign_net, institution_net, individual_net, program_net}}
+            top20_stocks: 거래대금 순 정렬된 종목 리스트 [{code, name, market, ...}]
+            is_estimated: 추정치 여부
+            member_data: {code: {buy_top5, sell_top5, ...}}
+        """
+        member_data = member_data or {}
+        label = "추정" if is_estimated else "확정"
+        lines = [
+            f"💰 <b>거래대금 TOP20 수급 현황</b> ({label})",
+            "",
+        ]
+
+        for i, stock in enumerate(top20_stocks, 1):
+            code = stock.get("code", "")
+            if code not in investor_data:
+                continue
+
+            data = investor_data[code]
+            name = stock.get("name", data.get("name", code))
+            market = stock.get("market", "")
+            foreign = data.get("foreign_net", 0)
+            institution = data.get("institution_net", 0)
+            individual = data.get("individual_net")
+            program = data.get("program_net")
+
+            url = self._get_naver_finance_url(code)
+
+            both_buy = foreign > 0 and institution > 0
+
+            lines.append(f"{'🔥 ' if both_buy else ''}{i}. <a href=\"{url}\"><b>{name}</b></a> <code>{code}</code>")
+            lines.append(f"   {market}")
+
+            parts = [f"외국인 {self._fmt_net(foreign)}", f"기관 {self._fmt_net(institution)}"]
+            if individual is not None:
+                parts.append(f"개인 {self._fmt_net(individual)}")
+            lines.append(f"   {' | '.join(parts)}")
+
+            if program is not None:
+                lines.append(f"   프로그램 {self._fmt_net(program)}")
+
+            # 거래원 (매수/매도 상위 1~3위)
+            member = member_data.get(code)
+            if member:
+                buy_names = [self._format_member_line(b) for b in member.get("buy_top5", [])[:3]]
+                sell_names = [self._format_member_line(s) for s in member.get("sell_top5", [])[:3]]
+                if buy_names:
+                    lines.append(f"   매수▶ {', '.join(buy_names)}")
+                if sell_names:
+                    lines.append(f"   매도▶ {', '.join(sell_names)}")
+
             lines.append("")
 
         lines.append(f"⏰ {self._get_timestamp()}")
