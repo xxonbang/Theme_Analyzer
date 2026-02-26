@@ -16,6 +16,8 @@ export interface Stock {
 export interface HistoryChange {
   date: string
   change_rate: number
+  volume?: number
+  trading_value?: number
 }
 
 export interface StockHistory {
@@ -92,6 +94,11 @@ export interface InvestorInfo {
   institution_net: number
   individual_net?: number
   program_net?: number
+  history?: {
+    foreign_net: number
+    institution_net: number
+    individual_net?: number
+  }[]
 }
 
 export interface MemberBroker {

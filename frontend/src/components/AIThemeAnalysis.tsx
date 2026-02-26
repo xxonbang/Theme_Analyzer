@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
+import { Sparkles, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
@@ -13,11 +13,25 @@ interface AIThemeAnalysisProps {
   isAdmin?: boolean
   stockMarketMap?: Record<string, string>
   stockTradingRankMap?: Record<string, number>
+  onScrollToStock?: (code: string) => void
 }
 
-function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockTradingRankMap }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean; stockMarketMap?: Record<string, string>; stockTradingRankMap?: Record<string, number> }) {
+function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockTradingRankMap, onScrollToStock }: { theme: MarketTheme; index: number; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean; stockMarketMap?: Record<string, string>; stockTradingRankMap?: Record<string, number>; onScrollToStock?: (code: string) => void }) {
   const [expanded, setExpanded] = useState(false)
   const [popupStockCode, setPopupStockCode] = useState<string | null>(null)
+  const [popoverCode, setPopoverCode] = useState<string | null>(null)
+  const popoverRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!popoverCode) return
+    const handler = (e: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setPopoverCode(null)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [popoverCode])
   const showCriteria = isAdmin && criteriaData
 
   return (
@@ -92,15 +106,34 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
                   ))}
                 </button>
               )}
-              <a
-                href={`https://m.stock.naver.com/domestic/stock/${stock.code}/total`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 hover:underline"
+              <button
+                onClick={() => setPopoverCode(popoverCode === stock.code ? null : stock.code)}
+                className="inline-flex items-center gap-1 hover:underline cursor-pointer"
               >
                 {stock.name}
-                <ExternalLink className="w-3 h-3 opacity-50" />
-              </a>
+              </button>
+              {popoverCode === stock.code && (
+                <div ref={popoverRef} className="absolute top-full left-0 mt-1 text-xs bg-popover border rounded-md shadow-lg p-1 z-30 min-w-[140px]">
+                  <button
+                    onClick={() => {
+                      window.open(`https://m.stock.naver.com/domestic/stock/${stock.code}/total`, '_blank')
+                      setPopoverCode(null)
+                    }}
+                    className="flex items-center gap-2 w-full px-3 py-1.5 hover:bg-muted rounded cursor-pointer text-left"
+                  >
+                    🔗 네이버 보기
+                  </button>
+                  <button
+                    onClick={() => {
+                      onScrollToStock?.(stock.code)
+                      setPopoverCode(null)
+                    }}
+                    className="flex items-center gap-2 w-full px-3 py-1.5 hover:bg-muted rounded cursor-pointer text-left"
+                  >
+                    📍 종목으로 이동
+                  </button>
+                </div>
+              )}
               {/* Criteria popup */}
               {popupStockCode === stock.code && criteria && (
                 <CriteriaPopup stockName={stock.name} criteria={criteria} onClose={() => setPopupStockCode(null)} />
@@ -163,7 +196,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
   )
 }
 
-export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMarketMap, stockTradingRankMap }: AIThemeAnalysisProps) {
+export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMarketMap, stockTradingRankMap, onScrollToStock }: AIThemeAnalysisProps) {
   const [collapsed, setCollapsed] = useState(false)
 
   if (!themeAnalysis?.themes?.length) {
@@ -202,7 +235,7 @@ export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMar
         {!collapsed && (
           <div className="space-y-2.5">
             {themeAnalysis.themes.map((theme, index) => (
-              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} stockMarketMap={stockMarketMap} stockTradingRankMap={stockTradingRankMap} />
+              <ThemeCard key={index} theme={theme} index={index} criteriaData={criteriaData} isAdmin={isAdmin} stockMarketMap={stockMarketMap} stockTradingRankMap={stockTradingRankMap} onScrollToStock={onScrollToStock} />
             ))}
           </div>
         )}

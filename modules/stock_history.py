@@ -89,6 +89,8 @@ class StockHistoryAPI:
                     "date": formatted_date,
                     "close": today_close,
                     "change_rate": round(change_rate, 2),
+                    "volume": int(today.get("stck_vol", 0)),
+                    "trading_value": int(today.get("acml_tr_pbmn", 0)),
                 })
 
             # 3일간 총 등락률 계산 (첫날 종가 vs N일 전 종가)

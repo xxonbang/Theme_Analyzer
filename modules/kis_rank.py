@@ -700,12 +700,25 @@ class KISRankAPI:
 
                 # 당일 데이터 (첫 번째 항목)
                 today = output[0]
-                result[code] = {
+                investor_entry = {
                     "name": name,
                     "foreign_net": safe_int(today.get("frgn_ntby_qty", 0)),
                     "institution_net": safe_int(today.get("orgn_ntby_qty", 0)),
                     "individual_net": safe_int(today.get("prsn_ntby_qty", 0)),
                 }
+
+                # D-1, D-2 히스토리 (output[1], output[2])
+                history = []
+                for past in output[1:3]:
+                    history.append({
+                        "foreign_net": safe_int(past.get("frgn_ntby_qty", 0)),
+                        "institution_net": safe_int(past.get("orgn_ntby_qty", 0)),
+                        "individual_net": safe_int(past.get("prsn_ntby_qty", 0)),
+                    })
+                if history:
+                    investor_entry["history"] = history
+
+                result[code] = investor_entry
 
             except Exception as e:
                 print(f"  ⚠ {name}({code}) 투자자 데이터 조회 실패: {e}")

@@ -22,6 +22,8 @@ interface StockCardProps {
 export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, memberInfo, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
+  const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
+  const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
@@ -40,7 +42,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   }
 
   return (
-    <Card className={cn(
+    <Card id={`stock-${stock.code}`} className={cn(
       "group hover:shadow-lg transition-all duration-200 hover:border-primary/30 bg-card relative",
       allMet && isAdmin
         ? "ring-2 ring-yellow-400/70 shadow-[0_0_12px_rgba(234,179,8,0.3)] animate-[shimmer_3s_ease-in-out_infinite]"
@@ -140,40 +142,121 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {formatPrice(stock.current_price)}
               <span className="text-muted-foreground text-[10px] sm:text-xs ml-0.5">원</span>
             </p>
-            <Badge variant={isRising ? "rising" : "falling"} className="text-[10px] sm:text-xs px-1.5 sm:px-2">
-              <TrendIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5" />
-              {formatChangeRate(stock.change_rate)}
-            </Badge>
+            <div className="flex items-center justify-end gap-1">
+              {/* D-2, D-1 등락률 */}
+              {history && history.changes && history.changes.length > 0 && (() => {
+                const reversed = [...history.changes].reverse()
+                return reversed.slice(0, -1).map((change, idx) => {
+                  const labels = ["D-2", "D-1"]
+                  if (idx >= labels.length) return null
+                  return (
+                    <span
+                      key={idx}
+                      className={cn(
+                        "text-[8px] px-0.5 rounded font-medium whitespace-nowrap tabular-nums",
+                        getChangeBgColor(change.change_rate)
+                      )}
+                    >
+                      {labels[idx]} {change.change_rate > 0 ? "+" : ""}{change.change_rate.toFixed(1)}%
+                    </span>
+                  )
+                })
+              })()}
+              <Badge variant={isRising ? "rising" : "falling"} className="text-[10px] sm:text-xs px-1.5 sm:px-2">
+                <TrendIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5" />
+                {formatChangeRate(stock.change_rate)}
+              </Badge>
+            </div>
           </div>
         </div>
 
         {/* Volume + History */}
         <div className="mt-2 pt-2 border-t border-border/50 space-y-1.5">
           {/* 거래 정보 */}
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-            {stock.trading_value != null && (
+          <div>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+              {stock.trading_value != null && (
+                <span className="text-muted-foreground">
+                  거래대금 <span className="font-medium text-foreground">{formatTradingValue(stock.trading_value)}</span>
+                </span>
+              )}
               <span className="text-muted-foreground">
-                거래대금 <span className="font-medium text-foreground">{formatTradingValue(stock.trading_value)}</span>
+                거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
-            )}
-            <span className="text-muted-foreground">
-              거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
-            </span>
+              {/* 3일 히스토리 토글 */}
+              {history?.changes && history.changes.length > 1 && history.changes.some(c => c.volume || c.trading_value) && (
+                <button
+                  onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
+                  className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+              )}
+            </div>
+            {/* 거래 3일 히스토리 */}
+            {isTradingHistoryExpanded && history?.changes && (() => {
+              const reversed = [...history.changes].reverse()
+              const pastDays = reversed.slice(0, -1) // D-2, D-1
+              if (pastDays.length === 0) return null
+              return (
+                <div className="mt-1 text-[10px] space-y-0.5">
+                  {pastDays.map((c, idx) => {
+                    const label = idx === 0 ? "D-2" : "D-1"
+                    return (
+                      <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                        <span className="font-medium w-6">{label}</span>
+                        {c.trading_value != null && <span>거래대금 <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></span>}
+                        {c.volume != null && <span>거래량 <span className="text-foreground font-medium">{formatVolume(c.volume)}</span></span>}
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })()}
           </div>
 
           {/* 투자자 수급 */}
           {investorInfo && (
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs pt-1.5 border-t border-border/30">
-              <span className="text-muted-foreground">
-                외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
-              </span>
-              <span className="text-muted-foreground">
-                기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
-              </span>
-              {investorInfo.individual_net != null && (
+            <div className="pt-1.5 border-t border-border/30">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
                 <span className="text-muted-foreground">
-                  개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
+                  외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
                 </span>
+                <span className="text-muted-foreground">
+                  기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
+                </span>
+                {investorInfo.individual_net != null && (
+                  <span className="text-muted-foreground">
+                    개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
+                  </span>
+                )}
+                {/* 수급 3일 히스토리 토글 */}
+                {investorInfo.history && investorInfo.history.length > 0 && (
+                  <button
+                    onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                    className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                  </button>
+                )}
+              </div>
+              {/* 수급 3일 히스토리 */}
+              {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (
+                <div className="mt-1 text-[10px] space-y-0.5">
+                  {investorInfo.history.map((h, idx) => {
+                    const label = idx === 0 ? "D-1" : "D-2"
+                    return (
+                      <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                        <span className="font-medium w-6">{label}</span>
+                        <span>외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
+                        <span>기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
+                        {h.individual_net != null && (
+                          <span>개인 <span className={cn("font-medium", getNetBuyColor(h.individual_net))}>{formatNetBuy(h.individual_net)}</span></span>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
               )}
             </div>
           )}
@@ -208,25 +291,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             </div>
           )}
 
-          {/* 등락률 히스토리 */}
-          {history && history.changes && history.changes.length > 0 && (
-            <div className="flex items-center gap-1 flex-wrap">
-              {[...history.changes].reverse().slice(0, 3).map((change, idx) => {
-                const labels = ["D-2", "D-1", "D"]
-                return (
-                  <span
-                    key={idx}
-                    className={cn(
-                      "text-[9px] sm:text-[10px] px-1 py-0.5 rounded font-medium whitespace-nowrap",
-                      getChangeBgColor(change.change_rate)
-                    )}
-                  >
-                    {labels[idx]} {change.change_rate > 0 ? "+" : ""}{change.change_rate.toFixed(1)}%
-                  </span>
-                )
-              })}
-            </div>
-          )}
         </div>
 
         {/* News Section */}

@@ -121,12 +121,27 @@ def main():
 
     print(f"  대장주: {len(leader_codes)}개 (수급 수집 대상 총 {len(all_stocks)}개)")
 
-    # 3. KIS API로 수급 데이터 수집
+    # 3. KIS API로 수급 데이터 + 거래량/거래대금 수집
     print("\n[수급 데이터 수집]")
     rank_api = KISRankAPI()
     investor_data, is_estimated = rank_api.get_investor_data_auto(all_stocks)
     label = "추정" if is_estimated else "확정"
     print(f"  {len(investor_data)}개 종목 수급 수집 완료 ({label})")
+
+    # 3-1. 거래량/거래대금 실시간 갱신
+    print("\n[거래량/거래대금 수집]")
+    volume_data = {}
+    trading_value_data = {}
+    try:
+        volume_data = rank_api.get_top30_by_volume(exclude_etf=True)
+        print(f"  거래량: KOSPI {len(volume_data.get('kospi', []))}개, KOSDAQ {len(volume_data.get('kosdaq', []))}개")
+    except Exception as e:
+        print(f"  ⚠ 거래량 수집 실패: {e}")
+    try:
+        trading_value_data = rank_api.get_top30_by_trading_value(exclude_etf=True)
+        print(f"  거래대금: KOSPI {len(trading_value_data.get('kospi', []))}개, KOSDAQ {len(trading_value_data.get('kosdaq', []))}개")
+    except Exception as e:
+        print(f"  ⚠ 거래대금 수집 실패: {e}")
 
     # 4. 수집 성공 검증 — 대상의 절반 이상 수집되어야 유효
     min_required = max(1, len(all_stocks) // 2)
@@ -145,6 +160,14 @@ def main():
                 new_inv["program_net"] = pgtr
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
+
+        # 거래량/거래대금 갱신 (메타 필드 제거)
+        meta_keys = {"collected_at", "category", "exclude_etf"}
+        if volume_data:
+            latest["volume"] = {k: v for k, v in volume_data.items() if k not in meta_keys}
+        if trading_value_data:
+            latest["trading_value"] = {k: v for k, v in trading_value_data.items() if k not in meta_keys}
+
         with open(LATEST_PATH, "w", encoding="utf-8") as f:
             json.dump(latest, f, ensure_ascii=False, indent=2)
         print(f"\n  latest.json 갱신 완료")

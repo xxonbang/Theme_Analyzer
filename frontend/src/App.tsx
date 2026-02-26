@@ -110,6 +110,10 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
+  const scrollToStock = useCallback((code: string) => {
+    document.getElementById(`stock-${code}`)?.scrollIntoView({ behavior: "smooth", block: "center" })
+  }, [])
+
   const toggleCompactMode = () => {
     setCompactMode((prev) => !prev)
   }
@@ -415,6 +419,7 @@ function App() {
             themeAnalysis={displayData.theme_analysis}
             criteriaData={displayData?.criteria_data}
             isAdmin={isAdmin}
+            onScrollToStock={scrollToStock}
             stockMarketMap={(() => {
               const map: Record<string, string> = {}
               const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
