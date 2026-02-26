@@ -18,12 +18,21 @@ export interface PredictionsByDate {
   predictions: PredictionRecord[]
 }
 
+export interface ThemeInfo {
+  theme_name: string
+  status: string
+  confidence: string
+  category: string
+  leader_stocks: { name: string; code: string }[]
+  actual_performance: Record<string, number> | null
+}
+
 export interface StockPrediction {
   code: string
   name: string
   returnByCategory: Record<string, number | null>
   evaluatedByCategory: Record<string, boolean>
-  themes: { theme_name: string; status: string; confidence: string; category: string }[]
+  themes: ThemeInfo[]
 }
 
 export interface StockPredictionsByDate {
@@ -47,7 +56,7 @@ function toStockDates(dates: PredictionsByDate[]): StockPredictionsByDate[] {
 
       for (const s of pred.leader_stocks) {
         const ret = perf?.[s.code] ?? null
-        const themeInfo = { theme_name: pred.theme_name, status: pred.status, confidence: pred.confidence, category: pred.category }
+        const themeInfo: ThemeInfo = { theme_name: pred.theme_name, status: pred.status, confidence: pred.confidence, category: pred.category, leader_stocks: pred.leader_stocks, actual_performance: perf }
         const existing = stockMap.get(s.code)
 
         if (existing) {

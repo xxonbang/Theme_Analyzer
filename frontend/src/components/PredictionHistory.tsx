@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ChevronUp, History, X, ExternalLink } from "lucide-react"
+import { ChevronDown, ChevronUp, History, X, ExternalLink, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { StockPrediction, StockPredictionsByDate } from "@/hooks/usePredictionHistory"
+import type { StockPrediction, StockPredictionsByDate, ThemeInfo } from "@/hooks/usePredictionHistory"
 
 const STATUS_CONFIG: Record<string, { label: string; cls: string }> = {
   hit: { label: "적중", cls: "bg-emerald-100 text-emerald-700" },
@@ -37,6 +37,57 @@ function getStockDisplay(stock: StockPrediction, filter: CategoryFilter): { retu
   return { returnPct: ret, hit: ret != null ? ret >= 2.0 : null }
 }
 
+function ThemeItem({ theme }: { theme: ThemeInfo }) {
+  const [expanded, setExpanded] = useState(false)
+  const sc = STATUS_CONFIG[theme.status] || STATUS_CONFIG.active
+  const stocks = theme.leader_stocks || []
+  const perf = theme.actual_performance
+
+  return (
+    <div className="rounded-lg bg-muted/40 overflow-hidden">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full text-left px-3 py-2 hover:bg-muted/70 transition-colors cursor-pointer"
+      >
+        <div className="flex items-center gap-1.5 mb-1">
+          <Badge className={cn("text-[10px] px-1.5 py-0.5 font-semibold", sc.cls)}>{sc.label}</Badge>
+          <Badge variant="outline" className="text-[10px] px-1.5 py-0.5">
+            {CATEGORY_LABEL[theme.category] || theme.category}
+          </Badge>
+          <span className="ml-auto text-[10px] text-muted-foreground">신뢰도 {theme.confidence}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <ChevronRight className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform", expanded && "rotate-90")} />
+          <span className="text-sm font-medium">{theme.theme_name}</span>
+          <span className="ml-auto text-[9px] text-muted-foreground">{stocks.length}종목</span>
+        </div>
+      </button>
+      {expanded && stocks.length > 0 && (
+        <div className="px-3 pb-2 pt-1 border-t border-border/30 space-y-0.5">
+          {stocks.map((s) => {
+            const ret = perf?.[s.code] ?? null
+            const isHit = ret != null ? ret >= 2.0 : null
+            return (
+              <div key={s.code} className="flex items-center gap-1.5 text-xs py-0.5">
+                <span className={cn("font-bold w-4 text-center shrink-0", isHit === true ? "text-emerald-600" : isHit === false ? "text-red-500" : "text-slate-400")}>
+                  {isHit === true ? "O" : isHit === false ? "X" : "-"}
+                </span>
+                <span className="truncate">{s.name}</span>
+                <span className="text-[10px] text-muted-foreground">({s.code})</span>
+                {ret != null && (
+                  <span className={cn("ml-auto tabular-nums font-medium shrink-0", ret > 0 ? "text-red-500" : ret < 0 ? "text-blue-500" : "")}>
+                    {ret > 0 ? "+" : ""}{ret}%
+                  </span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
   stockName: string; stockCode: string
   themes: StockPrediction["themes"]
@@ -62,7 +113,7 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div className="relative w-full sm:w-80 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
+      <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
         <div className="sm:hidden flex justify-center mb-2">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
@@ -73,21 +124,9 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
           </button>
         </div>
         <div className="space-y-2">
-          {themes.map((t, i) => {
-            const sc = STATUS_CONFIG[t.status] || STATUS_CONFIG.active
-            return (
-              <div key={i} className="rounded-lg bg-muted/40 px-3 py-2">
-                <div className="flex items-center gap-1.5 mb-1">
-                  <Badge className={cn("text-[10px] px-1.5 py-0.5 font-semibold", sc.cls)}>{sc.label}</Badge>
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0.5">
-                    {CATEGORY_LABEL[t.category] || t.category}
-                  </Badge>
-                  <span className="ml-auto text-[10px] text-muted-foreground">신뢰도 {t.confidence}</span>
-                </div>
-                <span className="text-sm font-medium">{t.theme_name}</span>
-              </div>
-            )
-          })}
+          {themes.map((t, i) => (
+            <ThemeItem key={i} theme={t} />
+          ))}
         </div>
       </div>
     </div>,

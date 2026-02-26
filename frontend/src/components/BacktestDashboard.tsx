@@ -46,12 +46,13 @@ function StatCell({ label, sub, total, hit, accuracy, onClick }: { label: string
 
   if (onClick) {
     return (
-      <button onClick={onClick} className="text-center space-y-1 hover:bg-muted/50 rounded-md py-1 transition-colors">
+      <button onClick={onClick} className="text-center space-y-1 rounded-lg py-2 px-1 transition-all border border-border/50 hover:border-indigo-300 hover:bg-indigo-50/50 hover:shadow-sm active:scale-[0.97] cursor-pointer">
         {content}
+        <p className="text-[9px] text-indigo-400 font-medium">상세보기 &rsaquo;</p>
       </button>
     )
   }
-  return <div className="text-center space-y-1">{content}</div>
+  return <div className="text-center space-y-1 py-2">{content}</div>
 }
 
 function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: string; details: StockDetail[]; onClose: () => void }) {
@@ -188,15 +189,19 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
         {expanded && hasData && (
           <div className="px-3 sm:px-4 pb-3 sm:pb-4 space-y-4">
             {/* 집계 기간 + 적중 기준 */}
-            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground bg-muted/40 rounded-md px-2 py-1.5">
-              <Info className="w-3 h-3 shrink-0" />
-              <span>
-                {stats.dateRange
-                  ? `${stats.dateRange.from} ~ ${stats.dateRange.to} · `
-                  : ""}
-
-                상승률: 전일종가 대비 변동률 · 적중 기준: 수익률 +2% 이상
-              </span>
+            <div className="bg-muted/40 rounded-lg px-3 py-2 space-y-1">
+              {stats.dateRange && (
+                <div className="flex items-center gap-1.5">
+                  <Info className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                  <span className="text-xs font-medium text-foreground/80">
+                    {stats.dateRange.from} ~ {stats.dateRange.to}
+                  </span>
+                </div>
+              )}
+              <div className="flex flex-col gap-0.5 text-[11px] text-muted-foreground pl-5">
+                <span>상승률: 전일종가 대비 변동률</span>
+                <span>적중 기준: 수익률 <span className="font-semibold text-emerald-600">+2%</span> 이상</span>
+              </div>
             </div>
 
             {/* 전체 적중률 */}
@@ -229,9 +234,9 @@ export function BacktestDashboard({ stats }: { stats: BacktestStats }) {
                 {CATEGORY_ORDER.map(key => {
                   const g = stats.byCategory[key]
                   const cat = CATEGORY_CONFIG[key]
-                  return g ? (
-                    <StatCell key={key} label={cat?.label || key} sub={cat?.period} total={g.total} hit={g.hit} accuracy={g.accuracy} />
-                  ) : null
+                  return (
+                    <StatCell key={key} label={cat?.label || key} sub={cat?.period} total={g?.total ?? 0} hit={g?.hit ?? 0} accuracy={g?.accuracy ?? 0} />
+                  )
                 })}
               </div>
             </div>
