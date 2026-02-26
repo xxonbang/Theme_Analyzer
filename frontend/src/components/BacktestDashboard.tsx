@@ -97,9 +97,34 @@ function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: s
           상승률: 예측일 전일종가 대비 평가일 종가 변동률 · 적중 기준: +2% 이상
         </p>
         <div className="space-y-3">
-          {[...byDate.entries()].map(([date, stocks]) => (
+          {[...byDate.entries()].map(([date, stocks]) => {
+            // 테마별 적중 집계
+            const byTheme = new Map<string, { hit: number; total: number }>()
+            for (const s of stocks) {
+              const tn = s.themeName || "(기타)"
+              const t = byTheme.get(tn) || { hit: 0, total: 0 }
+              t.total++
+              if (s.isHit) t.hit++
+              byTheme.set(tn, t)
+            }
+            // 과반수 적중 시 해당 테마 hit
+            let themeHit = 0
+            let themeMiss = 0
+            for (const t of byTheme.values()) {
+              const threshold = Math.max(1, Math.ceil(t.total / 2))
+              if (t.hit >= threshold) themeHit++
+              else themeMiss++
+            }
+            return (
             <div key={date}>
-              <p className="text-[11px] font-medium text-muted-foreground mb-1">{date}</p>
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-[11px] font-medium text-muted-foreground">{date}</p>
+                <span className="text-[10px] text-muted-foreground/70">
+                  {byTheme.size}개 테마
+                  {themeHit > 0 && <span className="text-emerald-600 ml-1">{themeHit}적중</span>}
+                  {themeMiss > 0 && <span className="text-red-500 ml-1">{themeMiss}미스</span>}
+                </span>
+              </div>
               <div className="space-y-1">
                 {stocks.map((s, i) => (
                   <div key={i} className="flex items-center gap-1.5 text-xs sm:text-sm py-0.5">
@@ -115,7 +140,8 @@ function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: s
                 ))}
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>,

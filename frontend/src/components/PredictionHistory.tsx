@@ -215,7 +215,14 @@ export function PredictionHistory({ stockDates }: { stockDates: StockPredictions
           <div className="flex items-center gap-2 text-sm">
             <History className="w-4 h-4 text-violet-500 shrink-0" />
             <span className="font-medium">예측 이력</span>
-            <span className="text-muted-foreground">{stockDates.length}일</span>
+            <span className="text-muted-foreground">
+              {stockDates.length}일
+              {stockDates.length > 0 && (
+                <span className="ml-1 text-[10px]">
+                  ({stockDates[stockDates.length - 1].date.replace(/-/g, ".")} ~ {stockDates[0].date.replace(/-/g, ".")})
+                </span>
+              )}
+            </span>
           </div>
           {expanded ? (
             <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
