@@ -264,14 +264,14 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div className="flex items-center gap-x-2 text-xs">
-                    <span className="text-muted-foreground">
+                    <span className="text-muted-foreground whitespace-nowrap">
                       <span className="sm:hidden">외</span><span className="hidden sm:inline">외국인</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
                     </span>
-                    <span className="text-muted-foreground">
+                    <span className="text-muted-foreground whitespace-nowrap">
                       <span className="sm:hidden">기</span><span className="hidden sm:inline">기관</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
                     </span>
                     {investorInfo.individual_net != null && (
-                      <span className="text-muted-foreground">
+                      <span className="text-muted-foreground whitespace-nowrap">
                         <span className="sm:hidden">개</span><span className="hidden sm:inline">개인</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
