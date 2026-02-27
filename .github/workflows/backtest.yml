@@ -21,8 +21,8 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
-          MESSAGE="🚀 <b>[THEME_ANALYSIS][Backtest Predictions]</b>
-          예측 모델 백테스트 시작"
+          MESSAGE="[THEME_ANALYSIS][Backtest Predictions] 시작
+          예측 모델 백테스트"
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \
             -d text="${MESSAGE}" \
@@ -53,12 +53,12 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           if [ "${{ job.status }}" = "success" ]; then
-            MESSAGE="✅ <b>[THEME_ANALYSIS][Backtest Predictions]</b>
-          예측 모델 백테스트 완료"
+            MESSAGE="[THEME_ANALYSIS][Backtest Predictions] 완료
+          예측 모델 백테스트"
           else
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
-            MESSAGE="❌ <b>[THEME_ANALYSIS][Backtest Predictions]</b>
-          예측 모델 백테스트 실패
+            MESSAGE="[THEME_ANALYSIS][Backtest Predictions] 실패
+          예측 모델 백테스트
           <pre>${ERROR}</pre>"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
