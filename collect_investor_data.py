@@ -1,8 +1,11 @@
 """
-수급 데이터 경량 수집 스크립트
+수급 + 랭킹 데이터 경량 수집 스크립트
 
-장중/장외 수급(외국인·기관·개인 순매수) 데이터를 수집하여
+장중/장외 수급(외국인·기관·개인 순매수) 데이터와
+거래량/거래대금/등락률 랭킹을 수집하여
 latest.json을 갱신하고, 대장주 수급 정보를 텔레그램으로 전송합니다.
+
+신규 진입 종목에 대해서는 history/criteria/member 데이터도 보충합니다.
 
 Usage:
     python collect_investor_data.py          # 전체 실행
@@ -129,10 +132,12 @@ def main():
     label = "추정" if is_estimated else "확정"
     print(f"  {len(investor_data)}개 종목 수급 수집 완료 ({label})")
 
-    # 3-1. 거래량/거래대금 실시간 갱신
-    print("\n[거래량/거래대금 수집]")
+    # 3-1. 거래량/거래대금/등락률 실시간 갱신
+    print("\n[거래량/거래대금/등락률 수집]")
     volume_data = {}
     trading_value_data = {}
+    fluctuation_data = {}
+    fluctuation_direct_data = {}
     try:
         volume_data = rank_api.get_top30_by_volume(exclude_etf=True)
         print(f"  거래량: KOSPI {len(volume_data.get('kospi', []))}개, KOSDAQ {len(volume_data.get('kosdaq', []))}개")
@@ -143,6 +148,20 @@ def main():
         print(f"  거래대금: KOSPI {len(trading_value_data.get('kospi', []))}개, KOSDAQ {len(trading_value_data.get('kosdaq', []))}개")
     except Exception as e:
         print(f"  ⚠ 거래대금 수집 실패: {e}")
+    try:
+        fluctuation_data = rank_api.get_top30_by_fluctuation(exclude_etf=True)
+        up = len(fluctuation_data.get('kospi_up', [])) + len(fluctuation_data.get('kosdaq_up', []))
+        down = len(fluctuation_data.get('kospi_down', [])) + len(fluctuation_data.get('kosdaq_down', []))
+        print(f"  등락률: 상승 {up}개, 하락 {down}개")
+    except Exception as e:
+        print(f"  ⚠ 등락률 수집 실패: {e}")
+    try:
+        fluctuation_direct_data = rank_api.get_top_fluctuation_direct(exclude_etf=True)
+        up = len(fluctuation_direct_data.get('kospi_up', [])) + len(fluctuation_direct_data.get('kosdaq_up', []))
+        down = len(fluctuation_direct_data.get('kospi_down', [])) + len(fluctuation_direct_data.get('kosdaq_down', []))
+        print(f"  등락률(전용): 상승 {up}개, 하락 {down}개")
+    except Exception as e:
+        print(f"  ⚠ 등락률(전용) 수집 실패: {e}")
 
     # 4. 수집 성공 검증 — 대상의 절반 이상 수집되어야 유효
     min_required = max(1, len(all_stocks) // 2)
@@ -198,20 +217,30 @@ def main():
         latest["investor_estimated"] = is_estimated
         latest["investor_updated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
 
-        # 거래량/거래대금 갱신 (메타 필드 제거)
+        # 거래량/거래대금/등락률 갱신 (메타 필드 제거)
         meta_keys = {"collected_at", "category", "exclude_etf"}
         if volume_data:
             latest["volume"] = {k: v for k, v in volume_data.items() if k not in meta_keys}
         if trading_value_data:
             latest["trading_value"] = {k: v for k, v in trading_value_data.items() if k not in meta_keys}
+        if fluctuation_data:
+            latest["fluctuation"] = {k: v for k, v in fluctuation_data.items() if k not in meta_keys}
+        if fluctuation_direct_data:
+            latest["fluctuation_direct"] = {k: v for k, v in fluctuation_direct_data.items() if k not in meta_keys}
 
         # 신규 진입 종목 데이터 보충 (history + criteria + member)
-        # volume/trading_value 갱신으로 새로 나타난 종목은 history 등이 없으므로 보충
+        # 랭킹 갱신으로 새로 나타난 종목은 history 등이 없으므로 보충
         existing_history = latest.get("history") or {}
         new_codes = set()
         for section_key in ["volume", "trading_value"]:
             for market in ["kospi", "kosdaq"]:
                 for stock in latest.get(section_key, {}).get(market, []):
+                    code = stock.get("code", "")
+                    if code and code not in existing_history:
+                        new_codes.add(code)
+        for section_key in ["fluctuation", "fluctuation_direct"]:
+            for key in ["kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"]:
+                for stock in latest.get(section_key, {}).get(key, []):
                     code = stock.get("code", "")
                     if code and code not in existing_history:
                         new_codes.add(code)
@@ -236,6 +265,12 @@ def main():
                 for section_key in ["volume", "trading_value"]:
                     for market in ["kospi", "kosdaq"]:
                         for stock in latest.get(section_key, {}).get(market, []):
+                            code = stock.get("code", "")
+                            if code in new_codes and code not in new_stock_map:
+                                new_stock_map[code] = stock
+                for section_key in ["fluctuation", "fluctuation_direct"]:
+                    for key in ["kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"]:
+                        for stock in latest.get(section_key, {}).get(key, []):
                             code = stock.get("code", "")
                             if code in new_codes and code not in new_stock_map:
                                 new_stock_map[code] = stock
