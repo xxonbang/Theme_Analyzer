@@ -1,8 +1,10 @@
 name: Refresh Stock Data
 
 on:
-  schedule:
-    - cron: '30 2 * * 1-5'  # KST 11:30 = UTC 02:30, 월~금 (장중 데이터 수집)
+  # 외부 cron-job(workflow_dispatch)으로 실행:
+  #   KST 11:30 (월~금) — 장중 데이터 수집
+  # schedule:
+  #   - cron: '30 2 * * 1-5'
   workflow_dispatch:
 
 permissions:

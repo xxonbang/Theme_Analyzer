@@ -1,8 +1,10 @@
 name: Theme Forecast Intraday
 
 on:
-  schedule:
-    - cron: '0 3 * * 1-5'  # KST 12:00 = UTC 03:00, 월~금
+  # 외부 cron-job(workflow_dispatch)으로 실행:
+  #   KST 12:00 (월~금) — 장중 테마 재예측
+  # schedule:
+  #   - cron: '0 3 * * 1-5'
   workflow_dispatch:
 
 permissions:

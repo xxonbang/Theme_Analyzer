@@ -1,8 +1,10 @@
 name: Backtest Predictions
 
 on:
-  schedule:
-    - cron: '0 9 * * 1-5'  # KST 18:00 = UTC 09:00, 월~금
+  # 외부 cron-job(workflow_dispatch)으로 실행:
+  #   KST 18:00 (월~금) — ⚠️ cron-job 미등록, 등록 필요
+  # schedule:
+  #   - cron: '0 9 * * 1-5'
   workflow_dispatch:
 
 permissions:

@@ -1,7 +1,8 @@
 name: Collect Paper Trading Data
 
 on:
-  # schedule 제거 - cron-job.org에서 workflow_dispatch로 정시 트리거
+  # 외부 cron-job(workflow_dispatch)으로 실행:
+  #   KST 15:40 (월~금)
   workflow_dispatch: {}
 
 concurrency:

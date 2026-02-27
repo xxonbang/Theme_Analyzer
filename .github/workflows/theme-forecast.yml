@@ -1,9 +1,10 @@
 name: Theme Forecast
 
 on:
-  schedule:
-    # KST 07:30 = UTC 22:30 (전일)
-    - cron: '30 22 * * 0-4'
+  # 외부 cron-job(workflow_dispatch)으로 실행:
+  #   KST 07:30 (월~금) — 장 개장 전 테마 예측
+  # schedule:
+  #   - cron: '30 22 * * 0-4'
   workflow_dispatch:
 
 permissions:
