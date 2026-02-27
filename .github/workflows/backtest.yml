@@ -59,8 +59,7 @@ jobs:
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
             MESSAGE="❌ <b>[THEME_ANALYSIS][Backtest Predictions]</b>
           예측 모델 백테스트 실패
-
-<pre>${ERROR}</pre>"
+          <pre>${ERROR}</pre>"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \

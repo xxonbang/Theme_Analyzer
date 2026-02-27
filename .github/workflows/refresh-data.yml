@@ -134,8 +134,7 @@ jobs:
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
             MESSAGE="❌ <b>[THEME_ANALYSIS][Refresh Stock Data]</b>
           장중 주가 데이터 갱신 (AI 분석 없이 빠른 수집) 실패
-
-<pre>${ERROR}</pre>"
+          <pre>${ERROR}</pre>"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \
