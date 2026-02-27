@@ -1070,7 +1070,31 @@ def save_forecast_to_supabase(forecast: Dict[str, Any]) -> bool:
                     safe_rows,
                     on_conflict="prediction_date,category,theme_name",
                 ).execute()
-            print(f"  ✓ Supabase 저장 완료 ({len(safe_rows)}건 저장, {skipped}건 평가완료 보호)")
+
+            # 현재 forecast에 없는 stale active 행 삭제
+            current_themes = {(r["category"], r["theme_name"]) for r in rows}
+            stale_deleted = 0
+            try:
+                active_rows = client.table("theme_predictions").select(
+                    "id, category, theme_name"
+                ).eq(
+                    "prediction_date", prediction_date
+                ).eq(
+                    "status", "active"
+                ).execute()
+                stale_ids = [
+                    r["id"] for r in (active_rows.data or [])
+                    if (r["category"], r["theme_name"]) not in current_themes
+                ]
+                if stale_ids:
+                    client.table("theme_predictions").delete().in_(
+                        "id", stale_ids
+                    ).execute()
+                    stale_deleted = len(stale_ids)
+            except Exception as e:
+                print(f"  ⚠ stale 행 삭제 실패: {e}")
+
+            print(f"  ✓ Supabase 저장 완료 ({len(safe_rows)}건 저장, {skipped}건 평가완료 보호, {stale_deleted}건 stale 삭제)")
             return True
 
         return False
