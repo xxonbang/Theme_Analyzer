@@ -27,8 +27,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
-          MESSAGE="🚀 <b>Theme Forecast Intraday</b> 시작
-          장중 테마 예측 업데이트"
+          MESSAGE="🚀 [THEME_ANALYSIS][Theme Forecast Intraday] 장중 테마 예측 업데이트 시작"
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \
             -d text="${MESSAGE}" \
@@ -103,11 +102,10 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           if [ "${{ job.status }}" = "success" ]; then
-            MESSAGE="✅ <b>Theme Forecast Intraday</b> 완료"
+            MESSAGE="✅ [THEME_ANALYSIS][Theme Forecast Intraday] 장중 테마 예측 업데이트 완료"
           else
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
-            MESSAGE="❌ <b>Theme Forecast Intraday</b> 실패
-
+            MESSAGE="❌ [THEME_ANALYSIS][Theme Forecast Intraday] 장중 테마 예측 업데이트 실패
 <pre>${ERROR}</pre>"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
