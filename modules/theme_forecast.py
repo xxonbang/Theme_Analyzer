@@ -1071,19 +1071,17 @@ def save_forecast_to_supabase(forecast: Dict[str, Any]) -> bool:
                     on_conflict="prediction_date,category,theme_name",
                 ).execute()
 
-            # 현재 forecast에 없는 stale active 행 삭제
+            # 현재 forecast에 없는 stale 행 삭제 (평가완료 포함)
             current_themes = {(r["category"], r["theme_name"]) for r in rows}
             stale_deleted = 0
             try:
-                active_rows = client.table("theme_predictions").select(
-                    "id, category, theme_name"
+                all_rows = client.table("theme_predictions").select(
+                    "id, category, theme_name, status"
                 ).eq(
                     "prediction_date", prediction_date
-                ).eq(
-                    "status", "active"
                 ).execute()
                 stale_ids = [
-                    r["id"] for r in (active_rows.data or [])
+                    r["id"] for r in (all_rows.data or [])
                     if (r["category"], r["theme_name"]) not in current_themes
                 ]
                 if stale_ids:
