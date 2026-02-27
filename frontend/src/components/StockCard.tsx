@@ -6,6 +6,7 @@ import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, ge
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
+import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
 interface StockCardProps {
@@ -24,6 +25,7 @@ interface StockCardProps {
 export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
+  const [showPriceHistory, setShowPriceHistory] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
@@ -145,22 +147,25 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <span className="text-muted-foreground text-[10px] sm:text-xs ml-0.5">원</span>
             </p>
             <div className="flex items-center justify-end gap-1">
-              {/* D-2, D-1 등락률 */}
+              {/* D-2, D-1 등락률 (클릭하면 6일 팝업) */}
               {history && history.changes && history.changes.length > 0 && (() => {
                 const reversed = [...history.changes].reverse()
-                return reversed.slice(0, -1).map((change, idx) => {
-                  const labels = ["D-2", "D-1"]
-                  if (idx >= labels.length) return null
+                const pastDays = reversed.slice(0, -1)
+                // 최근 2일만 표시 (나머지는 팝업에서)
+                return pastDays.slice(-2).map((change, idx) => {
+                  const offset = pastDays.length - 2 + idx
+                  const dayNum = pastDays.length - offset
                   return (
-                    <span
+                    <button
                       key={idx}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowPriceHistory(true) }}
                       className={cn(
-                        "text-[8px] px-0.5 rounded font-medium whitespace-nowrap tabular-nums",
+                        "text-[8px] px-0.5 rounded font-medium whitespace-nowrap tabular-nums cursor-pointer hover:opacity-70 transition-opacity",
                         getChangeBgColor(change.change_rate)
                       )}
                     >
-                      {labels[idx]} {change.change_rate > 0 ? "+" : ""}{change.change_rate.toFixed(1)}%
-                    </span>
+                      D-{dayNum} {change.change_rate > 0 ? "+" : ""}{change.change_rate.toFixed(1)}%
+                    </button>
                   )
                 })
               })()}
@@ -169,6 +174,16 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 {formatChangeRate(stock.change_rate)}
               </Badge>
             </div>
+            {/* 6일 가격 변동 팝업 */}
+            {showPriceHistory && history && history.changes && (
+              <PriceHistoryPopup
+                stockName={stock.name}
+                currentPrice={stock.current_price}
+                currentChangeRate={stock.change_rate}
+                changes={history.changes}
+                onClose={() => setShowPriceHistory(false)}
+              />
+            )}
           </div>
         </div>
 
@@ -195,15 +210,16 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 </button>
               )}
             </div>
-            {/* 거래 3일 히스토리 */}
+            {/* 거래 히스토리 (최대 6일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
               const reversed = [...history.changes].reverse()
-              const pastDays = reversed.slice(0, -1) // D-2, D-1
+              const pastDays = reversed.slice(0, -1) // D-5 ~ D-1
               if (pastDays.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
                   {pastDays.map((c, idx) => {
-                    const label = idx === 0 ? "D-2" : "D-1"
+                    const dayNum = pastDays.length - idx
+                    const label = `D-${dayNum}`
                     return (
                       <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
                         <span className="font-medium w-6">{label}</span>
@@ -250,11 +266,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </button>
                     )}
                   </div>
-                  {/* 수급 3일 히스토리 */}
+                  {/* 수급 히스토리 (최대 6일) */}
                   {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (
                     <div className="mt-1 text-[10px] space-y-0.5">
                       {investorInfo.history.map((h, idx) => {
-                        const label = idx === 0 ? "D-1" : "D-2"
+                        const label = `D-${idx + 1}`
                         return (
                           <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
                             <span className="font-medium w-6">{label}</span>

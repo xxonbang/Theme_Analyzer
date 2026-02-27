@@ -384,7 +384,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     # 8. 3일간 등락률 조회
     print("\n[8/13] 3일간 등락률 조회 중...")
     try:
-        history_data = history_api.get_multiple_stocks_history(all_stocks, days=3)
+        history_data = history_api.get_multiple_stocks_history(all_stocks, days=6)
         print(f"  ✓ {len(history_data)}개 종목 등락률 조회 완료")
     except Exception as e:
         print(f"  ✗ 등락률 조회 실패: {e}")

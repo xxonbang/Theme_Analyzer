@@ -543,6 +543,27 @@ class KISClient:
         }
         return self.request("GET", path, tr_id, params=params)
 
+    def get_stock_daily_ohlcv(
+        self,
+        stock_code: str,
+        period: str = "D",
+    ) -> Dict[str, Any]:
+        """주식현재가 일별 시세 조회 (최근 30일, 거래량 포함)
+
+        inquire-daily-itemchartprice(FHKST03010100)와 달리
+        거래량(acml_vol)을 정확히 반환합니다.
+        """
+        path = "/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+        tr_id = "FHKST01010400"
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_PERIOD_DIV_CODE": period,
+            "FID_ORG_ADJ_PRC": "0000",
+        }
+        return self.request("GET", path, tr_id, params=params)
+
     def get_financial_ratio(self, stock_code: str, div_cls_code: str = "1") -> Dict[str, Any]:
         """주식 재무비율 조회 (ROE, 부채비율, 영업이익률 등)
 

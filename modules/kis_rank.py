@@ -707,9 +707,9 @@ class KISRankAPI:
                     "individual_net": safe_int(today.get("prsn_ntby_qty", 0)),
                 }
 
-                # D-1, D-2 히스토리 (output[1], output[2])
+                # D-1 ~ D-5 히스토리 (output[1:6])
                 history = []
-                for past in output[1:3]:
+                for past in output[1:6]:
                     history.append({
                         "foreign_net": safe_int(past.get("frgn_ntby_qty", 0)),
                         "institution_net": safe_int(past.get("orgn_ntby_qty", 0)),

@@ -17,6 +17,30 @@ class StockHistoryAPI:
         """
         self.client = client or KISClient()
 
+    def _fetch_daily_volume(self, stock_code: str) -> Dict[str, int]:
+        """inquire-daily-price API로 일별 거래량 조회
+
+        inquire-daily-itemchartprice(FHKST03010100)에서 acml_vol이
+        누락되는 경우의 보정용.
+
+        Returns:
+            {"20260227": 40374743, ...} 날짜→거래량 딕셔너리
+        """
+        try:
+            result = self.client.get_stock_daily_ohlcv(stock_code)
+            if result.get("rt_cd") != "0":
+                return {}
+
+            volume_map = {}
+            for item in result.get("output", []):
+                date = item.get("stck_bsop_date", "")
+                vol = int(item.get("acml_vol", 0))
+                if date and vol > 0:
+                    volume_map[date] = vol
+            return volume_map
+        except Exception:
+            return {}
+
     def get_recent_changes(
         self,
         stock_code: str,
@@ -47,6 +71,13 @@ class StockHistoryAPI:
 
             output2 = result.get("output2", [])
 
+            # 첫 종목만 output2 필드명 진단 (1회)
+            if output2 and not hasattr(self, '_logged_fields'):
+                self._logged_fields = True
+                sample = output2[0]
+                print(f"  [DEBUG] output2 keys: {list(sample.keys())}")
+                print(f"  [DEBUG] acml_vol={sample.get('acml_vol')!r}, acml_tr_pbmn={sample.get('acml_tr_pbmn')!r}")
+
             # KIS API는 1회 최대 100건 반환 → MA120 계산에 120건 이상 필요
             if len(output2) >= 100:
                 oldest_date = output2[-1].get("stck_bsop_date", "")
@@ -70,6 +101,7 @@ class StockHistoryAPI:
                 return {"code": stock_code, "changes": [], "total_change_rate": 0}
 
             changes = []
+            has_volume = False
             for i in range(days):
                 today = output2[i]
                 yesterday = output2[i + 1]
@@ -85,15 +117,42 @@ class StockHistoryAPI:
                 date_str = today.get("stck_bsop_date", "")
                 formatted_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}" if len(date_str) == 8 else date_str
 
+                volume = int(today.get("acml_vol", 0))
+                trading_value = int(today.get("acml_tr_pbmn", 0))
+                if volume > 0:
+                    has_volume = True
+
                 changes.append({
                     "date": formatted_date,
                     "close": today_close,
                     "change_rate": round(change_rate, 2),
-                    "volume": int(today.get("acml_vol", 0)),
-                    "trading_value": int(today.get("acml_tr_pbmn", 0)),
+                    "volume": volume,
+                    "trading_value": trading_value,
+                    "_raw_date": date_str,  # 거래량 보정용 (export 시 제거)
                 })
 
-            # 3일간 총 등락률 계산 (첫날 종가 vs N일 전 종가)
+            # acml_vol이 모두 0이면 inquire-daily-price API로 정확한 거래량 보정
+            if not has_volume and changes:
+                volume_map = self._fetch_daily_volume(stock_code)
+                if volume_map:
+                    for c in changes:
+                        raw_date = c.get("_raw_date", "")
+                        if raw_date in volume_map:
+                            c["volume"] = volume_map[raw_date]
+                        elif c["trading_value"] > 0 and c["close"] > 0:
+                            # inquire-daily-price에도 없으면 근사치
+                            c["volume"] = c["trading_value"] // c["close"]
+                else:
+                    # API 호출 실패 시 근사치 fallback
+                    for c in changes:
+                        if c["volume"] == 0 and c["trading_value"] > 0 and c["close"] > 0:
+                            c["volume"] = c["trading_value"] // c["close"]
+
+            # _raw_date 필드 제거
+            for c in changes:
+                c.pop("_raw_date", None)
+
+            # N일간 총 등락률 계산 (첫날 종가 vs N일 전 종가)
             if len(output2) > days:
                 latest_close = int(output2[0].get("stck_clpr", 0))
                 base_close = int(output2[days].get("stck_clpr", 0))

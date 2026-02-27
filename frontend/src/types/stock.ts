@@ -15,6 +15,7 @@ export interface Stock {
 
 export interface HistoryChange {
   date: string
+  close?: number
   change_rate: number
   volume?: number
   trading_value?: number
