@@ -4,8 +4,9 @@
 Supabase의 active 예측을 조회하고, 실제 주가와 비교하여 적중 여부를 판정합니다.
 
 Usage:
-    python backtest_main.py          # 전체 실행
-    python backtest_main.py --test   # 테스트 (Supabase 업데이트 건너뜀)
+    python backtest_main.py                          # active 예측 평가
+    python backtest_main.py --test                   # 테스트 모드 (DB 업데이트 건너뜀)
+    python backtest_main.py --reevaluate 2026-02-26  # 특정 날짜 재평가 (hit/missed → 재계산)
 """
 import json
 import sys
@@ -25,14 +26,37 @@ from modules.backtest import (
 from modules.utils import KST
 
 
+def get_reevaluate_date() -> str:
+    """--reevaluate YYYY-MM-DD 인자 파싱"""
+    args = sys.argv[1:]
+    for i, arg in enumerate(args):
+        if arg == "--reevaluate" and i + 1 < len(args):
+            return args[i + 1]
+    return ""
+
+
+def get_predictions_for_reevaluate(client, target_date: str):
+    """특정 날짜의 hit/missed 예측을 조회하여 재평가 대상으로 반환"""
+    response = client.table("theme_predictions").select("*").eq(
+        "prediction_date", target_date
+    ).in_(
+        "status", ["hit", "missed"]
+    ).execute()
+    return response.data or []
+
+
 def main():
     test_mode = "--test" in sys.argv
+    reevaluate_date = get_reevaluate_date()
 
     if test_mode:
         print("🧪 테스트 모드 (Supabase 업데이트 건너뜀)")
 
     print("=" * 50)
-    print("📊 예측 백테스팅 시작")
+    if reevaluate_date:
+        print(f"📊 예측 재평가 시작 ({reevaluate_date})")
+    else:
+        print("📊 예측 백테스팅 시작")
     print("=" * 50)
 
     # Supabase 연결
@@ -47,10 +71,14 @@ def main():
         print(f"  ✗ Supabase 초기화 실패: {e}")
         sys.exit(1)
 
-    # Step 1: Active 예측 조회
-    print("\n[1/4] Active 예측 조회...")
-    predictions = get_active_predictions(client)
-    print(f"  ✓ {len(predictions)}건의 active 예측 조회")
+    # Step 1: 예측 조회
+    print("\n[1/4] 예측 조회...")
+    if reevaluate_date:
+        predictions = get_predictions_for_reevaluate(client, reevaluate_date)
+        print(f"  ✓ {len(predictions)}건의 재평가 대상 조회 ({reevaluate_date})")
+    else:
+        predictions = get_active_predictions(client)
+        print(f"  ✓ {len(predictions)}건의 active 예측 조회")
 
     if not predictions:
         print("  평가할 예측이 없습니다")
@@ -106,7 +134,12 @@ def main():
     print(f"  ✓ 그룹별 수익률 조회 완료 ({len(pred_groups)}개 그룹, 종목 {len(all_codes)}개)")
     for (pd, cat), rets in returns_by_group.items():
         idx = index_by_group[(pd, cat)]
-        print(f"    - {pd}/{cat}: KOSPI {idx:+.2f}%, 종목 {len(rets)}개")
+        expected_codes = pred_groups[(pd, cat)]
+        fetched_codes = set(rets.keys())
+        missing = expected_codes - fetched_codes
+        print(f"    - {pd}/{cat}: KOSPI {idx:+.2f}%, 종목 {len(rets)}/{len(expected_codes)}개")
+        if missing:
+            print(f"      ⚠ 수익률 미확보: {', '.join(sorted(missing))}")
 
     # Step 3: 예측 평가
     print("\n[3/4] 예측 평가...")
@@ -119,29 +152,34 @@ def main():
         returns = returns_by_group.get(key, {})
         index_return = index_by_group.get(key, 0.0)
 
-        status = evaluate_prediction(pred, returns, index_return)
+        status = evaluate_prediction(pred, returns, index_return, force=bool(reevaluate_date))
         results[status] += 1
 
         theme_name = pred.get("theme_name", "N/A")
 
         if status in ("hit", "missed", "expired"):
-            print(f"  [{status.upper()}] {theme_name} ({category})")
+            # 수익률 정보 수집 (로깅 및 저장 공용)
+            leader_stocks = pred.get("leader_stocks", "[]")
+            if isinstance(leader_stocks, str):
+                try:
+                    leader_stocks = json.loads(leader_stocks)
+                except json.JSONDecodeError:
+                    leader_stocks = []
+            perf = {}
+            perf_details = []
+            for s in leader_stocks:
+                code = s.get("code", "")
+                name = s.get("name", code)
+                if code and code in returns:
+                    perf[code] = returns[code]
+                    perf_details.append(f"{name}({code})={returns[code]:+.2f}%")
+                elif code:
+                    perf_details.append(f"{name}({code})=N/A")
+            perf["index_return"] = index_return
+
+            print(f"  [{status.upper()}] {theme_name} ({category}) — {', '.join(perf_details)}")
 
             if not test_mode:
-                # 수익률 정보 수집
-                leader_stocks = pred.get("leader_stocks", "[]")
-                if isinstance(leader_stocks, str):
-                    try:
-                        leader_stocks = json.loads(leader_stocks)
-                    except json.JSONDecodeError:
-                        leader_stocks = []
-                perf = {}
-                for s in leader_stocks:
-                    code = s.get("code", "")
-                    if code and code in returns:
-                        perf[code] = returns[code]
-                perf["index_return"] = index_return
-
                 update_prediction_status(client, pred["id"], status, perf)
 
     print(f"\n  결과: hit={results['hit']}, missed={results['missed']}, "

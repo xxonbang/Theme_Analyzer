@@ -5,7 +5,7 @@ Supabase의 theme_predictions에서 active 예측을 조회하고,
 """
 import json
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from modules.utils import KST
 from modules.market_hours import KRX_HOLIDAYS_2026
@@ -48,10 +48,15 @@ def fetch_stock_returns(codes: List[str], start: str, end: str) -> Dict:
                 if data.empty or len(data) < 2:
                     continue
                 close = data["Close"]
+                actual_start = data.index[0].strftime("%Y-%m-%d")
+                actual_end = data.index[-1].strftime("%Y-%m-%d")
                 first_price = float(close.iloc[0])
                 last_price = float(close.iloc[-1])
                 if first_price > 0:
                     returns[code] = round(((last_price - first_price) / first_price) * 100, 2)
+                    # 실제 데이터 범위가 요청과 크게 다르면 경고
+                    if actual_start > start:
+                        print(f"  ⚠ {code}: 요청 시작일 {start} vs 실제 {actual_start}")
                     found = True
                     break
             except Exception:
@@ -101,26 +106,45 @@ def fetch_daily_returns(codes: List[str], target_date: str) -> Dict:
         print("  ⚠ yfinance 미설치")
         return {}
 
+    import pandas as pd
+
     dt = datetime.strptime(target_date, "%Y-%m-%d")
+    target_ts = pd.Timestamp(target_date)
     start = (dt - timedelta(days=5)).strftime("%Y-%m-%d")
     end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
 
     returns = {}
+    missing_codes = []
     for code in codes:
+        found = False
         for suffix in [".KS", ".KQ"]:
             ticker = f"{code}{suffix}"
             try:
                 data = yf.download(ticker, start=start, end=end, progress=False, multi_level_index=False)
                 if data.empty or len(data) < 2:
                     continue
+                # target_date가 실제 데이터에 존재하는지 검증
+                dates = data.index.normalize()
+                if target_ts not in dates:
+                    continue
+                # target_date 행과 그 직전 행을 사용
+                target_idx = dates.get_loc(target_ts)
+                if target_idx < 1:
+                    continue
                 close = data["Close"]
-                prev_price = float(close.iloc[-2])
-                cur_price = float(close.iloc[-1])
+                cur_price = float(close.iloc[target_idx])
+                prev_price = float(close.iloc[target_idx - 1])
                 if prev_price > 0:
                     returns[code] = round(((cur_price - prev_price) / prev_price) * 100, 2)
+                    found = True
                     break
             except Exception:
                 continue
+        if not found:
+            missing_codes.append(code)
+
+    if missing_codes:
+        print(f"  ⚠ 일간수익률 미확보 ({target_date}, {len(missing_codes)}건): {', '.join(missing_codes)}")
 
     return returns
 
@@ -129,10 +153,12 @@ def fetch_daily_index_return(target_date: str) -> float:
     """특정 일자의 KOSPI 일간 수익률 (전일 종가 대비 당일 종가)"""
     try:
         import yfinance as yf
+        import pandas as pd
     except ImportError:
         return 0.0
 
     dt = datetime.strptime(target_date, "%Y-%m-%d")
+    target_ts = pd.Timestamp(target_date)
     start = (dt - timedelta(days=5)).strftime("%Y-%m-%d")
     end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
 
@@ -140,9 +166,17 @@ def fetch_daily_index_return(target_date: str) -> float:
         data = yf.download("^KS11", start=start, end=end, progress=False, multi_level_index=False)
         if data.empty or len(data) < 2:
             return 0.0
+        # target_date가 실제 데이터에 존재하는지 검증
+        dates = data.index.normalize()
+        if target_ts not in dates:
+            print(f"  ⚠ KOSPI 지수 {target_date} 데이터 미존재 (최신: {dates[-1].strftime('%Y-%m-%d')})")
+            return 0.0
+        target_idx = dates.get_loc(target_ts)
+        if target_idx < 1:
+            return 0.0
         close = data["Close"]
-        prev_val = float(close.iloc[-2])
-        cur_val = float(close.iloc[-1])
+        cur_val = float(close.iloc[target_idx])
+        prev_val = float(close.iloc[target_idx - 1])
         if prev_val > 0:
             return round(((cur_val - prev_val) / prev_val) * 100, 2)
     except Exception:
@@ -150,11 +184,14 @@ def fetch_daily_index_return(target_date: str) -> float:
     return 0.0
 
 
-def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float) -> str:
+def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float, *, force: bool = False) -> str:
     """단일 예측 평가
 
     hit 기준: 수익률 확인 가능한 대장주 중 과반수가 절대 수익률 +2% 이상
     (1개만 확인 가능한 경우 해당 종목 기준 판정)
+
+    Args:
+        force: True이면 시간 제한 무시 (재평가용)
     """
     category = prediction.get("category", "today")
     prediction_date = prediction.get("prediction_date", "")
@@ -162,27 +199,28 @@ def evaluate_prediction(prediction: Dict, returns: Dict, index_return: float) ->
     if not prediction_date:
         return "active"
 
-    pred_date = datetime.strptime(prediction_date, "%Y-%m-%d")
-    now = datetime.now(KST).replace(tzinfo=None)
+    if not force:
+        pred_date = datetime.strptime(prediction_date, "%Y-%m-%d")
+        now = datetime.now(KST).replace(tzinfo=None)
 
-    # 카테고리별 평가 시점 판정
-    if category == "today":
-        # today: 당일 18:00(장 마감 후) 이후 즉시 평가 가능
-        market_close = pred_date.replace(hour=18, minute=0, second=0)
-        if now < market_close:
-            return "active"
-    else:
-        # short_term/long_term: 영업일 기준 경과일 계산 (주말 + 공휴일 제외)
-        days_elapsed = 0
-        d = pred_date + timedelta(days=1)
-        while d <= now:
-            if d.weekday() < 5 and d.strftime("%Y-%m-%d") not in KRX_HOLIDAYS_2026:
-                days_elapsed += 1
-            d += timedelta(days=1)
+        # 카테고리별 평가 시점 판정
+        if category == "today":
+            # today: 당일 18:00(장 마감 후) 이후 즉시 평가 가능
+            market_close = pred_date.replace(hour=18, minute=0, second=0)
+            if now < market_close:
+                return "active"
+        else:
+            # short_term/long_term: 영업일 기준 경과일 계산 (주말 + 공휴일 제외)
+            days_elapsed = 0
+            d = pred_date + timedelta(days=1)
+            while d <= now:
+                if d.weekday() < 5 and d.strftime("%Y-%m-%d") not in KRX_HOLIDAYS_2026:
+                    days_elapsed += 1
+                d += timedelta(days=1)
 
-        max_days = {"short_term": 7, "long_term": 30}.get(category, 7)
-        if days_elapsed < max_days:
-            return "active"
+            max_days = {"short_term": 7, "long_term": 30}.get(category, 7)
+            if days_elapsed < max_days:
+                return "active"
 
     # 대장주 수익률 확인
     leader_stocks = prediction.get("leader_stocks", "[]")

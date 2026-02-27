@@ -1044,13 +1044,33 @@ def save_forecast_to_supabase(forecast: Dict[str, Any]) -> bool:
                 })
 
         if rows:
-            # UPSERT: (prediction_date, category, theme_name) 기준
-            # status는 active인 경우만 덮어씀 (이미 hit/missed 판정된 행 보호)
-            client.table("theme_predictions").upsert(
-                rows,
-                on_conflict="prediction_date,category,theme_name",
-            ).execute()
-            print(f"  ✓ Supabase 저장 완료 ({len(rows)}건)")
+            # 이미 평가된(hit/missed) 행은 덮어쓰지 않도록 보호
+            evaluated = set()
+            try:
+                existing = client.table("theme_predictions").select(
+                    "prediction_date, category, theme_name"
+                ).eq(
+                    "prediction_date", prediction_date
+                ).in_(
+                    "status", ["hit", "missed"]
+                ).execute()
+                for r in (existing.data or []):
+                    evaluated.add((r["prediction_date"], r["category"], r["theme_name"]))
+            except Exception:
+                pass  # 조회 실패 시 전체 UPSERT 진행
+
+            safe_rows = [
+                r for r in rows
+                if (r["prediction_date"], r["category"], r["theme_name"]) not in evaluated
+            ]
+            skipped = len(rows) - len(safe_rows)
+
+            if safe_rows:
+                client.table("theme_predictions").upsert(
+                    safe_rows,
+                    on_conflict="prediction_date,category,theme_name",
+                ).execute()
+            print(f"  ✓ Supabase 저장 완료 ({len(safe_rows)}건 저장, {skipped}건 평가완료 보호)")
             return True
 
         return False
