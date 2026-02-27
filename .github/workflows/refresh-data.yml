@@ -2,9 +2,13 @@ name: Refresh Stock Data
 
 on:
   # 외부 cron-job(workflow_dispatch)으로 실행:
-  #   KST 11:30 (월~금) — 장중 데이터 수집
+  #   KST 11:30 (월~금) — 장중 전체 데이터 수집 (AI 분석 없이)
   # schedule:
   #   - cron: '30 2 * * 1-5'
+  #
+  # NOTE: collect-investor-data.yml이 하루 7회 실행되며
+  #   수급/거래량/거래대금/등락률 랭킹을 갱신하므로,
+  #   이 워크플로우는 전체 동기화(history 재수집 등) 목적으로 1회 유지.
   workflow_dispatch:
 
 permissions:
