@@ -31,7 +31,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
-          MESSAGE="[THEME_ANALYSIS][Refresh Stock Data] 시작
+          MESSAGE="<b>[THEME_ANALYSIS][Refresh Stock Data] 시작</b>
           장중 주가 데이터 갱신 (AI 분석 없이 빠른 수집)"
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \
@@ -128,11 +128,11 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           if [ "${{ job.status }}" = "success" ]; then
-            MESSAGE="[THEME_ANALYSIS][Refresh Stock Data] 완료
+            MESSAGE="<b>[THEME_ANALYSIS][Refresh Stock Data] 완료</b>
           장중 주가 데이터 갱신 (AI 분석 없이 빠른 수집)"
           else
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
-            MESSAGE="[THEME_ANALYSIS][Refresh Stock Data] 실패
+            MESSAGE="<b>[THEME_ANALYSIS][Refresh Stock Data] 실패</b>
           장중 주가 데이터 갱신 (AI 분석 없이 빠른 수집)
           <pre>${ERROR}</pre>"
           fi

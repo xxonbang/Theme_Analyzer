@@ -29,7 +29,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
-          MESSAGE="[THEME_ANALYSIS][Deploy Pages] 시작
+          MESSAGE="<b>[THEME_ANALYSIS][Deploy Pages] 시작</b>
           프론트엔드 GitHub Pages 배포"
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \
@@ -80,10 +80,10 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           if [ "${{ needs.deploy.result }}" = "success" ]; then
-            MESSAGE="[THEME_ANALYSIS][Deploy Pages] 완료
+            MESSAGE="<b>[THEME_ANALYSIS][Deploy Pages] 완료</b>
           프론트엔드 GitHub Pages 배포"
           else
-            MESSAGE="[THEME_ANALYSIS][Deploy Pages] 실패
+            MESSAGE="<b>[THEME_ANALYSIS][Deploy Pages] 실패</b>
           프론트엔드 GitHub Pages 배포"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
