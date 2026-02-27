@@ -212,13 +212,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             </div>
             {/* 거래 히스토리 (최대 6일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
-              const reversed = [...history.changes].reverse()
-              const pastDays = reversed.slice(0, -1) // D-5 ~ D-1
+              const pastDays = history.changes.slice(1) // D-1 ~ D-5 (내림차순)
               if (pastDays.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
                   {pastDays.map((c, idx) => {
-                    const dayNum = pastDays.length - idx
+                    const dayNum = idx + 1
                     const label = `D-${dayNum}`
                     return (
                       <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
