@@ -205,6 +205,68 @@ def main():
         if trading_value_data:
             latest["trading_value"] = {k: v for k, v in trading_value_data.items() if k not in meta_keys}
 
+        # 신규 진입 종목 데이터 보충 (history + criteria + member)
+        # volume/trading_value 갱신으로 새로 나타난 종목은 history 등이 없으므로 보충
+        existing_history = latest.get("history") or {}
+        new_codes = set()
+        for section_key in ["volume", "trading_value"]:
+            for market in ["kospi", "kosdaq"]:
+                for stock in latest.get(section_key, {}).get(market, []):
+                    code = stock.get("code", "")
+                    if code and code not in existing_history:
+                        new_codes.add(code)
+
+        if new_codes:
+            print(f"\n[신규 종목 데이터 보충] {len(new_codes)}개")
+            try:
+                from modules.stock_history import StockHistoryAPI
+                history_api = StockHistoryAPI(rank_api.client)
+                new_history = history_api.get_multiple_stocks_history(
+                    [{"code": c} for c in new_codes], days=3
+                )
+                for code, hist in new_history.items():
+                    existing_history[code] = hist
+                latest["history"] = existing_history
+                print(f"  ✓ history: {len(new_history)}개 종목")
+
+                # criteria 평가 (history 기반)
+                from modules.stock_criteria import evaluate_all_stocks
+                existing_criteria = latest.get("criteria_data") or {}
+                new_stock_map = {}
+                for section_key in ["volume", "trading_value"]:
+                    for market in ["kospi", "kosdaq"]:
+                        for stock in latest.get(section_key, {}).get(market, []):
+                            code = stock.get("code", "")
+                            if code in new_codes and code not in new_stock_map:
+                                new_stock_map[code] = stock
+                new_criteria = evaluate_all_stocks(
+                    all_stocks=list(new_stock_map.values()),
+                    history_data=existing_history,
+                    investor_data=investor_data,
+                    trading_value_data=latest.get("trading_value", {}),
+                )
+                existing_criteria.update(new_criteria)
+                latest["criteria_data"] = existing_criteria
+                print(f"  ✓ criteria: {len(new_criteria)}개 종목")
+
+                # member(거래원) 수집 — 대장주 or 거래대금 TOP20인 신규 종목만
+                member_target = set(leader_codes)
+                for s in extract_top20_stocks(latest):
+                    c = s.get("code", "")
+                    if c:
+                        member_target.add(c)
+                member_new = new_codes & member_target
+                if member_new:
+                    existing_member = latest.get("member_data") or {}
+                    new_member = rank_api.get_member_data(
+                        [{"code": c, "name": new_stock_map.get(c, {}).get("name", c)} for c in member_new]
+                    )
+                    existing_member.update(new_member)
+                    latest["member_data"] = existing_member
+                    print(f"  ✓ member: {len(new_member)}개 종목")
+            except Exception as e:
+                print(f"  ⚠ 신규 종목 데이터 보충 실패 (기존 데이터로 계속): {e}")
+
         with open(LATEST_PATH, "w", encoding="utf-8") as f:
             json.dump(latest, f, ensure_ascii=False, indent=2)
         print(f"\n  latest.json 갱신 완료")
