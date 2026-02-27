@@ -207,21 +207,22 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               </span>
               {/* 6일 거래대금 추이 스파크라인 + 히스토리 토글 */}
               {history?.changes && history.changes.length > 1 && (
-                <>
-                <button onClick={() => setShowTradingChart(true)} className="ml-auto opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
-                  <Sparkline
-                    data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
-                    color="#f59e0b"
-                    className="pointer-events-none"
-                  />
-                </button>
-                <button
-                  onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                </button>
-                </>
+                <div className="flex items-center ml-auto rounded-md border border-border/50 overflow-hidden">
+                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                    <Sparkline
+                      data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
+                      color="#f59e0b"
+                      className="pointer-events-none"
+                    />
+                  </button>
+                  <div className="w-px self-stretch bg-border/50" />
+                  <button
+                    onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
+                    className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+                  >
+                    {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
               )}
               {/* 거래 차트 팝업 */}
               {showTradingChart && history?.changes && (
@@ -262,7 +263,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             <div className="pt-1.5 border-t border-border/30">
               {investorInfo ? (
                 <>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                  {/* 1행: 수급 수치 */}
+                  <div className="flex items-center gap-x-2 text-xs">
                     <span className="text-muted-foreground">
                       외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
                     </span>
@@ -274,30 +276,32 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
-                    {/* 외국인 순매수 스파크라인 */}
+                  </div>
+                  {/* 2행: 스파크라인 + 시각 + 히스토리 토글 */}
+                  <div className="flex items-center gap-x-2 mt-0.5">
                     {investorInfo.history && investorInfo.history.length > 0 && (
-                      <button onClick={() => setShowInvestorChart(true)} className="ml-auto opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
-                        <Sparkline
-                          data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
-                          color="#ef4444"
-                          className="pointer-events-none"
-                        />
-                      </button>
+                      <div className="flex items-center rounded-md border border-border/50 overflow-hidden">
+                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                          <Sparkline
+                            data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
+                            color="#ef4444"
+                            className="pointer-events-none"
+                          />
+                        </button>
+                        <div className="w-px self-stretch bg-border/50" />
+                        <button
+                          onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                          className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+                        >
+                          {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                        </button>
+                      </div>
                     )}
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
-                      return <span className={cn("text-[8px] text-muted-foreground/60", !investorInfo.history?.length && "ml-auto")}>{roundText} {investorUpdatedAt.slice(11, 16)}</span>
+                      return <span className="text-[8px] text-muted-foreground/60 ml-auto">{roundText} {investorUpdatedAt.slice(11, 16)}</span>
                     })()}
-                    {/* 수급 히스토리 토글 */}
-                    {investorInfo.history && investorInfo.history.length > 0 && (
-                      <button
-                        onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                      </button>
-                    )}
                     {/* 수급 차트 팝업 */}
                     {showInvestorChart && investorInfo && (
                       <InvestorChartPopup
