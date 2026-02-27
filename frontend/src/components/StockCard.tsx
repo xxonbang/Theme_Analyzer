@@ -207,7 +207,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               </span>
               {/* 6일 거래대금 추이 스파크라인 + 히스토리 토글 */}
               {history?.changes && history.changes.length > 1 && (
-                <div className="flex items-center ml-auto rounded-md border border-border/50 overflow-hidden">
+                <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
                   <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
                     <Sparkline
                       data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
@@ -277,7 +277,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     )}
                     {/* 외국인 순매수 스파크라인 + 히스토리 토글 */}
                     {investorInfo.history && investorInfo.history.length > 0 && (
-                      <div className="flex items-center ml-auto rounded-md border border-border/50 overflow-hidden">
+                      <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
                         <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
                           <Sparkline
                             data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
