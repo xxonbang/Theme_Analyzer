@@ -97,6 +97,7 @@ function App() {
 
   // Scroll to top 버튼 상태
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,14 +111,7 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
-  const scrollToStock = useCallback((code: string) => {
-    const el = document.getElementById(`stock-${code}`)
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" })
-    } else {
-      alert("현재 리스트에 해당 종목이 없습니다.")
-    }
-  }, [])
+  // scrollToStock는 stockTabMap 이후에 정의 (아래 참조)
 
   const toggleCompactMode = () => {
     setCompactMode((prev) => !prev)
@@ -256,6 +250,75 @@ function App() {
     if (compositeMode === "trading_fluc") return "거래대금"
     return "거래량"
   }, [compositeMode])
+
+  // 종목코드 → 포함된 탭 맵핑
+  const stockTabMap = useMemo(() => {
+    const map: Record<string, TabType[]> = {}
+    if (!displayData) return map
+    const add = (stocks: Stock[] | undefined, tab: TabType) => {
+      for (const s of stocks || []) {
+        if (!map[s.code]) map[s.code] = []
+        if (!map[s.code].includes(tab)) map[s.code].push(tab)
+      }
+    }
+    // composite
+    if (compositeData) {
+      add(compositeData.rising.kospi, "composite")
+      add(compositeData.rising.kosdaq, "composite")
+      add(compositeData.falling.kospi, "composite")
+      add(compositeData.falling.kosdaq, "composite")
+    } else if (displayData.rising && displayData.falling) {
+      add(displayData.rising.kospi, "composite")
+      add(displayData.rising.kosdaq, "composite")
+      add(displayData.falling.kospi, "composite")
+      add(displayData.falling.kosdaq, "composite")
+    }
+    // trading_value
+    add(tradingValueTabData?.kospi?.slice(0, 20), "trading_value")
+    add(tradingValueTabData?.kosdaq?.slice(0, 20), "trading_value")
+    // volume
+    add(volumeTabData?.kospi?.slice(0, 20), "volume")
+    add(volumeTabData?.kosdaq?.slice(0, 20), "volume")
+    // fluctuation
+    add(activeFluctuationData?.kospi_up?.slice(0, 20), "fluctuation")
+    add(activeFluctuationData?.kospi_down?.slice(0, 20), "fluctuation")
+    add(activeFluctuationData?.kosdaq_up?.slice(0, 20), "fluctuation")
+    add(activeFluctuationData?.kosdaq_down?.slice(0, 20), "fluctuation")
+    return map
+  }, [displayData, compositeData, tradingValueTabData, volumeTabData, activeFluctuationData])
+
+  // 탭 전환 후 스크롤 대기 처리
+  useEffect(() => {
+    if (!pendingScrollTarget) return
+    const raf = requestAnimationFrame(() => {
+      const el = document.getElementById(`stock-${pendingScrollTarget}`)
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" })
+      }
+      setPendingScrollTarget(null)
+    })
+    return () => cancelAnimationFrame(raf)
+  }, [pendingScrollTarget, activeTab])
+
+  // 대장주 클릭 시 해당 종목으로 이동
+  const scrollToStock = useCallback((code: string) => {
+    // 1. 현재 탭에서 찾기
+    const el = document.getElementById(`stock-${code}`)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" })
+      return
+    }
+    // 2. 다른 탭에서 찾기
+    const tabs = stockTabMap[code]
+    if (tabs && tabs.length > 0) {
+      const targetTab = tabs.find(t => t !== activeTab) || tabs[0]
+      setActiveTab(targetTab)
+      setPendingScrollTarget(code)
+      return
+    }
+    // 3. 모든 탭에 없음
+    alert("모든 탭에 해당 종목이 없습니다.")
+  }, [stockTabMap, activeTab])
 
   // 탭 전환 핸들러 (활동 로그 포함)
   const handleTabChange = useCallback((tab: TabType) => {
