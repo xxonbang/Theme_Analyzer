@@ -1,0 +1,309 @@
+{
+  "trade_date": "2026-02-27",
+  "morning_timestamp": "2026-02-27 09:22:10",
+  "collected_at": "2026-02-27 06:40:43",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-02-27 09:22:10",
+      "prices": {
+        "000250": 827000,
+        "034020": 108300,
+        "052690": 184300,
+        "042700": 289500,
+        "439260": 100400,
+        "080220": 50900,
+        "006340": 6650,
+        "229000": 5710,
+        "242040": 6930,
+        "356680": 8850
+      },
+      "leader_stocks": [
+        {
+          "code": "000250",
+          "name": "삼천당제약",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원자력/에너지/방산"
+        },
+        {
+          "code": "052690",
+          "name": "한전기술",
+          "theme": "원자력/에너지/방산"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "439260",
+          "name": "대한조선",
+          "theme": "친환경/조선"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-27 09:45:26",
+      "prices": {
+        "000250": 835000,
+        "034020": 107600,
+        "042700": 323500,
+        "439260": 96500,
+        "080220": 49500,
+        "006340": 7070,
+        "001440": 35600,
+        "229000": 5670,
+        "242040": 6280,
+        "356680": 8590
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "고대역폭 메모리 (HBM) 및 반도체 장비"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "고대역폭 메모리 (HBM) 및 반도체 장비"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "000250",
+          "name": "삼천당제약",
+          "theme": "바이오/제약 (GLP-1 및 진단 솔루션)"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/제약 (GLP-1 및 진단 솔루션)"
+        },
+        {
+          "code": "242040",
+          "name": "나무기술",
+          "theme": "AI/클라우드 솔루션 및 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "AI/클라우드 솔루션 및 보안"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-02-27 11:46:44",
+      "prices": {
+        "000250": 824000,
+        "034020": 107000,
+        "042700": 317000,
+        "439260": 99800,
+        "080220": 51300,
+        "006340": 6960,
+        "001440": 36900,
+        "229000": 5720,
+        "242040": 5740,
+        "356680": 8250
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "고대역폭 메모리 (HBM) 및 반도체 장비"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "고대역폭 메모리 (HBM) 및 반도체 장비"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "000250",
+          "name": "삼천당제약",
+          "theme": "바이오/제약 (GLP-1 및 진단 솔루션)"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/제약 (GLP-1 및 진단 솔루션)"
+        },
+        {
+          "code": "242040",
+          "name": "나무기술",
+          "theme": "AI/클라우드 솔루션 및 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "AI/클라우드 솔루션 및 보안"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000250",
+      "name": "삼천당제약",
+      "theme": "바이오/제약",
+      "buy_price": 827000,
+      "close_price": 825000,
+      "profit_rate": -0.24,
+      "profit_amount": -2000,
+      "high_price": 860000,
+      "high_time": "10:36",
+      "high_profit_rate": 3.99,
+      "high_profit_amount": 33000
+    },
+    {
+      "code": "034020",
+      "name": "두산에너빌리티",
+      "theme": "원자력/에너지/방산",
+      "buy_price": 108300,
+      "close_price": 106300,
+      "profit_rate": -1.85,
+      "profit_amount": -2000,
+      "high_price": 108600,
+      "high_time": "10:17",
+      "high_profit_rate": 0.28,
+      "high_profit_amount": 300
+    },
+    {
+      "code": "052690",
+      "name": "한전기술",
+      "theme": "원자력/에너지/방산",
+      "buy_price": 184300,
+      "close_price": 175100,
+      "profit_rate": -4.99,
+      "profit_amount": -9200,
+      "high_price": 182500,
+      "high_time": "09:23",
+      "high_profit_rate": -0.98,
+      "high_profit_amount": -1800
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "반도체/AI",
+      "buy_price": 289500,
+      "close_price": 323500,
+      "profit_rate": 11.74,
+      "profit_amount": 34000,
+      "high_price": 332500,
+      "high_time": "14:39",
+      "high_profit_rate": 14.85,
+      "high_profit_amount": 43000
+    },
+    {
+      "code": "439260",
+      "name": "대한조선",
+      "theme": "친환경/조선",
+      "buy_price": 100400,
+      "close_price": 99500,
+      "profit_rate": -0.9,
+      "profit_amount": -900,
+      "high_price": 101300,
+      "high_time": "13:29",
+      "high_profit_rate": 0.9,
+      "high_profit_amount": 900
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "고대역폭 메모리 (HBM) 및 반도체 장비",
+      "buy_price": 50900,
+      "close_price": 50900,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 52700,
+      "high_time": "09:22",
+      "high_profit_rate": 3.54,
+      "high_profit_amount": 1800
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전력 인프라 및 전선",
+      "buy_price": 6650,
+      "close_price": 6790,
+      "profit_rate": 2.11,
+      "profit_amount": 140,
+      "high_price": 7490,
+      "high_time": "09:25",
+      "high_profit_rate": 12.63,
+      "high_profit_amount": 840
+    },
+    {
+      "code": "229000",
+      "name": "젠큐릭스",
+      "theme": "바이오/제약 (GLP-1 및 진단 솔루션)",
+      "buy_price": 5710,
+      "close_price": 5860,
+      "profit_rate": 2.63,
+      "profit_amount": 150,
+      "high_price": 5860,
+      "high_time": "15:30",
+      "high_profit_rate": 2.63,
+      "high_profit_amount": 150
+    },
+    {
+      "code": "242040",
+      "name": "나무기술",
+      "theme": "AI/클라우드 솔루션 및 보안",
+      "buy_price": 6930,
+      "close_price": 5800,
+      "profit_rate": -16.31,
+      "profit_amount": -1130,
+      "high_price": 6850,
+      "high_time": "09:32",
+      "high_profit_rate": -1.15,
+      "high_profit_amount": -80
+    },
+    {
+      "code": "356680",
+      "name": "엑스게이트",
+      "theme": "AI/클라우드 솔루션 및 보안",
+      "buy_price": 8850,
+      "close_price": 8160,
+      "profit_rate": -7.8,
+      "profit_amount": -690,
+      "high_price": 8650,
+      "high_time": "09:22",
+      "high_profit_rate": -2.26,
+      "high_profit_amount": -200
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 3,
+    "loss_stocks": 6,
+    "total_invested": 1588540,
+    "total_value": 1606910,
+    "total_profit": 18370,
+    "total_profit_rate": 1.16,
+    "high_total_value": 1666450,
+    "high_total_profit": 77910,
+    "high_total_profit_rate": 4.9,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 3
+  }
+}
