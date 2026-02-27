@@ -4,7 +4,7 @@ Supabase 클라이언트 - API 키 및 토큰 관리
 """
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, Dict, Any
 from supabase import create_client, Client
 
@@ -144,7 +144,7 @@ class SupabaseCredentialManager:
             ).eq('service_name', 'kis').eq(
                 'credential_type', 'access_token'
             ).eq('is_active', True).gt(
-                'expires_at', datetime.now().isoformat()
+                'expires_at', datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             ).execute()
 
             if not response.data:
@@ -201,7 +201,7 @@ class SupabaseCredentialManager:
                 # 업데이트
                 response = client.table('api_credentials').update({
                     'credential_value': json.dumps(token_data),
-                    'updated_at': datetime.now().isoformat(),
+                    'updated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
                     'expires_at': expires_at.isoformat(),
                 }).eq('service_name', 'kis').eq(
                     'credential_type', 'access_token'

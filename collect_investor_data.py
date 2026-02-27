@@ -17,6 +17,7 @@ from config.settings import *  # noqa: F401,F403 — 환경변수 로드
 from modules.kis_client import KISClient
 from modules.kis_rank import KISRankAPI
 from modules.telegram import TelegramSender
+from modules.utils import KST
 
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
@@ -91,7 +92,7 @@ def build_leader_info(forecast: dict) -> dict[str, dict]:
 
 def main():
     test_mode = "--test" in sys.argv
-    now = datetime.now()
+    now = datetime.now(KST)
 
     if test_mode:
         print("--- 테스트 모드 (텔레그램 미발송, 파일 미저장) ---")

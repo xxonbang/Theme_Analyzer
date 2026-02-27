@@ -263,6 +263,11 @@ class KISClient:
         Raises:
             TokenRefreshLimitError: 1일 1회 발급 제한 초과 시
         """
+        # Supabase에서 다른 시스템이 갱신한 유효 토큰이 있는지 먼저 확인 (경쟁 조건 방지)
+        if self._load_token_from_supabase() and self._is_token_valid():
+            print(f"[KIS] Supabase에서 유효한 토큰을 발견했습니다 (다른 시스템이 갱신한 토큰 재사용)")
+            return self._access_token
+
         # 1일 1회 제한 확인
         if not self._can_refresh_token():
             remaining = timedelta(hours=23) - (self._now_utc() - self._token_issued_at)
@@ -327,6 +332,11 @@ class KISClient:
         주의: 기존 토큰이 무효화되어 API 호출이 실패하는 경우에만 사용하세요.
         KIS API는 실제로 토큰 발급 횟수를 제한하므로, 남용 시 계정에 문제가 생길 수 있습니다.
         """
+        # Supabase에서 다른 시스템이 갱신한 유효 토큰이 있는지 먼저 확인
+        if self._load_token_from_supabase() and self._is_token_valid():
+            print(f"[KIS] Supabase에서 유효한 토큰을 발견했습니다 (강제 재발급 불필요)")
+            return self._access_token
+
         print(f"[KIS] 강제 토큰 발급 중... (기존 토큰이 무효화된 것으로 판단)")
 
         url = f"{self.base_url}/oauth2/tokenP"
