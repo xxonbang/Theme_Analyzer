@@ -22,6 +22,18 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: Notify start via Telegram
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          MESSAGE="🚀 <b>Theme Forecast</b> 시작
+          장전 테마/섹터 예측 (Gemini AI)"
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            -d chat_id="${CHAT_ID}" \
+            -d text="${MESSAGE}" \
+            -d parse_mode="HTML"
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -48,7 +60,7 @@ jobs:
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python forecast_main.py
+        run: python forecast_main.py 2>&1 | tee /tmp/task.log
 
       - name: Commit forecast data
         run: |
@@ -93,7 +105,10 @@ jobs:
           if [ "${{ job.status }}" = "success" ]; then
             MESSAGE="✅ <b>Theme Forecast</b> 완료"
           else
-            MESSAGE="❌ <b>Theme Forecast</b> 실패"
+            ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
+            MESSAGE="❌ <b>Theme Forecast</b> 실패
+
+<pre>${ERROR}</pre>"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
             -d chat_id="${CHAT_ID}" \

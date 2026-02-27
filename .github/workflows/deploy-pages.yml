@@ -24,6 +24,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Notify start via Telegram
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          MESSAGE="🚀 <b>Deploy Pages</b> 시작
+          프론트엔드 GitHub Pages 배포"
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            -d chat_id="${CHAT_ID}" \
+            -d text="${MESSAGE}" \
+            -d parse_mode="HTML"
+
       - name: Checkout
         uses: actions/checkout@v4
 
