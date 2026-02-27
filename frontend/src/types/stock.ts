@@ -172,6 +172,7 @@ export interface StockData {
   news: Record<string, StockNews>
   investor_data?: Record<string, InvestorInfo>
   investor_estimated?: boolean
+  investor_updated_at?: string
   theme_analysis?: ThemeAnalysis
   criteria_data?: Record<string, StockCriteria>
   kospi_index?: KosdaqIndex

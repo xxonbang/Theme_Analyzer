@@ -471,6 +471,7 @@ function App() {
                     showTradingValue={true}
                     investorData={displayData.investor_data}
                     investorEstimated={displayData?.investor_estimated}
+                    investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
                     isAdmin={isAdmin}
@@ -486,6 +487,7 @@ function App() {
                     showTradingValue={true}
                     investorData={displayData.investor_data}
                     investorEstimated={displayData?.investor_estimated}
+                    investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
                     isAdmin={isAdmin}
@@ -505,6 +507,7 @@ function App() {
                     showTradingValue={true}
                     investorData={displayData.investor_data}
                     investorEstimated={displayData?.investor_estimated}
+                    investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
                     isAdmin={isAdmin}
@@ -520,6 +523,7 @@ function App() {
                     showTradingValue={true}
                     investorData={displayData.investor_data}
                     investorEstimated={displayData?.investor_estimated}
+                    investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
                     isAdmin={isAdmin}
@@ -541,6 +545,7 @@ function App() {
               showTradingValue={true}
               investorData={displayData.investor_data}
               investorEstimated={displayData?.investor_estimated}
+              investorUpdatedAt={displayData?.investor_updated_at}
               memberData={displayData?.member_data}
               criteriaData={displayData?.criteria_data}
               isAdmin={isAdmin}
@@ -559,6 +564,7 @@ function App() {
               showTradingValue={true}
               investorData={displayData.investor_data}
               investorEstimated={displayData?.investor_estimated}
+              investorUpdatedAt={displayData?.investor_updated_at}
               memberData={displayData?.member_data}
               criteriaData={displayData?.criteria_data}
               isAdmin={isAdmin}
@@ -578,6 +584,7 @@ function App() {
                 showTradingValue={true}
                 investorData={displayData.investor_data}
                 investorEstimated={displayData?.investor_estimated}
+                investorUpdatedAt={displayData?.investor_updated_at}
                 memberData={displayData?.member_data}
                 criteriaData={displayData?.criteria_data}
                 isAdmin={isAdmin}
@@ -593,6 +600,7 @@ function App() {
                 showTradingValue={true}
                 investorData={displayData.investor_data}
                 investorEstimated={displayData?.investor_estimated}
+                investorUpdatedAt={displayData?.investor_updated_at}
                 memberData={displayData?.member_data}
                 criteriaData={displayData?.criteria_data}
                 isAdmin={isAdmin}

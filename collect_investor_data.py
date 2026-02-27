@@ -195,6 +195,7 @@ def main():
                 new_inv["program_net"] = pgtr
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
+        latest["investor_updated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
 
         # 거래량/거래대금 갱신 (메타 필드 제거)
         meta_keys = {"collected_at", "category", "exclude_etf"}

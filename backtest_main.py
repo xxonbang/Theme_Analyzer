@@ -71,6 +71,14 @@ def main():
         print(f"  ✗ Supabase 초기화 실패: {e}")
         sys.exit(1)
 
+    # KIS API 연결
+    try:
+        from modules.kis_client import KISClient
+        kis_client = KISClient()
+    except Exception as e:
+        print(f"  ✗ KIS API 초기화 실패: {e}")
+        sys.exit(1)
+
     # Step 1: 예측 조회
     print("\n[1/4] 예측 조회...")
     if reevaluate_date:
@@ -88,7 +96,7 @@ def main():
     # Step 2: (prediction_date, category) 그룹별 종목코드 수집 + 수익률 조회
     print("\n[2/4] 주식 수익률 조회...")
 
-    # 달력일 매핑: 영업일 → 달력일 (yfinance용)
+    # 달력일 매핑: 영업일 → 달력일
     category_cal_days = {"short_term": 12, "long_term": 45}
 
     # (pred_date, category) 그룹별 종목코드 수집
@@ -119,14 +127,14 @@ def main():
     index_by_group = {}     # key: (pred_date_str, category) -> float
     for (pred_date, category), codes in pred_groups.items():
         if category == "today":
-            returns_by_group[(pred_date, category)] = fetch_daily_returns(list(codes), pred_date)
-            index_by_group[(pred_date, category)] = fetch_daily_index_return(pred_date)
+            returns_by_group[(pred_date, category)] = fetch_daily_returns(kis_client, list(codes), pred_date)
+            index_by_group[(pred_date, category)] = fetch_daily_index_return(kis_client, pred_date)
         else:
             cal_days = category_cal_days.get(category, 12)
             dt = datetime.strptime(pred_date, "%Y-%m-%d")
             end = (dt + timedelta(days=cal_days)).strftime("%Y-%m-%d")
-            returns_by_group[(pred_date, category)] = fetch_stock_returns(list(codes), pred_date, end)
-            index_by_group[(pred_date, category)] = fetch_index_return(pred_date, end)
+            returns_by_group[(pred_date, category)] = fetch_stock_returns(kis_client, list(codes), pred_date, end)
+            index_by_group[(pred_date, category)] = fetch_index_return(kis_client, pred_date, end)
 
     all_codes = set()
     for codes in pred_groups.values():

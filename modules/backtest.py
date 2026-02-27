@@ -19,10 +19,16 @@ def get_active_predictions(client) -> List[Dict]:
     return response.data or []
 
 
-def fetch_stock_returns(codes: List[str], start: str, end: str) -> Dict:
-    """yfinance로 한국 주식 수익률 조회
+def _date_to_kis(date_str: str) -> str:
+    """YYYY-MM-DD → YYYYMMDD 변환"""
+    return date_str.replace("-", "")
+
+
+def fetch_stock_returns(kis_client, codes: List[str], start: str, end: str) -> Dict:
+    """KIS API로 한국 주식 기간 수익률 조회
 
     Args:
+        kis_client: KISClient 인스턴스
         codes: 종목코드 리스트 (예: ["005930", "000660"])
         start: 시작일 YYYY-MM-DD
         end: 종료일 YYYY-MM-DD
@@ -30,38 +36,31 @@ def fetch_stock_returns(codes: List[str], start: str, end: str) -> Dict:
     Returns:
         {code: return_pct} 딕셔너리
     """
-    try:
-        import yfinance as yf
-    except ImportError:
-        print("  ⚠ yfinance 미설치")
-        return {}
-
     returns = {}
     missing_codes = []
-    # 코스피(.KS) 먼저 시도, 실패 시 코스닥(.KQ) 시도
+
     for code in codes:
-        found = False
-        for suffix in [".KS", ".KQ"]:
-            ticker = f"{code}{suffix}"
-            try:
-                data = yf.download(ticker, start=start, end=end, progress=False, multi_level_index=False)
-                if data.empty or len(data) < 2:
-                    continue
-                close = data["Close"]
-                actual_start = data.index[0].strftime("%Y-%m-%d")
-                actual_end = data.index[-1].strftime("%Y-%m-%d")
-                first_price = float(close.iloc[0])
-                last_price = float(close.iloc[-1])
-                if first_price > 0:
-                    returns[code] = round(((last_price - first_price) / first_price) * 100, 2)
-                    # 실제 데이터 범위가 요청과 크게 다르면 경고
-                    if actual_start > start:
-                        print(f"  ⚠ {code}: 요청 시작일 {start} vs 실제 {actual_start}")
-                    found = True
-                    break
-            except Exception:
+        try:
+            result = kis_client.get_stock_daily_price(
+                code, start_date=_date_to_kis(start), end_date=_date_to_kis(end)
+            )
+            if result.get("rt_cd") != "0":
+                missing_codes.append(code)
                 continue
-        if not found:
+
+            output2 = result.get("output2", [])
+            if len(output2) < 2:
+                missing_codes.append(code)
+                continue
+
+            # output2는 최신순 정렬 → 마지막 항목이 가장 오래된 날
+            last_price = int(output2[0].get("stck_clpr", 0))
+            first_price = int(output2[-1].get("stck_clpr", 0))
+            if first_price > 0:
+                returns[code] = round(((last_price - first_price) / first_price) * 100, 2)
+            else:
+                missing_codes.append(code)
+        except Exception:
             missing_codes.append(code)
 
     if missing_codes:
@@ -70,16 +69,22 @@ def fetch_stock_returns(codes: List[str], start: str, end: str) -> Dict:
     return returns
 
 
-def fetch_index_return(start: str, end: str) -> float:
-    """KOSPI 지수 수익률 조회"""
+def fetch_index_return(kis_client, start: str, end: str) -> float:
+    """KIS API로 KOSPI 지수 기간 수익률 조회"""
     try:
-        import yfinance as yf
-        data = yf.download("^KS11", start=start, end=end, progress=False, multi_level_index=False)
-        if data.empty or len(data) < 2:
+        result = kis_client.get_index_daily_price(
+            "0001", start_date=_date_to_kis(start), end_date=_date_to_kis(end)
+        )
+        if result.get("rt_cd") != "0":
             return 0.0
-        close = data["Close"]
-        first_val = float(close.iloc[0])
-        last_val = float(close.iloc[-1])
+
+        output2 = result.get("output2", [])
+        if len(output2) < 2:
+            return 0.0
+
+        # output2는 최신순 정렬
+        last_val = float(output2[0].get("bstp_nmix_prpr", 0))
+        first_val = float(output2[-1].get("bstp_nmix_prpr", 0))
         if first_val > 0:
             return round(((last_val - first_val) / first_val) * 100, 2)
     except Exception:
@@ -87,60 +92,57 @@ def fetch_index_return(start: str, end: str) -> float:
     return 0.0
 
 
-def fetch_daily_returns(codes: List[str], target_date: str) -> Dict:
-    """특정 일자의 일간 수익률 조회 (전일 종가 대비 당일 종가)
+def fetch_daily_returns(kis_client, codes: List[str], target_date: str) -> Dict:
+    """KIS API로 특정 일자의 일간 수익률 조회 (전일 종가 대비 당일 종가)
 
-    today 카테고리 전용. yfinance에서 target_date 전후 데이터를 가져와
-    전일 종가 → 당일 종가 변동률을 계산합니다.
+    today 카테고리 전용.
 
     Args:
+        kis_client: KISClient 인스턴스
         codes: 종목코드 리스트 (예: ["005930"])
         target_date: 대상일 YYYY-MM-DD
 
     Returns:
         {code: return_pct} 딕셔너리
     """
-    try:
-        import yfinance as yf
-    except ImportError:
-        print("  ⚠ yfinance 미설치")
-        return {}
-
-    import pandas as pd
-
     dt = datetime.strptime(target_date, "%Y-%m-%d")
-    target_ts = pd.Timestamp(target_date)
-    start = (dt - timedelta(days=5)).strftime("%Y-%m-%d")
-    end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
+    start = (dt - timedelta(days=10)).strftime("%Y%m%d")
+    end = _date_to_kis(target_date)
 
     returns = {}
     missing_codes = []
     for code in codes:
-        found = False
-        for suffix in [".KS", ".KQ"]:
-            ticker = f"{code}{suffix}"
-            try:
-                data = yf.download(ticker, start=start, end=end, progress=False, multi_level_index=False)
-                if data.empty or len(data) < 2:
-                    continue
-                # target_date가 실제 데이터에 존재하는지 검증
-                dates = data.index.normalize()
-                if target_ts not in dates:
-                    continue
-                # target_date 행과 그 직전 행을 사용
-                target_idx = dates.get_loc(target_ts)
-                if target_idx < 1:
-                    continue
-                close = data["Close"]
-                cur_price = float(close.iloc[target_idx])
-                prev_price = float(close.iloc[target_idx - 1])
-                if prev_price > 0:
-                    returns[code] = round(((cur_price - prev_price) / prev_price) * 100, 2)
-                    found = True
-                    break
-            except Exception:
+        try:
+            result = kis_client.get_stock_daily_price(
+                code, start_date=start, end_date=end
+            )
+            if result.get("rt_cd") != "0":
+                missing_codes.append(code)
                 continue
-        if not found:
+
+            output2 = result.get("output2", [])
+            if len(output2) < 2:
+                missing_codes.append(code)
+                continue
+
+            # output2는 최신순 정렬 → target_date 행 찾기
+            target_idx = None
+            for i, row in enumerate(output2):
+                if row.get("stck_bsop_date") == end:
+                    target_idx = i
+                    break
+
+            if target_idx is None or target_idx + 1 >= len(output2):
+                missing_codes.append(code)
+                continue
+
+            cur_price = int(output2[target_idx].get("stck_clpr", 0))
+            prev_price = int(output2[target_idx + 1].get("stck_clpr", 0))
+            if prev_price > 0:
+                returns[code] = round(((cur_price - prev_price) / prev_price) * 100, 2)
+            else:
+                missing_codes.append(code)
+        except Exception:
             missing_codes.append(code)
 
     if missing_codes:
@@ -149,34 +151,36 @@ def fetch_daily_returns(codes: List[str], target_date: str) -> Dict:
     return returns
 
 
-def fetch_daily_index_return(target_date: str) -> float:
-    """특정 일자의 KOSPI 일간 수익률 (전일 종가 대비 당일 종가)"""
-    try:
-        import yfinance as yf
-        import pandas as pd
-    except ImportError:
-        return 0.0
-
+def fetch_daily_index_return(kis_client, target_date: str) -> float:
+    """KIS API로 특정 일자의 KOSPI 일간 수익률 (전일 종가 대비 당일 종가)"""
     dt = datetime.strptime(target_date, "%Y-%m-%d")
-    target_ts = pd.Timestamp(target_date)
-    start = (dt - timedelta(days=5)).strftime("%Y-%m-%d")
-    end = (dt + timedelta(days=1)).strftime("%Y-%m-%d")
+    start = (dt - timedelta(days=10)).strftime("%Y%m%d")
+    end = _date_to_kis(target_date)
 
     try:
-        data = yf.download("^KS11", start=start, end=end, progress=False, multi_level_index=False)
-        if data.empty or len(data) < 2:
+        result = kis_client.get_index_daily_price(
+            "0001", start_date=start, end_date=end
+        )
+        if result.get("rt_cd") != "0":
             return 0.0
-        # target_date가 실제 데이터에 존재하는지 검증
-        dates = data.index.normalize()
-        if target_ts not in dates:
-            print(f"  ⚠ KOSPI 지수 {target_date} 데이터 미존재 (최신: {dates[-1].strftime('%Y-%m-%d')})")
+
+        output2 = result.get("output2", [])
+        if len(output2) < 2:
             return 0.0
-        target_idx = dates.get_loc(target_ts)
-        if target_idx < 1:
+
+        # output2는 최신순 정렬 → target_date 행 찾기
+        target_idx = None
+        for i, row in enumerate(output2):
+            if row.get("stck_bsop_date") == end:
+                target_idx = i
+                break
+
+        if target_idx is None or target_idx + 1 >= len(output2):
+            print(f"  ⚠ KOSPI 지수 {target_date} 데이터 미존재")
             return 0.0
-        close = data["Close"]
-        cur_val = float(close.iloc[target_idx])
-        prev_val = float(close.iloc[target_idx - 1])
+
+        cur_val = float(output2[target_idx].get("bstp_nmix_prpr", 0))
+        prev_val = float(output2[target_idx + 1].get("bstp_nmix_prpr", 0))
         if prev_val > 0:
             return round(((cur_val - prev_val) / prev_val) * 100, 2)
     except Exception:

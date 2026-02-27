@@ -14,12 +14,13 @@ interface StockCardProps {
   type: "rising" | "falling" | "neutral"
   investorInfo?: InvestorInfo
   investorEstimated?: boolean
+  investorUpdatedAt?: string
   memberInfo?: MemberInfo
   criteria?: StockCriteria
   isAdmin?: boolean
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, memberInfo, criteria, isAdmin }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
@@ -217,46 +218,60 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           </div>
 
           {/* 투자자 수급 (admin만 표시) */}
-          {isAdmin && investorInfo && (
+          {isAdmin && (
             <div className="pt-1.5 border-t border-border/30">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-                <span className="text-muted-foreground">
-                  외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
-                </span>
-                <span className="text-muted-foreground">
-                  기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
-                </span>
-                {investorInfo.individual_net != null && (
-                  <span className="text-muted-foreground">
-                    개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
-                  </span>
-                )}
-                {/* 수급 3일 히스토리 토글 */}
-                {investorInfo.history && investorInfo.history.length > 0 && (
-                  <button
-                    onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
-                    className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  </button>
-                )}
-              </div>
-              {/* 수급 3일 히스토리 */}
-              {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (
-                <div className="mt-1 text-[10px] space-y-0.5">
-                  {investorInfo.history.map((h, idx) => {
-                    const label = idx === 0 ? "D-1" : "D-2"
-                    return (
-                      <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
-                        <span className="font-medium w-6">{label}</span>
-                        <span>외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
-                        <span>기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
-                        {h.individual_net != null && (
-                          <span>개인 <span className={cn("font-medium", getNetBuyColor(h.individual_net))}>{formatNetBuy(h.individual_net)}</span></span>
-                        )}
-                      </div>
-                    )
-                  })}
+              {investorInfo ? (
+                <>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                    <span className="text-muted-foreground">
+                      외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
+                    </span>
+                    <span className="text-muted-foreground">
+                      기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
+                    </span>
+                    {investorInfo.individual_net != null && (
+                      <span className="text-muted-foreground">
+                        개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
+                      </span>
+                    )}
+                    {investorUpdatedAt && (
+                      <span className="text-[8px] text-muted-foreground/60 ml-auto">{investorUpdatedAt.slice(11, 16)}</span>
+                    )}
+                    {/* 수급 3일 히스토리 토글 */}
+                    {investorInfo.history && investorInfo.history.length > 0 && (
+                      <button
+                        onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                        className={cn(!investorUpdatedAt && "ml-auto", "text-muted-foreground hover:text-foreground transition-colors")}
+                      >
+                        {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                    )}
+                  </div>
+                  {/* 수급 3일 히스토리 */}
+                  {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (
+                    <div className="mt-1 text-[10px] space-y-0.5">
+                      {investorInfo.history.map((h, idx) => {
+                        const label = idx === 0 ? "D-1" : "D-2"
+                        return (
+                          <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                            <span className="font-medium w-6">{label}</span>
+                            <span>외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
+                            <span>기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
+                            {h.individual_net != null && (
+                              <span>개인 <span className={cn("font-medium", getNetBuyColor(h.individual_net))}>{formatNetBuy(h.individual_net)}</span></span>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="flex items-center gap-x-2 text-xs text-muted-foreground/60">
+                  <span>외국인 -</span>
+                  <span>기관 -</span>
+                  <span>개인 -</span>
+                  <span className="ml-auto text-[8px]">수집 전</span>
                 </div>
               )}
             </div>
