@@ -7,6 +7,7 @@ import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, fo
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
+import { Sparkline } from "@/components/Sparkline"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
 interface StockListProps {
@@ -42,6 +43,8 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
         <span className="text-right w-16 sm:w-20">현재가</span>
         {showTradingValue && <span className="text-right w-14 sm:w-16">거래대금</span>}
         <span className="text-right w-12 sm:w-14">거래량</span>
+        <span className="text-center w-14 sm:w-16">거래추이</span>
+        {isAdmin && <span className="text-center w-14 sm:w-16">수급추이</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">외국인{estimatedLabel}{timeLabel}</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">기관{estimatedLabel}</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">장중</span>}</span>}
@@ -55,7 +58,7 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
 }
 
 // 컴팩트 모드용 간단한 종목 행 (flex: sticky left + scrollable right)
-function CompactStockRow({ stock, type, showTradingValue, investorInfo, memberInfo, hasMemberData, criteria, isAdmin }: { stock: Stock; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean }) {
+function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, memberInfo, hasMemberData, criteria, isAdmin }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean }) {
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const allMet = isAdmin && criteria?.all_met
@@ -146,6 +149,32 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, memberIn
         <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-14">
           {formatVolume(stock.volume)}
         </span>
+        {/* 거래대금 스파크라인 */}
+        <span className="flex items-center justify-center w-14 sm:w-16">
+          {history?.changes && history.changes.length > 1 && (
+            <Sparkline
+              data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
+              color="#f59e0b"
+              width={48}
+              height={14}
+              className="opacity-70"
+            />
+          )}
+        </span>
+        {/* 외국인 수급 스파크라인 */}
+        {isAdmin && (
+          <span className="flex items-center justify-center w-14 sm:w-16">
+            {investorInfo?.history && investorInfo.history.length > 0 && (
+              <Sparkline
+                data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
+                color="#ef4444"
+                width={48}
+                height={14}
+                className="opacity-70"
+              />
+            )}
+          </span>
+        )}
         {isAdmin && (
           <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
             {investorInfo ? formatNetBuy(investorInfo.foreign_net) : "-"}
@@ -193,6 +222,7 @@ function CompactStockRow({ stock, type, showTradingValue, investorInfo, memberIn
 function CompactMarketSection({
   market,
   stocks,
+  history,
   type,
   bgColor,
   showHeader = false,
@@ -206,6 +236,7 @@ function CompactMarketSection({
 }: {
   market: string
   stocks: Stock[]
+  history?: Record<string, StockHistory>
   type: "rising" | "falling" | "neutral"
   bgColor: string
   showHeader?: boolean
@@ -244,7 +275,7 @@ function CompactMarketSection({
           {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
           <div className="divide-y divide-border/30">
             {stocks.map((stock) => (
-              <CompactStockRow key={stock.code} stock={stock} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
+              <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
             ))}
           </div>
         </div>
@@ -282,6 +313,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           <CompactMarketSection
             market="KOSPI"
             stocks={kospiStocks}
+            history={history}
             type={type}
             bgColor="bg-blue-600"
             showHeader={true}
@@ -296,6 +328,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           <CompactMarketSection
             market="KOSDAQ"
             stocks={kosdaqStocks}
+            history={history}
             type={type}
             bgColor="bg-green-600"
             showHeader={true}

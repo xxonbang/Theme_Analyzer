@@ -7,6 +7,9 @@ import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
+import { TradingChartPopup } from "@/components/TradingChartPopup"
+import { InvestorChartPopup } from "@/components/InvestorChartPopup"
+import { Sparkline } from "@/components/Sparkline"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
 interface StockCardProps {
@@ -26,6 +29,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
+  const [showTradingChart, setShowTradingChart] = useState(false)
+  const [showInvestorChart, setShowInvestorChart] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
@@ -200,14 +205,33 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <span className="text-muted-foreground">
                 거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
-              {/* 3일 히스토리 토글 */}
+              {/* 6일 거래대금 추이 스파크라인 + 히스토리 토글 */}
               {history?.changes && history.changes.length > 1 && (
+                <>
+                <button onClick={() => setShowTradingChart(true)} className="ml-auto opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+                  <Sparkline
+                    data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
+                    color="#f59e0b"
+                    className="pointer-events-none"
+                  />
+                </button>
                 <button
                   onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
-                  className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
+                </>
+              )}
+              {/* 거래 차트 팝업 */}
+              {showTradingChart && history?.changes && (
+                <TradingChartPopup
+                  stockName={stock.name}
+                  currentTradingValue={stock.trading_value}
+                  currentVolume={stock.volume}
+                  changes={history.changes}
+                  onClose={() => setShowTradingChart(false)}
+                />
               )}
             </div>
             {/* 거래 히스토리 (최대 6일) */}
@@ -250,19 +274,37 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
+                    {/* 외국인 순매수 스파크라인 */}
+                    {investorInfo.history && investorInfo.history.length > 0 && (
+                      <button onClick={() => setShowInvestorChart(true)} className="ml-auto opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+                        <Sparkline
+                          data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
+                          color="#ef4444"
+                          className="pointer-events-none"
+                        />
+                      </button>
+                    )}
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
-                      return <span className="text-[8px] text-muted-foreground/60 ml-auto">{roundText} {investorUpdatedAt.slice(11, 16)}</span>
+                      return <span className={cn("text-[8px] text-muted-foreground/60", !investorInfo.history?.length && "ml-auto")}>{roundText} {investorUpdatedAt.slice(11, 16)}</span>
                     })()}
-                    {/* 수급 3일 히스토리 토글 */}
+                    {/* 수급 히스토리 토글 */}
                     {investorInfo.history && investorInfo.history.length > 0 && (
                       <button
                         onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
-                        className={cn(!investorUpdatedAt && "ml-auto", "text-muted-foreground hover:text-foreground transition-colors")}
+                        className="text-muted-foreground hover:text-foreground transition-colors"
                       >
                         {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
+                    )}
+                    {/* 수급 차트 팝업 */}
+                    {showInvestorChart && investorInfo && (
+                      <InvestorChartPopup
+                        stockName={stock.name}
+                        investorInfo={investorInfo}
+                        onClose={() => setShowInvestorChart(false)}
+                      />
                     )}
                   </div>
                   {/* 수급 히스토리 (최대 6일) */}
