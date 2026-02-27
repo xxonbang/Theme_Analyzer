@@ -89,7 +89,7 @@ class StockHistoryAPI:
                     "date": formatted_date,
                     "close": today_close,
                     "change_rate": round(change_rate, 2),
-                    "volume": int(today.get("stck_vol", 0)),
+                    "volume": int(today.get("acml_vol", 0)),
                     "trading_value": int(today.get("acml_tr_pbmn", 0)),
                 })
 
