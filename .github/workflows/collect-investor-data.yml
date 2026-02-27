@@ -2,8 +2,8 @@ name: Collect Investor Data
 
 on:
   # 스케줄은 외부 cron-job(workflow_dispatch 트리거)으로 실행
-  # 권장 시각 (KST, 데이터 갱신 후 5분 여유):
-  #   10:05, 11:05, 13:05, 15:45
+  # 권장 시각 (KST, 가집계 입력시간 + 5분 여유):
+  #   09:35, 10:05, 11:25, 13:25, 14:35, 15:45, 18:05
   workflow_dispatch:
 
 concurrency:

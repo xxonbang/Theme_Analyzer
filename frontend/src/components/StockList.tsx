@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { StockCard } from "@/components/StockCard"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
+import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
@@ -28,7 +29,9 @@ interface StockListProps {
 // 컴팩트 모드 컬럼 헤더 (flex: sticky left + scrollable right)
 function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, investorUpdatedAt, isAdmin }: { showTradingValue?: boolean; hasMemberData?: boolean; investorEstimated?: boolean; investorUpdatedAt?: string; isAdmin?: boolean }) {
   const estimatedLabel = investorEstimated ? <span className="text-[8px] text-amber-500 ml-0.5">추정</span> : null
-  const timeLabel = investorUpdatedAt ? <span className="text-[7px] text-muted-foreground/50 ml-0.5">{investorUpdatedAt.slice(11, 16)}</span> : null
+  const scheduleInfo = investorUpdatedAt ? getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated) : null
+  const roundLabel = scheduleInfo ? ("round" in scheduleInfo ? scheduleInfo.label : scheduleInfo.label) : null
+  const timeLabel = investorUpdatedAt ? <span className="text-[7px] text-muted-foreground/50 ml-0.5">{roundLabel && <span className="text-amber-500">{roundLabel}</span>} {investorUpdatedAt.slice(11, 16)}</span> : null
   return (
     <div className="flex items-center py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
       <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">

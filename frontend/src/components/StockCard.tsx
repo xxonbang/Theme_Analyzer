@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
+import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
 
@@ -234,9 +235,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
-                    {investorUpdatedAt && (
-                      <span className="text-[8px] text-muted-foreground/60 ml-auto">{investorUpdatedAt.slice(11, 16)}</span>
-                    )}
+                    {investorUpdatedAt && (() => {
+                      const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
+                      const roundText = "round" in info ? `${info.round}차` : info.label
+                      return <span className="text-[8px] text-muted-foreground/60 ml-auto">{roundText} {investorUpdatedAt.slice(11, 16)}</span>
+                    })()}
                     {/* 수급 3일 히스토리 토글 */}
                     {investorInfo.history && investorInfo.history.length > 0 && (
                       <button
