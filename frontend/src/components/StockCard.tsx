@@ -263,24 +263,21 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             <div className="pt-1.5 border-t border-border/30">
               {investorInfo ? (
                 <>
-                  {/* 1행: 수급 수치 */}
                   <div className="flex items-center gap-x-2 text-xs">
                     <span className="text-muted-foreground">
-                      외국인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
+                      <span className="sm:hidden">외</span><span className="hidden sm:inline">외국인</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
                     </span>
                     <span className="text-muted-foreground">
-                      기관{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
+                      <span className="sm:hidden">기</span><span className="hidden sm:inline">기관</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
                     </span>
                     {investorInfo.individual_net != null && (
                       <span className="text-muted-foreground">
-                        개인 <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
+                        <span className="sm:hidden">개</span><span className="hidden sm:inline">개인</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
-                  </div>
-                  {/* 2행: 스파크라인 + 시각 + 히스토리 토글 */}
-                  <div className="flex items-center gap-x-2 mt-0.5">
+                    {/* 외국인 순매수 스파크라인 + 히스토리 토글 */}
                     {investorInfo.history && investorInfo.history.length > 0 && (
-                      <div className="flex items-center rounded-md border border-border/50 overflow-hidden">
+                      <div className="flex items-center ml-auto rounded-md border border-border/50 overflow-hidden">
                         <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
                           <Sparkline
                             data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
@@ -300,7 +297,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
-                      return <span className="text-[8px] text-muted-foreground/60 ml-auto">{roundText} {investorUpdatedAt.slice(11, 16)}</span>
+                      return <span className={cn("text-[8px] text-muted-foreground/60", !investorInfo.history?.length && "ml-auto")}>{roundText} {investorUpdatedAt.slice(11, 16)}</span>
                     })()}
                     {/* 수급 차트 팝업 */}
                     {showInvestorChart && investorInfo && (
