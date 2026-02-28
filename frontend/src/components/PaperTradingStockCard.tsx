@@ -125,7 +125,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
 
       {/* 상세 정보 (확장) */}
       {expanded && (
-        <div className="mt-2 pt-2 border-t border-border/40 text-[11px] sm:text-xs">
+        <div className="mt-2 pt-2 border-t border-border/40 text-[11px] sm:text-xs bg-white rounded-md p-1.5">
           {[
             ...(stock.market ? [{ label: "시장", value: stock.market }] : []),
             { label: "시가", value: stock.buy_price.toLocaleString() },
