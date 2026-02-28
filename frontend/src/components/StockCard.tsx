@@ -174,7 +174,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   )
                 })
               })()}
-              <Badge variant={isRising ? "rising" : "falling"} className="text-[10px] sm:text-xs px-1.5 sm:px-2">
+              <Badge
+                variant={isRising ? "rising" : "falling"}
+                className={cn("text-[10px] sm:text-xs px-1.5 sm:px-2", history?.changes && "cursor-pointer hover:opacity-70 transition-opacity")}
+                onClick={(e: React.MouseEvent) => { if (history?.changes) { e.preventDefault(); e.stopPropagation(); setShowPriceHistory(true) } }}
+              >
                 <TrendIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5" />
                 {formatChangeRate(stock.change_rate)}
               </Badge>
