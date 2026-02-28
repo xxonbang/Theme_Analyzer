@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle, X } from "lucide-react"
+import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle, X, Newspaper } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
@@ -11,7 +11,7 @@ import { useBacktestStats } from "@/hooks/useBacktestStats"
 import { usePredictionHistory } from "@/hooks/usePredictionHistory"
 import { BacktestDashboard } from "@/components/BacktestDashboard"
 import { PredictionHistory } from "@/components/PredictionHistory"
-import type { ForecastTheme, ForecastStock, StockCriteria } from "@/types/stock"
+import type { ForecastTheme, ForecastStock, StockCriteria, GroundingSource } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
   "높음": { badge: "bg-red-100 text-red-700", dot: "bg-red-500" },
@@ -141,7 +141,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
   )
 }
 
-function ForecastThemeCard({ theme, criteriaData, isAdmin }: { theme: ForecastTheme; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean }) {
+function ForecastThemeCard({ theme, criteriaData, isAdmin, newsSources }: { theme: ForecastTheme; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean; newsSources?: GroundingSource[] }) {
   const [expanded, setExpanded] = useState(false)
   const config = CONFIDENCE_CONFIG[theme.confidence] || CONFIDENCE_CONFIG["보통"]
   const showCriteria = isAdmin && criteriaData
@@ -208,6 +208,27 @@ function ForecastThemeCard({ theme, criteriaData, isAdmin }: { theme: ForecastTh
                   <p className="mt-0.5 pl-3">{stock.reason}</p>
                 </div>
               ))}
+              {newsSources && newsSources.length > 0 && (
+                <div className="mt-1.5 pt-1.5 border-t border-border/30">
+                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground/70 font-medium mb-1">
+                    <Newspaper className="w-3 h-3" />
+                    <span>참고 뉴스</span>
+                  </div>
+                  <div className="space-y-0.5 pl-0.5">
+                    {newsSources.map((source, idx) => (
+                      <a
+                        key={idx}
+                        href={source.uri}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] sm:text-[11px] text-muted-foreground/60 hover:text-primary transition-colors line-clamp-1 block"
+                      >
+                        • {source.title || source.uri}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </>
@@ -216,13 +237,14 @@ function ForecastThemeCard({ theme, criteriaData, isAdmin }: { theme: ForecastTh
   )
 }
 
-function ForecastSection({ title, icon, themes, emptyText, criteriaData, isAdmin }: {
+function ForecastSection({ title, icon, themes, emptyText, criteriaData, isAdmin, newsSources }: {
   title: string
   icon: React.ReactNode
   themes: ForecastTheme[]
   emptyText: string
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
+  newsSources?: GroundingSource[]
 }) {
   return (
     <div className="space-y-2.5">
@@ -234,7 +256,7 @@ function ForecastSection({ title, icon, themes, emptyText, criteriaData, isAdmin
       {themes.length > 0 ? (
         <div className="space-y-2.5">
           {themes.map((theme, idx) => (
-            <ForecastThemeCard key={idx} theme={theme} criteriaData={criteriaData} isAdmin={isAdmin} />
+            <ForecastThemeCard key={idx} theme={theme} criteriaData={criteriaData} isAdmin={isAdmin} newsSources={newsSources} />
           ))}
         </div>
       ) : (
@@ -357,6 +379,7 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
             emptyText="오늘의 유망 테마가 없습니다"
             criteriaData={criteriaData}
             isAdmin={isAdmin}
+            newsSources={data.news_sources}
           />
         </CardContent>
       </Card>
@@ -371,6 +394,7 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
             emptyText="단기 유망 테마가 없습니다"
             criteriaData={criteriaData}
             isAdmin={isAdmin}
+            newsSources={data.news_sources}
           />
         </CardContent>
       </Card>
@@ -385,6 +409,7 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
             emptyText="장기 유망 테마가 없습니다"
             criteriaData={criteriaData}
             isAdmin={isAdmin}
+            newsSources={data.news_sources}
           />
         </CardContent>
       </Card>

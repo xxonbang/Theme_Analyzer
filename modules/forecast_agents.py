@@ -5,12 +5,13 @@
 """
 import time
 import requests
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from modules.theme_forecast import (
     GEMINI_API_URL,
     GeminiDailyQuotaExhausted,
     _extract_text_from_response,
+    _extract_grounding_sources,
     _gemini_post,
     _call_gemini_phase2,
     _self_consistency_vote,
@@ -19,8 +20,8 @@ from modules.utils import KST
 from datetime import datetime
 
 
-def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Optional[str]:
-    """에이전트 API 호출 (텍스트 반환)"""
+def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Tuple[Optional[str], List[Dict[str, str]]]:
+    """에이전트 API 호출. (텍스트, 뉴스 소스) 튜플 반환."""
     url = f"{GEMINI_API_URL}?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -45,16 +46,18 @@ def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Optional
                 report_key_failure("GEMINI_API_KEY", "invalid", f"HTTP {status}: {e}")
             except Exception:
                 pass
-        return None
+        return None, []
     except Exception as e:
         print(f"    ⚠ 에이전트 호출 실패: {e}")
-        return None
+        return None, []
 
-    text = _extract_text_from_response(resp.json())
-    return text.strip() if text.strip() else None
+    resp_data = resp.json()
+    text = _extract_text_from_response(resp_data)
+    sources = _extract_grounding_sources(resp_data) if use_search else []
+    return (text.strip() if text.strip() else None), sources
 
 
-def agent_news_sentiment(context: str, api_key: str) -> Optional[str]:
+def agent_news_sentiment(context: str, api_key: str) -> Tuple[Optional[str], List[Dict[str, str]]]:
     """에이전트 1: 뉴스/감성 분석 (Google Search 사용)"""
     today = datetime.now(KST).strftime("%Y년 %m월 %d일")
     today_search = datetime.now(KST).strftime("%m월 %d일")
@@ -94,7 +97,7 @@ JSON 형식 불필요. 상세한 텍스트 분석을 출력하세요."""
     return _call_agent(prompt, api_key, use_search=True)
 
 
-def agent_market_data(context: str, api_key: str) -> Optional[str]:
+def agent_market_data(context: str, api_key: str) -> Tuple[Optional[str], List[Dict[str, str]]]:
     """에이전트 2: 시장 데이터 분석 (Google Search 없음, 컨텍스트만 활용)"""
     prompt = f"""당신은 한국 주식시장 정량 데이터 분석 전문가입니다.
 
@@ -191,7 +194,7 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
 
     # Step 1: 뉴스/감성 에이전트
     print("    Agent 1: 뉴스/감성 분석...")
-    news_analysis = agent_news_sentiment(context, key_agent1)
+    news_analysis, news_sources = agent_news_sentiment(context, key_agent1)
     if not news_analysis:
         print("    ⚠ Agent 1 실패")
         return None
@@ -200,7 +203,7 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
 
     # Step 2: 시장 데이터 에이전트
     print("    Agent 2: 시장 데이터 분석...")
-    market_analysis = agent_market_data(context, key_agent2)
+    market_analysis, _ = agent_market_data(context, key_agent2)
     if not market_analysis:
         print("    ⚠ Agent 2 실패")
         return None
@@ -210,7 +213,7 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
     # Step 3: 종합 에이전트 (Self-Consistency 3회)
     print("    Agent 3: 종합 판단 (Self-Consistency 3회)...")
     synthesis_prompt = _build_synthesis_prompt(news_analysis, market_analysis, context)
-    reasoning = _self_consistency_vote(synthesis_prompt, key_synthesis, n_samples=3)
+    reasoning, _ = _self_consistency_vote(synthesis_prompt, key_synthesis, n_samples=3)
     if not reasoning:
         print("    ⚠ Agent 3 실패")
         return None
@@ -237,4 +240,6 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
             except Exception:
                 continue
 
+    if result:
+        result["_news_sources"] = news_sources
     return result

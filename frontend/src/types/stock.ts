@@ -253,11 +253,17 @@ export interface ForecastTheme {
   leader_stocks: ForecastStock[]
 }
 
+export interface GroundingSource {
+  title: string
+  uri: string
+}
+
 export interface ThemeForecast {
   forecast_date: string
   generated_at: string
   market_context: string
   us_market_summary: string
+  news_sources?: GroundingSource[]
   today: ForecastTheme[]
   short_term: ForecastTheme[]
   long_term: ForecastTheme[]

@@ -11,7 +11,7 @@ import time
 import requests
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 from config.settings import GEMINI_API_KEY_1, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4, GEMINI_API_KEY_5
 from modules.utils import KST
@@ -149,8 +149,8 @@ def _gemini_post(url: str, payload: dict, timeout: int = 180, max_retries: int =
     return resp  # unreachable
 
 
-def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
-    """Gemini API 호출 (Google Search grounding)"""
+def _call_gemini(prompt: str, api_key: str) -> Tuple[Optional[Dict], List[Dict[str, str]]]:
+    """Gemini API 호출 (Google Search grounding). (결과 dict, 뉴스 소스) 튜플 반환."""
     url = f"{GEMINI_API_URL}?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -166,9 +166,10 @@ def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
     resp = _gemini_post(url, payload, timeout=180)
 
     data = resp.json()
+    sources = _extract_grounding_sources(data)
     candidates = data.get("candidates", [])
     if not candidates:
-        return None
+        return None, sources
 
     content = candidates[0].get("content", {})
     parts = content.get("parts", [])
@@ -179,9 +180,9 @@ def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
             text += part["text"]
 
     if not text.strip():
-        return None
+        return None, sources
 
-    return _extract_json(text)
+    return _extract_json(text), sources
 
 
 def _extract_text_from_response(data: Dict) -> str:
@@ -193,8 +194,27 @@ def _extract_text_from_response(data: Dict) -> str:
     return "".join(part.get("text", "") for part in parts)
 
 
-def _call_gemini_phase1(prompt: str, api_key: str, use_search: bool = True) -> Optional[str]:
-    """Phase 1: 자유 추론 (JSON 없이 텍스트 출력)
+def _extract_grounding_sources(data: Dict) -> List[Dict[str, str]]:
+    """Gemini 응답에서 Google Search grounding 소스(뉴스 URL/제목) 추출"""
+    candidates = data.get("candidates", [])
+    if not candidates:
+        return []
+    metadata = candidates[0].get("groundingMetadata", {})
+    chunks = metadata.get("groundingChunks", [])
+    sources: List[Dict[str, str]] = []
+    seen: set = set()
+    for chunk in chunks:
+        web = chunk.get("web", {})
+        uri = web.get("uri", "")
+        title = web.get("title", "")
+        if uri and uri not in seen:
+            seen.add(uri)
+            sources.append({"title": title, "uri": uri})
+    return sources
+
+
+def _call_gemini_phase1(prompt: str, api_key: str, use_search: bool = True) -> Tuple[Optional[str], List[Dict[str, str]]]:
+    """Phase 1: 자유 추론 (JSON 없이 텍스트 출력). (텍스트, 뉴스 소스) 튜플 반환.
 
     Args:
         use_search: Google Search grounding 사용 여부 (기본 True)
@@ -212,8 +232,10 @@ def _call_gemini_phase1(prompt: str, api_key: str, use_search: bool = True) -> O
 
     resp = _gemini_post(url, payload, timeout=180)
 
-    text = _extract_text_from_response(resp.json())
-    return text.strip() if text.strip() else None
+    resp_data = resp.json()
+    text = _extract_text_from_response(resp_data)
+    sources = _extract_grounding_sources(resp_data) if use_search else []
+    return (text.strip() if text.strip() else None), sources
 
 
 def _call_gemini_phase2(reasoning: str, api_key: str) -> Optional[Dict]:
@@ -380,29 +402,33 @@ def _build_phase2_prompt(reasoning: str) -> str:
 ```"""
 
 
-def _self_consistency_vote(prompt: str, api_key: str, n_samples: int = 3, use_search: bool = False) -> Optional[str]:
-    """Phase 1을 n_samples회 호출 → 2회 이상 등장 테마만 채택하여 합의 텍스트 생성
+def _self_consistency_vote(prompt: str, api_key: str, n_samples: int = 3, use_search: bool = False) -> Tuple[Optional[str], List[Dict[str, str]]]:
+    """Phase 1을 n_samples회 호출 → 2회 이상 등장 테마만 채택하여 합의 텍스트 생성.
+    (합의 텍스트, 뉴스 소스) 튜플 반환.
 
     투표 통과 테마가 없으면 첫 번째 응답 그대로 반환.
     use_search: 투표 호출에서 Google Search 사용 여부 (기본 False — 이미 검색된 결과를 입력받으므로)
     """
     responses = []
+    all_sources: List[Dict[str, str]] = []
     for i in range(n_samples):
         try:
             print(f"    Self-Consistency 호출 {i + 1}/{n_samples}...")
-            text = _call_gemini_phase1(prompt, api_key, use_search=use_search)
+            text, sources = _call_gemini_phase1(prompt, api_key, use_search=use_search)
             if text:
                 responses.append(text)
+            if not all_sources and sources:
+                all_sources = sources
             if i < n_samples - 1:
                 time.sleep(1)  # rate limit 배려
         except Exception as e:
             print(f"    ⚠ Self-Consistency 호출 {i + 1} 실패: {e}")
 
     if not responses:
-        return None
+        return None, all_sources
 
     if len(responses) == 1:
-        return responses[0]
+        return responses[0], all_sources
 
     # 테마명 추출 및 투표
     def _normalize_theme(name: str) -> str:
@@ -457,7 +483,7 @@ def _self_consistency_vote(prompt: str, api_key: str, n_samples: int = 3, use_se
             best_count = count
             best_idx = idx
 
-    return responses[best_idx]
+    return responses[best_idx], all_sources
 
 
 def build_forecast_context(
@@ -879,6 +905,7 @@ def generate_forecast(
         "generated_at": now.strftime("%Y-%m-%d %H:%M:%S"),
         "market_context": result.get("market_context", ""),
         "us_market_summary": result.get("us_market_summary", ""),
+        "news_sources": result.get("_news_sources", []),
         "today": result.get("today", []),
         "short_term": result.get("short_term", []),
         "long_term": result.get("long_term", []),
@@ -894,7 +921,7 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
     for key_idx, api_key in enumerate(api_keys):
         try:
             print(f"  Phase 1: 검색 + 추론 (키 {key_idx + 1}/{len(api_keys)})...")
-            reasoning = _call_gemini_phase1(phase1_prompt, api_key, use_search=True)
+            reasoning, sources = _call_gemini_phase1(phase1_prompt, api_key, use_search=True)
             if not reasoning:
                 print(f"  ⚠ Phase 1 실패, 다음 키로 전환")
                 continue
@@ -902,6 +929,7 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
             print(f"  Phase 2: JSON 구조화...")
             result = _call_gemini_phase2(reasoning, api_key)
             if result:
+                result["_news_sources"] = sources
                 return result
 
             print(f"  ⚠ Phase 2 실패, 다음 키로 전환")
@@ -939,7 +967,7 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
         try:
             # Phase 1: Self-Consistency Voting (3회)
             print(f"  Phase 1: Self-Consistency Voting (키 {key_idx + 1}/{len(api_keys)})...")
-            reasoning = _self_consistency_vote(phase1_prompt, api_key, n_samples=3, use_search=True)
+            reasoning, sources = _self_consistency_vote(phase1_prompt, api_key, n_samples=3, use_search=True)
             if not reasoning:
                 print(f"  ⚠ Phase 1 실패, 다음 키로 전환")
                 continue
@@ -948,6 +976,7 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
             print(f"  Phase 2: JSON 구조화...")
             result = _call_gemini_phase2(reasoning, api_key)
             if result:
+                result["_news_sources"] = sources
                 return result
 
             print(f"  ⚠ Phase 2 실패, 다음 키로 전환")
@@ -984,8 +1013,9 @@ def _run_single_call_fallback(context: str, api_keys: List[str]) -> Optional[Dic
     for key_idx, api_key in enumerate(api_keys):
         try:
             print(f"  Fallback 호출 중... (키 {key_idx + 1}/{len(api_keys)})")
-            result = _call_gemini(prompt, api_key)
+            result, sources = _call_gemini(prompt, api_key)
             if result:
+                result["_news_sources"] = sources
                 return result
             print("  ⚠ Gemini 응답이 비어있습니다")
         except GeminiDailyQuotaExhausted:
