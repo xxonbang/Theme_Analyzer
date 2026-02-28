@@ -128,7 +128,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
         <div className="mt-2 pt-2 border-t border-border/40 text-[11px] sm:text-xs bg-white rounded-md p-1.5">
           {[
             ...(stock.market ? [{ label: "시장", value: stock.market }] : []),
-            { label: "시가", value: stock.buy_price.toLocaleString() },
+            { label: "매수", value: stock.buy_price.toLocaleString() },
             { label: "종가", value: stock.close_price.toLocaleString(), rate: stock.profit_rate },
             ...(stock.high_price != null ? [{ label: "고가", value: stock.high_price.toLocaleString(), rate: stock.high_profit_rate ?? 0, time: stock.high_time }] : []),
           ].map((row, idx) => (
