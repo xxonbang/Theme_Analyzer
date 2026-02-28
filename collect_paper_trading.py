@@ -249,7 +249,7 @@ def find_high_price_after(client: KISClient, code: str, after_time: str) -> Opti
                 break
             for item in items:
                 t = item.get("stck_cntg_hour", "")
-                if t < after_hhmmss:
+                if t <= after_hhmmss:
                     continue
                 candle_high = int(item.get("stck_hgpr", "0"))
                 if candle_high > best_price:
@@ -386,9 +386,9 @@ def collect_paper_trading_data(
 
         # 매수 시점 이후 최고가 검증
         buy_time_str = morning_timestamp.split(" ")[1][:5] if " " in morning_timestamp else ""
-        if high_time and buy_time_str and high_time < buy_time_str:
-            # 최고가가 매수 시점보다 빠름 → 매수 후 최고가 재탐색
-            print(f"    ↳ 최고가({high_time}) < 매수({buy_time_str}) → 매수 후 최고가 탐색")
+        if high_time and buy_time_str and high_time <= buy_time_str:
+            # 최고가가 매수 시점 이전/동일 분 → 매수 후 최고가 재탐색
+            print(f"    ↳ 최고가({high_time}) ≤ 매수({buy_time_str}) → 매수 후 최고가 탐색")
             adjusted = find_high_price_after(client, code, buy_time_str)
             if adjusted:
                 high_price = adjusted["high_price"]
