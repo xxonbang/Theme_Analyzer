@@ -129,15 +129,17 @@ def extract_leader_stocks(data: dict) -> list[dict]:
     return stocks
 
 
-def find_morning_price(data: dict, code: str) -> Optional[int]:
-    """latest.json의 모든 섹션에서 종목의 오전 current_price 찾기"""
+def find_morning_price(data: dict, code: str) -> tuple[Optional[int], Optional[str]]:
+    """latest.json의 모든 섹션에서 종목의 오전 current_price + 시장 찾기.
+    Returns: (price, market) — market은 "KOSPI" 또는 "KOSDAQ"
+    """
     sections = ["rising", "falling", "volume", "trading_value"]
     for section in sections:
         section_data = data.get(section, {})
         for market in ["kospi", "kosdaq"]:
             for stock in section_data.get(market, []):
                 if stock.get("code") == code:
-                    return stock.get("current_price")
+                    return stock.get("current_price"), market.upper()
 
     # fluctuation 섹션도 검색
     for section in ["fluctuation", "fluctuation_direct"]:
@@ -145,9 +147,10 @@ def find_morning_price(data: dict, code: str) -> Optional[int]:
         for key in ["kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"]:
             for stock in section_data.get(key, []):
                 if stock.get("code") == code:
-                    return stock.get("current_price")
+                    mkt = "KOSPI" if "kospi" in key else "KOSDAQ"
+                    return stock.get("current_price"), mkt
 
-    return None
+    return None, None
 
 
 def get_stock_prices(client: KISClient, code: str) -> Optional[dict]:
@@ -334,7 +337,7 @@ def collect_paper_trading_data(
     for i, snap in enumerate(snapshots):
         snap_prices = {}
         for code in all_codes:
-            price = find_morning_price(snap["data"], code)
+            price, _ = find_morning_price(snap["data"], code)
             if price is not None:
                 snap_prices[code] = price
         leaders = per_snapshot_leaders[i] if i < len(per_snapshot_leaders) else []
@@ -360,7 +363,7 @@ def collect_paper_trading_data(
         theme = stock["theme"]
 
         # 오전 매수가 (첫 번째 스냅샷 기준)
-        buy_price = find_morning_price(data, code)
+        buy_price, market = find_morning_price(data, code)
         if buy_price is None:
             print(f"  [{i+1}/{len(all_stock_list)}] {name}({code}) - 오전 가격 없음, 건너뜀")
             continue
@@ -410,6 +413,7 @@ def collect_paper_trading_data(
             "code": code,
             "name": name,
             "theme": theme,
+            **({"market": market} if market else {}),
             "buy_price": buy_price,
             "close_price": close_price,
             "profit_rate": profit_rate,

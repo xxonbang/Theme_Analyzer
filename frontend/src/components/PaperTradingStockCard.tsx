@@ -1,4 +1,5 @@
-import { ExternalLink, X, Plus } from "lucide-react"
+import { useState } from "react"
+import { ExternalLink, X, Plus, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { PaperTradingStock, PaperTradingMode } from "@/types/stock"
 
@@ -12,6 +13,8 @@ interface PaperTradingStockCardProps {
 }
 
 export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode }: PaperTradingStockCardProps) {
+  const [expanded, setExpanded] = useState(false)
+
   const displayProfitRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
   const displayProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
   const displaySellPrice = mode === "high" ? (stock.high_price ?? stock.close_price) : stock.close_price
@@ -23,6 +26,12 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
 
   // "2026-02-10 09:39:06" → "09:39"
   const buyTime = morningTimestamp?.split(" ")[1]?.slice(0, 5) || ""
+
+  // 종가/고가 변동률 포맷
+  const fmtRate = (rate: number) => {
+    const s = rate >= 0 ? "+" : ""
+    return `${s}${rate.toFixed(2)}%`
+  }
 
   return (
     <div
@@ -104,7 +113,51 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
           {mode === "high" && stock.high_time && <span className="text-muted-foreground/70">({stock.high_time})</span>}
           {" "}<span className="font-medium text-foreground">{displaySellPrice.toLocaleString()}</span>
         </span>
+
+        {/* 상세 토글 */}
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="ml-auto text-muted-foreground/50 hover:text-muted-foreground transition-colors p-0.5"
+        >
+          {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
       </div>
+
+      {/* 상세 정보 (확장) */}
+      {expanded && (
+        <div className="mt-2 pt-2 border-t border-border/40 text-[11px] sm:text-xs">
+          {[
+            ...(stock.market ? [{ label: "시장", value: stock.market }] : []),
+            { label: "시가", value: stock.buy_price.toLocaleString() },
+            { label: "종가", value: stock.close_price.toLocaleString(), rate: stock.profit_rate },
+            ...(stock.high_price != null ? [{ label: "고가", value: stock.high_price.toLocaleString(), rate: stock.high_profit_rate ?? 0, time: stock.high_time }] : []),
+          ].map((row, idx) => (
+            <div
+              key={row.label}
+              className={cn(
+                "flex items-center gap-2 px-1.5 py-0.5 rounded",
+                idx % 2 === 1 && "bg-black/[0.03]"
+              )}
+            >
+              <span className="w-7 shrink-0 text-muted-foreground/70">{row.label}</span>
+              <span className="font-medium text-foreground/80 tabular-nums">{row.value}</span>
+              {"rate" in row && row.rate !== undefined && (
+                <span className={cn(
+                  "tabular-nums font-medium",
+                  row.rate > 0 && "text-red-500",
+                  row.rate < 0 && "text-blue-500",
+                  row.rate === 0 && "text-muted-foreground",
+                )}>
+                  {fmtRate(row.rate)}
+                </span>
+              )}
+              {"time" in row && row.time && (
+                <span className="text-muted-foreground/50 text-[10px]">{row.time}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

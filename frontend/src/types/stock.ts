@@ -191,6 +191,7 @@ export interface PaperTradingStock {
   code: string
   name: string
   theme: string
+  market?: string
   buy_price: number
   close_price: number
   profit_rate: number
