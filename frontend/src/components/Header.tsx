@@ -173,7 +173,10 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     if (diffMins < 60) return `${diffMins}분 전`
     if (diffHours < 24) return `${diffHours}시간 전`
     if (diffDays < 7) return `${diffDays}일 전`
-    return null
+    const diffWeeks = Math.floor(diffDays / 7)
+    if (diffWeeks < 5) return `${diffWeeks}주 전`
+    const diffMonths = Math.floor(diffDays / 30)
+    return `${diffMonths || 1}개월 전`
   }
 
   const parsed = timestamp ? parseTimestamp(timestamp) : null
@@ -181,7 +184,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
-      <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw] overflow-hidden">
+      <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
           onClick={() => { if (currentPage !== "home") onPageChange?.("home") }}
