@@ -287,17 +287,28 @@ function App() {
     return map
   }, [displayData, compositeData, tradingValueTabData, volumeTabData, activeFluctuationData])
 
-  // 탭 전환 후 스크롤 대기 처리
+  // 탭 전환 후 스크롤 대기 처리 (DOM 렌더링 대기 재시도)
   useEffect(() => {
     if (!pendingScrollTarget) return
-    const raf = requestAnimationFrame(() => {
+    let cancelled = false
+    let attempts = 0
+    const tryScroll = () => {
+      if (cancelled) return
       const el = document.getElementById(`stock-${pendingScrollTarget}`)
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" })
+        setPendingScrollTarget(null)
+        return
       }
-      setPendingScrollTarget(null)
-    })
-    return () => cancelAnimationFrame(raf)
+      attempts++
+      if (attempts < 5) {
+        setTimeout(tryScroll, 50)
+      } else {
+        setPendingScrollTarget(null)
+      }
+    }
+    requestAnimationFrame(tryScroll)
+    return () => { cancelled = true }
   }, [pendingScrollTarget, activeTab])
 
   // 대장주 클릭 시 해당 종목으로 이동

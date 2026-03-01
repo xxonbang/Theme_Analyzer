@@ -210,11 +210,17 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
               {/* 6일 거래대금 추이 스파크라인 + 히스토리 토글 */}
-              {history?.changes && history.changes.length > 1 && (
+              {history?.changes && history.changes.length > 1 && (() => {
+                const tradingSparkData = [...history.changes].reverse().map(c => c.trading_value ?? 0)
+                return (
                 <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
+                    <div className="flex flex-col justify-between text-[7px] text-muted-foreground/40 tabular-nums leading-none h-[18px]">
+                      <span>{formatTradingValue(Math.max(...tradingSparkData))}</span>
+                      <span>{formatTradingValue(Math.min(...tradingSparkData))}</span>
+                    </div>
                     <Sparkline
-                      data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
+                      data={tradingSparkData}
                       color="#f59e0b"
                       className="pointer-events-none"
                     />
@@ -227,7 +233,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-              )}
+              )})()}
               {/* 거래 차트 팝업 */}
               {showTradingChart && history?.changes && (
                 <TradingChartPopup
@@ -241,12 +247,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             </div>
             {/* 거래 히스토리 (최대 6일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
-              const pastDays = history.changes.slice(1) // D-1 ~ D-5 (내림차순)
+              const pastDays = [...history.changes.slice(1)].reverse() // D-5 ~ D-1 (과거→최신)
               if (pastDays.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
                   {pastDays.map((c, idx) => {
-                    const dayNum = idx + 1
+                    const dayNum = pastDays.length - idx
                     const label = `D-${dayNum}`
                     return (
                       <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
@@ -280,11 +286,17 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </span>
                     )}
                     {/* 외국인 순매수 스파크라인 + 히스토리 토글 */}
-                    {investorInfo.history && investorInfo.history.length > 0 && (
+                    {investorInfo.history && investorInfo.history.length > 0 && (() => {
+                      const investorSparkData = [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
+                      return (
                       <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
+                          <div className="flex flex-col justify-between text-[7px] text-muted-foreground/40 tabular-nums leading-none h-[18px]">
+                            <span>{formatNetBuy(Math.max(...investorSparkData))}</span>
+                            <span>{formatNetBuy(Math.min(...investorSparkData))}</span>
+                          </div>
                           <Sparkline
-                            data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
+                            data={investorSparkData}
                             color="#ef4444"
                             className="pointer-events-none"
                           />
@@ -297,7 +309,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                           {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                         </button>
                       </div>
-                    )}
+                      )})()}
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
@@ -315,8 +327,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   {/* 수급 히스토리 (최대 6일) */}
                   {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (
                     <div className="mt-1 text-[10px] space-y-0.5">
-                      {investorInfo.history.map((h, idx) => {
-                        const label = `D-${idx + 1}`
+                      {[...investorInfo.history].reverse().map((h, idx) => {
+                        const label = `D-${investorInfo.history!.length - idx}`
                         return (
                           <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
                             <span className="font-medium w-6">{label}</span>

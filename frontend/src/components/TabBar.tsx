@@ -165,7 +165,7 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
             hasAnyControl ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
           )}
         >
-          <div className="overflow-hidden">
+          <div className={cn(showTooltip ? "overflow-visible" : "overflow-hidden")}>
             <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-4 mt-2.5 pt-2 border-t border-border/30">
               {/* 리스트 구성 방식 토글 (종합 탭 전용) */}
               {showCompositeToggle && (

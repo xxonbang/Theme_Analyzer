@@ -171,12 +171,9 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
     if (diffMins < 1) return "방금 전"
     if (diffMins < 60) return `${diffMins}분 전`
-    if (diffHours < 24) return `${diffHours}시간 전`
-    if (diffDays < 7) return `${diffDays}일 전`
-    const diffWeeks = Math.floor(diffDays / 7)
-    if (diffWeeks < 5) return `${diffWeeks}주 전`
-    const diffMonths = Math.floor(diffDays / 30)
-    return `${diffMonths || 1}개월 전`
+    if (diffHours < 24) return `${diffHours}시간 ${diffMins % 60}분 전`
+    const remainHours = diffHours % 24
+    return `${diffDays}일 ${remainHours}시간 전`
   }
 
   const parsed = timestamp ? parseTimestamp(timestamp) : null

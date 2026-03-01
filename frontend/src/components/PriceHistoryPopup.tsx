@@ -55,52 +55,52 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
         </div>
 
         {/* 테이블 */}
-        <div className="space-y-0">
-          {/* 헤더 행 */}
-          <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
-            <span className="w-8 shrink-0">일자</span>
-            <span className="flex-1 text-right">종가</span>
-            <span className="w-12 text-right shrink-0">등락률</span>
-            <span className="w-14 text-right shrink-0">거래량</span>
-            <span className="w-14 text-right shrink-0">거래대금</span>
-          </div>
+        <table className="w-full text-[10px]">
+          <thead>
+            <tr className="text-[9px] text-muted-foreground font-medium border-b border-border/50">
+              <th className="text-left pb-1.5 font-medium">일자</th>
+              <th className="text-right pb-1.5 font-medium">종가</th>
+              <th className="text-right pb-1.5 font-medium">등락률</th>
+              <th className="text-right pb-1.5 font-medium">거래량</th>
+              <th className="text-right pb-1.5 font-medium">거래대금</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reversed.map((c, idx) => {
+              const isToday = idx === reversed.length - 1
+              const label = isToday ? "D" : `D-${reversed.length - 1 - idx}`
+              const rate = isToday ? currentChangeRate : c.change_rate
+              const close = isToday ? currentPrice : (c.close || 0)
 
-          {/* 데이터 행 */}
-          {reversed.map((c, idx) => {
-            const isToday = idx === reversed.length - 1
-            const label = isToday ? "D" : `D-${reversed.length - 1 - idx}`
-            const rate = isToday ? currentChangeRate : c.change_rate
-            const close = isToday ? currentPrice : (c.close || 0)
-
-            return (
-              <div
-                key={idx}
-                className={cn(
-                  "flex items-center py-1.5 text-[10px]",
-                  isToday && "bg-muted/40 -mx-1 px-1 rounded font-medium",
-                  idx < reversed.length - 1 && "border-b border-border/20"
-                )}
-              >
-                <span className="w-8 shrink-0 text-muted-foreground">
-                  <span className="font-medium">{label}</span>
-                  <span className="text-[8px] ml-0.5 hidden sm:inline">{c.date.slice(5)}</span>
-                </span>
-                <span className="flex-1 text-right tabular-nums font-medium">
-                  {close > 0 ? formatPrice(close) : "-"}
-                </span>
-                <span className={cn("w-12 text-right shrink-0 tabular-nums font-medium rounded px-0.5", getChangeBgColor(rate))}>
-                  {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
-                </span>
-                <span className="w-14 text-right shrink-0 tabular-nums text-muted-foreground">
-                  {c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}
-                </span>
-                <span className="w-14 text-right shrink-0 tabular-nums text-muted-foreground">
-                  {c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}
-                </span>
-              </div>
-            )
-          })}
-        </div>
+              return (
+                <tr
+                  key={idx}
+                  className={cn(
+                    isToday && "bg-muted/40 font-medium",
+                    idx < reversed.length - 1 && "border-b border-border/20"
+                  )}
+                >
+                  <td className="py-1.5 pr-3 text-muted-foreground whitespace-nowrap">
+                    <span className="font-medium">{label}</span>
+                    <span className="text-[8px] ml-0.5 hidden sm:inline">{c.date.slice(5)}</span>
+                  </td>
+                  <td className="py-1.5 text-right tabular-nums font-medium whitespace-nowrap">
+                    {close > 0 ? formatPrice(close) : "-"}
+                  </td>
+                  <td className={cn("py-1.5 text-right tabular-nums font-medium whitespace-nowrap rounded px-0.5", getChangeBgColor(rate))}>
+                    {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
+                  </td>
+                  <td className="py-1.5 pl-2 text-right tabular-nums text-muted-foreground whitespace-nowrap">
+                    {c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}
+                  </td>
+                  <td className="py-1.5 pl-2 text-right tabular-nums text-muted-foreground whitespace-nowrap">
+                    {c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     </div>,
     document.body

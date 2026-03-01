@@ -92,7 +92,10 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
                 )} />
               )}
               {stockTradingRankMap?.[stock.code] != null && (
-                <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-foreground/10 text-[9px] sm:text-[10px] font-bold leading-none shrink-0">
+                <span
+                  title={`거래대금 ${stockTradingRankMap[stock.code]}위`}
+                  className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-foreground/10 text-[9px] sm:text-[10px] font-bold leading-none shrink-0"
+                >
                   {stockTradingRankMap[stock.code]}
                 </span>
               )}
