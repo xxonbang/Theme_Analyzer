@@ -401,6 +401,14 @@ def collect_paper_trading_data(
                 high_price_adjusted = True
                 print(f"    ↳ 분봉 탐색 실패 → 종가({close_price:,}원) 적용")
 
+        # 최종 안전장치: 매수가 > 고가 (데이터 소스 차이) 보정
+        if high_price < buy_price:
+            print(f"    ↳ 고가({high_price:,}) < 매수({buy_price:,}) → 매수가를 고가로 적용")
+            high_price = buy_price
+            if buy_time_str:
+                high_time = buy_time_str
+            high_price_adjusted = False
+
         # 종가 기준 수익률
         profit_amount = close_price - buy_price
         profit_rate = round((profit_amount / buy_price) * 100, 2) if buy_price > 0 else 0
