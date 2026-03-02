@@ -1,10 +1,14 @@
 """
 종목별 최근 N일간 등락률 계산 모듈
 """
+import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Any, Optional
 from datetime import datetime, timedelta
 
 from modules.kis_client import KISClient
+
+logger = logging.getLogger(__name__)
 
 
 class StockHistoryAPI:
@@ -71,13 +75,6 @@ class StockHistoryAPI:
 
             output2 = result.get("output2", [])
 
-            # 첫 종목만 output2 필드명 진단 (1회)
-            if output2 and not hasattr(self, '_logged_fields'):
-                self._logged_fields = True
-                sample = output2[0]
-                print(f"  [DEBUG] output2 keys: {list(sample.keys())}")
-                print(f"  [DEBUG] acml_vol={sample.get('acml_vol')!r}, acml_tr_pbmn={sample.get('acml_tr_pbmn')!r}")
-
             # KIS API는 1회 최대 100건 반환 → MA120 계산에 120건 이상 필요
             if len(output2) >= 100:
                 oldest_date = output2[-1].get("stck_bsop_date", "")
@@ -131,22 +128,17 @@ class StockHistoryAPI:
                     "_raw_date": date_str,  # 거래량 보정용 (export 시 제거)
                 })
 
-            # acml_vol이 모두 0이면 inquire-daily-price API로 정확한 거래량 보정
+            # 거래량 보정: acml_vol이 모두 0이면 신뢰도 높은 API를 우선 시도
             if not has_volume and changes:
+                # Step 1: inquire-daily-price API (신뢰도 높음)
                 volume_map = self._fetch_daily_volume(stock_code)
-                if volume_map:
-                    for c in changes:
-                        raw_date = c.get("_raw_date", "")
-                        if raw_date in volume_map:
-                            c["volume"] = volume_map[raw_date]
-                        elif c["trading_value"] > 0 and c["close"] > 0:
-                            # inquire-daily-price에도 없으면 근사치
-                            c["volume"] = c["trading_value"] // c["close"]
-                else:
-                    # API 호출 실패 시 근사치 fallback
-                    for c in changes:
-                        if c["volume"] == 0 and c["trading_value"] > 0 and c["close"] > 0:
-                            c["volume"] = c["trading_value"] // c["close"]
+                for c in changes:
+                    raw_date = c.get("_raw_date", "")
+                    if volume_map and raw_date in volume_map:
+                        c["volume"] = volume_map[raw_date]
+                    elif c["volume"] == 0 and c["trading_value"] > 0 and c["close"] > 0:
+                        # Step 2: 거래대금 ÷ 종가 근사치 (최후 fallback)
+                        c["volume"] = c["trading_value"] // c["close"]
 
             # _raw_date 필드 제거
             for c in changes:
@@ -171,7 +163,7 @@ class StockHistoryAPI:
             }
 
         except Exception as e:
-            print(f"[ERROR] 등락률 조회 실패 ({stock_code}): {e}")
+            logger.error("등락률 조회 실패 (%s): %s", stock_code, e)
             return {"code": stock_code, "changes": [], "total_change_rate": 0, "raw_daily_prices": []}
 
     def get_multiple_stocks_history(
@@ -188,14 +180,19 @@ class StockHistoryAPI:
         Returns:
             {종목코드: {"changes": [...], "total_change_rate": ...}, ...}
         """
+        codes = [s.get("code", "") for s in stocks if s.get("code")]
         result = {}
 
-        for stock in stocks:
-            code = stock.get("code", "")
-            if not code:
-                continue
+        def _fetch(code: str) -> tuple:
+            return code, self.get_recent_changes(code, days)
 
-            history = self.get_recent_changes(code, days)
-            result[code] = history
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = {executor.submit(_fetch, code): code for code in codes}
+            for future in as_completed(futures):
+                try:
+                    code, history = future.result()
+                    result[code] = history
+                except Exception:
+                    pass
 
         return result

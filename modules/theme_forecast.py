@@ -5,6 +5,7 @@
 오늘/단기/장기 유망 테마를 예측합니다.
 """
 import json
+import logging
 import random
 import re
 import time
@@ -16,8 +17,13 @@ from typing import Dict, List, Any, Optional, Tuple
 from config.settings import GEMINI_API_KEY_1, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4, GEMINI_API_KEY_5
 from modules.utils import KST
 
+logger = logging.getLogger(__name__)
+
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 ROOT_DIR = Path(__file__).parent.parent
+
+# 세션 내 일일 할당 소진된 키 추적
+_exhausted_keys: set = set()
 
 
 class GeminiDailyQuotaExhausted(Exception):
@@ -127,7 +133,7 @@ def _gemini_post(url: str, payload: dict, timeout: int = 180, max_retries: int =
                     delay = server_delay + random.uniform(0, base_delay * 0.1)
                 else:
                     delay = base_delay * (2 ** attempt) + random.uniform(0, base_delay * 0.1)
-                print(f"    ⏳ 429 Rate Limit, {delay:.1f}초 후 재시도 ({attempt + 1}/{max_retries})...")
+                logger.debug("429 Rate Limit, %.1f초 후 재시도 (%d/%d)...", delay, attempt + 1, max_retries)
                 time.sleep(delay)
                 continue
             resp.raise_for_status()
@@ -136,7 +142,7 @@ def _gemini_post(url: str, payload: dict, timeout: int = 180, max_retries: int =
         if status in (500, 502, 503, 504):
             if attempt < max_retries - 1:
                 delay = base_delay * (2 ** attempt) + random.uniform(0, base_delay * 0.1)
-                print(f"    ⏳ 서버 오류 ({status}), {delay:.1f}초 후 재시도 ({attempt + 1}/{max_retries})...")
+                logger.debug("서버 오류 (%s), %.1f초 후 재시도 (%d/%d)...", status, delay, attempt + 1, max_retries)
                 time.sleep(delay)
                 continue
             resp.raise_for_status()
@@ -850,7 +856,7 @@ def generate_forecast(
     """
     api_keys = _get_api_keys()
     if not api_keys:
-        print("  ⚠ Gemini API 키가 설정되지 않았습니다")
+        logger.warning("Gemini API 키가 설정되지 않았습니다")
         return None
 
     context = build_forecast_context(
@@ -862,7 +868,7 @@ def generate_forecast(
         global_news=global_news,
     )
     if not context.strip():
-        print("  ⚠ 예측 컨텍스트가 비어있습니다")
+        logger.warning("예측 컨텍스트가 비어있습니다")
         return None
 
     # 장중 재예측: 경량 파이프라인 (Phase1 검색 1회 + Phase2 JSON 1회 = 2회)
@@ -870,7 +876,7 @@ def generate_forecast(
         print("  장중 경량 모드: Phase1(검색) + Phase2(JSON)...")
         result = _run_intraday_lightweight(context, api_keys)
         if not result:
-            print("  ⚠ 경량 모드 실패, 단일 호출 fallback")
+            logger.warning("경량 모드 실패, 단일 호출 fallback")
             result = _run_single_call_fallback(context, api_keys)
     else:
         # Multi-Agent 모드 시도 → 실패 시 2-Phase + Voting fallback
@@ -882,9 +888,9 @@ def generate_forecast(
             if result:
                 print("  ✓ Multi-Agent 예측 완료")
         except ImportError:
-            print("  ⏭ Multi-Agent 모듈 미설치, 2-Phase + Voting 모드로 진행")
+            logger.warning("Multi-Agent 모듈 미설치, 2-Phase + Voting 모드로 진행")
         except Exception as e:
-            print(f"  ⚠ Multi-Agent 실패: {e}, 2-Phase + Voting fallback")
+            logger.warning("Multi-Agent 실패: %s, 2-Phase + Voting fallback", e)
 
         # Fallback: 2-Phase + Self-Consistency Voting
         if not result:
@@ -892,11 +898,11 @@ def generate_forecast(
 
         if not result:
             # 최후 fallback: 기존 단일 호출
-            print("  ⚠ 2-Phase 실패, 기존 단일 호출 fallback")
+            logger.warning("2-Phase 실패, 기존 단일 호출 fallback")
             result = _run_single_call_fallback(context, api_keys)
 
     if not result:
-        print("  ✗ 모든 Gemini API 키로 예측 실패")
+        logger.error("모든 Gemini API 키로 예측 실패")
         return None
 
     now = datetime.now(KST)
@@ -919,11 +925,14 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
     phase1_prompt = _build_phase1_prompt(context)
 
     for key_idx, api_key in enumerate(api_keys):
+        if api_key in _exhausted_keys:
+            logger.debug("키 %d 일일 할당 소진, 건너뜀", key_idx + 1)
+            continue
         try:
             print(f"  Phase 1: 검색 + 추론 (키 {key_idx + 1}/{len(api_keys)})...")
             reasoning, sources = _call_gemini_phase1(phase1_prompt, api_key, use_search=True)
             if not reasoning:
-                print(f"  ⚠ Phase 1 실패, 다음 키로 전환")
+                logger.debug("Phase 1 실패, 다음 키로 전환")
                 continue
 
             print(f"  Phase 2: JSON 구조화...")
@@ -932,19 +941,20 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
                 result["_news_sources"] = sources
                 return result
 
-            print(f"  ⚠ Phase 2 실패, 다음 키로 전환")
+            logger.debug("Phase 2 실패, 다음 키로 전환")
         except GeminiDailyQuotaExhausted:
-            print(f"  ⚠ 일일 할당 초과 (키 {key_idx + 1}), 다음 키로 전환")
+            _exhausted_keys.add(api_key)
+            logger.debug("일일 할당 초과 (키 %d), 다음 키로 전환", key_idx + 1)
             continue
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else 0
             if status in (429, 503):
-                print(f"  ⚠ API 제한 ({status}), 다음 키로 전환")
+                logger.debug("API 제한 (%s), 다음 키로 전환", status)
                 continue
             if status in (500, 502, 504):
-                print(f"  ⚠ 서버 오류 ({status}), 다음 키로 전환")
+                logger.debug("서버 오류 (%s), 다음 키로 전환", status)
                 continue
-            print(f"  ✗ Gemini API 오류 ({status}): {e}")
+            logger.error("Gemini API 오류 (%s): %s", status, e)
             if status in (400, 401, 403):
                 try:
                     from modules.api_health import report_key_failure
@@ -953,7 +963,7 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
                     pass
             return None
         except Exception as e:
-            print(f"  ⚠ 경량 파이프라인 오류: {e}")
+            logger.warning("경량 파이프라인 오류: %s", e)
             continue
 
     return None
@@ -964,12 +974,15 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
     phase1_prompt = _build_phase1_prompt(context)
 
     for key_idx, api_key in enumerate(api_keys):
+        if api_key in _exhausted_keys:
+            logger.debug("키 %d 일일 할당 소진, 건너뜀", key_idx + 1)
+            continue
         try:
             # Phase 1: Self-Consistency Voting (3회)
             print(f"  Phase 1: Self-Consistency Voting (키 {key_idx + 1}/{len(api_keys)})...")
             reasoning, sources = _self_consistency_vote(phase1_prompt, api_key, n_samples=3, use_search=True)
             if not reasoning:
-                print(f"  ⚠ Phase 1 실패, 다음 키로 전환")
+                logger.debug("Phase 1 실패, 다음 키로 전환")
                 continue
 
             # Phase 2: JSON 구조화 (1회)
@@ -979,19 +992,20 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
                 result["_news_sources"] = sources
                 return result
 
-            print(f"  ⚠ Phase 2 실패, 다음 키로 전환")
+            logger.debug("Phase 2 실패, 다음 키로 전환")
         except GeminiDailyQuotaExhausted:
-            print(f"  ⚠ 일일 할당 초과 (키 {key_idx + 1}), 다음 키로 전환")
+            _exhausted_keys.add(api_key)
+            logger.debug("일일 할당 초과 (키 %d), 다음 키로 전환", key_idx + 1)
             continue
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else 0
             if status in (429, 503):
-                print(f"  ⚠ API 제한 ({status}), 다음 키로 전환")
+                logger.debug("API 제한 (%s), 다음 키로 전환", status)
                 continue
             if status in (500, 502, 504):
-                print(f"  ⚠ 서버 오류 ({status}), 다음 키로 전환")
+                logger.debug("서버 오류 (%s), 다음 키로 전환", status)
                 continue
-            print(f"  ✗ Gemini API 오류 ({status}): {e}")
+            logger.error("Gemini API 오류 (%s): %s", status, e)
             if status in (400, 401, 403):
                 try:
                     from modules.api_health import report_key_failure
@@ -1000,7 +1014,7 @@ def _run_two_phase_voting(context: str, api_keys: List[str]) -> Optional[Dict]:
                     pass
             return None
         except Exception as e:
-            print(f"  ⚠ 2-Phase 실행 오류: {e}")
+            logger.warning("2-Phase 실행 오류: %s", e)
             continue
 
     return None
@@ -1011,25 +1025,29 @@ def _run_single_call_fallback(context: str, api_keys: List[str]) -> Optional[Dic
     prompt = _build_forecast_prompt(context)
 
     for key_idx, api_key in enumerate(api_keys):
+        if api_key in _exhausted_keys:
+            logger.debug("키 %d 일일 할당 소진, 건너뜀", key_idx + 1)
+            continue
         try:
             print(f"  Fallback 호출 중... (키 {key_idx + 1}/{len(api_keys)})")
             result, sources = _call_gemini(prompt, api_key)
             if result:
                 result["_news_sources"] = sources
                 return result
-            print("  ⚠ Gemini 응답이 비어있습니다")
+            logger.warning("Gemini 응답이 비어있습니다")
         except GeminiDailyQuotaExhausted:
-            print(f"  ⚠ 일일 할당 초과 (키 {key_idx + 1}), 다음 키로 전환")
+            _exhausted_keys.add(api_key)
+            logger.debug("일일 할당 초과 (키 %d), 다음 키로 전환", key_idx + 1)
             continue
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else 0
             if status in (429, 503):
-                print(f"  ⚠ API 제한 ({status}), 다음 키로 전환")
+                logger.debug("API 제한 (%s), 다음 키로 전환", status)
                 continue
             if status in (500, 502, 504):
-                print(f"  ⚠ 서버 오류 ({status}), 다음 키로 전환")
+                logger.debug("서버 오류 (%s), 다음 키로 전환", status)
                 continue
-            print(f"  ✗ Gemini API 오류 ({status}): {e}")
+            logger.error("Gemini API 오류 (%s): %s", status, e)
             if status in (400, 401, 403):
                 try:
                     from modules.api_health import report_key_failure
@@ -1038,7 +1056,7 @@ def _run_single_call_fallback(context: str, api_keys: List[str]) -> Optional[Dic
                     pass
             return None
         except Exception as e:
-            print(f"  ✗ API 호출 실패: {e}")
+            logger.error("API 호출 실패: %s", e)
             return None
 
     return None

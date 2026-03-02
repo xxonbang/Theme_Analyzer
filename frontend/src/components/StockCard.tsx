@@ -27,6 +27,7 @@ interface StockCardProps {
 
 export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
+  const [isDetailExpanded, setIsDetailExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
   const [showTradingChart, setShowTradingChart] = useState(false)
@@ -268,9 +269,20 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             })()}
           </div>
 
+          {/* 2차 정보 토글: 수급/거래원 (admin만 표시) */}
+          {isAdmin && (investorInfo || memberInfo) && (
+            <button
+              onClick={() => setIsDetailExpanded(!isDetailExpanded)}
+              className="flex items-center justify-between w-full pt-1.5 border-t border-border/30 text-[10px] text-muted-foreground/70 hover:text-muted-foreground transition-colors"
+            >
+              <span className="font-medium">수급·거래원</span>
+              {isDetailExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          )}
+
           {/* 투자자 수급 (admin만 표시) */}
-          {isAdmin && (
-            <div className="pt-1.5 border-t border-border/30">
+          {isAdmin && isDetailExpanded && (
+            <div className="pt-1 border-t border-border/30">
               {investorInfo ? (
                 <>
                   <div className="flex items-center gap-x-2 text-xs">
@@ -354,8 +366,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             </div>
           )}
 
-          {/* 수급원 TOP5 (admin만 표시) */}
-          {isAdmin && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
+          {/* 수급원 TOP5 (admin만 표시, 2차 정보) */}
+          {isAdmin && isDetailExpanded && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
             <div className="grid grid-cols-2 gap-3 pt-1.5 border-t border-border/30">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
@@ -386,13 +398,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
 
         </div>
 
-        {/* News Section */}
+        {/* News Section (3차 정보 — 토글) */}
         {hasNews && (
           <div className="mt-2 pt-2 border-t border-border/50">
-            {/* Mobile: Expand/Collapse Button */}
             <button
               onClick={() => setIsNewsExpanded(!isNewsExpanded)}
-              className="sm:hidden flex items-center justify-between w-full text-left"
+              className="flex items-center justify-between w-full text-left"
             >
               <div className="flex items-center gap-1.5">
                 <Newspaper className="w-3 h-3 text-muted-foreground" />
@@ -407,16 +418,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               )}
             </button>
 
-            {/* Mobile: Collapsible News List */}
             {isNewsExpanded && (
-              <ul className="sm:hidden mt-1.5 space-y-1">
+              <ul className="mt-1.5 space-y-1">
                 {news.news.slice(0, 3).map((item, idx) => (
                   <li key={idx}>
                     <a
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] text-muted-foreground hover:text-primary transition-colors line-clamp-2 block"
+                      className="text-[11px] sm:text-xs text-muted-foreground hover:text-primary transition-colors line-clamp-2 sm:line-clamp-1 block"
                       title={item.title}
                     >
                       • {item.title.replace(/<[^>]*>/g, '')}
@@ -425,29 +435,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 ))}
               </ul>
             )}
-
-            {/* Desktop: Always visible */}
-            <div className="hidden sm:block">
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <Newspaper className="w-3 h-3 text-muted-foreground" />
-                <span className="text-[10px] font-medium text-muted-foreground">관련 뉴스</span>
-              </div>
-              <ul className="space-y-1">
-                {news.news.slice(0, 3).map((item, idx) => (
-                  <li key={idx}>
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors line-clamp-1 block"
-                      title={item.title}
-                    >
-                      • {item.title.replace(/<[^>]*>/g, '')}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         )}
       </CardContent>

@@ -128,7 +128,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print("  [테스트 모드] 텔레그램 발송 없이 콘솔 출력만 수행")
     print("=" * 60)
 
-    # 1. 환율 정보 조회
+    # 1. 환율 정보 조회 [선택] — 실패 시 빈 데이터로 진행
     print("\n[1/13] 환율 정보 조회 중...")
     exchange_data = {}
     try:
@@ -144,7 +144,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     except Exception as e:
         print(f"  ✗ 환율 조회 실패: {e}")
 
-    # 2. KIS API 연결
+    # 2. KIS API 연결 [필수] — 실패 시 전체 중단
     print("\n[2/13] KIS API 연결 중...")
     try:
         client = KISClient()
@@ -160,7 +160,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             pass
         return
 
-    # 2-1. 코스피 지수 이동평균선 분석
+    # 2-1. 코스피 지수 이동평균선 분석 [선택] — 실패 시 None으로 진행
     kospi_index_data = None
     print("\n[2-1/13] 코스피 지수 이동평균선 분석 중...")
     for attempt in range(3):
@@ -171,7 +171,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
 
             all_items = []
             end_date = datetime.now().strftime("%Y%m%d")
-            for page in range(3):
+            for page in range(6):
                 start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
                 idx_resp = client.get_index_daily_price(
                     "0001", start_date=start_date, end_date=end_date
@@ -185,7 +185,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 if not page_items:
                     break
                 all_items.extend(page_items)
-                if len(all_items) >= 120:
+                if len(all_items) >= 130:
                     break
                 last_date = page_items[-1].get("stck_bsop_date", "")
                 if not last_date:
@@ -235,7 +235,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             if attempt == 2:
                 break
 
-    # 2-2. 코스닥 지수 이동평균선 분석 (API 페이지당 50건 제한 → 여러 페이지 조회)
+    # 2-2. 코스닥 지수 이동평균선 분석 [선택] — 실패 시 None으로 진행
     kosdaq_index_data = None
     print("\n[2-2/13] 코스닥 지수 이동평균선 분석 중...")
     for attempt in range(3):
@@ -246,7 +246,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
 
             all_items = []
             end_date = datetime.now().strftime("%Y%m%d")
-            for page in range(3):  # 최대 3페이지 (150건)
+            for page in range(6):  # 최대 6페이지 (300건) — MA120 충분
                 start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
                 idx_resp = client.get_index_daily_price(
                     "2001", start_date=start_date, end_date=end_date
@@ -260,7 +260,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 if not page_items:
                     break
                 all_items.extend(page_items)
-                if len(all_items) >= 120:
+                if len(all_items) >= 130:
                     break
                 # 다음 페이지: 마지막 날짜 하루 전부터
                 last_date = page_items[-1].get("stck_bsop_date", "")
@@ -311,7 +311,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             if attempt == 2:
                 break
 
-    # 3. 거래량 TOP30 조회
+    # 3. 거래량 TOP30 조회 [필수] — 실패 시 전체 중단
     print("\n[3/13] 거래량 TOP30 조회 중...")
     try:
         volume_data = rank_api.get_top30_by_volume(exclude_etf=True)
@@ -321,7 +321,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print(f"  ✗ 거래량 조회 실패: {e}")
         return
 
-    # 4. 거래대금 TOP30 조회
+    # 4. 거래대금 TOP30 조회 [선택] — 실패 시 빈 데이터로 진행
     print("\n[4/13] 거래대금 TOP30 조회 중...")
     trading_value_data = {}
     try:
@@ -331,7 +331,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     except Exception as e:
         print(f"  ⚠ 거래대금 조회 실패 (빈 데이터로 계속): {e}")
 
-    # 5. 등락폭 TOP30 조회 (자체 계산)
+    # 5. 등락폭 TOP30 조회 [필수] — 실패 시 전체 중단
     print("\n[5/13] 등락폭 TOP30 조회 중...")
     try:
         fluctuation_data = rank_api.get_top30_by_fluctuation(exclude_etf=True)
@@ -343,7 +343,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print(f"  ✗ 등락폭 조회 실패: {e}")
         return
 
-    # 6. 등락률 전용 API 조회
+    # 6. 등락률 전용 API 조회 [선택] — 실패 시 빈 데이터로 진행
     print("\n[6/13] 등락률 전용 API 조회 중...")
     fluctuation_direct_data = {}
     try:
@@ -355,7 +355,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     except Exception as e:
         print(f"  ⚠ 등락률 전용 API 조회 실패 (빈 데이터로 계속): {e}")
 
-    # 7. 교차 필터링
+    # 7. 교차 필터링 [필수] — 핵심 데이터 가공
     print("\n[7/13] 교차 필터링 중...")
     stock_filter = StockFilter()
 
@@ -381,7 +381,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     )
     print(f"  ✓ 총 {len(all_stocks)}개 종목")
 
-    # 8. 3일간 등락률 조회
+    # 8. 3일간 등락률 조회 [선택] — 실패 시 빈 데이터로 진행
     print("\n[8/13] 3일간 등락률 조회 중...")
     try:
         history_data = history_api.get_multiple_stocks_history(all_stocks, days=6)
@@ -390,7 +390,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print(f"  ✗ 등락률 조회 실패: {e}")
         history_data = {}
 
-    # 8-1. 펀더멘탈 데이터 수집 (criteria 평가에 필요하므로 항상 실행)
+    # 8-1. 펀더멘탈 데이터 수집 [선택] — 실패 시 빈 데이터로 진행
     fundamental_data = {}
     print("\n[8-1/13] 펀더멘탈 데이터 수집 중...")
     try:
@@ -413,7 +413,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     except Exception as e:
         print(f"  \u26a0 펀더멘탈 수집 실패 (빈 데이터로 계속): {e}")
 
-    # 8-2. 공매도 비중 수집 (펀더멘탈 수집 대상 종목만)
+    # 8-2. 공매도 비중 수집 [선택] — 실패 시 빈 데이터로 진행
     short_selling_data = {}
     short_target_codes = set(fundamental_data.keys()) if fundamental_data else set()
     if short_target_codes:
@@ -450,7 +450,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     else:
         print("\n[8-2/13] 공매도 비중 수집 건너뜀 (펀더멘탈 대상 없음)")
 
-    # 9. 수급(투자자) 데이터 수집
+    # 9. 수급(투자자) 데이터 수집 [선택] — 실패 시 빈 데이터로 진행
     investor_data = {}
     investor_estimated = False
     if not skip_investor:
@@ -476,7 +476,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         if merged:
             print(f"  ✓ 프로그램 매매 데이터 {merged}개 종목 병합 완료")
 
-    # 9-2. 거래원(회원사) 데이터 수집 (대장주 + 거래대금 TOP20)
+    # 9-2. 거래원(회원사) 데이터 수집 [선택] — 실패 시 빈 데이터로 진행
     member_data = {}
     if not skip_investor:
         print("\n[9-2/13] 거래원 데이터 수집 중...")
@@ -520,7 +520,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     else:
         print("\n[9-2/13] 거래원 데이터 수집 건너뜀")
 
-    # 10. AI 테마 분석
+    # 10. AI 테마 분석 [선택] — 실패 시 None으로 진행
     theme_analysis = None
     if skip_ai:
         # 기존 데이터에서 theme_analysis 보존
@@ -561,7 +561,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     else:
         print("\n[10/13] AI 테마 분석 건너뜀")
 
-    # 10-1. 종목 선정 기준 평가
+    # 10-1. 종목 선정 기준 평가 [선택] — 실패 시 빈 데이터로 진행
     criteria_data = {}
     print("\n[10-1/13] 종목 선정 기준 평가 중...")
     try:
@@ -578,7 +578,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     except Exception as e:
         print(f"  ⚠ 기준 평가 실패 (빈 데이터로 계속): {e}")
 
-    # 11. 뉴스 수집
+    # 11. 뉴스 수집 [선택] — 실패 시 빈 데이터로 진행
     news_data = {}
     if not skip_news:
         print("\n[11/13] 종목별 뉴스 수집 중...")
@@ -639,7 +639,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         except Exception:
             pass
 
-    # 12. 프론트엔드용 데이터 내보내기
+    # 12. 프론트엔드용 데이터 내보내기 [필수] — 핵심 산출물
     print("\n[12/13] 프론트엔드 데이터 내보내기...")
     try:
         export_path = export_for_frontend(

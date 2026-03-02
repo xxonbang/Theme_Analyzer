@@ -69,6 +69,10 @@ class KISClient:
         self._last_request_time = 0.0
         self._min_interval = 0.05  # 1/20 = 50ms
 
+        # 강제 토큰 재발급 횟수 제한 (1일 2회)
+        self._force_refresh_count = 0
+        self._force_refresh_date = None
+
         self._validate_credentials()
         self._load_cached_token()
 
@@ -327,11 +331,20 @@ class KISClient:
         return self._access_token
 
     def _force_refresh_token(self) -> str:
-        """강제 토큰 재발급 (1일 1회 제한 무시)
+        """강제 토큰 재발급 (1일 2회 제한)
 
         주의: 기존 토큰이 무효화되어 API 호출이 실패하는 경우에만 사용하세요.
         KIS API는 실제로 토큰 발급 횟수를 제한하므로, 남용 시 계정에 문제가 생길 수 있습니다.
         """
+        # 일일 횟수 제한 체크
+        today = datetime.now().date()
+        if self._force_refresh_date != today:
+            self._force_refresh_count = 0
+            self._force_refresh_date = today
+        if self._force_refresh_count >= 2:
+            raise Exception("강제 토큰 재발급 일일 한도(2회) 초과")
+        self._force_refresh_count += 1
+
         # Supabase에서 다른 시스템이 갱신한 유효 토큰이 있는지 먼저 확인
         if self._load_token_from_supabase() and self._is_token_valid():
             print(f"[KIS] Supabase에서 유효한 토큰을 발견했습니다 (강제 재발급 불필요)")

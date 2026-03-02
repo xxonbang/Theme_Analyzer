@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
+import { useVirtualizer } from "@tanstack/react-virtual"
 import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -25,6 +26,112 @@ interface StockListProps {
   memberData?: Record<string, MemberInfo>
   criteriaData?: Record<string, StockCriteria>
   isAdmin?: boolean
+}
+
+const VIRTUALIZE_THRESHOLD = 20
+
+// 가상 스크롤 마켓 섹션 (뷰포트에 보이는 항목만 렌더링)
+function StockMarketSection({
+  label, dotColor, stocks, history, news, type,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, isAdmin,
+}: {
+  label: string; dotColor: string; stocks: Stock[];
+  history: Record<string, StockHistory>; news: Record<string, StockNews>;
+  type: "rising" | "falling" | "neutral";
+  investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; isAdmin?: boolean;
+}) {
+  const parentRef = useRef<HTMLDivElement>(null)
+  const [columns, setColumns] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches ? 2 : 1
+  )
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 640px)")
+    const handler = (e: MediaQueryListEvent) => setColumns(e.matches ? 2 : 1)
+    mql.addEventListener("change", handler)
+    return () => mql.removeEventListener("change", handler)
+  }, [])
+
+  // 종목을 행(row) 단위로 그룹핑 (1열 또는 2열)
+  const rows = useMemo(() => {
+    const result: Stock[][] = []
+    for (let i = 0; i < stocks.length; i += columns) {
+      result.push(stocks.slice(i, i + columns))
+    }
+    return result
+  }, [stocks, columns])
+
+  const shouldVirtualize = stocks.length > VIRTUALIZE_THRESHOLD
+
+  const virtualizer = useVirtualizer({
+    count: shouldVirtualize ? rows.length : 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 280,
+    overscan: 3,
+  })
+
+  const renderCard = (stock: Stock) => (
+    <StockCard
+      key={stock.code}
+      stock={stock}
+      history={history[stock.code]}
+      news={news[stock.code]}
+      type={type}
+      investorInfo={investorData?.[stock.code]}
+      investorEstimated={investorEstimated}
+      investorUpdatedAt={investorUpdatedAt}
+      memberInfo={memberData?.[stock.code]}
+      criteria={criteriaData?.[stock.code]}
+      isAdmin={isAdmin}
+    />
+  )
+
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-2 sm:mb-3">
+        <div className={cn("w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full", dotColor)} />
+        <h3 className="font-semibold text-sm sm:text-base md:text-lg">{label}</h3>
+        <span className="text-xs sm:text-sm text-muted-foreground">({stocks.length})</span>
+      </div>
+      {stocks.length > 0 ? (
+        shouldVirtualize ? (
+          <div
+            ref={parentRef}
+            className="overflow-y-auto scrollbar-thin"
+            style={{ maxHeight: "75vh" }}
+          >
+            <div style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
+              {virtualizer.getVirtualItems().map((virtualRow) => (
+                <div
+                  key={virtualRow.key}
+                  ref={virtualizer.measureElement}
+                  data-index={virtualRow.index}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    transform: `translateY(${virtualRow.start}px)`,
+                  }}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pb-2 sm:pb-3">
+                    {rows[virtualRow.index].map(renderCard)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+            {stocks.map(renderCard)}
+          </div>
+        )
+      ) : (
+        <p className="text-muted-foreground text-xs sm:text-sm py-3 sm:py-4 text-center bg-muted/30 rounded-lg">해당 종목 없음</p>
+      )}
+    </div>
+  )
 }
 
 // 컴팩트 모드 컬럼 헤더 (flex: sticky left + scrollable right)
@@ -359,64 +466,36 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-4 sm:space-y-6">
         {/* KOSPI */}
-        <div>
-          <div className="flex items-center gap-2 mb-2 sm:mb-3">
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-blue-600" />
-            <h3 className="font-semibold text-sm sm:text-base md:text-lg">KOSPI</h3>
-            <span className="text-xs sm:text-sm text-muted-foreground">({kospiStocks.length})</span>
-          </div>
-          {kospiStocks.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-              {kospiStocks.map((stock) => (
-                <StockCard
-                  key={stock.code}
-                  stock={stock}
-                  history={history[stock.code]}
-                  news={news[stock.code]}
-                  type={type}
-                  investorInfo={investorData?.[stock.code]}
-                  investorEstimated={investorEstimated}
-                  investorUpdatedAt={investorUpdatedAt}
-                  memberInfo={memberData?.[stock.code]}
-                  criteria={criteriaData?.[stock.code]}
-                  isAdmin={isAdmin}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="text-muted-foreground text-xs sm:text-sm py-3 sm:py-4 text-center bg-muted/30 rounded-lg">해당 종목 없음</p>
-          )}
-        </div>
+        <StockMarketSection
+          label="KOSPI"
+          dotColor="bg-blue-600"
+          stocks={kospiStocks}
+          history={history}
+          news={news}
+          type={type}
+          investorData={investorData}
+          investorEstimated={investorEstimated}
+          investorUpdatedAt={investorUpdatedAt}
+          memberData={memberData}
+          criteriaData={criteriaData}
+          isAdmin={isAdmin}
+        />
 
         {/* KOSDAQ */}
-        <div>
-          <div className="flex items-center gap-2 mb-2 sm:mb-3">
-            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-600" />
-            <h3 className="font-semibold text-sm sm:text-base md:text-lg">KOSDAQ</h3>
-            <span className="text-xs sm:text-sm text-muted-foreground">({kosdaqStocks.length})</span>
-          </div>
-          {kosdaqStocks.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-              {kosdaqStocks.map((stock) => (
-                <StockCard
-                  key={stock.code}
-                  stock={stock}
-                  history={history[stock.code]}
-                  news={news[stock.code]}
-                  type={type}
-                  investorInfo={investorData?.[stock.code]}
-                  investorEstimated={investorEstimated}
-                  investorUpdatedAt={investorUpdatedAt}
-                  memberInfo={memberData?.[stock.code]}
-                  criteria={criteriaData?.[stock.code]}
-                  isAdmin={isAdmin}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="text-muted-foreground text-xs sm:text-sm py-3 sm:py-4 text-center bg-muted/30 rounded-lg">해당 종목 없음</p>
-          )}
-        </div>
+        <StockMarketSection
+          label="KOSDAQ"
+          dotColor="bg-green-600"
+          stocks={kosdaqStocks}
+          history={history}
+          news={news}
+          type={type}
+          investorData={investorData}
+          investorEstimated={investorEstimated}
+          investorUpdatedAt={investorUpdatedAt}
+          memberData={memberData}
+          criteriaData={criteriaData}
+          isAdmin={isAdmin}
+        />
       </CardContent>
     </Card>
   )

@@ -4,6 +4,7 @@ Gemini AI 기반 테마/대장주 분석 모듈
 Google Search grounding을 활용하여 최신 뉴스 기반 시장 테마 분석
 """
 import json
+import logging
 import re
 import time
 import requests
@@ -13,7 +14,12 @@ from typing import Dict, List, Any, Optional
 from config.settings import GEMINI_API_KEY_1, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4, GEMINI_API_KEY_5
 from modules.utils import KST
 
+logger = logging.getLogger(__name__)
+
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+
+# 세션 내 일일 할당 소진된 키 추적
+_exhausted_keys: set = set()
 
 
 def _get_api_keys() -> List[str]:
@@ -198,12 +204,12 @@ def _build_prompt(stock_context: str) -> str:
 ### 대장주 선정 기준
 아래 기준을 종합적으로 평가하여 각 테마별 대장주 1~3개를 선정하세요:
 
-1. **시장 주도력**: 거래대금 상위 + 상승률 상위에 동시 포함된 종목 우선
-2. **테마 대표성**: 해당 테마를 가장 직접적으로 대표하는 사업 구조
-3. **수급 강도**: 거래량 급증(거래량 TOP 포함 여부), 기관/외국인 수급 방향
-4. **밸류에이션 적정성**: PER/PBR이 동종업계 대비 과도하지 않은 종목 우선
-5. **뉴스 모멘텀**: 오늘 기준 긍정적 뉴스(수주, 실적, 정책 수혜 등)가 있는 종목
-6. **프로그램 매매**: 프로그램 순매수 종목 우선, 대규모 프로그램 매매가 유입된 종목 주목
+1. **시장 주도력**: 거래대금 TOP10에 포함되며 등락률 +3% 이상인 종목 우선
+2. **프로그램 매매**: 프로그램 순매수 상위 종목, 대규모(100억 이상) 프로그램 유입 주목
+3. **테마 대표성**: 해당 사업 매출 비중 30% 이상 또는 해당 분야 시가총액 상위 3 종목
+4. **수급 강도**: 거래량 전일 대비 200% 이상 급증, 기관+외국인 순매수 양방향 유입
+5. **밸류에이션 적정성**: PER 업종 평균 이하, PBR 3배 이하
+6. **뉴스 모멘텀**: 당일 기준 수주/실적/정책 수혜 뉴스가 확인된 종목
 
 ### 밸류에이션 평가 기준
 각 대장주에 대해 아래 지표를 활용하되, **동일 업종/섹터 평균 대비 상대적으로** 평가하세요:
@@ -311,12 +317,12 @@ def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict]
     """
     api_keys = _get_api_keys()
     if not api_keys:
-        print("  ⚠ Gemini API 키가 설정되지 않았습니다")
+        logger.warning("Gemini API 키가 설정되지 않았습니다")
         return None
 
     stock_context = _build_stock_context(stock_data, fundamental_data, investor_data)
     if not stock_context.strip():
-        print("  ⚠ 분석할 종목 데이터가 없습니다")
+        logger.warning("분석할 종목 데이터가 없습니다")
         return None
 
     prompt = _build_prompt(stock_context)
@@ -324,6 +330,9 @@ def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict]
     max_retries_per_key = 3
 
     for key_idx, api_key in enumerate(api_keys):
+        if api_key in _exhausted_keys:
+            logger.debug("키 %d 일일 할당 소진, 건너뜀", key_idx + 1)
+            continue
         for attempt in range(max_retries_per_key):
             try:
                 print(f"  Gemini API 호출 중... (키 {key_idx + 1}/{len(api_keys)}, 시도 {attempt + 1}/{max_retries_per_key})")
@@ -336,30 +345,52 @@ def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict]
                         "market_summary": result.get("market_summary", ""),
                         "themes": result.get("themes", []),
                     }
-                print("  ⚠ Gemini 응답이 비어있습니다")
+                logger.warning("Gemini 응답이 비어있습니다")
             except requests.exceptions.HTTPError as e:
                 status = e.response.status_code if e.response is not None else 0
-                if status in (429, 503):
+                if status == 429:
+                    # RPD(일일 할당) 초과 여부 확인
+                    try:
+                        body = e.response.json()
+                        for detail in body.get("error", {}).get("details", []):
+                            for violation in detail.get("violations", []):
+                                if "PerDay" in violation.get("quotaId", ""):
+                                    _exhausted_keys.add(api_key)
+                                    logger.debug("키 %d 일일 할당 소진 (RPD), 다음 키로 전환", key_idx + 1)
+                                    break
+                    except Exception:
+                        pass
+                    if api_key in _exhausted_keys:
+                        break
                     if attempt < max_retries_per_key - 1:
                         wait = 2 ** (attempt + 1)
-                        print(f"  ⚠ API 제한 ({status}), {wait}초 후 재시도...")
+                        logger.debug("API 제한 (%s), %d초 후 재시도...", status, wait)
                         time.sleep(wait)
                         continue
                     else:
-                        print(f"  ⚠ 키 {key_idx + 1} 재시도 소진, 다음 키로 전환")
+                        logger.debug("키 %d 재시도 소진, 다음 키로 전환", key_idx + 1)
+                        break
+                elif status == 503:
+                    if attempt < max_retries_per_key - 1:
+                        wait = 2 ** (attempt + 1)
+                        logger.debug("API 제한 (%s), %d초 후 재시도...", status, wait)
+                        time.sleep(wait)
+                        continue
+                    else:
+                        logger.debug("키 %d 재시도 소진, 다음 키로 전환", key_idx + 1)
                         break
                 else:
-                    print(f"  ✗ Gemini API 오류 ({status}): {e}")
+                    logger.error("Gemini API 오류 (%s): %s", status, e)
                     return None
             except json.JSONDecodeError as e:
-                print(f"  ⚠ Gemini 응답 JSON 파싱 실패: {e}")
+                logger.warning("Gemini 응답 JSON 파싱 실패: %s", e)
                 if attempt < max_retries_per_key - 1:
                     time.sleep(2)
                     continue
                 break
             except Exception as e:
-                print(f"  ✗ Gemini API 호출 실패: {e}")
+                logger.error("Gemini API 호출 실패: %s", e)
                 return None
 
-    print("  ✗ 모든 Gemini API 키로 분석 실패")
+    logger.error("모든 Gemini API 키로 분석 실패")
     return None

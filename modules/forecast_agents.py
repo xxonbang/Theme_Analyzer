@@ -3,13 +3,17 @@
 3개 에이전트(뉴스/감성, 시장데이터, 종합) + 2-Phase JSON 구조화.
 예측당 총 6회 API 호출 (1 검색 + 1 + 3 voting 검색없음 + 1 JSON).
 """
+import logging
 import time
 import requests
 from typing import Dict, List, Optional, Tuple
 
+logger = logging.getLogger(__name__)
+
 from modules.theme_forecast import (
     GEMINI_API_URL,
     GeminiDailyQuotaExhausted,
+    _exhausted_keys,
     _extract_text_from_response,
     _extract_grounding_sources,
     _gemini_post,
@@ -39,7 +43,7 @@ def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Tuple[Op
         raise  # 파이프라인에서 키 로테이션 처리
     except requests.exceptions.HTTPError as e:
         status = e.response.status_code if e.response is not None else 0
-        print(f"    ⚠ 에이전트 호출 실패: {e}")
+        logger.warning("에이전트 호출 실패: %s", e)
         if status in (400, 401, 403):
             try:
                 from modules.api_health import report_key_failure
@@ -48,7 +52,7 @@ def _call_agent(prompt: str, api_key: str, use_search: bool = False) -> Tuple[Op
                 pass
         return None, []
     except Exception as e:
-        print(f"    ⚠ 에이전트 호출 실패: {e}")
+        logger.warning("에이전트 호출 실패: %s", e)
         return None, []
 
     resp_data = resp.json()
@@ -186,26 +190,54 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
     if not api_keys:
         return None
 
+    # 소진 키 제외한 가용 키 목록
+    available_keys = [k for k in api_keys if k not in _exhausted_keys]
+    if not available_keys:
+        logger.warning("모든 API 키 소진")
+        return None
+
     # 에이전트별 키 분배 (가용 키가 여러 개면 분산, 아니면 동일 키 재사용)
-    key_agent1 = api_keys[0]
-    key_agent2 = api_keys[1 % len(api_keys)]
-    key_synthesis = api_keys[0]  # Agent 1 완료 후 재사용
-    key_phase2 = api_keys[2 % len(api_keys)]
+    key_agent1 = available_keys[0]
+    key_agent2 = available_keys[1 % len(available_keys)]
+    key_synthesis = available_keys[0]  # Agent 1 완료 후 재사용
+    key_phase2 = available_keys[2 % len(available_keys)]
 
     # Step 1: 뉴스/감성 에이전트
     print("    Agent 1: 뉴스/감성 분석...")
-    news_analysis, news_sources = agent_news_sentiment(context, key_agent1)
+    try:
+        news_analysis, news_sources = agent_news_sentiment(context, key_agent1)
+    except GeminiDailyQuotaExhausted:
+        _exhausted_keys.add(key_agent1)
+        # 다른 키로 1회 재시도
+        retry_keys = [k for k in available_keys if k not in _exhausted_keys]
+        if retry_keys:
+            logger.debug("Agent 1 키 소진, 다른 키로 재시도...")
+            news_analysis, news_sources = agent_news_sentiment(context, retry_keys[0])
+            key_agent1 = retry_keys[0]
+        else:
+            logger.warning("Agent 1 실패 (가용 키 없음)")
+            return None
     if not news_analysis:
-        print("    ⚠ Agent 1 실패")
+        logger.warning("Agent 1 실패")
         return None
 
     time.sleep(1)
 
     # Step 2: 시장 데이터 에이전트
     print("    Agent 2: 시장 데이터 분석...")
-    market_analysis, _ = agent_market_data(context, key_agent2)
+    try:
+        market_analysis, _ = agent_market_data(context, key_agent2)
+    except GeminiDailyQuotaExhausted:
+        _exhausted_keys.add(key_agent2)
+        retry_keys = [k for k in available_keys if k not in _exhausted_keys]
+        if retry_keys:
+            logger.debug("Agent 2 키 소진, 다른 키로 재시도...")
+            market_analysis, _ = agent_market_data(context, retry_keys[0])
+        else:
+            logger.warning("Agent 2 실패 (가용 키 없음)")
+            return None
     if not market_analysis:
-        print("    ⚠ Agent 2 실패")
+        logger.warning("Agent 2 실패")
         return None
 
     time.sleep(1)
@@ -215,7 +247,7 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
     synthesis_prompt = _build_synthesis_prompt(news_analysis, market_analysis, context)
     reasoning, _ = _self_consistency_vote(synthesis_prompt, key_synthesis, n_samples=3)
     if not reasoning:
-        print("    ⚠ Agent 3 실패")
+        logger.warning("Agent 3 실패")
         return None
 
     time.sleep(1)
@@ -235,7 +267,7 @@ def run_multi_agent_forecast(context: str, api_keys: List[str]) -> Optional[Dict
                 if result:
                     break
             except GeminiDailyQuotaExhausted:
-                print(f"    ⚠ 일일 할당 초과, 다음 키로 전환")
+                logger.debug("일일 할당 초과, 다음 키로 전환")
                 continue
             except Exception:
                 continue

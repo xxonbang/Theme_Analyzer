@@ -19,11 +19,11 @@ const tabs: { key: TabType; label: string; shortLabel: string }[] = [
   { key: "fluctuation", label: "등락률 TOP20", shortLabel: "등락률" },
 ]
 
-const compositeModes: { key: CompositeMode; label: string; shortLabel: string }[] = [
-  { key: "trading_fluc", label: "거래대금 + 등락률", shortLabel: "대금+등락률" },
-  { key: "volume_fluc", label: "거래량 + 등락률", shortLabel: "거래량+등락률" },
-  { key: "all", label: "거래대금 + 거래량 + 등락률", shortLabel: "대금+거래량+등락률" },
-  { key: "trading_volume", label: "거래대금 + 거래량", shortLabel: "대금+거래량" },
+const compositeModes: { key: CompositeMode; label: string; shortLabel: string; description: string }[] = [
+  { key: "trading_fluc", label: "거래대금 + 등락률", shortLabel: "대금+등락률", description: "거래대금이 높으면서 등락률도 큰 종목" },
+  { key: "volume_fluc", label: "거래량 + 등락률", shortLabel: "거래량+등락률", description: "거래량이 높으면서 등락률도 큰 종목" },
+  { key: "all", label: "거래대금 + 거래량 + 등락률", shortLabel: "대금+거래량+등락률", description: "3가지 지표 모두 상위인 종목 (가장 엄격)" },
+  { key: "trading_volume", label: "거래대금 + 거래량", shortLabel: "대금+거래량", description: "거래대금과 거래량이 동시에 높은 종목" },
 ]
 
 // 세그먼트 버튼 공통 스타일
@@ -186,6 +186,7 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
                           role="radio"
                           aria-checked={compositeMode === mode.key}
                           onClick={() => onCompositeModeChange(mode.key)}
+                          title={mode.description}
                           className={cn(
                             "px-2 sm:px-3 py-1.5 sm:py-1.5 rounded-md text-[10px] sm:text-xs",
                             "transition-all duration-200 whitespace-nowrap",

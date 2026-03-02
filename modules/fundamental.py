@@ -1,5 +1,6 @@
 """종목별 펀더멘탈(재무/밸류에이션) 데이터 수집 모듈"""
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Any, Optional
 
 from modules.kis_client import KISClient
@@ -163,24 +164,30 @@ class FundamentalCollector:
         """
         result = {}
         total = len(stocks)
+        completed_count = 0
 
-        for idx, stock in enumerate(stocks):
+        def _fetch(stock: Dict) -> tuple:
             code = stock.get("code", "")
-            if not code:
-                continue
+            name = stock.get("name", code)
+            fundamental = self.collect_fundamental(code)
+            if daily_price_data and code in daily_price_data:
+                fundamental["rsi"] = self.calculate_rsi(daily_price_data[code])
+            return code, name, fundamental
 
-            try:
-                fundamental = self.collect_fundamental(code)
+        valid_stocks = [s for s in stocks if s.get("code")]
 
-                # RSI 계산 (일봉 데이터가 있으면)
-                if daily_price_data and code in daily_price_data:
-                    fundamental["rsi"] = self.calculate_rsi(daily_price_data[code])
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = {executor.submit(_fetch, s): s for s in valid_stocks}
+            for future in as_completed(futures):
+                completed_count += 1
+                try:
+                    code, name, fundamental = future.result()
+                    result[code] = fundamental
+                except Exception as e:
+                    stock = futures[future]
+                    print(f"  \u26a0 {stock.get('name', '')}({stock.get('code', '')}) 펀더멘탈 조회 실패: {e}")
 
-                result[code] = fundamental
-            except Exception as e:
-                print(f"  \u26a0 {stock.get('name', code)}({code}) 펀더멘탈 조회 실패: {e}")
-
-            if (idx + 1) % 10 == 0 or idx + 1 == total:
-                print(f"  진행: {idx + 1}/{total}")
+                if completed_count % 10 == 0 or completed_count == len(valid_stocks):
+                    print(f"  진행: {completed_count}/{total}")
 
         return result
