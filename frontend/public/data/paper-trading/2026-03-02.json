@@ -1,0 +1,245 @@
+{
+  "trade_date": "2026-03-02",
+  "morning_timestamp": "2026-03-02 09:18:44",
+  "collected_at": "2026-03-02 06:40:44",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-02 09:18:44",
+      "prices": {
+        "042700": 323500,
+        "403870": 44850,
+        "005380": 674000,
+        "004020": 46500,
+        "229000": 5860,
+        "307750": 4145,
+        "322000": 104000,
+        "038500": 17350
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/친환경 모빌리티"
+        },
+        {
+          "code": "004020",
+          "name": "현대제철",
+          "theme": "자동차/친환경 모빌리티"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "307750",
+          "name": "국전약품",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "038500",
+          "name": "삼표시멘트",
+          "theme": "건설/SOC (시멘트)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-02 11:41:06",
+      "prices": {
+        "042700": 323500,
+        "403870": 44850,
+        "005380": 674000,
+        "004020": 46500,
+        "229000": 5860,
+        "307750": 4145,
+        "322000": 104000,
+        "038500": 17350
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/친환경 모빌리티"
+        },
+        {
+          "code": "004020",
+          "name": "현대제철",
+          "theme": "자동차/친환경 모빌리티"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "307750",
+          "name": "국전약품",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "038500",
+          "name": "삼표시멘트",
+          "theme": "건설/SOC (시멘트)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSPI",
+      "buy_price": 323500,
+      "close_price": 323500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 332500,
+      "high_time": "14:39",
+      "high_profit_rate": 2.78,
+      "high_profit_amount": 9000
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 44850,
+      "close_price": 44850,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 46450,
+      "high_time": "09:32",
+      "high_profit_rate": 3.57,
+      "high_profit_amount": 1600
+    },
+    {
+      "code": "005380",
+      "name": "현대차",
+      "theme": "자동차/친환경 모빌리티",
+      "market": "KOSPI",
+      "buy_price": 674000,
+      "close_price": 674000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 687000,
+      "high_time": "14:49",
+      "high_profit_rate": 1.93,
+      "high_profit_amount": 13000
+    },
+    {
+      "code": "004020",
+      "name": "현대제철",
+      "theme": "자동차/친환경 모빌리티",
+      "market": "KOSPI",
+      "buy_price": 46500,
+      "close_price": 46500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 50400,
+      "high_time": "13:22",
+      "high_profit_rate": 8.39,
+      "high_profit_amount": 3900
+    },
+    {
+      "code": "229000",
+      "name": "젠큐릭스",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 5860,
+      "close_price": 5860,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 5860,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "307750",
+      "name": "국전약품",
+      "theme": "바이오/제약",
+      "market": "KOSDAQ",
+      "buy_price": 4145,
+      "close_price": 4145,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 4145,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지 (태양광)",
+      "market": "KOSDAQ",
+      "buy_price": 104000,
+      "close_price": 104000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 104000,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "038500",
+      "name": "삼표시멘트",
+      "theme": "건설/SOC (시멘트)",
+      "market": "KOSPI",
+      "buy_price": 17350,
+      "close_price": 17350,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 19470,
+      "high_time": "10:43",
+      "high_profit_rate": 12.22,
+      "high_profit_amount": 2120
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 0,
+    "loss_stocks": 0,
+    "total_invested": 1220205,
+    "total_value": 1220205,
+    "total_profit": 0,
+    "total_profit_rate": 0.0,
+    "high_total_value": 1249825,
+    "high_total_profit": 29620,
+    "high_total_profit_rate": 2.43,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 0
+  }
+}
