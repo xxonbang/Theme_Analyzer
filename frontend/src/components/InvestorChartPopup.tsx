@@ -12,7 +12,7 @@ interface InvestorChartPopupProps {
 
 const CHART_W = 280
 const CHART_H = 120
-const PAD = { top: 10, right: 10, bottom: 20, left: 10 }
+const PAD = { top: 10, right: 10, bottom: 20, left: 45 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
@@ -99,6 +99,11 @@ export function InvestorChartPopup({ stockName, investorInfo, onClose }: Investo
               x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
               stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
             />
+            <text x={PAD.left - 3} y={zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+
+            {/* Y축 라벨 (최대/최소) */}
+            <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
+            <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
 
             {/* X축 라벨 */}
             {labels.map((label, i) => {

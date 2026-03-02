@@ -14,7 +14,7 @@ interface TradingChartPopupProps {
 
 const CHART_W = 280
 const CHART_H = 120
-const PAD = { top: 10, right: 10, bottom: 20, left: 10 }
+const PAD = { top: 10, right: 10, bottom: 20, left: 45 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
@@ -80,10 +80,18 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
 
         {/* SVG 차트 */}
         <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-          {/* 그리드 */}
+          {/* 그리드 + Y축 라벨 */}
           {[0, 0.5, 1].map(r => {
             const y = PAD.top + r * PLOT_H
-            return <line key={r} x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+            const tvMax = Math.max(...tradingValues)
+            const tvMin = Math.min(...tradingValues)
+            const tvVal = tvMax - r * (tvMax - tvMin)
+            return (
+              <g key={r}>
+                <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatTradingValue(tvVal)}</text>
+              </g>
+            )
           })}
 
           {/* X축 라벨 */}

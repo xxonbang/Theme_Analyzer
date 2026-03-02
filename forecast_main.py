@@ -23,6 +23,7 @@ from modules.theme_forecast import (
 from modules.us_market_data import (
     fetch_us_market_data,
     fetch_vix_index,
+    fetch_fear_greed_index,
     fetch_global_market_news,
     calculate_theme_momentum,
 )
@@ -73,6 +74,15 @@ def main():
         print(f"  ✓ VIX 공포지수: {sentiment_data['score']} ({sentiment_data['rating']})")
     else:
         print("  ⚠ VIX 지수 수집 실패 (계속 진행)")
+
+    fear_greed = fetch_fear_greed_index()
+    if fear_greed:
+        print(f"  ✓ Fear & Greed: {fear_greed['score']} ({fear_greed['rating_kr']})")
+        if sentiment_data is None:
+            sentiment_data = {}
+        sentiment_data["fear_greed"] = fear_greed
+    else:
+        print("  ⚠ Fear & Greed Index 수집 실패 (계속 진행)")
 
     global_news = fetch_global_market_news()
     if global_news:

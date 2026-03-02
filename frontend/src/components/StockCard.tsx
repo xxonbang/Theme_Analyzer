@@ -27,7 +27,6 @@ interface StockCardProps {
 
 export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
-  const [isDetailExpanded, setIsDetailExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
   const [showTradingChart, setShowTradingChart] = useState(false)
@@ -216,10 +215,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 return (
                 <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
                   <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
-                    <div className="flex flex-col justify-between text-[7px] text-muted-foreground/40 tabular-nums leading-none h-[18px]">
-                      <span>{formatTradingValue(Math.max(...tradingSparkData))}</span>
-                      <span>{formatTradingValue(Math.min(...tradingSparkData))}</span>
-                    </div>
                     <Sparkline
                       data={tradingSparkData}
                       color="#f59e0b"
@@ -246,9 +241,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 />
               )}
             </div>
-            {/* 거래 히스토리 (최대 6일) */}
+            {/* 거래 히스토리 (카드: 최근 5일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
-              const pastDays = [...history.changes.slice(1)].reverse() // D-5 ~ D-1 (과거→최신)
+              const pastDays = [...history.changes.slice(1)].reverse().slice(-5) // 최근 5일만 (과거→최신)
               if (pastDays.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
@@ -269,23 +264,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             })()}
           </div>
 
-          {/* 2차 정보 토글: 수급/거래원 (admin만 표시) */}
-          {isAdmin && (investorInfo || memberInfo) && (
-            <button
-              onClick={() => setIsDetailExpanded(!isDetailExpanded)}
-              className="flex items-center justify-between w-full pt-1.5 border-t border-border/30 text-[10px] text-muted-foreground/70 hover:text-muted-foreground transition-colors"
-            >
-              <span className="font-medium">수급·거래원</span>
-              {isDetailExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            </button>
-          )}
-
           {/* 투자자 수급 (admin만 표시) */}
-          {isAdmin && isDetailExpanded && (
+          {isAdmin && (
             <div className="pt-1 border-t border-border/30">
               {investorInfo ? (
                 <>
-                  <div className="flex items-center gap-x-2 text-xs">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
                     <span className="text-muted-foreground whitespace-nowrap">
                       <span className="sm:hidden">외</span><span className="hidden sm:inline">외국인</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
                     </span>
@@ -303,10 +287,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       return (
                       <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
                         <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
-                          <div className="flex flex-col justify-between text-[7px] text-muted-foreground/40 tabular-nums leading-none h-[18px]">
-                            <span>{formatNetBuy(Math.max(...investorSparkData))}</span>
-                            <span>{formatNetBuy(Math.min(...investorSparkData))}</span>
-                          </div>
                           <Sparkline
                             data={investorSparkData}
                             color="#ef4444"
@@ -336,11 +316,13 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       />
                     )}
                   </div>
-                  {/* 수급 히스토리 (최대 6일) */}
-                  {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (
+                  {/* 수급 히스토리 (카드: 최근 5일) */}
+                  {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (() => {
+                    const recentHistory = [...investorInfo.history].slice(-5)
+                    return (
                     <div className="mt-1 text-[10px] space-y-0.5">
-                      {[...investorInfo.history].reverse().map((h, idx) => {
-                        const label = `D-${investorInfo.history!.length - idx}`
+                      {[...recentHistory].reverse().map((h, idx) => {
+                        const label = `D-${recentHistory.length - idx}`
                         return (
                           <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
                             <span className="font-medium w-6">{label}</span>
@@ -353,7 +335,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         )
                       })}
                     </div>
-                  )}
+                    )})()}
                 </>
               ) : (
                 <div className="flex items-center gap-x-2 text-xs text-muted-foreground/60">
@@ -366,8 +348,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             </div>
           )}
 
-          {/* 수급원 TOP5 (admin만 표시, 2차 정보) */}
-          {isAdmin && isDetailExpanded && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
+          {/* 수급원 TOP5 (admin만 표시) */}
+          {isAdmin && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
             <div className="grid grid-cols-2 gap-3 pt-1.5 border-t border-border/30">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>

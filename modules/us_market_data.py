@@ -96,6 +96,53 @@ def fetch_vix_index() -> Optional[Dict]:
         return None
 
 
+def fetch_fear_greed_index() -> Optional[Dict]:
+    """CNN Fear & Greed Index 수집
+
+    0~25 극도의 공포 | 25~45 공포 | 45~55 중립 | 55~75 탐욕 | 75~100 극도의 탐욕
+    """
+    import requests as req
+    try:
+        resp = req.get(
+            "https://production.dataviz.cnn.io/index/fearandgreed/current",
+            headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Referer": "https://edition.cnn.com/markets/fear-and-greed",
+                "Origin": "https://edition.cnn.com",
+            },
+            timeout=10,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        score = data.get("score")
+        if score is None:
+            return None
+        score = round(float(score), 1)
+        rating = data.get("rating", "")
+        # 한글 등급
+        if score < 25:
+            rating_kr = "극도의 공포"
+        elif score < 45:
+            rating_kr = "공포"
+        elif score < 55:
+            rating_kr = "중립"
+        elif score < 75:
+            rating_kr = "탐욕"
+        else:
+            rating_kr = "극도의 탐욕"
+        return {
+            "score": score,
+            "rating": rating,
+            "rating_kr": rating_kr,
+            "previous_close": data.get("previous_close"),
+            "previous_1_week": data.get("previous_1_week"),
+        }
+    except Exception as e:
+        print(f"  ⚠ Fear & Greed Index 수집 실패: {e}")
+        return None
+
+
 def fetch_global_market_news() -> Optional[List[Dict]]:
     """Finnhub Market News — 최신 글로벌 시장 뉴스 20건 수집
 

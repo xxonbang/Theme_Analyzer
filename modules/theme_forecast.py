@@ -560,8 +560,15 @@ def build_forecast_context(
     # 시장 심리 지표
     if sentiment_data:
         lines.append("\n## 시장 심리 지표")
-        lines.append(f"- VIX 공포지수: {sentiment_data['score']} ({sentiment_data['rating']})")
-        lines.append("  (VIX: 0~15 안정, 15~25 보통, 25~35 불안, 35+ 공포)")
+        if sentiment_data.get("score") is not None:
+            lines.append(f"- VIX 공포지수: {sentiment_data['score']} ({sentiment_data['rating']})")
+            lines.append("  (VIX: 0~15 안정, 15~25 보통, 25~35 불안, 35+ 공포)")
+        fg = sentiment_data.get("fear_greed")
+        if fg:
+            lines.append(f"- CNN Fear & Greed Index: {fg['score']} ({fg['rating_kr']})")
+            if fg.get("previous_close") is not None:
+                lines.append(f"  (전일: {fg['previous_close']}, 1주전: {fg.get('previous_1_week', 'N/A')})")
+            lines.append("  (0~25 극도의 공포, 25~45 공포, 45~55 중립, 55~75 탐욕, 75~100 극도의 탐욕)")
 
     # 테마 모멘텀 분석
     if momentum_scores:
