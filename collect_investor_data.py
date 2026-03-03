@@ -13,6 +13,8 @@ Usage:
 """
 import json
 import sys
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -271,6 +273,66 @@ def main():
             latest["fluctuation"] = {k: v for k, v in fluctuation_data.items() if k not in meta_keys}
         if fluctuation_direct_data:
             latest["fluctuation_direct"] = {k: v for k, v in fluctuation_direct_data.items() if k not in meta_keys}
+
+        # 종목별 현재가/등락률 갱신 — 랭킹 API에 없는 종목만 개별 조회
+        # 랭킹 갱신된 섹션에서 이미 가격이 최신인 종목코드 수집
+        refreshed_codes = set()
+        for section_key in ["volume", "trading_value"]:
+            for market_key in ["kospi", "kosdaq"]:
+                for s in latest.get(section_key, {}).get(market_key, []):
+                    if s.get("code"):
+                        refreshed_codes.add(s["code"])
+        for section_key in ["fluctuation", "fluctuation_direct"]:
+            for k in ["kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"]:
+                for s in latest.get(section_key, {}).get(k, []):
+                    if s.get("code"):
+                        refreshed_codes.add(s["code"])
+
+        # rising/falling에서 미갱신 종목 수집 (참조 보존)
+        stale_stocks = []  # (종목코드, 종목 dict 참조) 리스트
+        for section_key in ["rising", "falling"]:
+            for market_key in ["kospi", "kosdaq"]:
+                for s in latest.get(section_key, {}).get(market_key, []):
+                    code = s.get("code", "")
+                    if code and code not in refreshed_codes:
+                        stale_stocks.append((code, s))
+
+        if stale_stocks:
+            print(f"\n[종목 현재가 갱신] 랭킹 미포함 {len(stale_stocks)}개 종목 조회")
+            from modules.utils import safe_int, safe_float
+
+            def fetch_price(code: str):
+                try:
+                    time.sleep(0.05)
+                    result = rank_api.client.get_stock_price(code)
+                    output = result.get("output", {})
+                    return code, {
+                        "current_price": safe_int(output.get("stck_prpr", 0)),
+                        "change_rate": safe_float(output.get("prdy_ctrt", 0)),
+                        "change_price": safe_int(output.get("prdy_vrss", 0)),
+                        "volume": safe_int(output.get("acml_vol", 0)),
+                        "trading_value": safe_int(output.get("acml_tr_pbmn", 0)),
+                    }
+                except Exception:
+                    return code, None
+
+            price_map = {}
+            with ThreadPoolExecutor(max_workers=5) as pool:
+                futures = {pool.submit(fetch_price, code): code for code, _ in stale_stocks}
+                for fut in as_completed(futures):
+                    code, data = fut.result()
+                    if data and data["current_price"] > 0:
+                        price_map[code] = data
+
+            # rising/falling 종목 dict를 직접 갱신
+            updated = 0
+            for code, stock_ref in stale_stocks:
+                if code in price_map:
+                    stock_ref.update(price_map[code])
+                    updated += 1
+            print(f"  {updated}/{len(stale_stocks)}개 종목 가격 갱신 완료")
+        else:
+            print(f"\n[종목 현재가 갱신] 모든 종목이 랭킹 API로 갱신 완료")
 
         # 신규 진입 종목 데이터 보충 (history + criteria + member)
         # 랭킹 갱신으로 새로 나타난 종목은 history 등이 없으므로 보충
