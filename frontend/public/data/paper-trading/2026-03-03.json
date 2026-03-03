@@ -1,0 +1,266 @@
+{
+  "trade_date": "2026-03-03",
+  "morning_timestamp": "2026-03-03 09:16:14",
+  "collected_at": "2026-03-03 06:40:43",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-03 09:16:14",
+      "prices": {
+        "003280": 2325,
+        "005880": 2495,
+        "079550": 639000,
+        "272210": 135000,
+        "012450": 1340000,
+        "010950": 134700,
+        "117580": 10440,
+        "024060": 22850,
+        "011200": 24100
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010950",
+          "name": "S-Oil",
+          "theme": "에너지/유가 관련주"
+        },
+        {
+          "code": "117580",
+          "name": "대성에너지",
+          "theme": "에너지/유가 관련주"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유가 관련주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-03 09:40:27",
+      "prices": {
+        "003280": 2330,
+        "005880": 2750,
+        "079550": 661000,
+        "272210": 143600,
+        "012450": 1376000,
+        "010950": 140600,
+        "117580": 10450,
+        "024060": 22850,
+        "011200": 24850
+      },
+      "leader_stocks": [
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방위산업 (K-방산 수출 모멘텀)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방위산업 (K-방산 수출 모멘텀)"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "방위산업 (K-방산 수출 모멘텀)"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류 (운임 상승 및 지정학적 리스크)"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 (운임 상승 및 지정학적 리스크)"
+        },
+        {
+          "code": "011200",
+          "name": "HMM",
+          "theme": "해운/물류 (운임 상승 및 지정학적 리스크)"
+        },
+        {
+          "code": "010950",
+          "name": "S-Oil",
+          "theme": "에너지/유틸리티 (국제 유가 및 지정학적 리스크)"
+        },
+        {
+          "code": "117580",
+          "name": "대성에너지",
+          "theme": "에너지/유틸리티 (국제 유가 및 지정학적 리스크)"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유틸리티 (국제 유가 및 지정학적 리스크)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 2325,
+      "close_price": 2330,
+      "profit_rate": 0.22,
+      "profit_amount": 5,
+      "high_price": 2330,
+      "high_time": "15:30",
+      "high_profit_rate": 0.22,
+      "high_profit_amount": 5
+    },
+    {
+      "code": "005880",
+      "name": "대한해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 2495,
+      "close_price": 2820,
+      "profit_rate": 13.03,
+      "profit_amount": 325,
+      "high_price": 2820,
+      "high_time": "15:30",
+      "high_profit_rate": 13.03,
+      "high_profit_amount": 325
+    },
+    {
+      "code": "079550",
+      "name": "LIG넥스원",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 639000,
+      "close_price": 661000,
+      "profit_rate": 3.44,
+      "profit_amount": 22000,
+      "high_price": 661000,
+      "high_time": "15:30",
+      "high_profit_rate": 3.44,
+      "high_profit_amount": 22000
+    },
+    {
+      "code": "272210",
+      "name": "한화시스템",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 135000,
+      "close_price": 146700,
+      "profit_rate": 8.67,
+      "profit_amount": 11700,
+      "high_price": 147000,
+      "high_time": "09:41",
+      "high_profit_rate": 8.89,
+      "high_profit_amount": 12000
+    },
+    {
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 1340000,
+      "close_price": 1432000,
+      "profit_rate": 6.87,
+      "profit_amount": 92000,
+      "high_price": 1492000,
+      "high_time": "09:42",
+      "high_profit_rate": 11.34,
+      "high_profit_amount": 152000
+    },
+    {
+      "code": "010950",
+      "name": "S-Oil",
+      "theme": "에너지/유가 관련주",
+      "market": "KOSPI",
+      "buy_price": 134700,
+      "close_price": 141300,
+      "profit_rate": 4.9,
+      "profit_amount": 6600,
+      "high_price": 142800,
+      "high_time": "15:05",
+      "high_profit_rate": 6.01,
+      "high_profit_amount": 8100
+    },
+    {
+      "code": "117580",
+      "name": "대성에너지",
+      "theme": "에너지/유가 관련주",
+      "market": "KOSPI",
+      "buy_price": 10440,
+      "close_price": 10450,
+      "profit_rate": 0.1,
+      "profit_amount": 10,
+      "high_price": 10450,
+      "high_time": "15:30",
+      "high_profit_rate": 0.1,
+      "high_profit_amount": 10
+    },
+    {
+      "code": "024060",
+      "name": "흥구석유",
+      "theme": "에너지/유가 관련주",
+      "market": "KOSPI",
+      "buy_price": 22850,
+      "close_price": 22850,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 22850,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "011200",
+      "name": "HMM",
+      "theme": "해운/물류 (운임 상승 및 지정학적 리스크)",
+      "market": "KOSPI",
+      "buy_price": 24100,
+      "close_price": 24500,
+      "profit_rate": 1.66,
+      "profit_amount": 400,
+      "high_price": 24950,
+      "high_time": "09:29",
+      "high_profit_rate": 3.53,
+      "high_profit_amount": 850
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 8,
+    "loss_stocks": 0,
+    "total_invested": 2310910,
+    "total_value": 2443950,
+    "total_profit": 133040,
+    "total_profit_rate": 5.76,
+    "high_total_value": 2506200,
+    "high_total_profit": 195290,
+    "high_total_profit_rate": 8.45,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 0
+  }
+}
