@@ -10,7 +10,7 @@ import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { TradingChartPopup } from "@/components/TradingChartPopup"
 import { InvestorChartPopup } from "@/components/InvestorChartPopup"
 import { Sparkline } from "@/components/Sparkline"
-import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria } from "@/types/stock"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday } from "@/types/stock"
 
 interface StockCardProps {
   stock: Stock
@@ -22,10 +22,11 @@ interface StockCardProps {
   investorUpdatedAt?: string
   memberInfo?: MemberInfo
   criteria?: StockCriteria
+  investorIntraday?: InvestorIntraday
   isAdmin?: boolean
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, isAdmin }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
@@ -152,7 +153,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <span className="text-muted-foreground text-[10px] sm:text-xs ml-0.5">원</span>
             </p>
             <div className="flex items-center justify-end gap-1">
-              {/* D-2, D-1 등락률 (클릭하면 6일 팝업) */}
+              {/* D-2, D-1 등락률 (클릭하면 10일 팝업) */}
               {history && history.changes && history.changes.length > 0 && (() => {
                 const reversed = [...history.changes].reverse()
                 const pastDays = reversed.slice(0, -1)
@@ -183,7 +184,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 {formatChangeRate(stock.change_rate)}
               </Badge>
             </div>
-            {/* 6일 가격 변동 팝업 */}
+            {/* 10일 가격 변동 팝업 */}
             {showPriceHistory && history && history.changes && (
               <PriceHistoryPopup
                 stockName={stock.name}
@@ -209,7 +210,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <span className="text-muted-foreground">
                 거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
-              {/* 6일 거래대금 추이 스파크라인 + 히스토리 토글 */}
+              {/* 10일 거래대금 추이 스파크라인 + 히스토리 토글 */}
               {history?.changes && history.changes.length > 1 && (() => {
                 const tradingSparkData = [...history.changes].reverse().map(c => c.trading_value ?? 0)
                 return (
@@ -241,9 +242,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 />
               )}
             </div>
-            {/* 거래 히스토리 (카드: 최근 5일) */}
+            {/* 거래 히스토리 (카드: 최근 9일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
-              const pastDays = [...history.changes.slice(1)].reverse().slice(-5) // 최근 5일만 (과거→최신)
+              const pastDays = [...history.changes.slice(1)].reverse().slice(-9) // 최근 9일 (과거→최신)
               if (pastDays.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
@@ -312,13 +313,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       <InvestorChartPopup
                         stockName={stock.name}
                         investorInfo={investorInfo}
+                        stockCode={stock.code}
+                        investorIntraday={investorIntraday}
                         onClose={() => setShowInvestorChart(false)}
                       />
                     )}
                   </div>
-                  {/* 수급 히스토리 (카드: 최근 5일) */}
+                  {/* 수급 히스토리 (카드: 최근 9일) */}
                   {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (() => {
-                    const recentHistory = [...investorInfo.history].slice(-5)
+                    const recentHistory = [...investorInfo.history].slice(0, 9)
                     return (
                     <div className="mt-1 text-[10px] space-y-0.5">
                       {[...recentHistory].reverse().map((h, idx) => {

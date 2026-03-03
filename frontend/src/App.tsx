@@ -548,6 +548,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
+                    investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
                   />
                   <StockList
@@ -564,6 +565,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
+                    investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
                   />
                 </>
@@ -584,6 +586,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
+                    investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
                   />
                   <StockList
@@ -600,6 +603,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
+                    investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
                   />
                 </>

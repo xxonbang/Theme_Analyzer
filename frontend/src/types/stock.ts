@@ -102,6 +102,24 @@ export interface InvestorInfo {
   }[]
 }
 
+export interface IntradaySnapshotEntry {
+  f: number
+  i: number
+  p: number | null
+}
+
+export interface IntradaySnapshot {
+  time: string
+  round: number
+  is_estimated: boolean
+  data: Record<string, IntradaySnapshotEntry>
+}
+
+export interface InvestorIntraday {
+  date: string
+  snapshots: IntradaySnapshot[]
+}
+
 export interface MemberBroker {
   name: string
   qty: number
@@ -179,6 +197,7 @@ export interface StockData {
   kospi_index?: KosdaqIndex
   kosdaq_index?: KosdaqIndex
   member_data?: Record<string, MemberInfo>
+  investor_intraday?: InvestorIntraday
 }
 
 // 모의투자 관련 타입

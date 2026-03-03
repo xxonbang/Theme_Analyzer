@@ -1,12 +1,14 @@
-import { useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { X } from "lucide-react"
 import { cn, formatNetBuy, getNetBuyColor } from "@/lib/utils"
-import type { InvestorInfo } from "@/types/stock"
+import type { InvestorInfo, InvestorIntraday } from "@/types/stock"
 
 interface InvestorChartPopupProps {
   stockName: string
   investorInfo: InvestorInfo
+  stockCode?: string
+  investorIntraday?: InvestorIntraday
   onClose: () => void
 }
 
@@ -27,8 +29,8 @@ function buildLine(values: number[], allMin: number, allMax: number): string {
   }).join(" ")
 }
 
-export function InvestorChartPopup({ stockName, investorInfo, onClose }: InvestorChartPopupProps) {
-  // 히스토리: 과거→현재 순 (history는 D-1, D-2, ... 순이므로 reverse)
+export function InvestorChartPopup({ stockName, investorInfo, stockCode, investorIntraday, onClose }: InvestorChartPopupProps) {
+  // === 일봉 데이터 (기존 코드 100% 유지) ===
   const history = investorInfo.history ?? []
   const allDays = [
     ...history.slice().reverse(),
@@ -45,7 +47,6 @@ export function InvestorChartPopup({ stockName, investorInfo, onClose }: Investo
   const allMax = Math.max(...allValues)
   const range = allMax - allMin || 1
 
-  // 0 기준선 Y좌표
   const zeroY = PAD.top + (1 - (0 - allMin) / range) * PLOT_H
 
   const lines: LineData[] = [
@@ -53,6 +54,40 @@ export function InvestorChartPopup({ stockName, investorInfo, onClose }: Investo
     { values: instVals, color: "#8b5cf6" },
     { values: indivVals, color: "#22c55e" },
   ]
+
+  // === 장중 데이터 ===
+  const intradaySnapshots = useMemo(() => {
+    if (!stockCode || !investorIntraday?.snapshots) return []
+    return investorIntraday.snapshots
+      .filter(s => s.data[stockCode])
+      .map(s => ({ time: s.time, round: s.round, ...s.data[stockCode] }))
+  }, [stockCode, investorIntraday])
+
+  const hasIntraday = intradaySnapshots.length >= 2
+
+  const [activeTab, setActiveTab] = useState<"daily" | "intraday">("daily")
+
+  // 장중 차트 데이터
+  const intradayChart = useMemo(() => {
+    if (intradaySnapshots.length < 2) return null
+    const fVals = intradaySnapshots.map(s => s.f)
+    const iVals = intradaySnapshots.map(s => s.i)
+    const pVals = intradaySnapshots.map(s => s.p ?? 0)
+    const all = [...fVals, ...iVals, ...pVals]
+    const min = Math.min(...all)
+    const max = Math.max(...all)
+    const rng = max - min || 1
+    const zy = PAD.top + (1 - (0 - min) / rng) * PLOT_H
+    const lbls = intradaySnapshots.map(s => s.time)
+    return {
+      fVals, iVals, pVals, min, max, zeroY: zy, labels: lbls,
+      lines: [
+        { values: fVals, color: "#ef4444" },
+        { values: iVals, color: "#8b5cf6" },
+        { values: pVals, color: "#22c55e" },
+      ] as LineData[],
+    }
+  }, [intradaySnapshots])
 
   useEffect(() => {
     const scrollY = window.scrollY
@@ -84,70 +119,138 @@ export function InvestorChartPopup({ stockName, investorInfo, onClose }: Investo
         <div className="flex items-center justify-between mb-3">
           <div>
             <span className="text-sm font-semibold">{stockName}</span>
-            <span className="text-xs text-muted-foreground ml-2">수급 추이 ({allDays.length}일)</span>
+            <span className="text-xs text-muted-foreground ml-2">
+              {activeTab === "daily" ? `수급 추이 (${allDays.length}일)` : `장중 수급 (${intradaySnapshots.length}회)`}
+            </span>
           </div>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* SVG 차트 */}
-        {allDays.length >= 2 && (
-          <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-            {/* 0 기준선 */}
-            <line
-              x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
-              stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
-            />
-            <text x={PAD.left - 3} y={zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-
-            {/* Y축 라벨 (최대/최소) */}
-            <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
-            <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
-
-            {/* X축 라벨 */}
-            {labels.map((label, i) => {
-              const x = PAD.left + (i / (labels.length - 1)) * PLOT_W
-              return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
-            })}
-
-            {/* 라인들 */}
-            {lines.map((line, idx) => (
-              <polyline
-                key={idx}
-                points={buildLine(line.values, allMin, allMax)}
-                fill="none" stroke={line.color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-              />
-            ))}
-          </svg>
+        {/* 탭 (장중 데이터 2건 이상일 때만 표시) */}
+        {hasIntraday && (
+          <div className="flex gap-1 mb-3">
+            <button
+              onClick={() => setActiveTab("daily")}
+              className={cn(
+                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              일봉
+            </button>
+            <button
+              onClick={() => setActiveTab("intraday")}
+              className={cn(
+                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              장중
+            </button>
+          </div>
         )}
 
-        {/* 범례 */}
-        <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
+        {/* === 일봉 탭 (기존 코드 100% 유지) === */}
+        {activeTab === "daily" && (
+          <>
+            {allDays.length >= 2 && (
+              <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
+                <line
+                  x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
+                  stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
+                />
+                <text x={PAD.left - 3} y={zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+                <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
+                <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
+                {labels.map((label, i) => {
+                  const x = PAD.left + (i / (labels.length - 1)) * PLOT_W
+                  return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+                })}
+                {lines.map((line, idx) => (
+                  <polyline
+                    key={idx}
+                    points={buildLine(line.values, allMin, allMax)}
+                    fill="none" stroke={line.color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
+                  />
+                ))}
+              </svg>
+            )}
+            {/* 일봉 테이블 */}
+            <div className="space-y-0">
+              <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+                <span className="w-8 shrink-0">일자</span>
+                <span className="flex-1 text-right">외국인</span>
+                <span className="flex-1 text-right">기관</span>
+                <span className="flex-1 text-right">개인</span>
+              </div>
+              {allDays.map((d, idx) => {
+                const isToday = idx === allDays.length - 1
+                return (
+                  <div key={idx} className={`flex items-center py-1 text-[10px] ${isToday ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < allDays.length - 1 ? "border-b border-border/20" : ""}`}>
+                    <span className="w-8 shrink-0 text-muted-foreground font-medium">{labels[idx]}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.foreign_net))}>{formatNetBuy(d.foreign_net)}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.institution_net))}>{formatNetBuy(d.institution_net)}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.individual_net ?? 0))}>{d.individual_net != null ? formatNetBuy(d.individual_net) : "-"}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </>
+        )}
+
+        {/* === 장중 탭 === */}
+        {activeTab === "intraday" && intradayChart && (
+          <>
+            <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
+              <line
+                x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
+                stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
+              />
+              <text x={PAD.left - 3} y={intradayChart.zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+              <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
+              <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
+              {intradayChart.labels.map((label, i) => {
+                const x = PAD.left + (i / (intradayChart.labels.length - 1)) * PLOT_W
+                return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+              })}
+              {intradayChart.lines.map((line, idx) => (
+                <polyline
+                  key={idx}
+                  points={buildLine(line.values, intradayChart.min, intradayChart.max)}
+                  fill="none" stroke={line.color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
+                />
+              ))}
+            </svg>
+            {/* 장중 테이블 */}
+            <div className="space-y-0">
+              <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+                <span className="w-10 shrink-0">시간</span>
+                <span className="flex-1 text-right">외국인</span>
+                <span className="flex-1 text-right">기관</span>
+                <span className="flex-1 text-right">개인</span>
+              </div>
+              {intradaySnapshots.map((s, idx) => {
+                const isLast = idx === intradaySnapshots.length - 1
+                return (
+                  <div key={idx} className={`flex items-center py-1 text-[10px] ${isLast ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < intradaySnapshots.length - 1 ? "border-b border-border/20" : ""}`}>
+                    <span className="w-10 shrink-0 text-muted-foreground font-medium">{s.time}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.f))}>{formatNetBuy(s.f)}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.i))}>{formatNetBuy(s.i)}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", s.p != null ? getNetBuyColor(s.p) : "text-muted-foreground")}>{s.p != null ? formatNetBuy(s.p) : "-"}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </>
+        )}
+
+        {/* 범례 (공통) */}
+        <div className="flex items-center gap-3 text-[10px] text-muted-foreground mt-2">
           <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-red-500 rounded inline-block" />외국인</span>
           <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-violet-500 rounded inline-block" />기관</span>
           <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-green-500 rounded inline-block" />개인</span>
-        </div>
-
-        {/* 테이블 */}
-        <div className="space-y-0">
-          <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
-            <span className="w-8 shrink-0">일자</span>
-            <span className="flex-1 text-right">외국인</span>
-            <span className="flex-1 text-right">기관</span>
-            <span className="flex-1 text-right">개인</span>
-          </div>
-          {allDays.map((d, idx) => {
-            const isToday = idx === allDays.length - 1
-            return (
-              <div key={idx} className={`flex items-center py-1 text-[10px] ${isToday ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < allDays.length - 1 ? "border-b border-border/20" : ""}`}>
-                <span className="w-8 shrink-0 text-muted-foreground font-medium">{labels[idx]}</span>
-                <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.foreign_net))}>{formatNetBuy(d.foreign_net)}</span>
-                <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.institution_net))}>{formatNetBuy(d.institution_net)}</span>
-                <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.individual_net ?? 0))}>{d.individual_net != null ? formatNetBuy(d.individual_net) : "-"}</span>
-              </div>
-            )
-          })}
         </div>
       </div>
     </div>,

@@ -217,6 +217,50 @@ def main():
         latest["investor_estimated"] = is_estimated
         latest["investor_updated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
 
+        # 장중 수급 스냅샷 누적 (추정 데이터일 때만)
+        if is_estimated:
+            INTRADAY_SCHEDULE = [
+                {"time": "09:35", "round": 1},
+                {"time": "10:05", "round": 2},
+                {"time": "11:25", "round": 3},
+                {"time": "13:25", "round": 4},
+                {"time": "14:35", "round": 5},
+            ]
+            today_str = now.strftime("%Y-%m-%d")
+            time_str = now.strftime("%H:%M")
+
+            # 현재 라운드 판별
+            current_round = 0
+            for s in reversed(INTRADAY_SCHEDULE):
+                if time_str >= s["time"]:
+                    current_round = s["round"]
+                    break
+
+            if current_round > 0:
+                intraday = latest.get("investor_intraday", {})
+                # 날짜 변경 시 초기화
+                if intraday.get("date") != today_str:
+                    intraday = {"date": today_str, "snapshots": []}
+
+                # 동일 라운드 중복 방지
+                existing_rounds = {s["round"] for s in intraday.get("snapshots", [])}
+                if current_round not in existing_rounds:
+                    snapshot_data = {}
+                    for code, inv in investor_data.items():
+                        entry = {"f": inv.get("foreign_net", 0), "i": inv.get("institution_net", 0)}
+                        indiv = inv.get("individual_net")
+                        entry["p"] = indiv if indiv is not None else None
+                        snapshot_data[code] = entry
+
+                    intraday.setdefault("snapshots", []).append({
+                        "time": INTRADAY_SCHEDULE[current_round - 1]["time"],
+                        "round": current_round,
+                        "is_estimated": True,
+                        "data": snapshot_data,
+                    })
+                    latest["investor_intraday"] = intraday
+                    print(f"  장중 스냅샷 {current_round}차 저장 ({len(snapshot_data)}개 종목)")
+
         # 거래량/거래대금/등락률 갱신 (메타 필드 제거)
         meta_keys = {"collected_at", "category", "exclude_etf"}
         if volume_data:
