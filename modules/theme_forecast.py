@@ -22,6 +22,56 @@ logger = logging.getLogger(__name__)
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 ROOT_DIR = Path(__file__).parent.parent
 
+# Gemini responseSchema: Phase2 JSON 구조화용
+_LEADER_STOCK_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "priority": {"type": "integer"},
+        "name": {"type": "string"},
+        "code": {"type": "string"},
+        "reason": {"type": "string"},
+        "data_verified": {"type": "boolean"},
+    },
+    "required": ["priority", "name", "code", "reason", "data_verified"],
+}
+
+_THEME_ITEM_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "theme_name": {"type": "string"},
+        "description": {"type": "string"},
+        "catalyst": {"type": "string"},
+        "confidence": {"type": "string"},
+        "leader_stocks": {"type": "array", "items": _LEADER_STOCK_SCHEMA},
+    },
+    "required": ["theme_name", "description", "catalyst", "confidence", "leader_stocks"],
+}
+
+_THEME_ITEM_WITH_PERIOD_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "theme_name": {"type": "string"},
+        "description": {"type": "string"},
+        "catalyst": {"type": "string"},
+        "confidence": {"type": "string"},
+        "target_period": {"type": "string"},
+        "leader_stocks": {"type": "array", "items": _LEADER_STOCK_SCHEMA},
+    },
+    "required": ["theme_name", "description", "catalyst", "confidence", "target_period", "leader_stocks"],
+}
+
+FORECAST_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "market_context": {"type": "string"},
+        "us_market_summary": {"type": "string"},
+        "today": {"type": "array", "items": _THEME_ITEM_SCHEMA},
+        "short_term": {"type": "array", "items": _THEME_ITEM_WITH_PERIOD_SCHEMA},
+        "long_term": {"type": "array", "items": _THEME_ITEM_WITH_PERIOD_SCHEMA},
+    },
+    "required": ["market_context", "us_market_summary", "today", "short_term", "long_term"],
+}
+
 # 세션 내 일일 할당 소진된 키 추적
 _exhausted_keys: set = set()
 
@@ -156,34 +206,52 @@ def _gemini_post(url: str, payload: dict, timeout: int = 180, max_retries: int =
 
 
 def _call_gemini(prompt: str, api_key: str) -> Tuple[Optional[Dict], List[Dict[str, str]]]:
-    """Gemini API 호출 (Google Search grounding). (결과 dict, 뉴스 소스) 튜플 반환."""
+    """Gemini API 호출 (Google Search grounding). (결과 dict, 뉴스 소스) 튜플 반환.
+
+    1차: responseMimeType + responseSchema로 structured output 시도
+    2차: 실패 시 기존 텍스트+regex fallback
+    """
     url = f"{GEMINI_API_URL}?key={api_key}"
+
+    # 1차: structured output 시도
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
         "generationConfig": {
             "temperature": 0.5,
-            "thinkingConfig": {
-                "thinkingBudget": -1
-            },
+            "thinkingConfig": {"thinkingBudget": -1},
+            "responseMimeType": "application/json",
+            "responseSchema": FORECAST_SCHEMA,
         },
     }
+    try:
+        resp = _gemini_post(url, payload, timeout=180)
+        data = resp.json()
+        sources = _extract_grounding_sources(data)
+        text = _extract_text_from_response(data)
+        if text.strip():
+            result = _extract_json(text)
+            if result:
+                logger.debug("structured output 성공 (_call_gemini)")
+                return result, sources
+    except GeminiDailyQuotaExhausted:
+        raise  # 일일 할당 초과는 상위로 전파
+    except requests.exceptions.HTTPError as e:
+        status = e.response.status_code if e.response is not None else 0
+        if status in (429, 503):
+            raise  # rate limit / 서버 오류는 상위로 전파
+        logger.debug("structured output 실패 (HTTP %s), fallback 시도", status)
+    except Exception:
+        logger.debug("structured output 실패, fallback 시도")
+
+    # 2차: 기존 방식 (텍스트+regex)
+    payload["generationConfig"].pop("responseMimeType", None)
+    payload["generationConfig"].pop("responseSchema", None)
 
     resp = _gemini_post(url, payload, timeout=180)
-
     data = resp.json()
     sources = _extract_grounding_sources(data)
-    candidates = data.get("candidates", [])
-    if not candidates:
-        return None, sources
-
-    content = candidates[0].get("content", {})
-    parts = content.get("parts", [])
-
-    text = ""
-    for part in parts:
-        if "text" in part:
-            text += part["text"]
+    text = _extract_text_from_response(data)
 
     if not text.strip():
         return None, sources
@@ -259,6 +327,7 @@ def _call_gemini_phase2(reasoning: str, api_key: str) -> Optional[Dict]:
             "temperature": 0.3,
             "thinkingConfig": {"thinkingBudget": 0},
             "responseMimeType": "application/json",
+            "responseSchema": FORECAST_SCHEMA,
         },
     }
 

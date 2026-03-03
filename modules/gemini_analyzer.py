@@ -18,6 +18,50 @@ logger = logging.getLogger(__name__)
 
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
+# Gemini responseSchema: 테마 분석 JSON 구조화용
+THEME_ANALYSIS_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "market_summary": {"type": "string"},
+        "themes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "theme_name": {"type": "string"},
+                    "theme_description": {"type": "string"},
+                    "leader_stocks": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {"type": "string"},
+                                "code": {"type": "string"},
+                                "reason": {"type": "string"},
+                                "valuation": {"type": "string"},
+                                "news_evidence": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {"type": "string"},
+                                            "url": {"type": "string"},
+                                        },
+                                        "required": ["title", "url"],
+                                    },
+                                },
+                            },
+                            "required": ["name", "code", "reason", "valuation", "news_evidence"],
+                        },
+                    },
+                },
+                "required": ["theme_name", "theme_description", "leader_stocks"],
+            },
+        },
+    },
+    "required": ["market_summary", "themes"],
+}
+
 # 세션 내 일일 할당 소진된 키 추적
 _exhausted_keys: set = set()
 
@@ -270,34 +314,56 @@ def _extract_json(text: str) -> Optional[Dict]:
     return None
 
 
+def _extract_text_from_response(data: Dict) -> str:
+    """Gemini 응답에서 텍스트 추출"""
+    candidates = data.get("candidates", [])
+    if not candidates:
+        return ""
+    parts = candidates[0].get("content", {}).get("parts", [])
+    return "".join(part.get("text", "") for part in parts)
+
+
 def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
-    """Gemini API 호출 (Google Search grounding + 텍스트에서 JSON 파싱)"""
+    """Gemini API 호출 (Google Search grounding).
+
+    1차: responseMimeType + responseSchema로 structured output 시도
+    2차: 실패 시 기존 텍스트+regex fallback
+    """
     url = f"{GEMINI_API_URL}?key={api_key}"
+
+    # 1차: structured output 시도
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
         "generationConfig": {
             "temperature": 0.5,
+            "responseMimeType": "application/json",
+            "responseSchema": THEME_ANALYSIS_SCHEMA,
         },
     }
+    try:
+        resp = requests.post(url, json=payload, timeout=120)
+        resp.raise_for_status()
+        text = _extract_text_from_response(resp.json())
+        if text.strip():
+            result = _extract_json(text)
+            if result:
+                logger.debug("structured output 성공")
+                return result
+    except requests.exceptions.HTTPError as e:
+        status = e.response.status_code if e.response is not None else 0
+        if status in (429, 503):
+            raise  # rate limit / 서버 오류는 상위로 전파
+        logger.debug("structured output 실패 (HTTP %s), fallback 시도", status)
+
+    # 2차: 기존 방식 (텍스트+regex)
+    payload["generationConfig"].pop("responseMimeType", None)
+    payload["generationConfig"].pop("responseSchema", None)
 
     resp = requests.post(url, json=payload, timeout=120)
     resp.raise_for_status()
 
-    data = resp.json()
-    candidates = data.get("candidates", [])
-    if not candidates:
-        return None
-
-    content = candidates[0].get("content", {})
-    parts = content.get("parts", [])
-
-    # 텍스트 파트 결합
-    text = ""
-    for part in parts:
-        if "text" in part:
-            text += part["text"]
-
+    text = _extract_text_from_response(resp.json())
     if not text.strip():
         return None
 
