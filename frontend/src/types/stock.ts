@@ -106,6 +106,8 @@ export interface IntradaySnapshotEntry {
   f: number
   i: number
   p: number | null
+  cp?: number   // current_price (원)
+  cr?: number   // change_rate (%)
 }
 
 export interface IntradaySnapshot {

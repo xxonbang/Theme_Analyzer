@@ -247,11 +247,29 @@ def main():
                 # 동일 라운드 중복 방지
                 existing_rounds = {s["round"] for s in intraday.get("snapshots", [])}
                 if current_round not in existing_rounds:
+                    # price_map 구축 (랭킹 데이터에서 현재가/등락률 추출)
+                    price_map = {}
+                    for section_data in [volume_data, trading_value_data]:
+                        for mkt in ["kospi", "kosdaq"]:
+                            for s in section_data.get(mkt, []):
+                                code = s.get("code")
+                                if code and code not in price_map:
+                                    price_map[code] = (s.get("current_price", 0), s.get("change_rate", 0.0))
+                    for section_data in [fluctuation_data, fluctuation_direct_data]:
+                        for k in ["kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"]:
+                            for s in section_data.get(k, []):
+                                code = s.get("code")
+                                if code and code not in price_map:
+                                    price_map[code] = (s.get("current_price", 0), s.get("change_rate", 0.0))
+
                     snapshot_data = {}
                     for code, inv in investor_data.items():
                         entry = {"f": inv.get("foreign_net", 0), "i": inv.get("institution_net", 0)}
                         indiv = inv.get("individual_net")
                         entry["p"] = indiv if indiv is not None else None
+                        if code in price_map:
+                            entry["cp"] = price_map[code][0]
+                            entry["cr"] = price_map[code][1]
                         snapshot_data[code] = entry
 
                     intraday.setdefault("snapshots", []).append({
