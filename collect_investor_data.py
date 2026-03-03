@@ -249,6 +249,7 @@ def main():
                 if current_round not in existing_rounds:
                     # price_map 구축 (랭킹 데이터에서 현재가/등락률 추출)
                     price_map = {}
+                    # 1차: 현재 수집된 랭킹 데이터
                     for section_data in [volume_data, trading_value_data]:
                         for mkt in ["kospi", "kosdaq"]:
                             for s in section_data.get(mkt, []):
@@ -261,6 +262,20 @@ def main():
                                 code = s.get("code")
                                 if code and code not in price_map:
                                     price_map[code] = (s.get("current_price", 0), s.get("change_rate", 0.0))
+                    # 2차 fallback: latest.json의 기존 랭킹 데이터
+                    if not price_map:
+                        for section_data in [latest.get("volume", {}), latest.get("trading_value", {})]:
+                            for mkt in ["kospi", "kosdaq"]:
+                                for s in section_data.get(mkt, []):
+                                    code = s.get("code")
+                                    if code and code not in price_map:
+                                        price_map[code] = (s.get("current_price", 0), s.get("change_rate", 0.0))
+                        for section_data in [latest.get("fluctuation", {}), latest.get("fluctuation_direct", {})]:
+                            for k in ["kospi_up", "kospi_down", "kosdaq_up", "kosdaq_down"]:
+                                for s in section_data.get(k, []):
+                                    code = s.get("code")
+                                    if code and code not in price_map:
+                                        price_map[code] = (s.get("current_price", 0), s.get("change_rate", 0.0))
 
                     snapshot_data = {}
                     for code, inv in investor_data.items():

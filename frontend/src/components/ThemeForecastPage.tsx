@@ -6,9 +6,11 @@ import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, Chevr
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
 import { useBacktestStats } from "@/hooks/useBacktestStats"
 import { usePredictionHistory } from "@/hooks/usePredictionHistory"
+import { useForecastSnapshots } from "@/hooks/useForecastSnapshots"
 import { BacktestDashboard } from "@/components/BacktestDashboard"
 import { PredictionHistory } from "@/components/PredictionHistory"
 import type { ForecastTheme, ForecastStock, StockCriteria, GroundingSource } from "@/types/stock"
@@ -36,6 +38,7 @@ const LEGEND_DESCRIPTIONS: Record<string, { title: string; description: string }
 
 function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose: () => void }) {
   const info = LEGEND_DESCRIPTIONS[legendKey]
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   useEffect(() => {
     const scrollY = window.scrollY
@@ -59,8 +62,8 @@ function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
-        <div className="sm:hidden flex justify-center mb-2">
+      <div ref={sheetRef} className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
         <div className="flex items-center justify-between mb-2">
@@ -306,6 +309,9 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
   const { data, loading, error } = useThemeForecast()
   const backtestStats = useBacktestStats()
   const predictionHistory = usePredictionHistory()
+  const { snapshots, selected, loading: snapshotLoading, select: selectSnapshot } = useForecastSnapshots(data?.forecast_date ?? null)
+
+  const displayData = selected?.forecast_data ?? data
 
   if (loading) {
     return (
@@ -347,19 +353,42 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />
               <span className="font-semibold text-sm sm:text-base">AI 유망 테마 예측</span>
               <span className="text-[10px] sm:text-xs text-muted-foreground">
-                ({data.forecast_date} {data.generated_at.split(" ")[1]} 생성)
+                ({displayData!.forecast_date} {displayData!.generated_at.split(" ")[1]} 생성)
               </span>
             </div>
           </div>
+          {snapshots.length > 1 && (
+            <div className="flex gap-1 flex-wrap">
+              {snapshots.map(s => {
+                const time = new Date(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
+                const active = selected?.id === s.id
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => selectSnapshot(s.id)}
+                    disabled={snapshotLoading}
+                    className={cn(
+                      "text-[10px] px-2 py-0.5 rounded-full border transition-colors",
+                      active
+                        ? "bg-amber-100 text-amber-700 border-amber-300"
+                        : "text-muted-foreground border-border hover:bg-muted/50"
+                    )}
+                  >
+                    {time}{s.mode === "intraday" ? " (장중)" : ""}
+                  </button>
+                )
+              })}
+            </div>
+          )}
 
           {/* 시장 환경 */}
           <div className="space-y-1.5">
             <p className="text-xs sm:text-sm text-muted-foreground bg-muted/50 rounded-md px-3 py-2 leading-relaxed">
-              {data.market_context}
+              {displayData!.market_context}
             </p>
-            {data.us_market_summary && (
+            {displayData!.us_market_summary && (
               <p className="text-xs sm:text-sm text-muted-foreground bg-blue-500/5 rounded-md px-3 py-2 leading-relaxed">
-                🇺🇸 {data.us_market_summary}
+                🇺🇸 {displayData!.us_market_summary}
               </p>
             )}
           </div>
@@ -375,11 +404,11 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           <ForecastSection
             title="오늘의 유망 테마"
             icon={<TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />}
-            themes={data.today}
+            themes={displayData!.today}
             emptyText="오늘의 유망 테마가 없습니다"
             criteriaData={criteriaData}
             isAdmin={isAdmin}
-            newsSources={data.news_sources}
+            newsSources={displayData!.news_sources}
           />
         </CardContent>
       </Card>
@@ -390,11 +419,11 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           <ForecastSection
             title="단기 유망 테마 (7일 이내)"
             icon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />}
-            themes={data.short_term}
+            themes={displayData!.short_term}
             emptyText="단기 유망 테마가 없습니다"
             criteriaData={criteriaData}
             isAdmin={isAdmin}
-            newsSources={data.news_sources}
+            newsSources={displayData!.news_sources}
           />
         </CardContent>
       </Card>
@@ -405,11 +434,11 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           <ForecastSection
             title="장기 유망 테마 (1개월 이내)"
             icon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />}
-            themes={data.long_term}
+            themes={displayData!.long_term}
             emptyText="장기 유망 테마가 없습니다"
             criteriaData={criteriaData}
             isAdmin={isAdmin}
-            newsSources={data.news_sources}
+            newsSources={displayData!.news_sources}
           />
         </CardContent>
       </Card>

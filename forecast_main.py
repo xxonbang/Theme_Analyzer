@@ -187,7 +187,7 @@ def main():
             # Supabase: today 예측 UPSERT (save_forecast_to_supabase가 UPSERT 처리)
             try:
                 today_only = {**forecast, "short_term": [], "long_term": []}
-                save_forecast_to_supabase(today_only)
+                save_forecast_to_supabase(today_only, mode="intraday")
             except Exception as e:
                 print(f"  ⚠ Supabase 장중 업데이트 실패: {e}")
         else:

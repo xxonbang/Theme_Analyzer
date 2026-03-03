@@ -38,6 +38,7 @@ export interface StockPrediction {
 export interface StockPredictionsByDate {
   date: string
   stocks: StockPrediction[]
+  allPerformance: Record<string, number>
 }
 
 export interface PredictionHistoryState {
@@ -49,10 +50,14 @@ export interface PredictionHistoryState {
 function toStockDates(dates: PredictionsByDate[]): StockPredictionsByDate[] {
   return dates.map(({ date, predictions }) => {
     const stockMap = new Map<string, StockPrediction>()
+    const allPerformance: Record<string, number> = {}
 
     for (const pred of predictions) {
       const perf = pred.actual_performance
       const evaluated = pred.status === "hit" || pred.status === "missed"
+
+      // allPerformance에 merge
+      if (perf) Object.assign(allPerformance, perf)
 
       for (const s of pred.leader_stocks) {
         const ret = perf?.[s.code] ?? null
@@ -76,7 +81,7 @@ function toStockDates(dates: PredictionsByDate[]): StockPredictionsByDate[] {
       }
     }
 
-    return { date, stocks: Array.from(stockMap.values()) }
+    return { date, stocks: Array.from(stockMap.values()), allPerformance }
   })
 }
 

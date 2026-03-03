@@ -1138,8 +1138,8 @@ def _run_single_call_fallback(context: str, api_keys: List[str]) -> Optional[Dic
     return None
 
 
-def save_forecast_to_supabase(forecast: Dict[str, Any]) -> bool:
-    """예측 결과를 Supabase theme_predictions 테이블에 저장"""
+def save_forecast_to_supabase(forecast: Dict[str, Any], mode: str = "full") -> bool:
+    """예측 결과를 Supabase theme_predictions 테이블에 저장 + 스냅샷 보존"""
     try:
         from modules.supabase_client import get_supabase_manager
         manager = get_supabase_manager()
@@ -1167,7 +1167,30 @@ def save_forecast_to_supabase(forecast: Dict[str, Any]) -> bool:
                     "status": "active",
                 })
 
-        if rows:
+        # 스냅샷 INSERT (항상)
+        try:
+            snapshot_row = {
+                "prediction_date": prediction_date,
+                "generated_at": forecast.get("generated_at", datetime.now(KST).isoformat()),
+                "mode": mode,
+                "forecast_data": json.dumps(forecast, ensure_ascii=False),
+            }
+            client.table("forecast_snapshots").insert(snapshot_row).execute()
+            print(f"  ✓ 스냅샷 저장 완료 (mode={mode})")
+        except Exception as e:
+            print(f"  ⚠ 스냅샷 저장 실패: {e}")
+
+        # 당일 첫 실행 여부 확인
+        is_first_run = True
+        try:
+            snap_count = client.table("forecast_snapshots").select(
+                "id", count="exact"
+            ).eq("prediction_date", prediction_date).execute()
+            is_first_run = (snap_count.count or 0) <= 1
+        except Exception:
+            pass  # 조회 실패 시 첫 실행으로 간주
+
+        if rows and is_first_run:
             # 이미 평가된(hit/missed) 행은 덮어쓰지 않도록 보호
             evaluated = set()
             try:
@@ -1217,6 +1240,9 @@ def save_forecast_to_supabase(forecast: Dict[str, Any]) -> bool:
                 print(f"  ⚠ stale 행 삭제 실패: {e}")
 
             print(f"  ✓ Supabase 저장 완료 ({len(safe_rows)}건 저장, {skipped}건 평가완료 보호, {stale_deleted}건 stale 삭제)")
+            return True
+        elif rows and not is_first_run:
+            print(f"  ✓ 스냅샷만 저장 (theme_predictions 미변경)")
             return True
 
         return False

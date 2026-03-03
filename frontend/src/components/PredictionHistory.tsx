@@ -4,7 +4,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp, History, X, ExternalLink, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import type { StockPrediction, StockPredictionsByDate, ThemeInfo } from "@/hooks/usePredictionHistory"
+import { useForecastSnapshots } from "@/hooks/useForecastSnapshots"
+import type { ThemeForecast } from "@/types/stock"
 
 const STATUS_CONFIG: Record<string, { label: string; cls: string }> = {
   hit: { label: "적중", cls: "bg-emerald-100 text-emerald-700" },
@@ -93,6 +96,8 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
   themes: StockPrediction["themes"]
   onClose: () => void
 }) {
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+
   useEffect(() => {
     const scrollY = window.scrollY
     document.body.style.overflow = "hidden"
@@ -113,8 +118,8 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
-        <div className="sm:hidden flex justify-center mb-2">
+      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
         <div className="flex items-center justify-between mb-3">
@@ -185,9 +190,58 @@ function filterStocks(stocks: StockPrediction[], filter: CategoryFilter) {
   return stocks.filter(s => s.themes.some(t => t.category === filter))
 }
 
+function simulateFromSnapshot(
+  forecastData: ThemeForecast,
+  allPerformance: Record<string, number>,
+): StockPrediction[] {
+  const stockMap = new Map<string, StockPrediction>()
+
+  for (const category of ["today", "short_term", "long_term"] as const) {
+    for (const theme of forecastData[category] || []) {
+      for (const s of theme.leader_stocks) {
+        const ret = allPerformance[s.code] ?? null
+        const evaluated = ret != null
+        const hit = ret != null ? ret >= 2.0 : null
+        const themeInfo: ThemeInfo = {
+          theme_name: theme.theme_name,
+          status: hit === true ? "hit" : hit === false ? "missed" : "active",
+          confidence: theme.confidence,
+          category,
+          leader_stocks: theme.leader_stocks,
+          actual_performance: ret != null ? { [s.code]: ret } : null,
+        }
+        const existing = stockMap.get(s.code)
+        if (existing) {
+          existing.themes.push(themeInfo)
+          if (existing.returnByCategory[category] == null && ret != null) {
+            existing.returnByCategory[category] = ret
+          }
+          if (evaluated) existing.evaluatedByCategory[category] = true
+        } else {
+          stockMap.set(s.code, {
+            code: s.code, name: s.name,
+            returnByCategory: { [category]: ret },
+            evaluatedByCategory: { [category]: evaluated },
+            themes: [themeInfo],
+          })
+        }
+      }
+    }
+  }
+  return Array.from(stockMap.values())
+}
+
 function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; categoryFilter: CategoryFilter }) {
   const [expanded, setExpanded] = useState(false)
-  const filtered = filterStocks(group.stocks, categoryFilter)
+  const { snapshots, selected, loading: snapshotLoading, select: selectSnapshot } = useForecastSnapshots(expanded ? group.date : null)
+  const isSimulating = selected != null
+
+  // 시뮬레이션 모드: 스냅샷 데이터로 종목 목록 재구성
+  const baseStocks = isSimulating
+    ? simulateFromSnapshot(selected.forecast_data, group.allPerformance)
+    : group.stocks
+
+  const filtered = filterStocks(baseStocks, categoryFilter)
   const stocks = [...filtered].sort((a, b) => {
     const ra = getStockDisplay(a, categoryFilter).returnPct
     const rb = getStockDisplay(b, categoryFilter).returnPct
@@ -199,7 +253,7 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
   const hitCount = evaluable.filter(d => d.hit).length
   const missCount = evaluable.length - hitCount
 
-  if (stocks.length === 0) return null
+  if (!isSimulating && stocks.length === 0) return null
 
   return (
     <div className="border-b border-border/50 last:border-0">
@@ -212,6 +266,7 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
           <span className="text-muted-foreground">{stocks.length}종목</span>
           {hitCount > 0 && <span className="text-emerald-600 text-[10px]">{hitCount}적중</span>}
           {missCount > 0 && <span className="text-red-500 text-[10px]">{missCount}미스</span>}
+          {isSimulating && <Badge className="text-[9px] px-1 py-0 bg-violet-100 text-violet-700">시뮬레이션</Badge>}
         </div>
         {expanded ? (
           <ChevronUp className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
@@ -222,9 +277,35 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
 
       {expanded && (
         <div className="px-1 pb-2 space-y-0.5">
+          {snapshots.length > 1 && (
+            <div className="flex gap-1 flex-wrap mb-1.5">
+              {snapshots.map(s => {
+                const time = new Date(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
+                const active = selected?.id === s.id
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => selectSnapshot(s.id)}
+                    disabled={snapshotLoading}
+                    className={cn(
+                      "text-[10px] px-2 py-0.5 rounded-full border transition-colors",
+                      active
+                        ? "bg-violet-100 text-violet-700 border-violet-300"
+                        : "text-muted-foreground border-border hover:bg-muted/50"
+                    )}
+                  >
+                    {time}{s.mode === "intraday" ? " (장중)" : ""}
+                  </button>
+                )
+              })}
+            </div>
+          )}
           {stocks.map(stock => (
             <StockRow key={stock.code} stock={stock} categoryFilter={categoryFilter} />
           ))}
+          {isSimulating && stocks.length === 0 && (
+            <p className="text-xs text-muted-foreground text-center py-2">해당 스냅샷에 종목이 없습니다</p>
+          )}
         </div>
       )}
     </div>

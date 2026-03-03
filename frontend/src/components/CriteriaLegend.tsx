@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { Crown, X } from "lucide-react"
-import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { CRITERIA_CONFIG, SPECIAL_CRITERIA_DESCRIPTIONS } from "@/lib/criteria"
 import { cn } from "@/lib/utils"
 
@@ -14,8 +13,6 @@ interface PopupInfo {
 }
 
 function CriteriaInfoPopup({ info, onClose }: { info: PopupInfo; onClose: () => void }) {
-  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
-
   useEffect(() => {
     const scrollY = window.scrollY
     document.body.style.overflow = "hidden"
@@ -34,12 +31,9 @@ function CriteriaInfoPopup({ info, onClose }: { info: PopupInfo; onClose: () => 
   }, [])
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[45] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div ref={sheetRef} className="relative w-full sm:w-72 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
-        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
-        </div>
+      <div className="relative w-72 max-w-[90vw] bg-popover text-popover-foreground rounded-xl shadow-xl border border-border p-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-1.5">
             {info.icon === "crown" ? (

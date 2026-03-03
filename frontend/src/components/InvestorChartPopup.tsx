@@ -15,7 +15,7 @@ interface InvestorChartPopupProps {
 
 const CHART_W = 300
 const CHART_H = 150
-const PAD = { top: 10, right: 40, bottom: 20, left: 45 }
+const PAD = { top: 10, right: 30, bottom: 20, left: 30 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
@@ -67,6 +67,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   }, [stockCode, investorIntraday])
 
   const hasIntraday = intradaySnapshots.length >= 2
+  const [showCr, setShowCr] = useState(true)
 
   const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
     if (!hasIntraday) return "daily"
@@ -175,7 +176,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-red-500 rounded inline-block" />외국인</span>
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-violet-500 rounded inline-block" />기관</span>
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-green-500 rounded inline-block" />개인</span>
-            {activeTab === "intraday" && intradayChart?.hasCr && (
+            {activeTab === "intraday" && intradayChart?.hasCr && showCr && (
               <span className="flex items-center gap-1"><span className="w-3 h-0.5 rounded inline-block" style={{ background: "#f59e0b", borderTop: "1px dashed #f59e0b" }} />등락률</span>
             )}
           </div>
@@ -248,6 +249,22 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         {/* === 장중 탭 === */}
         {activeTab === "intraday" && intradayChart && (
           <>
+            {intradayChart.hasCr && (
+              <div className="flex justify-end mb-1.5">
+                <button
+                  onClick={() => setShowCr(v => !v)}
+                  className={cn(
+                    "flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-md border transition-colors",
+                    showCr
+                      ? "bg-amber-50 text-amber-700 border-amber-300"
+                      : "text-muted-foreground border-border hover:bg-muted/50"
+                  )}
+                >
+                  <span className="w-3 h-0.5 rounded inline-block" style={{ background: showCr ? "#f59e0b" : "#94a3b8", borderTop: `1px dashed ${showCr ? "#f59e0b" : "#94a3b8"}` }} />
+                  등락률 {showCr ? "ON" : "OFF"}
+                </button>
+              </div>
+            )}
             <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
               {/* 0선 */}
               <line x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
@@ -258,7 +275,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
               <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
               {/* 우측 Y축 라벨 */}
-              {intradayChart.hasCr ? (
+              {intradayChart.hasCr && showCr ? (
                 <>
                   <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMax.toFixed(1)}%</text>
                   <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H / 2 + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{((intradayChart.crMax + intradayChart.crMin) / 2).toFixed(1)}%</text>
@@ -286,7 +303,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 />
               ))}
               {/* 등락률 polyline (우축 독립 스케일) */}
-              {intradayChart.hasCr && (
+              {intradayChart.hasCr && showCr && (
                 <polyline
                   points={buildLine(intradayChart.crVals, intradayChart.crMin, intradayChart.crMax)}
                   fill="none" stroke="#f59e0b" strokeWidth={1.5} strokeDasharray="4,2" strokeLinecap="round" strokeLinejoin="round"
@@ -308,7 +325,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 <span className="flex-1 text-right">외국인</span>
                 <span className="flex-1 text-right">기관</span>
                 <span className="flex-1 text-right">개인</span>
-                {intradayChart?.hasCr && <span className="w-14 shrink-0 text-right">등락률</span>}
+                {intradayChart?.hasCr && showCr && <span className="w-14 shrink-0 text-right">등락률</span>}
               </div>
               {intradaySnapshots.map((s, idx) => {
                 const isLast = idx === intradaySnapshots.length - 1
@@ -318,7 +335,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.f))}>{formatNetBuy(s.f)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.i))}>{formatNetBuy(s.i)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", s.p != null ? getNetBuyColor(s.p) : "text-muted-foreground")}>{s.p != null ? formatNetBuy(s.p) : "-"}</span>
-                    {intradayChart?.hasCr && (
+                    {intradayChart?.hasCr && showCr && (
                       <span className={cn("w-14 shrink-0 text-right tabular-nums", s.cr != null && s.cr > 0 ? "text-red-500" : s.cr != null && s.cr < 0 ? "text-blue-500" : "text-muted-foreground")}>
                         {s.cr != null ? `${s.cr > 0 ? "+" : ""}${s.cr.toFixed(2)}%` : "-"}
                       </span>

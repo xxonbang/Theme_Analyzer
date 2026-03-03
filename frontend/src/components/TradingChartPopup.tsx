@@ -15,7 +15,7 @@ interface TradingChartPopupProps {
 
 const CHART_W = 310
 const CHART_H = 120
-const PAD = { top: 10, right: 40, bottom: 20, left: 45 }
+const PAD = { top: 10, right: 30, bottom: 20, left: 30 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
