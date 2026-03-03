@@ -1,204 +1,135 @@
 {
-  "forecast_date": "2026년 03월 03일",
-  "generated_at": "2026-03-03 13:02:09",
-  "market_context": "2026년 3월 3일 장 개장 전, 전일 미국 증시는 중동 지정학적 리스크 고조로 에너지 섹터가 급등하고 주요 기술주가 혼조세를 보인 가운데, 국내 증시는 단기 변동성 확대 및 조정 국면이 불가피할 것으로 전망됩니다. 국제 유가 급등과 인플레이션 우려가 고조되고 있으나, 반도체 호황 등 구조적 상승 요인은 여전합니다.",
-  "us_market_summary": "다우존스 -0.15%, S&P 500 +0.04%, 나스닥 +0.36%로 혼조 마감했으며, 에너지 섹터가 2% 급등한 반면 의료건강, 임의 소비재, 필수소비재 섹터는 1% 넘게 하락했습니다. 국제 유가(WTI)는 6% 넘게 급등했습니다.",
+  "forecast_date": "2026년 03월 04일",
+  "generated_at": "2026-03-04 07:36:14",
+  "market_context": "전일 미국 증시는 중동 지정학적 리스크 심화로 인해 하락 마감했으며, 특히 반도체 섹터의 낙폭이 컸습니다. 국내 증시 또한 3월 3일 코스피가 7% 이상 급락하며 지정학적 리스크와 유가/환율 상승에 대한 민감도를 드러냈습니다.",
+  "us_market_summary": "다우존스 산업평균지수 -0.83% 하락, S&P 500 지수 -0.94% 하락, 나스닥 종합지수 -1.02% 하락 마감. 반도체 관련주 급락.",
   "news_sources": [
     {
       "title": "yna.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGr7W-UbXNzYPj3k2Nfng8RUsQLAjzsIMQgKtuWzn8YXrxtenvaDbGZEefSTUsIBALTMu5tNTqEHDEzzF9QhMzYGUZisXgXf__I1fB7IXhvcYmoeu00dMu8wvjeuIA_cq6vPRiDqCBJ6Wg="
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHUlJSrUI-l5hYoQxHpkt-3M9-QXHN_dsFjG_DNJeZXhyRtFtv6ddOPiKvhZ-8vJhhPKBTqgu-bvRrsgwLu56BYLKTSnt1GEyXLicxqqDOoLzySf9fAGihHPD86T-mAAycmGDkWHjt-sAct"
     },
     {
       "title": "yna.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEg8jmGS3H3m9aKfgMHwXHF1_POpWis-koS6LleypY4jLKcD7t9mwNrs5n_lsQvhMeFLFdf9PhiMI8xtGEuqMS5wW3CDMN76zIUkZXpMOz8RN5Tv0Bqik8iCStWb-6zIFZ54HAJfEb8RCo="
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHawzR-C2229-Oc8iTGl62DaHX3c3kWvxjRL4Iil5rDH38cp_lhQOZw2NmTViOo6x3vyxLQCI-Kzt-W6yUoJKrnM0tAmNSD-zvtv6hm2RrIli45E5rhR_YTaN8b_ZPrtUPSjOo-u6FXizb7"
+    },
+    {
+      "title": "yna.co.kr",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHCqLiTPmCPEVpYp_Po3O4SKDRvIqL53ZthxxA-O-e_r7kH5sHNEmuK6JflB0kz3-17yXwXfK6gylHhKHYzBGbuzDxztutc0Pkl2QoBk787zlPTxXVqHqc-l37Nqf7S-kko3LW083X-8QM6"
     },
     {
       "title": "choicenews.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLDXvKUe76YlLBwqHMzuKOENAtPwu2zn9DxtITfuyjsngAoGr1iW_diRdgN5koHMvDUdxIN1j99H4rbayk5EkRMvairLRrCQoHvsFm2X7yxpS16zrkGm0RRwNW7rWQZtjKP9RHwUrIxts_3oX04ZMs95B_jAOZDZc="
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6yO_RUHba790g5DkoJVWDS4aGQzIt2kb2RttJdzRqgsW48N2OXszBzahnBuef4tkZD1MwwTN1Wq6j600t5zIEiCtfhKkvk1VDXahdk7g84C5FUa1uy6B8GnVU59WeKNmqP-AWZlFgYkVTtuqVtWN05FSETXuTDuie"
     },
     {
-      "title": "mk.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEDebQjYkUuaVTalhh7AetpZMWERC8bQPbhfkI3HMTFam7n5hsgullbLJJ-Ei4lEhG3iqeSoyUeUmGGmArRfRk12FSCKubOnBXZ6xQqFvLZPUxigY013jdJVFXCCot43ug_aw=="
-    },
-    {
-      "title": "mt.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXgOAbiCnSsq_Uk5jWOQCOm3jGNiYr2UxuLwqUDJmfXgS2nLOQNqGIIbDyu5IcqRTqwOa1t6leUjwsAzIGX1L5YRPygUsGff_G9B_pLiHTEUQkq_2XC371wvW6CBzm7hWF17mFYijg5_h8Xr-UDj2Ie2xI"
-    },
-    {
-      "title": "imaeil.com",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1svPVdUPYbL4FXnXvLkaiwzQ7sg34hhMGkXEnowr2BYb5XhWnnZKOen8UWqAd8oAJfNlZB_hC4R5s7qc5APz6VkqTSqs3--zqm14aaXxyUf6jDqO8xZAx5LXmuSyY55DSxmrGNPoYVjP9J_DGQg=="
-    },
-    {
-      "title": "sedaily.com",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG_beu-gvqQ5CQ53HYt-SBxkt4n_gKduqCFNpHy8SJcKdg8l7IEJBw1DzE97k1qWQzj-GFZ47V_J77H_3jCnCzof3SLyZCS1CCitculbzGh9OGiRic1SR3ErONZnP_T-wqCiA=="
+      "title": "newspim.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHlzx9pVGpuqyeZy5WqaWEKPYC6ZbfRETCmDTs1gv8WqLnS9VgI0Uv5HwGcFXWC6C-0FVvOURdvSfytJvusJzk97Xwk8Rw4hB9ipIpwSd1wjz-rMGQMP1x6Wno30KUVvzwp1-_jscrOK1pnUw=="
     },
     {
       "title": "daum.net",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrl_zYKSrvZD8vFCeikF4xAd-Pi9_SkqT9gfpSjVrnFecSHR2xe0I5xCw3xfrYYS2V-3XKNULh94FayFdWnwjTTt7aSByx-6ew21KNqoI0cDoZHrs7D6U29kt9oEy9hdg="
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFcdVck7rpftz4gXBVxNPcymx3BN-G1mdKM0FcjrJPTN4gPmg-_9XL_jsK1JwhUV1c1xiLbSKPyD8bKjt9MuByONR4PPkMmZDcRmjNgBx9OUbTARyo-4m-T-eLjPN-jYTvt"
     },
     {
-      "title": "choicenews.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGA1jRQ6hkwshEubu58cw1wn6As6cb-3SPHyyt-c6Th9BRDI3QrW6Z2xtc3TDoEOaw66uQZofzfjMF4oI-hTPKRGECM_ZNWbmdCK05vRggpCXwhssmAqApvgsWJeJ6BpF6ANjpJEU6z3fuoT8FJgPfJJhv0WDbSJZw="
+      "title": "chosun.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEkZI7SqcV-QZN6arMzenNH2HCxJmiRY_j6KYvc24Wk2_HHAZyVuDf-RTTzPPMVvUup-Yx-6hDEx_JcZLppbzIMfs1kZysvc7LYEJBdehzSFymX-VKpPNsdh3xhehIbg4QodnYoWMR_Ru-WXUg__i6DKitUtMiWkoeHCrFkvNRm1_O3NOqh06M5Nn1UTWv6igM="
     },
     {
-      "title": "newstomato.com",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFhowzoy0deCqGQ2HNd1sBx8MxIMGLU9vdacWxK_h1prW3ua5CkzW9a51zthgimuZn3CBxD53dBLCQaocYNtNUcyWFMWEUQb_XJWZyepM9m11Uhcgr3j-Ldn4dWHWBS4x3tcEa2wVFbGFR3LUVr"
+      "title": "mk.co.kr",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFq0OK6h_k-9FfdkognzWo0fPaDTlLBktElAbkmVcfrpRWYY2boeSNKw4l-uMbJ8otK09Uzkv2DiP3BIeX3aZN3XyracgS8yYO3cxauitinhNqu2CtxOEEAvpbn3oJrTycC9sE="
+    },
+    {
+      "title": "ceomagazine.co.kr",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFsZLRwEiQXUiMLyJNLH6F_I10fTZdKNrmOoCLMNrWZCuKSrVxUa5oq6ueDv3va3dLXtCc5nIFHyiicS9jAxUXfUBchsxSCfGAXC9Y9L4zOtshCkIklib_ms2wAsS-u96mWEy_AKZUqXhwpu2vE"
+    },
+    {
+      "title": "investing.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNGtpA-XlV7S_f74ESS1z1K-qCn8HoCaO-fCZZOw5W1RGEXZa4g5B94HilhRgBHMK-XQx9y48ZEAMY5PRDnkkDMN9a26GI0ykbE8YQ-jh1x0O0kgQgTRbTRJiEHJV9QpGaA62sbheeWhDUN9IlYsGS34IPh2w6eZ0GbA=="
     },
     {
       "title": "einfomax.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9Yklbh1YcHwhcUnACChl2gNF_0v4dNG2dbbHYJH9E3El6QBtNPbavZccO-zLeuUCTHYAPxxjnz6XnTkmx6o95N3GCl1rTvughOEqoSXNxiPCkyfGZsedt1PEIj8FEF0SEXYHWXl8hGZOJ-CzQ7h45jrMT5IIHY1Td"
-    },
-    {
-      "title": "einfomax.co.kr",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHQ9q5s9ulDbQTyzH9dVNQP6Tautt_FM8qLLhAE1ssgmcfTzBWOzrRdhUrZUrjFVqoRMoM4y2pW4DZmxFBLxGSLYmoOZW5Uj-QDjttVuJE8oeX4Wm4HaKwus0xPqc3q0-y6wKEW5IjvrJNdUs-DurWXT3_hRUDfVK2z"
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFUorGnHOczMc1kjzSThO_OOP6s-Isc8dcXz5e1O54Mxn1CDycrGh-ukPdmPhLgEzNi3LZ5PwnW2AV_c5nCSO1b_OGtvxb29tcgtaA8cTCzhksH_DqJ0Y4heRZIZHy0HZqkEV94xdJSPbx8NlXDdWZY3gE2Sy3tckwkXQ=="
     },
     {
       "title": "naver.com",
-      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwHmkKZXwOEPkStDpPzB0L_1488gjOk1YlRn3ItstIzusHWYVVNsPMxGJjnVBWRLwRIbUP927wQPCXH3A1pUFF3YkLxMTs-qcDbzVQGUlRRuL74mpDG-2TOO8RyiKMdaXDGjhJPMlHjavo0EhWO8349XkvbqyLBncKirEvV64VgrQ51A18gmQc1G-rsg=="
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5wH6bThKEOumqkFUnfbojIRCvACUBGlSnnDHz52duWCP-Pc4-oHYc0g9Y2LW4X2EK_D1rnP0S8kefoUqZaNMymxfnOl76EXbGYcsnR3b6gN1dA8A8h-7fYSLDYPB1S6oz4cNQ3uBIC0EIWOuC3e-Tin-dFZeb07L-q5bheFJDQF5zUr5IdwkAoUIWTCs="
     }
   ],
   "today": [
     {
-      "theme_name": "방위산업",
-      "description": "미국과 이란의 전면전 돌입 소식, 이란 최고지도자 사망, 그리고 이란의 호르무즈 해협 봉쇄 선언으로 중동 지역의 지정학적 긴장이 최고조에 달했습니다. 이는 미국 증시에서 방산 관련주들의 강세로 이어졌으며, 글로벌 안보 위기 고조는 K-방산 수출 확대 모멘텀을 더욱 강화할 것으로 예상됩니다.",
-      "catalyst": "미국-이란 전면전 돌입 및 호르무즈 해협 봉쇄 선언으로 인한 중동 지정학적 리스크 최고조",
+      "theme_name": "방위산업/에너지",
+      "description": "미국-이란 간 중동 정세 불안정 심화 및 확전 우려, 이란 군부의 호르무즈 해협 봉쇄 가능성 언급. 이에 따른 WTI 유가 5.01% 급등 및 3거래일 연속 상승, 배럴당 80달러 돌파. 트럼프 전 대통령의 유조선 호위 발언 등 에너지 안보 강화 움직임.",
+      "catalyst": "중동 정세 불안정 심화 및 유가 급등",
       "confidence": "높음",
       "leader_stocks": [
         {
           "priority": 1,
-          "name": "LIG넥스원",
-          "code": "079550",
-          "reason": "전일 방위산업 테마 내 거래대금 최상위권 기록 및 외국인/기관 동반 순매수를 보이며 핵심 대장주로서의 면모를 보여주었습니다.",
+          "name": "한화에어로스페이스",
+          "code": "012450",
+          "reason": "전일 코스피 시장에서 19.83% 급등하며 높은 거래대금을 기록했고, 기관 순매수가 유입되었습니다. 방산 수출 경쟁력과 중동 리스크 부각에 따른 수혜 기대감이 높습니다.",
           "data_verified": true
         },
         {
           "priority": 2,
           "name": "한화시스템",
           "code": "272210",
-          "reason": "전일 방위산업 테마 내 높은 거래대금과 외국인/기관 동반 순매수를 기록했으며, 우주 및 방산 전자 시스템 기술력을 보유하고 있습니다.",
+          "reason": "전일 코스피 시장에서 29.14% 급등하며 높은 거래대금을 기록했고, 외국인과 기관의 동반 순매수가 확인되었습니다. 방산 및 ICT 기술력을 바탕으로 한 수혜가 예상됩니다.",
           "data_verified": true
         },
         {
           "priority": 3,
-          "name": "한화에어로스페이스",
-          "code": "012450",
-          "reason": "전일 방위산업 테마 내 높은 거래대금과 기관 순매수를 기록했습니다. 항공우주 및 방산 엔진 분야의 선도 기업입니다.",
-          "data_verified": true
-        }
-      ]
-    },
-    {
-      "theme_name": "해운/물류",
-      "description": "이란의 호르무즈 해협 봉쇄 공식 선언은 전 세계 원유 수송의 핵심 통로인 해당 해협의 물류 차질 우려를 극대화했습니다. 이는 해상 운임의 추가 상승 압력으로 작용하며, 해운 및 물류 관련 기업들의 실적 개선 기대감을 높일 강력한 촉매로 작용할 것입니다.",
-      "catalyst": "이란의 호르무즈 해협 봉쇄 선언으로 인한 해상 운임 상승 압력 및 물류 차질 우려",
-      "confidence": "높음",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "흥아해운",
-          "code": "003280",
-          "reason": "전일 해운/물류 테마 내 외국인 순매수를 기록했습니다. 중동 리스크에 따른 운임 상승의 직접적인 수혜가 기대됩니다.",
-          "data_verified": true
-        },
-        {
-          "priority": 2,
-          "name": "HMM",
-          "code": "011200",
-          "reason": "전일 해운/물류 테마 내 기관 순매수를 기록한 국내 대표 컨테이너 선사로, 운임 상승 시 큰 수혜를 입을 수 있습니다.",
-          "data_verified": true
-        },
-        {
-          "priority": 3,
-          "name": "대한해운",
-          "code": "005880",
-          "reason": "전일 해운/물류 테마의 대장주로 언급되었으나, 외국인/기관 순매도 기록으로 수급은 다소 약했습니다. 그러나 테마 대표성은 높습니다.",
-          "data_verified": false
-        }
-      ]
-    },
-    {
-      "theme_name": "에너지/유틸리티",
-      "description": "중동 지정학적 리스크 고조와 이란의 호르무즈 해협 봉쇄 선언으로 국제 유가(WTI)가 6% 넘게 급등하며 71.23달러를 기록했습니다. 미국 에너지 섹터 또한 2% 급등하며 이에 반응했습니다. 이는 국내 정유 및 도시가스 등 에너지 관련 기업들의 수익성 개선 기대감을 높이는 강력한 촉매로 작용할 것입니다.",
-      "catalyst": "중동 지정학적 리스크 고조 및 호르무즈 해협 봉쇄 선언으로 인한 국제 유가 급등",
-      "confidence": "높음",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "S-Oil",
-          "code": "010950",
-          "reason": "국내 대표 정유사로 국제 유가 상승 시 직접적인 실적 개선 수혜가 기대됩니다.",
-          "data_verified": false
-        },
-        {
-          "priority": 2,
           "name": "흥구석유",
           "code": "024060",
-          "reason": "유가 변동성에 민감하게 반응하는 석유 제품 유통 관련주로, 시장의 주목을 받을 수 있습니다.",
-          "data_verified": false
-        },
-        {
-          "priority": 3,
-          "name": "대성에너지",
-          "code": "117580",
-          "reason": "도시가스 공급 기업으로 에너지 가격 변동에 따라 시장의 관심이 높아질 수 있습니다.",
+          "reason": "유가 급등 시 대표적인 수혜주로 꼽히며, 중동 리스크 장기화 가능성으로 투자 심리가 개선될 수 있습니다.",
           "data_verified": false
         }
       ]
     },
     {
-      "theme_name": "AI/반도체",
-      "description": "미국 시장에서 엔비디아 등 일부 대형 기술주가 상승했으며, 방산 AI 기업인 팔란티어도 5% 이상 급등하며 AI 기술에 대한 지속적인 시장의 관심을 보여주었습니다. 또한, 이번 주 스페인 바르셀로나에서 개최되는 MWC 2026에서 AI, 모바일, 통신 관련 신기술 발표가 예상되어 관련 기술주에 긍정적인 모멘텀을 제공할 수 있습니다.",
-      "catalyst": "미국 AI 기술주 강세 및 MWC 2026 AI 신기술 발표 기대감",
+      "theme_name": "AI/HBM 반도체 (단기 조정 후 반등 가능성)",
+      "description": "글로벌 AI 산업의 폭발적인 성장 및 고대역폭 메모리(HBM) 수요 증가 기대감은 여전히 유효합니다. MWC 2026에서 AI 및 통신 기술 혁신 소식이 이어질 것으로 예상됩니다. 다만, 전일 미국 반도체 섹터 급락과 국내 주요 반도체 대형주들의 하락은 단기적인 조정 압력으로 작용할 수 있습니다. 증권가에서는 반도체 산업의 이익 성장 구조가 견고하여 단기 조정 후 반등 가능성을 높게 보고 있습니다.",
+      "catalyst": "글로벌 AI 산업 성장 및 MWC 2026 기대감, 단기 조정 후 반등 가능성",
       "confidence": "보통",
       "leader_stocks": [
         {
           "priority": 1,
           "name": "HPSP",
           "code": "403870",
-          "reason": "고압 수소 어닐링 장비 독점 기업으로 고성능 반도체 공정의 필수 장비 수혜가 예상됩니다. 전일 코스닥 거래대금 상위 및 외국인/기관 동반 순매수를 기록했습니다.",
+          "reason": "전일 외국인 순매도에도 불구하고 기관의 대규모 순매수가 유입되었습니다. HBM 관련 핵심 장비 기업으로서 중장기적인 성장 동력은 유효합니다.",
           "data_verified": true
         },
         {
           "priority": 2,
-          "name": "SK하이닉스",
-          "code": "000660",
-          "reason": "고대역폭 메모리(HBM) 시장의 선도 기업으로 AI 반도체 수요 증가의 핵심 수혜주입니다.",
-          "data_verified": false
+          "name": "한미반도체",
+          "code": "042700",
+          "reason": "전일 외국인 순매도에도 기관 순매수가 유입되었으며, HBM 제조 공정 필수 장비 기업으로 AI 반도체 시장 성장의 직접적인 수혜가 기대됩니다.",
+          "data_verified": true
         },
         {
           "priority": 3,
-          "name": "삼성전자",
-          "code": "005930",
-          "reason": "종합 반도체 기업으로 AI 반도체 및 온디바이스 AI 등 전반적인 AI 생태계 확장의 수혜가 기대됩니다.",
+          "name": "SK하이닉스",
+          "code": "000660",
+          "reason": "전일 외국인/기관 순매도가 있었으나, HBM 시장의 선두 주자로서 중장기적인 관점에서 AI 반도체 성장 수혜가 기대됩니다. 단기 조정 시 저가 매수 기회가 될 수 있습니다.",
           "data_verified": false
         }
       ]
     },
     {
-      "theme_name": "증권/금융",
-      "description": "코스피 6000 돌파와 함께 정치권 및 금융당국에서 '코리아 프리미엄' 전환과 '코스피 1만' 시대를 언급하며 상법·세법 개정 및 시장 인프라 혁신에 대한 의지를 표명했습니다. 이는 국내 증시의 구조적인 개선 기대감을 높이며, 밸류업 프로그램 관련주 및 증권/금융 섹터에 대한 중장기적인 관심을 유지시킬 것입니다.",
-      "catalyst": "정부의 '코리아 프리미엄' 및 '코스피 1만' 언급, 밸류업 프로그램 지속 기대감",
+      "theme_name": "중국 소비/경기 민감주",
+      "description": "3월 4일부터 중국 양회가 개막됩니다. 중국 정부의 GDP 성장률 목표치 설정 및 내수 소비 지원책 발표 여부에 따라 관련 섹터의 모멘텀이 발생할 수 있습니다.",
+      "catalyst": "중국 양회 개막 및 정책 기대감",
       "confidence": "보통",
       "leader_stocks": [
         {
           "priority": 1,
-          "name": "KB금융",
-          "code": "105560",
-          "reason": "대표적인 저PBR 금융주로 정부의 밸류업 프로그램의 직접적인 수혜가 기대됩니다.",
+          "name": "아모레퍼시픽",
+          "code": "090430",
+          "reason": "중국 소비 회복 기대감에 따라 화장품 섹터의 대표주로서 수혜가 예상됩니다.",
           "data_verified": false
         },
         {
           "priority": 2,
-          "name": "미래에셋증권",
-          "code": "006800",
-          "reason": "국내 대형 증권사로 시장 거래대금 증가 및 밸류업 프로그램 수혜가 기대됩니다.",
-          "data_verified": false
-        },
-        {
-          "priority": 3,
-          "name": "삼성증권",
-          "code": "016360",
-          "reason": "국내 대형 증권사로 시장 거래 활성화 및 밸류업 프로그램 수혜가 기대됩니다.",
+          "name": "현대제철",
+          "code": "004020",
+          "reason": "중국 정부의 인프라 투자 확대 정책 발표 시 경기 민감주인 철강 섹터의 대표주로서 수혜가 기대됩니다.",
           "data_verified": false
         }
       ]
@@ -206,197 +137,38 @@
   ],
   "short_term": [
     {
-      "theme_name": "AI/HBM 반도체 및 IT 하드웨어/소프트웨어",
-      "description": "MWC 2026에서 AI, 5G/6G, XR 기술 트렌드가 지속되고, 미국 주요 AI/소프트웨어 기업 실적 발표 및 글로벌 AI 산업 투자 확대가 단기적인 모멘텀을 제공할 것입니다.",
-      "catalyst": "MWC 2026, 미국 주요 AI/소프트웨어 기업 실적 발표, 글로벌 AI 산업 투자 확대",
-      "confidence": "높음",
-      "target_period": "이번주",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "한미반도체",
-          "code": "042700",
-          "reason": "HBM 필수 장비 기업, 강력한 수급 및 모멘텀 지속. (선정 근거: Priority 1)",
-          "data_verified": true
-        },
-        {
-          "priority": 2,
-          "name": "HPSP",
-          "code": "403870",
-          "reason": "고압 수소 어닐링 장비 독점 기업, 기관 수급 우수. (선정 근거: Priority 2)",
-          "data_verified": true
-        },
-        {
-          "priority": 3,
-          "name": "이수스페셜티케미컬",
-          "code": "457190",
-          "reason": "전일 +7.87% 상승, 외국인/기관 순매수, HBM 소재 관련 기대감. (선정 근거: Priority 2)",
-          "data_verified": true
-        }
-      ]
-    },
-    {
-      "theme_name": "자동차/친환경 모빌리티",
-      "description": "글로벌 친환경차 전환 가속화, 신차 출시 기대감, 그리고 유가 급등에 따른 전기차 등 친환경차 수요의 장기적 증가 기대감이 단기적으로 작용할 것입니다.",
-      "catalyst": "글로벌 친환경차 전환 가속화, 신차 출시 기대감, 유가 급등",
-      "confidence": "높음",
-      "target_period": "이번주",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "현대차",
-          "code": "005380",
-          "reason": "전일 +10.67% 상승, 외국인 순매수, 친환경차 전략 강화. (선정 근거: Priority 1)",
-          "data_verified": true
-        },
-        {
-          "priority": 2,
-          "name": "기아",
-          "code": "000270",
-          "reason": "전일 -0.24% 하락했으나 기관 순매수, 현대차와 동반 성장 기대. (선정 근거: Priority 2)",
-          "data_verified": true
-        }
-      ]
-    },
-    {
-      "theme_name": "신재생에너지 (태양광 중심)",
-      "description": "중동 지정학적 리스크로 인한 에너지 안보 중요성 부각, 글로벌 탄소 중립 정책 강화, 한국은행 BIS 기후대응 회사채 펀드 참여 등이 신재생에너지 테마를 단기적으로 견인할 것입니다.",
-      "catalyst": "중동 지정학적 리스크, 글로벌 탄소 중립 정책 강화, 한국은행 BIS 기후대응 회사채 펀드 참여",
-      "confidence": "높음",
-      "target_period": "이번주",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "HD현대에너지솔루션",
-          "code": "322000",
-          "reason": "전일 상한가, 외국인/기관 쌍끌이 순매수, 태양광 대표주. (선정 근거: Priority 1)",
-          "data_verified": true
-        },
-        {
-          "priority": 2,
-          "name": "두산에너빌리티",
-          "code": "034020",
-          "reason": "전일 +2.41% 상승, 외국인/기관 쌍끌이 순매수, 원전 및 신재생 에너지 사업 영위. (선정 근거: Priority 2)",
-          "data_verified": true
-        }
-      ]
-    },
-    {
-      "theme_name": "건설/SOC (시멘트)",
-      "description": "정부의 사회간접자본(SOC) 투자 확대 정책 기대감과 중국 양회에서의 인프라 투자 정책 발표 가능성이 건설/SOC 테마에 긍정적인 영향을 미칠 것입니다.",
-      "catalyst": "정부의 사회간접자본(SOC) 투자 확대 정책 기대감, 중국 양회 (인프라 투자 정책 발표 가능성)",
+      "theme_name": "전력 인프라 및 전선",
+      "description": "중동 정세 불안정 심화로 인한 에너지 안보 중요성 부각 및 전력 수요 증가에 대한 지속적인 관심으로 관련 테마의 모멘텀이 유지될 수 있습니다.",
+      "catalyst": "중동 정세 불안정 심화 및 에너지 안보 중요성 부각",
       "confidence": "보통",
-      "target_period": "이번주",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "삼표시멘트",
-          "code": "038500",
-          "reason": "전일 +13.62% 상승, 외국인 순매수, 시멘트 대표주. (선정 근거: Priority 1)",
-          "data_verified": true
-        },
-        {
-          "priority": 2,
-          "name": "현대건설",
-          "code": "000720",
-          "reason": "전일 +1.67% 상승, 기관 순매수, 국내외 대형 건설 프로젝트 수행. (선정 근거: Priority 2)",
-          "data_verified": true
-        }
-      ]
+      "target_period": "7일 이내",
+      "leader_stocks": []
+    },
+    {
+      "theme_name": "바이오/제약",
+      "description": "GLP-1 및 진단 솔루션 테마는 높은 모멘텀을 유지하고 있으며, 개별 기업의 신약 개발 및 임상 소식에 따라 지속적인 관심이 예상됩니다.",
+      "catalyst": "GLP-1 및 진단 솔루션 테마 모멘텀 유지",
+      "confidence": "보통",
+      "target_period": "7일 이내",
+      "leader_stocks": []
     }
   ],
   "long_term": [
     {
-      "theme_name": "AI/HBM 반도체 및 IT 하드웨어/소프트웨어",
-      "description": "AI 기술 혁명 가속화, 데이터 센터 및 클라우드 인프라 투자 확대, 5G/6G 및 XR 기술 상용화, 반도체 산업의 구조적 성장이 장기적인 성장 동력이 될 것입니다.",
-      "catalyst": "AI 기술 혁명 가속화, 데이터 센터 및 클라우드 인프라 투자 확대, 5G/6G 및 XR 기술 상용화",
+      "theme_name": "증권/금융 (밸류업 프로그램)",
+      "description": "정부의 기업 밸류업 프로그램 정책 모멘텀은 중장기적으로 유효하며, 3차 상법 개정안 통과 등 정책 지원이 국내 증시의 밸류에이션 상승에 긍정적인 영향을 줄 수 있다는 분석이 있습니다.",
+      "catalyst": "정부의 기업 밸류업 프로그램 정책 모멘텀",
       "confidence": "높음",
       "target_period": "1개월 이내",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "삼성전자",
-          "code": "005930",
-          "reason": "글로벌 반도체 및 IT 하드웨어 선두 기업, AI/HBM 투자 확대. (선정 근거: Priority 3, 시장 대표성)",
-          "data_verified": false
-        },
-        {
-          "priority": 2,
-          "name": "SK하이닉스",
-          "code": "000660",
-          "reason": "HBM 시장 선도 기업, AI 반도체 핵심 공급자. (선정 근거: Priority 3, 시장 대표성)",
-          "data_verified": false
-        },
-        {
-          "priority": 3,
-          "name": "한미반도체",
-          "code": "042700",
-          "reason": "HBM 후공정 장비 시장의 핵심 플레이어. (선정 근거: Priority 1)",
-          "data_verified": true
-        }
-      ]
+      "leader_stocks": []
     },
     {
-      "theme_name": "친환경 에너지 및 ESG 관련 산업",
-      "description": "글로벌 탄소 중립 목표 강화, 기후 변화 대응을 위한 정책 및 투자 확대, ESG 경영 확산, 에너지 안보 중요성 지속이 장기적인 성장 동력이 될 것입니다.",
-      "catalyst": "글로벌 탄소 중립 목표 강화, 기후 변화 대응을 위한 정책 및 투자 확대, ESG 경영 확산",
+      "theme_name": "신재생에너지",
+      "description": "글로벌 탄소 중립 정책 강화와 에너지 안보 중요성 부각은 장기적인 관점에서 신재생에너지 산업의 성장을 견인할 것입니다.",
+      "catalyst": "글로벌 탄소 중립 정책 강화 및 에너지 안보 중요성 부각",
       "confidence": "높음",
       "target_period": "1개월 이내",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "HD현대에너지솔루션",
-          "code": "322000",
-          "reason": "태양광 에너지 솔루션 선도 기업. (선정 근거: Priority 1)",
-          "data_verified": true
-        },
-        {
-          "priority": 2,
-          "name": "두산에너빌리티",
-          "code": "034020",
-          "reason": "원전, 풍력, 수소 등 다양한 친환경 에너지 솔루션. (선정 근거: Priority 2)",
-          "data_verified": true
-        }
-      ]
-    },
-    {
-      "theme_name": "글로벌 공급망 재편 수혜 산업 (방위산업, 핵심 소재/부품)",
-      "description": "미중 기술 패권 경쟁 심화, 지정학적 리스크 상시화, 자국 우선주의 및 공급망 재편으로 한국 방산 및 첨단 산업의 전략적 가치가 부각될 것입니다.",
-      "catalyst": "미중 기술 패권 경쟁 심화, 지정학적 리스크 상시화, 자국 우선주의 및 공급망 재편",
-      "confidence": "높음",
-      "target_period": "1개월 이내",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "한화에어로스페이스",
-          "code": "012450",
-          "reason": "K-방산 수출 확대 수혜. (선정 근거: Priority 3)",
-          "data_verified": false
-        },
-        {
-          "priority": 2,
-          "name": "LIG넥스원",
-          "code": "079550",
-          "reason": "정밀 유도무기 등 첨단 방산 기술력. (선정 근거: Priority 3)",
-          "data_verified": false
-        }
-      ]
-    },
-    {
-      "theme_name": "내수 활성화 및 인프라 투자 관련 산업",
-      "description": "한국 경제지표 개선 (산업활동동향, 소비 지표), 정부의 내수 진작 및 SOC 투자 정책 지속, 중국 경제 회복에 따른 간접 수혜가 예상됩니다.",
-      "catalyst": "한국 경제지표 개선, 정부의 내수 진작 및 SOC 투자 정책 지속, 중국 경제 회복",
-      "confidence": "보통",
-      "target_period": "1개월 이내",
-      "leader_stocks": [
-        {
-          "priority": 1,
-          "name": "현대건설",
-          "code": "000720",
-          "reason": "국내외 인프라 및 건설 프로젝트. (선정 근거: Priority 2)",
-          "data_verified": true
-        }
-      ]
+      "leader_stocks": []
     }
   ]
 }
