@@ -18,16 +18,7 @@ const PAD = { top: 10, right: 10, bottom: 20, left: 45 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
-interface LineData { values: number[]; color: string }
-
-function buildLine(values: number[], allMin: number, allMax: number): string {
-  const range = allMax - allMin || 1
-  return values.map((v, i) => {
-    const x = PAD.left + (i / (values.length - 1)) * PLOT_W
-    const y = PAD.top + (1 - (v - allMin) / range) * PLOT_H
-    return `${x},${y}`
-  }).join(" ")
-}
+interface BarSeries { values: number[]; color: string }
 
 export function InvestorChartPopup({ stockName, investorInfo, stockCode, investorIntraday, onClose }: InvestorChartPopupProps) {
   // === 일봉 데이터 (기존 코드 100% 유지) ===
@@ -49,7 +40,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
 
   const zeroY = PAD.top + (1 - (0 - allMin) / range) * PLOT_H
 
-  const lines: LineData[] = [
+  const series: BarSeries[] = [
     { values: foreignVals, color: "#ef4444" },
     { values: instVals, color: "#8b5cf6" },
     { values: indivVals, color: "#22c55e" },
@@ -65,7 +56,15 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
 
   const hasIntraday = intradaySnapshots.length >= 2
 
-  const [activeTab, setActiveTab] = useState<"daily" | "intraday">("daily")
+  const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
+    if (!hasIntraday) return "daily"
+    const now = new Date()
+    const kstHour = (now.getUTCHours() + 9) % 24
+    const kstMin = now.getUTCMinutes()
+    const kstTime = kstHour * 60 + kstMin
+    // 09:00 ~ 15:30 KST → 장중 탭 우선
+    return kstTime >= 540 && kstTime <= 930 ? "intraday" : "daily"
+  })
 
   // 장중 차트 데이터
   const intradayChart = useMemo(() => {
@@ -81,11 +80,11 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     const lbls = intradaySnapshots.map(s => s.time)
     return {
       fVals, iVals, pVals, min, max, zeroY: zy, labels: lbls,
-      lines: [
+      series: [
         { values: fVals, color: "#ef4444" },
         { values: iVals, color: "#8b5cf6" },
         { values: pVals, color: "#22c55e" },
-      ] as LineData[],
+      ] as BarSeries[],
     }
   }, [intradaySnapshots])
 
@@ -128,34 +127,46 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
           </button>
         </div>
 
-        {/* 탭 (장중 데이터 2건 이상일 때만 표시) */}
-        {hasIntraday && (
-          <div className="flex gap-1 mb-3">
-            <button
-              onClick={() => setActiveTab("daily")}
-              className={cn(
-                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
-                activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              )}
-            >
-              일봉
-            </button>
-            <button
-              onClick={() => setActiveTab("intraday")}
-              className={cn(
-                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
-                activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              )}
-            >
-              장중
-            </button>
+        {/* 탭 + 범례 */}
+        <div className="flex items-center mb-3">
+          {hasIntraday && (
+            <div className="flex gap-1">
+              <button
+                onClick={() => setActiveTab("daily")}
+                className={cn(
+                  "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                  activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                )}
+              >
+                일봉
+              </button>
+              <button
+                onClick={() => setActiveTab("intraday")}
+                className={cn(
+                  "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                  activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                )}
+              >
+                장중
+              </button>
+            </div>
+          )}
+          <div className="flex items-center gap-3 text-[10px] text-muted-foreground ml-auto">
+            <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-red-500 rounded inline-block" />외국인</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-violet-500 rounded inline-block" />기관</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-green-500 rounded inline-block" />개인</span>
           </div>
-        )}
+        </div>
 
         {/* === 일봉 탭 (기존 코드 100% 유지) === */}
         {activeTab === "daily" && (
           <>
-            {allDays.length >= 2 && (
+            {allDays.length >= 2 && (() => {
+              const n = allDays.length
+              const groupW = PLOT_W / n
+              const barW = Math.max(2, groupW * 0.22)
+              const gap = Math.max(0.5, barW * 0.15)
+              return (
               <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
                 <line
                   x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
@@ -165,18 +176,24 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
                 <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
                 {labels.map((label, i) => {
-                  const x = PAD.left + (i / (labels.length - 1)) * PLOT_W
+                  const x = PAD.left + (i + 0.5) * groupW
                   return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
                 })}
-                {lines.map((line, idx) => (
-                  <polyline
-                    key={idx}
-                    points={buildLine(line.values, allMin, allMax)}
-                    fill="none" stroke={line.color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-                  />
-                ))}
+                {/* 좌측/우측 세로선 */}
+                <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                {series.map((s, si) =>
+                  s.values.map((v, di) => {
+                    const cx = PAD.left + (di + 0.5) * groupW
+                    const x = cx - (series.length * barW + (series.length - 1) * gap) / 2 + si * (barW + gap)
+                    const barY = PAD.top + (1 - (v - allMin) / range) * PLOT_H
+                    const h = Math.abs(barY - zeroY)
+                    return <rect key={`${si}-${di}`} x={x} y={Math.min(barY, zeroY)} width={barW} height={Math.max(h, 0.5)} fill={s.color} rx={0.5} opacity={0.85} />
+                  })
+                )}
               </svg>
-            )}
+              )
+            })()}
             {/* 일봉 테이블 */}
             <div className="space-y-0">
               <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
@@ -203,26 +220,40 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         {/* === 장중 탭 === */}
         {activeTab === "intraday" && intradayChart && (
           <>
-            <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-              <line
-                x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
-                stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
-              />
-              <text x={PAD.left - 3} y={intradayChart.zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-              <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
-              <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
-              {intradayChart.labels.map((label, i) => {
-                const x = PAD.left + (i / (intradayChart.labels.length - 1)) * PLOT_W
-                return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
-              })}
-              {intradayChart.lines.map((line, idx) => (
-                <polyline
-                  key={idx}
-                  points={buildLine(line.values, intradayChart.min, intradayChart.max)}
-                  fill="none" stroke={line.color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
+            {(() => {
+              const n = intradayChart.labels.length
+              const groupW = PLOT_W / n
+              const barW = Math.max(2, groupW * 0.22)
+              const gap = Math.max(0.5, barW * 0.15)
+              const rng = intradayChart.max - intradayChart.min || 1
+              return (
+              <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
+                <line
+                  x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
+                  stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
                 />
-              ))}
-            </svg>
+                <text x={PAD.left - 3} y={intradayChart.zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+                <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
+                <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
+                {intradayChart.labels.map((label, i) => {
+                  const x = PAD.left + (i + 0.5) * groupW
+                  return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+                })}
+                {/* 좌측/우측 세로선 */}
+                <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                {intradayChart.series.map((s, si) =>
+                  s.values.map((v, di) => {
+                    const cx = PAD.left + (di + 0.5) * groupW
+                    const x = cx - (intradayChart.series.length * barW + (intradayChart.series.length - 1) * gap) / 2 + si * (barW + gap)
+                    const barY = PAD.top + (1 - (v - intradayChart.min) / rng) * PLOT_H
+                    const h = Math.abs(barY - intradayChart.zeroY)
+                    return <rect key={`${si}-${di}`} x={x} y={Math.min(barY, intradayChart.zeroY)} width={barW} height={Math.max(h, 0.5)} fill={s.color} rx={0.5} opacity={0.85} />
+                  })
+                )}
+              </svg>
+              )
+            })()}
             {/* 장중 테이블 */}
             <div className="space-y-0">
               <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
@@ -246,12 +277,6 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
           </>
         )}
 
-        {/* 범례 (공통) */}
-        <div className="flex items-center gap-3 text-[10px] text-muted-foreground mt-2">
-          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-red-500 rounded inline-block" />외국인</span>
-          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-violet-500 rounded inline-block" />기관</span>
-          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-green-500 rounded inline-block" />개인</span>
-        </div>
       </div>
     </div>,
     document.body

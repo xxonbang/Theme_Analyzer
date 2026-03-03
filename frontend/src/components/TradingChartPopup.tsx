@@ -100,6 +100,10 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
             return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
           })}
 
+          {/* 좌측/우측 세로선 */}
+          <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+          <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+
           {/* 거래대금 라인 */}
           <polyline
             points={buildLine(tradingValues, PLOT_W, PLOT_H, PAD.left, PAD.top)}

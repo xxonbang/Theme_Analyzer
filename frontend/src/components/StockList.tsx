@@ -8,6 +8,9 @@ import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, fo
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
+import { TradingChartPopup } from "@/components/TradingChartPopup"
+import { InvestorChartPopup } from "@/components/InvestorChartPopup"
+import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { Sparkline } from "@/components/Sparkline"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday } from "@/types/stock"
 
@@ -167,7 +170,7 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
 }
 
 // 컴팩트 모드용 간단한 종목 행 (flex: sticky left + scrollable right)
-function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, memberInfo, hasMemberData, criteria, isAdmin }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean }) {
+function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, investorIntraday, memberInfo, hasMemberData, criteria, isAdmin }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; investorIntraday?: InvestorIntraday; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean }) {
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const allMet = isAdmin && criteria?.all_met
@@ -176,6 +179,9 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
   const reverseWarning = isAdmin && criteria?.reverse_alignment?.met
   const showDots = isAdmin && criteria
   const [criteriaExpanded, setCriteriaExpanded] = useState(false)
+  const [showTradingChart, setShowTradingChart] = useState(false)
+  const [showInvestorChart, setShowInvestorChart] = useState(false)
+  const [showPriceHistory, setShowPriceHistory] = useState(false)
   const metCriteria = showDots ? CRITERIA_CONFIG.filter(({ key }) => {
     const c = criteria[key as keyof StockCriteria]
     return typeof c !== "boolean" && c?.met && !c?.warning
@@ -240,89 +246,126 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
         </div>
       </div>
 
-      {/* Scrollable right: Data columns (link to Naver) */}
-      <a
-        href={naverUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center shrink-0 ml-auto"
-      >
-        <span className="text-xs font-medium tabular-nums text-right w-16 sm:w-20">
-          {formatPrice(stock.current_price)}<span className="text-[9px] text-muted-foreground">원</span>
-        </span>
-        {showTradingValue && (
-          <span className="text-[10px] text-muted-foreground tabular-nums text-right w-14 sm:w-16">
-            {stock.trading_value ? formatTradingValue(stock.trading_value) : "-"}
+      {/* Scrollable right: Data columns */}
+      <div className="flex items-center shrink-0 ml-auto">
+        <a href={naverUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+          <span className="text-xs font-medium tabular-nums text-right w-16 sm:w-20">
+            {formatPrice(stock.current_price)}<span className="text-[9px] text-muted-foreground">원</span>
           </span>
-        )}
-        <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-14">
-          {formatVolume(stock.volume)}
-        </span>
-        {/* 거래대금 스파크라인 */}
-        <span className="flex items-center justify-center w-14 sm:w-16">
+          {showTradingValue && (
+            <span className="text-[10px] text-muted-foreground tabular-nums text-right w-14 sm:w-16">
+              {stock.trading_value ? formatTradingValue(stock.trading_value) : "-"}
+            </span>
+          )}
+          <span className="text-[10px] text-muted-foreground tabular-nums text-right w-12 sm:w-14">
+            {formatVolume(stock.volume)}
+          </span>
+        </a>
+        {/* 거래대금 스파크라인 → 거래 차트 팝업 */}
+        <button
+          onClick={() => history?.changes && history.changes.length > 1 && setShowTradingChart(true)}
+          className="flex items-center justify-center w-14 sm:w-16 cursor-pointer hover:opacity-70 transition-opacity"
+        >
           {history?.changes && history.changes.length > 1 && (
             <Sparkline
               data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
               color="#f59e0b"
               width={48}
               height={14}
-              className="opacity-70"
+              className="opacity-70 pointer-events-none"
             />
           )}
-        </span>
-        {/* 외국인 수급 스파크라인 */}
+        </button>
+        {/* 외국인 수급 스파크라인 → 수급 차트 팝업 */}
         {isAdmin && (
-          <span className="flex items-center justify-center w-14 sm:w-16">
+          <button
+            onClick={() => investorInfo && setShowInvestorChart(true)}
+            className="flex items-center justify-center w-14 sm:w-16 cursor-pointer hover:opacity-70 transition-opacity"
+          >
             {investorInfo?.history && investorInfo.history.length > 0 && (
               <Sparkline
                 data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
                 color="#ef4444"
                 width={48}
                 height={14}
-                className="opacity-70"
+                className="opacity-70 pointer-events-none"
               />
             )}
-          </span>
+          </button>
         )}
-        {isAdmin && (
-          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
-            {investorInfo ? formatNetBuy(investorInfo.foreign_net) : "-"}
-          </span>
-        )}
-        {isAdmin && (
-          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.institution_net) : "text-muted-foreground")}>
-            {investorInfo ? formatNetBuy(investorInfo.institution_net) : "-"}
-          </span>
-        )}
-        {isAdmin && (
-          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.individual_net != null ? getNetBuyColor(investorInfo.individual_net) : "text-muted-foreground")}>
-            {investorInfo?.individual_net != null ? formatNetBuy(investorInfo.individual_net) : "-"}
-          </span>
-        )}
-        {isAdmin && (
-          <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.program_net != null ? getNetBuyColor(investorInfo.program_net) : "text-muted-foreground")}>
-            {investorInfo?.program_net != null ? formatNetBuy(investorInfo.program_net) : "-"}
-          </span>
-        )}
-        {isAdmin && hasMemberData && (
-          <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.buy_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
-            {memberInfo?.buy_top5?.[0]?.name || "-"}
-          </span>
-        )}
-        {isAdmin && hasMemberData && (
-          <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.sell_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
-            {memberInfo?.sell_top5?.[0]?.name || "-"}
-          </span>
-        )}
-        <span className={cn(
-          "text-[10px] font-semibold px-1.5 py-0.5 rounded text-right w-16 ml-2",
-          effectiveRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
-        )}>
+        <a href={naverUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+          {isAdmin && (
+            <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
+              {investorInfo ? formatNetBuy(investorInfo.foreign_net) : "-"}
+            </span>
+          )}
+          {isAdmin && (
+            <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.institution_net) : "text-muted-foreground")}>
+              {investorInfo ? formatNetBuy(investorInfo.institution_net) : "-"}
+            </span>
+          )}
+          {isAdmin && (
+            <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.individual_net != null ? getNetBuyColor(investorInfo.individual_net) : "text-muted-foreground")}>
+              {investorInfo?.individual_net != null ? formatNetBuy(investorInfo.individual_net) : "-"}
+            </span>
+          )}
+          {isAdmin && (
+            <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo?.program_net != null ? getNetBuyColor(investorInfo.program_net) : "text-muted-foreground")}>
+              {investorInfo?.program_net != null ? formatNetBuy(investorInfo.program_net) : "-"}
+            </span>
+          )}
+          {isAdmin && hasMemberData && (
+            <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.buy_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
+              {memberInfo?.buy_top5?.[0]?.name || "-"}
+            </span>
+          )}
+          {isAdmin && hasMemberData && (
+            <span className={cn("text-[10px] tabular-nums text-right w-16 sm:w-20 truncate", memberInfo?.sell_top5?.[0]?.is_foreign ? "text-red-500" : "text-muted-foreground")}>
+              {memberInfo?.sell_top5?.[0]?.name || "-"}
+            </span>
+          )}
+        </a>
+        {/* 등락률 → 가격 변동 팝업 */}
+        <button
+          onClick={() => history?.changes && setShowPriceHistory(true)}
+          className={cn(
+            "text-[10px] font-semibold px-1.5 py-0.5 rounded text-right w-16 ml-2 cursor-pointer hover:opacity-70 transition-opacity",
+            effectiveRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
+          )}
+        >
           {formatChangeRate(stock.change_rate)}
-        </span>
-      </a>
+        </button>
+      </div>
       </div>
 
+      {/* 팝업들 */}
+      {showTradingChart && history?.changes && (
+        <TradingChartPopup
+          stockName={stock.name}
+          currentTradingValue={stock.trading_value}
+          currentVolume={stock.volume}
+          changes={history.changes}
+          onClose={() => setShowTradingChart(false)}
+        />
+      )}
+      {showInvestorChart && investorInfo && (
+        <InvestorChartPopup
+          stockName={stock.name}
+          investorInfo={investorInfo}
+          stockCode={stock.code}
+          investorIntraday={investorIntraday}
+          onClose={() => setShowInvestorChart(false)}
+        />
+      )}
+      {showPriceHistory && history?.changes && (
+        <PriceHistoryPopup
+          stockName={stock.name}
+          currentPrice={stock.current_price}
+          currentChangeRate={stock.change_rate}
+          changes={history.changes}
+          onClose={() => setShowPriceHistory(false)}
+        />
+      )}
     </div>
   )
 }
@@ -341,6 +384,7 @@ function CompactMarketSection({
   investorUpdatedAt,
   memberData,
   criteriaData,
+  investorIntraday,
   isAdmin,
 }: {
   market: string
@@ -355,6 +399,7 @@ function CompactMarketSection({
   investorUpdatedAt?: string
   memberData?: Record<string, MemberInfo>
   criteriaData?: Record<string, StockCriteria>
+  investorIntraday?: InvestorIntraday
   isAdmin?: boolean
 }) {
   const hasMemberData = !!memberData && Object.keys(memberData).length > 0
@@ -384,7 +429,7 @@ function CompactMarketSection({
           {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
           <div className="divide-y divide-border/30">
             {stocks.map((stock) => (
-              <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
+              <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
             ))}
           </div>
         </div>
@@ -432,6 +477,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             investorUpdatedAt={investorUpdatedAt}
             memberData={memberData}
             criteriaData={criteriaData}
+            investorIntraday={investorIntraday}
             isAdmin={isAdmin}
           />
           <CompactMarketSection
@@ -447,6 +493,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             investorUpdatedAt={investorUpdatedAt}
             memberData={memberData}
             criteriaData={criteriaData}
+            investorIntraday={investorIntraday}
             isAdmin={isAdmin}
           />
         </CardContent>
