@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { X } from "lucide-react"
 import { formatTradingValue, formatVolume } from "@/lib/utils"
 import type { HistoryChange } from "@/types/stock"
@@ -12,9 +13,9 @@ interface TradingChartPopupProps {
   onClose: () => void
 }
 
-const CHART_W = 280
+const CHART_W = 310
 const CHART_H = 120
-const PAD = { top: 10, right: 10, bottom: 20, left: 45 }
+const PAD = { top: 10, right: 40, bottom: 20, left: 45 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
@@ -30,6 +31,8 @@ function buildLine(values: number[], plotW: number, plotH: number, padLeft: numb
 }
 
 export function TradingChartPopup({ stockName, currentTradingValue, currentVolume, changes, onClose }: TradingChartPopupProps) {
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+
   // 시간순 정렬 (과거→현재)
   const reversed = [...changes].reverse()
   const labels = reversed.map((_, i) => i === reversed.length - 1 ? "D" : `D-${reversed.length - 1 - i}`)
@@ -61,9 +64,9 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
+      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
         {/* 모바일 드래그 핸들 */}
-        <div className="sm:hidden flex justify-center mb-2">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
 
@@ -80,16 +83,20 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
 
         {/* SVG 차트 */}
         <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-          {/* 그리드 + Y축 라벨 */}
+          {/* 그리드 + 좌측 Y축 (거래대금) + 우측 Y축 (거래량) */}
           {[0, 0.5, 1].map(r => {
             const y = PAD.top + r * PLOT_H
             const tvMax = Math.max(...tradingValues)
             const tvMin = Math.min(...tradingValues)
             const tvVal = tvMax - r * (tvMax - tvMin)
+            const volMax = Math.max(...volumes)
+            const volMin = Math.min(...volumes)
+            const volVal = volMax - r * (volMax - volMin)
             return (
               <g key={r}>
                 <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatTradingValue(tvVal)}</text>
+                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="#f59e0b" opacity={0.5}>{formatTradingValue(tvVal)}</text>
+                <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="#6366f1" opacity={0.5}>{formatVolume(volVal)}</text>
               </g>
             )
           })}
@@ -101,8 +108,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
           })}
 
           {/* 좌측/우측 세로선 */}
-          <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-          <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+          <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+          <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
 
           {/* 거래대금 라인 */}
           <polyline

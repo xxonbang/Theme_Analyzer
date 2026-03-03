@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { X } from "lucide-react"
 import { cn, formatPrice, formatVolume, formatTradingValue, getChangeBgColor } from "@/lib/utils"
 import type { HistoryChange } from "@/types/stock"
@@ -13,6 +14,8 @@ interface PriceHistoryPopupProps {
 }
 
 export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, changes, onClose }: PriceHistoryPopupProps) {
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+
   // 최신순 정렬 (changes[0]이 오늘)
   const reversed = [...changes].reverse()
 
@@ -37,9 +40,9 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
 
-      <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
         {/* 모바일 드래그 핸들 */}
-        <div className="sm:hidden flex justify-center mb-2">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
 

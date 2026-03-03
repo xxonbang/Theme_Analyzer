@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { X, Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
@@ -12,6 +13,8 @@ interface CriteriaPopupProps {
 }
 
 export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupProps) {
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+
   const metItems = CRITERIA_CONFIG.filter(({ key }) => {
     const c = criteria[key as keyof StockCriteria]
     return typeof c !== "boolean" && c?.met && !c?.warning
@@ -49,9 +52,9 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
 
       {/* 팝업 컨텐츠 */}
-      <div className="relative w-full sm:w-80 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+      <div ref={sheetRef} className="relative w-full sm:w-80 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
         {/* 모바일 드래그 핸들 */}
-        <div className="sm:hidden flex justify-center mb-2">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
 
