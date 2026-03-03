@@ -204,7 +204,7 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
 
               {/* 등락률 데이터 소스 토글 */}
               {showFlucToggle && (
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 shrink-0 relative sm:static">
                   <span className="text-[11px] sm:text-xs text-muted-foreground/80 whitespace-nowrap">등락률 소스</span>
                   <div
                     role="radiogroup"
@@ -238,7 +238,7 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
                   </div>
 
                   {/* 도움말 */}
-                  <div className="relative">
+                  <div className="static sm:relative">
                     <button
                       onClick={(e) => { e.stopPropagation(); handleTooltipToggle() }}
                       className={cn(
