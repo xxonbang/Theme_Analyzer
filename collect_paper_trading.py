@@ -278,10 +278,12 @@ def collect_paper_trading_data(
     # git 히스토리에서 오늘 모든 스냅샷 수집
     snapshots = get_all_latest_snapshots(today_str)
 
-    # 09:00 이후 스냅샷만 사용 (장 개시 후)
+    # 오늘 날짜 + 09:00 이후 스냅샷만 사용 (장 개시 후)
     snapshots = [
         s for s in snapshots
-        if len(s["timestamp"]) >= 16 and s["timestamp"][11:16] >= "09:00"
+        if len(s["timestamp"]) >= 16
+        and s["timestamp"][:10] == today_str
+        and s["timestamp"][11:16] >= "09:00"
     ]
     if snapshots:
         print(f"[스냅샷] 09:00 이후 유효 스냅샷: {len(snapshots)}개")
