@@ -13,10 +13,6 @@ on:
   #   - 신규 진입 종목: history, criteria, member 자동 보충
   workflow_dispatch:
 
-concurrency:
-  group: investor-data
-  cancel-in-progress: true
-
 permissions:
   contents: write
   pages: write
@@ -24,6 +20,9 @@ permissions:
 
 jobs:
   collect:
+    concurrency:
+      group: investor-data
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -88,26 +87,21 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # 수집된 데이터 백업
+          cp frontend/public/data/latest.json /tmp/latest_collected.json
+
+          # origin/main 최신 상태로 리셋 (충돌 원천 차단)
+          git fetch origin main
+          git reset --hard origin/main
+
+          # 수집된 데이터 복원 후 커밋
+          cp /tmp/latest_collected.json frontend/public/data/latest.json
           git add frontend/public/data/latest.json
 
           if ! git diff --staged --quiet; then
             KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
             git commit -m "Update investor data - $KST_TIME KST"
-
-            git pull --rebase origin main || {
-              echo "Rebase failed, attempting merge strategy"
-              git rebase --abort 2>/dev/null || true
-              git pull origin main --strategy=ours || true
-            }
-
-            git push || {
-              echo "::warning::git push failed, retrying..."
-              sleep 5
-              git push || {
-                echo "::error::git push failed after retry"
-                exit 1
-              }
-            }
+            git push origin main
             echo "Data committed and pushed"
           else
             echo "No changes to commit"
@@ -170,6 +164,9 @@ jobs:
             -d parse_mode="HTML"
 
   deploy:
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

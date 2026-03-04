@@ -16,12 +16,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: refresh-data
-  cancel-in-progress: true
-
 jobs:
   refresh:
+    concurrency:
+      group: refresh-data
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -87,33 +86,29 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           if [ -f frontend/public/data/latest.json ]; then
-            git add frontend/public/data/latest.json
+            # 수집된 데이터 백업
+            mkdir -p /tmp/data_backup
+            cp frontend/public/data/latest.json /tmp/data_backup/
+            [ -f frontend/public/data/history-index.json ] && cp frontend/public/data/history-index.json /tmp/data_backup/
+            [ -d frontend/public/data/history ] && cp -r frontend/public/data/history /tmp/data_backup/
 
-            if [ -f frontend/public/data/history-index.json ]; then
-              git add frontend/public/data/history-index.json
-            fi
-            if [ -d frontend/public/data/history ]; then
-              git add frontend/public/data/history/*.json 2>/dev/null || true
-            fi
+            # origin/main 최신 상태로 리셋 (충돌 원천 차단)
+            git fetch origin main
+            git reset --hard origin/main
+
+            # 수집된 데이터 복원
+            cp /tmp/data_backup/latest.json frontend/public/data/
+            [ -f /tmp/data_backup/history-index.json ] && cp /tmp/data_backup/history-index.json frontend/public/data/
+            [ -d /tmp/data_backup/history ] && cp -r /tmp/data_backup/history frontend/public/data/
+
+            git add frontend/public/data/latest.json
+            [ -f frontend/public/data/history-index.json ] && git add frontend/public/data/history-index.json
+            git add frontend/public/data/history/*.json 2>/dev/null || true
 
             if ! git diff --staged --quiet; then
               KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
               git commit -m "Refresh stock data - $KST_TIME KST"
-
-              git pull --rebase origin main || {
-                echo "Rebase failed, attempting merge strategy"
-                git rebase --abort 2>/dev/null || true
-                git pull origin main --strategy=ours || true
-              }
-
-              git push || {
-                echo "::warning::git push failed, retrying..."
-                sleep 5
-                git push || {
-                  echo "::error::git push failed after retry"
-                  exit 1
-                }
-              }
+              git push origin main
               echo "Data committed and pushed"
             else
               echo "No changes to commit"
@@ -179,6 +174,9 @@ jobs:
           path: frontend/dist
 
   deploy:
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

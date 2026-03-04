@@ -5,10 +5,6 @@ on:
   #   KST 15:40 (월~금)
   workflow_dispatch: {}
 
-concurrency:
-  group: paper-trading
-  cancel-in-progress: false
-
 permissions:
   contents: write
   pages: write
@@ -16,6 +12,9 @@ permissions:
 
 jobs:
   collect:
+    concurrency:
+      group: paper-trading
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -80,32 +79,26 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Add paper trading data files
-          if [ -d frontend/public/data/paper-trading ]; then
-            git add frontend/public/data/paper-trading/*.json 2>/dev/null || true
-          fi
-          if [ -f frontend/public/data/paper-trading-index.json ]; then
-            git add frontend/public/data/paper-trading-index.json
-          fi
+          # 수집된 데이터 백업
+          mkdir -p /tmp/data_backup
+          [ -d frontend/public/data/paper-trading ] && cp -r frontend/public/data/paper-trading /tmp/data_backup/
+          [ -f frontend/public/data/paper-trading-index.json ] && cp frontend/public/data/paper-trading-index.json /tmp/data_backup/
+
+          # origin/main 최신 상태로 리셋 (충돌 원천 차단)
+          git fetch origin main
+          git reset --hard origin/main
+
+          # 수집된 데이터 복원
+          [ -d /tmp/data_backup/paper-trading ] && cp -r /tmp/data_backup/paper-trading frontend/public/data/
+          [ -f /tmp/data_backup/paper-trading-index.json ] && cp /tmp/data_backup/paper-trading-index.json frontend/public/data/
+
+          git add frontend/public/data/paper-trading/*.json 2>/dev/null || true
+          [ -f frontend/public/data/paper-trading-index.json ] && git add frontend/public/data/paper-trading-index.json
 
           if ! git diff --staged --quiet; then
             KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
             git commit -m "Collect paper trading data - $KST_TIME KST"
-
-            git pull --rebase origin main || {
-              echo "Rebase failed, attempting merge strategy"
-              git rebase --abort 2>/dev/null || true
-              git pull origin main --strategy=ours || true
-            }
-
-            git push || {
-              echo "::warning::git push failed, retrying..."
-              sleep 5
-              git push || {
-                echo "::error::git push failed after retry"
-                exit 1
-              }
-            }
+            git push origin main
             echo "Paper trading data committed and pushed"
           else
             echo "No changes to commit"
@@ -168,6 +161,9 @@ jobs:
           path: frontend/dist
 
   deploy:
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
