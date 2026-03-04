@@ -42,7 +42,7 @@ _THEME_ITEM_SCHEMA = {
         "description": {"type": "string"},
         "catalyst": {"type": "string"},
         "confidence": {"type": "string"},
-        "leader_stocks": {"type": "array", "items": _LEADER_STOCK_SCHEMA},
+        "leader_stocks": {"type": "array", "items": _LEADER_STOCK_SCHEMA, "minItems": 1},
     },
     "required": ["theme_name", "description", "catalyst", "confidence", "leader_stocks"],
 }
@@ -55,7 +55,7 @@ _THEME_ITEM_WITH_PERIOD_SCHEMA = {
         "catalyst": {"type": "string"},
         "confidence": {"type": "string"},
         "target_period": {"type": "string"},
-        "leader_stocks": {"type": "array", "items": _LEADER_STOCK_SCHEMA},
+        "leader_stocks": {"type": "array", "items": _LEADER_STOCK_SCHEMA, "minItems": 1},
     },
     "required": ["theme_name", "description", "catalyst", "confidence", "target_period", "leader_stocks"],
 }
@@ -429,6 +429,7 @@ def _build_phase2_prompt(reasoning: str) -> str:
 {reasoning}
 
 ### 대장주 priority 규칙
+- **모든 테마에 반드시 최소 1개 이상의 대장주를 포함하세요. 빈 배열 금지.**
 - priority 1: 핵심 대장주 (거래대금 최상위 + 수급 동반)
 - priority 2: 주요 관련주 (거래대금 상위 + 수급 부분 충족)
 - priority 3: 관련주 (테마 대표성 높으나 데이터 미흡)

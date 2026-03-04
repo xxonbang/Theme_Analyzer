@@ -59,15 +59,26 @@ def extract_all_codes(data: dict) -> list[dict]:
     return [{"code": c, "name": n} for c, n in seen.items()]
 
 
-def extract_leader_codes(forecast: dict) -> set[str]:
-    """theme-forecast.json에서 대장주 코드 추출"""
+def extract_leader_codes(forecast: dict, theme_analysis: dict = None) -> set[str]:
+    """대장주 코드 추출 (theme_analysis 우선, forecast fallback)"""
     codes = set()
-    for category in ["today", "short_term", "long_term"]:
-        for theme in forecast.get(category, []):
+
+    # 1순위: latest.json의 theme_analysis (웹 화면과 동일)
+    if theme_analysis:
+        for theme in theme_analysis.get("themes", []):
             for stock in theme.get("leader_stocks", []):
                 code = stock.get("code", "")
                 if code:
                     codes.add(code)
+
+    # theme_analysis에 대장주가 없으면 forecast fallback
+    if not codes:
+        for category in ["today", "short_term", "long_term"]:
+            for theme in forecast.get(category, []):
+                for stock in theme.get("leader_stocks", []):
+                    code = stock.get("code", "")
+                    if code:
+                        codes.add(code)
     return codes
 
 
@@ -82,16 +93,28 @@ def extract_top20_stocks(data: dict) -> list[dict]:
     return stocks[:20]
 
 
-def build_leader_info(forecast: dict) -> dict[str, dict]:
-    """대장주 코드 → {name, theme} 매핑"""
+def build_leader_info(forecast: dict, theme_analysis: dict = None) -> dict[str, dict]:
+    """대장주 코드 → {name, theme} 매핑 (theme_analysis 우선, forecast fallback)"""
     info = {}
-    for category in ["today", "short_term", "long_term"]:
-        for theme in forecast.get(category, []):
+
+    # 1순위: latest.json의 theme_analysis
+    if theme_analysis:
+        for theme in theme_analysis.get("themes", []):
             theme_name = theme.get("theme_name", "")
             for stock in theme.get("leader_stocks", []):
                 code = stock.get("code", "")
                 if code and code not in info:
                     info[code] = {"name": stock.get("name", code), "theme": theme_name}
+
+    # fallback: theme-forecast.json
+    if not info:
+        for category in ["today", "short_term", "long_term"]:
+            for theme in forecast.get(category, []):
+                theme_name = theme.get("theme_name", "")
+                for stock in theme.get("leader_stocks", []):
+                    code = stock.get("code", "")
+                    if code and code not in info:
+                        info[code] = {"name": stock.get("name", code), "theme": theme_name}
     return info
 
 
@@ -113,10 +136,11 @@ def main():
     all_stocks = extract_all_codes(latest)
     print(f"  전체 종목: {len(all_stocks)}개")
 
-    # 2. theme-forecast.json에서 대장주 추출
+    # 2. 대장주 추출 (theme_analysis 우선, theme-forecast fallback)
     forecast = load_json(FORECAST_PATH)
-    leader_codes = extract_leader_codes(forecast)
-    leader_info = build_leader_info(forecast)
+    theme_analysis = latest.get("theme_analysis")
+    leader_codes = extract_leader_codes(forecast, theme_analysis)
+    leader_info = build_leader_info(forecast, theme_analysis)
 
     # 대장주 중 all_stocks에 없는 종목 추가
     existing_codes = {s["code"] for s in all_stocks}
