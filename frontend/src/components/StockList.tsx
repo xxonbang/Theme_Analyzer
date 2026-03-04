@@ -282,9 +282,11 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             onClick={() => investorInfo && setShowInvestorChart(true)}
             className="flex items-center justify-center w-14 sm:w-16 cursor-pointer hover:opacity-70 transition-opacity"
           >
-            {investorInfo?.history && investorInfo.history.length > 0 && (
+            {investorInfo && (
               <Sparkline
-                data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
+                data={investorInfo.history && investorInfo.history.length > 0
+                  ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
+                  : [investorInfo.foreign_net]}
                 color="#ef4444"
                 width={48}
                 height={14}

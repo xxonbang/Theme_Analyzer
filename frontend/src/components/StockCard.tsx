@@ -283,8 +283,10 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </span>
                     )}
                     {/* 외국인 순매수 스파크라인 + 히스토리 토글 */}
-                    {investorInfo.history && investorInfo.history.length > 0 && (() => {
-                      const investorSparkData = [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
+                    {(() => {
+                      const investorSparkData = investorInfo.history && investorInfo.history.length > 0
+                        ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
+                        : [investorInfo.foreign_net]
                       return (
                       <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
                         <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">

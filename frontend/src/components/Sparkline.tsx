@@ -7,7 +7,18 @@ interface SparklineProps {
 }
 
 export function Sparkline({ data, width = 80, height = 24, color, className }: SparklineProps) {
-  if (data.length < 2) return null
+  if (data.length < 1) return null
+
+  const strokeColor = color ?? (data[data.length - 1] >= data[0] ? "#ef4444" : "#3b82f6")
+
+  // 단일 데이터: 점(dot)으로 표시
+  if (data.length === 1) {
+    return (
+      <svg width={width} height={height} className={className} viewBox={`0 0 ${width} ${height}`}>
+        <circle cx={width / 2} cy={height / 2} r={2} fill={strokeColor} />
+      </svg>
+    )
+  }
 
   const min = Math.min(...data)
   const max = Math.max(...data)
@@ -20,8 +31,6 @@ export function Sparkline({ data, width = 80, height = 24, color, className }: S
     const y = pad + (1 - (v - min) / range) * (height - pad * 2)
     return `${x},${y}`
   }).join(" ")
-
-  const strokeColor = color ?? (data[data.length - 1] >= data[0] ? "#ef4444" : "#3b82f6")
 
   // 음수값이 있으면 0 기준선 표시
   const zeroY = hasNegative

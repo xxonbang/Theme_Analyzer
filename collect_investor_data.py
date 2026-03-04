@@ -209,12 +209,16 @@ def main():
 
     # 5. latest.json 갱신
     if not test_mode:
-        # 기존 investor_data의 program_net 보존 (main.py에서 병합한 값)
+        # 기존 investor_data의 program_net, history 보존 (main.py에서 병합한 값)
         old_investor = latest.get("investor_data", {})
         for code, new_inv in investor_data.items():
-            pgtr = old_investor.get(code, {}).get("program_net")
+            old = old_investor.get(code, {})
+            pgtr = old.get("program_net")
             if pgtr is not None:
                 new_inv["program_net"] = pgtr
+            hist = old.get("history")
+            if hist is not None:
+                new_inv["history"] = hist
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
         latest["investor_updated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
