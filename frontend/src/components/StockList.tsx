@@ -282,7 +282,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             onClick={() => investorInfo && setShowInvestorChart(true)}
             className="flex items-center justify-center w-14 sm:w-16 cursor-pointer hover:opacity-70 transition-opacity"
           >
-            {investorInfo?.history && investorInfo.history.length > 0 && (
+            {investorInfo?.history && investorInfo.history.length > 0 ? (
               <Sparkline
                 data={[...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)}
                 color="#ef4444"
@@ -290,7 +290,9 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
                 height={14}
                 className="opacity-70 pointer-events-none"
               />
-            )}
+            ) : investorInfo ? (
+              <span className="text-[8px] text-muted-foreground">차트</span>
+            ) : null}
           </button>
         )}
         <a href={naverUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
