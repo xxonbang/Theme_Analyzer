@@ -84,25 +84,39 @@ jobs:
           [ -d frontend/public/data/paper-trading ] && cp -r frontend/public/data/paper-trading /tmp/data_backup/
           [ -f frontend/public/data/paper-trading-index.json ] && cp frontend/public/data/paper-trading-index.json /tmp/data_backup/
 
-          # origin/main 최신 상태로 리셋 (충돌 원천 차단)
-          git fetch origin main
-          git reset --hard origin/main
+          # push 경합 시 최대 3회 재시도
+          for attempt in 1 2 3; do
+            echo "=== Push attempt $attempt ==="
 
-          # 수집된 데이터 복원
-          [ -d /tmp/data_backup/paper-trading ] && cp -r /tmp/data_backup/paper-trading frontend/public/data/
-          [ -f /tmp/data_backup/paper-trading-index.json ] && cp /tmp/data_backup/paper-trading-index.json frontend/public/data/
+            git fetch origin main
+            git reset --hard origin/main
 
-          git add frontend/public/data/paper-trading/*.json 2>/dev/null || true
-          [ -f frontend/public/data/paper-trading-index.json ] && git add frontend/public/data/paper-trading-index.json
+            # 수집된 데이터 복원
+            [ -d /tmp/data_backup/paper-trading ] && cp -r /tmp/data_backup/paper-trading frontend/public/data/
+            [ -f /tmp/data_backup/paper-trading-index.json ] && cp /tmp/data_backup/paper-trading-index.json frontend/public/data/
 
-          if ! git diff --staged --quiet; then
+            git add frontend/public/data/paper-trading/*.json 2>/dev/null || true
+            [ -f frontend/public/data/paper-trading-index.json ] && git add frontend/public/data/paper-trading-index.json
+
+            if git diff --staged --quiet; then
+              echo "No changes to commit"
+              exit 0
+            fi
+
             KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
             git commit -m "Collect paper trading data - $KST_TIME KST"
-            git push origin main
-            echo "Paper trading data committed and pushed"
-          else
-            echo "No changes to commit"
-          fi
+
+            if git push origin main; then
+              echo "Paper trading data committed and pushed"
+              exit 0
+            fi
+
+            echo "Push failed (attempt $attempt), retrying in 5s..."
+            sleep 5
+          done
+
+          echo "Push failed after 3 attempts"
+          exit 1
 
       - name: Notify completion via Telegram
         if: always()

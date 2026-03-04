@@ -73,22 +73,36 @@ jobs:
             # 수집된 데이터 백업
             cp frontend/public/data/theme-forecast.json /tmp/theme-forecast-collected.json
 
-            # origin/main 최신 상태로 리셋 (충돌 원천 차단)
-            git fetch origin main
-            git reset --hard origin/main
+            # push 경합 시 최대 3회 재시도
+            for attempt in 1 2 3; do
+              echo "=== Push attempt $attempt ==="
 
-            # 수집된 데이터 복원
-            cp /tmp/theme-forecast-collected.json frontend/public/data/theme-forecast.json
-            git add frontend/public/data/theme-forecast.json
+              git fetch origin main
+              git reset --hard origin/main
 
-            if ! git diff --staged --quiet; then
+              # 수집된 데이터 복원
+              cp /tmp/theme-forecast-collected.json frontend/public/data/theme-forecast.json
+              git add frontend/public/data/theme-forecast.json
+
+              if git diff --staged --quiet; then
+                echo "No changes to commit"
+                exit 0
+              fi
+
               KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
               git commit -m "Theme forecast intraday - $KST_TIME KST"
-              git push origin main
-              echo "Intraday forecast data committed and pushed"
-            else
-              echo "No changes to commit"
-            fi
+
+              if git push origin main; then
+                echo "Intraday forecast data committed and pushed"
+                exit 0
+              fi
+
+              echo "Push failed (attempt $attempt), retrying in 5s..."
+              sleep 5
+            done
+
+            echo "Push failed after 3 attempts"
+            exit 1
           else
             echo "No forecast file generated"
           fi
