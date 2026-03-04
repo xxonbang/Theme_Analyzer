@@ -16,6 +16,7 @@ from typing import Dict, List, Any, Optional, Tuple
 
 from config.settings import GEMINI_API_KEY_1, GEMINI_API_KEY_2, GEMINI_API_KEY_3, GEMINI_API_KEY_4, GEMINI_API_KEY_5
 from modules.utils import KST
+from modules.data_exporter import save_history_file, cleanup_old_history, update_history_index
 
 logger = logging.getLogger(__name__)
 
@@ -1266,4 +1267,12 @@ def export_forecast_json(forecast: Dict[str, Any], output_dir: str = "frontend/p
         json.dump(forecast, f, ensure_ascii=False, indent=2)
 
     print(f"  ✓ 예측 결과 저장: {file_path}")
+
+    # 히스토리 저장
+    history_dir = output_path / "forecast-history"
+    save_history_file(forecast, history_dir)
+    cleanup_old_history(history_dir, days=30)
+    update_history_index(output_path, "forecast-history", "forecast-history-index.json")
+    print(f"  ✓ 예측 히스토리 저장: {history_dir}")
+
     return str(file_path)

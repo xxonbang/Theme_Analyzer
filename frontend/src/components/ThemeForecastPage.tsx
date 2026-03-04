@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle, X, Newspaper } from "lucide-react"
+import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle, X, Newspaper, History, RotateCcw } from "lucide-react"
 import { cn, parseKST } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
@@ -11,8 +11,10 @@ import { useThemeForecast } from "@/hooks/useThemeForecast"
 import { useBacktestStats } from "@/hooks/useBacktestStats"
 import { usePredictionHistory } from "@/hooks/usePredictionHistory"
 import { useForecastSnapshots } from "@/hooks/useForecastSnapshots"
+import { useThemeForecastHistory } from "@/hooks/useThemeForecastHistory"
 import { BacktestDashboard } from "@/components/BacktestDashboard"
 import { PredictionHistory } from "@/components/PredictionHistory"
+import { HistoryModal } from "@/components/HistoryModal"
 import type { ForecastTheme, ForecastStock, StockCriteria, GroundingSource } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
@@ -310,8 +312,29 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
   const backtestStats = useBacktestStats()
   const predictionHistory = usePredictionHistory()
   const { snapshots, selected, loading: snapshotLoading, select: selectSnapshot } = useForecastSnapshots(data?.forecast_date ?? null)
+  const {
+    groupedHistory: forecastGroupedHistory,
+    selectedData: forecastHistoryData,
+    selectedEntry: forecastHistoryEntry,
+    loading: forecastHistoryLoading,
+    error: forecastHistoryError,
+    fetchIndex: fetchForecastHistoryIndex,
+    fetchHistoryData: fetchForecastHistoryData,
+    clearSelection: clearForecastHistorySelection,
+  } = useThemeForecastHistory()
+  const [showForecastHistoryModal, setShowForecastHistoryModal] = useState(false)
 
-  const displayData = selected?.forecast_data ?? data
+  const displayData = forecastHistoryData ?? selected?.forecast_data ?? data
+
+  const handleForecastHistoryClick = async () => {
+    await fetchForecastHistoryIndex()
+    setShowForecastHistoryModal(true)
+  }
+
+  const handleForecastHistorySelect = async (entry: import("@/types/history").HistoryEntry) => {
+    await fetchForecastHistoryData(entry)
+    setShowForecastHistoryModal(false)
+  }
 
   if (loading) {
     return (
@@ -356,8 +379,30 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
                 ({displayData!.forecast_date} {displayData!.generated_at.split(" ")[1]} 생성)
               </span>
             </div>
+            <button
+              onClick={handleForecastHistoryClick}
+              className="p-1.5 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              title="예측 히스토리"
+            >
+              <History className="w-4 h-4" />
+            </button>
           </div>
-          {snapshots.length > 1 && (
+          {/* 히스토리 보기 배너 */}
+          {forecastHistoryEntry && (
+            <div className="flex items-center justify-between bg-amber-50 dark:bg-amber-500/10 rounded-md px-3 py-1.5">
+              <span className="text-xs text-amber-700 dark:text-amber-400">
+                {forecastHistoryEntry.date} {forecastHistoryEntry.time} 예측 보기 중
+              </span>
+              <button
+                onClick={clearForecastHistorySelection}
+                className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 font-medium"
+              >
+                <RotateCcw className="w-3 h-3" />
+                최신으로
+              </button>
+            </div>
+          )}
+          {!forecastHistoryEntry && snapshots.length > 1 && (
             <div className="flex gap-1 flex-wrap">
               {snapshots.map(s => {
                 const time = parseKST(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
@@ -442,6 +487,16 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           />
         </CardContent>
       </Card>
+
+      {/* 예측 히스토리 모달 */}
+      <HistoryModal
+        isOpen={showForecastHistoryModal}
+        onClose={() => setShowForecastHistoryModal(false)}
+        groupedHistory={forecastGroupedHistory}
+        onSelect={handleForecastHistorySelect}
+        loading={forecastHistoryLoading}
+        error={forecastHistoryError}
+      />
     </div>
   )
 }

@@ -68,13 +68,19 @@ def cleanup_old_history(history_dir: Path, days: int = 30) -> int:
     return deleted_count
 
 
-def update_history_index(output_dir: Path) -> None:
+def update_history_index(
+    output_dir: Path,
+    history_subdir: str = "history",
+    index_filename: str = "history-index.json",
+) -> None:
     """히스토리 인덱스 파일 갱신
 
     Args:
         output_dir: 데이터 출력 디렉토리 (history 상위 디렉토리)
+        history_subdir: 히스토리 서브디렉토리명 (기본 "history")
+        index_filename: 인덱스 파일명 (기본 "history-index.json")
     """
-    history_dir = output_dir / "history"
+    history_dir = output_dir / history_subdir
 
     if not history_dir.exists():
         entries = []
@@ -91,7 +97,7 @@ def update_history_index(output_dir: Path) -> None:
                     "filename": filename,
                     "date": date_str,
                     "time": time_str,
-                    "path": f"data/history/{filename}",
+                    "path": f"data/{history_subdir}/{filename}",
                 })
             except (ValueError, IndexError):
                 continue
@@ -101,7 +107,7 @@ def update_history_index(output_dir: Path) -> None:
         "entries": entries,
     }
 
-    index_path = output_dir / "history-index.json"
+    index_path = output_dir / index_filename
     with open(index_path, "w", encoding="utf-8") as f:
         json.dump(index_data, f, ensure_ascii=False, indent=2)
 

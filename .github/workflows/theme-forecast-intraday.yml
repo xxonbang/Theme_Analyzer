@@ -72,6 +72,8 @@ jobs:
           if [ -f frontend/public/data/theme-forecast.json ]; then
             # 수집된 데이터 백업
             cp frontend/public/data/theme-forecast.json /tmp/theme-forecast-collected.json
+            cp -r frontend/public/data/forecast-history/ /tmp/forecast-history-collected/ 2>/dev/null || true
+            cp frontend/public/data/forecast-history-index.json /tmp/forecast-history-index-collected.json 2>/dev/null || true
 
             # push 경합 시 최대 3회 재시도
             for attempt in 1 2 3; do
@@ -82,7 +84,15 @@ jobs:
 
               # 수집된 데이터 복원
               cp /tmp/theme-forecast-collected.json frontend/public/data/theme-forecast.json
+              if [ -d /tmp/forecast-history-collected ]; then
+                mkdir -p frontend/public/data/forecast-history
+                cp -r /tmp/forecast-history-collected/* frontend/public/data/forecast-history/
+              fi
+              if [ -f /tmp/forecast-history-index-collected.json ]; then
+                cp /tmp/forecast-history-index-collected.json frontend/public/data/forecast-history-index.json
+              fi
               git add frontend/public/data/theme-forecast.json
+              git add frontend/public/data/forecast-history/ frontend/public/data/forecast-history-index.json 2>/dev/null || true
 
               if git diff --staged --quiet; then
                 echo "No changes to commit"
