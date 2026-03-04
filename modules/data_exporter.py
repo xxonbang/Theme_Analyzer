@@ -186,8 +186,19 @@ def export_for_frontend(
     # None 값 필드 제거
     data = {k: v for k, v in data.items() if v is not None}
 
-    # JSON 파일 저장 (latest.json)
+    # 기존 latest.json에서 collect_investor_data.py가 저장한 필드 보존
     file_path = output_path / "latest.json"
+    if file_path.exists():
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            # investor_intraday: 장중 수급 스냅샷 (collect_investor_data.py가 관리)
+            if "investor_intraday" in existing and "investor_intraday" not in data:
+                data["investor_intraday"] = existing["investor_intraday"]
+        except Exception:
+            pass
+
+    # JSON 파일 저장 (latest.json)
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
