@@ -154,28 +154,26 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
 
         {/* 탭 + 범례 */}
         <div className="flex items-center mb-3">
-          {hasIntraday && (
-            <div className="flex gap-1">
-              <button
-                onClick={() => setActiveTab("daily")}
-                className={cn(
-                  "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
-                  activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                )}
-              >
-                일봉
-              </button>
-              <button
-                onClick={() => setActiveTab("intraday")}
-                className={cn(
-                  "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
-                  activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                )}
-              >
-                장중
-              </button>
-            </div>
-          )}
+          <div className="flex gap-1">
+            <button
+              onClick={() => setActiveTab("daily")}
+              className={cn(
+                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              일봉
+            </button>
+            <button
+              onClick={() => setActiveTab("intraday")}
+              className={cn(
+                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              장중
+            </button>
+          </div>
           <div className="flex items-center gap-3 text-[10px] text-muted-foreground ml-auto">
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-red-500 rounded inline-block" />외국인</span>
             <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-violet-500 rounded inline-block" />기관</span>
@@ -249,6 +247,9 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         )}
 
         {/* === 장중 탭 === */}
+        {activeTab === "intraday" && !hasIntraday && (
+          <div className="text-center text-xs text-muted-foreground py-8">장중 수급 데이터 없음</div>
+        )}
         {activeTab === "intraday" && hasIntraday && (
           <>
             {intradayChart?.hasCr && (
