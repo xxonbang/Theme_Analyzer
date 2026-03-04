@@ -161,6 +161,7 @@ export interface StockCriteria {
   short_selling: CriterionResult
   overheating: CriterionResult
   reverse_alignment: CriterionResult
+  bnf: CriterionResult
   all_met: boolean
 }
 

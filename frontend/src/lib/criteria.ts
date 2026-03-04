@@ -1,5 +1,6 @@
 /** 기준별 색상 및 라벨 정의 (우선순위 순) — 단일 정의, 전체 컴포넌트에서 공유 */
 export const CRITERIA_CONFIG = [
+  { key: "bnf", dot: "bg-purple-600", badge: "bg-purple-100 text-purple-700", label: "BNF", shortLabel: "BNF", warning: false, description: "EMA25 대비 -20% 이상 하락 + RSI 30 미만 + MACD 골든크로스. 바닥 반등 시그널." },
   { key: "high_breakout", dot: "bg-red-500", badge: "bg-red-100 text-red-700", label: "전고점 돌파", shortLabel: "전고점", warning: false, description: "최근 60일 내 최고가를 돌파한 종목. 신고가 갱신은 강한 상승 추세를 의미합니다." },
   { key: "supply_demand", dot: "bg-blue-500", badge: "bg-blue-100 text-blue-700", label: "외국인/기관 수급", shortLabel: "수급", warning: false, description: "외국인과 기관이 동시에 순매수하는 종목. 스마트머니 유입 신호로 해석됩니다." },
   { key: "program_trading", dot: "bg-violet-500", badge: "bg-violet-100 text-violet-700", label: "프로그램 매매", shortLabel: "프로그램", warning: false, description: "프로그램 순매수가 유입된 종목. 기관 알고리즘 매수세가 확인됩니다." },

@@ -377,6 +377,137 @@ def check_short_selling(
 
 
 # ────────────────────────────────────────────────────────────
+# BNF: 바닥 반등 시그널 (보라색)
+# ────────────────────────────────────────────────────────────
+
+def _calc_rsi(closes: List[int], period: int = 14) -> Optional[float]:
+    """RSI 계산. closes는 최신순 종가 리스트."""
+    if len(closes) < period + 1:
+        return None
+    # 오래된 것부터 계산
+    data = list(reversed(closes[:period * 3])) if len(closes) >= period * 3 else list(reversed(closes))
+    gains = []
+    losses = []
+    for i in range(1, len(data)):
+        diff = data[i] - data[i - 1]
+        gains.append(max(diff, 0))
+        losses.append(max(-diff, 0))
+
+    if len(gains) < period:
+        return None
+
+    avg_gain = sum(gains[:period]) / period
+    avg_loss = sum(losses[:period]) / period
+
+    # EMA 방식 smoothing
+    for i in range(period, len(gains)):
+        avg_gain = (avg_gain * (period - 1) + gains[i]) / period
+        avg_loss = (avg_loss * (period - 1) + losses[i]) / period
+
+    if avg_loss == 0:
+        return 100.0
+    rs = avg_gain / avg_loss
+    return 100 - (100 / (1 + rs))
+
+
+def _calc_macd(closes: List[int]):
+    """MACD 및 Signal 계산. 반환: Optional[Tuple[float, float]]"""
+    ema12 = _calc_ema(closes, 12)
+    ema26 = _calc_ema(closes, 26)
+    if ema12 is None or ema26 is None:
+        return None
+
+    # MACD 라인의 시계열이 필요하므로 직접 계산
+    min_len = min(len(closes), 26 * 2)
+    data = list(reversed(closes[:min_len]))
+    if len(data) < 26:
+        return None
+
+    # EMA12, EMA26 시계열
+    k12 = 2 / 13
+    k26 = 2 / 27
+    ema12_val = data[0]
+    ema26_val = data[0]
+    macd_series = []
+    for i, price in enumerate(data):
+        if i == 0:
+            ema12_val = price
+            ema26_val = price
+        else:
+            ema12_val = price * k12 + ema12_val * (1 - k12)
+            ema26_val = price * k26 + ema26_val * (1 - k26)
+        if i >= 25:  # EMA26이 안정화된 후부터
+            macd_series.append(ema12_val - ema26_val)
+
+    if len(macd_series) < 9:
+        return None
+
+    # Signal = MACD의 EMA9
+    k9 = 2 / 10
+    signal = macd_series[0]
+    for val in macd_series[1:]:
+        signal = val * k9 + signal * (1 - k9)
+
+    return (macd_series[-1], signal)
+
+
+def check_bnf(current_price: int, daily_prices: List[Dict]) -> Dict[str, Any]:
+    """BNF 바닥 반등 시그널: EMA25 -20% 이탈 + RSI<30 + MACD 골든크로스"""
+    result = {"met": False, "reason": None}
+
+    if not current_price or not daily_prices:
+        return result
+
+    closes = []
+    for p in daily_prices:
+        c = _safe_int(p.get("stck_clpr"))
+        if c:
+            closes.append(c)
+
+    if len(closes) < 26:
+        result["reason"] = "데이터 부족"
+        return result
+
+    parts = []
+    conditions = [False, False, False]
+
+    # 1) EMA25 대비 -20% 이탈
+    ema25 = _calc_ema(closes, 25)
+    if ema25 and ema25 > 0:
+        gap_pct = (current_price - ema25) / ema25 * 100
+        if current_price <= ema25 * 0.8:
+            conditions[0] = True
+            parts.append(f"EMA25 {ema25:,.0f} 대비 {gap_pct:+.1f}%")
+        else:
+            parts.append(f"EMA25 {gap_pct:+.1f}%(기준:-20%)")
+
+    # 2) RSI < 30
+    rsi = _calc_rsi(closes)
+    if rsi is not None:
+        if rsi < 30:
+            conditions[1] = True
+            parts.append(f"RSI {rsi:.1f}")
+        else:
+            parts.append(f"RSI {rsi:.1f}(기준:<30)")
+
+    # 3) MACD 골든크로스
+    macd_result = _calc_macd(closes)
+    if macd_result:
+        macd_val, signal_val = macd_result
+        if macd_val > signal_val:
+            conditions[2] = True
+            parts.append("MACD 양전")
+        else:
+            parts.append("MACD 음전")
+
+    if all(conditions):
+        result["met"] = True
+
+    result["reason"] = " | ".join(parts) if parts else "계산 불가"
+    return result
+
+
+# ────────────────────────────────────────────────────────────
 # 9. 과열 경고 (오렌지색)
 # ────────────────────────────────────────────────────────────
 
@@ -521,10 +652,11 @@ def evaluate_stock_criteria(
         "short_selling": check_short_selling(short_ratio, short_volume),
         "overheating": check_overheating(current_price, change_rate, volume_rate, rsi, ma_values),
         "reverse_alignment": check_reverse_alignment(current_price, ma_values),
+        "bnf": check_bnf(current_price, daily_prices),
     }
 
-    # all_met 계산: warning 기준(short_selling)은 제외
-    non_warning = {k: v for k, v in criteria.items() if not (isinstance(v, dict) and v.get("warning"))}
+    # all_met 계산: warning 기준과 bnf(특수 지표)는 제외
+    non_warning = {k: v for k, v in criteria.items() if not (isinstance(v, dict) and v.get("warning")) and k != "bnf"}
     all_met = all(c["met"] for c in non_warning.values())
     criteria["all_met"] = all_met
 
