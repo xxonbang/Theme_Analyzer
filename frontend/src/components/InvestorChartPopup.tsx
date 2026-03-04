@@ -70,6 +70,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   const hasIntraday = intradaySnapshots.length >= 1
   const hasHistory = history.length > 0
   const [showCr, setShowCr] = useState(true)
+  const [visibleLines, setVisibleLines] = useState({ f: true, i: true, p: true })
 
   const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
     // history 없고 장중 데이터만 있으면 → 장중 탭 기본
@@ -252,8 +253,27 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         )}
         {activeTab === "intraday" && hasIntraday && (
           <>
-            {intradayChart?.hasCr && (
-              <div className="flex justify-end mb-1.5">
+            <div className="flex justify-end gap-1.5 mb-1.5 flex-wrap">
+              {([
+                { key: "f" as const, label: "외국인", color: "#ef4444", bg: "bg-red-50", text: "text-red-600", border: "border-red-300" },
+                { key: "i" as const, label: "기관", color: "#8b5cf6", bg: "bg-violet-50", text: "text-violet-600", border: "border-violet-300" },
+                { key: "p" as const, label: "개인", color: "#22c55e", bg: "bg-green-50", text: "text-green-600", border: "border-green-300" },
+              ]).map(({ key, label, color, bg, text, border }) => (
+                <button
+                  key={key}
+                  onClick={() => setVisibleLines(v => ({ ...v, [key]: !v[key] }))}
+                  className={cn(
+                    "flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-md border transition-colors",
+                    visibleLines[key]
+                      ? `${bg} ${text} ${border}`
+                      : "text-muted-foreground border-border hover:bg-muted/50"
+                  )}
+                >
+                  <span className="w-3 h-0.5 rounded inline-block" style={{ background: visibleLines[key] ? color : "#94a3b8" }} />
+                  {label}
+                </button>
+              ))}
+              {intradayChart?.hasCr && (
                 <button
                   onClick={() => setShowCr(v => !v)}
                   className={cn(
@@ -266,8 +286,8 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   <span className="w-3 h-0.5 rounded inline-block" style={{ background: showCr ? "#f59e0b" : "#94a3b8", borderTop: `1px dashed ${showCr ? "#f59e0b" : "#94a3b8"}` }} />
                   등락률 {showCr ? "ON" : "OFF"}
                 </button>
-              </div>
-            )}
+              )}
+            </div>
             {intradayChart && (
               <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
                 {/* 0선 */}
@@ -301,11 +321,15 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
                 })}
                 {/* 꺾은선 (수급) */}
-                {intradayChart.series.map((s, idx) => (
-                  <polyline key={idx} points={buildLine(s.values, intradayChart.min, intradayChart.max)}
-                    fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
-                  />
-                ))}
+                {intradayChart.series.map((s, idx) => {
+                  const key = (["f", "i", "p"] as const)[idx]
+                  if (!visibleLines[key]) return null
+                  return (
+                    <polyline key={idx} points={buildLine(s.values, intradayChart.min, intradayChart.max)}
+                      fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
+                    />
+                  )
+                })}
                 {/* 등락률 polyline (우축 독립 스케일) */}
                 {intradayChart.hasCr && showCr && (
                   <polyline
@@ -314,13 +338,15 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   />
                 )}
                 {/* 데이터 포인트 */}
-                {intradayChart.series.map((s, si) =>
-                  s.values.map((v, di) => {
+                {intradayChart.series.map((s, si) => {
+                  const key = (["f", "i", "p"] as const)[si]
+                  if (!visibleLines[key]) return null
+                  return s.values.map((v, di) => {
                     const x = PAD.left + (di / Math.max(s.values.length - 1, 1)) * PLOT_W
                     const y = PAD.top + (1 - (v - intradayChart.min) / intradayChart.range) * PLOT_H
                     return <circle key={`${si}-${di}`} cx={x} cy={y} r={2.5} fill={s.color} />
                   })
-                )}
+                })}
               </svg>
             )}
             {/* 장중 테이블 */}
