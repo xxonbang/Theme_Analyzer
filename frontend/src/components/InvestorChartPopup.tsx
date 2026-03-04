@@ -23,8 +23,9 @@ interface LineSeries { values: number[]; color: string }
 
 function buildLine(values: number[], allMin: number, allMax: number): string {
   const range = allMax - allMin || 1
+  const len = values.length > 1 ? values.length - 1 : 1
   return values.map((v, i) => {
-    const x = PAD.left + (i / (values.length - 1)) * PLOT_W
+    const x = PAD.left + (i / len) * PLOT_W
     const y = PAD.top + (1 - (v - allMin) / range) * PLOT_H
     return `${x},${y}`
   }).join(" ")
@@ -66,10 +67,13 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
       .map(s => ({ time: s.time, round: s.round, ...s.data[stockCode] }))
   }, [stockCode, investorIntraday])
 
-  const hasIntraday = intradaySnapshots.length >= 2
+  const hasIntraday = intradaySnapshots.length >= 1
+  const hasHistory = history.length > 0
   const [showCr, setShowCr] = useState(true)
 
   const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
+    // history 없고 장중 데이터만 있으면 → 장중 탭 기본
+    if (!hasHistory && hasIntraday) return "intraday"
     if (!hasIntraday) return "daily"
     const now = new Date()
     const kstHour = (now.getUTCHours() + 9) % 24
@@ -80,7 +84,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
 
   // 장중 차트 데이터
   const intradayChart = useMemo(() => {
-    if (intradaySnapshots.length < 2) return null
+    if (intradaySnapshots.length === 0) return null
     const fVals = intradaySnapshots.map(s => s.f)
     const iVals = intradaySnapshots.map(s => s.i)
     const pVals = intradaySnapshots.map(s => s.p ?? 0)
@@ -247,9 +251,9 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         )}
 
         {/* === 장중 탭 === */}
-        {activeTab === "intraday" && intradayChart && (
+        {activeTab === "intraday" && hasIntraday && (
           <>
-            {intradayChart.hasCr && (
+            {intradayChart?.hasCr && (
               <div className="flex justify-end mb-1.5">
                 <button
                   onClick={() => setShowCr(v => !v)}
@@ -265,59 +269,61 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 </button>
               </div>
             )}
-            <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-              {/* 0선 */}
-              <line x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
-                stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
-              />
-              {/* 좌측 Y축 라벨 */}
-              <text x={PAD.left - 3} y={intradayChart.zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-              <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
-              <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
-              {/* 우측 Y축 라벨 */}
-              {intradayChart.hasCr && showCr ? (
-                <>
-                  <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMax.toFixed(1)}%</text>
-                  <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H / 2 + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{((intradayChart.crMax + intradayChart.crMin) / 2).toFixed(1)}%</text>
-                  <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMin.toFixed(1)}%</text>
-                </>
-              ) : (
-                <>
-                  <text x={CHART_W - PAD.right + 3} y={intradayChart.zeroY + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-                  <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
-                  <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
-                </>
-              )}
-              {/* 좌측/우측 세로선 */}
-              <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
-              <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
-              {/* X축 라벨 */}
-              {intradayChart.labels.map((label, i) => {
-                const x = PAD.left + (i / (intradayChart.labels.length - 1)) * PLOT_W
-                return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
-              })}
-              {/* 꺾은선 (수급) */}
-              {intradayChart.series.map((s, idx) => (
-                <polyline key={idx} points={buildLine(s.values, intradayChart.min, intradayChart.max)}
-                  fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
+            {intradayChart && (
+              <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
+                {/* 0선 */}
+                <line x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
+                  stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
                 />
-              ))}
-              {/* 등락률 polyline (우축 독립 스케일) */}
-              {intradayChart.hasCr && showCr && (
-                <polyline
-                  points={buildLine(intradayChart.crVals, intradayChart.crMin, intradayChart.crMax)}
-                  fill="none" stroke="#f59e0b" strokeWidth={1.5} strokeDasharray="4,2" strokeLinecap="round" strokeLinejoin="round"
-                />
-              )}
-              {/* 데이터 포인트 */}
-              {intradayChart.series.map((s, si) =>
-                s.values.map((v, di) => {
-                  const x = PAD.left + (di / (s.values.length - 1)) * PLOT_W
-                  const y = PAD.top + (1 - (v - intradayChart.min) / intradayChart.range) * PLOT_H
-                  return <circle key={`${si}-${di}`} cx={x} cy={y} r={2.5} fill={s.color} />
-                })
-              )}
-            </svg>
+                {/* 좌측 Y축 라벨 */}
+                <text x={PAD.left - 3} y={intradayChart.zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+                <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
+                <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
+                {/* 우측 Y축 라벨 */}
+                {intradayChart.hasCr && showCr ? (
+                  <>
+                    <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMax.toFixed(1)}%</text>
+                    <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H / 2 + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{((intradayChart.crMax + intradayChart.crMin) / 2).toFixed(1)}%</text>
+                    <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMin.toFixed(1)}%</text>
+                  </>
+                ) : (
+                  <>
+                    <text x={CHART_W - PAD.right + 3} y={intradayChart.zeroY + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+                    <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
+                    <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
+                  </>
+                )}
+                {/* 좌측/우측 세로선 */}
+                <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+                <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+                {/* X축 라벨 */}
+                {intradayChart.labels.map((label, i) => {
+                  const x = PAD.left + (i / (intradayChart.labels.length - 1)) * PLOT_W
+                  return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+                })}
+                {/* 꺾은선 (수급) */}
+                {intradayChart.series.map((s, idx) => (
+                  <polyline key={idx} points={buildLine(s.values, intradayChart.min, intradayChart.max)}
+                    fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
+                  />
+                ))}
+                {/* 등락률 polyline (우축 독립 스케일) */}
+                {intradayChart.hasCr && showCr && (
+                  <polyline
+                    points={buildLine(intradayChart.crVals, intradayChart.crMin, intradayChart.crMax)}
+                    fill="none" stroke="#f59e0b" strokeWidth={1.5} strokeDasharray="4,2" strokeLinecap="round" strokeLinejoin="round"
+                  />
+                )}
+                {/* 데이터 포인트 */}
+                {intradayChart.series.map((s, si) =>
+                  s.values.map((v, di) => {
+                    const x = PAD.left + (di / (s.values.length - 1)) * PLOT_W
+                    const y = PAD.top + (1 - (v - intradayChart.min) / intradayChart.range) * PLOT_H
+                    return <circle key={`${si}-${di}`} cx={x} cy={y} r={2.5} fill={s.color} />
+                  })
+                )}
+              </svg>
+            )}
             {/* 장중 테이블 */}
             <div className="space-y-0">
               <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
@@ -329,13 +335,14 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               </div>
               {intradaySnapshots.map((s, idx) => {
                 const isLast = idx === intradaySnapshots.length - 1
+                const hasCrCol = intradayChart?.hasCr && showCr
                 return (
                   <div key={idx} className={`flex items-center py-1 text-[10px] ${isLast ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < intradaySnapshots.length - 1 ? "border-b border-border/20" : ""}`}>
                     <span className="w-10 shrink-0 text-muted-foreground font-medium">{s.time}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.f))}>{formatNetBuy(s.f)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.i))}>{formatNetBuy(s.i)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", s.p != null ? getNetBuyColor(s.p) : "text-muted-foreground")}>{s.p != null ? formatNetBuy(s.p) : "-"}</span>
-                    {intradayChart?.hasCr && showCr && (
+                    {hasCrCol && (
                       <span className={cn("w-14 shrink-0 text-right tabular-nums", s.cr != null && s.cr > 0 ? "text-red-500" : s.cr != null && s.cr < 0 ? "text-blue-500" : "text-muted-foreground")}>
                         {s.cr != null ? `${s.cr > 0 ? "+" : ""}${s.cr.toFixed(2)}%` : "-"}
                       </span>
