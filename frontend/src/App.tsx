@@ -436,45 +436,43 @@ function App() {
 
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
-      {/* 히스토리 보기 중 배너 */}
-      {isViewingHistory && selectedEntry && (
-        <div className="sticky top-14 sm:top-16 z-40 bg-muted/80 border-b border-border backdrop-blur-sm">
-          <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="flex items-center gap-1.5 text-muted-foreground">
-                <Calendar className="w-4 h-4" />
-                <span className="text-xs sm:text-sm font-medium">
-                  {selectedEntry.date.replace(/-/g, ".")} ({getWeekday(selectedEntry.date)})
+      {/* 히스토리 배너 + Tab Bar (하나의 sticky 컨테이너) */}
+      <div className="sticky top-14 sm:top-16 z-40">
+        {isViewingHistory && selectedEntry && (
+          <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
+            <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="flex items-center gap-1.5 text-muted-foreground">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-xs sm:text-sm font-medium">
+                    {selectedEntry.date.replace(/-/g, ".")} ({getWeekday(selectedEntry.date)})
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 text-muted-foreground">
+                  <Clock className="w-4 h-4" />
+                  <span className="text-xs sm:text-sm font-medium">{selectedEntry.time}</span>
+                </div>
+                <span className="text-xs text-muted-foreground/70 hidden sm:inline">
+                  과거 데이터
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                <span className="text-xs sm:text-sm font-medium">{selectedEntry.time}</span>
-              </div>
-              <span className="text-xs text-muted-foreground/70 hidden sm:inline">
-                과거 데이터
-              </span>
+              <button
+                onClick={handleBackToLive}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md",
+                  "text-xs sm:text-sm font-medium",
+                  "bg-primary/10 hover:bg-primary/20",
+                  "text-primary",
+                  "transition-colors duration-150"
+                )}
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">최신으로 돌아가기</span>
+                <span className="sm:hidden">돌아가기</span>
+              </button>
             </div>
-            <button
-              onClick={handleBackToLive}
-              className={cn(
-                "flex items-center gap-1.5 px-3 py-1.5 rounded-md",
-                "text-xs sm:text-sm font-medium",
-                "bg-primary/10 hover:bg-primary/20",
-                "text-primary",
-                "transition-colors duration-150"
-              )}
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">최신으로 돌아가기</span>
-              <span className="sm:hidden">돌아가기</span>
-            </button>
           </div>
-        </div>
-      )}
-
-      {/* Tab Bar */}
-      <div className={cn("sticky z-40", isViewingHistory && selectedEntry ? "top-[88px] sm:top-[100px]" : "top-14 sm:top-16")}>
+        )}
         <TabBar
           activeTab={activeTab}
           onTabChange={handleTabChange}
