@@ -9,6 +9,7 @@ import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { TradingChartPopup } from "@/components/TradingChartPopup"
 import { InvestorChartPopup } from "@/components/InvestorChartPopup"
+import { Sparkline } from "@/components/Sparkline"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday } from "@/types/stock"
 
 interface StockCardProps {
@@ -218,15 +219,24 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <span className="text-muted-foreground">
                 거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
-              {/* 거래 차트 bottom sheet 열기 */}
-              {history?.changes && history.changes.length > 1 && (
-                <button
-                  onClick={() => setShowTradingChart(true)}
-                  className="ml-auto shrink-0 p-1 rounded-md border border-border/50 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
-                >
-                  <Maximize2 className="w-3.5 h-3.5" />
-                </button>
-              )}
+              {/* 거래대금 스파크라인 + bottom sheet 열기 */}
+              {history?.changes && history.changes.length > 1 && (() => {
+                const reversed = [...history.changes].reverse()
+                const tradingSparkData = reversed.map((c, i) =>
+                  i === reversed.length - 1 ? (stock.trading_value ?? c.trading_value ?? 0) : (c.trading_value ?? 0)
+                )
+                return (
+                <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
+                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                    <Sparkline data={tradingSparkData} color="#f59e0b" className="pointer-events-none" />
+                  </button>
+                  <div className="w-px self-stretch bg-border/50" />
+                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                    <Maximize2 className="w-3 h-3" />
+                  </button>
+                </div>
+                )
+              })()}
               {/* 거래 차트 팝업 */}
               {showTradingChart && history?.changes && (
                 <TradingChartPopup
@@ -287,13 +297,23 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         <span className="sm:hidden">개</span><span className="hidden sm:inline">개인</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
-                    {/* 수급 차트 bottom sheet 열기 */}
-                    <button
-                      onClick={() => setShowInvestorChart(true)}
-                      className="ml-auto shrink-0 p-1 rounded-md border border-border/50 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
-                    >
-                      <Maximize2 className="w-3.5 h-3.5" />
-                    </button>
+                    {/* 수급 스파크라인 + bottom sheet 열기 */}
+                    {(() => {
+                      const investorSparkData = investorInfo.history && investorInfo.history.length > 0
+                        ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
+                        : [investorInfo.foreign_net]
+                      return (
+                      <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
+                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                          <Sparkline data={investorSparkData} color="#ef4444" className="pointer-events-none" />
+                        </button>
+                        <div className="w-px self-stretch bg-border/50" />
+                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                          <Maximize2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                      )
+                    })()}
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label

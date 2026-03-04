@@ -140,7 +140,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:p-5 sm:pb-8">
+      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
         {/* 모바일 드래그 핸들 */}
         <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />

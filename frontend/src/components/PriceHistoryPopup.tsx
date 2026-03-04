@@ -57,53 +57,51 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
           </button>
         </div>
 
-        {/* 테이블 */}
-        <table className="w-full text-[10px]">
-          <thead>
-            <tr className="text-[9px] text-muted-foreground font-medium border-b border-border/50">
-              <th className="text-left pb-1.5 font-medium">일자</th>
-              <th className="text-right pb-1.5 font-medium">종가</th>
-              <th className="text-right pb-1.5 font-medium">등락률</th>
-              <th className="text-right pb-1.5 font-medium">거래량</th>
-              <th className="text-right pb-1.5 font-medium">거래대금</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reversed.map((c, idx) => {
-              const isToday = idx === reversed.length - 1
-              const label = isToday ? "D" : `D-${reversed.length - 1 - idx}`
-              const rate = isToday ? currentChangeRate : c.change_rate
-              const close = isToday ? currentPrice : (c.close || 0)
+        {/* 가격 이력 */}
+        <div className="space-y-0">
+          {reversed.map((c, idx) => {
+            const isToday = idx === reversed.length - 1
+            const label = isToday ? "D" : `D-${reversed.length - 1 - idx}`
+            const rate = isToday ? currentChangeRate : c.change_rate
+            const close = isToday ? currentPrice : (c.close || 0)
 
-              return (
-                <tr
-                  key={idx}
-                  className={cn(
-                    isToday && "bg-muted/40 font-medium",
-                    idx < reversed.length - 1 && "border-b border-border/20"
-                  )}
-                >
-                  <td className="py-1.5 pr-3 text-muted-foreground whitespace-nowrap">
-                    <span className="font-medium">{label}</span>
-                    <span className="text-[8px] ml-0.5 hidden sm:inline">{c.date.slice(5)}</span>
-                  </td>
-                  <td className="py-1.5 text-right tabular-nums font-medium whitespace-nowrap">
+            return (
+              <div
+                key={idx}
+                className={cn(
+                  "py-2 px-1",
+                  isToday && "bg-muted/40 rounded-md font-medium",
+                  idx < reversed.length - 1 && "border-b border-border/20"
+                )}
+              >
+                {/* 1행: 일자 + 종가 + 등락률 */}
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] sm:text-xs text-muted-foreground font-semibold w-8 shrink-0 tabular-nums">{label}</span>
+                  <span className="text-[8px] sm:text-[9px] text-muted-foreground/50 w-10 shrink-0 hidden sm:block">{c.date.slice(5)}</span>
+                  <span className="text-[11px] sm:text-xs font-bold tabular-nums flex-1 text-right">
                     {close > 0 ? formatPrice(close) : "-"}
-                  </td>
-                  <td className={cn("py-1.5 text-right tabular-nums font-medium whitespace-nowrap rounded px-0.5", getChangeBgColor(rate))}>
+                    <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
+                  </span>
+                  <span className={cn(
+                    "text-[10px] sm:text-[11px] font-bold tabular-nums px-1.5 py-0.5 rounded shrink-0 min-w-[3.5rem] text-right",
+                    getChangeBgColor(rate)
+                  )}>
                     {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
-                  </td>
-                  <td className="py-1.5 pl-2 text-right tabular-nums text-muted-foreground whitespace-nowrap">
-                    {c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}
-                  </td>
-                  <td className="py-1.5 pl-2 text-right tabular-nums text-muted-foreground whitespace-nowrap">
-                    {c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                  </span>
+                </div>
+                {/* 2행: 거래량 + 거래대금 */}
+                <div className="flex items-center gap-2 mt-0.5 ml-8 sm:ml-[4.5rem]">
+                  <span className="text-[9px] text-muted-foreground/60 tabular-nums">
+                    거래량 <span className="text-muted-foreground">{c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}</span>
+                  </span>
+                  <span className="text-[9px] text-muted-foreground/60 tabular-nums">
+                    거래대금 <span className="text-muted-foreground">{c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}</span>
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>,
     document.body
