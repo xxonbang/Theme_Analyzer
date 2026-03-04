@@ -258,11 +258,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     const dayNum = pastDays.length - idx
                     const label = `D-${dayNum}`
                     return (
-                      <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
-                        <span className="font-medium w-6">{label}</span>
-                        <span className={cn("font-medium", c.change_rate >= 0 ? "text-red-500" : "text-blue-500")}>{c.change_rate > 0 ? "+" : ""}{c.change_rate.toFixed(1)}%</span>
-                        {c.trading_value != null && <span>거래대금 <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></span>}
-                        {c.volume != null && <span>거래량 <span className="text-foreground font-medium">{formatVolume(c.volume)}</span></span>}
+                      <div key={idx} className="flex items-center text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                        <span className="font-medium w-6 shrink-0">{label}</span>
+                        <span className={cn("w-14 shrink-0 text-right font-medium tabular-nums", c.change_rate >= 0 ? "text-red-500" : "text-blue-500")}>{c.change_rate > 0 ? "+" : ""}{c.change_rate.toFixed(1)}%</span>
+                        {c.trading_value != null && <span className="flex-1 text-right tabular-nums">거래대금 <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></span>}
+                        {c.volume != null && <span className="flex-1 text-right tabular-nums">거래량 <span className="text-foreground font-medium">{formatVolume(c.volume)}</span></span>}
                       </div>
                     )
                   })}
@@ -338,12 +338,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       {[...recentHistory].reverse().map((h, idx) => {
                         const label = `D-${recentHistory.length - idx}`
                         return (
-                          <div key={idx} className="flex items-center gap-x-2 text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
-                            <span className="font-medium w-6">{label}</span>
-                            <span>외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
-                            <span>기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
+                          <div key={idx} className="flex items-center text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                            <span className="font-medium w-6 shrink-0">{label}</span>
+                            <span className="flex-1 text-right tabular-nums">외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
+                            <span className="flex-1 text-right tabular-nums">기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
                             {h.individual_net != null && (
-                              <span>개인 <span className={cn("font-medium", getNetBuyColor(h.individual_net))}>{formatNetBuy(h.individual_net)}</span></span>
+                              <span className="flex-1 text-right tabular-nums">개인 <span className={cn("font-medium", getNetBuyColor(h.individual_net))}>{formatNetBuy(h.individual_net)}</span></span>
                             )}
                           </div>
                         )
