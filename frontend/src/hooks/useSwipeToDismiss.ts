@@ -16,6 +16,9 @@ export function useSwipeToDismiss(onClose: () => void, threshold = 80) {
     const handle = handleRef.current
     if (!handle) return
 
+    // 브라우저가 핸들 터치를 스크롤 제스처로 선점하지 않도록 차단
+    handle.style.touchAction = "none"
+
     const onTouchStart = (e: TouchEvent) => {
       startY.current = e.touches[0].clientY
       deltaY.current = 0
@@ -26,6 +29,7 @@ export function useSwipeToDismiss(onClose: () => void, threshold = 80) {
     const onTouchMove = (e: TouchEvent) => {
       const dy = e.touches[0].clientY - startY.current
       if (dy < 0) { deltaY.current = 0; return }
+      e.preventDefault()
       deltaY.current = dy
       const sheet = sheetRef.current
       if (sheet) {
@@ -49,7 +53,7 @@ export function useSwipeToDismiss(onClose: () => void, threshold = 80) {
     }
 
     handle.addEventListener("touchstart", onTouchStart, { passive: true })
-    handle.addEventListener("touchmove", onTouchMove, { passive: true })
+    handle.addEventListener("touchmove", onTouchMove, { passive: false })
     handle.addEventListener("touchend", onTouchEnd)
 
     return () => {

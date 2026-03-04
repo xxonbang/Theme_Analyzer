@@ -11,7 +11,9 @@ import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
 import { IndexAlertSection } from "@/components/KosdaqIndexAlert"
 import { ApiKeyAlertBanner } from "@/components/ApiKeyAlertBanner"
+import { PullToRefreshIndicator } from "@/components/PullToRefreshIndicator"
 import { useApiAlerts } from "@/hooks/useApiAlerts"
+import { usePullToRefresh } from "@/hooks/usePullToRefresh"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
 import { useAuth } from "@/hooks/useAuth"
@@ -38,7 +40,11 @@ function App() {
     logActivity("page_view", { page: currentPage })
   }, [currentPage, recordVisit, logActivity])
   const apiAlerts = useApiAlerts(isAdmin)
-  const { data: currentData, loading, error, refreshFromAPI, refreshElapsed } = useStockData()
+  const { data: currentData, loading, error, refetch, refreshFromAPI, refreshElapsed } = useStockData()
+  const { containerRef, pullDistance, isRefreshing, canRelease } = usePullToRefresh({
+    onRefresh: refetch,
+    enabled: !loading,
+  })
   const {
     groupedHistory,
     selectedData: historyData,
@@ -397,7 +403,7 @@ function App() {
 
   // 요일 계산
   return (
-    <div className="min-h-screen bg-background">
+    <div ref={containerRef} className="min-h-screen bg-background">
       <Header
         timestamp={displayData?.timestamp}
         onRefresh={handleRefresh}
@@ -411,6 +417,8 @@ function App() {
         onPageChange={setCurrentPage}
         isAdmin={isAdmin}
       />
+
+      <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />
 
       {/* 모의투자 페이지 */}
       {currentPage === "paper-trading" && (

@@ -42,7 +42,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
 
       <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
         {/* 모바일 드래그 핸들 */}
-        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
 
