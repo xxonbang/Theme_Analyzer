@@ -65,19 +65,44 @@ function IndexAlert({ data, label }: IndexAlertProps) {
       </div>
 
       {showDetail && (
-        <div className="mt-2 pt-2 border-t border-current/10 flex flex-wrap gap-x-3 gap-y-1 text-[10px] sm:text-xs tabular-nums">
-          <span className="font-bold">현재 {data.current.toFixed(2)}</span>
-          {maValues.filter(({ value }) => value > 0).map(({ label, value }) => (
-            <span
-              key={label}
-              className={cn(
-                "font-medium",
-                value <= data.current ? "text-emerald-600" : "text-red-500"
-              )}
-            >
-              {label} {value.toFixed(2)}
-            </span>
-          ))}
+        <div className="mt-2 pt-2 border-t border-current/10 tabular-nums">
+          {/* 현재가 헤더 */}
+          <div className="flex items-baseline justify-between mb-1.5 px-0.5">
+            <span className="text-[9px] sm:text-[10px] opacity-50 font-medium">현재</span>
+            <span className="text-xs sm:text-sm font-bold">{data.current.toFixed(2)}</span>
+          </div>
+          {/* MA 값 그리드 */}
+          <div className="grid grid-cols-3 gap-1">
+            {maValues.filter(({ value }) => value > 0).map(({ label, value }) => {
+              const gapPct = ((data.current - value) / value * 100)
+              const isBelow = data.current >= value
+              return (
+                <div
+                  key={label}
+                  className={cn(
+                    "rounded-md px-2 py-1.5",
+                    isBelow ? "bg-emerald-500/10" : "bg-red-500/10"
+                  )}
+                >
+                  <div className={cn(
+                    "text-[9px] font-semibold leading-none",
+                    isBelow ? "text-emerald-600 dark:text-emerald-400" : "text-red-500 dark:text-red-400"
+                  )}>
+                    {label}
+                  </div>
+                  <div className="text-[11px] sm:text-xs font-bold leading-tight mt-0.5">
+                    {value.toFixed(2)}
+                  </div>
+                  <div className={cn(
+                    "text-[8px] sm:text-[9px] leading-none mt-0.5 font-medium",
+                    isBelow ? "text-emerald-500/70" : "text-red-400/70"
+                  )}>
+                    {gapPct > 0 ? "+" : ""}{gapPct.toFixed(1)}%
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       )}
     </button>
