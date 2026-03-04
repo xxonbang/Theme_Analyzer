@@ -283,35 +283,24 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </span>
                     )}
                     {/* 외국인 순매수 스파크라인 + 히스토리 토글 */}
-                    {(() => {
-                      const hasHistory = investorInfo.history && investorInfo.history.length > 0
-                      const investorSparkData = hasHistory
-                        ? [...investorInfo.history!].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
-                        : [investorInfo.foreign_net]
+                    {investorInfo.history && investorInfo.history.length > 0 && (() => {
+                      const investorSparkData = [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
                       return (
                       <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
                         <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
-                          {investorSparkData.length >= 2 ? (
-                            <Sparkline
-                              data={investorSparkData}
-                              color="#ef4444"
-                              className="pointer-events-none"
-                            />
-                          ) : (
-                            <span className="text-[9px] text-muted-foreground">차트</span>
-                          )}
+                          <Sparkline
+                            data={investorSparkData}
+                            color="#ef4444"
+                            className="pointer-events-none"
+                          />
                         </button>
-                        {hasHistory && (
-                          <>
-                            <div className="w-px self-stretch bg-border/50" />
-                            <button
-                              onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
-                              className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
-                            >
-                              {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                            </button>
-                          </>
-                        )}
+                        <div className="w-px self-stretch bg-border/50" />
+                        <button
+                          onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                          className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+                        >
+                          {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                        </button>
                       </div>
                       )})()}
                     {investorUpdatedAt && (() => {
