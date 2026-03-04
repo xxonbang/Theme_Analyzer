@@ -1,0 +1,399 @@
+{
+  "trade_date": "2026-03-04",
+  "morning_timestamp": "2026-03-03 21:43:46",
+  "collected_at": "2026-03-04 06:40:49",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-03 21:43:46",
+      "prices": {
+        "042700": 282000,
+        "403870": 43200,
+        "005380": 595000,
+        "229000": 5870,
+        "307750": 4715,
+        "322000": 100200,
+        "038500": 17000,
+        "010950": 141300,
+        "012450": 1432000,
+        "079550": 661000,
+        "003280": 2330,
+        "440110": 59000
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/친환경 모빌리티"
+        },
+        {
+          "code": "004020",
+          "name": "현대제철",
+          "theme": "자동차/친환경 모빌리티"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "307750",
+          "name": "국전약품",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "038500",
+          "name": "삼표시멘트",
+          "theme": "건설/SOC (시멘트)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-04 09:16:00",
+      "prices": {
+        "042700": 266500,
+        "403870": 40250,
+        "005380": 570000,
+        "229000": 4515,
+        "307750": 4400,
+        "322000": 95400,
+        "038500": 15330,
+        "024060": 29700,
+        "010950": 175500,
+        "012450": 1639000,
+        "079550": 842000,
+        "003280": 2830,
+        "004090": 27450,
+        "440110": 59100
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유가 급등 수혜주"
+        },
+        {
+          "code": "010950",
+          "name": "S-Oil",
+          "theme": "에너지/유가 급등 수혜주"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "K-방산 수출 및 지정학적 리스크 수혜주"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "K-방산 수출 및 지정학적 리스크 수혜주"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 운임 상승 기대주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-04 09:38:31",
+      "prices": {
+        "042700": 274000,
+        "403870": 43950,
+        "005380": 530000,
+        "229000": 4110,
+        "307750": 4370,
+        "322000": 85900,
+        "038500": 14190,
+        "024060": 28450,
+        "010950": 168600,
+        "012450": 1258000,
+        "079550": 688000,
+        "003280": 2570,
+        "004090": 25750,
+        "440110": 61700
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지 (유가 급등 수혜)"
+        },
+        {
+          "code": "004090",
+          "name": "한국석유",
+          "theme": "에너지 (유가 급등 수혜)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (HBM 및 AI 반도체)"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체 (HBM 및 AI 반도체)"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 (운임 상승 기대감)"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방위산업 (K-방산 수출 모멘텀)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-04 11:38:10",
+      "prices": {
+        "042700": 268500,
+        "403870": 38950,
+        "005380": 504000,
+        "229000": 4110,
+        "307750": 4015,
+        "322000": 80700,
+        "038500": 13790,
+        "024060": 29700,
+        "010950": 129000,
+        "012450": 1324000,
+        "079550": 619000,
+        "003280": 2765,
+        "004090": 27450,
+        "440110": 57500
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지 (유가 급등 수혜)"
+        },
+        {
+          "code": "004090",
+          "name": "한국석유",
+          "theme": "에너지 (유가 급등 수혜)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (HBM 및 AI 반도체)"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체 (HBM 및 AI 반도체)"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 (운임 상승 기대감)"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방위산업 (K-방산 수출 모멘텀)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSPI",
+      "buy_price": 282000,
+      "close_price": 259000,
+      "profit_rate": -8.16,
+      "profit_amount": -23000,
+      "high_price": 282000,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 43200,
+      "close_price": 37950,
+      "profit_rate": -12.15,
+      "profit_amount": -5250,
+      "high_price": 43200,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "005380",
+      "name": "현대차",
+      "theme": "자동차/친환경 모빌리티",
+      "market": "KOSPI",
+      "buy_price": 595000,
+      "close_price": 501000,
+      "profit_rate": -15.8,
+      "profit_amount": -94000,
+      "high_price": 595000,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "229000",
+      "name": "젠큐릭스",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 5870,
+      "close_price": 4110,
+      "profit_rate": -29.98,
+      "profit_amount": -1760,
+      "high_price": 5870,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "307750",
+      "name": "국전약품",
+      "theme": "바이오/제약",
+      "market": "KOSDAQ",
+      "buy_price": 4715,
+      "close_price": 4010,
+      "profit_rate": -14.95,
+      "profit_amount": -705,
+      "high_price": 4715,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지 (태양광)",
+      "market": "KOSDAQ",
+      "buy_price": 100200,
+      "close_price": 77800,
+      "profit_rate": -22.36,
+      "profit_amount": -22400,
+      "high_price": 100200,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "038500",
+      "name": "삼표시멘트",
+      "theme": "건설/SOC (시멘트)",
+      "market": "KOSPI",
+      "buy_price": 17000,
+      "close_price": 13160,
+      "profit_rate": -22.59,
+      "profit_amount": -3840,
+      "high_price": 17000,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "010950",
+      "name": "S-Oil",
+      "theme": "에너지/유가 급등 수혜주",
+      "market": "KOSPI",
+      "buy_price": 141300,
+      "close_price": 126500,
+      "profit_rate": -10.47,
+      "profit_amount": -14800,
+      "high_price": 141300,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "theme": "K-방산 수출 및 지정학적 리스크 수혜주",
+      "market": "KOSPI",
+      "buy_price": 1432000,
+      "close_price": 1323000,
+      "profit_rate": -7.61,
+      "profit_amount": -109000,
+      "high_price": 1432000,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "079550",
+      "name": "LIG넥스원",
+      "theme": "K-방산 수출 및 지정학적 리스크 수혜주",
+      "market": "KOSPI",
+      "buy_price": 661000,
+      "close_price": 619000,
+      "profit_rate": -6.35,
+      "profit_amount": -42000,
+      "high_price": 661000,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운 운임 상승 기대주",
+      "market": "KOSPI",
+      "buy_price": 2330,
+      "close_price": 2905,
+      "profit_rate": 24.68,
+      "profit_amount": 575,
+      "high_price": 2905,
+      "high_time": "15:30",
+      "high_profit_rate": 24.68,
+      "high_profit_amount": 575,
+      "high_price_adjusted": true
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "반도체 (HBM 및 AI 반도체)",
+      "market": "KOSDAQ",
+      "buy_price": 59000,
+      "close_price": 54500,
+      "profit_rate": -7.63,
+      "profit_amount": -4500,
+      "high_price": 59000,
+      "high_time": "21:43",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 1,
+    "loss_stocks": 11,
+    "total_invested": 3343615,
+    "total_value": 3022935,
+    "total_profit": -320680,
+    "total_profit_rate": -9.59,
+    "high_total_value": 3344190,
+    "high_total_profit": 575,
+    "high_total_profit_rate": 0.02,
+    "high_profit_stocks": 1,
+    "high_loss_stocks": 0
+  }
+}
