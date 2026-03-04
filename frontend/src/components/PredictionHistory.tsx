@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp, History, X, ExternalLink, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, parseKST } from "@/lib/utils"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import type { StockPrediction, StockPredictionsByDate, ThemeInfo } from "@/hooks/usePredictionHistory"
 import { useForecastSnapshots } from "@/hooks/useForecastSnapshots"
@@ -280,7 +280,7 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
           {snapshots.length > 1 && (
             <div className="flex gap-1 flex-wrap mb-1.5">
               {snapshots.map(s => {
-                const time = new Date(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
+                const time = parseKST(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
                 const active = selected?.id === s.id
                 return (
                   <button

@@ -56,6 +56,12 @@ export function getNetBuyColor(qty: number): string {
   return "text-muted-foreground"
 }
 
+/** Supabase timestamptz → KST Date 파싱 (TZ 없는 레거시 데이터는 KST로 간주) */
+export function parseKST(ts: string): Date {
+  if (ts.includes("+") || ts.includes("Z")) return new Date(ts)
+  return new Date(ts.replace(" ", "T") + "+09:00")
+}
+
 export function getChangeBgColor(rate: number): string {
   if (rate >= 10) return "bg-red-100 text-red-700"
   if (rate >= 5) return "bg-red-50 text-red-600"

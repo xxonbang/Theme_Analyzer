@@ -985,7 +985,7 @@ def generate_forecast(
     now = datetime.now(KST)
     forecast = {
         "forecast_date": now.strftime("%Y년 %m월 %d일"),
-        "generated_at": now.strftime("%Y-%m-%d %H:%M:%S"),
+        "generated_at": now.isoformat(),
         "market_context": result.get("market_context", ""),
         "us_market_summary": result.get("us_market_summary", ""),
         "news_sources": result.get("_news_sources", []),

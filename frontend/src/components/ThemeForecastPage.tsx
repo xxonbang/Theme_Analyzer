@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, AlertCircle, X, Newspaper } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, parseKST } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
@@ -360,7 +360,7 @@ export function ThemeForecastPage({ criteriaData, isAdmin }: ThemeForecastPagePr
           {snapshots.length > 1 && (
             <div className="flex gap-1 flex-wrap">
               {snapshots.map(s => {
-                const time = new Date(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
+                const time = parseKST(s.generated_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })
                 const active = selected?.id === s.id
                 return (
                   <button
