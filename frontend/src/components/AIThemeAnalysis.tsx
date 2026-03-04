@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, ChevronDown, ChevronUp } from "lucide-react"
+import { Sparkles, ChevronDown, ChevronUp, ExternalLink, Navigation } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
@@ -116,24 +116,27 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
                 {stock.name}
               </button>
               {popoverCode === stock.code && (
-                <div ref={popoverRef} className="absolute top-full left-0 mt-1 text-xs bg-popover border rounded-md shadow-lg p-1 z-30 min-w-[140px]">
+                <div ref={popoverRef} className="absolute top-full left-0 mt-1.5 bg-popover border border-border/80 rounded-lg shadow-xl p-1 z-30 min-w-[160px]">
                   <button
                     onClick={() => {
                       window.open(`https://m.stock.naver.com/domestic/stock/${stock.code}/total`, '_blank')
                       setPopoverCode(null)
                     }}
-                    className="flex items-center gap-2 w-full px-3 py-1.5 hover:bg-muted rounded cursor-pointer text-left"
+                    className="flex items-center gap-2.5 w-full px-3 py-2 hover:bg-muted rounded-md cursor-pointer text-left text-[13px] font-medium text-foreground/90 transition-colors"
                   >
-                    🔗 네이버 보기
+                    <ExternalLink className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    네이버 보기
                   </button>
+                  <div className="mx-2 border-t border-border/40" />
                   <button
                     onClick={() => {
                       onScrollToStock?.(stock.code)
                       setPopoverCode(null)
                     }}
-                    className="flex items-center gap-2 w-full px-3 py-1.5 hover:bg-muted rounded cursor-pointer text-left"
+                    className="flex items-center gap-2.5 w-full px-3 py-2 hover:bg-muted rounded-md cursor-pointer text-left text-[13px] font-medium text-foreground/90 transition-colors"
                   >
-                    📍 종목으로 이동
+                    <Navigation className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                    종목으로 이동
                   </button>
                 </div>
               )}
