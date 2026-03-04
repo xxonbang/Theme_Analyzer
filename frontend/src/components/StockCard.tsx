@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -9,7 +9,6 @@ import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { TradingChartPopup } from "@/components/TradingChartPopup"
 import { InvestorChartPopup } from "@/components/InvestorChartPopup"
-import { Sparkline } from "@/components/Sparkline"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday } from "@/types/stock"
 
 interface StockCardProps {
@@ -202,6 +201,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           {/* 거래 정보 */}
           <div>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+              {/* 히스토리 확장 토글 (row 왼편) */}
+              {history?.changes && history.changes.length > 1 && (
+                <button
+                  onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
+                  className="text-muted-foreground hover:text-foreground transition-all"
+                >
+                  {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+              )}
               {stock.trading_value != null && (
                 <span className="text-muted-foreground">
                   거래대금 <span className="font-medium text-foreground">{formatTradingValue(stock.trading_value)}</span>
@@ -210,27 +218,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <span className="text-muted-foreground">
                 거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
               </span>
-              {/* 10일 거래대금 추이 스파크라인 + 히스토리 토글 */}
-              {history?.changes && history.changes.length > 1 && (() => {
-                const tradingSparkData = [...history.changes].reverse().map(c => c.trading_value ?? 0)
-                return (
-                <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
-                    <Sparkline
-                      data={tradingSparkData}
-                      color="#f59e0b"
-                      className="pointer-events-none"
-                    />
-                  </button>
-                  <div className="w-px self-stretch bg-border/50" />
-                  <button
-                    onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
-                    className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
-                  >
-                    {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-              )})()}
+              {/* 거래 차트 bottom sheet 열기 */}
+              {history?.changes && history.changes.length > 1 && (
+                <button
+                  onClick={() => setShowTradingChart(true)}
+                  className="ml-auto shrink-0 p-1 rounded-md border border-border/50 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" />
+                </button>
+              )}
               {/* 거래 차트 팝업 */}
               {showTradingChart && history?.changes && (
                 <TradingChartPopup
@@ -271,6 +267,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                    {/* 히스토리 확장 토글 (row 왼편) */}
+                    {investorInfo.history && investorInfo.history.length > 0 && (
+                      <button
+                        onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                        className="text-muted-foreground hover:text-foreground transition-all"
+                      >
+                        {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                    )}
                     <span className="text-muted-foreground whitespace-nowrap">
                       <span className="sm:hidden">외</span><span className="hidden sm:inline">외국인</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
                     </span>
@@ -282,33 +287,17 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         <span className="sm:hidden">개</span><span className="hidden sm:inline">개인</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
-                    {/* 외국인 순매수 스파크라인 + 히스토리 토글 */}
-                    {(() => {
-                      const investorSparkData = investorInfo.history && investorInfo.history.length > 0
-                        ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
-                        : [investorInfo.foreign_net]
-                      return (
-                      <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer flex items-center gap-1">
-                          <Sparkline
-                            data={investorSparkData}
-                            color="#ef4444"
-                            className="pointer-events-none"
-                          />
-                        </button>
-                        <div className="w-px self-stretch bg-border/50" />
-                        <button
-                          onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
-                          className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
-                        >
-                          {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                        </button>
-                      </div>
-                      )})()}
+                    {/* 수급 차트 bottom sheet 열기 */}
+                    <button
+                      onClick={() => setShowInvestorChart(true)}
+                      className="ml-auto shrink-0 p-1 rounded-md border border-border/50 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                    </button>
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
-                      return <span className={cn("text-[8px] text-muted-foreground/60", !investorInfo.history?.length && "ml-auto")}>{roundText} {investorUpdatedAt.slice(11, 16)}</span>
+                      return <span className="text-[8px] text-muted-foreground/60">{roundText} {investorUpdatedAt.slice(11, 16)}</span>
                     })()}
                     {/* 수급 차트 팝업 */}
                     {showInvestorChart && investorInfo && (

@@ -69,7 +69,16 @@ def check_high_breakout(
     if w52_hgpr and current_price >= w52_hgpr:
         result["met"] = True
         result["is_52w_high"] = True
-        result["reason"] = f"52주 신고가 경신 (기존 {w52_hgpr:,}원 → 현재 {current_price:,}원)"
+        # w52_hgpr는 당일 포함 값이므로, 일봉에서 당일 제외 최고가를 '기존'으로 사용
+        prev_52w_high = None
+        for p in daily_prices[1:]:
+            h = _safe_int(p.get("stck_hgpr") or p.get("stck_high"))
+            if h:
+                prev_52w_high = max(prev_52w_high or 0, h)
+        if prev_52w_high and prev_52w_high < current_price:
+            result["reason"] = f"52주 신고가 경신 (기존 {prev_52w_high:,}원 → 현재 {current_price:,}원)"
+        else:
+            result["reason"] = f"52주 신고가 경신 (현재 {current_price:,}원)"
 
     if not result["met"] and not result["reason"]:
         result["reason"] = "가격 데이터 부족"

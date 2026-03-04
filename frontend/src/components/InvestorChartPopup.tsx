@@ -99,9 +99,15 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     // 등락률 (독립 스케일)
     const crVals = intradaySnapshots.map(s => s.cr ?? 0)
     const hasCr = intradaySnapshots.some(s => s.cr != null)
-    const crMin = Math.min(...crVals)
-    const crMax = Math.max(...crVals)
-    const crRange = crMax - crMin || 1
+    let crMin = Math.min(...crVals)
+    let crMax = Math.max(...crVals)
+    // 범위가 너무 좁으면 ±1% 패딩 (Y축 레이블이 모두 동일해지는 문제 방지)
+    if (crMax - crMin < 2) {
+      const crMid = (crMax + crMin) / 2
+      crMin = crMid - 1
+      crMax = crMid + 1
+    }
+    const crRange = crMax - crMin
 
     return {
       fVals, iVals, pVals, min, max, range: rng, zeroY: zy, labels: lbls,
@@ -134,7 +140,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
+      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:p-5 sm:pb-8">
         {/* 모바일 드래그 핸들 */}
         <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
