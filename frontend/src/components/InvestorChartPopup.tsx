@@ -189,44 +189,42 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         {/* === 일봉 탭 === */}
         {activeTab === "daily" && (
           <>
-            {allDays.length >= 2 && (
-              <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-                {/* 0선 */}
-                <line x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
-                  stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
+            <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
+              {/* 0선 */}
+              <line x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
+                stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
+              />
+              {/* 좌측 Y축 라벨 */}
+              <text x={PAD.left - 3} y={zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+              <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
+              <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
+              {/* 우측 Y축 라벨 */}
+              <text x={CHART_W - PAD.right + 3} y={zeroY + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
+              <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
+              <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
+              {/* 좌측/우측 세로선 */}
+              <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+              <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+              {/* X축 라벨 */}
+              {labels.map((label, i) => {
+                const x = PAD.left + (i / Math.max(labels.length - 1, 1)) * PLOT_W
+                return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+              })}
+              {/* 꺾은선 */}
+              {series.map((s, idx) => (
+                <polyline key={idx} points={buildLine(s.values, allMin, allMax)}
+                  fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
                 />
-                {/* 좌측 Y축 라벨 */}
-                <text x={PAD.left - 3} y={zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-                <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
-                <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
-                {/* 우측 Y축 라벨 */}
-                <text x={CHART_W - PAD.right + 3} y={zeroY + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-                <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
-                <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
-                {/* 좌측/우측 세로선 */}
-                <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
-                <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
-                {/* X축 라벨 */}
-                {labels.map((label, i) => {
-                  const x = PAD.left + (i / (labels.length - 1)) * PLOT_W
-                  return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
-                })}
-                {/* 꺾은선 */}
-                {series.map((s, idx) => (
-                  <polyline key={idx} points={buildLine(s.values, allMin, allMax)}
-                    fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
-                  />
-                ))}
-                {/* 데이터 포인트 */}
-                {series.map((s, si) =>
-                  s.values.map((v, di) => {
-                    const x = PAD.left + (di / (s.values.length - 1)) * PLOT_W
-                    const y = PAD.top + (1 - (v - allMin) / range) * PLOT_H
-                    return <circle key={`${si}-${di}`} cx={x} cy={y} r={2} fill={s.color} />
-                  })
-                )}
-              </svg>
-            )}
+              ))}
+              {/* 데이터 포인트 */}
+              {series.map((s, si) =>
+                s.values.map((v, di) => {
+                  const x = PAD.left + (di / Math.max(s.values.length - 1, 1)) * PLOT_W
+                  const y = PAD.top + (1 - (v - allMin) / range) * PLOT_H
+                  return <circle key={`${si}-${di}`} cx={x} cy={y} r={2} fill={s.color} />
+                })
+              )}
+            </svg>
             {/* 일봉 테이블 */}
             <div className="space-y-0">
               <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
@@ -317,7 +315,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 {/* 데이터 포인트 */}
                 {intradayChart.series.map((s, si) =>
                   s.values.map((v, di) => {
-                    const x = PAD.left + (di / (s.values.length - 1)) * PLOT_W
+                    const x = PAD.left + (di / Math.max(s.values.length - 1, 1)) * PLOT_W
                     const y = PAD.top + (1 - (v - intradayChart.min) / intradayChart.range) * PLOT_H
                     return <circle key={`${si}-${di}`} cx={x} cy={y} r={2.5} fill={s.color} />
                   })
