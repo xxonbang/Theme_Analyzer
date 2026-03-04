@@ -193,14 +193,18 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               <line x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
                 stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
               />
-              {/* 좌측 Y축 라벨 */}
-              <text x={PAD.left - 3} y={zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-              <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
-              <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
-              {/* 우측 Y축 라벨 */}
-              <text x={CHART_W - PAD.right + 3} y={zeroY + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-              <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMax)}</text>
-              <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(allMin)}</text>
+              {/* Y축 라벨 + 그리드 */}
+              {[0, 0.25, 0.5, 0.75, 1].map(r => {
+                const y = PAD.top + r * PLOT_H
+                const val = allMax - r * (allMax - allMin)
+                return (
+                  <g key={r}>
+                    <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                  </g>
+                )
+              })}
               {/* 좌측/우측 세로선 */}
               <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
               <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
@@ -294,24 +298,23 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 <line x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
                   stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
                 />
-                {/* 좌측 Y축 라벨 */}
-                <text x={PAD.left - 3} y={intradayChart.zeroY + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-                <text x={PAD.left - 3} y={PAD.top + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
-                <text x={PAD.left - 3} y={PAD.top + PLOT_H + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
-                {/* 우측 Y축 라벨 */}
-                {intradayChart.hasCr && showCr ? (
-                  <>
-                    <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMax.toFixed(1)}%</text>
-                    <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H / 2 + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{((intradayChart.crMax + intradayChart.crMin) / 2).toFixed(1)}%</text>
-                    <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{intradayChart.crMin.toFixed(1)}%</text>
-                  </>
-                ) : (
-                  <>
-                    <text x={CHART_W - PAD.right + 3} y={intradayChart.zeroY + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>0</text>
-                    <text x={CHART_W - PAD.right + 3} y={PAD.top + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.max)}</text>
-                    <text x={CHART_W - PAD.right + 3} y={PAD.top + PLOT_H + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(intradayChart.min)}</text>
-                  </>
-                )}
+                {/* Y축 라벨 + 그리드 */}
+                {[0, 0.25, 0.5, 0.75, 1].map(r => {
+                  const y = PAD.top + r * PLOT_H
+                  const val = intradayChart.max - r * (intradayChart.max - intradayChart.min)
+                  const crVal = intradayChart.hasCr ? intradayChart.crMax - r * (intradayChart.crMax - intradayChart.crMin) : 0
+                  return (
+                    <g key={r}>
+                      <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                      {intradayChart.hasCr && showCr ? (
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{crVal.toFixed(1)}%</text>
+                      ) : (
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                      )}
+                    </g>
+                  )
+                })}
                 {/* 좌측/우측 세로선 */}
                 <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
                 <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />

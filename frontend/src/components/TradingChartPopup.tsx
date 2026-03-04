@@ -84,7 +84,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
         {/* SVG 차트 */}
         <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
           {/* 그리드 + 좌측 Y축 (거래대금) + 우측 Y축 (거래량) */}
-          {[0, 0.5, 1].map(r => {
+          {[0, 0.25, 0.5, 0.75, 1].map(r => {
             const y = PAD.top + r * PLOT_H
             const tvMax = Math.max(...tradingValues)
             const tvMin = Math.min(...tradingValues)

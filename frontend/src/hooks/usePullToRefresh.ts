@@ -35,13 +35,19 @@ export function usePullToRefresh({
 
     const onTouchStart = (e: TouchEvent) => {
       if (!enabledRef.current || refreshingRef.current) return
-      if (window.scrollY > 0) return
+      if (window.scrollY !== 0) return
       startY.current = e.touches[0].clientY
       pulling.current = true
     }
 
     const onTouchMove = (e: TouchEvent) => {
       if (!pulling.current) return
+      if (window.scrollY !== 0) {
+        pulling.current = false
+        distanceRef.current = 0
+        setPullDistance(0)
+        return
+      }
       const dy = e.touches[0].clientY - startY.current
       if (dy <= 0) {
         distanceRef.current = 0
