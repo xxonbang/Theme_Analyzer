@@ -58,7 +58,7 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
 
         {/* 현재 상태 */}
         <div className="text-xs text-muted-foreground mb-3 bg-muted/40 rounded px-2.5 py-1.5">
-          현재: <span className="font-medium text-foreground">{currentRound}</span> · 수집 시각 {timeStr}
+          현재: <span className="font-medium text-foreground">{currentRound}</span> · 수집 시각 {lastCompletedIdx >= 0 ? SCHEDULE[lastCompletedIdx].time : timeStr}
         </div>
 
         {/* 스케줄 테이블 */}
