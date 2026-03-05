@@ -201,6 +201,15 @@ def export_for_frontend(
             # investor_intraday: 장중 수급 스냅샷 (collect_investor_data.py가 관리)
             if "investor_intraday" in existing and "investor_intraday" not in data:
                 data["investor_intraday"] = existing["investor_intraday"]
+            # investor_data: 장중 API는 history/program_net을 반환하지 않으므로 기존 값 보존
+            if "investor_data" in existing and "investor_data" in data:
+                old_inv = existing["investor_data"]
+                for code, new_stock in data["investor_data"].items():
+                    old_stock = old_inv.get(code, {})
+                    if "history" not in new_stock and "history" in old_stock:
+                        new_stock["history"] = old_stock["history"]
+                    if "program_net" not in new_stock and "program_net" in old_stock:
+                        new_stock["program_net"] = old_stock["program_net"]
         except Exception:
             pass
 
