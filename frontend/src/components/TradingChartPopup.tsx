@@ -95,8 +95,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
             return (
               <g key={r}>
                 <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="#f59e0b" opacity={0.5}>{formatTradingValue(tvVal)}</text>
-                <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="#6366f1" opacity={0.5}>{formatVolume(volVal)}</text>
+                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="#e11d48" opacity={0.8}>{formatTradingValue(tvVal)}</text>
+                <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#6366f1" opacity={0.7}>{formatVolume(volVal)}</text>
               </g>
             )
           })}
@@ -114,7 +114,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
           {/* 거래대금 라인 */}
           <polyline
             points={buildLine(tradingValues, PLOT_W, PLOT_H, PAD.left, PAD.top)}
-            fill="none" stroke="#f59e0b" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
+            fill="none" stroke="#e11d48" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
           />
           {/* 거래량 라인 */}
           <polyline
@@ -125,7 +125,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
 
         {/* 범례 */}
         <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
-          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-amber-500 rounded inline-block" />거래대금</span>
+          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-rose-600 rounded inline-block" />거래대금</span>
           <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-indigo-500 rounded inline-block" />거래량</span>
         </div>
 
@@ -141,7 +141,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
             return (
               <div key={idx} className={`flex items-center py-1 text-[10px] ${isToday ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < reversed.length - 1 ? "border-b border-border/20" : ""}`}>
                 <span className="w-8 shrink-0 text-muted-foreground font-medium">{labels[idx]}</span>
-                <span className="flex-1 text-right tabular-nums text-amber-600">
+                <span className="flex-1 text-right tabular-nums text-rose-600">
                   {isToday ? formatTradingValue(currentTradingValue ?? 0) : formatTradingValue(c.trading_value ?? 0)}
                 </span>
                 <span className="flex-1 text-right tabular-nums text-indigo-600">

@@ -185,44 +185,44 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               장중
             </button>
           </div>
-          <div className="flex items-center gap-3 text-[10px] text-muted-foreground ml-auto">
+          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground ml-auto flex-wrap">
             {([
-              { key: "f" as const, label: "외국인", color: "bg-red-500" },
-              { key: "i" as const, label: "기관", color: "bg-violet-500" },
-              { key: "p" as const, label: "개인", color: "bg-green-500" },
-            ]).map(({ key, label, color }) => {
+              { key: "f" as const, label: "외국인", color: "bg-red-500", active: "bg-red-500/10 border-red-500/25 hover:bg-red-500/15" },
+              { key: "i" as const, label: "기관", color: "bg-violet-500", active: "bg-violet-500/10 border-violet-500/25 hover:bg-violet-500/15" },
+              { key: "p" as const, label: "개인", color: "bg-green-500", active: "bg-green-500/10 border-green-500/25 hover:bg-green-500/15" },
+            ]).map(({ key, label, color, active }) => {
               const isActive = visibleLines[key]
               return (
-                <span
+                <button
                   key={key}
                   onClick={() => setVisibleLines(v => ({ ...v, [key]: !v[key] }))}
                   className={cn(
-                    "flex items-center gap-1 transition-opacity cursor-pointer select-none",
-                    !isActive && "opacity-30"
+                    "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
+                    isActive ? active : "border-border/40 opacity-35 hover:opacity-55"
                   )}
                 >
-                  <span className={cn("w-3 h-0.5 rounded inline-block", isActive ? color : "bg-muted-foreground")} />
+                  <span className={cn("w-2 h-2 rounded-full shrink-0 transition-colors", isActive ? color : "bg-muted-foreground/40")} />
                   {label}
-                </span>
+                </button>
               )
             })}
             {activeTab === "daily" && (
-              <span className="flex items-center gap-1 opacity-60">
-                <span className="w-3 h-0.5 rounded inline-block bg-amber-500" />
+              <span className="flex items-center gap-1 px-1.5 py-0.5 opacity-50">
+                <span className="w-2 h-2 rounded-full inline-block bg-amber-500/60" />
                 프로그램
               </span>
             )}
             {activeTab === "intraday" && intradayChart?.hasCr && (
-              <span
+              <button
                 onClick={() => setShowCr(v => !v)}
                 className={cn(
-                  "flex items-center gap-1 cursor-pointer select-none transition-opacity",
-                  !showCr && "opacity-30"
+                  "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
+                  showCr ? "bg-amber-500/10 border-amber-500/25 hover:bg-amber-500/15" : "border-border/40 opacity-35 hover:opacity-55"
                 )}
               >
-                <span className="w-3 h-0.5 rounded inline-block" style={{ background: showCr ? "#f59e0b" : "#94a3b8" }} />
+                <span className={cn("w-2 h-2 rounded-full shrink-0 transition-colors", showCr ? "bg-amber-500" : "bg-muted-foreground/40")} />
                 등락률
-              </span>
+              </button>
             )}
           </div>
         </div>
@@ -242,8 +242,8 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 return (
                   <g key={r}>
                     <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
-                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
+                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
                   </g>
                 )
               })}
@@ -321,11 +321,11 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   return (
                     <g key={r}>
                       <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
                       {intradayChart.hasCr && showCr ? (
-                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="#f59e0b" opacity={0.7}>{crVal.toFixed(1)}%</text>
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#f59e0b" opacity={0.8}>{crVal.toFixed(1)}%</text>
                       ) : (
-                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={7} fill="currentColor" opacity={0.4}>{formatNetBuy(val)}</text>
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
                       )}
                     </g>
                   )
