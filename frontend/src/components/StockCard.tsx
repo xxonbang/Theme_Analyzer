@@ -204,7 +204,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           {/* 거래 정보 */}
           <div>
             <div
-              className={cn("flex flex-wrap items-center gap-x-2 gap-y-1 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
+              className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
               onClick={() => history?.changes && history.changes.length > 1 && setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
             >
               {/* 히스토리 확장 토글 (row 왼편) */}
@@ -288,7 +288,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div
-                    className={cn("flex flex-wrap items-center gap-x-2 gap-y-1 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
+                    className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
                     onClick={() => investorInfo.history && investorInfo.history.length > 0 && setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
                   >
                     {/* 히스토리 확장 토글 (row 왼편) */}
@@ -316,32 +316,32 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         <span className="sm:hidden">프</span><span className="hidden sm:inline">프로그램</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.program_net))}>{formatNetBuy(investorInfo.program_net)}</span>
                       </span>
                     )}
-                    {/* 수급 스파크라인 + bottom sheet 열기 */}
-                    {(() => {
-                      const investorSparkData = investorInfo.history && investorInfo.history.length > 0
-                        ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
-                        : [investorInfo.foreign_net]
-                      return (
-                      <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                        <button onClick={(e) => { e.stopPropagation(); setShowInvestorChart(true) }} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
-                          <Sparkline data={investorSparkData} color="#ef4444" className="pointer-events-none" />
-                        </button>
-                        <div className="w-px self-stretch bg-border/50" />
-                        <button onClick={(e) => { e.stopPropagation(); setShowInvestorChart(true) }} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
-                          <Maximize2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                      )
-                    })()}
-                    {investorUpdatedAt && (() => {
-                      const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
-                      const roundText = "round" in info ? `${info.round}차` : info.label
-                      return (
-                        <>
-                          <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors">{roundText} {investorUpdatedAt.slice(11, 16)}</button>
-                        </>
-                      )
-                    })()}
+                    {/* 수급 시간 + 스파크라인 (그룹) */}
+                    <div className="flex items-center ml-auto shrink-0 gap-1.5">
+                      {investorUpdatedAt && (() => {
+                        const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
+                        const roundText = "round" in info ? `${info.round}차` : info.label
+                        return (
+                          <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap">{roundText} {investorUpdatedAt.slice(11, 16)}</button>
+                        )
+                      })()}
+                      {(() => {
+                        const investorSparkData = investorInfo.history && investorInfo.history.length > 0
+                          ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
+                          : [investorInfo.foreign_net]
+                        return (
+                        <div className="flex items-center shrink-0 rounded-md border border-border/50 overflow-hidden">
+                          <button onClick={(e) => { e.stopPropagation(); setShowInvestorChart(true) }} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                            <Sparkline data={investorSparkData} color="#ef4444" className="pointer-events-none" />
+                          </button>
+                          <div className="w-px self-stretch bg-border/50" />
+                          <button onClick={(e) => { e.stopPropagation(); setShowInvestorChart(true) }} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                            <Maximize2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                        )
+                      })()}
+                    </div>
                   </div>
                   {/* 수급 차트/스케줄 팝업 (클릭 div 밖) */}
                   {showSchedule && investorUpdatedAt && (() => {
