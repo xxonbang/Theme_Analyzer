@@ -131,8 +131,47 @@ jobs:
               git fetch origin main
               git reset --hard origin/main
 
+              # 원격의 investor 필드 보존 (collect-investor-data 워크플로우가 커밋한 값)
+              python3 -c "
+import json, os
+remote_path = 'frontend/public/data/latest.json'
+if not os.path.exists(remote_path): exit()
+with open(remote_path) as f: remote = json.load(f)
+preserved = {}
+for key in ['investor_intraday', 'investor_data', 'investor_estimated', 'investor_updated_at']:
+    if key in remote: preserved[key] = remote[key]
+with open('/tmp/remote_investor.json', 'w') as f:
+    json.dump(preserved, f, ensure_ascii=False)
+" 2>/dev/null || true
+
               # 수집된 데이터 복원
               cp /tmp/data_backup/latest.json frontend/public/data/
+
+              # 원격의 investor 필드 병합 (레이스 컨디션 방지)
+              python3 -c "
+import json, os
+ri_path = '/tmp/remote_investor.json'
+if not os.path.exists(ri_path): exit()
+with open(ri_path) as f: remote = json.load(f)
+with open('frontend/public/data/latest.json') as f: data = json.load(f)
+changed = False
+# investor_intraday: 스냅샷이 더 많은 쪽 사용
+ri = remote.get('investor_intraday', {})
+li = data.get('investor_intraday', {})
+if len(ri.get('snapshots', [])) > len(li.get('snapshots', [])):
+    data['investor_intraday'] = ri
+    changed = True
+# investor_data: 원격이 더 최신이면 사용
+ru = remote.get('investor_updated_at', '')
+lu = data.get('investor_updated_at', '')
+if ru and ru > lu:
+    for key in ['investor_data', 'investor_estimated', 'investor_updated_at']:
+        if key in remote: data[key] = remote[key]
+    changed = True
+if changed:
+    with open('frontend/public/data/latest.json', 'w') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+" 2>/dev/null || true
               [ -f /tmp/data_backup/history-index.json ] && cp /tmp/data_backup/history-index.json frontend/public/data/
               [ -d /tmp/data_backup/history ] && cp -r /tmp/data_backup/history frontend/public/data/
 
