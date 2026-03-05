@@ -24,7 +24,7 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
 
   return (
     <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-1 py-2.5 border-b border-border/30">
-      <span className="text-xs text-muted-foreground/60 shrink-0">
+      <span className="text-xs text-muted-foreground shrink-0">
         💱 환율 <span className="hidden sm:inline">({formatDate(exchange.search_date)})</span>
       </span>
       {exchange.rates.map((rate) => {

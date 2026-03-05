@@ -20,11 +20,17 @@ interface Props {
 
 export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Props) {
   const timeStr = updatedAt.slice(11, 16)
+  const now = new Date()
+  const nowTimeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
+        {/* 드래그 핸들 (모바일) */}
+        <div className="flex justify-center mb-3 sm:hidden">
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+        </div>
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-1.5">
@@ -49,8 +55,8 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
             <span className="flex-1">반영 데이터</span>
           </div>
           {SCHEDULE.map((s, idx) => {
-            const isPast = timeStr >= s.time
-            const isCurrent = currentRound === s.label && isPast
+            const isPast = nowTimeStr >= s.time
+            const isCurrent = currentRound === s.label && timeStr >= s.time
             return (
               <div
                 key={idx}

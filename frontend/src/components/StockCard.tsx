@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2 } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -203,11 +203,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         <div className="mt-2 pt-2 border-t border-border/50 space-y-1.5">
           {/* 거래 정보 */}
           <div>
+            <div className="flex items-center gap-1 mb-1">
+              <Banknote className="w-3.5 h-3.5 text-amber-500/60" />
+              <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래</span>
+            </div>
             <div
-              className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
+              className={cn("flex items-center gap-1.5 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
               onClick={() => history?.changes && history.changes.length > 1 && setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
             >
-              {/* 히스토리 확장 토글 (row 왼편) */}
+              {/* 히스토리 확장 토글 */}
               {history?.changes && history.changes.length > 1 && (
                 <button
                   onClick={(e) => { e.stopPropagation(); setIsTradingHistoryExpanded(!isTradingHistoryExpanded) }}
@@ -216,22 +220,30 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
               )}
-              {stock.trading_value != null && (
-                <span className="text-muted-foreground">
-                  거래대금 <span className="font-medium text-foreground">{formatTradingValue(stock.trading_value)}</span>
+              {/* 세그먼트 바 */}
+              <div className="flex items-stretch rounded-md overflow-hidden flex-1 min-w-0">
+                {stock.trading_value != null && (
+                  <>
+                    <span className="flex-1 text-center py-0.5 whitespace-nowrap text-[11px] bg-amber-500/8">
+                      <span className="text-[10px] text-muted-foreground">거래대금</span>{" "}
+                      <span className="font-medium tabular-nums text-foreground">{formatTradingValue(stock.trading_value)}</span>
+                    </span>
+                    <div className="w-px bg-foreground/15 shrink-0" />
+                  </>
+                )}
+                <span className="flex-1 text-center py-0.5 whitespace-nowrap text-[11px] bg-amber-500/8">
+                  <span className="text-[10px] text-muted-foreground">거래량</span>{" "}
+                  <span className="font-medium tabular-nums text-foreground">{formatVolume(stock.volume)}</span>
                 </span>
-              )}
-              <span className="text-muted-foreground">
-                거래량 <span className="font-medium text-foreground">{formatVolume(stock.volume)}</span>
-              </span>
-              {/* 거래대금 스파크라인 + bottom sheet 열기 */}
+              </div>
+              {/* 스파크라인 + bottom sheet */}
               {history?.changes && history.changes.length > 1 && (() => {
                 const reversed = [...history.changes].reverse()
                 const tradingSparkData = reversed.map((c, i) =>
                   i === reversed.length - 1 ? (stock.trading_value ?? c.trading_value ?? 0) : (c.trading_value ?? 0)
                 )
                 return (
-                <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
+                <div className="flex items-center shrink-0 rounded-md border border-border/50 overflow-hidden">
                   <button onClick={(e) => { e.stopPropagation(); setShowTradingChart(true) }} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
                     <Sparkline data={tradingSparkData} color="#f59e0b" className="pointer-events-none" />
                   </button>
@@ -285,6 +297,10 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           {/* 투자자 수급 (admin만 표시) */}
           {isAdmin && (
             <div className="pt-1 border-t border-border/30">
+              <div className="flex items-center gap-1 mb-1">
+                <Users className="w-3.5 h-3.5 text-sky-500/60" />
+                <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">수급</span>
+              </div>
               {investorInfo ? (
                 <>
                   <div
@@ -406,7 +422,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
 
           {/* 수급원 TOP5 (admin만 표시) */}
           {isAdmin && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
-            <div className="grid grid-cols-2 gap-3 pt-1.5 border-t border-border/30">
+            <div className="pt-1.5 border-t border-border/30">
+              <div className="flex items-center gap-1 mb-1">
+                <Building2 className="w-3.5 h-3.5 text-violet-500/60" />
+                <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래원</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
                 {memberInfo.buy_top5.map((b, i) => (
@@ -431,6 +452,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   </div>
                 ))}
               </div>
+            </div>
             </div>
           )}
 
