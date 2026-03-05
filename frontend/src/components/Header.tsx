@@ -202,8 +202,8 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
           onClick={() => { if (currentPage !== "home") onPageChange?.("home") }}
           className="flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0"
         >
-          <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-sm">
-            <EyeChartLogo className="w-4 h-4 sm:w-6 sm:h-6" />
+          <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10">
+            <EyeChartLogo className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg" />
           </div>
           <div className="text-left">
             <h1 className="font-bold text-sm sm:text-lg tracking-tight">ThemeAnalyzer</h1>

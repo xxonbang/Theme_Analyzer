@@ -62,8 +62,8 @@ export function AuthPage() {
       <div className="w-full max-w-sm space-y-6">
         {/* Logo & Description */}
         <div className="text-center space-y-2">
-          <div className="flex items-center justify-center w-14 h-14 mx-auto rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
-            <EyeChartLogo className="w-8 h-8" />
+          <div className="flex items-center justify-center w-14 h-14 mx-auto">
+            <EyeChartLogo className="w-14 h-14 rounded-xl shadow-lg" />
           </div>
           <h1 className="text-xl font-bold tracking-tight">ThemeAnalyzer</h1>
           <p className="text-sm text-muted-foreground">오늘의 테마 분석</p>
