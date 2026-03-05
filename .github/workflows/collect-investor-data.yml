@@ -98,36 +98,14 @@ jobs:
             git reset --hard origin/main
 
             # 원격의 daily-theme-analysis 필드 보존 (레이스 컨디션 방지)
-            python3 -c "
-import json, os
-p = 'frontend/public/data/latest.json'
-if not os.path.exists(p): exit()
-with open(p) as f: r = json.load(f)
-d = {}
-for k in ['timestamp','exchange','theme_analysis','kospi_index','kosdaq_index','news']:
-    if k in r: d[k] = r[k]
-with open('/tmp/remote_main.json','w') as f:
-    json.dump(d, f, ensure_ascii=False)
-" 2>/dev/null || true
+            python3 scripts/merge_workflow_data.py save-main
 
             # 수집된 데이터 복원 후 커밋
             cp /tmp/latest_collected.json frontend/public/data/latest.json
 
             # 원격의 daily-theme-analysis 필드 병합 (timestamp가 더 최신이면)
-            python3 -c "
-import json, os
-p = '/tmp/remote_main.json'
-if not os.path.exists(p): exit()
-with open(p) as f: remote = json.load(f)
-with open('frontend/public/data/latest.json') as f: data = json.load(f)
-rt = remote.get('timestamp','')
-lt = data.get('timestamp','')
-if rt and rt > lt:
-    for k in ['timestamp','exchange','theme_analysis','kospi_index','kosdaq_index','news']:
-        if k in remote: data[k] = remote[k]
-    with open('frontend/public/data/latest.json','w') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-" 2>/dev/null || true
+            python3 scripts/merge_workflow_data.py merge-main
+
             git add frontend/public/data/latest.json
 
             if git diff --staged --quiet; then
