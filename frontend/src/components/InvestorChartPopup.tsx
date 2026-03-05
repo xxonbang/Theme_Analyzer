@@ -59,9 +59,13 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     { values: indivVals, color: "#22c55e" },
   ]
 
-  // === 장중 데이터 ===
+  // === 장중 데이터 (오늘 날짜만 표시) ===
   const intradaySnapshots = useMemo(() => {
     if (!stockCode || !investorIntraday?.snapshots) return []
+    // 어제 이전 데이터가 장중 탭에 표시되지 않도록 날짜 체크
+    const now = new Date()
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`
+    if (investorIntraday.date !== todayStr) return []
     return investorIntraday.snapshots
       .filter(s => s.data[stockCode])
       .map(s => ({ time: s.time, round: s.round, ...s.data[stockCode] }))
