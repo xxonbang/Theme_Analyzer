@@ -288,10 +288,10 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div
-                    className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-0.5 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
+                    className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
                     onClick={() => investorInfo.history && investorInfo.history.length > 0 && setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
                   >
-                    {/* 히스토리 확장 토글 (row 왼편) */}
+                    {/* 히스토리 확장 토글 */}
                     {investorInfo.history && investorInfo.history.length > 0 && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded) }}
@@ -300,23 +300,28 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
                     )}
-                    <span className="text-muted-foreground whitespace-nowrap">
-                      <span className="sm:hidden">외</span><span className="hidden sm:inline">외국인</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.foreign_net))}>{formatNetBuy(investorInfo.foreign_net)}</span>
-                    </span>
-                    <span className="text-muted-foreground whitespace-nowrap">
-                      <span className="sm:hidden">기</span><span className="hidden sm:inline">기관</span>{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">추정</span>} <span className={cn("font-medium", getNetBuyColor(investorInfo.institution_net))}>{formatNetBuy(investorInfo.institution_net)}</span>
-                    </span>
-                    {investorInfo.individual_net != null && (
-                      <span className="text-muted-foreground whitespace-nowrap">
-                        <span className="sm:hidden">개</span><span className="hidden sm:inline">개인</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
-                      </span>
-                    )}
-                    {investorInfo.program_net != null && (
-                      <span className="text-muted-foreground whitespace-nowrap">
-                        <span className="sm:hidden">프</span><span className="hidden sm:inline">프로그램</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.program_net))}>{formatNetBuy(investorInfo.program_net)}</span>
-                      </span>
-                    )}
-                    {/* 수급 시간 + 스파크라인 (그룹) */}
+                    {/* 수급 데이터 바 */}
+                    <div className="flex items-stretch rounded-md overflow-hidden flex-1 min-w-0">
+                      {[
+                        { key: "f", label: "외", labelFull: "외국인", val: investorInfo.foreign_net, est: true },
+                        { key: "i", label: "기", labelFull: "기관", val: investorInfo.institution_net, est: true },
+                        ...(investorInfo.individual_net != null ? [{ key: "d", label: "개", labelFull: "개인", val: investorInfo.individual_net, est: false }] : []),
+                        ...(investorInfo.program_net != null ? [{ key: "p", label: "프", labelFull: "프로그램", val: investorInfo.program_net, est: false }] : []),
+                      ].map((d, idx) => (
+                        <Fragment key={d.key}>
+                          {idx > 0 && <div className="w-px bg-border/40 shrink-0" />}
+                          <span className={cn(
+                            "flex-1 text-center py-0.5 whitespace-nowrap text-[11px]",
+                            d.val > 0 ? "bg-red-500/10" : d.val < 0 ? "bg-blue-500/10" : "bg-muted/30"
+                          )}>
+                            <span className="text-[10px] text-muted-foreground"><span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span></span>
+                            {d.est && investorEstimated && <span className="text-[7px] text-amber-500 ml-0.5">추정</span>}
+                            {" "}<span className={cn("font-medium tabular-nums", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
+                          </span>
+                        </Fragment>
+                      ))}
+                    </div>
+                    {/* 수급 시간 + 스파크라인 */}
                     <div className="basis-full sm:basis-auto flex items-center gap-1.5 justify-end sm:ml-auto shrink-0">
                       {investorUpdatedAt && (() => {
                         const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
