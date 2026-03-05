@@ -9,6 +9,7 @@ import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { TradingChartPopup } from "@/components/TradingChartPopup"
 import { InvestorChartPopup } from "@/components/InvestorChartPopup"
+import { InvestorSchedulePopup } from "@/components/InvestorSchedulePopup"
 import { Sparkline } from "@/components/Sparkline"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday } from "@/types/stock"
 
@@ -32,6 +33,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [showPriceHistory, setShowPriceHistory] = useState(false)
   const [showTradingChart, setShowTradingChart] = useState(false)
   const [showInvestorChart, setShowInvestorChart] = useState(false)
+  const [showSchedule, setShowSchedule] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
@@ -317,7 +319,12 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     {investorUpdatedAt && (() => {
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
-                      return <span className="text-[8px] text-muted-foreground/60">{roundText} {investorUpdatedAt.slice(11, 16)}</span>
+                      return (
+                        <>
+                          <button onClick={() => setShowSchedule(true)} className="text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors">{roundText} {investorUpdatedAt.slice(11, 16)}</button>
+                          {showSchedule && <InvestorSchedulePopup currentRound={"round" in info ? info.label : info.label} updatedAt={investorUpdatedAt} onClose={() => setShowSchedule(false)} />}
+                        </>
+                      )
                     })()}
                     {/* 수급 차트 팝업 */}
                     {showInvestorChart && investorInfo && (

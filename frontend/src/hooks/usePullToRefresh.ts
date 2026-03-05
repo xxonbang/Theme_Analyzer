@@ -6,6 +6,11 @@ interface UsePullToRefreshOptions {
   threshold?: number
 }
 
+/** 크로스 브라우저/WebView 호환 스크롤 위치 */
+function getScrollTop(): number {
+  return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0
+}
+
 export function usePullToRefresh({
   onRefresh,
   enabled = true,
@@ -35,14 +40,15 @@ export function usePullToRefresh({
 
     const onTouchStart = (e: TouchEvent) => {
       if (!enabledRef.current || refreshingRef.current) return
-      if (window.scrollY !== 0) return
+      // iOS standalone(PWA) 모드 호환: 1px 이하 허용
+      if (getScrollTop() > 1) return
       startY.current = e.touches[0].clientY
       pulling.current = true
     }
 
     const onTouchMove = (e: TouchEvent) => {
       if (!pulling.current) return
-      if (window.scrollY !== 0) {
+      if (getScrollTop() > 1) {
         pulling.current = false
         distanceRef.current = 0
         setPullDistance(0)
@@ -75,14 +81,15 @@ export function usePullToRefresh({
       distanceRef.current = 0
     }
 
-    el.addEventListener("touchstart", onTouchStart, { passive: true })
-    el.addEventListener("touchmove", onTouchMove, { passive: false })
-    el.addEventListener("touchend", onTouchEnd)
+    // iOS standalone: document 레벨에서도 이벤트 수신
+    document.addEventListener("touchstart", onTouchStart, { passive: true })
+    document.addEventListener("touchmove", onTouchMove, { passive: false })
+    document.addEventListener("touchend", onTouchEnd)
 
     return () => {
-      el.removeEventListener("touchstart", onTouchStart)
-      el.removeEventListener("touchmove", onTouchMove)
-      el.removeEventListener("touchend", onTouchEnd)
+      document.removeEventListener("touchstart", onTouchStart)
+      document.removeEventListener("touchmove", onTouchMove)
+      document.removeEventListener("touchend", onTouchEnd)
     }
   }, [threshold])
 
