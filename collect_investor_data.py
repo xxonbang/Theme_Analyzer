@@ -312,6 +312,8 @@ def main():
                         entry = {"f": inv.get("foreign_net", 0), "i": inv.get("institution_net", 0)}
                         indiv = inv.get("individual_net")
                         entry["p"] = indiv if indiv is not None else None
+                        pgtr = inv.get("program_net")
+                        entry["pg"] = pgtr if pgtr is not None else None
                         if code in price_map:
                             entry["cp"] = price_map[code][0]
                             entry["cr"] = price_map[code][1]

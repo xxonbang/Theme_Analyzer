@@ -107,6 +107,7 @@ export interface IntradaySnapshotEntry {
   f: number
   i: number
   p: number | null
+  pg?: number | null  // program_net (프로그램 순매수)
   cp?: number   // current_price (원)
   cr?: number   // change_rate (%)
 }
