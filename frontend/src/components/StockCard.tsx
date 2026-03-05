@@ -330,15 +330,19 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       />
                     )}
                   </div>
-                  {/* 수급 히스토리 (카드: 최근 9일) */}
+                  {/* 수급 히스토리 (D-N ~ D) */}
                   {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (() => {
-                    const recentHistory = [...investorInfo.history].slice(0, 9)
+                    const reversed = [...investorInfo.history].reverse()
+                    const allDays = [
+                      ...reversed,
+                      { foreign_net: investorInfo.foreign_net, institution_net: investorInfo.institution_net, individual_net: investorInfo.individual_net },
+                    ]
                     return (
                     <div className="mt-1 text-[10px] space-y-0.5">
-                      {[...recentHistory].reverse().map((h, idx) => {
-                        const label = `D-${recentHistory.length - idx}`
+                      {allDays.map((h, idx) => {
+                        const label = idx === allDays.length - 1 ? "D" : `D-${allDays.length - 1 - idx}`
                         return (
-                          <div key={idx} className="flex items-center text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                          <div key={idx} className={cn("flex items-center text-muted-foreground px-1.5 py-0.5 rounded", idx === allDays.length - 1 ? "bg-muted/60 font-medium" : "bg-muted/30")}>
                             <span className="font-medium w-6 shrink-0">{label}</span>
                             <span className="flex-1 text-right tabular-nums">외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
                             <span className="flex-1 text-right tabular-nums">기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
