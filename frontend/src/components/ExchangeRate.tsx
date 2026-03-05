@@ -23,8 +23,8 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
   }
 
   return (
-    <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-x-4 gap-y-1.5 px-1 py-2 border-b border-border/30">
-      <span className="text-[10px] sm:text-xs text-muted-foreground/70 shrink-0">
+    <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-1 py-2.5 border-b border-border/30">
+      <span className="text-xs text-muted-foreground/60 shrink-0">
         💱 환율 <span className="hidden sm:inline">({formatDate(exchange.search_date)})</span>
       </span>
       {exchange.rates.map((rate) => {
@@ -32,10 +32,10 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
         const unit = rate.is_100 ? "(100)" : ""
 
         return (
-          <div key={rate.currency} className="flex items-center gap-1 text-xs sm:text-sm">
+          <div key={rate.currency} className="flex items-center gap-1.5 text-sm">
             <span className="text-sm">{info.emoji}</span>
-            <span className="text-muted-foreground">{rate.currency}{unit}</span>
-            <span className="font-semibold tabular-nums">{rate.rate.toLocaleString()}<span className="text-muted-foreground text-[10px]">원</span></span>
+            <span className="text-muted-foreground/80 text-xs">{rate.currency}{unit}</span>
+            <span className="font-semibold tabular-nums tracking-tight">{rate.rate.toLocaleString()}<span className="text-muted-foreground/60 text-xs font-normal ml-0.5">원</span></span>
           </div>
         )
       })}

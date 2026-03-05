@@ -13,6 +13,9 @@
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <title>Theme Analyzer</title>
+    <script>
+      (function(){var m=localStorage.getItem('theme-mode');var d=m==='dark'||(m!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.classList.add('dark')})()
+    </script>
   </head>
   <body>
     <div id="root"></div>

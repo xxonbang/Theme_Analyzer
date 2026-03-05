@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Light Theme - Clean & Modern */
   --color-background: oklch(98.5% 0.002 247);
@@ -29,8 +31,7 @@
 }
 
 /* Dark Theme */
-@media (prefers-color-scheme: dark) {
-  :root {
+html.dark {
     --color-background: oklch(14% 0.005 260);
     --color-foreground: oklch(92% 0.01 260);
     --color-card: oklch(20% 0.008 260);
@@ -54,7 +55,6 @@
     --color-success-foreground: oklch(100% 0 0);
     --color-warning: oklch(70% 0.15 70);
     --color-warning-foreground: oklch(90% 0.02 70);
-  }
 }
 
 @layer base {

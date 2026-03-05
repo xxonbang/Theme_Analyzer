@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, MoreVertical } from "lucide-react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, MoreVertical, Sun, Moon } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -19,9 +19,11 @@ interface HeaderProps {
   onPageChange?: (page: PageType) => void
   isAdmin?: boolean
   headerHidden?: boolean
+  isDark?: boolean
+  onToggleTheme?: () => void
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme }: HeaderProps) {
   const { signOut } = useAuth()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
@@ -370,6 +372,35 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                   }}
                 />
               )}
+            </button>
+          )}
+
+          {/* Theme Toggle Button */}
+          {onToggleTheme && (
+            <button
+              onClick={onToggleTheme}
+              className={cn(
+                "relative overflow-hidden group",
+                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "rounded-lg",
+                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                "border border-border/50",
+                "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                "transition-all duration-300 ease-out",
+                "hover:scale-110 active:scale-95",
+                "hover:border-primary/30",
+                "focus:outline-none"
+              )}
+              title={isDark ? "라이트 모드" : "다크 모드"}
+            >
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
+                {isDark ? (
+                  <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
+                ) : (
+                  <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
+                )}
+              </div>
             </button>
           )}
 

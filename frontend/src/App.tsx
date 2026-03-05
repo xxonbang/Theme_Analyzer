@@ -17,6 +17,7 @@ import { usePullToRefresh } from "@/hooks/usePullToRefresh"
 import { useStockData } from "@/hooks/useStockData"
 import { useHistoryData } from "@/hooks/useHistoryData"
 import { useAuth } from "@/hooks/useAuth"
+import { useThemeMode } from "@/hooks/useThemeMode"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
@@ -32,6 +33,7 @@ const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
   const { user, loading: authLoading, isAdmin, recordVisit, logActivity } = useAuth()
+  const { toggle: toggleTheme, isDark } = useThemeMode()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
 
   // 페이지 전환/접속 시 이력 기록
@@ -441,6 +443,8 @@ function App() {
         onPageChange={setCurrentPage}
         isAdmin={isAdmin}
         headerHidden={headerHidden}
+        isDark={isDark}
+        onToggleTheme={toggleTheme}
       />
 
       <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />
