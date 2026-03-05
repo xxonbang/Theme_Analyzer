@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom"
 import { X, Clock, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 
 const SCHEDULE = [
   { round: 1, time: "09:35", source: "외국인 09:30 반영", label: "1차" },
@@ -22,13 +23,26 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
   const timeStr = updatedAt.slice(11, 16)
   const now = new Date()
   const nowTimeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+
+  // 현재 시각 기준 마지막 완료 항목 인덱스
+  let lastCompletedIdx = -1
+  for (let i = SCHEDULE.length - 1; i >= 0; i--) {
+    if (nowTimeStr >= SCHEDULE[i].time) {
+      lastCompletedIdx = i
+      break
+    }
+  }
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
-      <div className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
+      <div
+        ref={sheetRef}
+        className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5"
+      >
         {/* 드래그 핸들 (모바일) */}
-        <div className="flex justify-center mb-3 sm:hidden">
+        <div ref={handleRef} className="flex justify-center mb-3 sm:hidden cursor-grab active:cursor-grabbing py-1 -mt-2">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
         {/* 헤더 */}
@@ -56,7 +70,7 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
           </div>
           {SCHEDULE.map((s, idx) => {
             const isPast = nowTimeStr >= s.time
-            const isCurrent = currentRound === s.label && timeStr >= s.time
+            const isCurrent = idx === lastCompletedIdx
             return (
               <div
                 key={idx}
