@@ -199,8 +199,12 @@ def export_for_frontend(
             with open(file_path, "r", encoding="utf-8") as f:
                 existing = json.load(f)
             # investor_intraday: 장중 수급 스냅샷 (collect_investor_data.py가 관리)
+            # 날짜가 오늘인 경우만 보존 (어제 데이터가 장중 탭에 표시되는 문제 방지)
             if "investor_intraday" in existing and "investor_intraday" not in data:
-                data["investor_intraday"] = existing["investor_intraday"]
+                intraday = existing["investor_intraday"]
+                today_str = datetime.now(KST).strftime("%Y-%m-%d")
+                if intraday.get("date") == today_str:
+                    data["investor_intraday"] = intraday
         except Exception:
             pass
 
