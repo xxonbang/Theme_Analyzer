@@ -45,8 +45,9 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   const foreignVals = allDays.map(d => d.foreign_net)
   const instVals = allDays.map(d => d.institution_net)
   const indivVals = allDays.map(d => d.individual_net ?? 0)
+  const progVals = allDays.map(d => d.program_net ?? 0)
 
-  const allValues = [...foreignVals, ...instVals, ...indivVals]
+  const allValues = [...foreignVals, ...instVals, ...indivVals, ...progVals]
   const allMin = Math.min(...allValues)
   const allMax = Math.max(...allValues)
   const range = allMax - allMin || 1
@@ -57,6 +58,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     { values: foreignVals, color: "#ef4444" },
     { values: instVals, color: "#8b5cf6" },
     { values: indivVals, color: "#22c55e" },
+    { values: progVals, color: "#f59e0b" },
   ]
 
   // === 장중 데이터 (오늘 날짜만 표시) ===
@@ -74,7 +76,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   const hasIntraday = intradaySnapshots.length >= 1
   const hasHistory = history.length > 0
   const [showCr, setShowCr] = useState(true)
-  const [visibleLines, setVisibleLines] = useState({ f: true, i: true, p: true })
+  const [visibleLines, setVisibleLines] = useState({ f: true, i: true, p: true, prog: true })
 
   const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
     // history 없고 장중 데이터만 있으면 → 장중 탭 기본
@@ -190,15 +192,16 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               { key: "f" as const, label: "외국인", color: "bg-red-500", active: "bg-red-500/10 border-red-500/25 hover:bg-red-500/15" },
               { key: "i" as const, label: "기관", color: "bg-violet-500", active: "bg-violet-500/10 border-violet-500/25 hover:bg-violet-500/15" },
               { key: "p" as const, label: "개인", color: "bg-green-500", active: "bg-green-500/10 border-green-500/25 hover:bg-green-500/15" },
+              ...(activeTab === "daily" ? [{ key: "prog" as const, label: "프로그램", color: "bg-amber-500", active: "bg-amber-500/10 border-amber-500/25 hover:bg-amber-500/15" }] : []),
             ]).map(({ key, label, color, active }) => {
-              const isActive = visibleLines[key]
+              const isActive = visibleLines[key as keyof typeof visibleLines]
               return (
                 <button
                   key={key}
-                  onClick={() => setVisibleLines(v => ({ ...v, [key]: !v[key] }))}
+                  onClick={() => setVisibleLines(v => ({ ...v, [key]: !v[key as keyof typeof v] }))}
                   className={cn(
                     "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
-                    isActive ? active : "border-border/40 opacity-35 hover:opacity-55"
+                    isActive ? active : "border-transparent opacity-35 hover:opacity-55"
                   )}
                 >
                   <span className={cn("w-2 h-2 rounded-full shrink-0 transition-colors", isActive ? color : "bg-muted-foreground/40")} />
@@ -206,18 +209,12 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 </button>
               )
             })}
-            {activeTab === "daily" && (
-              <span className="flex items-center gap-1 px-1.5 py-0.5 opacity-50">
-                <span className="w-2 h-2 rounded-full inline-block bg-amber-500/60" />
-                프로그램
-              </span>
-            )}
             {activeTab === "intraday" && intradayChart?.hasCr && (
               <button
                 onClick={() => setShowCr(v => !v)}
                 className={cn(
                   "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
-                  showCr ? "bg-amber-500/10 border-amber-500/25 hover:bg-amber-500/15" : "border-border/40 opacity-35 hover:opacity-55"
+                  showCr ? "bg-amber-500/10 border-amber-500/25 hover:bg-amber-500/15" : "border-transparent opacity-35 hover:opacity-55"
                 )}
               >
                 <span className={cn("w-2 h-2 rounded-full shrink-0 transition-colors", showCr ? "bg-amber-500" : "bg-muted-foreground/40")} />
@@ -233,7 +230,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
               {/* 0선 */}
               <line x1={PAD.left} y1={zeroY} x2={CHART_W - PAD.right} y2={zeroY}
-                stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
+                stroke="currentColor" strokeWidth={1} strokeDasharray="4,3" opacity={0.5}
               />
               {/* Y축 라벨 + 그리드 */}
               {[0, 0.25, 0.5, 0.75, 1].map(r => {
@@ -242,8 +239,8 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 return (
                   <g key={r}>
                     <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
-                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
+                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
+                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
                   </g>
                 )
               })}
@@ -257,7 +254,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               })}
               {/* 꺾은선 */}
               {series.map((s, idx) => {
-                const key = (["f", "i", "p"] as const)[idx]
+                const key = (["f", "i", "p", "prog"] as const)[idx]
                 if (!visibleLines[key]) return null
                 return (
                   <polyline key={idx} points={buildLine(s.values, allMin, allMax)}
@@ -267,7 +264,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               })}
               {/* 데이터 포인트 */}
               {series.map((s, si) => {
-                const key = (["f", "i", "p"] as const)[si]
+                const key = (["f", "i", "p", "prog"] as const)[si]
                 if (!visibleLines[key]) return null
                 return s.values.map((v, di) => {
                   const x = PAD.left + (di / Math.max(s.values.length - 1, 1)) * PLOT_W
@@ -311,7 +308,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
                 {/* 0선 */}
                 <line x1={PAD.left} y1={intradayChart.zeroY} x2={CHART_W - PAD.right} y2={intradayChart.zeroY}
-                  stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.3}
+                  stroke="currentColor" strokeWidth={1} strokeDasharray="4,3" opacity={0.5}
                 />
                 {/* Y축 라벨 + 그리드 */}
                 {[0, 0.25, 0.5, 0.75, 1].map(r => {
@@ -321,11 +318,11 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   return (
                     <g key={r}>
                       <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
+                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
                       {intradayChart.hasCr && showCr ? (
-                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#f59e0b" opacity={0.8}>{crVal.toFixed(1)}%</text>
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#f59e0b" opacity={0.7}>{crVal.toFixed(1)}%</text>
                       ) : (
-                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.6}>{formatNetBuy(val)}</text>
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
                       )}
                     </g>
                   )

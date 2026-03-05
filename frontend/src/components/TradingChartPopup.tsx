@@ -95,8 +95,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
             return (
               <g key={r}>
                 <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="#e11d48" opacity={0.8}>{formatTradingValue(tvVal)}</text>
-                <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#6366f1" opacity={0.7}>{formatVolume(volVal)}</text>
+                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="#e11d48" opacity={0.7}>{formatTradingValue(tvVal)}</text>
+                <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#6366f1" opacity={0.6}>{formatVolume(volVal)}</text>
               </g>
             )
           })}
