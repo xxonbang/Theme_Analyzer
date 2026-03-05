@@ -13,14 +13,14 @@ function IndexAlert({ data, label }: IndexAlertProps) {
 
   const statusConfig = {
     "정배열": {
-      bg: "bg-emerald-50 border-emerald-200 text-emerald-700",
+      bg: "bg-emerald-500/10 border-emerald-500/30 text-emerald-700",
       icon: "📈",
-      badge: "bg-emerald-100 text-emerald-800 border border-emerald-300",
+      badge: "bg-emerald-500/15 text-emerald-700 border border-emerald-500/30",
     },
     "역배열": {
-      bg: "bg-red-50 border-red-200 text-red-700",
+      bg: "bg-red-500/10 border-red-500/30 text-red-700",
       icon: "📉",
-      badge: "bg-red-100 text-red-800 border border-red-300",
+      badge: "bg-red-500/15 text-red-700 border border-red-500/30",
     },
     "혼합": {
       bg: "bg-muted border-border text-muted-foreground",
@@ -86,7 +86,7 @@ function IndexAlert({ data, label }: IndexAlertProps) {
                 >
                   <div className={cn(
                     "text-[9px] font-semibold leading-none",
-                    isBelow ? "text-emerald-600 dark:text-emerald-400" : "text-red-500 dark:text-red-400"
+                    isBelow ? "text-emerald-600" : "text-red-500"
                   )}>
                     {label}
                   </div>

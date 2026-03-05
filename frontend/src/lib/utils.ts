@@ -63,11 +63,11 @@ export function parseKST(ts: string): Date {
 }
 
 export function getChangeBgColor(rate: number): string {
-  if (rate >= 10) return "bg-red-100 text-red-700"
-  if (rate >= 5) return "bg-red-50 text-red-600"
-  if (rate > 0) return "bg-red-50/70 text-red-500"
-  if (rate <= -10) return "bg-blue-100 text-blue-700"
-  if (rate <= -5) return "bg-blue-50 text-blue-600"
-  if (rate < 0) return "bg-blue-50/70 text-blue-500"
+  if (rate >= 10) return "bg-red-500/20 text-red-600"
+  if (rate >= 5) return "bg-red-500/12 text-red-600"
+  if (rate > 0) return "bg-red-500/8 text-red-500"
+  if (rate <= -10) return "bg-blue-500/20 text-blue-600"
+  if (rate <= -5) return "bg-blue-500/12 text-blue-600"
+  if (rate < 0) return "bg-blue-500/8 text-blue-500"
   return "bg-muted text-muted-foreground"
 }

@@ -18,9 +18,9 @@ import { HistoryModal } from "@/components/HistoryModal"
 import type { ForecastTheme, ForecastStock, StockCriteria, GroundingSource } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
-  "높음": { badge: "bg-red-100 text-red-700", dot: "bg-red-500" },
-  "보통": { badge: "bg-amber-100 text-amber-700", dot: "bg-amber-500" },
-  "낮음": { badge: "bg-slate-100 text-slate-600", dot: "bg-slate-400" },
+  "높음": { badge: "bg-red-500/15 text-red-700", dot: "bg-red-500" },
+  "보통": { badge: "bg-amber-500/15 text-amber-700", dot: "bg-amber-500" },
+  "낮음": { badge: "bg-slate-500/15 text-slate-600", dot: "bg-slate-400" },
 } as const
 
 const LEGEND_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
@@ -110,7 +110,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
       {/* 경고 알림 뱃지 */}
       {(shortWarning || overheatWarning || reverseWarning) && (
         <span className={cn(
-          "absolute -top-1 -right-1 w-2 h-2 rounded-full border border-white animate-pulse",
+          "absolute -top-1 -right-1 w-2 h-2 rounded-full border border-card animate-pulse",
           shortWarning ? "bg-red-500" : overheatWarning ? "bg-amber-500" : "bg-indigo-500"
         )} />
       )}

@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card"
 import type { ExchangeData } from "@/types/stock"
 
 interface ExchangeRateProps {
@@ -24,35 +23,22 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
   }
 
   return (
-    <Card className="mb-4 sm:mb-6 overflow-hidden shadow-sm">
-      <CardContent className="p-3 sm:p-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
-          {/* 제목 */}
-          <div className="flex items-center gap-2">
-            <span className="text-lg sm:text-xl">💱</span>
-            <span className="font-semibold text-sm sm:text-base">실시간 환율</span>
-            <span className="text-[10px] sm:text-xs text-muted-foreground">
-              (기준일: {formatDate(exchange.search_date)})
-            </span>
-          </div>
+    <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-x-4 gap-y-1.5 px-1 py-2 border-b border-border/30">
+      <span className="text-[10px] sm:text-xs text-muted-foreground/70 shrink-0">
+        💱 환율 <span className="hidden sm:inline">({formatDate(exchange.search_date)})</span>
+      </span>
+      {exchange.rates.map((rate) => {
+        const info = currencyInfo[rate.currency] || { emoji: "💵", name: rate.currency_name }
+        const unit = rate.is_100 ? "(100)" : ""
 
-          {/* 환율 목록 */}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 sm:gap-x-4">
-            {exchange.rates.map((rate) => {
-              const info = currencyInfo[rate.currency] || { emoji: "💵", name: rate.currency_name }
-              const unit = rate.is_100 ? "(100)" : ""
-
-              return (
-                <div key={rate.currency} className="flex items-center gap-1 text-xs sm:text-sm">
-                  <span>{info.emoji}</span>
-                  <span className="text-muted-foreground">{rate.currency}{unit}</span>
-                  <span className="font-semibold tabular-nums">{rate.rate.toLocaleString()}원</span>
-                </div>
-              )
-            })}
+        return (
+          <div key={rate.currency} className="flex items-center gap-1 text-xs sm:text-sm">
+            <span className="text-sm">{info.emoji}</span>
+            <span className="text-muted-foreground">{rate.currency}{unit}</span>
+            <span className="font-semibold tabular-nums">{rate.rate.toLocaleString()}<span className="text-muted-foreground text-[10px]">원</span></span>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        )
+      })}
+    </div>
   )
 }

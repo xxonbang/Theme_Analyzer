@@ -133,7 +133,10 @@ function StockMarketSection({
           </div>
         )
       ) : (
-        <p className="text-muted-foreground text-xs sm:text-sm py-3 sm:py-4 text-center bg-muted/30 rounded-lg">해당 종목 없음</p>
+        <div className="flex flex-col items-center gap-2 py-6 sm:py-8 text-center bg-muted/20 rounded-lg border border-dashed border-border/50">
+          <BarChart3 className="w-6 h-6 text-muted-foreground/40" />
+          <p className="text-muted-foreground text-xs sm:text-sm">해당 종목 없음</p>
+        </div>
       )}
     </div>
   )
@@ -144,7 +147,7 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
   const estimatedLabel = investorEstimated ? <span className="text-[8px] text-amber-500 ml-0.5">추정</span> : null
   const scheduleInfo = investorUpdatedAt ? getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated) : null
   const roundLabel = scheduleInfo ? ("round" in scheduleInfo ? scheduleInfo.label : scheduleInfo.label) : null
-  const timeLabel = investorUpdatedAt ? <span className="text-[7px] text-muted-foreground/50 ml-0.5">{roundLabel && <span className="text-amber-500">{roundLabel}</span>} {investorUpdatedAt.slice(11, 16)}</span> : null
+  const timeLabel = investorUpdatedAt ? <span className="text-[9px] text-muted-foreground/50 ml-0.5">{roundLabel && <span className="text-amber-500">{roundLabel}</span>} {investorUpdatedAt.slice(11, 16)}</span> : null
   return (
     <div className="flex items-center py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
       <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
@@ -193,7 +196,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
       <div className={cn(
         "sticky left-0 z-20 group-hover:bg-muted/50 self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pr-1 transition-colors",
         allMet
-          ? "border-l-[3px] border-l-yellow-400 bg-yellow-50 pl-[5px]"
+          ? "border-l-[3px] border-l-yellow-400 bg-yellow-400/10 pl-[5px]"
           : "bg-card pl-2"
       )}>
         <span className={cn(
@@ -206,9 +209,9 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
           {/* 경고 알림 뱃지 */}
           {(shortWarning || overheatWarning || reverseWarning) && (
             <span className="absolute -top-1 -right-1 flex gap-px">
-              {shortWarning && <span className="w-2 h-2 rounded-full border border-white animate-pulse bg-red-500" title="공매도 경고" />}
-              {overheatWarning && <span className="w-2 h-2 rounded-full border border-white animate-pulse bg-amber-500" title="과열 경고" />}
-              {reverseWarning && <span className="w-2 h-2 rounded-full border border-white animate-pulse bg-indigo-500" title="역배열 경고" />}
+              {shortWarning && <span className="w-2 h-2 rounded-full border border-card animate-pulse bg-red-500" title="공매도 경고" />}
+              {overheatWarning && <span className="w-2 h-2 rounded-full border border-card animate-pulse bg-amber-500" title="과열 경고" />}
+              {reverseWarning && <span className="w-2 h-2 rounded-full border border-card animate-pulse bg-indigo-500" title="역배열 경고" />}
             </span>
           )}
         </span>
@@ -414,7 +417,7 @@ function CompactMarketSection({
           <span className="font-semibold text-xs">{market}</span>
           <span className="text-[10px] text-muted-foreground">(0)</span>
         </div>
-        <p className="text-muted-foreground text-[10px] text-center py-2">해당 종목 없음</p>
+        <p className="text-muted-foreground text-[10px] text-center py-3 bg-muted/10 rounded border border-dashed border-border/30">해당 종목 없음</p>
       </div>
     )
   }
@@ -426,15 +429,19 @@ function CompactMarketSection({
         <span className="font-semibold text-xs">{market}</span>
         <span className="text-[10px] text-muted-foreground">({stocks.length})</span>
       </div>
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="min-w-fit">
-          {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
-          <div className="divide-y divide-border/30">
-            {stocks.map((stock) => (
-              <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
-            ))}
+      <div className="relative">
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="min-w-fit">
+            {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
+            <div className="divide-y divide-border/30">
+              {stocks.map((stock) => (
+                <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} />
+              ))}
+            </div>
           </div>
         </div>
+        {/* 수평 스크롤 힌트 (우측 fade) */}
+        <div className="absolute top-0 right-0 bottom-0 w-6 pointer-events-none bg-gradient-to-l from-card to-transparent sm:hidden" />
       </div>
     </div>
   )

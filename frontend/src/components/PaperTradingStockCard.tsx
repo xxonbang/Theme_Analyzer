@@ -38,8 +38,8 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
       className={cn(
         "border rounded-lg p-3 sm:p-4 transition-all duration-200",
         isExcluded && "opacity-40 bg-muted/30",
-        !isExcluded && isProfit && "border-red-200 bg-red-50/30",
-        !isExcluded && isLoss && "border-blue-200 bg-blue-50/30",
+        !isExcluded && isProfit && "border-red-500/20 bg-red-500/5",
+        !isExcluded && isLoss && "border-blue-500/20 bg-blue-500/5",
         !isExcluded && !isProfit && !isLoss && "border-border",
       )}
     >

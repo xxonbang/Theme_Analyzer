@@ -87,7 +87,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
               {/* 경고 알림 뱃지 */}
               {(shortWarning || overheatWarning || reverseWarning) && (
                 <span className={cn(
-                  "absolute -top-1 -right-1 w-2 h-2 rounded-full border border-white animate-pulse",
+                  "absolute -top-1 -right-1 w-2 h-2 rounded-full border border-card animate-pulse",
                   shortWarning ? "bg-red-500" : overheatWarning ? "bg-amber-500" : "bg-indigo-500"
                 )} />
               )}
@@ -212,7 +212,7 @@ export function AIThemeAnalysis({ themeAnalysis, criteriaData, isAdmin, stockMar
   const themeCount = themeAnalysis.themes.length
 
   return (
-    <Card className="mb-4 sm:mb-6 shadow-sm">
+    <Card className="mb-4 sm:mb-6 shadow-sm border-amber-500/20 bg-gradient-to-br from-amber-500/[0.03] to-transparent">
       <CardContent className="p-3 sm:p-4 space-y-3">
         {/* 헤더 (클릭으로 전체 토글) */}
         <button

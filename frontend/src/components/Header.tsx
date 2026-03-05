@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles } from "lucide-react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, MoreVertical } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -18,10 +18,13 @@ interface HeaderProps {
   currentPage?: PageType
   onPageChange?: (page: PageType) => void
   isAdmin?: boolean
+  headerHidden?: boolean
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden }: HeaderProps) {
   const { signOut } = useAuth()
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
@@ -31,6 +34,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [refreshFocusRing, setRefreshFocusRing] = useState(false)
   const [historyFocusRing, setHistoryFocusRing] = useState(false)
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // 모바일 메뉴 외부 클릭 닫기
+  useEffect(() => {
+    if (!showMobileMenu) return
+    const handler = (e: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
+        setShowMobileMenu(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [showMobileMenu])
 
   // 툴팁 자동 숨김 (3초 후 fade-out)
   useEffect(() => {
@@ -180,7 +195,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const relativeTime = timestamp ? getRelativeTime(timestamp) : null
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
+    <header className={cn("sticky top-0 z-50 w-full border-b bg-card shadow-sm transition-transform duration-300", headerHidden && "-translate-y-full")}>
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
@@ -242,7 +257,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </div>
           )}
 
-          {/* Page Navigation Buttons */}
+          {/* Page Navigation Buttons (desktop only, mobile in menu) */}
           {onPageChange && (
             <>
               {/* 테마 예측 버튼 (admin only) */}
@@ -250,7 +265,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
                 className={cn(
                   "relative overflow-hidden group",
-                  "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                  "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                   "rounded-lg",
                   "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                   "border border-border/50",
@@ -270,12 +285,12 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 )} />
               </button>}
 
-              {/* 모의투자 버튼 */}
+              {/* 모의투자 버튼 (desktop only) */}
               <button
                 onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
                 className={cn(
                   "relative overflow-hidden group",
-                  "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                  "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                   "rounded-lg",
                   "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                   "border border-border/50",
@@ -297,13 +312,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </>
           )}
 
-          {/* History Button */}
+          {/* History Button (desktop only, mobile in menu) */}
           {onHistoryClick && (
             <button
               onClick={handleHistoryClick}
               className={cn(
                 "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -501,12 +516,12 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </span>
           )}
 
-          {/* Logout Button */}
+          {/* Logout Button (desktop only, mobile in menu) */}
           <button
             onClick={() => signOut()}
             className={cn(
               "relative overflow-hidden group",
-              "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+              "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
               "rounded-lg",
               "bg-gradient-to-br from-destructive/10 via-destructive/5 to-destructive/10",
               "text-destructive",
@@ -522,6 +537,72 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
           >
             <LogOut className="relative z-10 w-3 h-3 sm:w-4 sm:h-4" />
           </button>
+
+          {/* Mobile More Menu (sm:hidden) */}
+          <div ref={mobileMenuRef} className="relative sm:hidden">
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className={cn(
+                "flex items-center justify-center w-8 h-8",
+                "rounded-lg",
+                "bg-secondary border border-border/50",
+                "transition-all duration-200",
+                "active:scale-95",
+                showMobileMenu && "bg-muted"
+              )}
+            >
+              <MoreVertical className="w-4 h-4" />
+            </button>
+
+            {showMobileMenu && (
+              <div className="absolute right-0 top-full mt-1.5 w-44 bg-popover border border-border rounded-lg shadow-xl z-50 py-1 animate-tab-fade-in">
+                {onPageChange && isAdmin && (
+                  <button
+                    onClick={() => { onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast"); setShowMobileMenu(false) }}
+                    className={cn(
+                      "flex items-center gap-2.5 w-full px-3 py-2.5 text-sm transition-colors",
+                      currentPage === "theme-forecast" ? "text-amber-600 bg-amber-500/5" : "text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    테마 예측
+                  </button>
+                )}
+                {onPageChange && (
+                  <button
+                    onClick={() => { onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading"); setShowMobileMenu(false) }}
+                    className={cn(
+                      "flex items-center gap-2.5 w-full px-3 py-2.5 text-sm transition-colors",
+                      currentPage === "paper-trading" ? "text-primary bg-primary/5" : "text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <LineChart className="w-4 h-4" />
+                    모의투자
+                  </button>
+                )}
+                {onHistoryClick && (
+                  <button
+                    onClick={() => { onHistoryClick(); setShowMobileMenu(false) }}
+                    className={cn(
+                      "flex items-center gap-2.5 w-full px-3 py-2.5 text-sm transition-colors",
+                      isViewingHistory ? "text-primary bg-primary/5" : "text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <History className="w-4 h-4" />
+                    히스토리
+                  </button>
+                )}
+                <div className="mx-2 my-1 border-t border-border/50" />
+                <button
+                  onClick={() => { signOut(); setShowMobileMenu(false) }}
+                  className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm text-destructive hover:bg-destructive/5 transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  로그아웃
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

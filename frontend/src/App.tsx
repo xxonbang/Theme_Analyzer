@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react"
+import { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { AIThemeAnalysis } from "@/components/AIThemeAnalysis"
@@ -101,13 +101,23 @@ function App() {
     localStorage.setItem(COMPOSITE_MODE_KEY, compositeMode)
   }, [compositeMode])
 
-  // Scroll to top 버튼 상태
+  // Scroll to top 버튼 + 헤더 숨김 상태
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [headerHidden, setHeaderHidden] = useState(false)
+  const lastScrollY = useRef(0)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300)
+      const currentY = window.scrollY
+      setShowScrollTop(currentY > 300)
+      // 스크롤 다운 60px 이상이면 숨김, 스크롤 업이면 표시
+      if (currentY > lastScrollY.current && currentY > 80) {
+        setHeaderHidden(true)
+      } else {
+        setHeaderHidden(false)
+      }
+      lastScrollY.current = currentY
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
@@ -392,10 +402,24 @@ function App() {
 
   if (loading && !currentData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          <p className="text-muted-foreground text-sm">데이터를 불러오는 중...</p>
+      <div className="min-h-screen bg-background">
+        {/* Skeleton header */}
+        <div className="h-14 sm:h-16 border-b bg-card shadow-sm" />
+        <div className="container px-3 sm:px-4 py-6">
+          {/* Skeleton cards */}
+          <div className="space-y-4">
+            <div className="h-16 rounded-lg bg-muted/50 animate-pulse" />
+            <div className="h-12 rounded-lg bg-muted/40 animate-pulse" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[1,2,3,4].map(i => (
+                <div key={i} className="h-32 rounded-lg bg-muted/30 animate-pulse" style={{ animationDelay: `${i * 100}ms` }} />
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-3 mt-12">
+            <Loader2 className="w-6 h-6 animate-spin text-primary" />
+            <p className="text-muted-foreground text-sm">데이터를 불러오는 중...</p>
+          </div>
         </div>
       </div>
     )
@@ -416,6 +440,7 @@ function App() {
         currentPage={currentPage}
         onPageChange={setCurrentPage}
         isAdmin={isAdmin}
+        headerHidden={headerHidden}
       />
 
       <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />
@@ -437,7 +462,7 @@ function App() {
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
       {/* 히스토리 배너 + Tab Bar (하나의 sticky 컨테이너) */}
-      <div className="sticky top-14 sm:top-16 z-40">
+      <div className={cn("sticky z-40 transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}>
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
             <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
@@ -535,7 +560,7 @@ function App() {
         )}
 
         {/* Tab Content */}
-        <div className="space-y-4 sm:space-y-6">
+        <div key={activeTab} className="space-y-4 sm:space-y-6 animate-tab-fade-in">
           {activeTab === "composite" && displayData && (
             <>
               {compositeData ? (
@@ -698,11 +723,15 @@ function App() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t text-center text-xs sm:text-sm text-muted-foreground">
-          <p>KIS API + Naver News API 기반 자동 분석</p>
-          <p className="mt-1">
-            매일 09:30, 21:00 KST 업데이트
-          </p>
+        <footer className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-border/30">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-[10px] sm:text-xs text-muted-foreground/60">
+            <div className="flex items-center gap-3">
+              <span>KIS API · Naver News API</span>
+              <span className="hidden sm:inline">·</span>
+              <span>매일 09:30, 21:00 KST 자동 업데이트</span>
+            </div>
+            <span>투자 판단의 책임은 본인에게 있습니다</span>
+          </div>
         </footer>
       </main>
 

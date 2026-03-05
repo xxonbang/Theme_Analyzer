@@ -12,7 +12,7 @@ export function ApiKeyAlertBanner({ alerts }: ApiKeyAlertBannerProps) {
     <div
       className={cn(
         "mb-4 sm:mb-6 border rounded-lg px-3 py-2 sm:px-4 sm:py-2.5",
-        "bg-red-50 border-red-200 text-red-700"
+        "bg-red-500/10 border-red-500/30 text-red-700"
       )}
     >
       <div className="flex items-center gap-2 mb-1">

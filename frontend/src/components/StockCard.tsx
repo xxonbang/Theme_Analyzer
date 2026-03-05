@@ -63,9 +63,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
       {/* 경고 알림 뱃지 */}
       {isAdmin && (shortWarning || overheatWarning || reverseWarning) && (
         <div className="absolute -top-1.5 -right-1.5 z-10 flex gap-0.5">
-          {shortWarning && <span className="w-3 h-3 rounded-full bg-red-500 border-2 border-white animate-pulse" title="공매도 경고" />}
-          {overheatWarning && <span className="w-3 h-3 rounded-full bg-amber-500 border-2 border-white animate-pulse" title="과열 경고" />}
-          {reverseWarning && <span className="w-3 h-3 rounded-full bg-indigo-500 border-2 border-white animate-pulse" title="역배열 경고" />}
+          {shortWarning && <span className="w-3 h-3 rounded-full bg-red-500 border-2 border-card animate-pulse" title="공매도 경고" />}
+          {overheatWarning && <span className="w-3 h-3 rounded-full bg-amber-500 border-2 border-card animate-pulse" title="과열 경고" />}
+          {reverseWarning && <span className="w-3 h-3 rounded-full bg-indigo-500 border-2 border-card animate-pulse" title="역배열 경고" />}
         </div>
       )}
       <CardContent className="p-3 sm:p-4">
@@ -315,7 +315,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                             d.val > 0 ? "bg-red-500/10" : d.val < 0 ? "bg-blue-500/10" : "bg-muted/30"
                           )}>
                             <span className="text-[10px] text-muted-foreground"><span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span></span>
-                            {d.est && investorEstimated && <span className="text-[7px] text-amber-500 ml-0.5">추정</span>}
+                            {d.est && investorEstimated && <span className="text-[9px] text-amber-500 ml-0.5">추정</span>}
                             {" "}<span className={cn("font-medium tabular-nums", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
                           </span>
                         </Fragment>
