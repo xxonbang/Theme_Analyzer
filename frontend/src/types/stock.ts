@@ -99,6 +99,7 @@ export interface InvestorInfo {
     foreign_net: number
     institution_net: number
     individual_net?: number
+    program_net?: number
   }[]
 }
 

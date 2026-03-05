@@ -203,11 +203,14 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         <div className="mt-2 pt-2 border-t border-border/50 space-y-1.5">
           {/* 거래 정보 */}
           <div>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+            <div
+              className={cn("flex flex-wrap items-center gap-x-2 gap-y-1 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
+              onClick={() => history?.changes && history.changes.length > 1 && setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
+            >
               {/* 히스토리 확장 토글 (row 왼편) */}
               {history?.changes && history.changes.length > 1 && (
                 <button
-                  onClick={() => setIsTradingHistoryExpanded(!isTradingHistoryExpanded)}
+                  onClick={(e) => { e.stopPropagation(); setIsTradingHistoryExpanded(!isTradingHistoryExpanded) }}
                   className="text-muted-foreground hover:text-foreground transition-all"
                 >
                   {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -229,42 +232,48 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 )
                 return (
                 <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                  <button onClick={(e) => { e.stopPropagation(); setShowTradingChart(true) }} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
                     <Sparkline data={tradingSparkData} color="#f59e0b" className="pointer-events-none" />
                   </button>
                   <div className="w-px self-stretch bg-border/50" />
-                  <button onClick={() => setShowTradingChart(true)} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                  <button onClick={(e) => { e.stopPropagation(); setShowTradingChart(true) }} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
                     <Maximize2 className="w-3 h-3" />
                   </button>
                 </div>
                 )
               })()}
-              {/* 거래 차트 팝업 */}
-              {showTradingChart && history?.changes && (
-                <TradingChartPopup
-                  stockName={stock.name}
-                  currentTradingValue={stock.trading_value}
-                  currentVolume={stock.volume}
-                  changes={history.changes}
-                  onClose={() => setShowTradingChart(false)}
-                />
-              )}
             </div>
+            {/* 거래 차트 팝업 */}
+            {showTradingChart && history?.changes && (
+              <TradingChartPopup
+                stockName={stock.name}
+                currentTradingValue={stock.trading_value}
+                currentVolume={stock.volume}
+                changes={history.changes}
+                onClose={() => setShowTradingChart(false)}
+              />
+            )}
             {/* 거래 히스토리 (카드: 최근 9일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
-              const pastDays = [...history.changes.slice(1)].reverse().slice(-9) // 최근 9일 (과거→최신)
-              if (pastDays.length === 0) return null
+              const allChanges = [...history.changes].reverse().slice(-10) // 과거→최신 (마지막=오늘D)
+              if (allChanges.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
-                  {pastDays.map((c, idx) => {
-                    const dayNum = pastDays.length - idx
-                    const label = `D-${dayNum}`
+                  <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-0.5 border-b border-border/30">
+                    <span className="w-6 shrink-0">일자</span>
+                    <span className="w-14 shrink-0 text-right">등락률</span>
+                    <span className="flex-1 text-right">거래대금</span>
+                    <span className="flex-1 text-right">거래량</span>
+                  </div>
+                  {allChanges.map((c, idx) => {
+                    const isToday = idx === allChanges.length - 1
+                    const label = isToday ? "D" : `D-${allChanges.length - 1 - idx}`
                     return (
-                      <div key={idx} className="flex items-center text-muted-foreground bg-muted/30 px-1.5 py-0.5 rounded">
+                      <div key={idx} className={cn("flex items-center text-muted-foreground px-1.5 py-0.5 rounded", isToday ? "bg-muted/60 font-medium" : "bg-muted/30")}>
                         <span className="font-medium w-6 shrink-0">{label}</span>
                         <span className={cn("w-14 shrink-0 text-right font-medium tabular-nums", c.change_rate >= 0 ? "text-red-500" : "text-blue-500")}>{c.change_rate > 0 ? "+" : ""}{c.change_rate.toFixed(1)}%</span>
-                        {c.trading_value != null && <span className="flex-1 text-right tabular-nums">거래대금 <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></span>}
-                        {c.volume != null && <span className="flex-1 text-right tabular-nums">거래량 <span className="text-foreground font-medium">{formatVolume(c.volume)}</span></span>}
+                        <span className="flex-1 text-right tabular-nums">{c.trading_value != null ? <><span className="sm:hidden">거래대금 </span><span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></> : "-"}</span>
+                        <span className="flex-1 text-right tabular-nums">{c.volume != null ? <><span className="sm:hidden">거래량 </span><span className="text-foreground font-medium">{formatVolume(c.volume)}</span></> : "-"}</span>
                       </div>
                     )
                   })}
@@ -278,11 +287,14 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             <div className="pt-1 border-t border-border/30">
               {investorInfo ? (
                 <>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                  <div
+                    className={cn("flex flex-wrap items-center gap-x-2 gap-y-1 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
+                    onClick={() => investorInfo.history && investorInfo.history.length > 0 && setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                  >
                     {/* 히스토리 확장 토글 (row 왼편) */}
                     {investorInfo.history && investorInfo.history.length > 0 && (
                       <button
-                        onClick={() => setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
+                        onClick={(e) => { e.stopPropagation(); setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded) }}
                         className="text-muted-foreground hover:text-foreground transition-all"
                       >
                         {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -299,6 +311,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         <span className="sm:hidden">개</span><span className="hidden sm:inline">개인</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.individual_net))}>{formatNetBuy(investorInfo.individual_net)}</span>
                       </span>
                     )}
+                    {investorInfo.program_net != null && (
+                      <span className="text-muted-foreground whitespace-nowrap">
+                        <span className="sm:hidden">프</span><span className="hidden sm:inline">프로그램</span> <span className={cn("font-medium", getNetBuyColor(investorInfo.program_net))}>{formatNetBuy(investorInfo.program_net)}</span>
+                      </span>
+                    )}
                     {/* 수급 스파크라인 + bottom sheet 열기 */}
                     {(() => {
                       const investorSparkData = investorInfo.history && investorInfo.history.length > 0
@@ -306,11 +323,11 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         : [investorInfo.foreign_net]
                       return (
                       <div className="flex items-center ml-auto shrink-0 rounded-md border border-border/50 overflow-hidden">
-                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
+                        <button onClick={(e) => { e.stopPropagation(); setShowInvestorChart(true) }} className="px-1.5 py-1 opacity-70 hover:opacity-100 hover:bg-muted/50 transition-all cursor-pointer">
                           <Sparkline data={investorSparkData} color="#ef4444" className="pointer-events-none" />
                         </button>
                         <div className="w-px self-stretch bg-border/50" />
-                        <button onClick={() => setShowInvestorChart(true)} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                        <button onClick={(e) => { e.stopPropagation(); setShowInvestorChart(true) }} className="px-1.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
                           <Maximize2 className="w-3 h-3" />
                         </button>
                       </div>
@@ -321,41 +338,50 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       const roundText = "round" in info ? `${info.round}차` : info.label
                       return (
                         <>
-                          <button onClick={() => setShowSchedule(true)} className="text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors">{roundText} {investorUpdatedAt.slice(11, 16)}</button>
-                          {showSchedule && <InvestorSchedulePopup currentRound={"round" in info ? info.label : info.label} updatedAt={investorUpdatedAt} onClose={() => setShowSchedule(false)} />}
+                          <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors">{roundText} {investorUpdatedAt.slice(11, 16)}</button>
                         </>
                       )
                     })()}
-                    {/* 수급 차트 팝업 */}
-                    {showInvestorChart && investorInfo && (
-                      <InvestorChartPopup
-                        stockName={stock.name}
-                        investorInfo={investorInfo}
-                        stockCode={stock.code}
-                        investorIntraday={investorIntraday}
-                        onClose={() => setShowInvestorChart(false)}
-                      />
-                    )}
                   </div>
+                  {/* 수급 차트/스케줄 팝업 (클릭 div 밖) */}
+                  {showSchedule && investorUpdatedAt && (() => {
+                    const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
+                    return <InvestorSchedulePopup currentRound={"round" in info ? info.label : info.label} updatedAt={investorUpdatedAt} onClose={() => setShowSchedule(false)} />
+                  })()}
+                  {showInvestorChart && investorInfo && (
+                    <InvestorChartPopup
+                      stockName={stock.name}
+                      investorInfo={investorInfo}
+                      stockCode={stock.code}
+                      investorIntraday={investorIntraday}
+                      onClose={() => setShowInvestorChart(false)}
+                    />
+                  )}
                   {/* 수급 히스토리 (D-N ~ D) */}
                   {isInvestorHistoryExpanded && investorInfo.history && investorInfo.history.length > 0 && (() => {
                     const reversed = [...investorInfo.history].reverse()
                     const allDays = [
                       ...reversed,
-                      { foreign_net: investorInfo.foreign_net, institution_net: investorInfo.institution_net, individual_net: investorInfo.individual_net },
+                      { foreign_net: investorInfo.foreign_net, institution_net: investorInfo.institution_net, individual_net: investorInfo.individual_net, program_net: investorInfo.program_net },
                     ]
                     return (
                     <div className="mt-1 text-[10px] space-y-0.5">
+                      <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-0.5 border-b border-border/30">
+                        <span className="w-6 shrink-0">일자</span>
+                        <span className="flex-1 text-right">외국인</span>
+                        <span className="flex-1 text-right">기관</span>
+                        <span className="flex-1 text-right">개인</span>
+                        <span className="flex-1 text-right">프로그램</span>
+                      </div>
                       {allDays.map((h, idx) => {
                         const label = idx === allDays.length - 1 ? "D" : `D-${allDays.length - 1 - idx}`
                         return (
                           <div key={idx} className={cn("flex items-center text-muted-foreground px-1.5 py-0.5 rounded", idx === allDays.length - 1 ? "bg-muted/60 font-medium" : "bg-muted/30")}>
                             <span className="font-medium w-6 shrink-0">{label}</span>
-                            <span className="flex-1 text-right tabular-nums">외국인 <span className={cn("font-medium", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span></span>
-                            <span className="flex-1 text-right tabular-nums">기관 <span className={cn("font-medium", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span></span>
-                            {h.individual_net != null && (
-                              <span className="flex-1 text-right tabular-nums">개인 <span className={cn("font-medium", getNetBuyColor(h.individual_net))}>{formatNetBuy(h.individual_net)}</span></span>
-                            )}
+                            <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(h.foreign_net))}>{formatNetBuy(h.foreign_net)}</span>
+                            <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(h.institution_net))}>{formatNetBuy(h.institution_net)}</span>
+                            <span className={cn("flex-1 text-right tabular-nums", h.individual_net != null ? getNetBuyColor(h.individual_net) : "text-muted-foreground")}>{h.individual_net != null ? formatNetBuy(h.individual_net) : "-"}</span>
+                            <span className={cn("flex-1 text-right tabular-nums", h.program_net != null ? getNetBuyColor(h.program_net) : "text-muted-foreground")}>{h.program_net != null ? formatNetBuy(h.program_net) : "-"}</span>
                           </div>
                         )
                       })}

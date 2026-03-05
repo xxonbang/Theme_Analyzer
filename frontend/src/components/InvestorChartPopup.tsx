@@ -38,7 +38,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
   const history = investorInfo.history ?? []
   const allDays = [
     ...history.slice().reverse(),
-    { foreign_net: investorInfo.foreign_net, institution_net: investorInfo.institution_net, individual_net: investorInfo.individual_net },
+    { foreign_net: investorInfo.foreign_net, institution_net: investorInfo.institution_net, individual_net: investorInfo.individual_net, program_net: investorInfo.program_net },
   ]
   const labels = allDays.map((_, i) => i === allDays.length - 1 ? "D" : `D-${allDays.length - 1 - i}`)
 
@@ -206,6 +206,12 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 </span>
               )
             })}
+            {activeTab === "daily" && (
+              <span className="flex items-center gap-1 opacity-60">
+                <span className="w-3 h-0.5 rounded inline-block bg-amber-500" />
+                프로그램
+              </span>
+            )}
             {activeTab === "intraday" && intradayChart?.hasCr && (
               <span
                 onClick={() => setShowCr(v => !v)}
@@ -277,6 +283,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 <span className="flex-1 text-right">외국인</span>
                 <span className="flex-1 text-right">기관</span>
                 <span className="flex-1 text-right">개인</span>
+                <span className="flex-1 text-right">프로그램</span>
               </div>
               {allDays.map((d, idx) => {
                 const isToday = idx === allDays.length - 1
@@ -286,6 +293,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.foreign_net))}>{formatNetBuy(d.foreign_net)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.institution_net))}>{formatNetBuy(d.institution_net)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.individual_net ?? 0))}>{d.individual_net != null ? formatNetBuy(d.individual_net) : "-"}</span>
+                    <span className={cn("flex-1 text-right tabular-nums", d.program_net != null ? getNetBuyColor(d.program_net) : "text-muted-foreground")}>{d.program_net != null ? formatNetBuy(d.program_net) : "-"}</span>
                   </div>
                 )
               })}
