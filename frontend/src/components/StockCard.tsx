@@ -288,7 +288,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div
-                    className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
+                    className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-0.5 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
                     onClick={() => investorInfo.history && investorInfo.history.length > 0 && setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
                   >
                     {/* 히스토리 확장 토글 (row 왼편) */}
@@ -317,7 +317,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </span>
                     )}
                     {/* 수급 시간 + 스파크라인 (그룹) */}
-                    <div className="flex items-center ml-auto shrink-0 gap-1.5">
+                    <div className="basis-full sm:basis-auto flex items-center gap-1.5 justify-end sm:ml-auto shrink-0">
                       {investorUpdatedAt && (() => {
                         const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                         const roundText = "round" in info ? `${info.round}차` : info.label
