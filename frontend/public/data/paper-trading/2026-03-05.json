@@ -1,0 +1,336 @@
+{
+  "trade_date": "2026-03-05",
+  "morning_timestamp": "2026-03-05 09:18:11",
+  "collected_at": "2026-03-05 06:40:48",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-05 09:18:11",
+      "prices": {
+        "000660": 977500,
+        "042700": 315500,
+        "319400": 30200,
+        "027360": 5000,
+        "086520": 155600,
+        "450080": 63100,
+        "403870": 42900,
+        "006800": 67300,
+        "090710": 12320,
+        "440110": 60800,
+        "402340": 582000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/스마트 팩토리"
+        },
+        {
+          "code": "085620",
+          "name": "미래에셋생명",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지/소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-05 09:40:47",
+      "prices": {
+        "000660": 982000,
+        "042700": 313500,
+        "319400": 30750,
+        "027360": 5240,
+        "086520": 162400,
+        "450080": 64300,
+        "403870": 43700,
+        "006800": 67900,
+        "090710": 13070,
+        "440110": 61600,
+        "402340": 591000
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "증권/벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "증권/벤처투자"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "AI 데이터센터 인프라"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "AI 데이터센터 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-05 11:39:04",
+      "prices": {
+        "000660": 965000,
+        "042700": 316000,
+        "319400": 30750,
+        "027360": 5240,
+        "086520": 166400,
+        "450080": 65100,
+        "403870": 43700,
+        "006800": 66650,
+        "090710": 13070,
+        "440110": 61600,
+        "402340": 575000
+      },
+      "leader_stocks": [
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "증권/벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "증권/벤처투자"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "AI 데이터센터 인프라"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "AI 데이터센터 인프라"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSPI",
+      "buy_price": 977500,
+      "close_price": 941000,
+      "profit_rate": -3.73,
+      "profit_amount": -36500,
+      "high_price": 992000,
+      "high_time": "09:34",
+      "high_profit_rate": 1.48,
+      "high_profit_amount": 14500
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSPI",
+      "buy_price": 315500,
+      "close_price": 315000,
+      "profit_rate": -0.16,
+      "profit_amount": -500,
+      "high_price": 323000,
+      "high_time": "09:35",
+      "high_profit_rate": 2.38,
+      "high_profit_amount": 7500
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/스마트 팩토리",
+      "market": "KOSDAQ",
+      "buy_price": 30200,
+      "close_price": 30950,
+      "profit_rate": 2.48,
+      "profit_amount": 750,
+      "high_price": 31450,
+      "high_time": "14:54",
+      "high_profit_rate": 4.14,
+      "high_profit_amount": 1250
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "금융/투자",
+      "market": "KOSPI",
+      "buy_price": 5000,
+      "close_price": 5300,
+      "profit_rate": 6.0,
+      "profit_amount": 300,
+      "high_price": 5490,
+      "high_time": "14:38",
+      "high_profit_rate": 9.8,
+      "high_profit_amount": 490
+    },
+    {
+      "code": "086520",
+      "name": "에코프로",
+      "theme": "2차전지/소재",
+      "market": "KOSPI",
+      "buy_price": 155600,
+      "close_price": 160800,
+      "profit_rate": 3.34,
+      "profit_amount": 5200,
+      "high_price": 168800,
+      "high_time": "14:50",
+      "high_profit_rate": 8.48,
+      "high_profit_amount": 13200
+    },
+    {
+      "code": "450080",
+      "name": "에코프로머티",
+      "theme": "2차전지/소재",
+      "market": "KOSDAQ",
+      "buy_price": 63100,
+      "close_price": 63200,
+      "profit_rate": 0.16,
+      "profit_amount": 100,
+      "high_price": 65600,
+      "high_time": "14:50",
+      "high_profit_rate": 3.96,
+      "high_profit_amount": 2500
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 42900,
+      "close_price": 44950,
+      "profit_rate": 4.78,
+      "profit_amount": 2050,
+      "high_price": 46950,
+      "high_time": "14:40",
+      "high_profit_rate": 9.44,
+      "high_profit_amount": 4050
+    },
+    {
+      "code": "006800",
+      "name": "미래에셋증권",
+      "theme": "증권/벤처투자",
+      "market": "KOSPI",
+      "buy_price": 67300,
+      "close_price": 65200,
+      "profit_rate": -3.12,
+      "profit_amount": -2100,
+      "high_price": 69000,
+      "high_time": "09:35",
+      "high_profit_rate": 2.53,
+      "high_profit_amount": 1700
+    },
+    {
+      "code": "090710",
+      "name": "휴림로봇",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 12320,
+      "close_price": 12990,
+      "profit_rate": 5.44,
+      "profit_amount": 670,
+      "high_price": 13400,
+      "high_time": "14:56",
+      "high_profit_rate": 8.77,
+      "high_profit_amount": 1080
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "AI 데이터센터 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 60800,
+      "close_price": 66100,
+      "profit_rate": 8.72,
+      "profit_amount": 5300,
+      "high_price": 67700,
+      "high_time": "14:54",
+      "high_profit_rate": 11.35,
+      "high_profit_amount": 6900
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "theme": "AI 데이터센터 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 582000,
+      "close_price": 566000,
+      "profit_rate": -2.75,
+      "profit_amount": -16000,
+      "high_price": 594000,
+      "high_time": "09:24",
+      "high_profit_rate": 2.06,
+      "high_profit_amount": 12000
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 7,
+    "loss_stocks": 4,
+    "total_invested": 2312220,
+    "total_value": 2271490,
+    "total_profit": -40730,
+    "total_profit_rate": -1.76,
+    "high_total_value": 2377390,
+    "high_total_profit": 65170,
+    "high_total_profit_rate": 2.82,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 0
+  }
+}
