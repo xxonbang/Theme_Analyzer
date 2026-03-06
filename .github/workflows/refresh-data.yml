@@ -99,8 +99,14 @@ jobs:
               git fetch origin main
               git reset --hard origin/main
 
+              # 원격의 investor 필드 보존 (레이스 컨디션 방지)
+              python3 scripts/merge_workflow_data.py save-investor
+
               # 수집된 데이터 복원
               cp /tmp/data_backup/latest.json frontend/public/data/
+
+              # 원격의 investor 필드 병합
+              python3 scripts/merge_workflow_data.py merge-investor
               [ -f /tmp/data_backup/history-index.json ] && cp /tmp/data_backup/history-index.json frontend/public/data/
               [ -d /tmp/data_backup/history ] && cp -r /tmp/data_backup/history frontend/public/data/
 

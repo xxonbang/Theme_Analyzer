@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, MoreVertical, Sun, Moon } from "lucide-react"
+import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, MoreVertical, Sun, Moon } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -464,6 +464,27 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
               )}
             </button>
           )}
+
+          {/* Page Reload Button (all users) */}
+          <button
+            onClick={() => window.location.reload()}
+            className={cn(
+              "relative overflow-hidden group",
+              "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+              "rounded-lg",
+              "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+              "border border-border/50",
+              "shadow-sm hover:shadow-md hover:shadow-primary/10",
+              "transition-all duration-300 ease-out",
+              "hover:scale-110 active:scale-95",
+              "hover:border-primary/30",
+              "focus:outline-none"
+            )}
+            title="페이지 새로고침"
+          >
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Repeat className="relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" />
+          </button>
 
           {/* Refresh Button (admin only) */}
           {isAdmin && onRefresh && (

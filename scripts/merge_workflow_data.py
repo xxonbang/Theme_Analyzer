@@ -41,10 +41,17 @@ def merge_investor():
 
     changed = False
 
-    # investor_intraday: 스냅샷이 더 많은 쪽 사용
+    # investor_intraday: round 기준 합집합 병합
     ri = remote.get("investor_intraday", {})
     li = data.get("investor_intraday", {})
-    if len(ri.get("snapshots", [])) > len(li.get("snapshots", [])):
+    if ri.get("date") and ri.get("date") == li.get("date"):
+        remote_snaps = {s["round"]: s for s in ri.get("snapshots", []) if "round" in s}
+        local_snaps = {s["round"]: s for s in li.get("snapshots", []) if "round" in s}
+        merged = {**remote_snaps, **local_snaps}  # 로컬 우선, 원격으로 빈 round 보충
+        if len(merged) > len(local_snaps):
+            data["investor_intraday"]["snapshots"] = sorted(merged.values(), key=lambda s: s["round"])
+            changed = True
+    elif ri.get("snapshots") and not li.get("snapshots"):
         data["investor_intraday"] = ri
         changed = True
 
