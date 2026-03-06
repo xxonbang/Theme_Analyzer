@@ -1,0 +1,361 @@
+{
+  "trade_date": "2026-03-06",
+  "morning_timestamp": "2026-03-06 09:17:54",
+  "collected_at": "2026-03-06 06:40:42",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-06 09:17:54",
+      "prices": {
+        "079550": 833000,
+        "272210": 156100,
+        "042700": 326000,
+        "095910": 1579,
+        "336260": 40700,
+        "458350": 34000,
+        "187660": 16770,
+        "032820": 17160,
+        "322000": 101900,
+        "440110": 70100,
+        "078600": 107300,
+        "001510": 1853
+      },
+      "leader_stocks": [
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 장비"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 (태양광/수소)"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "신재생에너지 (태양광/수소)"
+        },
+        {
+          "code": "458350",
+          "name": "에스팀",
+          "theme": "엔터테인먼트/패션 플랫폼"
+        },
+        {
+          "code": "187660",
+          "name": "현대ADM",
+          "theme": "바이오 신약 개발"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-06 09:40:27",
+      "prices": {
+        "079550": 872000,
+        "272210": 164500,
+        "042700": 325000,
+        "095910": 1579,
+        "458350": 34000,
+        "187660": 16770,
+        "032820": 16780,
+        "322000": 101900,
+        "440110": 70100,
+        "078600": 118100,
+        "001510": 1820
+      },
+      "leader_stocks": [
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "032820",
+          "name": "우리기술",
+          "theme": "원전/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "원전/신재생에너지"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "078600",
+          "name": "대주전자재료",
+          "theme": "2차전지 소재"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-06 11:39:57",
+      "prices": {
+        "079550": 813000,
+        "272210": 156900,
+        "042700": 331500,
+        "095910": 1579,
+        "458350": 33400,
+        "187660": 15140,
+        "032820": 17220,
+        "322000": 114200,
+        "440110": 70900,
+        "078600": 120600,
+        "001510": 1926
+      },
+      "leader_stocks": [
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "032820",
+          "name": "우리기술",
+          "theme": "원전/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "원전/신재생에너지"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "078600",
+          "name": "대주전자재료",
+          "theme": "2차전지 소재"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "079550",
+      "name": "LIG넥스원",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 833000,
+      "close_price": 834000,
+      "profit_rate": 0.12,
+      "profit_amount": 1000,
+      "high_price": 899000,
+      "high_time": "09:37",
+      "high_profit_rate": 7.92,
+      "high_profit_amount": 66000
+    },
+    {
+      "code": "272210",
+      "name": "한화시스템",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 156100,
+      "close_price": 158900,
+      "profit_rate": 1.79,
+      "profit_amount": 2800,
+      "high_price": 171600,
+      "high_time": "10:17",
+      "high_profit_rate": 9.93,
+      "high_profit_amount": 15500
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI 반도체 및 장비",
+      "market": "KOSPI",
+      "buy_price": 326000,
+      "close_price": 333500,
+      "profit_rate": 2.3,
+      "profit_amount": 7500,
+      "high_price": 334000,
+      "high_time": "14:45",
+      "high_profit_rate": 2.45,
+      "high_profit_amount": 8000
+    },
+    {
+      "code": "095910",
+      "name": "에스에너지",
+      "theme": "신재생에너지 (태양광/수소)",
+      "market": "KOSPI",
+      "buy_price": 1579,
+      "close_price": 1579,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1579,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "336260",
+      "name": "두산퓨얼셀",
+      "theme": "신재생에너지 (태양광/수소)",
+      "market": "KOSDAQ",
+      "buy_price": 40700,
+      "close_price": 40350,
+      "profit_rate": -0.86,
+      "profit_amount": -350,
+      "high_price": 40700,
+      "high_time": "09:17",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "458350",
+      "name": "에스팀",
+      "theme": "엔터테인먼트/패션 플랫폼",
+      "market": "KOSDAQ",
+      "buy_price": 34000,
+      "close_price": 34000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 34000,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "187660",
+      "name": "현대ADM",
+      "theme": "바이오 신약 개발",
+      "market": "KOSPI",
+      "buy_price": 16770,
+      "close_price": 15540,
+      "profit_rate": -7.33,
+      "profit_amount": -1230,
+      "high_price": 16850,
+      "high_time": "09:18",
+      "high_profit_rate": 0.48,
+      "high_profit_amount": 80
+    },
+    {
+      "code": "032820",
+      "name": "우리기술",
+      "theme": "원전/신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 17160,
+      "close_price": 17230,
+      "profit_rate": 0.41,
+      "profit_amount": 70,
+      "high_price": 18750,
+      "high_time": "09:48",
+      "high_profit_rate": 9.27,
+      "high_profit_amount": 1590
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "원전/신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 101900,
+      "close_price": 117100,
+      "profit_rate": 14.92,
+      "profit_amount": 15200,
+      "high_price": 117100,
+      "high_time": "15:30",
+      "high_profit_rate": 14.92,
+      "high_profit_amount": 15200
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "반도체/AI",
+      "market": "KOSDAQ",
+      "buy_price": 70100,
+      "close_price": 71000,
+      "profit_rate": 1.28,
+      "profit_amount": 900,
+      "high_price": 71900,
+      "high_time": "11:01",
+      "high_profit_rate": 2.57,
+      "high_profit_amount": 1800
+    },
+    {
+      "code": "078600",
+      "name": "대주전자재료",
+      "theme": "2차전지 소재",
+      "market": "KOSPI",
+      "buy_price": 107300,
+      "close_price": 118800,
+      "profit_rate": 10.72,
+      "profit_amount": 11500,
+      "high_price": 122900,
+      "high_time": "14:48",
+      "high_profit_rate": 14.54,
+      "high_profit_amount": 15600
+    },
+    {
+      "code": "001510",
+      "name": "SK증권",
+      "theme": "증권",
+      "market": "KOSPI",
+      "buy_price": 1853,
+      "close_price": 1931,
+      "profit_rate": 4.21,
+      "profit_amount": 78,
+      "high_price": 2030,
+      "high_time": "09:46",
+      "high_profit_rate": 9.55,
+      "high_profit_amount": 177
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 8,
+    "loss_stocks": 2,
+    "total_invested": 1706462,
+    "total_value": 1743930,
+    "total_profit": 37468,
+    "total_profit_rate": 2.2,
+    "high_total_value": 1830409,
+    "high_total_profit": 123947,
+    "high_total_profit_rate": 7.26,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 0
+  }
+}
