@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Analyzer — Logo Redesign v2</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #09090b;
+      color: #d4d4d8;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      padding: 48px 44px 80px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-title {
+      font-size: 36px;
+      font-weight: 200;
+      letter-spacing: -1.5px;
+      color: #fafafa;
+      margin-bottom: 6px;
+    }
+    .page-sub { color: #3f3f46; font-size: 13px; margin-bottom: 56px; line-height: 1.6; }
+
+    /* Current logo reference */
+    .ref { margin-bottom: 64px; }
+    .ref-title { font-size: 12px; color: #52525b; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; font-weight: 600; }
+    .ref-row { display: flex; align-items: center; gap: 20px; }
+    .ref-row img { border-radius: 16px; border: 1px solid #27272a; }
+
+    /* Concept blocks */
+    .concept { margin-bottom: 80px; }
+    .c-header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    .c-name { font-size: 22px; font-weight: 600; color: #fafafa; letter-spacing: -0.5px; }
+    .c-tag {
+      font-size: 10px; padding: 3px 10px; border-radius: 999px;
+      font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .tag-eye { background: #1a1a3e; color: #818cf8; }
+    .tag-net { background: #0a2030; color: #22d3ee; }
+    .tag-hex { background: #0a2020; color: #34d399; }
+    .c-desc { color: #52525b; font-size: 13px; margin-bottom: 28px; line-height: 1.7; max-width: 680px; }
+
+    .sizes {
+      display: flex;
+      align-items: flex-end;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .s-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .s-wrap {
+      background: #111113;
+      border: 1px solid #1c1c1e;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s;
+    }
+    .s-wrap:hover { border-color: #333; }
+    .s-wrap svg { display: block; }
+    .s-label {
+      font-size: 12px;
+      color: #71717a;
+      font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+      font-weight: 500;
+    }
+    .s-use { font-size: 10px; color: #3f3f46; }
+    .dl-btn {
+      font-size: 10px; padding: 4px 12px;
+      border: 1px solid #27272a; border-radius: 6px;
+      background: transparent; color: #52525b;
+      cursor: pointer; transition: all .15s;
+      font-family: inherit;
+    }
+    .dl-btn:hover { border-color: #52525b; color: #a1a1aa; background: #18181b; }
+
+    .divider { border: none; border-top: 1px solid #18181b; margin: 0 0 80px; }
+  </style>
+</head>
+<body>
+
+<h1 class="page-title">Theme Analyzer Logo v2</h1>
+<p class="page-sub">현재 로고(차트+AI네트워크)의 아이덴티티를 계승한 3가지 독창적 컨셉 — 각각 완전히 다른 시각적 접근</p>
+
+<div class="ref">
+  <p class="ref-title">현재 로고 (참고)</p>
+  <div class="ref-row">
+    <img src="../public/logo.png" width="96" height="96" alt="current logo">
+    <img src="../public/favicon.png" width="32" height="32" alt="current favicon">
+    <span style="color:#3f3f46;font-size:12px;">← 현재 사용 중</span>
+  </div>
+</div>
+
+<div id="app"></div>
+
+<script>
+const SIZES = [
+  { px: 512, use: 'PWA 512' },
+  { px: 192, use: 'PWA 192' },
+  { px: 64,  use: 'Favicon HD' },
+  { px: 32,  use: 'Favicon' },
+  { px: 16,  use: 'Tab' },
+];
+
+// ═══════════════════════════════════════
+// CONCEPT B — "Neural Chart" (Refined)
+// 바이올렛→시안 듀얼컬러 3계층 네트워크
+// ═══════════════════════════════════════
+function svgB(uid) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-uid="${uid}">
+  <defs>
+    <linearGradient id="${uid}_bg" x1="0" y1="0" x2="460" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020408"/><stop offset=".5" stop-color="#070d1e"/><stop offset="1" stop-color="#0c1430"/>
+    </linearGradient>
+    <radialGradient id="${uid}_vig" cx=".5" cy=".46" r=".56">
+      <stop stop-color="#0e1e40" stop-opacity=".35"/><stop offset="1" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="${uid}_ln" x1="84" y1="376" x2="428" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366f1"/><stop offset=".35" stop-color="#0ea5e9"/><stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="${uid}_af" x1="200" y1="120" x2="300" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0ea5e9" stop-opacity=".14"/><stop offset="1" stop-color="#6366f1" stop-opacity=".02"/>
+    </linearGradient>
+    <filter id="${uid}_gl"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="${uid}_eg"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="${uid}_ng"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="${uid}_fg"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <pattern id="${uid}_grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r=".7" fill="white"/>
+    </pattern>
+  </defs>
+
+  <!-- BG -->
+  <rect width="512" height="512" rx="112" fill="url(#${uid}_bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#${uid}_vig)"/>
+  <rect x="56" y="56" width="400" height="400" fill="url(#${uid}_grid)" opacity=".018"/>
+
+  <!-- Energy boundary arc -->
+  <circle cx="276" cy="256" r="196" fill="none" stroke="#0ea5e9" stroke-width="1" opacity=".03" stroke-dasharray="5 9"/>
+
+  <!-- ── Layer 1: Background field (violet) ── -->
+  <g stroke="#8b5cf6" fill="none" stroke-width="1.2" opacity=".08">
+    <line x1="76" y1="148" x2="140" y2="228"/>
+    <line x1="76" y1="148" x2="156" y2="156"/>
+    <line x1="168" y1="96" x2="156" y2="156"/>
+    <line x1="168" y1="96" x2="212" y2="172"/>
+    <line x1="356" y1="80" x2="304" y2="152"/>
+    <line x1="356" y1="80" x2="388" y2="156"/>
+    <line x1="448" y1="196" x2="388" y2="156"/>
+    <line x1="448" y1="196" x2="400" y2="252"/>
+    <line x1="444" y1="368" x2="400" y2="252"/>
+    <line x1="444" y1="368" x2="380" y2="340"/>
+    <line x1="72" y1="396" x2="140" y2="228"/>
+    <line x1="72" y1="396" x2="84" y2="376"/>
+  </g>
+  <g>
+    <circle cx="76" cy="148" r="5.5" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".2"/>
+    <circle cx="76" cy="148" r="4" fill="#8b5cf6" opacity=".28"/>
+    <circle cx="76" cy="148" r="1.6" fill="#a78bfa" opacity=".45"/>
+    <circle cx="168" cy="96" r="5" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".17"/>
+    <circle cx="168" cy="96" r="3.5" fill="#8b5cf6" opacity=".25"/>
+    <circle cx="168" cy="96" r="1.4" fill="#a78bfa" opacity=".4"/>
+    <circle cx="356" cy="80" r="5.5" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".2"/>
+    <circle cx="356" cy="80" r="4" fill="#8b5cf6" opacity=".28"/>
+    <circle cx="356" cy="80" r="1.6" fill="#a78bfa" opacity=".45"/>
+    <circle cx="448" cy="196" r="5" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".17"/>
+    <circle cx="448" cy="196" r="3.5" fill="#8b5cf6" opacity=".25"/>
+    <circle cx="448" cy="196" r="1.4" fill="#a78bfa" opacity=".4"/>
+    <circle cx="444" cy="368" r="4.5" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".14"/>
+    <circle cx="444" cy="368" r="3.5" fill="#8b5cf6" opacity=".22"/>
+    <circle cx="444" cy="368" r="1.4" fill="#a78bfa" opacity=".35"/>
+    <circle cx="72" cy="396" r="4.5" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".14"/>
+    <circle cx="72" cy="396" r="3.5" fill="#8b5cf6" opacity=".22"/>
+    <circle cx="72" cy="396" r="1.4" fill="#a78bfa" opacity=".35"/>
+  </g>
+
+  <!-- ── Layer 2: Analysis cluster (violet→cyan, curved) ── -->
+  <g fill="none" stroke-width="1.5" stroke-linecap="round">
+    <!-- Left cluster → main (violet) -->
+    <path d="M140,228 Q158,268 170,296" stroke="#8b5cf6" opacity=".18"/>
+    <path d="M156,156 Q168,232 170,296" stroke="#8b5cf6" opacity=".13"/>
+    <path d="M212,172 Q198,240 170,296" stroke="#7c3aed" opacity=".13"/>
+    <path d="M212,172 Q238,256 256,328" stroke="#6366f1" opacity=".1"/>
+    <path d="M228,280 Q244,308 256,328" stroke="#6366f1" opacity=".15"/>
+    <path d="M228,280 Q194,292 170,296" stroke="#8b5cf6" opacity=".13"/>
+    <!-- Right cluster → main (cyan) -->
+    <path d="M300,284 Q274,310 256,328" stroke="#0ea5e9" opacity=".15"/>
+    <path d="M300,284 Q324,248 342,208" stroke="#0ea5e9" opacity=".15"/>
+    <path d="M304,152 Q326,184 342,208" stroke="#0ea5e9" opacity=".18"/>
+    <path d="M388,156 Q366,186 342,208" stroke="#22d3ee" opacity=".18"/>
+    <path d="M388,156 Q412,138 428,120" stroke="#22d3ee" opacity=".15"/>
+    <path d="M400,252 Q418,188 428,120" stroke="#22d3ee" opacity=".13"/>
+    <path d="M400,252 Q374,234 342,208" stroke="#0ea5e9" opacity=".13"/>
+    <path d="M380,340 Q362,278 342,208" stroke="#0ea5e9" opacity=".1"/>
+    <!-- Cluster cross (curved) -->
+    <path d="M140,228 Q178,194 212,172" stroke="#7c3aed" opacity=".09"/>
+    <path d="M140,228 Q188,262 228,280" stroke="#8b5cf6" opacity=".08"/>
+    <path d="M228,280 Q266,288 300,284" stroke="#6366f1" opacity=".09"/>
+    <path d="M304,152 Q348,146 388,156" stroke="#0ea5e9" opacity=".1"/>
+    <path d="M300,284 Q342,318 380,340" stroke="#0ea5e9" opacity=".08"/>
+    <path d="M400,252 Q392,300 380,340" stroke="#22d3ee" opacity=".08"/>
+  </g>
+  <!-- Cluster nodes (violet→cyan, boosted v2) -->
+  <g>
+    <circle cx="140" cy="228" r="13" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".22"/>
+    <circle cx="140" cy="228" r="7.5" fill="#8b5cf6" opacity=".48"/>
+    <circle cx="140" cy="228" r="3" fill="#a78bfa" opacity=".75"/>
+
+    <circle cx="156" cy="156" r="10" fill="#8b5cf6" filter="url(#${uid}_fg)" opacity=".19"/>
+    <circle cx="156" cy="156" r="6.5" fill="#8b5cf6" opacity=".42"/>
+    <circle cx="156" cy="156" r="2.5" fill="#a78bfa" opacity=".65"/>
+
+    <circle cx="212" cy="172" r="11" fill="#7c3aed" filter="url(#${uid}_fg)" opacity=".2"/>
+    <circle cx="212" cy="172" r="7" fill="#6366f1" opacity=".45"/>
+    <circle cx="212" cy="172" r="2.8" fill="#818cf8" opacity=".7"/>
+
+    <circle cx="228" cy="280" r="10" fill="#6366f1" filter="url(#${uid}_fg)" opacity=".18"/>
+    <circle cx="228" cy="280" r="6.5" fill="#6366f1" opacity=".4"/>
+    <circle cx="228" cy="280" r="2.5" fill="#818cf8" opacity=".6"/>
+
+    <circle cx="300" cy="284" r="11" fill="#0ea5e9" filter="url(#${uid}_fg)" opacity=".22"/>
+    <circle cx="300" cy="284" r="7.5" fill="#0ea5e9" opacity=".48"/>
+    <circle cx="300" cy="284" r="3" fill="#22d3ee" opacity=".75"/>
+
+    <circle cx="304" cy="152" r="13" fill="#0ea5e9" filter="url(#${uid}_fg)" opacity=".24"/>
+    <circle cx="304" cy="152" r="7.5" fill="#0ea5e9" opacity=".5"/>
+    <circle cx="304" cy="152" r="3" fill="#22d3ee" opacity=".75"/>
+
+    <circle cx="388" cy="156" r="10" fill="#0ea5e9" filter="url(#${uid}_fg)" opacity=".19"/>
+    <circle cx="388" cy="156" r="6.5" fill="#0ea5e9" opacity=".42"/>
+    <circle cx="388" cy="156" r="2.5" fill="#22d3ee" opacity=".65"/>
+
+    <circle cx="400" cy="252" r="11" fill="#0ea5e9" filter="url(#${uid}_fg)" opacity=".2"/>
+    <circle cx="400" cy="252" r="7" fill="#0ea5e9" opacity=".44"/>
+    <circle cx="400" cy="252" r="2.8" fill="#22d3ee" opacity=".68"/>
+
+    <circle cx="380" cy="340" r="9" fill="#0ea5e9" filter="url(#${uid}_fg)" opacity=".16"/>
+    <circle cx="380" cy="340" r="5.5" fill="#0ea5e9" opacity=".35"/>
+    <circle cx="380" cy="340" r="2.2" fill="#22d3ee" opacity=".55"/>
+  </g>
+
+  <!-- ── Layer 3: Main chart ── -->
+  <path d="M84 376L170 296L256 328L342 208L428 120V400H84Z" fill="url(#${uid}_af)"/>
+  <polyline points="84,376 170,296 256,328 342,208 428,120"
+    stroke="#0ea5e9" stroke-width="46" stroke-linecap="round" stroke-linejoin="round" fill="none"
+    filter="url(#${uid}_gl)" opacity=".18"/>
+  <polyline points="84,376 170,296 256,328 342,208 428,120"
+    stroke="url(#${uid}_ln)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polyline points="84,376 170,296 256,328 342,208 428,120"
+    stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".04"/>
+
+  <!-- Main nodes -->
+  <g>
+    <circle cx="170" cy="296" r="13" fill="#6366f1" filter="url(#${uid}_ng)" opacity=".2"/>
+    <circle cx="170" cy="296" r="9" fill="#6366f1" opacity=".5"/>
+    <circle cx="170" cy="296" r="4.5" fill="#818cf8" opacity=".8"/>
+
+    <circle cx="256" cy="328" r="13" fill="#0ea5e9" filter="url(#${uid}_ng)" opacity=".18"/>
+    <circle cx="256" cy="328" r="9" fill="#0ea5e9" opacity=".45"/>
+    <circle cx="256" cy="328" r="4.5" fill="#22d3ee" opacity=".75"/>
+
+    <circle cx="342" cy="208" r="15" fill="#0ea5e9" filter="url(#${uid}_ng)" opacity=".22"/>
+    <circle cx="342" cy="208" r="11" fill="#0ea5e9" opacity=".55"/>
+    <circle cx="342" cy="208" r="5.5" fill="#22d3ee" opacity=".85"/>
+  </g>
+
+  <!-- Endpoint (multi-ring) -->
+  <circle cx="428" cy="120" r="44" fill="#22d3ee" filter="url(#${uid}_eg)" opacity=".14"/>
+  <circle cx="428" cy="120" r="28" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity=".12"/>
+  <circle cx="428" cy="120" r="20" fill="#22d3ee" opacity=".8"/>
+  <circle cx="428" cy="120" r="9" fill="white" opacity=".92"/>
+</svg>`;
+}
+
+// ═══════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════
+const concepts = [
+  {
+    name: 'Neural Chart',
+    tag: 'NETWORK', tagClass: 'tag-net',
+    desc: '3계층 뉴럴 네트워크 + 차트라인. ①배경 데이터 필드(미세 도트+앰비언트 노드) → ②분석 클러스터(중간 노드+교차 연결) → ③메인 차트(볼드 라인+하이라이트 노드)로 데이터가 인사이트로 수렴하는 흐름을 시각화. 라디얼 비네트와 도트 매트릭스로 깊이감 확보.',
+    fn: svgB,
+  },
+];
+
+const app = document.getElementById('app');
+
+concepts.forEach((c, ci) => {
+  if (ci > 0) app.insertAdjacentHTML('beforeend', '<hr class="divider">');
+
+  const section = document.createElement('div');
+  section.className = 'concept';
+  section.innerHTML = `
+    <div class="c-header">
+      <span class="c-name">${c.name}</span>
+      <span class="c-tag ${c.tagClass}">${c.tag}</span>
+    </div>
+    <p class="c-desc">${c.desc}</p>
+  `;
+
+  const sizesDiv = document.createElement('div');
+  sizesDiv.className = 'sizes';
+
+  SIZES.forEach(s => {
+    const uid = `${ci}_${s.px}_${Math.random().toString(36).slice(2,6)}`;
+    const item = document.createElement('div');
+    item.className = 's-item';
+    item.innerHTML = `
+      <div class="s-wrap">${c.fn(uid)}</div>
+      <span class="s-label">${s.px}×${s.px}</span>
+      <span class="s-use">${s.use}</span>
+      <button class="dl-btn" onclick="downloadPng(this, ${s.px})">PNG</button>
+    `;
+    const svg = item.querySelector('svg');
+    svg.setAttribute('width', s.px);
+    svg.setAttribute('height', s.px);
+    sizesDiv.appendChild(item);
+  });
+
+  section.appendChild(sizesDiv);
+  app.appendChild(section);
+});
+
+// PNG Download
+function downloadPng(btn, size) {
+  const svg = btn.closest('.s-item').querySelector('svg');
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('width', size);
+  clone.setAttribute('height', size);
+
+  const data = new XMLSerializer().serializeToString(clone);
+  const img = new Image();
+
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = size; c.height = size;
+    c.getContext('2d').drawImage(img, 0, 0, size, size);
+    c.toBlob(blob => {
+      const a = document.createElement('a');
+      a.download = `theme-analyzer-neural-${size}.png`;
+      a.href = URL.createObjectURL(blob);
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+
+  img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(data);
+}
+</script>
+
+</body>
+</html>

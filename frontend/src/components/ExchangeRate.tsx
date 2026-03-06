@@ -26,6 +26,7 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
     <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 px-1 py-2.5 border-b border-border/30">
       <span className="text-xs text-muted-foreground shrink-0">
         💱 환율 <span className="hidden sm:inline">({formatDate(exchange.search_date)})</span>
+        {exchange.timestamp && <span className="text-[10px] text-muted-foreground/50 ml-1">{exchange.timestamp.slice(11, 16)}</span>}
       </span>
       {exchange.rates.map((rate) => {
         const info = currencyInfo[rate.currency] || { emoji: "💵", name: rate.currency_name }

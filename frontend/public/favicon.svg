@@ -1,47 +1,150 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="irisGrad" cx="45%" cy="42%" r="55%">
-      <stop offset="0%" stop-color="#c4b5fd"/>
-      <stop offset="50%" stop-color="#a5b4fc"/>
-      <stop offset="100%" stop-color="#93c5fd"/>
-    </radialGradient>
-    <radialGradient id="pupilGrad" cx="42%" cy="40%" r="50%">
-      <stop offset="0%" stop-color="#7c7cb8"/>
-      <stop offset="100%" stop-color="#5b5b99"/>
-    </radialGradient>
-    <linearGradient id="chartGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="white" stop-opacity="0.4"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="460" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020408"/><stop offset=".5" stop-color="#070d1e"/><stop offset="1" stop-color="#0c1430"/>
     </linearGradient>
-    <clipPath id="irisClip">
-      <circle cx="32" cy="32" r="14"/>
-    </clipPath>
+    <radialGradient id="vig" cx=".5" cy=".46" r=".56">
+      <stop stop-color="#0e1e40" stop-opacity=".35"/><stop offset="1" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="ln" x1="84" y1="376" x2="428" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366f1"/><stop offset=".35" stop-color="#0ea5e9"/><stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="af" x1="200" y1="120" x2="300" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0ea5e9" stop-opacity=".14"/><stop offset="1" stop-color="#6366f1" stop-opacity=".02"/>
+    </linearGradient>
+    <filter id="gl"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="eg"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="ng"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="fg"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r=".7" fill="white"/>
+    </pattern>
   </defs>
 
-  <!-- Eye outer shape -->
-  <path d="M3 32C3 32 14 12 32 12C50 12 61 32 61 32C61 32 50 52 32 52C14 52 3 32 3 32Z"
-        fill="#f5f3ff"/>
-  <path d="M3 32C3 32 14 12 32 12C50 12 61 32 61 32C61 32 50 52 32 52C14 52 3 32 3 32Z"
-        fill="none" stroke="#c4b5fd" stroke-width="1.2"/>
+  <!-- BG -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#vig)"/>
+  <rect x="56" y="56" width="400" height="400" fill="url(#grid)" opacity=".018"/>
 
-  <!-- Iris -->
-  <circle cx="32" cy="32" r="14" fill="url(#irisGrad)"/>
-  <circle cx="32" cy="32" r="14" fill="none" stroke="#ddd6fe" stroke-width="0.8" opacity="0.6"/>
+  <!-- Energy boundary arc -->
+  <circle cx="276" cy="256" r="196" fill="none" stroke="#0ea5e9" stroke-width="1" opacity=".03" stroke-dasharray="5 9"/>
 
-  <!-- Pupil (enlarged) -->
-  <circle cx="32" cy="32" r="9" fill="url(#pupilGrad)"/>
-
-  <!-- Chart (clipped to iris) -->
-  <g clip-path="url(#irisClip)">
-    <!-- Glow -->
-    <polyline points="19,37 23,35 26,38 30,28 33,31 36,24 40,26 45,19"
-              stroke="url(#chartGlow)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- Main line (white) -->
-    <polyline points="19,37 23,35 26,38 30,28 33,31 36,24 40,26 45,19"
-              stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+  <!-- Layer 1: Background field (violet) -->
+  <g stroke="#8b5cf6" fill="none" stroke-width="1.2" opacity=".08">
+    <line x1="76" y1="148" x2="140" y2="228"/>
+    <line x1="76" y1="148" x2="156" y2="156"/>
+    <line x1="168" y1="96" x2="156" y2="156"/>
+    <line x1="168" y1="96" x2="212" y2="172"/>
+    <line x1="356" y1="80" x2="304" y2="152"/>
+    <line x1="356" y1="80" x2="388" y2="156"/>
+    <line x1="448" y1="196" x2="388" y2="156"/>
+    <line x1="448" y1="196" x2="400" y2="252"/>
+    <line x1="444" y1="368" x2="400" y2="252"/>
+    <line x1="444" y1="368" x2="380" y2="340"/>
+    <line x1="72" y1="396" x2="140" y2="228"/>
+    <line x1="72" y1="396" x2="84" y2="376"/>
+  </g>
+  <g>
+    <circle cx="76" cy="148" r="5.5" fill="#8b5cf6" filter="url(#fg)" opacity=".2"/>
+    <circle cx="76" cy="148" r="4" fill="#8b5cf6" opacity=".28"/>
+    <circle cx="76" cy="148" r="1.6" fill="#a78bfa" opacity=".45"/>
+    <circle cx="168" cy="96" r="5" fill="#8b5cf6" filter="url(#fg)" opacity=".17"/>
+    <circle cx="168" cy="96" r="3.5" fill="#8b5cf6" opacity=".25"/>
+    <circle cx="168" cy="96" r="1.4" fill="#a78bfa" opacity=".4"/>
+    <circle cx="356" cy="80" r="5.5" fill="#8b5cf6" filter="url(#fg)" opacity=".2"/>
+    <circle cx="356" cy="80" r="4" fill="#8b5cf6" opacity=".28"/>
+    <circle cx="356" cy="80" r="1.6" fill="#a78bfa" opacity=".45"/>
+    <circle cx="448" cy="196" r="5" fill="#8b5cf6" filter="url(#fg)" opacity=".17"/>
+    <circle cx="448" cy="196" r="3.5" fill="#8b5cf6" opacity=".25"/>
+    <circle cx="448" cy="196" r="1.4" fill="#a78bfa" opacity=".4"/>
+    <circle cx="444" cy="368" r="4.5" fill="#8b5cf6" filter="url(#fg)" opacity=".14"/>
+    <circle cx="444" cy="368" r="3.5" fill="#8b5cf6" opacity=".22"/>
+    <circle cx="444" cy="368" r="1.4" fill="#a78bfa" opacity=".35"/>
+    <circle cx="72" cy="396" r="4.5" fill="#8b5cf6" filter="url(#fg)" opacity=".14"/>
+    <circle cx="72" cy="396" r="3.5" fill="#8b5cf6" opacity=".22"/>
+    <circle cx="72" cy="396" r="1.4" fill="#a78bfa" opacity=".35"/>
   </g>
 
-  <!-- Light reflections -->
-  <ellipse cx="27" cy="26" rx="3.2" ry="2.2" fill="white" opacity="0.45" transform="rotate(-15 27 26)"/>
-  <circle cx="37.5" cy="25" r="1.3" fill="white" opacity="0.3"/>
+  <!-- Layer 2: Analysis cluster (violet→cyan, curved) -->
+  <g fill="none" stroke-width="1.5" stroke-linecap="round">
+    <path d="M140,228 Q158,268 170,296" stroke="#8b5cf6" opacity=".18"/>
+    <path d="M156,156 Q168,232 170,296" stroke="#8b5cf6" opacity=".13"/>
+    <path d="M212,172 Q198,240 170,296" stroke="#7c3aed" opacity=".13"/>
+    <path d="M212,172 Q238,256 256,328" stroke="#6366f1" opacity=".1"/>
+    <path d="M228,280 Q244,308 256,328" stroke="#6366f1" opacity=".15"/>
+    <path d="M228,280 Q194,292 170,296" stroke="#8b5cf6" opacity=".13"/>
+    <path d="M300,284 Q274,310 256,328" stroke="#0ea5e9" opacity=".15"/>
+    <path d="M300,284 Q324,248 342,208" stroke="#0ea5e9" opacity=".15"/>
+    <path d="M304,152 Q326,184 342,208" stroke="#0ea5e9" opacity=".18"/>
+    <path d="M388,156 Q366,186 342,208" stroke="#22d3ee" opacity=".18"/>
+    <path d="M388,156 Q412,138 428,120" stroke="#22d3ee" opacity=".15"/>
+    <path d="M400,252 Q418,188 428,120" stroke="#22d3ee" opacity=".13"/>
+    <path d="M400,252 Q374,234 342,208" stroke="#0ea5e9" opacity=".13"/>
+    <path d="M380,340 Q362,278 342,208" stroke="#0ea5e9" opacity=".1"/>
+    <path d="M140,228 Q178,194 212,172" stroke="#7c3aed" opacity=".09"/>
+    <path d="M140,228 Q188,262 228,280" stroke="#8b5cf6" opacity=".08"/>
+    <path d="M228,280 Q266,288 300,284" stroke="#6366f1" opacity=".09"/>
+    <path d="M304,152 Q348,146 388,156" stroke="#0ea5e9" opacity=".1"/>
+    <path d="M300,284 Q342,318 380,340" stroke="#0ea5e9" opacity=".08"/>
+    <path d="M400,252 Q392,300 380,340" stroke="#22d3ee" opacity=".08"/>
+  </g>
+  <!-- Cluster nodes -->
+  <g>
+    <circle cx="140" cy="228" r="13" fill="#8b5cf6" filter="url(#fg)" opacity=".22"/>
+    <circle cx="140" cy="228" r="7.5" fill="#8b5cf6" opacity=".48"/>
+    <circle cx="140" cy="228" r="3" fill="#a78bfa" opacity=".75"/>
+    <circle cx="156" cy="156" r="10" fill="#8b5cf6" filter="url(#fg)" opacity=".19"/>
+    <circle cx="156" cy="156" r="6.5" fill="#8b5cf6" opacity=".42"/>
+    <circle cx="156" cy="156" r="2.5" fill="#a78bfa" opacity=".65"/>
+    <circle cx="212" cy="172" r="11" fill="#7c3aed" filter="url(#fg)" opacity=".2"/>
+    <circle cx="212" cy="172" r="7" fill="#6366f1" opacity=".45"/>
+    <circle cx="212" cy="172" r="2.8" fill="#818cf8" opacity=".7"/>
+    <circle cx="228" cy="280" r="10" fill="#6366f1" filter="url(#fg)" opacity=".18"/>
+    <circle cx="228" cy="280" r="6.5" fill="#6366f1" opacity=".4"/>
+    <circle cx="228" cy="280" r="2.5" fill="#818cf8" opacity=".6"/>
+    <circle cx="300" cy="284" r="11" fill="#0ea5e9" filter="url(#fg)" opacity=".22"/>
+    <circle cx="300" cy="284" r="7.5" fill="#0ea5e9" opacity=".48"/>
+    <circle cx="300" cy="284" r="3" fill="#22d3ee" opacity=".75"/>
+    <circle cx="304" cy="152" r="13" fill="#0ea5e9" filter="url(#fg)" opacity=".24"/>
+    <circle cx="304" cy="152" r="7.5" fill="#0ea5e9" opacity=".5"/>
+    <circle cx="304" cy="152" r="3" fill="#22d3ee" opacity=".75"/>
+    <circle cx="388" cy="156" r="10" fill="#0ea5e9" filter="url(#fg)" opacity=".19"/>
+    <circle cx="388" cy="156" r="6.5" fill="#0ea5e9" opacity=".42"/>
+    <circle cx="388" cy="156" r="2.5" fill="#22d3ee" opacity=".65"/>
+    <circle cx="400" cy="252" r="11" fill="#0ea5e9" filter="url(#fg)" opacity=".2"/>
+    <circle cx="400" cy="252" r="7" fill="#0ea5e9" opacity=".44"/>
+    <circle cx="400" cy="252" r="2.8" fill="#22d3ee" opacity=".68"/>
+    <circle cx="380" cy="340" r="9" fill="#0ea5e9" filter="url(#fg)" opacity=".16"/>
+    <circle cx="380" cy="340" r="5.5" fill="#0ea5e9" opacity=".35"/>
+    <circle cx="380" cy="340" r="2.2" fill="#22d3ee" opacity=".55"/>
+  </g>
+
+  <!-- Layer 3: Main chart -->
+  <path d="M84 376L170 296L256 328L342 208L428 120V400H84Z" fill="url(#af)"/>
+  <polyline points="84,376 170,296 256,328 342,208 428,120"
+    stroke="#0ea5e9" stroke-width="46" stroke-linecap="round" stroke-linejoin="round" fill="none"
+    filter="url(#gl)" opacity=".18"/>
+  <polyline points="84,376 170,296 256,328 342,208 428,120"
+    stroke="url(#ln)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polyline points="84,376 170,296 256,328 342,208 428,120"
+    stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".04"/>
+
+  <!-- Main nodes -->
+  <g>
+    <circle cx="170" cy="296" r="13" fill="#6366f1" filter="url(#ng)" opacity=".2"/>
+    <circle cx="170" cy="296" r="9" fill="#6366f1" opacity=".5"/>
+    <circle cx="170" cy="296" r="4.5" fill="#818cf8" opacity=".8"/>
+    <circle cx="256" cy="328" r="13" fill="#0ea5e9" filter="url(#ng)" opacity=".18"/>
+    <circle cx="256" cy="328" r="9" fill="#0ea5e9" opacity=".45"/>
+    <circle cx="256" cy="328" r="4.5" fill="#22d3ee" opacity=".75"/>
+    <circle cx="342" cy="208" r="15" fill="#0ea5e9" filter="url(#ng)" opacity=".22"/>
+    <circle cx="342" cy="208" r="11" fill="#0ea5e9" opacity=".55"/>
+    <circle cx="342" cy="208" r="5.5" fill="#22d3ee" opacity=".85"/>
+  </g>
+
+  <!-- Endpoint (multi-ring) -->
+  <circle cx="428" cy="120" r="44" fill="#22d3ee" filter="url(#eg)" opacity=".14"/>
+  <circle cx="428" cy="120" r="28" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity=".12"/>
+  <circle cx="428" cy="120" r="20" fill="#22d3ee" opacity=".8"/>
+  <circle cx="428" cy="120" r="9" fill="white" opacity=".92"/>
 </svg>
