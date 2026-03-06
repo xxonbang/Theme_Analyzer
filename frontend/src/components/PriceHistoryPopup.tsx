@@ -40,14 +40,14 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
 
-      <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+      <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
         {/* 모바일 드래그 핸들 */}
-        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
         </div>
 
         {/* 헤더 */}
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-2">
           <div>
             <span className="text-sm font-semibold">{stockName}</span>
             <span className="text-xs text-muted-foreground ml-2">최근 {reversed.length}일 변동</span>
@@ -55,6 +55,16 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
+        </div>
+
+        {/* 테이블 헤더 */}
+        <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
+          <span className="w-7 shrink-0">일자</span>
+          <span className="w-12 shrink-0 text-right hidden sm:block">날짜</span>
+          <span className="flex-1 text-right">종가</span>
+          <span className="w-14 shrink-0 text-right">등락률</span>
+          <span className="flex-1 text-right">거래대금</span>
+          <span className="flex-1 text-right">거래량</span>
         </div>
 
         {/* 가격 이력 */}
@@ -69,35 +79,29 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               <div
                 key={idx}
                 className={cn(
-                  "py-2 px-1",
-                  isToday && "bg-muted/40 rounded-md font-medium",
+                  "flex items-center py-1.5 text-[10px]",
+                  isToday && "bg-muted/40 -mx-1 px-1 rounded font-medium",
                   idx < reversed.length - 1 && "border-b border-border/20"
                 )}
               >
-                {/* 1행: 일자 + 종가 + 등락률 */}
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] sm:text-xs text-muted-foreground font-semibold w-8 shrink-0 tabular-nums">{label}</span>
-                  <span className="text-[8px] sm:text-[9px] text-muted-foreground/50 w-10 shrink-0 hidden sm:block">{c.date.slice(5)}</span>
-                  <span className="text-[11px] sm:text-xs font-bold tabular-nums flex-1 text-right">
-                    {close > 0 ? formatPrice(close) : "-"}
-                    <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
-                  </span>
-                  <span className={cn(
-                    "text-[10px] sm:text-[11px] font-bold tabular-nums px-1.5 py-0.5 rounded shrink-0 min-w-[3.5rem] text-right",
-                    getChangeBgColor(rate)
-                  )}>
-                    {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
-                  </span>
-                </div>
-                {/* 2행: 거래량 + 거래대금 */}
-                <div className="flex items-center gap-2 mt-0.5 ml-8 sm:ml-[4.5rem]">
-                  <span className="text-[9px] text-muted-foreground/60 tabular-nums">
-                    거래량 <span className="text-muted-foreground">{c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}</span>
-                  </span>
-                  <span className="text-[9px] text-muted-foreground/60 tabular-nums">
-                    거래대금 <span className="text-muted-foreground">{c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}</span>
-                  </span>
-                </div>
+                <span className="w-7 shrink-0 text-muted-foreground font-semibold tabular-nums">{label}</span>
+                <span className="w-12 shrink-0 text-right text-muted-foreground/50 tabular-nums hidden sm:block">{c.date.slice(5)}</span>
+                <span className="flex-1 text-right font-bold tabular-nums">
+                  {close > 0 ? formatPrice(close) : "-"}
+                  <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
+                </span>
+                <span className={cn(
+                  "w-14 shrink-0 text-right font-bold tabular-nums px-1 py-0.5 rounded",
+                  getChangeBgColor(rate)
+                )}>
+                  {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
+                </span>
+                <span className="flex-1 text-right tabular-nums text-muted-foreground">
+                  {c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}
+                </span>
+                <span className="flex-1 text-right tabular-nums text-muted-foreground">
+                  {c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}
+                </span>
               </div>
             )
           })}
