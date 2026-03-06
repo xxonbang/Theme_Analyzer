@@ -158,7 +158,60 @@ def main():
     label = "추정" if is_estimated else "확정"
     print(f"  {len(investor_data)}개 종목 수급 수집 완료 ({label})")
 
-    # 3-1. 거래량/거래대금/등락률 실시간 갱신
+    # 3-1. 프로그램 매매 수급 수집 (장중)
+    if is_estimated:
+        print("\n[프로그램 매매 수집]")
+
+        def fetch_pgtr(code: str):
+            try:
+                time.sleep(0.05)
+                result = rank_api.client.get_stock_price(code)
+                output = result.get("output", {})
+                pgtr = output.get("pgtr_ntby_qty")
+                if pgtr is not None and pgtr != "":
+                    return code, int(pgtr)
+            except Exception:
+                pass
+            return code, None
+
+        pgtr_count = 0
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            futures = {pool.submit(fetch_pgtr, s["code"]): s["code"] for s in all_stocks}
+            for fut in as_completed(futures):
+                code, pgtr = fut.result()
+                if pgtr is not None and code in investor_data:
+                    investor_data[code]["program_net"] = pgtr
+                    pgtr_count += 1
+
+        print(f"  {pgtr_count}개 종목 프로그램 수급 수집 완료")
+
+        # 3-1-1. 프로그램매매 투자자매매동향(당일) (시장 전체 차익/비차익)
+        try:
+            print("\n[프로그램매매 투자자동향]")
+            program_trade = {}
+            for mkt_code, mkt_name in [("1", "kospi"), ("4", "kosdaq")]:
+                time.sleep(0.05)
+                result = rank_api.client.get_investor_program_trade_today(mkt_code)
+                rows = result.get("output1", [])
+                items = []
+                for row in rows:
+                    inv_name = row.get("invr_cls_name", "").strip()
+                    if not inv_name:
+                        continue
+                    items.append({
+                        "investor": inv_name,
+                        "all_ntby_amt": int(row.get("all_ntby_amt", 0)),
+                        "arbt_ntby_amt": int(row.get("arbt_ntby_amt", 0)),
+                        "nabt_ntby_amt": int(row.get("nabt_ntby_amt", 0)),
+                    })
+                program_trade[mkt_name] = items
+                print(f"  {mkt_name}: {len(items)}개 투자자")
+            program_trade["updated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
+            latest["program_trade"] = program_trade
+        except Exception as e:
+            print(f"  ⚠ 프로그램매매 투자자동향 수집 실패 (기존 데이터로 계속): {e}")
+
+    # 3-2. 거래량/거래대금/등락률 실시간 갱신
     print("\n[거래량/거래대금/등락률 수집]")
     volume_data = {}
     trading_value_data = {}
@@ -320,12 +373,28 @@ def main():
                             entry["cr"] = price_map[code][1]
                         snapshot_data[code] = entry
 
-                    intraday.setdefault("snapshots", []).append({
+                    # 프로그램매매 투자자동향 요약 (pt)
+                    pt_summary = {}
+                    pt_data = latest.get("program_trade", {})
+                    for mkt in ["kospi", "kosdaq"]:
+                        items = pt_data.get(mkt, [])
+                        if items:
+                            pt_summary[mkt] = {
+                                "all": sum(it.get("all_ntby_amt", 0) for it in items),
+                                "arbt": sum(it.get("arbt_ntby_amt", 0) for it in items),
+                                "nabt": sum(it.get("nabt_ntby_amt", 0) for it in items),
+                            }
+
+                    snapshot_entry = {
                         "time": INTRADAY_SCHEDULE[current_round - 1]["time"],
                         "round": current_round,
                         "is_estimated": True,
                         "data": snapshot_data,
-                    })
+                    }
+                    if pt_summary:
+                        snapshot_entry["pt"] = pt_summary
+
+                    intraday.setdefault("snapshots", []).append(snapshot_entry)
                     latest["investor_intraday"] = intraday
                     print(f"  장중 스냅샷 {current_round}차 저장 ({len(snapshot_data)}개 종목)")
 

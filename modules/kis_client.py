@@ -616,6 +616,20 @@ class KISClient:
         }
         return self.request("GET", path, tr_id, params=params)
 
+    def get_investor_program_trade_today(self, mrkt_div_cls_code: str = "1") -> Dict[str, Any]:
+        """프로그램매매 투자자매매동향(당일)
+
+        Args:
+            mrkt_div_cls_code: "1"(코스피) / "4"(코스닥)
+        """
+        path = "/uapi/domestic-stock/v1/quotations/investor-program-trade-today"
+        tr_id = "HHPPG046600C1"
+        params = {
+            "MRKT_DIV_CLS_CODE": mrkt_div_cls_code,
+            "EXCH_DIV_CLS_CODE": "J",
+        }
+        return self.request("GET", path, tr_id, params=params)
+
     def get_daily_short_sale(
         self,
         stock_code: str,
