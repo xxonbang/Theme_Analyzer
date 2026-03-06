@@ -58,13 +58,13 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
         </div>
 
         {/* 테이블 헤더 */}
-        <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
+        <div className="flex items-center gap-x-3 text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
           <span className="w-7 shrink-0">일자</span>
           <span className="w-12 shrink-0 text-right hidden sm:block">날짜</span>
           <span className="flex-1 text-right">종가</span>
-          <span className="w-14 shrink-0 text-right ml-2">등락률</span>
-          <span className="flex-1 text-right">거래대금</span>
-          <span className="flex-1 text-right">거래량</span>
+          <span className="w-14 shrink-0 text-right">등락률</span>
+          <span className="w-14 shrink-0 text-right">거래대금</span>
+          <span className="w-12 shrink-0 text-right">거래량</span>
         </div>
 
         {/* 가격 이력 */}
@@ -79,7 +79,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               <div
                 key={idx}
                 className={cn(
-                  "flex items-center py-1.5 text-[10px]",
+                  "flex items-center gap-x-3 py-1.5 text-[10px]",
                   isToday && "bg-muted/40 -mx-1 px-1 rounded font-medium",
                   idx < reversed.length - 1 && "border-b border-border/20"
                 )}
@@ -91,15 +91,15 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
                 </span>
                 <span className={cn(
-                  "w-14 shrink-0 text-right font-bold tabular-nums px-1 py-0.5 rounded ml-2",
+                  "w-14 shrink-0 text-right font-bold tabular-nums px-1 py-0.5 rounded",
                   getChangeBgColor(rate)
                 )}>
                   {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
                 </span>
-                <span className="flex-1 text-right tabular-nums text-muted-foreground">
+                <span className="w-14 shrink-0 text-right tabular-nums text-muted-foreground">
                   {c.trading_value != null && c.trading_value > 0 ? formatTradingValue(c.trading_value) : "-"}
                 </span>
-                <span className="flex-1 text-right tabular-nums text-muted-foreground">
+                <span className="w-12 shrink-0 text-right tabular-nums text-muted-foreground">
                   {c.volume != null && c.volume > 0 ? formatVolume(c.volume) : "-"}
                 </span>
               </div>
