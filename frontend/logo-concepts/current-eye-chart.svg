@@ -1,0 +1,54 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="200" rx="32" fill="#1a1a2e"/>
+
+  <!-- Logo container -->
+  <rect x="30" y="30" width="140" height="140" rx="24" fill="url(#bgGrad-cur)"/>
+
+  <defs>
+    <linearGradient id="bgGrad-cur" x1="30" y1="30" x2="170" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <radialGradient id="cur-iris" cx="45%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="50%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </radialGradient>
+    <radialGradient id="cur-pupil" cx="42%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#7c7cb8"/>
+      <stop offset="100%" stop-color="#5b5b99"/>
+    </radialGradient>
+    <clipPath id="cur-clip">
+      <circle cx="100" cy="100" r="28"/>
+    </clipPath>
+  </defs>
+
+  <!-- Eye outer shape (scaled from 64 to 200 space: *2.5 + offset 20) -->
+  <path
+    d="M27.5 100 C27.5 100 55 50 100 50 C145 50 172.5 100 172.5 100 C172.5 100 145 150 100 150 C55 150 27.5 100 27.5 100 Z"
+    fill="#f5f3ff"
+  />
+  <path
+    d="M27.5 100 C27.5 100 55 50 100 50 C145 50 172.5 100 172.5 100 C172.5 100 145 150 100 150 C55 150 27.5 100 27.5 100 Z"
+    fill="none" stroke="#c4b5fd" stroke-width="2"
+  />
+
+  <!-- Iris -->
+  <circle cx="100" cy="100" r="28" fill="url(#cur-iris)"/>
+
+  <!-- Pupil -->
+  <circle cx="100" cy="100" r="18" fill="url(#cur-pupil)"/>
+
+  <!-- Chart line (clipped to iris) -->
+  <g clip-path="url(#cur-clip)">
+    <polyline
+      points="78,112 86,108 90,114 96,92 102,98 108,86 116,90 126,78"
+      stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"
+    />
+  </g>
+
+  <!-- Reflections -->
+  <ellipse cx="90" cy="88" rx="6" ry="4" fill="white" opacity="0.4" transform="rotate(-15 90 88)"/>
+  <circle cx="112" cy="86" r="2.5" fill="white" opacity="0.3"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="32" fill="#0f0f1a"/>
+
+  <defs>
+    <linearGradient id="f-petal1" x1="80" y1="60" x2="120" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="f-petal2" x1="120" y1="70" x2="80" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <linearGradient id="f-petal3" x1="70" y1="120" x2="130" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="f-core" cx="100" cy="100" r="15" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e0e7ff"/>
+      <stop offset="40%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </radialGradient>
+    <radialGradient id="f-outer-glow" cx="100" cy="100" r="55" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="f-blur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Outer glow -->
+  <circle cx="100" cy="100" r="55" fill="url(#f-outer-glow)"/>
+
+  <!-- Aperture blades - 6 curved petals creating camera iris effect -->
+  <!-- Each blade is a curved shape, rotated 60deg apart -->
+
+  <!-- Blade 1 (0°) -->
+  <path d="M100 58 C115 62 130 78 134 100 L114 100 C112 86 108 76 100 72 Z"
+    fill="url(#f-petal1)" opacity="0.85"/>
+
+  <!-- Blade 2 (60°) -->
+  <path d="M100 58 C115 62 130 78 134 100 L114 100 C112 86 108 76 100 72 Z"
+    fill="url(#f-petal2)" opacity="0.7"
+    transform="rotate(60 100 100)"/>
+
+  <!-- Blade 3 (120°) -->
+  <path d="M100 58 C115 62 130 78 134 100 L114 100 C112 86 108 76 100 72 Z"
+    fill="url(#f-petal3)" opacity="0.6"
+    transform="rotate(120 100 100)"/>
+
+  <!-- Blade 4 (180°) -->
+  <path d="M100 58 C115 62 130 78 134 100 L114 100 C112 86 108 76 100 72 Z"
+    fill="url(#f-petal1)" opacity="0.5"
+    transform="rotate(180 100 100)"/>
+
+  <!-- Blade 5 (240°) -->
+  <path d="M100 58 C115 62 130 78 134 100 L114 100 C112 86 108 76 100 72 Z"
+    fill="url(#f-petal2)" opacity="0.65"
+    transform="rotate(240 100 100)"/>
+
+  <!-- Blade 6 (300°) -->
+  <path d="M100 58 C115 62 130 78 134 100 L114 100 C112 86 108 76 100 72 Z"
+    fill="url(#f-petal3)" opacity="0.75"
+    transform="rotate(300 100 100)"/>
+
+  <!-- Thin edge lines for each blade -->
+  <path d="M100 58 C115 62 130 78 134 100" stroke="#c7d2fe" stroke-width="0.5" opacity="0.3" fill="none"/>
+  <path d="M100 58 C115 62 130 78 134 100" stroke="#c7d2fe" stroke-width="0.5" opacity="0.25" fill="none" transform="rotate(60 100 100)"/>
+  <path d="M100 58 C115 62 130 78 134 100" stroke="#c7d2fe" stroke-width="0.5" opacity="0.2" fill="none" transform="rotate(120 100 100)"/>
+  <path d="M100 58 C115 62 130 78 134 100" stroke="#c7d2fe" stroke-width="0.5" opacity="0.2" fill="none" transform="rotate(180 100 100)"/>
+  <path d="M100 58 C115 62 130 78 134 100" stroke="#c7d2fe" stroke-width="0.5" opacity="0.25" fill="none" transform="rotate(240 100 100)"/>
+  <path d="M100 58 C115 62 130 78 134 100" stroke="#c7d2fe" stroke-width="0.5" opacity="0.3" fill="none" transform="rotate(300 100 100)"/>
+
+  <!-- Center core -->
+  <circle cx="100" cy="100" r="14" fill="url(#f-core)" filter="url(#f-blur)" opacity="0.6"/>
+  <circle cx="100" cy="100" r="10" fill="url(#f-core)"/>
+
+  <!-- Inner ring -->
+  <circle cx="100" cy="100" r="10" stroke="#e0e7ff" stroke-width="0.5" opacity="0.4" fill="none"/>
+
+  <!-- Specular highlights -->
+  <circle cx="95" cy="95" r="3" fill="white" opacity="0.25"/>
+  <circle cx="95" cy="95" r="1.5" fill="white" opacity="0.5"/>
+
+  <!-- Outer subtle ring -->
+  <circle cx="100" cy="100" r="42" stroke="#6366f1" stroke-width="0.6" opacity="0.12" fill="none"/>
+</svg>

@@ -1,0 +1,80 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="32" fill="#0f0f1a"/>
+
+  <defs>
+    <linearGradient id="e-grad1" x1="60" y1="55" x2="140" y2="145" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="e-grad2" x1="140" y1="60" x2="60" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+    <radialGradient id="e-center-glow" cx="100" cy="100" r="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c7d2fe" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="e-bg-glow" cx="100" cy="100" r="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4338ca" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4338ca" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Node glow -->
+    <radialGradient id="e-node-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </radialGradient>
+    <filter id="e-blur">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <!-- Background ambient -->
+  <circle cx="100" cy="100" r="70" fill="url(#e-bg-glow)"/>
+
+  <!-- Outer hexagonal frame - very subtle -->
+  <polygon points="100,48 145,72 145,128 100,152 55,128 55,72"
+    stroke="#4f46e5" stroke-width="0.8" opacity="0.15" fill="none"/>
+
+  <!-- Connection lines (behind nodes) -->
+  <!-- Top to center -->
+  <line x1="100" y1="58" x2="100" y2="88" stroke="url(#e-grad1)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <!-- Bottom-left to center -->
+  <line x1="72" y1="132" x2="92" y2="108" stroke="url(#e-grad2)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- Bottom-right to center -->
+  <line x1="128" y1="132" x2="108" y2="108" stroke="url(#e-grad1)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- Top to bottom-left -->
+  <line x1="100" y1="58" x2="72" y2="132" stroke="#6366f1" stroke-width="1" stroke-linecap="round" opacity="0.15"/>
+  <!-- Top to bottom-right -->
+  <line x1="100" y1="58" x2="128" y2="132" stroke="#6366f1" stroke-width="1" stroke-linecap="round" opacity="0.15"/>
+  <!-- Bottom-left to bottom-right -->
+  <line x1="72" y1="132" x2="128" y2="132" stroke="#6366f1" stroke-width="1" stroke-linecap="round" opacity="0.12"/>
+
+  <!-- Satellite micro-nodes -->
+  <circle cx="136" cy="72" r="2.5" fill="#6366f1" opacity="0.35"/>
+  <line x1="100" y1="58" x2="136" y2="72" stroke="#6366f1" stroke-width="0.7" opacity="0.2"/>
+  <circle cx="64" cy="72" r="2" fill="#6366f1" opacity="0.25"/>
+  <line x1="100" y1="58" x2="64" y2="72" stroke="#6366f1" stroke-width="0.5" opacity="0.15"/>
+  <circle cx="144" cy="108" r="2" fill="#6366f1" opacity="0.2"/>
+  <line x1="128" y1="132" x2="144" y2="108" stroke="#6366f1" stroke-width="0.5" opacity="0.12"/>
+
+  <!-- Center node - largest, most prominent -->
+  <circle cx="100" cy="100" r="14" fill="url(#e-center-glow)" filter="url(#e-blur)"/>
+  <circle cx="100" cy="100" r="10" fill="url(#e-grad1)"/>
+  <circle cx="100" cy="100" r="6" fill="#c7d2fe" opacity="0.4"/>
+  <circle cx="96" cy="96" r="2" fill="white" opacity="0.5"/>
+
+  <!-- Top node -->
+  <circle cx="100" cy="58" r="7" fill="#6366f1" opacity="0.3" filter="url(#e-blur)"/>
+  <circle cx="100" cy="58" r="5.5" fill="url(#e-node-glow)"/>
+  <circle cx="98" cy="56" r="1.5" fill="white" opacity="0.4"/>
+
+  <!-- Bottom-left node -->
+  <circle cx="72" cy="132" r="6" fill="#4338ca" opacity="0.3" filter="url(#e-blur)"/>
+  <circle cx="72" cy="132" r="4.5" fill="#4f46e5"/>
+  <circle cx="70" cy="130" r="1.2" fill="white" opacity="0.3"/>
+
+  <!-- Bottom-right node -->
+  <circle cx="128" cy="132" r="6" fill="#4338ca" opacity="0.3" filter="url(#e-blur)"/>
+  <circle cx="128" cy="132" r="4.5" fill="#4f46e5"/>
+  <circle cx="126" cy="130" r="1.2" fill="white" opacity="0.3"/>
+</svg>

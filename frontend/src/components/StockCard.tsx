@@ -285,12 +285,15 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   {allChanges.map((c, idx) => {
                     const isToday = idx === allChanges.length - 1
                     const label = isToday ? "D" : `D-${allChanges.length - 1 - idx}`
+                    const cr = isToday ? stock.change_rate : c.change_rate
+                    const tv = isToday ? (stock.trading_value ?? c.trading_value) : c.trading_value
+                    const vol = isToday ? (stock.volume ?? c.volume) : c.volume
                     return (
                       <div key={idx} className={cn("flex items-center text-muted-foreground px-1.5 py-0.5 rounded", isToday ? "bg-muted/60 font-medium" : "bg-muted/30")}>
                         <span className="font-medium w-6 shrink-0">{label}</span>
-                        <span className={cn("w-14 shrink-0 text-right font-medium tabular-nums", c.change_rate >= 0 ? "text-red-500" : "text-blue-500")}>{c.change_rate > 0 ? "+" : ""}{c.change_rate.toFixed(1)}%</span>
-                        <span className="flex-1 text-right tabular-nums">{c.trading_value != null ? <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span> : "-"}</span>
-                        <span className="flex-1 text-right tabular-nums">{c.volume != null ? <span className="text-foreground font-medium">{formatVolume(c.volume)}</span> : "-"}</span>
+                        <span className={cn("w-14 shrink-0 text-right font-medium tabular-nums", cr >= 0 ? "text-red-500" : "text-blue-500")}>{cr > 0 ? "+" : ""}{cr.toFixed(1)}%</span>
+                        <span className="flex-1 text-right tabular-nums">{tv != null ? <span className="text-foreground font-medium">{formatTradingValue(tv)}</span> : "-"}</span>
+                        <span className="flex-1 text-right tabular-nums">{vol != null ? <span className="text-foreground font-medium">{formatVolume(vol)}</span> : "-"}</span>
                       </div>
                     )
                   })}

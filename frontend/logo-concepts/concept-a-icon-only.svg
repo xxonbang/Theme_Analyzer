@@ -1,0 +1,12 @@
+<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bar 1 - shortest -->
+  <rect x="4" y="18" width="6" height="10" rx="1.5" fill="#4f46e5" opacity="0.35"/>
+  <!-- Bar 2 - medium -->
+  <rect x="13" y="12" width="6" height="16" rx="1.5" fill="#4f46e5" opacity="0.6"/>
+  <!-- Bar 3 - tallest -->
+  <rect x="22" y="5" width="6" height="23" rx="1.5" fill="#4f46e5" opacity="0.95"/>
+  <!-- Rising trend line -->
+  <path d="M7 17 L16 11 L25 4" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+  <!-- Peak dot -->
+  <circle cx="25" cy="4" r="2" fill="#4f46e5"/>
+</svg>

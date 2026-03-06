@@ -1,0 +1,42 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="200" rx="32" fill="#1a1a2e"/>
+
+  <!-- Logo container -->
+  <rect x="30" y="30" width="140" height="140" rx="24" fill="url(#bgGrad-c)"/>
+
+  <defs>
+    <linearGradient id="bgGrad-c" x1="30" y1="30" x2="170" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background wave - noise/context -->
+  <path
+    d="M46 142 Q66 136 82 126 Q100 116 108 100 Q116 84 124 90 Q132 96 142 104 Q150 110 158 106"
+    stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.12" fill="none"
+  />
+
+  <!-- Mid wave - secondary signal -->
+  <path
+    d="M46 134 Q60 130 76 120 Q88 110 94 94 Q100 78 106 86 Q112 94 126 104 Q140 112 158 102"
+    stroke="white" stroke-width="3.5" stroke-linecap="round" opacity="0.3" fill="none"
+  />
+
+  <!-- Primary signal - the theme breakout -->
+  <path
+    d="M50 150 Q64 142 76 132 Q88 122 94 108 Q98 96 102 78 Q104 68 106 60 Q108 56 110 62 Q114 76 120 96 Q126 116 144 108"
+    stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" fill="none"
+  />
+
+  <!-- Area fill under primary line -->
+  <path
+    d="M50 150 Q64 142 76 132 Q88 122 94 108 Q98 96 102 78 Q104 68 106 60 Q108 56 110 62 Q114 76 120 96 Q126 116 144 108 L144 158 L50 158 Z"
+    fill="white" opacity="0.08"
+  />
+
+  <!-- Peak marker - key discovery -->
+  <circle cx="107" cy="56" r="8" fill="white" opacity="0.3"/>
+  <circle cx="107" cy="56" r="5" fill="white" opacity="0.9"/>
+</svg>
