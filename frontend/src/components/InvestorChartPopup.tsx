@@ -10,6 +10,7 @@ interface InvestorChartPopupProps {
   investorInfo: InvestorInfo
   stockCode?: string
   investorIntraday?: InvestorIntraday
+  investorEstimated?: boolean
   onClose: () => void
 }
 
@@ -31,7 +32,7 @@ function buildLine(values: number[], allMin: number, allMax: number): string {
   }).join(" ")
 }
 
-export function InvestorChartPopup({ stockName, investorInfo, stockCode, investorIntraday, onClose }: InvestorChartPopupProps) {
+export function InvestorChartPopup({ stockName, investorInfo, stockCode, investorIntraday, investorEstimated, onClose }: InvestorChartPopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   // === 일봉 데이터 ===
@@ -68,10 +69,23 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     const now = new Date()
     const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`
     if (investorIntraday.date !== todayStr) return []
-    return investorIntraday.snapshots
+    const snaps = investorIntraday.snapshots
       .filter(s => s.data[stockCode])
-      .map(s => ({ time: s.time, round: s.round, ...s.data[stockCode] }))
-  }, [stockCode, investorIntraday])
+      .map(s => ({ time: s.time, round: s.round, ...s.data[stockCode], isConfirmed: false }))
+    // 확정 데이터가 있으면 마지막에 추가
+    if (!investorEstimated && snaps.length > 0) {
+      snaps.push({
+        time: "확정",
+        round: 99,
+        f: investorInfo.foreign_net,
+        i: investorInfo.institution_net,
+        p: investorInfo.individual_net ?? null,
+        pg: investorInfo.program_net ?? null,
+        isConfirmed: true,
+      })
+    }
+    return snaps
+  }, [stockCode, investorIntraday, investorEstimated, investorInfo])
 
   const hasIntraday = intradaySnapshots.length >= 1
   const hasHistory = history.length > 0
@@ -158,7 +172,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
           <div>
             <span className="text-sm font-semibold">{stockName}</span>
             <span className="text-xs text-muted-foreground ml-2">
-              {activeTab === "daily" ? `수급 추이 (${allDays.length}일)` : `장중 수급 (${intradaySnapshots.length}회)`}
+              {activeTab === "daily" ? `수급 추이 (${allDays.length}일)` : `장중 수급 (${intradaySnapshots.filter(s => !s.isConfirmed).length}회${intradaySnapshots.some(s => s.isConfirmed) ? " + 확정" : ""})`}
             </span>
           </div>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
@@ -380,8 +394,8 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 const isLast = idx === intradaySnapshots.length - 1
                 const hasCrCol = intradayChart?.hasCr && showCr
                 return (
-                  <div key={idx} className={`flex items-center py-1 text-[10px] ${isLast ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < intradaySnapshots.length - 1 ? "border-b border-border/20" : ""}`}>
-                    <span className="w-10 shrink-0 text-muted-foreground font-medium">{s.time}</span>
+                  <div key={idx} className={cn("flex items-center py-1 text-[10px]", s.isConfirmed ? "bg-primary/5 -mx-1 px-1 rounded font-medium border-t border-border/40" : isLast ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : "", idx < intradaySnapshots.length - 1 && !intradaySnapshots[idx + 1]?.isConfirmed ? "border-b border-border/20" : "")}>
+                    <span className={cn("w-10 shrink-0 font-medium", s.isConfirmed ? "text-primary" : "text-muted-foreground")}>{s.time}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.f))}>{formatNetBuy(s.f)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.i))}>{formatNetBuy(s.i)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", s.pg != null ? getNetBuyColor(s.pg) : "text-muted-foreground")}>{s.pg != null ? formatNetBuy(s.pg) : "-"}</span>

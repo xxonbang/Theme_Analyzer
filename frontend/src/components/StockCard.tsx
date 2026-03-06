@@ -289,8 +289,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       <div key={idx} className={cn("flex items-center text-muted-foreground px-1.5 py-0.5 rounded", isToday ? "bg-muted/60 font-medium" : "bg-muted/30")}>
                         <span className="font-medium w-6 shrink-0">{label}</span>
                         <span className={cn("w-14 shrink-0 text-right font-medium tabular-nums", c.change_rate >= 0 ? "text-red-500" : "text-blue-500")}>{c.change_rate > 0 ? "+" : ""}{c.change_rate.toFixed(1)}%</span>
-                        <span className="flex-1 text-right tabular-nums">{c.trading_value != null ? <><span className="sm:hidden">거래대금 </span><span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span></> : "-"}</span>
-                        <span className="flex-1 text-right tabular-nums">{c.volume != null ? <><span className="sm:hidden">거래량 </span><span className="text-foreground font-medium">{formatVolume(c.volume)}</span></> : "-"}</span>
+                        <span className="flex-1 text-right tabular-nums">{c.trading_value != null ? <span className="text-foreground font-medium">{formatTradingValue(c.trading_value)}</span> : "-"}</span>
+                        <span className="flex-1 text-right tabular-nums">{c.volume != null ? <span className="text-foreground font-medium">{formatVolume(c.volume)}</span> : "-"}</span>
                       </div>
                     )
                   })}
@@ -378,6 +378,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       investorInfo={investorInfo}
                       stockCode={stock.code}
                       investorIntraday={investorIntraday}
+                      investorEstimated={investorEstimated}
                       onClose={() => setShowInvestorChart(false)}
                     />
                   )}

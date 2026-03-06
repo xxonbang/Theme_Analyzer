@@ -253,11 +253,11 @@ def main():
         # 장중 수급 스냅샷 누적 (추정 데이터일 때만)
         if is_estimated:
             INTRADAY_SCHEDULE = [
-                {"time": "09:35", "round": 1},
-                {"time": "10:05", "round": 2},
-                {"time": "11:35", "round": 3},
-                {"time": "13:25", "round": 4},
-                {"time": "14:35", "round": 5},
+                {"time": "09:31", "round": 1},  # 외국인 09:30 반영
+                {"time": "10:01", "round": 2},  # 기관 10:00 반영
+                {"time": "11:31", "round": 3},  # 외국인+기관 11:30 반영
+                {"time": "13:21", "round": 4},  # 외국인+기관 13:20 반영
+                {"time": "14:31", "round": 5},  # 외국인+기관 14:30 반영
             ]
             today_str = now.strftime("%Y-%m-%d")
             time_str = now.strftime("%H:%M")

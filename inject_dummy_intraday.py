@@ -31,11 +31,11 @@ def main():
 
     # 5차까지의 장중 스냅샷 생성
     schedule = [
-        {"time": "09:35", "round": 1},
-        {"time": "10:05", "round": 2},
-        {"time": "11:35", "round": 3},
-        {"time": "13:25", "round": 4},
-        {"time": "14:35", "round": 5},
+        {"time": "09:31", "round": 1},
+        {"time": "10:01", "round": 2},
+        {"time": "11:31", "round": 3},
+        {"time": "13:21", "round": 4},
+        {"time": "14:31", "round": 5},
     ]
 
     snapshots = []
