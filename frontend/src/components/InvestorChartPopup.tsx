@@ -75,7 +75,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
 
   const hasIntraday = intradaySnapshots.length >= 1
   const hasHistory = history.length > 0
-  const [showCr, setShowCr] = useState(true)
+  const [showCr, setShowCr] = useState(false)
   const [visibleLines, setVisibleLines] = useState({ f: true, i: true, p: true, prog: true })
 
   const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
@@ -94,10 +94,9 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     if (intradaySnapshots.length === 0) return null
     const fVals = intradaySnapshots.map(s => s.f)
     const iVals = intradaySnapshots.map(s => s.i)
-    const pVals = intradaySnapshots.map(s => s.p ?? 0)
     const pgVals = intradaySnapshots.map(s => s.pg ?? 0)
     const hasPg = intradaySnapshots.some(s => s.pg != null)
-    const all = [...fVals, ...iVals, ...pVals, ...(hasPg ? pgVals : [])]
+    const all = [...fVals, ...iVals, ...(hasPg ? pgVals : [])]
     const min = Math.min(...all)
     const max = Math.max(...all)
     const rng = max - min || 1
@@ -118,12 +117,11 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     const crRange = crMax - crMin
 
     return {
-      fVals, iVals, pVals, pgVals, hasPg, min, max, range: rng, zeroY: zy, labels: lbls,
+      fVals, iVals, pgVals, hasPg, min, max, range: rng, zeroY: zy, labels: lbls,
       crVals, hasCr, crMin, crMax, crRange,
       series: [
         { values: fVals, color: "#ef4444" },
         { values: iVals, color: "#8b5cf6" },
-        { values: pVals, color: "#22c55e" },
         ...(hasPg ? [{ values: pgVals, color: "#06b6d4" }] : []),
       ] as LineSeries[],
     }
@@ -194,7 +192,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             {([
               { key: "f" as const, label: "외국인", color: "bg-red-500", active: "bg-red-500/10 border-red-500/25 hover:bg-red-500/15" },
               { key: "i" as const, label: "기관", color: "bg-violet-500", active: "bg-violet-500/10 border-violet-500/25 hover:bg-violet-500/15" },
-              { key: "p" as const, label: "개인", color: "bg-green-500", active: "bg-green-500/10 border-green-500/25 hover:bg-green-500/15" },
+              ...(activeTab === "daily" ? [{ key: "p" as const, label: "개인", color: "bg-green-500", active: "bg-green-500/10 border-green-500/25 hover:bg-green-500/15" }] : []),
               { key: "prog" as const, label: "프로그램", color: "bg-cyan-500", active: "bg-cyan-500/10 border-cyan-500/25 hover:bg-cyan-500/15" },
             ]).map(({ key, label, color, active }) => {
               const isActive = visibleLines[key as keyof typeof visibleLines]
@@ -340,7 +338,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 })}
                 {/* 꺾은선 (수급) */}
                 {intradayChart.series.map((s, idx) => {
-                  const keys = intradayChart.hasPg ? (["f", "i", "p", "prog"] as const) : (["f", "i", "p"] as const)
+                  const keys = intradayChart.hasPg ? (["f", "i", "prog"] as const) : (["f", "i"] as const)
                   const key = keys[idx]
                   if (!key || !visibleLines[key]) return null
                   return (
@@ -358,7 +356,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 )}
                 {/* 데이터 포인트 */}
                 {intradayChart.series.map((s, si) => {
-                  const keys = intradayChart.hasPg ? (["f", "i", "p", "prog"] as const) : (["f", "i", "p"] as const)
+                  const keys = intradayChart.hasPg ? (["f", "i", "prog"] as const) : (["f", "i"] as const)
                   const key = keys[si]
                   if (!key || !visibleLines[key]) return null
                   return s.values.map((v, di) => {
@@ -375,7 +373,6 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 <span className="w-10 shrink-0">시간</span>
                 <span className="flex-1 text-right">외국인</span>
                 <span className="flex-1 text-right">기관</span>
-                <span className="flex-1 text-right">개인</span>
                 <span className="flex-1 text-right">프로그램</span>
                 {intradayChart?.hasCr && showCr && <span className="w-14 shrink-0 text-right">등락률</span>}
               </div>
@@ -387,7 +384,6 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                     <span className="w-10 shrink-0 text-muted-foreground font-medium">{s.time}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.f))}>{formatNetBuy(s.f)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(s.i))}>{formatNetBuy(s.i)}</span>
-                    <span className={cn("flex-1 text-right tabular-nums", s.p != null ? getNetBuyColor(s.p) : "text-muted-foreground")}>{s.p != null ? formatNetBuy(s.p) : "-"}</span>
                     <span className={cn("flex-1 text-right tabular-nums", s.pg != null ? getNetBuyColor(s.pg) : "text-muted-foreground")}>{s.pg != null ? formatNetBuy(s.pg) : "-"}</span>
                     {hasCrCol && (
                       <span className={cn("w-14 shrink-0 text-right tabular-nums", s.cr != null && s.cr > 0 ? "text-red-500" : s.cr != null && s.cr < 0 ? "text-blue-500" : "text-muted-foreground")}>

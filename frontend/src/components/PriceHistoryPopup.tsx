@@ -61,7 +61,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
         <div className="flex items-center gap-x-2 text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
           <span className="w-7 shrink-0">일자</span>
           <span className="w-12 shrink-0 text-right hidden sm:block">날짜</span>
-          <span className="flex-[5] text-right">종가</span>
+          <span className="flex-[4] text-right">종가</span>
           <span className="flex-[3] text-right">등락률</span>
           <span className="flex-[3] text-right">거래대금</span>
           <span className="flex-[2] text-right">거래량</span>
@@ -86,7 +86,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               >
                 <span className="w-7 shrink-0 text-muted-foreground font-semibold tabular-nums">{label}</span>
                 <span className="w-12 shrink-0 text-right text-muted-foreground/50 tabular-nums hidden sm:block">{c.date.slice(5)}</span>
-                <span className="flex-[5] text-right font-bold tabular-nums">
+                <span className="flex-[4] text-right font-bold tabular-nums">
                   {close > 0 ? formatPrice(close) : "-"}
                   <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
                 </span>

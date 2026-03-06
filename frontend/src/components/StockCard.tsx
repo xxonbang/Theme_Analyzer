@@ -224,16 +224,16 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <div className="flex items-stretch rounded-md overflow-hidden flex-1 min-w-0">
                 {stock.trading_value != null && (
                   <>
-                    <span className="flex-1 text-center py-0.5 whitespace-nowrap text-[11px] bg-amber-500/8">
-                      <span className="text-[10px] text-muted-foreground">거래대금</span>{" "}
-                      <span className="font-medium tabular-nums text-foreground">{formatTradingValue(stock.trading_value)}</span>
+                    <span className="flex-1 flex flex-col items-center py-0.5 whitespace-nowrap bg-amber-500/8">
+                      <span className="text-[9px] text-muted-foreground leading-tight">거래대금</span>
+                      <span className="font-medium tabular-nums text-foreground text-[11px] leading-tight">{formatTradingValue(stock.trading_value)}</span>
                     </span>
                     <div className="w-px bg-foreground/15 shrink-0" />
                   </>
                 )}
-                <span className="flex-1 text-center py-0.5 whitespace-nowrap text-[11px] bg-amber-500/8">
-                  <span className="text-[10px] text-muted-foreground">거래량</span>{" "}
-                  <span className="font-medium tabular-nums text-foreground">{formatVolume(stock.volume)}</span>
+                <span className="flex-1 flex flex-col items-center py-0.5 whitespace-nowrap bg-amber-500/8">
+                  <span className="text-[9px] text-muted-foreground leading-tight">거래량</span>
+                  <span className="font-medium tabular-nums text-foreground text-[11px] leading-tight">{formatVolume(stock.volume)}</span>
                 </span>
               </div>
               {/* 스파크라인 + bottom sheet */}
@@ -304,7 +304,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div
-                    className={cn("flex flex-wrap items-center gap-x-1.5 sm:gap-x-2 gap-y-1 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
+                    className={cn("flex items-center gap-1.5 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
                     onClick={() => investorInfo.history && investorInfo.history.length > 0 && setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
                   >
                     {/* 히스토리 확장 토글 */}
@@ -338,15 +338,17 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       ))}
                     </div>
                     {/* 수급 시간 + 스파크라인 */}
-                    <div className="basis-full sm:basis-auto flex items-center gap-1.5 justify-end sm:ml-auto shrink-0">
-                      {investorUpdatedAt && (() => {
-                        const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
-                        const roundText = "round" in info ? `${info.round}차` : info.label
-                        return (
-                          <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap">{roundText} {investorUpdatedAt.slice(11, 16)}</button>
-                        )
-                      })()}
-                      {(() => {
+                    {investorUpdatedAt && (() => {
+                      const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
+                      const roundText = "round" in info ? `${info.round}차` : info.label
+                      return (
+                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0">
+                          <span>{roundText}</span>
+                          <span>{investorUpdatedAt.slice(11, 16)}</span>
+                        </button>
+                      )
+                    })()}
+                    {(() => {
                         const investorSparkData = investorInfo.history && investorInfo.history.length > 0
                           ? [...investorInfo.history].reverse().map(h => h.foreign_net).concat(investorInfo.foreign_net)
                           : [investorInfo.foreign_net]
@@ -362,9 +364,8 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         </div>
                         )
                       })()}
-                    </div>
                   </div>
-                  {/* 수급 차트/스케줄 팝업 (클릭 div 밖) */}
+                  {/* 수급 스케줄/차트 팝업 */}
                   {showSchedule && investorUpdatedAt && (() => {
                     const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                     return <InvestorSchedulePopup currentRound={"round" in info ? info.label : info.label} updatedAt={investorUpdatedAt} onClose={() => setShowSchedule(false)} />
