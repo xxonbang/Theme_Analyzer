@@ -220,20 +220,23 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   {isTradingHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
               )}
-              {/* 세그먼트 바 */}
-              <div className="flex items-stretch rounded-md overflow-hidden flex-1 min-w-0">
+              {/* 거래 데이터 */}
+              <div className="flex items-center flex-1 min-w-0 gap-1 sm:gap-2">
                 {stock.trading_value != null && (
-                  <>
-                    <span className="flex-1 flex flex-col items-center py-0.5 whitespace-nowrap bg-amber-500/8">
-                      <span className="text-[9px] text-muted-foreground leading-tight">거래대금</span>
-                      <span className="font-medium tabular-nums text-foreground text-[11px] leading-tight">{formatTradingValue(stock.trading_value)}</span>
+                  <span className="flex-1 flex flex-col items-center whitespace-nowrap bg-muted/30 sm:bg-muted/50 rounded sm:rounded-md px-1.5 py-1 sm:px-3 sm:py-2">
+                    <span className="flex items-center gap-0.5 text-[10px] sm:text-xs font-semibold text-foreground/60 leading-tight">
+                      <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0 bg-amber-500" />
+                      <span className="sm:hidden">대금</span><span className="hidden sm:inline">거래대금</span>
                     </span>
-                    <div className="w-px bg-foreground/15 shrink-0" />
-                  </>
+                    <span className="font-medium tabular-nums text-foreground text-[11px] sm:text-sm leading-tight">{formatTradingValue(stock.trading_value)}</span>
+                  </span>
                 )}
-                <span className="flex-1 flex flex-col items-center py-0.5 whitespace-nowrap bg-amber-500/8">
-                  <span className="text-[9px] text-muted-foreground leading-tight">거래량</span>
-                  <span className="font-medium tabular-nums text-foreground text-[11px] leading-tight">{formatVolume(stock.volume)}</span>
+                <span className="flex-1 flex flex-col items-center whitespace-nowrap bg-muted/30 sm:bg-muted/50 rounded sm:rounded-md px-1.5 py-1 sm:px-3 sm:py-2">
+                  <span className="flex items-center gap-0.5 text-[10px] sm:text-xs font-semibold text-foreground/60 leading-tight">
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0 bg-indigo-500" />
+                    <span className="sm:hidden">거래량</span><span className="hidden sm:inline">거래량</span>
+                  </span>
+                  <span className="font-medium tabular-nums text-foreground text-[11px] sm:text-sm leading-tight">{formatVolume(stock.volume)}</span>
                 </span>
               </div>
               {/* 스파크라인 + bottom sheet */}
@@ -317,18 +320,20 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </button>
                     )}
                     {/* 수급 데이터 */}
-                    <div className="flex items-center flex-1 min-w-0 gap-x-2">
+                    <div className="flex items-center flex-1 min-w-0 gap-1 sm:gap-2">
                       {[
-                        { key: "f", label: "외", val: investorInfo.foreign_net, est: true },
-                        { key: "i", label: "기", val: investorInfo.institution_net, est: true },
-                        ...(investorInfo.individual_net != null ? [{ key: "d", label: "개", val: investorInfo.individual_net, est: false }] : []),
-                        ...(investorInfo.program_net != null ? [{ key: "p", label: "프", val: investorInfo.program_net, est: false }] : []),
+                        { key: "f", label: "외", labelFull: "외국인", color: "bg-red-500", val: investorInfo.foreign_net, est: true },
+                        { key: "i", label: "기", labelFull: "기관", color: "bg-violet-500", val: investorInfo.institution_net, est: true },
+                        ...(investorInfo.individual_net != null ? [{ key: "d", label: "개", labelFull: "개인", color: "bg-green-500", val: investorInfo.individual_net, est: false }] : []),
+                        ...(investorInfo.program_net != null ? [{ key: "p", label: "프", labelFull: "프로그램", color: "bg-cyan-500", val: investorInfo.program_net, est: false }] : []),
                       ].map((d) => (
-                        <span key={d.key} className="flex flex-col items-center whitespace-nowrap">
-                          <span className="text-[9px] font-medium text-muted-foreground leading-tight">
-                            {d.label}{d.est && investorEstimated && <span className="text-[8px] font-normal text-amber-500 ml-0.5">추정</span>}
+                        <span key={d.key} className="flex-1 flex flex-col items-center whitespace-nowrap bg-muted/30 sm:bg-muted/50 rounded sm:rounded-md px-1.5 py-1 sm:px-3 sm:py-2">
+                          <span className="flex items-center gap-0.5 text-[10px] sm:text-xs font-semibold text-foreground/60 leading-tight">
+                            <span className={cn("w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0", d.color)} />
+                            <span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span>
+                            {d.est && investorEstimated && <span className="text-[8px] sm:text-[9px] font-normal text-amber-500 ml-0.5">추정</span>}
                           </span>
-                          <span className={cn("text-[11px] font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
+                          <span className={cn("text-[11px] sm:text-sm font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
                         </span>
                       ))}
                     </div>
