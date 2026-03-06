@@ -25,9 +25,10 @@ interface StockCardProps {
   criteria?: StockCriteria
   investorIntraday?: InvestorIntraday
   isAdmin?: boolean
+  dataTimestamp?: string
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
@@ -206,6 +207,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             <div className="flex items-center gap-1 mb-1">
               <Banknote className="w-3.5 h-3.5 text-amber-500/60" />
               <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래</span>
+              {dataTimestamp && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{dataTimestamp.slice(11, 16)}</span>}
             </div>
             <div
               className={cn("flex items-center gap-1.5 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
@@ -303,6 +305,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <div className="flex items-center gap-1 mb-1">
                 <Users className="w-3.5 h-3.5 text-sky-500/60" />
                 <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">수급</span>
+                {investorUpdatedAt && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
               </div>
               {investorInfo ? (
                 <>
@@ -426,6 +429,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               <div className="flex items-center gap-1 mb-1">
                 <Building2 className="w-3.5 h-3.5 text-violet-500/60" />
                 <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래원</span>
+                {investorUpdatedAt && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
               </div>
               <div className="grid grid-cols-2 gap-3">
               <div>

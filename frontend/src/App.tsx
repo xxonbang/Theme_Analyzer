@@ -585,6 +585,7 @@ function App() {
                     criteriaData={displayData?.criteria_data}
                     investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
+                    dataTimestamp={displayData?.timestamp}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP`}
@@ -602,6 +603,7 @@ function App() {
                     criteriaData={displayData?.criteria_data}
                     investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
+                    dataTimestamp={displayData?.timestamp}
                   />
                 </>
               ) : (
@@ -623,6 +625,7 @@ function App() {
                     criteriaData={displayData?.criteria_data}
                     investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
+                    dataTimestamp={displayData?.timestamp}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP10`}
@@ -640,6 +643,7 @@ function App() {
                     criteriaData={displayData?.criteria_data}
                     investorIntraday={displayData?.investor_intraday}
                     isAdmin={isAdmin}
+                    dataTimestamp={displayData?.timestamp}
                   />
                 </>
               )}
@@ -663,6 +667,7 @@ function App() {
               criteriaData={displayData?.criteria_data}
               investorIntraday={displayData?.investor_intraday}
               isAdmin={isAdmin}
+              dataTimestamp={displayData?.timestamp}
             />
           )}
 
@@ -683,6 +688,7 @@ function App() {
               criteriaData={displayData?.criteria_data}
               investorIntraday={displayData?.investor_intraday}
               isAdmin={isAdmin}
+              dataTimestamp={displayData?.timestamp}
             />
           )}
 
@@ -704,6 +710,7 @@ function App() {
                 criteriaData={displayData?.criteria_data}
                 investorIntraday={displayData?.investor_intraday}
                 isAdmin={isAdmin}
+                dataTimestamp={displayData?.timestamp}
               />
               <StockList
                 title="등락률 하락 TOP20"
@@ -721,6 +728,7 @@ function App() {
                 criteriaData={displayData?.criteria_data}
                 investorIntraday={displayData?.investor_intraday}
                 isAdmin={isAdmin}
+                dataTimestamp={displayData?.timestamp}
               />
             </>
           )}

@@ -248,6 +248,7 @@ def main():
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
         latest["investor_updated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
+        latest["timestamp"] = now.strftime("%Y-%m-%d %H:%M:%S")
 
         # 장중 수급 스냅샷 누적 (추정 데이터일 때만)
         if is_estimated:
@@ -455,23 +456,28 @@ def main():
                 latest["criteria_data"] = existing_criteria
                 print(f"  ✓ criteria: {len(new_criteria)}개 종목")
 
-                # member(거래원) 수집 — 대장주 or 거래대금 TOP20인 신규 종목만
-                member_target = set(leader_codes)
-                for s in extract_top20_stocks(latest):
-                    c = s.get("code", "")
-                    if c:
-                        member_target.add(c)
-                member_new = new_codes & member_target
-                if member_new:
-                    existing_member = latest.get("member_data") or {}
-                    new_member = rank_api.get_member_data(
-                        [{"code": c, "name": new_stock_map.get(c, {}).get("name", c)} for c in member_new]
-                    )
-                    existing_member.update(new_member)
-                    latest["member_data"] = existing_member
-                    print(f"  ✓ member: {len(new_member)}개 종목")
             except Exception as e:
                 print(f"  ⚠ 신규 종목 데이터 보충 실패 (기존 데이터로 계속): {e}")
+
+        # member(거래원) 수집 — 화면에 표시되는 모든 종목 대상, 매 라운드 갱신
+        try:
+            all_codes_map = {s["code"]: s.get("name", s["code"]) for s in all_stocks}
+            member_target = set(leader_codes)
+            for s in extract_top20_stocks(latest):
+                c = s.get("code", "")
+                if c:
+                    member_target.add(c)
+            if member_target:
+                print(f"\n[거래원 데이터 수집] {len(member_target)}개 종목")
+                existing_member = latest.get("member_data") or {}
+                new_member = rank_api.get_member_data(
+                    [{"code": c, "name": all_codes_map.get(c, c)} for c in member_target]
+                )
+                existing_member.update(new_member)
+                latest["member_data"] = existing_member
+                print(f"  ✓ {len(new_member)}개 종목 거래원 갱신 완료")
+        except Exception as e:
+            print(f"  ⚠ 거래원 수집 실패 (기존 데이터로 계속): {e}")
 
         with open(LATEST_PATH, "w", encoding="utf-8") as f:
             json.dump(latest, f, ensure_ascii=False, indent=2)

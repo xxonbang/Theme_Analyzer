@@ -30,6 +30,7 @@ interface StockListProps {
   criteriaData?: Record<string, StockCriteria>
   investorIntraday?: InvestorIntraday
   isAdmin?: boolean
+  dataTimestamp?: string
 }
 
 const VIRTUALIZE_THRESHOLD = 20
@@ -37,13 +38,13 @@ const VIRTUALIZE_THRESHOLD = 20
 // 가상 스크롤 마켓 섹션 (뷰포트에 보이는 항목만 렌더링)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
-  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp,
 }: {
   label: string; dotColor: string; stocks: Stock[];
   history: Record<string, StockHistory>; news: Record<string, StockNews>;
   type: "rising" | "falling" | "neutral";
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
-  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string;
 }) {
   const parentRef = useRef<HTMLDivElement>(null)
   const [columns, setColumns] = useState(() =>
@@ -89,6 +90,7 @@ function StockMarketSection({
       criteria={criteriaData?.[stock.code]}
       investorIntraday={investorIntraday}
       isAdmin={isAdmin}
+      dataTimestamp={dataTimestamp}
     />
   )
 
@@ -447,7 +449,7 @@ function CompactMarketSection({
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -538,6 +540,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           criteriaData={criteriaData}
           investorIntraday={investorIntraday}
           isAdmin={isAdmin}
+          dataTimestamp={dataTimestamp}
         />
 
         {/* KOSDAQ */}
@@ -555,6 +558,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           criteriaData={criteriaData}
           investorIntraday={investorIntraday}
           isAdmin={isAdmin}
+          dataTimestamp={dataTimestamp}
         />
       </CardContent>
     </Card>
