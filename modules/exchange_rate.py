@@ -115,6 +115,9 @@ class ExchangeRateAPI:
             currency_order = {"USD": 0, "JPY": 1, "EUR": 2, "CNY": 3}
             rates.sort(key=lambda x: currency_order.get(x["currency"], 99))
 
+            # 전일 대비 변동 계산
+            self._add_change(rates, search_date, session)
+
             return {
                 "timestamp": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
                 "search_date": search_date,
@@ -127,6 +130,42 @@ class ExchangeRateAPI:
         except Exception as e:
             print(f"[환율] 데이터 처리 실패: {e}")
             return {"timestamp": "", "search_date": "", "rates": []}
+
+    def _add_change(self, rates: list, search_date: str, session) -> None:
+        """전일 환율 대비 변동폭/변동률 추가"""
+        try:
+            base_date = datetime.strptime(search_date, "%Y%m%d")
+            prev_data = None
+            for days_back in range(1, 8):
+                prev_date = (base_date - timedelta(days=days_back)).strftime("%Y%m%d")
+                params = {
+                    "authkey": self.api_key,
+                    "searchdate": prev_date,
+                    "data": "AP01",
+                }
+                resp = session.get(self.api_url, params=params, timeout=10)
+                if resp.ok and resp.json():
+                    prev_data = resp.json()
+                    break
+
+            if not prev_data:
+                return
+
+            # 전일 환율 맵 생성
+            prev_map = {}
+            for item in prev_data:
+                cur_unit = item.get("cur_unit", "")
+                if cur_unit in MAJOR_CURRENCIES:
+                    key = cur_unit.replace("(100)", "").replace("CNH", "CNY")
+                    prev_map[key] = self._parse_number(item.get("deal_bas_r", "0"))
+
+            for rate in rates:
+                prev_rate = prev_map.get(rate["currency"])
+                if prev_rate and prev_rate > 0:
+                    rate["change"] = round(rate["rate"] - prev_rate, 2)
+                    rate["change_rate"] = round((rate["rate"] - prev_rate) / prev_rate * 100, 2)
+        except Exception as e:
+            print(f"[환율] 전일 대비 변동 계산 실패: {e}")
 
     def _parse_number(self, value: str) -> float:
         """숫자 문자열 파싱 (쉼표 제거)"""

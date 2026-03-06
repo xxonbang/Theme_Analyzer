@@ -307,7 +307,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {investorInfo ? (
                 <>
                   <div
-                    className={cn("flex items-center gap-1.5 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
+                    className={cn("flex items-center gap-1 sm:gap-1.5 text-xs", investorInfo.history && investorInfo.history.length > 0 && "cursor-pointer")}
                     onClick={() => investorInfo.history && investorInfo.history.length > 0 && setIsInvestorHistoryExpanded(!isInvestorHistoryExpanded)}
                   >
                     {/* 히스토리 확장 토글 */}
@@ -320,18 +320,17 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       </button>
                     )}
                     {/* 수급 데이터 */}
-                    <div className="flex items-center flex-1 min-w-0 gap-1 sm:gap-2">
+                    <div className="flex items-center flex-1 min-w-0 gap-0.5 sm:gap-2">
                       {[
                         { key: "f", label: "외", labelFull: "외국인", color: "bg-red-500", val: investorInfo.foreign_net, est: true },
                         { key: "i", label: "기", labelFull: "기관", color: "bg-violet-500", val: investorInfo.institution_net, est: true },
                         ...(investorInfo.individual_net != null ? [{ key: "d", label: "개", labelFull: "개인", color: "bg-green-500", val: investorInfo.individual_net, est: false }] : []),
                         ...(investorInfo.program_net != null ? [{ key: "p", label: "프", labelFull: "프로그램", color: "bg-cyan-500", val: investorInfo.program_net, est: false }] : []),
                       ].map((d) => (
-                        <span key={d.key} className="flex-1 flex flex-col items-center whitespace-nowrap bg-muted/30 sm:bg-muted/50 rounded sm:rounded-md px-1.5 py-1 sm:px-3 sm:py-2">
+                        <span key={d.key} className="flex-1 flex flex-col items-center whitespace-nowrap sm:bg-muted/50 sm:rounded-md sm:px-3 sm:py-2">
                           <span className="flex items-center gap-0.5 text-[10px] sm:text-xs font-semibold text-foreground/60 leading-tight">
                             <span className={cn("w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0", d.color)} />
                             <span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span>
-                            {d.est && investorEstimated && <span className="text-[8px] sm:text-[9px] font-normal text-amber-500 ml-0.5">추정</span>}
                           </span>
                           <span className={cn("text-[11px] sm:text-sm font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
                         </span>
@@ -342,7 +341,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
                       return (
-                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0 ml-1">
+                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0">
                           <span>{roundText}</span>
                           <span>{investorUpdatedAt.slice(11, 16)}</span>
                         </button>

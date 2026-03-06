@@ -45,6 +45,8 @@ export interface ExchangeRate {
   ttb: number
   tts: number
   is_100: boolean
+  change?: number
+  change_rate?: number
 }
 
 export interface ExchangeData {

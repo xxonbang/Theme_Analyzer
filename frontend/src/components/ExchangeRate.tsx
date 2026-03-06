@@ -32,11 +32,20 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
         const info = currencyInfo[rate.currency] || { emoji: "💵", name: rate.currency_name }
         const unit = rate.is_100 ? "(100)" : ""
 
+        const change = rate.change
+        const isUp = change != null && change > 0
+        const isDown = change != null && change < 0
+
         return (
           <div key={rate.currency} className="flex items-center gap-1.5 text-sm">
             <span className="text-sm">{info.emoji}</span>
             <span className="text-muted-foreground/80 text-xs">{rate.currency}{unit}</span>
             <span className="font-semibold tabular-nums tracking-tight">{rate.rate.toLocaleString()}<span className="text-muted-foreground/60 text-xs font-normal ml-0.5">원</span></span>
+            {change != null && change !== 0 && (
+              <span className={`text-[10px] tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : ""}`}>
+                {isUp ? "▲" : "▼"}{Math.abs(change).toLocaleString()}
+              </span>
+            )}
           </div>
         )
       })}

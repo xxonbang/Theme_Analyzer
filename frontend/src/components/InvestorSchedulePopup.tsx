@@ -6,7 +6,7 @@ import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 const SCHEDULE = [
   { round: 1, time: "09:35", source: "외국인 09:30 반영", label: "1차" },
   { round: 2, time: "10:05", source: "기관 10:00 반영", label: "2차" },
-  { round: 3, time: "11:25", source: "외국인+기관 11:20 반영", label: "3차" },
+  { round: 3, time: "11:35", source: "외국인+기관 11:30 반영", label: "3차" },
   { round: 4, time: "13:25", source: "외국인+기관 13:20 반영", label: "4차" },
   { round: 5, time: "14:35", source: "외국인+기관 14:30 반영 (장중 최종)", label: "5차" },
   { round: 0, time: "15:45", source: "장 마감 후 확정 데이터 수집", label: "확정" },
