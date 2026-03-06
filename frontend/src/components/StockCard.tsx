@@ -316,25 +316,20 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                         {isInvestorHistoryExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
                     )}
-                    {/* 수급 데이터 바 */}
-                    <div className="flex items-stretch rounded-md overflow-hidden flex-1 min-w-0">
+                    {/* 수급 데이터 */}
+                    <div className="flex items-center flex-1 min-w-0 gap-x-2">
                       {[
-                        { key: "f", label: "외", labelFull: "외국인", val: investorInfo.foreign_net, est: true },
-                        { key: "i", label: "기", labelFull: "기관", val: investorInfo.institution_net, est: true },
-                        ...(investorInfo.individual_net != null ? [{ key: "d", label: "개", labelFull: "개인", val: investorInfo.individual_net, est: false }] : []),
-                        ...(investorInfo.program_net != null ? [{ key: "p", label: "프", labelFull: "프로그램", val: investorInfo.program_net, est: false }] : []),
-                      ].map((d, idx) => (
-                        <Fragment key={d.key}>
-                          {idx > 0 && <div className="w-px bg-border/40 shrink-0" />}
-                          <span className={cn(
-                            "flex-1 text-center py-0.5 whitespace-nowrap text-[11px]",
-                            d.val > 0 ? "bg-red-500/10" : d.val < 0 ? "bg-blue-500/10" : "bg-muted/30"
-                          )}>
-                            <span className="text-[10px] text-muted-foreground"><span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span></span>
-                            {d.est && investorEstimated && <span className="text-[9px] text-amber-500 ml-0.5">추정</span>}
-                            {" "}<span className={cn("font-medium tabular-nums", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
+                        { key: "f", label: "외", val: investorInfo.foreign_net, est: true },
+                        { key: "i", label: "기", val: investorInfo.institution_net, est: true },
+                        ...(investorInfo.individual_net != null ? [{ key: "d", label: "개", val: investorInfo.individual_net, est: false }] : []),
+                        ...(investorInfo.program_net != null ? [{ key: "p", label: "프", val: investorInfo.program_net, est: false }] : []),
+                      ].map((d) => (
+                        <span key={d.key} className="flex flex-col items-center whitespace-nowrap">
+                          <span className="text-[9px] font-medium text-muted-foreground leading-tight">
+                            {d.label}{d.est && investorEstimated && <span className="text-[8px] font-normal text-amber-500 ml-0.5">추정</span>}
                           </span>
-                        </Fragment>
+                          <span className={cn("text-[11px] font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
+                        </span>
                       ))}
                     </div>
                     {/* 수급 시간 + 스파크라인 */}
@@ -342,7 +337,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
                       return (
-                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0">
+                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0 ml-1">
                           <span>{roundText}</span>
                           <span>{investorUpdatedAt.slice(11, 16)}</span>
                         </button>
