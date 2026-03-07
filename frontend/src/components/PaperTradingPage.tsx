@@ -83,25 +83,75 @@ export function PaperTradingPage() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* 헤더 + 인라인 토글 */}
+      {/* 헤더 */}
       <div>
         <div className="flex items-center gap-2">
           <LineChart className="w-5 h-5 text-primary shrink-0" />
           <h2 className="font-bold text-base sm:text-lg">AI 대장주 모의투자</h2>
         </div>
-        <p className="flex flex-wrap items-center gap-x-1 gap-y-1.5 text-xs sm:text-sm text-muted-foreground mt-1.5 ml-7">
-          Gemini 선정 대장주
-          <span className="inline-flex rounded-md bg-muted p-0.5 gap-0.5 mx-0.5">
-            <button onClick={() => setInvestMode("single")} className={cn("px-2 py-0.5 rounded text-xs sm:text-sm font-medium transition-all duration-150", investMode === "single" ? "bg-foreground text-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>1주씩</button>
-            <button onClick={() => setInvestMode("equal")} className={cn("px-2 py-0.5 rounded text-xs sm:text-sm font-medium transition-all duration-150", investMode === "equal" ? "bg-foreground text-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>동일금액</button>
-          </span>
-          매수 →
-          <span className="inline-flex rounded-md bg-muted p-0.5 gap-0.5 mx-0.5">
-            <button onClick={() => handleModeChange("close")} className={cn("px-2 py-0.5 rounded text-xs sm:text-sm font-medium transition-all duration-150", activeTab === "close" ? "bg-foreground text-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>종가</button>
-            <button onClick={() => handleModeChange("high")} className={cn("px-2 py-0.5 rounded text-xs sm:text-sm font-medium transition-all duration-150", activeTab === "high" ? "bg-foreground text-background shadow-sm" : "text-muted-foreground hover:text-foreground")}>최고가</button>
-          </span>
-          매도
+        <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 ml-7">
+          Gemini 선정 대장주 <span className="font-semibold text-foreground">{investMode === "equal" ? "동일금액(100만)" : "1주씩"}</span> 매수 → <span className="font-semibold text-foreground">{activeTab === "close" ? "장마감 종가" : "장중 최고가"}</span> 매도
         </p>
+      </div>
+
+      {/* 투자방식 + 매도기준 탭 */}
+      <div className="flex items-center gap-3">
+        {/* 투자방식 탭 */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-widest shrink-0">매수</span>
+          <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
+            <button
+              onClick={() => setInvestMode("single")}
+              className={cn(
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
+                investMode === "single"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              1주
+            </button>
+            <button
+              onClick={() => setInvestMode("equal")}
+              className={cn(
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
+                investMode === "equal"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              동일금액
+            </button>
+          </div>
+        </div>
+        {/* 매도 기준 탭 */}
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-widest shrink-0">매도</span>
+          <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
+            <button
+              onClick={() => handleModeChange("close")}
+              className={cn(
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
+                activeTab === "close"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              종가
+            </button>
+            <button
+              onClick={() => handleModeChange("high")}
+              className={cn(
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
+                activeTab === "high"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              최고가
+            </button>
+          </div>
+        </div>
       </div>
 
       {error && (
