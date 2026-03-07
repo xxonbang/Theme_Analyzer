@@ -89,7 +89,7 @@ export function PaperTradingPage() {
           <LineChart className="w-5 h-5 text-primary shrink-0" />
           <h2 className="font-bold text-base sm:text-lg">AI 대장주 모의투자</h2>
         </div>
-        <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 ml-7">
+        <p className="text-[10px] sm:text-xs text-secondary-foreground mt-1 ml-7">
           Gemini 선정 대장주 {investMode === "equal" ? "동일금액(100만)" : "1주씩"} 매수 → {activeTab === "close" ? "장마감 종가" : "장중 최고가"} 매도
         </p>
       </div>
