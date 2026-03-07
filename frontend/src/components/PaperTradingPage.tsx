@@ -34,7 +34,7 @@ export function PaperTradingPage() {
   const { logActivity } = useAuth()
   const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState<PaperTradingMode>("close")
-  const [investMode, setInvestMode] = useState<InvestMode>("single")
+  const [investMode, setInvestMode] = useState<InvestMode>("equal")
 
   const handleModeChange = (mode: PaperTradingMode) => {
     setActiveTab(mode)
@@ -101,17 +101,6 @@ export function PaperTradingPage() {
           <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-widest shrink-0">매수</span>
           <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
             <button
-              onClick={() => setInvestMode("single")}
-              className={cn(
-                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
-                investMode === "single"
-                  ? "bg-foreground text-background shadow-sm"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              1주
-            </button>
-            <button
               onClick={() => setInvestMode("equal")}
               className={cn(
                 "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
@@ -121,6 +110,17 @@ export function PaperTradingPage() {
               )}
             >
               동일금액
+            </button>
+            <button
+              onClick={() => setInvestMode("single")}
+              className={cn(
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
+                investMode === "single"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              1주
             </button>
           </div>
         </div>
