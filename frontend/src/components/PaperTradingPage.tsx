@@ -95,56 +95,62 @@ export function PaperTradingPage() {
       </div>
 
       {/* 투자방식 + 매도기준 탭 */}
-      <div className="space-y-1.5">
+      <div className="flex flex-wrap gap-2">
         {/* 투자방식 탭 */}
-        <div className="flex rounded-lg bg-muted/50 p-1 gap-1">
-          <button
-            onClick={() => setInvestMode("single")}
-            className={cn(
-              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
-              investMode === "single"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            1주 매수
-          </button>
-          <button
-            onClick={() => setInvestMode("equal")}
-            className={cn(
-              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
-              investMode === "equal"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            동일금액
-          </button>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[10px] sm:text-xs text-muted-foreground shrink-0">매수</span>
+          <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
+            <button
+              onClick={() => setInvestMode("single")}
+              className={cn(
+                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                investMode === "single"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              1주
+            </button>
+            <button
+              onClick={() => setInvestMode("equal")}
+              className={cn(
+                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                investMode === "equal"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              동일금액
+            </button>
+          </div>
         </div>
         {/* 매도 기준 탭 */}
-        <div className="flex rounded-lg bg-muted/50 p-1 gap-1">
-          <button
-            onClick={() => handleModeChange("close")}
-            className={cn(
-              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
-              activeTab === "close"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            종가 매도
-          </button>
-          <button
-            onClick={() => handleModeChange("high")}
-            className={cn(
-              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
-              activeTab === "high"
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            최고가 매도
-          </button>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[10px] sm:text-xs text-muted-foreground shrink-0">매도</span>
+          <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
+            <button
+              onClick={() => handleModeChange("close")}
+              className={cn(
+                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                activeTab === "close"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              종가
+            </button>
+            <button
+              onClick={() => handleModeChange("high")}
+              className={cn(
+                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                activeTab === "high"
+                  ? "bg-foreground text-background shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              최고가
+            </button>
+          </div>
         </div>
       </div>
 
