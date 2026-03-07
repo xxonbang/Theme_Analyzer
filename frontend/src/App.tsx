@@ -42,7 +42,7 @@ function App() {
     logActivity("page_view", { page: currentPage })
   }, [currentPage, recordVisit, logActivity])
   const apiAlerts = useApiAlerts(isAdmin)
-  const { data: currentData, loading, error, refetch, refreshFromAPI, refreshElapsed } = useStockData()
+  const { data: currentData, loading, error, refetch, refreshFromAPI, cancelRefresh, refreshElapsed } = useStockData()
   const { containerRef, pullDistance, isRefreshing, canRelease } = usePullToRefresh({
     onRefresh: refetch,
     enabled: !loading,
@@ -445,6 +445,7 @@ function App() {
         headerHidden={headerHidden}
         isDark={isDark}
         onToggleTheme={toggleTheme}
+        onCancelRefresh={cancelRefresh}
       />
 
       <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />

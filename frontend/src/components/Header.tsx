@@ -21,9 +21,10 @@ interface HeaderProps {
   headerHidden?: boolean
   isDark?: boolean
   onToggleTheme?: () => void
+  onCancelRefresh?: () => void
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme, onCancelRefresh }: HeaderProps) {
   const { signOut } = useAuth()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
@@ -108,7 +109,11 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
   // Refresh 버튼 클릭 효과
   const handleRefreshClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (loading) return
+    // loading 중 재클릭 → 취소
+    if (loading) {
+      onCancelRefresh?.()
+      return
+    }
 
     const rect = e.currentTarget.getBoundingClientRect()
     setRefreshRipple({
@@ -490,7 +495,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
           {isAdmin && onRefresh && (
             <button
               onClick={handleRefreshClick}
-              disabled={loading}
               className={cn(
                 "relative overflow-hidden group",
                 "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
@@ -505,9 +509,9 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 "hover:from-primary/20 hover:via-primary/10 hover:to-primary/20",
                 "active:scale-95",
                 "focus:outline-none",
-                "disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-sm"
+                loading && "border-destructive/30 text-destructive",
               )}
-              title={loading ? "갱신 중..." : "새로고침"}
+              title={loading ? "클릭하여 취소" : "새로고침"}
             >
               {/* 임시 Focus Ring */}
               <div

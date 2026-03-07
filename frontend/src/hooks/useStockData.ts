@@ -15,6 +15,7 @@ interface UseStockDataReturn {
   error: string | null
   refetch: () => Promise<void>
   refreshFromAPI: () => Promise<void>
+  cancelRefresh: () => void
   refreshElapsed: number
 }
 
@@ -24,6 +25,7 @@ export function useStockData(): UseStockDataReturn {
   const [error, setError] = useState<string | null>(null)
   const [refreshElapsed, setRefreshElapsed] = useState(0)
   const refreshTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const abortRef = useRef<AbortController | null>(null)
   const dataRef = useRef<StockData | null>(null)
 
   // dataRef를 data와 동기화
@@ -53,12 +55,29 @@ export function useStockData(): UseStockDataReturn {
     }
   }, [])
 
+  const cancelRefresh = useCallback(() => {
+    if (abortRef.current) {
+      abortRef.current.abort()
+      abortRef.current = null
+    }
+    if (refreshTimerRef.current) {
+      clearInterval(refreshTimerRef.current)
+      refreshTimerRef.current = null
+    }
+    setRefreshElapsed(0)
+    setLoading(false)
+    setError(null)
+  }, [])
+
   const refreshFromAPI = useCallback(async () => {
     // GitHub Token이 없으면 정적 데이터 재로드
     if (!GITHUB_TOKEN || !GITHUB_REPO) {
       await fetchData()
       return
     }
+
+    const abort = new AbortController()
+    abortRef.current = abort
 
     setLoading(true)
     setError(null)
@@ -80,6 +99,7 @@ export function useStockData(): UseStockDataReturn {
             Accept: "application/vnd.github.v3+json",
           },
           body: JSON.stringify({ ref: "main" }),
+          signal: abort.signal,
         }
       )
 
@@ -94,12 +114,25 @@ export function useStockData(): UseStockDataReturn {
       const newData = await new Promise<StockData>((resolve, reject) => {
         const startTime = Date.now()
         let pollTimer: ReturnType<typeof setInterval> | null = null
+        let delayTimer: ReturnType<typeof setTimeout> | null = null
+
+        const cleanup = () => {
+          if (pollTimer) clearInterval(pollTimer)
+          if (delayTimer) clearTimeout(delayTimer)
+        }
+
+        abort.signal.addEventListener("abort", () => {
+          cleanup()
+          reject(new DOMException("cancelled", "AbortError"))
+        })
 
         const startPolling = () => {
           pollTimer = setInterval(async () => {
+            if (abort.signal.aborted) { cleanup(); return }
+
             // 타임아웃 체크
             if (Date.now() - startTime > POLL_TIMEOUT) {
-              if (pollTimer) clearInterval(pollTimer)
+              cleanup()
               reject(new Error("데이터 업데이트 대기 시간이 초과되었습니다. GitHub Actions 탭에서 진행 상황을 확인해주세요."))
               return
             }
@@ -107,12 +140,13 @@ export function useStockData(): UseStockDataReturn {
             try {
               const res = await fetch(DATA_URL + "?t=" + Date.now(), {
                 cache: "no-store",
+                signal: abort.signal,
               })
               if (!res.ok) return
 
               const json = await res.json()
               if (json.timestamp && json.timestamp !== currentTimestamp) {
-                if (pollTimer) clearInterval(pollTimer)
+                cleanup()
                 resolve(json)
               }
             } catch {
@@ -122,17 +156,19 @@ export function useStockData(): UseStockDataReturn {
         }
 
         // 10초 대기 후 polling 시작
-        setTimeout(startPolling, POLL_DELAY)
+        delayTimer = setTimeout(startPolling, POLL_DELAY)
       })
 
       setData(newData)
     } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return
       console.error("Failed to refresh via GitHub Actions:", err)
       const message = err instanceof Error
         ? err.message
         : "데이터 갱신에 실패했습니다."
       setError(message)
     } finally {
+      abortRef.current = null
       if (refreshTimerRef.current) {
         clearInterval(refreshTimerRef.current)
         refreshTimerRef.current = null
@@ -146,16 +182,15 @@ export function useStockData(): UseStockDataReturn {
     fetchData()
   }, [fetchData])
 
-  // Cleanup interval on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (refreshTimerRef.current) {
-        clearInterval(refreshTimerRef.current)
-      }
+      if (refreshTimerRef.current) clearInterval(refreshTimerRef.current)
+      if (abortRef.current) abortRef.current.abort()
     }
   }, [])
 
-  return { data, loading, error, refetch: fetchData, refreshFromAPI, refreshElapsed }
+  return { data, loading, error, refetch: fetchData, refreshFromAPI, cancelRefresh, refreshElapsed }
 }
 
 function getMockData(): StockData {
