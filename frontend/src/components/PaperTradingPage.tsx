@@ -95,7 +95,7 @@ export function PaperTradingPage() {
       </div>
 
       {/* 투자방식 + 매도기준 탭 */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex items-center gap-3">
         {/* 투자방식 탭 */}
         <div className="flex items-center gap-2">
           <span className="text-xs sm:text-sm font-medium text-foreground shrink-0">매수</span>
