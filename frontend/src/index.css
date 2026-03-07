@@ -41,7 +41,7 @@ html.dark {
     --color-secondary: oklch(22% 0.01 260);
     --color-secondary-foreground: oklch(85% 0.01 260);
     --color-muted: oklch(22% 0.005 260);
-    --color-muted-foreground: oklch(60% 0.015 260);
+    --color-muted-foreground: oklch(66% 0.015 260);
     --color-accent: oklch(24% 0.015 260);
     --color-accent-foreground: oklch(90% 0.01 260);
     --color-destructive: oklch(60% 0.25 25);
@@ -55,6 +55,27 @@ html.dark {
     --color-success-foreground: oklch(100% 0 0);
     --color-warning: oklch(70% 0.15 70);
     --color-warning-foreground: oklch(90% 0.02 70);
+
+    /* ── 다크모드 가독성: 하드코딩 Tailwind 색상 밝기 보정 ── */
+    /* 수익(빨강) */
+    --color-red-500: oklch(68% 0.22 25);
+    --color-red-600: oklch(65% 0.24 27);
+    --color-red-700: oklch(68% 0.18 25);
+    /* 손실(파랑) */
+    --color-blue-500: oklch(68% 0.18 260);
+    --color-blue-600: oklch(65% 0.20 262);
+    /* 긍정(초록) */
+    --color-emerald-600: oklch(68% 0.17 163);
+    /* 경고(호박/주황) */
+    --color-amber-500: oklch(80% 0.16 70);
+    --color-amber-600: oklch(75% 0.17 58);
+    /* 차트(인디고) */
+    --color-indigo-600: oklch(62% 0.22 277);
+    /* 중립(슬레이트) */
+    --color-slate-400: oklch(72% 0.015 264);
+    /* 뱃지 배경 (밝은 톤 → 다크 톤) */
+    --color-red-100: oklch(25% 0.05 25);
+    --color-blue-100: oklch(25% 0.05 260);
 }
 
 @layer base {
