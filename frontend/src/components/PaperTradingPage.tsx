@@ -95,15 +95,15 @@ export function PaperTradingPage() {
       </div>
 
       {/* 투자방식 + 매도기준 탭 */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {/* 투자방식 탭 */}
-        <div className="flex items-center gap-1.5">
-          <span className="text-[10px] sm:text-xs text-muted-foreground shrink-0">매수</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs sm:text-sm font-medium text-foreground shrink-0">매수</span>
           <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
             <button
               onClick={() => setInvestMode("single")}
               className={cn(
-                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
                 investMode === "single"
                   ? "bg-foreground text-background shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -114,7 +114,7 @@ export function PaperTradingPage() {
             <button
               onClick={() => setInvestMode("equal")}
               className={cn(
-                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
                 investMode === "equal"
                   ? "bg-foreground text-background shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -125,13 +125,13 @@ export function PaperTradingPage() {
           </div>
         </div>
         {/* 매도 기준 탭 */}
-        <div className="flex items-center gap-1.5">
-          <span className="text-[10px] sm:text-xs text-muted-foreground shrink-0">매도</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs sm:text-sm font-medium text-foreground shrink-0">매도</span>
           <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
             <button
               onClick={() => handleModeChange("close")}
               className={cn(
-                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
                 activeTab === "close"
                   ? "bg-foreground text-background shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
@@ -142,7 +142,7 @@ export function PaperTradingPage() {
             <button
               onClick={() => handleModeChange("high")}
               className={cn(
-                "py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+                "w-[4.5rem] sm:w-20 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all duration-150 text-center",
                 activeTab === "high"
                   ? "bg-foreground text-background shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
