@@ -98,7 +98,7 @@ export function PaperTradingPage() {
       <div className="flex items-center gap-3">
         {/* 투자방식 탭 */}
         <div className="flex items-center gap-2">
-          <span className="text-xs sm:text-sm font-medium text-foreground shrink-0">매수</span>
+          <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-widest shrink-0">매수</span>
           <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
             <button
               onClick={() => setInvestMode("single")}
@@ -126,7 +126,7 @@ export function PaperTradingPage() {
         </div>
         {/* 매도 기준 탭 */}
         <div className="flex items-center gap-2">
-          <span className="text-xs sm:text-sm font-medium text-foreground shrink-0">매도</span>
+          <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-widest shrink-0">매도</span>
           <div className="flex rounded-lg bg-muted p-0.5 gap-0.5">
             <button
               onClick={() => handleModeChange("close")}
