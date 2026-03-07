@@ -158,10 +158,11 @@
       "close_price": 126500,
       "profit_rate": -27.92,
       "profit_amount": -49000,
-      "high_price": 175500,
-      "high_time": "09:16",
-      "high_profit_rate": 0.0,
-      "high_profit_amount": 0
+      "high_price": 126500,
+      "high_time": "15:30",
+      "high_profit_rate": -27.92,
+      "high_profit_amount": -49000,
+      "high_price_adjusted": true
     },
     {
       "code": "012450",
@@ -172,10 +173,11 @@
       "close_price": 1323000,
       "profit_rate": -19.28,
       "profit_amount": -316000,
-      "high_price": 1639000,
-      "high_time": "09:16",
-      "high_profit_rate": 0.0,
-      "high_profit_amount": 0
+      "high_price": 1323000,
+      "high_time": "15:30",
+      "high_profit_rate": -19.28,
+      "high_profit_amount": -316000,
+      "high_price_adjusted": true
     },
     {
       "code": "079550",
@@ -186,10 +188,11 @@
       "close_price": 619000,
       "profit_rate": -26.48,
       "profit_amount": -223000,
-      "high_price": 842000,
-      "high_time": "09:16",
-      "high_profit_rate": 0.0,
-      "high_profit_amount": 0
+      "high_price": 619000,
+      "high_time": "15:30",
+      "high_profit_rate": -26.48,
+      "high_profit_amount": -223000,
+      "high_price_adjusted": true
     },
     {
       "code": "003280",
@@ -256,10 +259,10 @@
     "total_value": 2442055,
     "total_profit": -600025,
     "total_profit_rate": -19.72,
-    "high_total_value": 3079860,
-    "high_total_profit": 37780,
-    "high_total_profit_rate": 1.24,
+    "high_total_value": 2491860,
+    "high_total_profit": -550220,
+    "high_total_profit_rate": -18.09,
     "high_profit_stocks": 3,
-    "high_loss_stocks": 0
+    "high_loss_stocks": 3
   }
 }

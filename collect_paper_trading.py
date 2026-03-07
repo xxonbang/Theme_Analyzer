@@ -388,8 +388,10 @@ def collect_paper_trading_data(
 
         # 매수 시점 이후 최고가 검증
         buy_time_str = morning_timestamp.split(" ")[1][:5] if " " in morning_timestamp else ""
+        post_buy_searched = False
         if high_time and buy_time_str and high_time <= buy_time_str:
             # 최고가가 매수 시점 이전/동일 분 → 매수 후 최고가 재탐색
+            post_buy_searched = True
             print(f"    ↳ 최고가({high_time}) ≤ 매수({buy_time_str}) → 매수 후 최고가 탐색")
             adjusted = find_high_price_after(client, code, buy_time_str)
             if adjusted:
@@ -404,7 +406,8 @@ def collect_paper_trading_data(
                 print(f"    ↳ 분봉 탐색 실패 → 종가({close_price:,}원) 적용")
 
         # 최종 안전장치: 매수가 > 고가 (데이터 소스 차이) 보정
-        if high_price < buy_price:
+        # 매수 후 재탐색 완료 시에는 적용하지 않음 (갭하락 종목은 매수 후 최고가 < 매수가가 정상)
+        if not post_buy_searched and high_price < buy_price:
             print(f"    ↳ 고가({high_price:,}) < 매수({buy_price:,}) → 매수가를 고가로 적용")
             high_price = buy_price
             if buy_time_str:
