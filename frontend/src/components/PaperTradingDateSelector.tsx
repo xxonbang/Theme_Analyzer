@@ -1,6 +1,7 @@
 import { CheckSquare, Square, CheckCheck, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
-import type { PaperTradingIndexEntry, PaperTradingData, PaperTradingMode } from "@/types/stock"
+import type { PaperTradingIndexEntry, PaperTradingData, PaperTradingMode, InvestMode } from "@/types/stock"
+import { calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
 
 interface PaperTradingDateSelectorProps {
   entries: PaperTradingIndexEntry[]
@@ -10,6 +11,7 @@ interface PaperTradingDateSelectorProps {
   onToggleDate: (date: string) => void
   onToggleAll: () => void
   mode: PaperTradingMode
+  investMode: InvestMode
 }
 
 export function PaperTradingDateSelector({
@@ -20,6 +22,7 @@ export function PaperTradingDateSelector({
   onToggleDate,
   onToggleAll,
   mode,
+  investMode,
 }: PaperTradingDateSelectorProps) {
   const allSelected = entries.length > 0 && selectedDates.size === entries.length
 
@@ -58,13 +61,17 @@ export function PaperTradingDateSelector({
             const profitCount = activeStocks.filter(s => rateOf(s) > 0).length
             const lossCount = activeStocks.filter(s => rateOf(s) < 0).length
             const flatCount = activeStocks.filter(s => rateOf(s) === 0).length
-            const totalInvested = activeStocks.reduce((sum, s) => sum + s.buy_price, 0)
-            const totalValue = mode === "high"
-              ? activeStocks.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
-              : activeStocks.reduce((sum, s) => sum + s.close_price, 0)
-            const activeProfitRate = totalInvested > 0
-              ? Math.round(((totalValue - totalInvested) / totalInvested) * 10000) / 100
-              : 0
+            const activeProfitRate = investMode === "equal"
+              ? calcEqualDayProfitRate(activeStocks, mode)
+              : (() => {
+                  const totalInvested = activeStocks.reduce((sum, s) => sum + s.buy_price, 0)
+                  const totalValue = mode === "high"
+                    ? activeStocks.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
+                    : activeStocks.reduce((sum, s) => sum + s.close_price, 0)
+                  return totalInvested > 0
+                    ? Math.round(((totalValue - totalInvested) / totalInvested) * 10000) / 100
+                    : 0
+                })()
             const isProfit = activeProfitRate > 0
             const isLoss = activeProfitRate < 0
             const sign = activeProfitRate >= 0 ? "+" : ""

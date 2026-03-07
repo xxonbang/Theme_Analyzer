@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { ExternalLink, X, Plus, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { PaperTradingStock, PaperTradingMode } from "@/types/stock"
+import type { PaperTradingStock, PaperTradingMode, InvestMode } from "@/types/stock"
+import { EQUAL_INVEST_AMOUNT } from "@/hooks/usePaperTradingData"
 
 interface PaperTradingStockCardProps {
   stock: PaperTradingStock
@@ -10,13 +11,17 @@ interface PaperTradingStockCardProps {
   onToggle: (date: string, code: string) => void
   morningTimestamp?: string
   mode: PaperTradingMode
+  investMode: InvestMode
 }
 
-export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode }: PaperTradingStockCardProps) {
+export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode }: PaperTradingStockCardProps) {
   const [expanded, setExpanded] = useState(false)
 
   const displayProfitRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
-  const displayProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
+  const rawProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
+  const displayProfitAmount = investMode === "equal"
+    ? Math.round(EQUAL_INVEST_AMOUNT * displayProfitRate / 100)
+    : rawProfitAmount
   const displaySellPrice = mode === "high" ? (stock.high_price ?? stock.close_price) : stock.close_price
 
   const isProfit = displayProfitRate > 0

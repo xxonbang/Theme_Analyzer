@@ -4,10 +4,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { PaperTradingStockCard } from "@/components/PaperTradingStockCard"
 import { PaperTradingSummary } from "@/components/PaperTradingSummary"
 import { PaperTradingDateSelector } from "@/components/PaperTradingDateSelector"
-import { usePaperTradingData } from "@/hooks/usePaperTradingData"
+import { usePaperTradingData, calcEqualWeightSummary, calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
-import type { PaperTradingData, PaperTradingMode } from "@/types/stock"
+import type { PaperTradingData, PaperTradingMode, InvestMode } from "@/types/stock"
 
 export function PaperTradingPage() {
   const {
@@ -28,11 +28,13 @@ export function PaperTradingPage() {
     excludedStocks,
     resetExcluded,
     selectBuyTimestamp,
+    activeStocks,
   } = usePaperTradingData()
 
   const { logActivity } = useAuth()
   const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState<PaperTradingMode>("close")
+  const [investMode, setInvestMode] = useState<InvestMode>("single")
 
   const handleModeChange = (mode: PaperTradingMode) => {
     setActiveTab(mode)
@@ -75,6 +77,10 @@ export function PaperTradingPage() {
     }
   }
 
+  const displaySummary = investMode === "equal"
+    ? calcEqualWeightSummary(activeStocks, selectedDates.size)
+    : summary
+
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* 헤더 */}
@@ -84,34 +90,62 @@ export function PaperTradingPage() {
           <h2 className="font-bold text-base sm:text-lg">AI 대장주 모의투자</h2>
         </div>
         <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 ml-7">
-          Gemini 선정 대장주 1주씩 매수 → {activeTab === "close" ? "장마감 종가" : "장중 최고가"} 매도
+          Gemini 선정 대장주 {investMode === "equal" ? "동일금액(100만)" : "1주씩"} 매수 → {activeTab === "close" ? "장마감 종가" : "장중 최고가"} 매도
         </p>
       </div>
 
-      {/* 매도 기준 탭 */}
-      <div className="flex rounded-lg bg-muted/50 p-1 gap-1">
-        <button
-          onClick={() => handleModeChange("close")}
-          className={cn(
-            "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
-            activeTab === "close"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground",
-          )}
-        >
-          종가 매도
-        </button>
-        <button
-          onClick={() => handleModeChange("high")}
-          className={cn(
-            "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
-            activeTab === "high"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground",
-          )}
-        >
-          최고가 매도
-        </button>
+      {/* 투자방식 + 매도기준 탭 */}
+      <div className="space-y-1.5">
+        {/* 투자방식 탭 */}
+        <div className="flex rounded-lg bg-muted/50 p-1 gap-1">
+          <button
+            onClick={() => setInvestMode("single")}
+            className={cn(
+              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+              investMode === "single"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            1주 매수
+          </button>
+          <button
+            onClick={() => setInvestMode("equal")}
+            className={cn(
+              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+              investMode === "equal"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            동일금액
+          </button>
+        </div>
+        {/* 매도 기준 탭 */}
+        <div className="flex rounded-lg bg-muted/50 p-1 gap-1">
+          <button
+            onClick={() => handleModeChange("close")}
+            className={cn(
+              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+              activeTab === "close"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            종가 매도
+          </button>
+          <button
+            onClick={() => handleModeChange("high")}
+            className={cn(
+              "flex-1 py-1.5 px-3 rounded-md text-xs sm:text-sm font-medium transition-all duration-150",
+              activeTab === "high"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            최고가 매도
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -122,7 +156,7 @@ export function PaperTradingPage() {
 
       {/* 종합 요약 */}
       {selectedDailyData.length > 0 && (
-        <PaperTradingSummary summary={summary} mode={activeTab} />
+        <PaperTradingSummary summary={displaySummary} mode={activeTab} />
       )}
 
       {/* 날짜 선택 */}
@@ -136,6 +170,7 @@ export function PaperTradingPage() {
             onToggleDate={toggleDate}
             onToggleAll={toggleAllDates}
             mode={activeTab}
+            investMode={investMode}
           />
         </CardContent>
       </Card>
@@ -144,13 +179,15 @@ export function PaperTradingPage() {
       {selectedDailyData.map(({ date, data }) => {
         const collapsed = collapsedDates.has(date)
         const activeStocksForDay = data.stocks.filter(s => !isStockExcluded(date, s.code))
-        const dayInvested = activeStocksForDay.reduce((sum, s) => sum + s.buy_price, 0)
-        const dayValue = activeTab === "high"
-          ? activeStocksForDay.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
-          : activeStocksForDay.reduce((sum, s) => sum + s.close_price, 0)
-        const dayProfitRate = dayInvested > 0
-          ? Math.round(((dayValue - dayInvested) / dayInvested) * 10000) / 100
-          : 0
+        const dayProfitRate = investMode === "equal"
+          ? calcEqualDayProfitRate(activeStocksForDay, activeTab)
+          : (() => {
+              const inv = activeStocksForDay.reduce((sum, s) => sum + s.buy_price, 0)
+              const val = activeTab === "high"
+                ? activeStocksForDay.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
+                : activeStocksForDay.reduce((sum, s) => sum + s.close_price, 0)
+              return inv > 0 ? Math.round(((val - inv) / inv) * 10000) / 100 : 0
+            })()
         const rawData = dailyData.get(date)
         const snapshots = rawData?.price_snapshots
         const currentSnapIdx = selectedSnapshotIndex.get(date) ?? 0
@@ -241,6 +278,7 @@ export function PaperTradingPage() {
                         onToggle={toggleStock}
                         morningTimestamp={data.morning_timestamp}
                         mode={activeTab}
+                        investMode={investMode}
                       />
                     ))}
                   </div>

@@ -245,6 +245,7 @@ export interface PaperTradingSummary {
 }
 
 export type PaperTradingMode = "close" | "high"
+export type InvestMode = "single" | "equal"
 
 export interface PaperTradingData {
   trade_date: string

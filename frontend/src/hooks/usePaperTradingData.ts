@@ -1,8 +1,64 @@
 import { useState, useCallback, useMemo } from "react"
-import type { PaperTradingData, PaperTradingIndexEntry, PaperTradingStock } from "@/types/stock"
+import type { PaperTradingData, PaperTradingIndexEntry, PaperTradingStock, PaperTradingMode } from "@/types/stock"
 
 const INDEX_URL = import.meta.env.BASE_URL + "data/paper-trading-index.json"
 const DATA_BASE_URL = import.meta.env.BASE_URL + "data/paper-trading/"
+
+// ── 동일금액 투자 계산 유틸 ──
+
+export const EQUAL_INVEST_AMOUNT = 1_000_000
+
+/** 동일금액 모드 종합 요약: 균등 가중 수익률 = (1/n) × Σ(종목별 수익률) */
+export function calcEqualWeightSummary(
+  activeStocks: PaperTradingStock[],
+  totalDays: number,
+) {
+  const n = activeStocks.length
+  const highRateOf = (s: PaperTradingStock) => s.high_profit_rate ?? s.profit_rate
+
+  const profitStocks = activeStocks.filter(s => s.profit_rate > 0).length
+  const lossStocks = activeStocks.filter(s => s.profit_rate < 0).length
+  const flatStocks = activeStocks.filter(s => s.profit_rate === 0).length
+
+  const highProfitStocks = activeStocks.filter(s => highRateOf(s) > 0).length
+  const highLossStocks = activeStocks.filter(s => highRateOf(s) < 0).length
+  const highFlatStocks = activeStocks.filter(s => highRateOf(s) === 0).length
+
+  const totalProfitRate = n > 0
+    ? Math.round(activeStocks.reduce((sum, s) => sum + s.profit_rate, 0) / n * 100) / 100
+    : 0
+  const highTotalProfitRate = n > 0
+    ? Math.round(activeStocks.reduce((sum, s) => sum + highRateOf(s), 0) / n * 100) / 100
+    : 0
+
+  const totalInvested = EQUAL_INVEST_AMOUNT * n
+  const totalProfit = Math.round(totalInvested * totalProfitRate / 100)
+  const totalValue = totalInvested + totalProfit
+  const highTotalProfit = Math.round(totalInvested * highTotalProfitRate / 100)
+  const highTotalValue = totalInvested + highTotalProfit
+
+  return {
+    totalDays,
+    totalStocks: n,
+    profitStocks, lossStocks, flatStocks,
+    totalInvested, totalValue, totalProfit, totalProfitRate,
+    highTotalValue, highTotalProfit, highTotalProfitRate,
+    highProfitStocks, highLossStocks, highFlatStocks,
+  }
+}
+
+/** 동일금액 모드 일별 수익률: 종목별 수익률 단순 평균 */
+export function calcEqualDayProfitRate(
+  activeStocks: { profit_rate: number; high_profit_rate?: number }[],
+  mode: PaperTradingMode,
+): number {
+  if (activeStocks.length === 0) return 0
+  const rateOf = (s: typeof activeStocks[number]) =>
+    mode === "high" ? (s.high_profit_rate ?? s.profit_rate) : s.profit_rate
+  return Math.round(
+    activeStocks.reduce((sum, s) => sum + rateOf(s), 0) / activeStocks.length * 100,
+  ) / 100
+}
 
 // 날짜별 제외 키: "2026-02-10:056080"
 function stockKey(date: string, code: string) {
