@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2 } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -11,7 +11,8 @@ import { TradingChartPopup } from "@/components/TradingChartPopup"
 import { InvestorChartPopup } from "@/components/InvestorChartPopup"
 import { InvestorSchedulePopup } from "@/components/InvestorSchedulePopup"
 import { Sparkline } from "@/components/Sparkline"
-import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday } from "@/types/stock"
+import { VolumeProfilePopup } from "@/components/VolumeProfilePopup"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile } from "@/types/stock"
 
 interface StockCardProps {
   stock: Stock
@@ -26,14 +27,16 @@ interface StockCardProps {
   investorIntraday?: InvestorIntraday
   isAdmin?: boolean
   dataTimestamp?: string
+  volumeProfile?: StockVolumeProfile
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
   const [showTradingChart, setShowTradingChart] = useState(false)
   const [showInvestorChart, setShowInvestorChart] = useState(false)
+  const [showVolumeProfile, setShowVolumeProfile] = useState(false)
   const [showSchedule, setShowSchedule] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
@@ -465,6 +468,27 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           )}
 
         </div>
+
+        {/* 매물대 버튼 */}
+        {volumeProfile && (
+          <div className="pt-1.5 border-t border-border/30">
+            <button
+              onClick={() => setShowVolumeProfile(true)}
+              className="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground hover:text-amber-600 transition-colors"
+            >
+              <BarChart3 className="w-3.5 h-3.5 text-amber-500/60" />
+              <span className="font-semibold tracking-wider">매물대</span>
+            </button>
+          </div>
+        )}
+        {showVolumeProfile && volumeProfile && (
+          <VolumeProfilePopup
+            stockName={stock.name}
+            stockPrice={stock.current_price}
+            volumeProfile={volumeProfile}
+            onClose={() => setShowVolumeProfile(false)}
+          />
+        )}
 
         {/* News Section (3차 정보 — 토글) */}
         {hasNews && (

@@ -263,6 +263,18 @@ export interface PaperTradingIndexEntry {
   stock_count: number
 }
 
+// 매물대(Volume Profile) 관련 타입
+export interface VolumeProfileBin { price: number; volume: number }
+export interface VolumeProfile {
+  price_low: number; price_high: number; bin_size: number
+  bins: VolumeProfileBin[]; poc_price: number; poc_volume: number; candle_count: number
+}
+export type VolumeProfilePeriod = "1y" | "6m" | "3m" | "1m" | "1w" | "today"
+export type StockVolumeProfile = Partial<Record<VolumeProfilePeriod, VolumeProfile>>
+export interface VolumeProfileData {
+  updated_at: string; mode: string; profiles: Record<string, StockVolumeProfile>
+}
+
 // 유망 테마 예측 관련 타입
 export interface ForecastStock {
   priority: number

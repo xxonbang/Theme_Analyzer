@@ -73,6 +73,14 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: python main.py --test --skip-ai 2>&1 | tee /tmp/task.log
 
+      - name: Collect intraday volume profile
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python collect_volume_profile.py --intraday 2>&1 | tee -a /tmp/task.log
+
       - name: Save KIS token cache
         if: always()
         uses: actions/cache/save@v4
@@ -91,6 +99,7 @@ jobs:
             cp frontend/public/data/latest.json /tmp/data_backup/
             [ -f frontend/public/data/history-index.json ] && cp frontend/public/data/history-index.json /tmp/data_backup/
             [ -d frontend/public/data/history ] && cp -r frontend/public/data/history /tmp/data_backup/
+            [ -f frontend/public/data/volume-profile.json ] && cp frontend/public/data/volume-profile.json /tmp/data_backup/
 
             # push 경합 시 최대 3회 재시도
             for attempt in 1 2 3; do
@@ -109,10 +118,12 @@ jobs:
               python3 scripts/merge_workflow_data.py merge-investor
               [ -f /tmp/data_backup/history-index.json ] && cp /tmp/data_backup/history-index.json frontend/public/data/
               [ -d /tmp/data_backup/history ] && cp -r /tmp/data_backup/history frontend/public/data/
+              [ -f /tmp/data_backup/volume-profile.json ] && cp /tmp/data_backup/volume-profile.json frontend/public/data/
 
               git add frontend/public/data/latest.json
               [ -f frontend/public/data/history-index.json ] && git add frontend/public/data/history-index.json
               git add frontend/public/data/history/*.json 2>/dev/null || true
+              [ -f frontend/public/data/volume-profile.json ] && git add frontend/public/data/volume-profile.json
 
               if git diff --staged --quiet; then
                 echo "No changes to commit"

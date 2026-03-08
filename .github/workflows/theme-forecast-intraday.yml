@@ -64,6 +64,32 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: python forecast_main.py --intraday 2>&1 | tee /tmp/task.log
 
+      - name: Get date for cache key
+        id: cache-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Restore KIS token cache
+        uses: actions/cache@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
+          restore-keys: kis-token-
+
+      - name: Collect intraday volume profile
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python collect_volume_profile.py --intraday 2>&1 | tee -a /tmp/task.log
+
+      - name: Save KIS token cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
+
       - name: Commit forecast data
         run: |
           git config user.name "github-actions[bot]"
@@ -74,6 +100,7 @@ jobs:
             cp frontend/public/data/theme-forecast.json /tmp/theme-forecast-collected.json
             cp -r frontend/public/data/forecast-history/ /tmp/forecast-history-collected/ 2>/dev/null || true
             cp frontend/public/data/forecast-history-index.json /tmp/forecast-history-index-collected.json 2>/dev/null || true
+            [ -f frontend/public/data/volume-profile.json ] && cp frontend/public/data/volume-profile.json /tmp/volume-profile-collected.json || true
 
             # push 경합 시 최대 3회 재시도
             for attempt in 1 2 3; do
@@ -93,6 +120,8 @@ jobs:
               fi
               git add frontend/public/data/theme-forecast.json
               git add frontend/public/data/forecast-history/ frontend/public/data/forecast-history-index.json 2>/dev/null || true
+              [ -f /tmp/volume-profile-collected.json ] && cp /tmp/volume-profile-collected.json frontend/public/data/volume-profile.json
+              [ -f frontend/public/data/volume-profile.json ] && git add frontend/public/data/volume-profile.json
 
               if git diff --staged --quiet; then
                 echo "No changes to commit"
