@@ -2,7 +2,7 @@ name: Backtest Predictions
 
 on:
   # 외부 cron-job(workflow_dispatch)으로 실행:
-  #   KST 18:00 (월~금) — ⚠️ cron-job 미등록, 등록 필요
+  #   KST 18:00 (월~금)
   # schedule:
   #   - cron: '0 9 * * 1-5'
   workflow_dispatch:
@@ -34,8 +34,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          cache: 'pip'
+          python-version: "3.11"
+          cache: "pip"
 
       - name: Install dependencies
         run: pip install -r requirements.txt
