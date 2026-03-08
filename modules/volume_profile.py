@@ -227,7 +227,7 @@ def collect_full(
         "6m": (now - timedelta(days=182)).strftime("%Y%m%d"),
         "3m": (now - timedelta(days=91)).strftime("%Y%m%d"),
         "1m": (now - timedelta(days=30)).strftime("%Y%m%d"),
-        "1w": (now - timedelta(days=7)).strftime("%Y%m%d"),
+        "1w": (now - timedelta(days=10)).strftime("%Y%m%d"),
     }
 
     result = {}
