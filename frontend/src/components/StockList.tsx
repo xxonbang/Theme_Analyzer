@@ -336,8 +336,8 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             </span>
           )}
         </a>
-        {/* 매물대 버튼 */}
-        {volumeProfile && (
+        {/* 매물대 버튼 (admin만) */}
+        {isAdmin && volumeProfile && (
           <button
             onClick={() => setShowVolumeProfile(true)}
             className="text-[9px] text-muted-foreground hover:text-amber-600 transition-colors w-6 text-center"
