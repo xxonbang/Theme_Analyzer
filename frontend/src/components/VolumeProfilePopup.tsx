@@ -55,8 +55,8 @@ function mergeBins(originalBins: VolumeProfileBin[], targetCount: number): { bin
   return { bins: merged, pocPrice: poc.price }
 }
 
-function VolumeChart({ bins, pocPrice, binSize, currentPrice, selectedIdx, onSelect }: {
-  bins: VolumeProfileBin[]; pocPrice: number; binSize: number; currentPrice: number
+function VolumeChart({ bins, pocPrice, currentPrice, selectedIdx, onSelect }: {
+  bins: VolumeProfileBin[]; pocPrice: number; currentPrice: number
   selectedIdx: number | null; onSelect: (idx: number | null) => void
 }) {
   const sorted = [...bins].reverse()
@@ -69,10 +69,19 @@ function VolumeChart({ bins, pocPrice, binSize, currentPrice, selectedIdx, onSel
   const plotH = barCount * barH + Math.max(barCount - 1, 0) * gap
   const chartH = plotH + PAD.top + PAD.bottom
 
-  const currentBinIdx = sorted.findIndex(b => {
-    const half = binSize / 2
-    return currentPrice >= b.price - half && currentPrice < b.price + half
-  })
+  // 현재가 Y 좌표: 가격 스케일에서 보간 (바에 종속되지 않음)
+  const currentPriceY = useMemo(() => {
+    if (barCount < 2) return null
+    const topY = PAD.top + barH / 2
+    const bottomY = PAD.top + (barCount - 1) * (barH + gap) + barH / 2
+    const highPrice = sorted[0].price
+    const lowPrice = sorted[barCount - 1].price
+    if (highPrice <= lowPrice) return null
+    if (currentPrice > highPrice + (highPrice - lowPrice) * 0.1) return null
+    if (currentPrice < lowPrice - (highPrice - lowPrice) * 0.1) return null
+    const ratio = (highPrice - currentPrice) / (highPrice - lowPrice)
+    return topY + ratio * (bottomY - topY)
+  }, [sorted, currentPrice, barCount, barH, gap])
 
   return (
     <svg viewBox={`0 0 ${CHART_W} ${chartH}`} className="w-full h-auto">
@@ -109,7 +118,6 @@ function VolumeChart({ bins, pocPrice, binSize, currentPrice, selectedIdx, onSel
         const y = PAD.top + i * (barH + gap)
         const w = (b.volume / maxVol) * PLOT_W
         const isPoc = b.price === pocPrice
-        const isCurrent = i === currentBinIdx
         const isSelected = i === selectedIdx
         const pct = ((b.volume / totalVol) * 100).toFixed(1) + "%"
         return (
@@ -159,27 +167,25 @@ function VolumeChart({ bins, pocPrice, binSize, currentPrice, selectedIdx, onSel
                 POC
               </text>
             )}
-            {/* 현재가 마커 */}
-            {isCurrent && (
-              <>
-                <line
-                  x1={PAD.left} y1={y + barH / 2}
-                  x2={PAD.left + PLOT_W} y2={y + barH / 2}
-                  stroke="#3b82f6" strokeWidth={1.5} strokeDasharray="4,3" strokeOpacity={0.8}
-                />
-                {!isPoc && (
-                  <text
-                    x={CHART_W - PAD.right + 4} y={y + barH / 2 + 3}
-                    fontSize={8} fontWeight="600" fill="#3b82f6" opacity={0.9}
-                  >
-                    현재
-                  </text>
-                )}
-              </>
-            )}
           </g>
         )
       })}
+      {/* 현재가 마커 — 가격 스케일 기준 보간 위치 */}
+      {currentPriceY !== null && (
+        <>
+          <line
+            x1={PAD.left} y1={currentPriceY}
+            x2={PAD.left + PLOT_W} y2={currentPriceY}
+            stroke="#3b82f6" strokeWidth={1.5} strokeDasharray="4,3" strokeOpacity={0.8}
+          />
+          <text
+            x={CHART_W - PAD.right + 4} y={currentPriceY + 3}
+            fontSize={8} fontWeight="600" fill="#3b82f6" opacity={0.9}
+          >
+            현재
+          </text>
+        </>
+      )}
     </svg>
   )
 }
@@ -207,11 +213,6 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
     const { bins, pocPrice } = mergeBins(activeProfile.bins, binCount)
     return { displayBins: bins, displayPocPrice: pocPrice }
   }, [activeProfile, binCount])
-
-  const displayBinSize = useMemo(() => {
-    if (!activeProfile || displayBins.length < 2) return activeProfile?.bin_size ?? 0
-    return Math.abs(displayBins[1].price - displayBins[0].price)
-  }, [activeProfile, displayBins])
 
   useEffect(() => { setSelectedIdx(null) }, [activePeriod, binCount])
 
@@ -314,7 +315,6 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
               <VolumeChart
                 bins={displayBins}
                 pocPrice={displayPocPrice}
-                binSize={displayBinSize}
                 currentPrice={stockPrice}
                 selectedIdx={selectedIdx}
                 onSelect={setSelectedIdx}
