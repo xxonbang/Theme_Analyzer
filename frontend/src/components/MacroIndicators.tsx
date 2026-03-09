@@ -12,8 +12,8 @@ interface MacroIndicatorsProps {
   onRequestHistory?: () => void
 }
 
-const SUMMARY_SYMBOLS = ["NQ=F", "069500", "EWY", "KORU"]
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200" }
+const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "EWY", "KORU"]
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200F": "K200F" }
 const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
 
 function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
@@ -207,9 +207,11 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           {data.indicators.map((item) => {
             const isUp = item.change_pct > 0
             const isDown = item.change_pct < 0
-            const priceStr = item.source === "kis_domestic"
-              ? item.price.toLocaleString()
-              : item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            const priceStr = item.source === "kis_futures"
+              ? item.price.toFixed(2)
+              : item.source === "kis_overseas" || item.source === "yfinance"
+                ? item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                : item.price.toLocaleString()
             const accent = isUp ? "border-l-red-500/60" : isDown ? "border-l-blue-500/60" : "border-l-border"
 
             return (

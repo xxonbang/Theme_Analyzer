@@ -210,6 +210,65 @@ class ExchangeRateAPI:
         return "\n".join(lines)
 
 
+def get_quick_exchange_rates() -> dict | None:
+    """무료 API로 주요 환율 빠르게 수집 (장 시작 전 사용).
+
+    수집 전략:
+      1순위: api.exchangerate.fun — 매시간 갱신, 키 불필요
+      2순위: open.er-api.com — 일 1회 갱신, 키 불필요
+      3순위: 한국수출입은행 (기존 ExchangeRateAPI)
+    """
+    currencies = {"USD": 1, "JPY": 100, "EUR": 1, "CNY": 1}
+
+    # 1순위: FreeExchangeRateApi
+    try:
+        resp = requests.get("https://api.exchangerate.fun/latest?base=USD", timeout=10)
+        if resp.ok:
+            data = resp.json()
+            rates_data = data.get("rates", {})
+            krw = rates_data.get("KRW")
+            if krw and krw > 0:
+                result = {}
+                for cur, unit in currencies.items():
+                    cur_rate = rates_data.get(cur, 1) if cur != "USD" else 1
+                    if cur_rate and cur_rate > 0:
+                        result[cur] = round(krw / cur_rate * unit, 2)
+                return {"source": "exchangerate.fun", "rates": result}
+    except Exception:
+        pass
+
+    # 2순위: ExchangeRate-API
+    try:
+        resp = requests.get("https://open.er-api.com/v6/latest/USD", timeout=10)
+        if resp.ok:
+            data = resp.json()
+            rates_data = data.get("rates", {})
+            krw = rates_data.get("KRW")
+            if krw and krw > 0:
+                result = {}
+                for cur, unit in currencies.items():
+                    cur_rate = rates_data.get(cur, 1) if cur != "USD" else 1
+                    if cur_rate and cur_rate > 0:
+                        result[cur] = round(krw / cur_rate * unit, 2)
+                return {"source": "open.er-api.com", "rates": result}
+    except Exception:
+        pass
+
+    # 3순위: 한국수출입은행
+    try:
+        api = ExchangeRateAPI()
+        data = api.get_exchange_rates()
+        if data.get("rates"):
+            result = {}
+            for r in data["rates"]:
+                result[r["currency"]] = r["rate"]
+            return {"source": "koreaexim", "rates": result}
+    except Exception:
+        pass
+
+    return None
+
+
 if __name__ == "__main__":
     # 테스트
     api = ExchangeRateAPI()

@@ -75,6 +75,14 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: python collect_volume_profile.py 2>&1 | tee -a /tmp/task.log
 
+      - name: Collect intraday history
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python collect_intraday_history.py 2>&1 | tee -a /tmp/task.log
+
       - name: Save KIS token cache
         if: always()
         uses: actions/cache/save@v4
@@ -92,6 +100,7 @@ jobs:
           [ -d frontend/public/data/paper-trading ] && cp -r frontend/public/data/paper-trading /tmp/data_backup/
           [ -f frontend/public/data/paper-trading-index.json ] && cp frontend/public/data/paper-trading-index.json /tmp/data_backup/
           [ -f frontend/public/data/volume-profile.json ] && cp frontend/public/data/volume-profile.json /tmp/data_backup/
+          [ -f frontend/public/data/intraday-history.json ] && cp frontend/public/data/intraday-history.json /tmp/data_backup/
 
           # push 경합 시 최대 3회 재시도
           for attempt in 1 2 3; do
@@ -104,10 +113,12 @@ jobs:
             [ -d /tmp/data_backup/paper-trading ] && cp -r /tmp/data_backup/paper-trading frontend/public/data/
             [ -f /tmp/data_backup/paper-trading-index.json ] && cp /tmp/data_backup/paper-trading-index.json frontend/public/data/
             [ -f /tmp/data_backup/volume-profile.json ] && cp /tmp/data_backup/volume-profile.json frontend/public/data/
+            [ -f /tmp/data_backup/intraday-history.json ] && cp /tmp/data_backup/intraday-history.json frontend/public/data/
 
             git add frontend/public/data/paper-trading/*.json 2>/dev/null || true
             [ -f frontend/public/data/paper-trading-index.json ] && git add frontend/public/data/paper-trading-index.json
             [ -f frontend/public/data/volume-profile.json ] && git add frontend/public/data/volume-profile.json
+            [ -f frontend/public/data/intraday-history.json ] && git add frontend/public/data/intraday-history.json
 
             if git diff --staged --quiet; then
               echo "No changes to commit"

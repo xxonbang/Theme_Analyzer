@@ -3,8 +3,9 @@
 
 수집 항목:
   - NQ=F (나스닥100 선물) — yfinance
-  - KODEX200 (069500) — KIS 국내
+  - KOSPI200 선물 (근월물) — KIS 국내선물
   - MU, SOXX, EWY, KORU — KIS 해외
+  - USD, JPY, EUR, CNY 환율 — 다중 소스
 
 사용법:
   python collect_macro_indicators.py          # 수집 + 저장
@@ -19,6 +20,7 @@ from datetime import datetime
 from pathlib import Path
 
 from modules.kis_client import KISClient
+from modules.exchange_rate import get_quick_exchange_rates
 
 ROOT_DIR = Path(__file__).parent
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "macro-indicators.json"
@@ -59,28 +61,74 @@ def collect_nq_futures() -> dict | None:
         return None
 
 
-def collect_domestic(client: KISClient, code: str, name: str) -> dict | None:
-    """KIS 국내 현재가 API로 수집."""
+def get_kospi200_futures_code() -> str:
+    """현재 근월물 종목코드 계산 (분기월: 3,6,9,12)"""
+    now = datetime.now()
+    month_codes = {3: "H", 6: "M", 9: "U", 12: "Z"}
+    quarter_months = [3, 6, 9, 12]
+    year_2d = now.strftime("%y")
+    for qm in quarter_months:
+        if now.month <= qm:
+            return f"101{month_codes[qm]}{year_2d}"
+    # 12월 지나면 다음해 3월물
+    return f"101H{int(year_2d) + 1:02d}"
+
+
+def collect_kospi200_futures(client: KISClient) -> dict | None:
+    """KIS 국내선물 API로 KOSPI200 선물 현재가 수집.
+
+    1순위: 호가 API (장중 실시간)
+    2순위: 현재가 API output3 (장외 시 KOSPI200 지수)
+    """
+    code = get_kospi200_futures_code()
     try:
-        resp = client.get_stock_price(code)
-        if resp.get("rt_cd") != "0":
-            print(f"  [오류] {name}({code}): {resp.get('msg1', '')}")
-            return None
-        out = resp.get("output", {})
-        price = int(out.get("stck_prpr", 0))
-        change = int(out.get("prdy_vrss", 0))
-        change_pct = float(out.get("prdy_ctrt", 0))
-        return {
-            "symbol": code,
-            "name": name,
-            "price": price,
-            "change": change,
-            "change_pct": change_pct,
-            "source": "kis_domestic",
-        }
+        # 1순위: 호가 API (장중)
+        path = "/uapi/domestic-futureoption/v1/quotations/inquire-asking-price"
+        tr_id = "FHMIF10010000"
+        params = {"FID_COND_MRKT_DIV_CODE": "F", "FID_INPUT_ISCD": code}
+        resp = client.request("GET", path, tr_id, params=params)
+        if resp.get("rt_cd") == "0":
+            out = resp.get("output1", {})
+            price = float(out.get("futs_prpr", 0))
+            if price > 0:
+                change = float(out.get("futs_prdy_vrss", 0))
+                prev = price - change
+                change_pct = round(change / prev * 100, 2) if prev else 0
+                return {
+                    "symbol": "KOSPI200F",
+                    "name": f"코스피200 F {code}",
+                    "price": price,
+                    "change": change,
+                    "change_pct": change_pct,
+                    "source": "kis_futures",
+                }
     except Exception as e:
-        print(f"  [오류] {name}({code}): {e}")
-        return None
+        print(f"  [참고] 호가 API 실패, fallback 시도: {e}")
+
+    try:
+        # 2순위: 현재가 API output3 (KOSPI200 지수)
+        path = "/uapi/domestic-futureoption/v1/quotations/inquire-price"
+        tr_id = "FHMIF10000000"
+        params = {"FID_COND_MRKT_DIV_CODE": "F", "FID_INPUT_ISCD": code}
+        resp = client.request("GET", path, tr_id, params=params)
+        if resp.get("rt_cd") == "0":
+            out3 = resp.get("output3", {})
+            price = float(out3.get("bstp_nmix_prpr", 0))
+            if price > 0:
+                change = float(out3.get("bstp_nmix_prdy_vrss", 0))
+                change_pct = float(out3.get("bstp_nmix_prdy_ctrt", 0))
+                return {
+                    "symbol": "KOSPI200F",
+                    "name": "코스피200 (지수)",
+                    "price": price,
+                    "change": change,
+                    "change_pct": change_pct,
+                    "source": "kis_futures",
+                }
+    except Exception as e:
+        print(f"  [오류] KOSPI200F: {e}")
+
+    return None
 
 
 def collect_overseas(client: KISClient, code: str, exchange: str, name: str) -> dict | None:
@@ -131,12 +179,12 @@ def main():
     # 2. KIS 클라이언트
     client = KISClient()
 
-    # 3. KODEX200 (국내)
-    print("  069500 (KODEX200)...")
-    kodex = collect_domestic(client, "069500", "KODEX200 선물")
-    if kodex:
-        indicators.append(kodex)
-        print(f"    → {kodex['price']} ({kodex['change']:+}, {kodex['change_pct']:+.2f}%)")
+    # 3. KOSPI200 선물
+    print("  KOSPI200 선물...")
+    futures = collect_kospi200_futures(client)
+    if futures:
+        indicators.append(futures)
+        print(f"    → {futures['price']} ({futures['change']:+.2f}, {futures['change_pct']:+.2f}%)")
 
     # 4. 해외 종목
     for code, exchange, name in OVERSEAS_ITEMS:
@@ -147,11 +195,20 @@ def main():
             print(f"    → {item['price']} ({item['change']:+.2f}, {item['change_pct']:+.2f}%)")
         time.sleep(0.3)
 
+    # 5. 환율 (다중 소스)
+    print("  환율 수집...")
+    exchange = get_quick_exchange_rates()
+    if exchange:
+        print(f"    → 소스: {exchange['source']}, {len(exchange['rates'])}개 통화")
+    else:
+        print("    → 환율 수집 실패")
+
     print(f"  수집 완료: {len(indicators)}/6")
 
     output = {
         "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "indicators": indicators,
+        "exchange": exchange,
     }
 
     if test_mode:

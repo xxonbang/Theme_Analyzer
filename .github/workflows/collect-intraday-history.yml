@@ -1,0 +1,100 @@
+name: Collect Intraday History
+
+on:
+  # 외부 cron-job(workflow_dispatch)으로 실행 (월~금):
+  #   KST 09:30, 10:00, 11:00, 12:00, 13:00, 14:00, 15:00 (7회)
+  #   11:30은 refresh-data.yml, 15:40은 collect-paper-trading.yml에서 추가 수집
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    concurrency:
+      group: intraday-history
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Get date for cache key
+        id: cache-date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Restore KIS token cache
+        uses: actions/cache@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
+          restore-keys: kis-token-
+
+      - name: Collect intraday history
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python collect_intraday_history.py 2>&1 | tee /tmp/task.log
+
+      - name: Save KIS token cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ steps.cache-date.outputs.date }}
+
+      - name: Commit data to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 수집된 데이터 백업
+          mkdir -p /tmp/data_backup
+          [ -f frontend/public/data/intraday-history.json ] && cp frontend/public/data/intraday-history.json /tmp/data_backup/
+
+          # push 경합 시 최대 3회 재시도
+          for attempt in 1 2 3; do
+            echo "=== Push attempt $attempt ==="
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            # 수집된 데이터 복원
+            [ -f /tmp/data_backup/intraday-history.json ] && cp /tmp/data_backup/intraday-history.json frontend/public/data/
+
+            [ -f frontend/public/data/intraday-history.json ] && git add frontend/public/data/intraday-history.json
+
+            if git diff --staged --quiet; then
+              echo "No changes to commit"
+              exit 0
+            fi
+
+            KST_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
+            git commit -m "Collect intraday history - $KST_TIME KST"
+
+            if git push origin main; then
+              echo "Intraday history committed and pushed"
+              exit 0
+            fi
+
+            echo "Push failed (attempt $attempt), retrying in 5s..."
+            sleep 5
+          done
+
+          echo "Push failed after 3 attempts"
+          exit 1

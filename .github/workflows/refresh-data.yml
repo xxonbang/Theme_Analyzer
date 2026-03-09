@@ -81,6 +81,14 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: python collect_volume_profile.py --intraday 2>&1 | tee -a /tmp/task.log
 
+      - name: Collect intraday history
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python collect_intraday_history.py 2>&1 | tee -a /tmp/task.log
+
       - name: Collect macro indicators
         env:
           KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
@@ -108,6 +116,7 @@ jobs:
             [ -f frontend/public/data/volume-profile.json ] && cp frontend/public/data/volume-profile.json /tmp/data_backup/
             [ -f frontend/public/data/macro-indicators.json ] && cp frontend/public/data/macro-indicators.json /tmp/data_backup/
             [ -f frontend/public/data/indicator-history.json ] && cp frontend/public/data/indicator-history.json /tmp/data_backup/
+            [ -f frontend/public/data/intraday-history.json ] && cp frontend/public/data/intraday-history.json /tmp/data_backup/
 
             # push 경합 시 최대 3회 재시도
             for attempt in 1 2 3; do
@@ -129,6 +138,7 @@ jobs:
               [ -f /tmp/data_backup/volume-profile.json ] && cp /tmp/data_backup/volume-profile.json frontend/public/data/
               [ -f /tmp/data_backup/macro-indicators.json ] && cp /tmp/data_backup/macro-indicators.json frontend/public/data/
               [ -f /tmp/data_backup/indicator-history.json ] && cp /tmp/data_backup/indicator-history.json frontend/public/data/
+              [ -f /tmp/data_backup/intraday-history.json ] && cp /tmp/data_backup/intraday-history.json frontend/public/data/
 
               git add frontend/public/data/latest.json
               [ -f frontend/public/data/history-index.json ] && git add frontend/public/data/history-index.json
@@ -136,6 +146,7 @@ jobs:
               [ -f frontend/public/data/volume-profile.json ] && git add frontend/public/data/volume-profile.json
               [ -f frontend/public/data/macro-indicators.json ] && git add frontend/public/data/macro-indicators.json
               [ -f frontend/public/data/indicator-history.json ] && git add frontend/public/data/indicator-history.json
+              [ -f frontend/public/data/intraday-history.json ] && git add frontend/public/data/intraday-history.json
 
               if git diff --staged --quiet; then
                 echo "No changes to commit"
