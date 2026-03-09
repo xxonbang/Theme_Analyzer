@@ -557,8 +557,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                     })}
                   </div>
                   {selectedGcKey && GOLDEN_CROSS_LABELS[selectedGcKey] && (
-                    <div className="text-[9px] text-muted-foreground bg-muted/30 rounded-md p-2">
-                      {GOLDEN_CROSS_LABELS[selectedGcKey].description}
+                    <div className="text-[9px] text-muted-foreground bg-muted/30 rounded-md p-2 space-y-1">
+                      <p className="font-medium text-foreground/70">{GOLDEN_CROSS_LABELS[selectedGcKey].description}</p>
+                      <p>{GOLDEN_CROSS_LABELS[selectedGcKey].detail}</p>
                     </div>
                   )}
                 </div>

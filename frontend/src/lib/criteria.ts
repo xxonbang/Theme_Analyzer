@@ -15,15 +15,15 @@ export const CRITERIA_CONFIG = [
   { key: "reverse_alignment", dot: "bg-indigo-500", badge: "bg-indigo-500/15 text-indigo-700", label: "역배열 경고", shortLabel: "역배열", warning: true, description: "이동평균선이 역배열(60일 > 20일 > 5일) 상태로 하락 추세입니다." },
 ] as const
 
-/** 골든크로스 7개 지표 라벨 + 설명 */
-export const GOLDEN_CROSS_LABELS: Record<string, { label: string; description: string }> = {
-  ema_5_20: { label: "EMA", description: "EMA 5일선이 20일선을 상향 돌파 (단기 추세 전환)" },
-  macd: { label: "MACD", description: "MACD선이 시그널선을 상향 돌파 (매수 모멘텀)" },
-  stochastic: { label: "스토캐스틱", description: "스토캐스틱 과매도(≤20) 구간에서 상향 크로스" },
-  rsi: { label: "RSI", description: "RSI가 30선을 상향 돌파 (과매도 탈출)" },
-  bollinger: { label: "볼린저", description: "종가가 볼린저밴드 중심선(SMA20)을 상향 돌파" },
-  dmi: { label: "DMI", description: "+DI가 -DI를 상향 돌파 (상승 추세 전환)" },
-  obv: { label: "OBV", description: "OBV가 20일 이동평균을 상향 돌파 (거래량 뒷받침)" },
+/** 골든크로스 7개 지표 라벨 + 시그널 설명 + 용어 해설 */
+export const GOLDEN_CROSS_LABELS: Record<string, { label: string; description: string; detail: string }> = {
+  ema_5_20: { label: "EMA", description: "EMA 5일선이 20일선을 상향 돌파 (단기 추세 전환)", detail: "지수이동평균(Exponential Moving Average). 최근 가격에 더 큰 가중치를 부여하는 이동평균선으로, 단순이동평균(SMA)보다 가격 변화에 빠르게 반응합니다." },
+  macd: { label: "MACD", description: "MACD선이 시그널선을 상향 돌파 (매수 모멘텀)", detail: "이동평균수렴확산(Moving Average Convergence Divergence). 단기 EMA(12일)와 장기 EMA(26일)의 차이로 추세의 방향과 강도를 측정합니다. 시그널선은 MACD의 9일 EMA입니다." },
+  stochastic: { label: "스토캐스틱", description: "스토캐스틱 과매도(≤20) 구간에서 상향 크로스", detail: "스토캐스틱 오실레이터(Stochastic Oscillator). 일정 기간의 가격 범위에서 현재가의 위치를 0~100으로 표시합니다. 20 이하는 과매도, 80 이상은 과매수 구간입니다." },
+  rsi: { label: "RSI", description: "RSI가 30선을 상향 돌파 (과매도 탈출)", detail: "상대강도지수(Relative Strength Index). 일정 기간 상승폭과 하락폭의 비율을 0~100으로 표시합니다. 30 이하는 과매도, 70 이상은 과매수로 판단합니다." },
+  bollinger: { label: "볼린저", description: "종가가 볼린저밴드 중심선(SMA20)을 상향 돌파", detail: "볼린저 밴드(Bollinger Bands). 20일 이동평균선을 중심으로 표준편차 ×2를 상하에 배치한 밴드입니다. 가격이 밴드를 벗어나면 과매수/과매도로 판단합니다." },
+  dmi: { label: "DMI", description: "+DI가 -DI를 상향 돌파 (상승 추세 전환)", detail: "방향성지수(Directional Movement Index). +DI(상승방향지표)와 -DI(하락방향지표)로 추세의 방향을 판단합니다. ADX는 추세의 강도를 나타냅니다." },
+  obv: { label: "OBV", description: "OBV가 20일 이동평균을 상향 돌파 (거래량 뒷받침)", detail: "거래량균형지표(On Balance Volume). 상승일 거래량은 더하고 하락일 거래량은 빼서 누적한 값입니다. 가격 변동에 거래량이 뒷받침되는지 확인합니다." },
 }
 
 /** 특수 기준 설명 (CRITERIA_CONFIG에 포함되지 않는 항목) */
