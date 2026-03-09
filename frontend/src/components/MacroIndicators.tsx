@@ -12,8 +12,8 @@ interface MacroIndicatorsProps {
   onRequestHistory?: () => void
 }
 
-const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "EWY", "KORU"]
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200F": "K200F" }
+const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "069500", "EWY", "KORU"]
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200F": "K200F", "069500": "K200F" }
 const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
 
 function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {

@@ -252,7 +252,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               </div>
               {/* 스파크라인 + bottom sheet */}
               {history?.changes && history.changes.length > 1 && (() => {
-                const reversed = [...history.changes].reverse()
+                const reversed = [...history.changes].slice(0, 11).reverse()
                 const tradingSparkData = reversed.map((c, i) =>
                   i === reversed.length - 1 ? (stock.trading_value ?? c.trading_value ?? 0) : (c.trading_value ?? 0)
                 )
@@ -347,7 +347,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                             <span className={cn("w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0", d.color)} />
                             <span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span>
                           </span>
-                          <span className={cn("text-[11px] sm:text-sm font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val, 0)}</span>
+                          <span className={cn("text-[10px] sm:text-sm font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val, 0)}</span>
                         </span>
                       ))}
                     </div>

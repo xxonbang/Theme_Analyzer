@@ -279,7 +279,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
         >
           {history?.changes && history.changes.length > 1 && (
             <Sparkline
-              data={[...history.changes].reverse().map(c => c.trading_value ?? 0)}
+              data={[...history.changes].slice(0, 11).reverse().map(c => c.trading_value ?? 0)}
               color="#f59e0b"
               width={48}
               height={14}
