@@ -20,11 +20,6 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
     return null
   }
 
-  const formatDate = (dateStr: string) => {
-    if (!dateStr || dateStr.length !== 8) return dateStr
-    return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`
-  }
-
   const usd = exchange.rates.find((r) => r.currency === "USD")
 
   return (
@@ -37,11 +32,8 @@ export function ExchangeRate({ exchange }: ExchangeRateProps) {
         <div className="flex items-center px-1 py-1">
           <ArrowLeftRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">환율</span>
-          <span className="text-[10px] text-muted-foreground/35 tabular-nums ml-1.5 hidden sm:inline">
-            {formatDate(exchange.search_date)}
-          </span>
           {exchange.timestamp && (
-            <span className="text-[10px] text-muted-foreground/35 tabular-nums ml-1.5">{exchange.timestamp.slice(11, 16)}</span>
+            <span className="text-[10px] text-muted-foreground/35 tabular-nums ml-1.5">{exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}</span>
           )}
           <span className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground/50 transition-colors">
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}

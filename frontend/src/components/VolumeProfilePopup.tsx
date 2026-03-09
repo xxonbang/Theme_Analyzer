@@ -69,19 +69,19 @@ function VolumeChart({ bins, pocPrice, currentPrice, selectedIdx, onSelect }: {
   const plotH = barCount * barH + Math.max(barCount - 1, 0) * gap
   const chartH = plotH + PAD.top + PAD.bottom
 
-  // 현재가 Y 좌표: 가격 스케일에서 보간 (바에 종속되지 않음)
-  const currentPriceY = useMemo(() => {
+  // 현재가 Y 좌표: 가격 스케일에서 보간, 범위 밖이면 경계에 클램핑
+  const currentPriceInfo = useMemo(() => {
     if (barCount < 2) return null
     const topY = PAD.top + barH / 2
     const bottomY = PAD.top + (barCount - 1) * (barH + gap) + barH / 2
     const highPrice = sorted[0].price
     const lowPrice = sorted[barCount - 1].price
     if (highPrice <= lowPrice) return null
-    if (currentPrice > highPrice + (highPrice - lowPrice) * 0.1) return null
-    if (currentPrice < lowPrice - (highPrice - lowPrice) * 0.1) return null
     const ratio = (highPrice - currentPrice) / (highPrice - lowPrice)
-    return topY + ratio * (bottomY - topY)
-  }, [sorted, currentPrice, barCount, barH, gap])
+    const rawY = topY + ratio * (bottomY - topY)
+    const y = Math.max(PAD.top - 2, Math.min(PAD.top + plotH + 2, rawY))
+    return { y, isAbove: currentPrice > highPrice, isBelow: currentPrice < lowPrice }
+  }, [sorted, currentPrice, barCount, barH, gap, plotH])
 
   return (
     <svg viewBox={`0 0 ${CHART_W} ${chartH}`} className="w-full h-auto">
@@ -170,19 +170,19 @@ function VolumeChart({ bins, pocPrice, currentPrice, selectedIdx, onSelect }: {
           </g>
         )
       })}
-      {/* 현재가 마커 — 가격 스케일 기준 보간 위치 */}
-      {currentPriceY !== null && (
+      {/* 현재가 마커 — 가격 스케일 기준 보간 위치 (범위 밖이면 경계 클램핑 + 화살표) */}
+      {currentPriceInfo !== null && (
         <>
           <line
-            x1={PAD.left} y1={currentPriceY}
-            x2={PAD.left + PLOT_W} y2={currentPriceY}
+            x1={PAD.left} y1={currentPriceInfo.y}
+            x2={PAD.left + PLOT_W} y2={currentPriceInfo.y}
             stroke="#3b82f6" strokeWidth={1.5} strokeDasharray="4,3" strokeOpacity={0.8}
           />
           <text
-            x={CHART_W - PAD.right + 4} y={currentPriceY + 3}
+            x={CHART_W - PAD.right + 4} y={currentPriceInfo.y + 3}
             fontSize={8} fontWeight="600" fill="#3b82f6" opacity={0.9}
           >
-            현재
+            {currentPriceInfo.isAbove ? "▲ 현재" : currentPriceInfo.isBelow ? "▼ 현재" : "현재"}
           </text>
         </>
       )}
