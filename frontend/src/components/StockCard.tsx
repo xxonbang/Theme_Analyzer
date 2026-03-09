@@ -275,7 +275,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             )}
             {/* 거래 히스토리 (카드: 최근 9일) */}
             {isTradingHistoryExpanded && history?.changes && (() => {
-              const allChanges = [...history.changes].reverse().slice(-10) // 과거→최신 (마지막=오늘D)
+              const allChanges = [...history.changes].reverse().slice(-11) // 과거→최신 (마지막=오늘D, D-10~D)
               if (allChanges.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
