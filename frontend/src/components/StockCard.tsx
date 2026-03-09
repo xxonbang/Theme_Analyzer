@@ -40,6 +40,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [showSchedule, setShowSchedule] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
+  const [gcExpanded, setGcExpanded] = useState(!!criteria?.golden_cross?.met)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
@@ -512,27 +513,37 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         )}
 
         {/* Golden Cross Section */}
-        {isAdmin && criteria?.golden_cross?.met && (
-          <div className="border-t border-border/30 pt-1.5 mt-1.5">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block" />
-              <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
-              <span className="text-[9px] text-yellow-600 dark:text-yellow-400 font-semibold tabular-nums">
-                {criteria.golden_cross.signal_count}/7
-              </span>
+        {isAdmin && criteria?.golden_cross && (() => {
+          const gc = criteria.golden_cross
+          const gcMet = !!gc.met
+          return (
+            <div className="border-t border-border/30 pt-1.5 mt-1.5">
+              <button
+                onClick={() => setGcExpanded(prev => !prev)}
+                className="flex items-center gap-1.5 w-full text-left"
+              >
+                <span className={cn("w-1.5 h-1.5 rounded-full inline-block", gcMet ? "bg-yellow-500" : "bg-muted-foreground/30")} />
+                <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
+                <span className={cn("text-[9px] font-semibold tabular-nums", gcMet ? "text-yellow-600 dark:text-yellow-400" : "text-muted-foreground/40")}>
+                  {gc.signal_count}/7
+                </span>
+                <ChevronDown className={cn("w-3 h-3 text-muted-foreground/40 ml-auto transition-transform", gcExpanded && "rotate-180")} />
+              </button>
+              {gcExpanded && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {Object.entries(GOLDEN_CROSS_LABELS).map(([k, label]) => {
+                    const active = gc.signals?.[k]
+                    return (
+                      <span key={k} className={cn("text-[8px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
+                        {active ? "✓" : "✗"} {label}
+                      </span>
+                    )
+                  })}
+                </div>
+              )}
             </div>
-            <div className="flex flex-wrap gap-1">
-              {Object.entries(GOLDEN_CROSS_LABELS).map(([k, label]) => {
-                const active = criteria.golden_cross.signals?.[k]
-                return (
-                  <span key={k} className={cn("text-[8px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
-                    {active ? "✓" : "✗"} {label}
-                  </span>
-                )
-              })}
-            </div>
-          </div>
-        )}
+          )
+        })()}
 
         {/* News Section (3차 정보 — 토글) */}
         {hasNews && (
