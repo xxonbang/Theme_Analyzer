@@ -15,15 +15,15 @@ export const CRITERIA_CONFIG = [
   { key: "reverse_alignment", dot: "bg-indigo-500", badge: "bg-indigo-500/15 text-indigo-700", label: "역배열 경고", shortLabel: "역배열", warning: true, description: "이동평균선이 역배열(60일 > 20일 > 5일) 상태로 하락 추세입니다." },
 ] as const
 
-/** 골든크로스 7개 지표 라벨 */
-export const GOLDEN_CROSS_LABELS: Record<string, string> = {
-  ema_5_20: "EMA",
-  macd: "MACD",
-  stochastic: "스토캐스틱",
-  rsi: "RSI",
-  bollinger: "볼린저",
-  dmi: "DMI",
-  obv: "OBV",
+/** 골든크로스 7개 지표 라벨 + 설명 */
+export const GOLDEN_CROSS_LABELS: Record<string, { label: string; description: string }> = {
+  ema_5_20: { label: "EMA", description: "EMA 5일선이 20일선을 상향 돌파 (단기 추세 전환)" },
+  macd: { label: "MACD", description: "MACD선이 시그널선을 상향 돌파 (매수 모멘텀)" },
+  stochastic: { label: "스토캐스틱", description: "스토캐스틱 과매도(≤20) 구간에서 상향 크로스" },
+  rsi: { label: "RSI", description: "RSI가 30선을 상향 돌파 (과매도 탈출)" },
+  bollinger: { label: "볼린저", description: "종가가 볼린저밴드 중심선(SMA20)을 상향 돌파" },
+  dmi: { label: "DMI", description: "+DI가 -DI를 상향 돌파 (상승 추세 전환)" },
+  obv: { label: "OBV", description: "OBV가 20일 이동평균을 상향 돌파 (거래량 뒷받침)" },
 }
 
 /** 특수 기준 설명 (CRITERIA_CONFIG에 포함되지 않는 항목) */

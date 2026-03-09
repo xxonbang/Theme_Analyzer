@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3 } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -42,6 +42,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
   const [gcExpanded, setGcExpanded] = useState(!!criteria?.golden_cross?.met)
   const [memberExpanded, setMemberExpanded] = useState(true)
+  const [selectedGcKey, setSelectedGcKey] = useState<string | null>(null)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
@@ -529,7 +530,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 onClick={() => setGcExpanded(prev => !prev)}
                 className="flex items-center gap-1.5 w-full text-left"
               >
-                <span className={cn("w-1.5 h-1.5 rounded-full inline-block", gcMet ? "bg-yellow-500" : "bg-muted-foreground/30")} />
+                <Sparkles className={cn("w-3.5 h-3.5", gcMet ? "text-yellow-500/60" : "text-muted-foreground/30")} />
                 <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
                 <span className={cn("text-[9px] font-semibold tabular-nums", gcMet ? "text-yellow-600 dark:text-yellow-400" : "text-muted-foreground/40")}>
                   {gc.signal_count}/7
@@ -537,15 +538,29 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 <ChevronDown className={cn("w-3 h-3 text-muted-foreground/40 ml-auto transition-transform", gcExpanded && "rotate-180")} />
               </button>
               {gcExpanded && (
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {Object.entries(GOLDEN_CROSS_LABELS).map(([k, label]) => {
-                    const active = gc.signals?.[k]
-                    return (
-                      <span key={k} className={cn("text-[8px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
-                        {active ? "✓" : "✗"} {label}
-                      </span>
-                    )
-                  })}
+                <div className="mt-1 space-y-1">
+                  <div className="flex flex-wrap gap-1.5">
+                    {Object.entries(GOLDEN_CROSS_LABELS).map(([k, { label }]) => {
+                      const active = gc.signals?.[k]
+                      return (
+                        <button
+                          key={k}
+                          onClick={() => setSelectedGcKey(prev => prev === k ? null : k)}
+                          className={cn(
+                            "text-[8px] rounded-md py-1 px-1.5 cursor-pointer transition-colors",
+                            active ? "bg-yellow-500/15 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted/50 text-muted-foreground/50"
+                          )}
+                        >
+                          {active ? "✓" : "✗"} {label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  {selectedGcKey && GOLDEN_CROSS_LABELS[selectedGcKey] && (
+                    <div className="text-[9px] text-muted-foreground bg-muted/30 rounded-md p-2">
+                      {GOLDEN_CROSS_LABELS[selectedGcKey].description}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
