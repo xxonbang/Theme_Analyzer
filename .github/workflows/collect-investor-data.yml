@@ -75,6 +75,12 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: python collect_investor_data.py 2>&1 | tee /tmp/task.log
 
+      - name: Collect macro indicators
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+        run: python collect_macro_indicators.py 2>&1 | tee -a /tmp/task.log
+
       - name: Save KIS token cache
         if: always()
         uses: actions/cache/save@v4
@@ -89,6 +95,7 @@ jobs:
 
           # 수집된 데이터 백업
           cp frontend/public/data/latest.json /tmp/latest_collected.json
+          [ -f frontend/public/data/macro-indicators.json ] && cp frontend/public/data/macro-indicators.json /tmp/macro_collected.json
 
           # push 경합 시 최대 3회 재시도
           for attempt in 1 2 3; do
@@ -97,16 +104,20 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            # 원격의 daily-theme-analysis 필드 보존 (레이스 컨디션 방지)
+            # 원격의 필드 보존 (레이스 컨디션 방지)
             python3 scripts/merge_workflow_data.py save-main
+            python3 scripts/merge_workflow_data.py save-investor
 
             # 수집된 데이터 복원 후 커밋
             cp /tmp/latest_collected.json frontend/public/data/latest.json
+            [ -f /tmp/macro_collected.json ] && cp /tmp/macro_collected.json frontend/public/data/macro-indicators.json
 
-            # 원격의 daily-theme-analysis 필드 병합 (timestamp가 더 최신이면)
+            # 원격 필드 병합
             python3 scripts/merge_workflow_data.py merge-main
+            python3 scripts/merge_workflow_data.py merge-investor
 
             git add frontend/public/data/latest.json
+            [ -f frontend/public/data/macro-indicators.json ] && git add frontend/public/data/macro-indicators.json
 
             if git diff --staged --quiet; then
               echo "No changes to commit"

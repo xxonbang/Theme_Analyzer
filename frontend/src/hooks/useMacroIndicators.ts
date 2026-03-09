@@ -1,0 +1,43 @@
+import { useState, useEffect, useCallback } from "react"
+
+const DATA_URL = import.meta.env.BASE_URL + "data/macro-indicators.json"
+
+export interface MacroIndicator {
+  symbol: string
+  name: string
+  price: number
+  change: number
+  change_pct: number
+  source: string
+}
+
+export interface MacroIndicatorsData {
+  updated_at: string
+  indicators: MacroIndicator[]
+}
+
+interface UseMacroIndicatorsReturn {
+  data: MacroIndicatorsData | null
+  refetch: () => Promise<void>
+}
+
+export function useMacroIndicators(): UseMacroIndicatorsReturn {
+  const [data, setData] = useState<MacroIndicatorsData | null>(null)
+
+  const refetch = useCallback(async () => {
+    try {
+      const response = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
+      if (!response.ok) return
+      const json = await response.json()
+      setData(json)
+    } catch {
+      // 파일이 없으면 무시
+    }
+  }, [])
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
+  return { data, refetch }
+}
