@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from "react"
-import { ChevronDown, ChevronUp, ArrowLeftRight, History } from "lucide-react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
+import { ChevronDown, ChevronUp, ArrowLeftRight, History, X } from "lucide-react"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import type { ExchangeData } from "@/types/stock"
 import type { IndicatorHistoryData, ExchangeHistoryEntry } from "@/hooks/useIndicatorHistory"
 
@@ -81,18 +83,25 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [chartCurrency, setChartCurrency] = useState("USD")
-  const historyRef = useRef<HTMLDivElement>(null)
+  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false))
 
-  // 외부 클릭 시 드롭다운 닫기
+  // 스크롤 잠금
   useEffect(() => {
     if (!showHistory) return
-    const handler = (e: MouseEvent) => {
-      if (historyRef.current && !historyRef.current.contains(e.target as Node)) {
-        setShowHistory(false)
-      }
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
     }
-    document.addEventListener("mousedown", handler)
-    return () => document.removeEventListener("mousedown", handler)
   }, [showHistory])
 
   if (!exchange?.rates?.length) {
@@ -135,93 +144,13 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
             <span className="text-[10px] text-muted-foreground/35 tabular-nums ml-1.5">{exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}</span>
           )}
           {/* History 아이콘 */}
-          <div className="relative ml-1.5" ref={historyRef}>
-            <span
-              role="button"
-              onClick={handleHistoryClick}
-              className="inline-flex items-center text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors"
-            >
-              <History className="w-3 h-3" />
-            </span>
-            {/* 드롭다운 */}
-            {showHistory && (
-              <div
-                className="absolute left-0 top-5 z-50 bg-card border border-border rounded-lg shadow-lg p-2 min-w-[300px] max-h-[480px] overflow-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {historyLoading ? (
-                  <p className="text-[10px] text-muted-foreground/50 text-center py-2">로딩 중...</p>
-                ) : dates.length === 0 ? (
-                  <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음</p>
-                ) : (
-                  <>
-                  {/* 통화 선택 탭 + 꺾은선 그래프 */}
-                  <div className="mb-2">
-                    <div className="flex gap-1 mb-1">
-                      {currencies.map((cur) => {
-                        const info = currencyInfo[cur] || { flag: "💵", label: cur }
-                        return (
-                          <button
-                            key={cur}
-                            onClick={() => setChartCurrency(cur)}
-                            className={`text-[9px] px-1.5 py-0.5 rounded transition-colors ${chartCurrency === cur ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground/50 hover:text-muted-foreground/80"}`}
-                          >
-                            {info.label}
-                          </button>
-                        )
-                      })}
-                    </div>
-                    <ExchangeChart
-                      entries={history?.exchange?.[chartCurrency] || []}
-                      label={currencyInfo[chartCurrency]?.label || chartCurrency}
-                    />
-                  </div>
-
-                  <hr className="border-border/20 my-1.5" />
-
-                  {/* 테이블 */}
-                  <table className="w-full text-[10px] tabular-nums">
-                    <thead>
-                      <tr className="text-muted-foreground/50">
-                        <th className="text-left py-0.5 pr-2 font-medium">날짜</th>
-                        {historyRows.map((row) => (
-                          <th key={row.currency} className="text-right py-0.5 px-1 font-medium">{row.label}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[...dates].reverse().map((date) => (
-                        <tr key={date} className="border-t border-border/20">
-                          <td className="py-0.5 pr-2 text-muted-foreground/60">{date.slice(5).replace("-", "/")}</td>
-                          {historyRows.map((row) => {
-                            const entry = row.entries.find(e => e.date === date)
-                            if (!entry) return <td key={row.currency} className="text-right py-0.5 px-1 text-muted-foreground/30">—</td>
-                            const change = entry.change
-                            const isUp = change != null && change > 0
-                            const isDown = change != null && change < 0
-                            return (
-                              <td
-                                key={row.currency}
-                                className={`text-right py-0.5 px-1 font-medium ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
-                              >
-                                <span className="text-muted-foreground/50">{entry.rate.toLocaleString()}</span>
-                                {change != null && change !== 0 && (
-                                  <span className="ml-0.5">
-                                    {isUp ? "▲" : "▼"}{Math.abs(change).toFixed(1)}
-                                  </span>
-                                )}
-                              </td>
-                            )
-                          })}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
+          <span
+            role="button"
+            onClick={handleHistoryClick}
+            className="inline-flex items-center text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors ml-1.5"
+          >
+            <History className="w-3 h-3" />
+          </span>
           <span className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground/50 transition-colors">
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </span>
@@ -280,6 +209,95 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
             )
           })}
         </div>
+      )}
+
+      {/* 히스토리 Bottom Sheet */}
+      {showHistory && createPortal(
+        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+          <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
+          <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+            <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+            </div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold">환율 히스토리</span>
+              <button onClick={() => setShowHistory(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            {historyLoading ? (
+              <p className="text-[10px] text-muted-foreground/50 text-center py-2">로딩 중...</p>
+            ) : dates.length === 0 ? (
+              <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음</p>
+            ) : (
+              <>
+                {/* 통화 선택 탭 + 꺾은선 그래프 */}
+                <div className="mb-2">
+                  <div className="flex gap-1 mb-1">
+                    {currencies.map((cur) => {
+                      const info = currencyInfo[cur] || { flag: "💵", label: cur }
+                      return (
+                        <button
+                          key={cur}
+                          onClick={() => setChartCurrency(cur)}
+                          className={`text-[9px] px-1.5 py-0.5 rounded transition-colors ${chartCurrency === cur ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground/50 hover:text-muted-foreground/80"}`}
+                        >
+                          {info.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <ExchangeChart
+                    entries={history?.exchange?.[chartCurrency] || []}
+                    label={currencyInfo[chartCurrency]?.label || chartCurrency}
+                  />
+                </div>
+
+                <hr className="border-border/20 my-1.5" />
+
+                {/* 테이블 */}
+                <table className="w-full text-[10px] tabular-nums">
+                  <thead>
+                    <tr className="text-muted-foreground/50">
+                      <th className="text-left py-0.5 pr-2 font-medium">날짜</th>
+                      {historyRows.map((row) => (
+                        <th key={row.currency} className="text-right py-0.5 px-1 font-medium">{row.label}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...dates].reverse().map((date) => (
+                      <tr key={date} className="border-t border-border/20">
+                        <td className="py-0.5 pr-2 text-muted-foreground/60">{date.slice(5).replace("-", "/")}</td>
+                        {historyRows.map((row) => {
+                          const entry = row.entries.find(e => e.date === date)
+                          if (!entry) return <td key={row.currency} className="text-right py-0.5 px-1 text-muted-foreground/30">—</td>
+                          const change = entry.change
+                          const isUp = change != null && change > 0
+                          const isDown = change != null && change < 0
+                          return (
+                            <td
+                              key={row.currency}
+                              className={`text-right py-0.5 px-1 font-medium ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
+                            >
+                              <span className="text-muted-foreground/50">{entry.rate.toLocaleString()}</span>
+                              {change != null && change !== 0 && (
+                                <span className="ml-0.5">
+                                  {isUp ? "▲" : "▼"}{Math.abs(change).toFixed(1)}
+                                </span>
+                              )}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            )}
+          </div>
+        </div>,
+        document.body
       )}
     </div>
   )
