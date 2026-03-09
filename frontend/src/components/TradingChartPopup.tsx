@@ -33,8 +33,8 @@ function buildLine(values: number[], plotW: number, plotH: number, padLeft: numb
 export function TradingChartPopup({ stockName, currentTradingValue, currentVolume, changes, onClose }: TradingChartPopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
-  // 시간순 정렬 (과거→현재)
-  const reversed = [...changes].reverse()
+  // 시간순 정렬, 최근 11일(D ~ D-10)만 표시
+  const reversed = [...changes].reverse().slice(0, 11)
   const labels = reversed.map((_, i) => i === reversed.length - 1 ? "D" : `D-${reversed.length - 1 - i}`)
 
   const tradingValues = reversed.map((c, i) =>
