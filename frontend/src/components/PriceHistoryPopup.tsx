@@ -43,8 +43,8 @@ interface PriceHistoryPopupProps {
 export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, changes, intradayDays, onClose }: PriceHistoryPopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
-  // 최신순 정렬, 최근 11일(D ~ D-10)만 표시
-  const reversed = [...changes].reverse().slice(0, 11)
+  // 시간순 정렬, 최근 11일(D-10 ~ D)만 표시
+  const reversed = [...changes].slice(0, 11).reverse()
 
   // 탭 상태
   const hasIntraday = intradayDays && intradayDays.length > 0
