@@ -20,6 +20,7 @@ import { useAuth } from "@/hooks/useAuth"
 import { useThemeMode } from "@/hooks/useThemeMode"
 import { useVolumeProfile } from "@/hooks/useVolumeProfile"
 import { useMacroIndicators } from "@/hooks/useMacroIndicators"
+import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
 import { MacroIndicators } from "@/components/MacroIndicators"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
@@ -39,6 +40,7 @@ function App() {
   const { toggle: toggleTheme, isDark } = useThemeMode()
   const { data: vpData } = useVolumeProfile()
   const { data: macroData } = useMacroIndicators()
+  const { data: indicatorHistory, loading: indicatorHistoryLoading, fetchHistory: fetchIndicatorHistory } = useIndicatorHistory()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
 
   // 페이지 전환/접속 시 이력 기록
@@ -528,10 +530,10 @@ function App() {
         )}
 
         {/* Macro Indicators - Admin only */}
-        {isAdmin && macroData && <MacroIndicators data={macroData} />}
+        {isAdmin && macroData && <MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
 
         {/* Exchange Rate */}
-        {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} />}
+        {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
 
         {/* Index MA Alert (KOSPI + KOSDAQ) */}
         <IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} />

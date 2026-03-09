@@ -22,6 +22,7 @@ from modules.kis_client import KISClient
 
 ROOT_DIR = Path(__file__).parent
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "macro-indicators.json"
+HISTORY_PATH = ROOT_DIR / "frontend" / "public" / "data" / "indicator-history.json"
 
 # 해외 종목 목록: (symbol, exchange, name)
 OVERSEAS_ITEMS = [
@@ -161,6 +162,62 @@ def main():
         with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(output, f, ensure_ascii=False)
         print(f"  저장: {OUTPUT_PATH}")
+        update_indicator_history(indicators)
+
+
+def update_indicator_history(indicators: list[dict]):
+    """indicator-history.json에 오늘의 스냅샷을 추가 (30일 롤링)."""
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    # 기존 히스토리 로드
+    history: dict = {"updated_at": "", "macro": {}, "exchange": {}}
+    if HISTORY_PATH.exists():
+        try:
+            with open(HISTORY_PATH, encoding="utf-8") as f:
+                history = json.load(f)
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    # macro: 수집된 지표 저장
+    macro = history.setdefault("macro", {})
+    for item in indicators:
+        sym = item["symbol"]
+        entries = macro.setdefault(sym, [])
+        # 같은 날짜 덮어쓰기
+        entries = [e for e in entries if e["date"] != today]
+        entries.append({"date": today, "price": item["price"], "change_pct": item["change_pct"]})
+        entries.sort(key=lambda e: e["date"])
+        macro[sym] = entries[-30:]
+
+    # exchange: latest.json에서 환율 로드
+    latest_path = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
+    if latest_path.exists():
+        try:
+            with open(latest_path, encoding="utf-8") as f:
+                latest = json.load(f)
+            rates = latest.get("exchange", {}).get("rates", [])
+            ex = history.setdefault("exchange", {})
+            for r in rates:
+                cur = r["currency"]
+                entries = ex.setdefault(cur, [])
+                entries = [e for e in entries if e["date"] != today]
+                entries.append({
+                    "date": today,
+                    "rate": r["rate"],
+                    "change": r.get("change"),
+                    "change_rate": r.get("change_rate"),
+                })
+                entries.sort(key=lambda e: e["date"])
+                ex[cur] = entries[-30:]
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    history["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(HISTORY_PATH, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False)
+    print(f"  히스토리 저장: {HISTORY_PATH}")
 
 
 if __name__ == "__main__":

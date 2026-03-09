@@ -107,6 +107,7 @@ jobs:
             [ -d frontend/public/data/history ] && cp -r frontend/public/data/history /tmp/data_backup/
             [ -f frontend/public/data/volume-profile.json ] && cp frontend/public/data/volume-profile.json /tmp/data_backup/
             [ -f frontend/public/data/macro-indicators.json ] && cp frontend/public/data/macro-indicators.json /tmp/data_backup/
+            [ -f frontend/public/data/indicator-history.json ] && cp frontend/public/data/indicator-history.json /tmp/data_backup/
 
             # push 경합 시 최대 3회 재시도
             for attempt in 1 2 3; do
@@ -127,12 +128,14 @@ jobs:
               [ -d /tmp/data_backup/history ] && cp -r /tmp/data_backup/history frontend/public/data/
               [ -f /tmp/data_backup/volume-profile.json ] && cp /tmp/data_backup/volume-profile.json frontend/public/data/
               [ -f /tmp/data_backup/macro-indicators.json ] && cp /tmp/data_backup/macro-indicators.json frontend/public/data/
+              [ -f /tmp/data_backup/indicator-history.json ] && cp /tmp/data_backup/indicator-history.json frontend/public/data/
 
               git add frontend/public/data/latest.json
               [ -f frontend/public/data/history-index.json ] && git add frontend/public/data/history-index.json
               git add frontend/public/data/history/*.json 2>/dev/null || true
               [ -f frontend/public/data/volume-profile.json ] && git add frontend/public/data/volume-profile.json
               [ -f frontend/public/data/macro-indicators.json ] && git add frontend/public/data/macro-indicators.json
+              [ -f frontend/public/data/indicator-history.json ] && git add frontend/public/data/indicator-history.json
 
               if git diff --staged --quiet; then
                 echo "No changes to commit"

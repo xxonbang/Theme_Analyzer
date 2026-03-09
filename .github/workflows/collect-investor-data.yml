@@ -96,6 +96,7 @@ jobs:
           # 수집된 데이터 백업
           cp frontend/public/data/latest.json /tmp/latest_collected.json
           [ -f frontend/public/data/macro-indicators.json ] && cp frontend/public/data/macro-indicators.json /tmp/macro_collected.json
+          [ -f frontend/public/data/indicator-history.json ] && cp frontend/public/data/indicator-history.json /tmp/indicator_history_collected.json
 
           # push 경합 시 최대 3회 재시도
           for attempt in 1 2 3; do
@@ -111,6 +112,7 @@ jobs:
             # 수집된 데이터 복원 후 커밋
             cp /tmp/latest_collected.json frontend/public/data/latest.json
             [ -f /tmp/macro_collected.json ] && cp /tmp/macro_collected.json frontend/public/data/macro-indicators.json
+            [ -f /tmp/indicator_history_collected.json ] && cp /tmp/indicator_history_collected.json frontend/public/data/indicator-history.json
 
             # 원격 필드 병합
             python3 scripts/merge_workflow_data.py merge-main
@@ -118,6 +120,7 @@ jobs:
 
             git add frontend/public/data/latest.json
             [ -f frontend/public/data/macro-indicators.json ] && git add frontend/public/data/macro-indicators.json
+            [ -f frontend/public/data/indicator-history.json ] && git add frontend/public/data/indicator-history.json
 
             if git diff --staged --quiet; then
               echo "No changes to commit"
