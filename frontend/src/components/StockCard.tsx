@@ -38,6 +38,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [showTradingChart, setShowTradingChart] = useState(false)
   const [showInvestorChart, setShowInvestorChart] = useState(false)
   const [showVolumeProfile, setShowVolumeProfile] = useState(false)
+  const [vpExpanded, setVpExpanded] = useState(true)
   const [showSchedule, setShowSchedule] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
@@ -482,35 +483,42 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
 
         {/* 매물대 (admin만 표시) */}
         {isAdmin && volumeProfile && (
-          <div
-            className="pt-1.5 border-t border-border/30 cursor-pointer hover:bg-muted/30 transition-colors -mx-3 px-3 -mb-1 pb-1 sm:-mx-4 sm:px-4"
-            onClick={() => setShowVolumeProfile(true)}
-          >
+          <div className="pt-1.5 border-t border-border/30 -mx-3 px-3 -mb-1 pb-1 sm:-mx-4 sm:px-4">
             <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground mb-1">
               <BarChart3 className="w-3.5 h-3.5 text-amber-500/60" />
               <span className="font-semibold tracking-wider">매물대</span>
+              <button
+                onClick={(e) => { e.stopPropagation(); setVpExpanded(v => !v) }}
+                className="ml-auto p-0.5 hover:text-foreground transition-colors"
+              >
+                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", vpExpanded && "rotate-180")} />
+              </button>
             </div>
-            {/* 기간별 POC 요약 */}
-            <div className="flex gap-1.5">
-              {([
-                { key: "1w" as const, label: "1주" },
-                { key: "1m" as const, label: "1달" },
-                { key: "3m" as const, label: "3개월" },
-                { key: "6m" as const, label: "6개월" },
-              ] as const).map(({ key, label }) => {
-                const vp = volumeProfile[key]
-                return (
-                  <div key={key} className="flex-1 flex flex-col items-center rounded-md py-1 px-1 bg-muted/50">
-                    <span className="text-[9px] sm:text-[10px] font-medium text-muted-foreground/70 leading-tight">
-                      {label}
-                    </span>
-                    <span className="text-[11px] sm:text-xs font-semibold tabular-nums leading-tight text-foreground/80">
-                      {vp ? formatPrice(vp.poc_price) : "-"}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
+            {vpExpanded && (
+              <div
+                className="flex gap-1.5 cursor-pointer hover:bg-muted/30 transition-colors rounded-md"
+                onClick={() => setShowVolumeProfile(true)}
+              >
+                {([
+                  { key: "1w" as const, label: "1주" },
+                  { key: "1m" as const, label: "1달" },
+                  { key: "3m" as const, label: "3개월" },
+                  { key: "6m" as const, label: "6개월" },
+                ] as const).map(({ key, label }) => {
+                  const vp = volumeProfile[key]
+                  return (
+                    <div key={key} className="flex-1 flex flex-col items-center rounded-md py-1 px-1 bg-muted/50">
+                      <span className="text-[9px] sm:text-[10px] font-medium text-muted-foreground/70 leading-tight">
+                        {label}
+                      </span>
+                      <span className="text-[11px] sm:text-xs font-semibold tabular-nums leading-tight text-foreground/80">
+                        {vp ? formatPrice(vp.poc_price) : "-"}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         )}
         {showVolumeProfile && volumeProfile && (
