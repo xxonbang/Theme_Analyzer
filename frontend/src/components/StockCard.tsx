@@ -346,7 +346,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                             <span className={cn("w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0", d.color)} />
                             <span className="sm:hidden">{d.label}</span><span className="hidden sm:inline">{d.labelFull}</span>
                           </span>
-                          <span className={cn("text-[11px] sm:text-sm font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val)}</span>
+                          <span className={cn("text-[11px] sm:text-sm font-medium tabular-nums leading-tight", getNetBuyColor(d.val))}>{formatNetBuy(d.val, 0)}</span>
                         </span>
                       ))}
                     </div>
