@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { ChevronDown, ChevronUp, ArrowLeftRight, History } from "lucide-react"
 import type { ExchangeData } from "@/types/stock"
-import type { IndicatorHistoryData } from "@/hooks/useIndicatorHistory"
+import type { IndicatorHistoryData, ExchangeHistoryEntry } from "@/hooks/useIndicatorHistory"
 
 interface ExchangeRateProps {
   exchange: ExchangeData
@@ -17,9 +17,70 @@ const currencyInfo: Record<string, { flag: string; label: string }> = {
   CNY: { flag: "🇨🇳", label: "CNY" },
 }
 
+function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; label: string }) {
+  if (entries.length < 2) return <p className="text-[10px] text-muted-foreground/50 text-center py-4">데이터 부족</p>
+
+  const W = 260, H = 100, PX = 32, PY = 12
+  const chartW = W - PX * 2, chartH = H - PY * 2
+  const rates = entries.map(e => e.rate)
+  const min = Math.min(...rates), max = Math.max(...rates)
+  const range = max - min || 1
+
+  const points = entries.map((e, i) => ({
+    x: PX + (i / (entries.length - 1)) * chartW,
+    y: PY + (1 - (e.rate - min) / range) * chartH,
+    rate: e.rate,
+    date: e.date,
+  }))
+  const polyline = points.map(p => `${p.x},${p.y}`).join(" ")
+
+  // 시작 대비 상승/하락
+  const first = rates[0], last = rates[rates.length - 1]
+  const isUp = last > first
+  const color = isUp ? "#ef4444" : last < first ? "#3b82f6" : "#9ca3af"
+
+  // Y축 라벨 3개
+  const yLabels = [max, (max + min) / 2, min]
+
+  return (
+    <div className="mt-1.5">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 120 }}>
+        {/* Y축 그리드 + 라벨 */}
+        {yLabels.map((v, i) => {
+          const y = PY + (1 - (v - min) / range) * chartH
+          return (
+            <g key={i}>
+              <line x1={PX} y1={y} x2={W - PX} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
+              <text x={PX - 3} y={y + 3} textAnchor="end" className="fill-muted-foreground/40" fontSize={7}>{v.toLocaleString()}</text>
+            </g>
+          )
+        })}
+        {/* 꺾은선 */}
+        <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.5} strokeLinejoin="round" />
+        {/* 데이터 포인트 */}
+        {points.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r={entries.length > 15 ? 1.5 : 2} fill={color} />
+        ))}
+        {/* X축 라벨: 첫/중간/끝 */}
+        {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => (
+          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" className="fill-muted-foreground/40" fontSize={7}>
+            {entries[idx].date.slice(5).replace("-", "/")}
+          </text>
+        ))}
+      </svg>
+      <div className="flex items-center justify-between text-[9px] text-muted-foreground/50 px-1 mt-0.5">
+        <span>{label} {first.toLocaleString()}원</span>
+        <span style={{ color }}>{isUp ? "▲" : last < first ? "▼" : ""}{Math.abs(last - first).toFixed(1)}원 ({((last - first) / first * 100).toFixed(2)}%)</span>
+        <span>{last.toLocaleString()}원</span>
+      </div>
+    </div>
+  )
+}
+
 export function ExchangeRate({ exchange, history, historyLoading, onRequestHistory }: ExchangeRateProps) {
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
+  const [chartCurrency, setChartCurrency] = useState("USD")
   const historyRef = useRef<HTMLDivElement>(null)
 
   // 외부 클릭 시 드롭다운 닫기
@@ -85,7 +146,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
             {/* 드롭다운 */}
             {showHistory && (
               <div
-                className="absolute left-0 top-5 z-50 bg-card border border-border rounded-lg shadow-lg p-2 min-w-[280px] max-h-[320px] overflow-auto"
+                className="absolute left-0 top-5 z-50 bg-card border border-border rounded-lg shadow-lg p-2 min-w-[300px] max-h-[480px] overflow-auto"
                 onClick={(e) => e.stopPropagation()}
               >
                 {historyLoading ? (
@@ -93,6 +154,32 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                 ) : dates.length === 0 ? (
                   <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음</p>
                 ) : (
+                  <>
+                  {/* 통화 선택 탭 + 꺾은선 그래프 */}
+                  <div className="mb-2">
+                    <div className="flex gap-1 mb-1">
+                      {currencies.map((cur) => {
+                        const info = currencyInfo[cur] || { flag: "💵", label: cur }
+                        return (
+                          <button
+                            key={cur}
+                            onClick={() => setChartCurrency(cur)}
+                            className={`text-[9px] px-1.5 py-0.5 rounded transition-colors ${chartCurrency === cur ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground/50 hover:text-muted-foreground/80"}`}
+                          >
+                            {info.label}
+                          </button>
+                        )
+                      })}
+                    </div>
+                    <ExchangeChart
+                      entries={history?.exchange?.[chartCurrency] || []}
+                      label={currencyInfo[chartCurrency]?.label || chartCurrency}
+                    />
+                  </div>
+
+                  <hr className="border-border/20 my-1.5" />
+
+                  {/* 테이블 */}
                   <table className="w-full text-[10px] tabular-nums">
                     <thead>
                       <tr className="text-muted-foreground/50">
@@ -130,6 +217,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                       ))}
                     </tbody>
                   </table>
+                  </>
                 )}
               </div>
             )}
