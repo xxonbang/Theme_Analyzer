@@ -68,7 +68,7 @@ class StockHistoryAPI:
             }
         """
         try:
-            result = self.client.get_stock_daily_price(stock_code)
+            result = self.client.get_stock_daily_price(stock_code, adj_price=False)
 
             if result.get("rt_cd") != "0":
                 return {"code": stock_code, "changes": [], "total_change_rate": 0}
@@ -84,7 +84,7 @@ class StockHistoryAPI:
                         new_end = (oldest_dt - timedelta(days=1)).strftime("%Y%m%d")
                         new_start = (oldest_dt - timedelta(days=180)).strftime("%Y%m%d")
                         result2 = self.client.get_stock_daily_price(
-                            stock_code, start_date=new_start, end_date=new_end
+                            stock_code, start_date=new_start, end_date=new_end, adj_price=False
                         )
                         if result2.get("rt_cd") == "0":
                             extra = result2.get("output2", [])

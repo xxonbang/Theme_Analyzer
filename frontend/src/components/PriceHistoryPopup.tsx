@@ -7,8 +7,8 @@ import type { HistoryChange, IntradayDay } from "@/types/stock"
 
 // 차트 상수
 const CW = 300
-const CH = 120
-const PAD = { top: 12, right: 8, bottom: 18, left: 8 }
+const CH = 140
+const PAD = { top: 14, right: 8, bottom: 24, left: 42 }
 const PW = CW - PAD.left - PAD.right
 const PH = CH - PAD.top - PAD.bottom
 
@@ -135,20 +135,25 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
           <>
             {/* 종가 꺾은선 그래프 */}
             {(() => {
-              const closes = reversed.map((c, idx) => idx === reversed.length - 1 ? currentPrice : (c.close || 0)).filter(v => v > 0)
-              if (closes.length < 2) return null
+              const data = reversed.map((c, idx) => ({
+                close: idx === reversed.length - 1 ? currentPrice : (c.close || 0),
+                label: idx === reversed.length - 1 ? "D" : `D-${reversed.length - 1 - idx}`,
+              })).filter(d => d.close > 0)
+              if (data.length < 2) return null
+              const closes = data.map(d => d.close)
               const minV = Math.min(...closes)
               const maxV = Math.max(...closes)
               const pts = pointCoords(closes, minV, maxV)
               const up = closes[closes.length - 1] >= closes[0]
               const color = up ? "#ef4444" : "#3b82f6"
+              const xLabels = [0, Math.floor((data.length - 1) / 2), data.length - 1]
               return (
-                <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 120 }}>
-                  {/* Y축 라벨: 최고/최저 */}
-                  <text x={CW - PAD.right} y={PAD.top - 2} textAnchor="end" fill="currentColor" opacity={0.4} fontSize={8}>
+                <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
+                  {/* Y축 라벨 */}
+                  <text x={PAD.left - 4} y={PAD.top + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
                     {formatPrice(maxV)}
                   </text>
-                  <text x={CW - PAD.right} y={CH - PAD.bottom + 10} textAnchor="end" fill="currentColor" opacity={0.4} fontSize={8}>
+                  <text x={PAD.left - 4} y={CH - PAD.bottom + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
                     {formatPrice(minV)}
                   </text>
                   {/* 선 */}
@@ -156,6 +161,12 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   {/* 포인트 */}
                   {pts.map((p, i) => (
                     <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={color} />
+                  ))}
+                  {/* X축 라벨 */}
+                  {xLabels.map(i => (
+                    <text key={i} x={PAD.left + (i / Math.max(data.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.5} fontSize={8}>
+                      {data[i].label}
+                    </text>
                   ))}
                 </svg>
               )
@@ -272,6 +283,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
             {(() => {
               if (!selectedDay || intervals.length < 2) return null
               const closes = intervals.map(item => item.close)
+              const times = intervals.map(item => item.time)
               const openPrice = selectedDay.open
               const allVals = [...closes, openPrice]
               const minV = Math.min(...allVals)
@@ -280,17 +292,31 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const zeroY = PAD.top + PH - ((openPrice - minV) / ((maxV - minV) || 1)) * PH
               const lastUp = closes[closes.length - 1] >= openPrice
               const color = lastUp ? "#ef4444" : "#3b82f6"
+              const xLabels = [0, Math.floor((closes.length - 1) / 2), closes.length - 1]
               return (
-                <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 120 }}>
+                <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
+                  {/* Y축 라벨 */}
+                  <text x={PAD.left - 4} y={PAD.top + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
+                    {formatPrice(maxV)}
+                  </text>
+                  <text x={PAD.left - 4} y={CH - PAD.bottom + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
+                    {formatPrice(minV)}
+                  </text>
                   {/* 0선 (시가 기준) */}
                   <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
                     stroke="currentColor" strokeWidth={0.5} strokeDasharray="4,3" opacity={0.4} />
-                  <text x={PAD.left - 2} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.4} fontSize={7}>0%</text>
+                  <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.4} fontSize={7}>0%</text>
                   {/* 선 */}
                   <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                   {/* 포인트 */}
                   {pts.map((p, i) => (
                     <circle key={i} cx={p.x} cy={p.y} r={2} fill={color} />
+                  ))}
+                  {/* X축 라벨 */}
+                  {xLabels.map(i => (
+                    <text key={i} x={PAD.left + (i / Math.max(closes.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.5} fontSize={8}>
+                      {times[i]}
+                    </text>
                   ))}
                 </svg>
               )
