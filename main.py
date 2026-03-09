@@ -384,7 +384,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     # 8. 3일간 등락률 조회 [선택] — 실패 시 빈 데이터로 진행
     print("\n[8/13] 3일간 등락률 조회 중...")
     try:
-        history_data = history_api.get_multiple_stocks_history(all_stocks, days=11)
+        history_data = history_api.get_multiple_stocks_history(all_stocks, days=60)
         print(f"  ✓ {len(history_data)}개 종목 등락률 조회 완료")
     except Exception as e:
         print(f"  ✗ 등락률 조회 실패: {e}")
@@ -669,36 +669,6 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     start_barricade = telegram.format_start_barricade(exchange_data)
     end_barricade = telegram.format_end_barricade()
 
-    # 거래대금+상승률 메시지
-    tv_rising_message = telegram.format_rising_stocks(
-        tv_rising_stocks["kospi"],
-        tv_rising_stocks["kosdaq"],
-        history_data,
-        title="📈 거래대금 + 상승률 TOP10",
-    )
-
-    # 거래대금+하락률 메시지
-    tv_falling_message = telegram.format_falling_stocks(
-        tv_falling_stocks["kospi"],
-        tv_falling_stocks["kosdaq"],
-        history_data,
-        title="📉 거래대금 + 하락률 TOP10",
-    )
-
-    # 거래량+상승률 메시지
-    rising_message = telegram.format_rising_stocks(
-        rising_stocks["kospi"],
-        rising_stocks["kosdaq"],
-        history_data,
-    )
-
-    # 거래량+하락률 메시지
-    falling_message = telegram.format_falling_stocks(
-        falling_stocks["kospi"],
-        falling_stocks["kosdaq"],
-        history_data,
-    )
-
     # AI 테마 분석 메시지
     theme_messages = []
     if theme_analysis:
@@ -717,26 +687,6 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print("🚀 START 바리케이트:")
         print("=" * 60)
         print(start_barricade)
-
-        print("\n" + "=" * 60)
-        print("📈 거래대금+상승률 메시지:")
-        print("=" * 60)
-        print(_clean_html(tv_rising_message))
-
-        print("\n" + "=" * 60)
-        print("📉 거래대금+하락률 메시지:")
-        print("=" * 60)
-        print(_clean_html(tv_falling_message))
-
-        print("\n" + "=" * 60)
-        print("📈 거래량+상승률 메시지:")
-        print("=" * 60)
-        print(_clean_html(rising_message))
-
-        print("\n" + "=" * 60)
-        print("📉 거래량+하락률 메시지:")
-        print("=" * 60)
-        print(_clean_html(falling_message))
 
         if theme_messages:
             for i, msg in enumerate(theme_messages, 1):
@@ -757,35 +707,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         else:
             print("  ✗ START 바리케이트 발송 실패")
 
-        # 2. 거래대금+상승률 메시지
-        print("  거래대금+상승률 메시지 발송 중...")
-        if telegram.send_message(tv_rising_message):
-            print("  ✓ 거래대금+상승률 메시지 발송 완료")
-        else:
-            print("  ✗ 거래대금+상승률 메시지 발송 실패")
-
-        # 3. 거래대금+하락률 메시지
-        print("  거래대금+하락률 메시지 발송 중...")
-        if telegram.send_message(tv_falling_message):
-            print("  ✓ 거래대금+하락률 메시지 발송 완료")
-        else:
-            print("  ✗ 거래대금+하락률 메시지 발송 실패")
-
-        # 4. 거래량+상승률 메시지
-        print("  거래량+상승률 메시지 발송 중...")
-        if telegram.send_message(rising_message):
-            print("  ✓ 거래량+상승률 메시지 발송 완료")
-        else:
-            print("  ✗ 거래량+상승률 메시지 발송 실패")
-
-        # 5. 거래량+하락률 메시지
-        print("  거래량+하락률 메시지 발송 중...")
-        if telegram.send_message(falling_message):
-            print("  ✓ 거래량+하락률 메시지 발송 완료")
-        else:
-            print("  ✗ 거래량+하락률 메시지 발송 실패")
-
-        # 6. AI 테마 분석 메시지
+        # 2. AI 테마 분석 메시지
         if theme_messages:
             print(f"  AI 테마 분석 발송 중... ({len(theme_messages)}개)")
             for i, msg in enumerate(theme_messages, 1):
@@ -794,7 +716,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 else:
                     print(f"  ✗ AI 테마 분석 {i}/{len(theme_messages)} 발송 실패")
 
-        # 7. END 바리케이트
+        # 3. END 바리케이트
         print("  END 바리케이트 발송 중...")
         if telegram.send_message(end_barricade):
             print("  ✓ END 바리케이트 발송 완료")

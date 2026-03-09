@@ -491,7 +491,7 @@ def main():
                 from modules.stock_history import StockHistoryAPI
                 history_api = StockHistoryAPI(rank_api.client)
                 new_history = history_api.get_multiple_stocks_history(
-                    [{"code": c} for c in new_codes], days=3
+                    [{"code": c} for c in new_codes], days=60
                 )
                 for code, hist in new_history.items():
                     existing_history[code] = hist

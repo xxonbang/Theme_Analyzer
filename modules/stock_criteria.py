@@ -598,6 +598,192 @@ def check_reverse_alignment(
 
 
 # ────────────────────────────────────────────────────────────
+# 골든크로스 7개 지표 (노랑색)
+# ────────────────────────────────────────────────────────────
+
+def _calc_stochastic(closes, highs, lows, k_period=14, d_period=3):
+    """스토캐스틱 %K, %D 계산. 입력은 최신순. 반환: (k, d) 또는 None"""
+    need = k_period + d_period - 1
+    if len(closes) < need or len(highs) < need or len(lows) < need:
+        return None
+    k_series = []
+    for i in range(d_period):
+        h_slice = highs[i:i + k_period]
+        l_slice = lows[i:i + k_period]
+        highest = max(h_slice)
+        lowest = min(l_slice)
+        if highest == lowest:
+            k_series.append(50.0)
+        else:
+            k_series.append((closes[i] - lowest) / (highest - lowest) * 100)
+    d_val = sum(k_series) / d_period
+    return (k_series[0], d_val)
+
+
+def _calc_bollinger(closes, period=20):
+    """볼린저 밴드 중심선(SMA). closes는 최신순. 반환: middle 또는 None"""
+    if len(closes) < period:
+        return None
+    return sum(closes[:period]) / period
+
+
+def _calc_adx(closes, highs, lows, period=14):
+    """+DI, -DI 계산. 입력은 최신순. 반환: (plus_di, minus_di) 또는 None"""
+    n = len(closes)
+    if n < period + 1 or len(highs) < n or len(lows) < n:
+        return None
+    c = list(reversed(closes[:period * 2 + 1]))
+    h = list(reversed(highs[:period * 2 + 1]))
+    l = list(reversed(lows[:period * 2 + 1]))
+    tr_list, plus_dm_list, minus_dm_list = [], [], []
+    for i in range(1, len(c)):
+        tr = max(h[i] - l[i], abs(h[i] - c[i - 1]), abs(l[i] - c[i - 1]))
+        up = h[i] - h[i - 1]
+        down = l[i - 1] - l[i]
+        plus_dm_list.append(up if up > down and up > 0 else 0)
+        minus_dm_list.append(down if down > up and down > 0 else 0)
+        tr_list.append(tr)
+    if len(tr_list) < period:
+        return None
+    atr = sum(tr_list[:period])
+    plus_dm_sum = sum(plus_dm_list[:period])
+    minus_dm_sum = sum(minus_dm_list[:period])
+    for i in range(period, len(tr_list)):
+        atr = atr - atr / period + tr_list[i]
+        plus_dm_sum = plus_dm_sum - plus_dm_sum / period + plus_dm_list[i]
+        minus_dm_sum = minus_dm_sum - minus_dm_sum / period + minus_dm_list[i]
+    plus_di = (plus_dm_sum / atr * 100) if atr > 0 else 0
+    minus_di = (minus_dm_sum / atr * 100) if atr > 0 else 0
+    return (plus_di, minus_di)
+
+
+def _calc_obv(closes, volumes):
+    """OBV 계산. 입력은 최신순. 반환: OBV 시계열 (최신순) 또는 None"""
+    n = len(closes)
+    if n < 2 or len(volumes) < n:
+        return None
+    c = list(reversed(closes))
+    v = list(reversed(volumes))
+    obv = [0]
+    for i in range(1, len(c)):
+        if c[i] > c[i - 1]:
+            obv.append(obv[-1] + v[i])
+        elif c[i] < c[i - 1]:
+            obv.append(obv[-1] - v[i])
+        else:
+            obv.append(obv[-1])
+    return list(reversed(obv))
+
+
+def check_golden_cross(current_price: int, daily_prices: List[Dict]) -> Dict:
+    """7개 골든크로스 신호 판정 (D-1 미충족 → D-0 충족)"""
+    result = {"met": False, "reason": None, "signals": {}, "signal_count": 0}
+
+    if not current_price or not daily_prices or len(daily_prices) < 30:
+        result["reason"] = "데이터 부족"
+        return result
+
+    closes, highs, lows, volumes = [], [], [], []
+    for p in daily_prices:
+        c = _safe_int(p.get("stck_clpr"))
+        h = _safe_int(p.get("stck_hgpr") or p.get("stck_high"))
+        l = _safe_int(p.get("stck_lwpr") or p.get("stck_low"))
+        v = _safe_int(p.get("acml_vol"))
+        if c:
+            closes.append(c)
+            highs.append(h or c)
+            lows.append(l or c)
+            volumes.append(v or 0)
+
+    if len(closes) < 30:
+        result["reason"] = "데이터 부족"
+        return result
+
+    signals = {}
+    signal_names = []
+
+    # 1. EMA 5/20 크로스
+    ema5_d0 = _calc_ema(closes, 5)
+    ema20_d0 = _calc_ema(closes, 20)
+    ema5_d1 = _calc_ema(closes[1:], 5)
+    ema20_d1 = _calc_ema(closes[1:], 20)
+    if all(v is not None for v in [ema5_d0, ema20_d0, ema5_d1, ema20_d1]):
+        cross = ema5_d0 > ema20_d0 and ema5_d1 <= ema20_d1
+        signals["ema_5_20"] = cross
+        if cross:
+            signal_names.append("EMA")
+
+    # 2. MACD 크로스
+    macd_d0 = _calc_macd(closes)
+    macd_d1 = _calc_macd(closes[1:])
+    if macd_d0 and macd_d1:
+        cross = macd_d0[0] > macd_d0[1] and macd_d1[0] <= macd_d1[1]
+        signals["macd"] = cross
+        if cross:
+            signal_names.append("MACD")
+
+    # 3. 스토캐스틱 크로스 (과매도 구간 ≤20)
+    stoch_d0 = _calc_stochastic(closes, highs, lows)
+    stoch_d1 = _calc_stochastic(closes[1:], highs[1:], lows[1:])
+    if stoch_d0 and stoch_d1:
+        k0, d0 = stoch_d0
+        k1, d1 = stoch_d1
+        cross = k0 > d0 and k1 <= d1 and d1 <= 20
+        signals["stochastic"] = cross
+        if cross:
+            signal_names.append("스토캐스틱")
+
+    # 4. RSI 30선 상향돌파
+    rsi_d0 = _calc_rsi(closes)
+    rsi_d1 = _calc_rsi(closes[1:])
+    if rsi_d0 is not None and rsi_d1 is not None:
+        cross = rsi_d0 >= 30 and rsi_d1 < 30
+        signals["rsi"] = cross
+        if cross:
+            signal_names.append("RSI")
+
+    # 5. 볼린저 중심선(SMA20) 돌파
+    boll_d0 = _calc_bollinger(closes)
+    boll_d1 = _calc_bollinger(closes[1:])
+    if boll_d0 is not None and boll_d1 is not None:
+        cross = closes[0] >= boll_d0 and closes[1] < boll_d1
+        signals["bollinger"] = cross
+        if cross:
+            signal_names.append("볼린저")
+
+    # 6. DMI 크로스 (+DI > -DI)
+    dmi_d0 = _calc_adx(closes, highs, lows)
+    dmi_d1 = _calc_adx(closes[1:], highs[1:], lows[1:])
+    if dmi_d0 and dmi_d1:
+        cross = dmi_d0[0] > dmi_d0[1] and dmi_d1[0] <= dmi_d1[1]
+        signals["dmi"] = cross
+        if cross:
+            signal_names.append("DMI")
+
+    # 7. OBV > OBV_SMA20
+    obv = _calc_obv(closes, volumes)
+    if obv and len(obv) >= 21:
+        obv_sma20_d0 = sum(obv[:20]) / 20
+        obv_sma20_d1 = sum(obv[1:21]) / 20
+        cross = obv[0] > obv_sma20_d0 and obv[1] <= obv_sma20_d1
+        signals["obv"] = cross
+        if cross:
+            signal_names.append("OBV")
+
+    count = sum(1 for v in signals.values() if v)
+    result["signals"] = signals
+    result["signal_count"] = count
+
+    if count > 0:
+        result["met"] = True
+        result["reason"] = f"{'·'.join(signal_names)} ({count}/7)"
+    else:
+        result["reason"] = "골든크로스 신호 없음 (0/7)"
+
+    return result
+
+
+# ────────────────────────────────────────────────────────────
 # 통합 평가
 # ────────────────────────────────────────────────────────────
 
@@ -656,10 +842,11 @@ def evaluate_stock_criteria(
         "overheating": check_overheating(current_price, change_rate, volume_rate, rsi, ma_values),
         "reverse_alignment": check_reverse_alignment(current_price, ma_values),
         "bnf": check_bnf(current_price, daily_prices),
+        "golden_cross": check_golden_cross(current_price, daily_prices),
     }
 
-    # all_met 계산: warning 기준과 bnf(특수 지표)는 제외
-    non_warning = {k: v for k, v in criteria.items() if not (isinstance(v, dict) and v.get("warning")) and k != "bnf"}
+    # all_met 계산: warning 기준과 특수 지표(bnf, golden_cross)는 제외
+    non_warning = {k: v for k, v in criteria.items() if not (isinstance(v, dict) and v.get("warning")) and k not in ("bnf", "golden_cross")}
     all_met = all(c["met"] for c in non_warning.values())
     criteria["all_met"] = all_met
 

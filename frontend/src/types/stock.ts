@@ -151,6 +151,8 @@ export interface CriterionResult {
   had_limit_up?: boolean
   had_15pct_rise?: boolean
   ma_values?: Record<string, number>
+  signals?: Record<string, boolean>
+  signal_count?: number
 }
 
 export interface StockCriteria {
@@ -166,6 +168,7 @@ export interface StockCriteria {
   overheating: CriterionResult
   reverse_alignment: CriterionResult
   bnf: CriterionResult
+  golden_cross: CriterionResult
   all_met: boolean
 }
 

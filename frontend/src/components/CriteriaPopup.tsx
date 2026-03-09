@@ -6,6 +6,16 @@ import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import type { StockCriteria } from "@/types/stock"
 
+const GOLDEN_CROSS_LABELS: Record<string, string> = {
+  ema_5_20: "EMA",
+  macd: "MACD",
+  stochastic: "스토캐스틱",
+  rsi: "RSI",
+  bollinger: "볼린저",
+  dmi: "DMI",
+  obv: "OBV",
+}
+
 interface CriteriaPopupProps {
   stockName: string
   criteria: StockCriteria
@@ -85,6 +95,18 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
                     {is52w && <span className="text-[9px] text-amber-600 font-medium">52주 신고가</span>}
                   </div>
                   <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed pl-3.5">{c?.reason || "근거 없음"}</p>
+                  {key === "golden_cross" && c?.signals && (
+                    <div className="flex flex-wrap gap-1 pl-3.5 mt-1">
+                      {Object.entries(GOLDEN_CROSS_LABELS).map(([k, label]) => {
+                        const active = c.signals?.[k]
+                        return (
+                          <span key={k} className={cn("text-[8px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
+                            {active ? "✓" : "✗"} {label}
+                          </span>
+                        )
+                      })}
+                    </div>
+                  )}
                 </div>
               )
             })}
