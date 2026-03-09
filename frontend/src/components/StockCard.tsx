@@ -41,6 +41,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
   const [isInvestorHistoryExpanded, setIsInvestorHistoryExpanded] = useState(false)
   const [gcExpanded, setGcExpanded] = useState(!!criteria?.golden_cross?.met)
+  const [memberExpanded, setMemberExpanded] = useState(true)
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
@@ -434,11 +435,16 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           {/* 수급원 TOP5 (admin만 표시) */}
           {isAdmin && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
             <div className="pt-1.5 border-t border-border/30">
-              <div className="flex items-center gap-1 mb-1">
+              <button
+                onClick={() => setMemberExpanded(prev => !prev)}
+                className="flex items-center gap-1 mb-1 w-full text-left"
+              >
                 <Building2 className="w-3.5 h-3.5 text-violet-500/60" />
                 <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래원</span>
                 {investorUpdatedAt && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
-              </div>
+                <ChevronDown className={cn("w-3 h-3 text-muted-foreground/40 ml-auto transition-transform", memberExpanded && "rotate-180")} />
+              </button>
+              {memberExpanded && (
               <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
@@ -465,6 +471,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 ))}
               </div>
             </div>
+              )}
             </div>
           )}
 
