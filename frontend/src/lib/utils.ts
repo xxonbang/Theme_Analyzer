@@ -43,10 +43,6 @@ export function formatTradingValue(value: number): string {
 
 export function formatNetBuy(qty: number): string {
   const sign = qty > 0 ? "+" : ""
-  const abs = Math.abs(qty)
-  if (abs >= 10000) {
-    return `${sign}${Math.round(qty / 10000)}만`
-  }
   return `${sign}${qty.toLocaleString("ko-KR")}`
 }
 

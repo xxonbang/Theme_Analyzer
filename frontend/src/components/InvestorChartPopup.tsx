@@ -3,6 +3,15 @@ import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { X } from "lucide-react"
 import { cn, formatNetBuy, getNetBuyColor } from "@/lib/utils"
+
+/** 차트 Y축 전용 축약 포맷 */
+function shortLabel(qty: number): string {
+  const sign = qty > 0 ? "+" : ""
+  const abs = Math.abs(qty)
+  if (abs >= 100_000_000) return `${sign}${Math.round(qty / 100_000_000)}억`
+  if (abs >= 10_000) return `${sign}${Math.round(qty / 10_000)}만`
+  return `${sign}${qty.toLocaleString("ko-KR")}`
+}
 import type { InvestorInfo, InvestorIntraday } from "@/types/stock"
 
 interface InvestorChartPopupProps {
@@ -254,8 +263,8 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 return (
                   <g key={r}>
                     <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
-                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
+                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.5}>{shortLabel(val)}</text>
+                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.5}>{shortLabel(val)}</text>
                   </g>
                 )
               })}
@@ -333,11 +342,11 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   return (
                     <g key={r}>
                       <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
+                      <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.5}>{shortLabel(val)}</text>
                       {intradayChart.hasCr && showCr ? (
                         <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#f59e0b" opacity={0.7}>{crVal.toFixed(1)}%</text>
                       ) : (
-                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.5}>{formatNetBuy(val)}</text>
+                        <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="currentColor" opacity={0.5}>{shortLabel(val)}</text>
                       )}
                     </g>
                   )
