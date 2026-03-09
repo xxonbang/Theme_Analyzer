@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
-import { Crown, X } from "lucide-react"
+import { Crown, X, ChevronDown } from "lucide-react"
 import { CRITERIA_CONFIG, SPECIAL_CRITERIA_DESCRIPTIONS } from "@/lib/criteria"
 import { cn } from "@/lib/utils"
 
@@ -60,48 +60,59 @@ function CriteriaInfoPopup({ info, onClose }: { info: PopupInfo; onClose: () => 
 
 export function CriteriaLegend() {
   const [popup, setPopup] = useState<PopupInfo | null>(null)
+  const [expanded, setExpanded] = useState(false)
   const normalCriteria = CRITERIA_CONFIG.filter(c => !c.warning)
   const warningCriteria = CRITERIA_CONFIG.filter(c => c.warning)
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 bg-muted/40 rounded-lg text-[10px] sm:text-xs text-muted-foreground">
-        <span className="font-medium text-foreground/70">선정 기준:</span>
-        {normalCriteria.map(({ dot, label, description, warning }) => (
-          <button
-            key={label}
-            className="flex items-center gap-1 hover:text-foreground transition-colors"
-            onClick={() => setPopup({ label, description, dot, warning })}
-          >
-            <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${dot}`} />
-            {label}
-          </button>
-        ))}
+      <div className="bg-muted/40 rounded-lg text-[10px] sm:text-xs text-muted-foreground">
         <button
-          className="flex items-center gap-1 hover:text-foreground transition-colors"
-          onClick={() => setPopup({ label: "52주 신고가", description: SPECIAL_CRITERIA_DESCRIPTIONS["52w_high"], dot: "", warning: false, icon: "crown" })}
+          onClick={() => setExpanded(v => !v)}
+          className="flex items-center justify-between w-full px-3 py-2 hover:text-foreground transition-colors"
         >
-          <Crown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-500" />
-          52주 신고가
+          <span className="font-medium text-foreground/70">선정 기준</span>
+          <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", expanded && "rotate-180")} />
         </button>
-        <button
-          className="flex items-center gap-1 hover:text-foreground transition-colors"
-          onClick={() => setPopup({ label: "전체 충족", description: SPECIAL_CRITERIA_DESCRIPTIONS["all_met"], dot: "", warning: false, icon: "ring" })}
-        >
-          <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ring-1 ring-yellow-400 bg-yellow-400/30" />
-          전체 충족
-        </button>
-        <span className="font-medium text-foreground/70 ml-1">경고:</span>
-        {warningCriteria.map(({ dot, label, description, warning }) => (
-          <button
-            key={label}
-            className="flex items-center gap-1 hover:text-foreground transition-colors"
-            onClick={() => setPopup({ label, description, dot, warning })}
-          >
-            <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${dot} animate-pulse`} />
-            {label}
-          </button>
-        ))}
+        {expanded && (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 pb-2">
+            {normalCriteria.map(({ dot, label, description, warning }) => (
+              <button
+                key={label}
+                className="flex items-center gap-1 hover:text-foreground transition-colors"
+                onClick={() => setPopup({ label, description, dot, warning })}
+              >
+                <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${dot}`} />
+                {label}
+              </button>
+            ))}
+            <button
+              className="flex items-center gap-1 hover:text-foreground transition-colors"
+              onClick={() => setPopup({ label: "52주 신고가", description: SPECIAL_CRITERIA_DESCRIPTIONS["52w_high"], dot: "", warning: false, icon: "crown" })}
+            >
+              <Crown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-500" />
+              52주 신고가
+            </button>
+            <button
+              className="flex items-center gap-1 hover:text-foreground transition-colors"
+              onClick={() => setPopup({ label: "전체 충족", description: SPECIAL_CRITERIA_DESCRIPTIONS["all_met"], dot: "", warning: false, icon: "ring" })}
+            >
+              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ring-1 ring-yellow-400 bg-yellow-400/30" />
+              전체 충족
+            </button>
+            <span className="font-medium text-foreground/70 ml-1">경고:</span>
+            {warningCriteria.map(({ dot, label, description, warning }) => (
+              <button
+                key={label}
+                className="flex items-center gap-1 hover:text-foreground transition-colors"
+                onClick={() => setPopup({ label, description, dot, warning })}
+              >
+                <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${dot} animate-pulse`} />
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       {popup && <CriteriaInfoPopup info={popup} onClose={() => setPopup(null)} />}
     </>
