@@ -16,8 +16,8 @@ interface PriceHistoryPopupProps {
 export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, changes, onClose }: PriceHistoryPopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
-  // 최신순 정렬 (changes[0]이 오늘)
-  const reversed = [...changes].reverse()
+  // 최신순 정렬, 최근 11일(D ~ D-10)만 표시
+  const reversed = [...changes].reverse().slice(0, 11)
 
   useEffect(() => {
     const scrollY = window.scrollY
