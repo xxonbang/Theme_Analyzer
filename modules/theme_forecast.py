@@ -269,6 +269,34 @@ def _extract_text_from_response(data: Dict) -> str:
     return "".join(part.get("text", "") for part in parts)
 
 
+def _resolve_page_title(url: str, timeout: float = 5) -> Optional[str]:
+    """URL의 실제 페이지 제목을 추출 (redirect 따라감)."""
+    try:
+        resp = requests.get(url, timeout=timeout, headers={"User-Agent": "Mozilla/5.0"}, stream=True)
+        # 처음 20KB만 읽어서 <title> 추출
+        content = b""
+        for chunk in resp.iter_content(chunk_size=4096):
+            content += chunk
+            if len(content) > 20480:
+                break
+        resp.close()
+        html = content.decode("utf-8", errors="ignore")
+        m = re.search(r"<title[^>]*>([^<]+)</title>", html, re.IGNORECASE)
+        if m:
+            title = m.group(1).strip()
+            # 불필요한 사이트명 접미사 제거
+            for sep in [" - ", " | ", " :: ", " – ", " — "]:
+                if sep in title:
+                    parts = title.split(sep)
+                    # 마지막 파트가 짧으면(사이트명) 제거
+                    if len(parts[-1]) < 20:
+                        title = sep.join(parts[:-1]).strip()
+                    break
+            return title if title else None
+    except Exception:
+        return None
+
+
 def _extract_grounding_sources(data: Dict) -> List[Dict[str, str]]:
     """Gemini 응답에서 Google Search grounding 소스(뉴스 URL/제목) 추출"""
     candidates = data.get("candidates", [])
@@ -285,6 +313,14 @@ def _extract_grounding_sources(data: Dict) -> List[Dict[str, str]]:
         if uri and uri not in seen:
             seen.add(uri)
             sources.append({"title": title, "uri": uri})
+
+    # 도메인만 있는 title을 실제 페이지 제목으로 교체
+    for source in sources:
+        title = source["title"]
+        if not title or "." in title and " " not in title:
+            resolved = _resolve_page_title(source["uri"])
+            if resolved:
+                source["title"] = resolved
     return sources
 
 
