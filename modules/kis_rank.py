@@ -867,6 +867,16 @@ class KISRankAPI:
             if len(data) < max(1, len(stocks) // 4):
                 print(f"  가집계 수집 부족({len(data)}건) → 추정 API(HHPTJ04160200) fallback")
                 data = self.get_investor_data_estimate(stocks)
+
+            # 히스토리 없는 종목 → 확정 API로 보충
+            need_history = [s for s in stocks if s.get("code") in data and "history" not in data[s["code"]]]
+            if need_history:
+                print(f"  히스토리 보충 중... ({len(need_history)}개 종목)")
+                confirmed = self.get_investor_data(need_history)
+                for code, cd in confirmed.items():
+                    if code in data and "history" in cd:
+                        data[code]["history"] = cd["history"]
+
             return data, True
         else:
             print("[수급] 장외 → 확정 데이터(FHKST01010900) 사용")
