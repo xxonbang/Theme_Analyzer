@@ -14,6 +14,96 @@ interface MacroIndicatorsProps {
 
 const SUMMARY_SYMBOLS = ["NQ=F", "069500", "EWY", "KORU"]
 const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200" }
+const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
+
+function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
+  const [hidden, setHidden] = useState<Set<string>>(new Set())
+
+  if (dates.length < 2 || rows.length === 0) return null
+
+  const visibleRows = rows.filter(r => !hidden.has(r.name))
+
+  const W = 280, H = 120, PX = 28, PY = 14
+  const chartW = W - PX * 2, chartH = H - PY * 2
+
+  // visible 종목 기준 min/max
+  const allVals = visibleRows.flatMap(r => r.entries.map(e => e.change_pct))
+  const min = allVals.length ? Math.min(...allVals) : -1
+  const max = allVals.length ? Math.max(...allVals) : 1
+  const range = max - min || 1
+
+  const toY = (v: number) => PY + (1 - (v - min) / range) * chartH
+  const toX = (i: number) => PX + (i / (dates.length - 1)) * chartW
+
+  const yLabels = [max, 0, min].filter((v, i, a) => a.indexOf(v) === i)
+
+  const toggle = (name: string) => {
+    setHidden(prev => {
+      const next = new Set(prev)
+      if (next.has(name)) next.delete(name); else next.add(name)
+      return next
+    })
+  }
+
+  return (
+    <div className="mb-2">
+      {/* 범례 토글 */}
+      <div className="flex flex-wrap gap-1 px-1 mb-1">
+        {rows.map((row, ri) => {
+          const active = !hidden.has(row.name)
+          const color = LINE_COLORS[ri % LINE_COLORS.length]
+          return (
+            <button
+              key={row.name}
+              onClick={() => toggle(row.name)}
+              className={`text-[9px] px-1.5 py-0.5 rounded transition-colors ${active ? "font-semibold" : "opacity-30"}`}
+              style={active ? { backgroundColor: color + "18", color } : undefined}
+            >
+              {row.name}
+            </button>
+          )
+        })}
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 140 }}>
+        {/* Y축 그리드 */}
+        {yLabels.map((v, i) => {
+          const y = toY(v)
+          return (
+            <g key={i}>
+              <line x1={PX} y1={y} x2={W - PX} y2={y} stroke="currentColor" strokeOpacity={v === 0 ? 0.15 : 0.06} strokeDasharray={v === 0 ? "none" : "2,2"} />
+              <text x={PX - 3} y={y + 3} textAnchor="end" className="fill-muted-foreground/40" fontSize={7}>{v.toFixed(1)}%</text>
+            </g>
+          )
+        })}
+        {/* 각 종목 꺾은선 */}
+        {visibleRows.map((row) => {
+          const ri = rows.indexOf(row)
+          const points = dates.map((d, i) => {
+            const entry = row.entries.find(e => e.date === d)
+            return entry ? { x: toX(i), y: toY(entry.change_pct) } : null
+          }).filter(Boolean) as { x: number; y: number }[]
+          if (points.length < 2) return null
+          const polyline = points.map(p => `${p.x},${p.y}`).join(" ")
+          const color = LINE_COLORS[ri % LINE_COLORS.length]
+          return (
+            <g key={row.name}>
+              <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.2} strokeLinejoin="round" opacity={0.8} />
+              {points.map((p, i) => (
+                <circle key={i} cx={p.x} cy={p.y} r={1.5} fill={color} />
+              ))}
+            </g>
+          )
+        })}
+        {/* X축 라벨 */}
+        {[0, Math.floor(dates.length / 2), dates.length - 1].map((idx) => (
+          <text key={idx} x={toX(idx)} y={H - 1} textAnchor="middle" className="fill-muted-foreground/40" fontSize={7}>
+            {dates[idx].slice(5).replace("-", "/")}
+          </text>
+        ))}
+      </svg>
+    </div>
+  )
+}
 
 export function MacroIndicators({ data, history, historyLoading, onRequestHistory }: MacroIndicatorsProps) {
   const [expanded, setExpanded] = useState(false)
@@ -161,6 +251,9 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             ) : dates.length === 0 ? (
               <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음</p>
             ) : (
+              <>
+              <MacroChart rows={historyRows} dates={dates} />
+              <hr className="border-border/20 my-1.5" />
               <table className="w-full text-[10px] tabular-nums">
                 <thead>
                   <tr className="text-muted-foreground/50">
@@ -192,6 +285,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                   ))}
                 </tbody>
               </table>
+              </>
             )}
           </div>
         </div>,
