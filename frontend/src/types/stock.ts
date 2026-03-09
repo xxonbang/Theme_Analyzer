@@ -278,6 +278,28 @@ export interface VolumeProfileData {
   updated_at: string; mode: string; profiles: Record<string, StockVolumeProfile>
 }
 
+// 장중 등락률 히스토리 관련 타입
+export interface IntradayInterval {
+  time: string          // "09:30"
+  close: number
+  high: number
+  low: number
+  change_rate: number   // 시가 대비 %
+  volume: number
+}
+
+export interface IntradayDay {
+  date: string          // "2026-03-09"
+  open: number
+  intervals_30m: IntradayInterval[]
+  intervals_60m: IntradayInterval[]
+}
+
+export interface IntradayHistoryData {
+  updated_at: string
+  stocks: Record<string, IntradayDay[]>
+}
+
 // 유망 테마 예측 관련 타입
 export interface ForecastStock {
   priority: number
