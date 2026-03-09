@@ -12,7 +12,7 @@ import { InvestorChartPopup } from "@/components/InvestorChartPopup"
 import { InvestorSchedulePopup } from "@/components/InvestorSchedulePopup"
 import { Sparkline } from "@/components/Sparkline"
 import { VolumeProfilePopup } from "@/components/VolumeProfilePopup"
-import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile } from "@/types/stock"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay } from "@/types/stock"
 
 interface StockCardProps {
   stock: Stock
@@ -28,9 +28,10 @@ interface StockCardProps {
   isAdmin?: boolean
   dataTimestamp?: string
   volumeProfile?: StockVolumeProfile
+  intradayDays?: IntradayDay[]
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, intradayDays }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
@@ -200,6 +201,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 currentPrice={stock.current_price}
                 currentChangeRate={stock.change_rate}
                 changes={history.changes}
+                intradayDays={intradayDays}
                 onClose={() => setShowPriceHistory(false)}
               />
             )}

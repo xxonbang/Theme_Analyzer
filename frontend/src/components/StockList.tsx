@@ -13,7 +13,7 @@ import { InvestorChartPopup } from "@/components/InvestorChartPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { Sparkline } from "@/components/Sparkline"
 import { VolumeProfilePopup } from "@/components/VolumeProfilePopup"
-import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile } from "@/types/stock"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay } from "@/types/stock"
 
 interface StockListProps {
   title: string
@@ -33,6 +33,7 @@ interface StockListProps {
   isAdmin?: boolean
   dataTimestamp?: string
   volumeProfiles?: Record<string, StockVolumeProfile>
+  intradayHistory?: Record<string, IntradayDay[]>
 }
 
 const VIRTUALIZE_THRESHOLD = 20
@@ -40,13 +41,13 @@ const VIRTUALIZE_THRESHOLD = 20
 // 가상 스크롤 마켓 섹션 (뷰포트에 보이는 항목만 렌더링)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
-  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory,
 }: {
   label: string; dotColor: string; stocks: Stock[];
   history: Record<string, StockHistory>; news: Record<string, StockNews>;
   type: "rising" | "falling" | "neutral";
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
-  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; intradayHistory?: Record<string, IntradayDay[]>;
 }) {
   const parentRef = useRef<HTMLDivElement>(null)
   const [columns, setColumns] = useState(() =>
@@ -94,6 +95,7 @@ function StockMarketSection({
       isAdmin={isAdmin}
       dataTimestamp={dataTimestamp}
       volumeProfile={volumeProfiles?.[stock.code]}
+      intradayDays={intradayHistory?.[stock.code]}
     />
   )
 
@@ -178,7 +180,7 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
 }
 
 // 컴팩트 모드용 간단한 종목 행 (flex: sticky left + scrollable right)
-function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, investorIntraday, memberInfo, hasMemberData, criteria, isAdmin, volumeProfile }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; investorIntraday?: InvestorIntraday; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean; volumeProfile?: StockVolumeProfile }) {
+function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, investorIntraday, memberInfo, hasMemberData, criteria, isAdmin, volumeProfile, intradayDays }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; investorIntraday?: InvestorIntraday; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean; volumeProfile?: StockVolumeProfile; intradayDays?: IntradayDay[] }) {
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const allMet = isAdmin && criteria?.all_met
@@ -384,6 +386,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
           currentPrice={stock.current_price}
           currentChangeRate={stock.change_rate}
           changes={history.changes}
+          intradayDays={intradayDays}
           onClose={() => setShowPriceHistory(false)}
         />
       )}
@@ -416,6 +419,7 @@ function CompactMarketSection({
   investorIntraday,
   isAdmin,
   volumeProfiles,
+  intradayHistory,
 }: {
   market: string
   stocks: Stock[]
@@ -432,6 +436,7 @@ function CompactMarketSection({
   investorIntraday?: InvestorIntraday
   isAdmin?: boolean
   volumeProfiles?: Record<string, StockVolumeProfile>
+  intradayHistory?: Record<string, IntradayDay[]>
 }) {
   const hasMemberData = !!memberData && Object.keys(memberData).length > 0
 
@@ -461,7 +466,7 @@ function CompactMarketSection({
             {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
             <div className="divide-y divide-border/30">
               {stocks.map((stock) => (
-                <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} volumeProfile={volumeProfiles?.[stock.code]} />
+                <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} volumeProfile={volumeProfiles?.[stock.code]} intradayDays={intradayHistory?.[stock.code]} />
               ))}
             </div>
           </div>
@@ -473,7 +478,7 @@ function CompactMarketSection({
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -515,6 +520,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             investorIntraday={investorIntraday}
             isAdmin={isAdmin}
             volumeProfiles={volumeProfiles}
+            intradayHistory={intradayHistory}
           />
           <CompactMarketSection
             market="KOSDAQ"
@@ -532,6 +538,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             investorIntraday={investorIntraday}
             isAdmin={isAdmin}
             volumeProfiles={volumeProfiles}
+            intradayHistory={intradayHistory}
           />
         </CardContent>
       </Card>
@@ -568,6 +575,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           isAdmin={isAdmin}
           dataTimestamp={dataTimestamp}
           volumeProfiles={volumeProfiles}
+          intradayHistory={intradayHistory}
         />
 
         {/* KOSDAQ */}
@@ -587,6 +595,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           isAdmin={isAdmin}
           dataTimestamp={dataTimestamp}
           volumeProfiles={volumeProfiles}
+          intradayHistory={intradayHistory}
         />
       </CardContent>
     </Card>
