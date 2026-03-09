@@ -19,6 +19,7 @@ import { useHistoryData } from "@/hooks/useHistoryData"
 import { useAuth } from "@/hooks/useAuth"
 import { useThemeMode } from "@/hooks/useThemeMode"
 import { useVolumeProfile } from "@/hooks/useVolumeProfile"
+import { useIntradayHistory } from "@/hooks/useIntradayHistory"
 import { useMacroIndicators } from "@/hooks/useMacroIndicators"
 import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
 import { MacroIndicators } from "@/components/MacroIndicators"
@@ -39,6 +40,7 @@ function App() {
   const { user, loading: authLoading, isAdmin, recordVisit, logActivity } = useAuth()
   const { toggle: toggleTheme, isDark } = useThemeMode()
   const { data: vpData } = useVolumeProfile()
+  const { data: intradayHistoryData } = useIntradayHistory()
   const { data: macroData } = useMacroIndicators()
   const { data: indicatorHistory, loading: indicatorHistoryLoading, fetchHistory: fetchIndicatorHistory } = useIndicatorHistory()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
@@ -198,69 +200,84 @@ function App() {
     return { kospi: kospiAll, kosdaq: kosdaqAll }
   }, [displayData, hasNewFields])
 
-  // 종합 탭: compositeMode에 따른 교집합
+  // 종합 탭: compositeMode에 따른 가중 점수 합산
   const compositeData = useMemo(() => {
     if (!displayData) return null
     if (!hasNewFields) return null // 이전 JSON이면 null → 폴백
 
-    // 등락률 Set (모든 모드에서 필수)
-    const flucKospiAll = new Set([
-      ...(activeFluctuationData?.kospi_up || []).map((s: Stock) => s.code),
-      ...(activeFluctuationData?.kospi_down || []).map((s: Stock) => s.code),
-    ])
-    const flucKosdaqAll = new Set([
-      ...(activeFluctuationData?.kosdaq_up || []).map((s: Stock) => s.code),
-      ...(activeFluctuationData?.kosdaq_down || []).map((s: Stock) => s.code),
-    ])
+    const weights: Record<string, { tv: number; vol: number; fluc: number }> = {
+      trading_fluc: { tv: 1.5, vol: 0, fluc: 1.5 },
+      volume_fluc: { tv: 0, vol: 1.5, fluc: 1.5 },
+      all: { tv: 1, vol: 1, fluc: 1 },
+      trading_volume: { tv: 1.5, vol: 1.5, fluc: 0 },
+    }
+    const w = weights[compositeMode]
 
-    // 거래량 Set (all 모드에서 교차 필터에 사용)
-    const volKospiSet = new Set((displayData.volume?.kospi || []).map((s: Stock) => s.code))
-    const volKosdaqSet = new Set((displayData.volume?.kosdaq || []).map((s: Stock) => s.code))
+    // 코스피/코스닥 각각에 대해 점수 계산
+    const calcScored = (
+      tradingList: Stock[],
+      volumeList: Stock[],
+      flucUpList: Stock[],
+      flucDownList: Stock[],
+    ) => {
+      // 순위 맵 생성
+      const tradingRankMap = new Map<string, number>()
+      tradingList.forEach((s, i) => tradingRankMap.set(s.code, i + 1))
 
-    // 기준 데이터 (순서 결정) 및 필터 조건
-    let baseKospi: Stock[]
-    let baseKosdaq: Stock[]
-    let filterKospi: (s: Stock) => boolean
-    let filterKosdaq: (s: Stock) => boolean
+      const volumeRankMap = new Map<string, number>()
+      volumeList.forEach((s, i) => volumeRankMap.set(s.code, i + 1))
 
-    if (compositeMode === "all") {
-      // 거래대금 ∩ 거래량 ∩ 등락률 (거래대금 순서 기준)
-      baseKospi = displayData.trading_value?.kospi || []
-      baseKosdaq = displayData.trading_value?.kosdaq || []
-      filterKospi = (s) => flucKospiAll.has(s.code) && volKospiSet.has(s.code)
-      filterKosdaq = (s) => flucKosdaqAll.has(s.code) && volKosdaqSet.has(s.code)
-    } else if (compositeMode === "trading_volume") {
-      // 거래대금 ∩ 거래량 (등락률 필터 없음, 거래대금 순서 기준)
-      baseKospi = displayData.trading_value?.kospi || []
-      baseKosdaq = displayData.trading_value?.kosdaq || []
-      filterKospi = (s) => volKospiSet.has(s.code)
-      filterKosdaq = (s) => volKosdaqSet.has(s.code)
-    } else if (compositeMode === "trading_fluc") {
-      // 거래대금 ∩ 등락률 (거래대금 순서 기준)
-      baseKospi = displayData.trading_value?.kospi || []
-      baseKosdaq = displayData.trading_value?.kosdaq || []
-      filterKospi = (s) => flucKospiAll.has(s.code)
-      filterKosdaq = (s) => flucKosdaqAll.has(s.code)
-    } else {
-      // 거래량 ∩ 등락률 (거래량 순서 기준)
-      baseKospi = displayData.volume?.kospi || []
-      baseKosdaq = displayData.volume?.kosdaq || []
-      filterKospi = (s) => flucKospiAll.has(s.code)
-      filterKosdaq = (s) => flucKosdaqAll.has(s.code)
+      const flucRankMap = new Map<string, number>()
+      ;[...flucUpList, ...flucDownList].forEach((s, i) => flucRankMap.set(s.code, i + 1))
+
+      // 전체 종목 합집합
+      const allCodes = new Set([
+        ...tradingRankMap.keys(),
+        ...volumeRankMap.keys(),
+        ...flucRankMap.keys(),
+      ])
+
+      // 점수 계산 + 정렬
+      const scored = [...allCodes].map(code => {
+        const tvScore = tradingRankMap.has(code) ? (31 - tradingRankMap.get(code)!) * w.tv : 0
+        const volScore = volumeRankMap.has(code) ? (31 - volumeRankMap.get(code)!) * w.vol : 0
+        const flucScore = flucRankMap.has(code) ? (31 - flucRankMap.get(code)!) * w.fluc : 0
+        return { code, score: tvScore + volScore + flucScore }
+      }).filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+
+      // code → Stock 맵
+      const stockMap = new Map<string, Stock>()
+      ;[...tradingList, ...volumeList, ...flucUpList, ...flucDownList]
+        .forEach(s => { if (!stockMap.has(s.code)) stockMap.set(s.code, s) })
+
+      return scored
+        .filter(item => stockMap.has(item.code))
+        .map((item, i) => ({ ...stockMap.get(item.code)!, rank: i + 1 }))
     }
 
-    const kospiFiltered = baseKospi.filter(filterKospi)
-    const kosdaqFiltered = baseKosdaq.filter(filterKosdaq)
+    const kospiRanked = calcScored(
+      displayData.trading_value?.kospi || [],
+      displayData.volume?.kospi || [],
+      activeFluctuationData?.kospi_up || [],
+      activeFluctuationData?.kospi_down || [],
+    )
+    const kosdaqRanked = calcScored(
+      displayData.trading_value?.kosdaq || [],
+      displayData.volume?.kosdaq || [],
+      activeFluctuationData?.kosdaq_up || [],
+      activeFluctuationData?.kosdaq_down || [],
+    )
 
     // 상승/하락 분리
     let rank = 0
-    const kospiUp = kospiFiltered.filter((s: Stock) => s.change_rate > 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    const kospiUp = kospiRanked.filter((s: Stock) => s.change_rate > 0).map((s: Stock) => ({ ...s, rank: ++rank }))
     rank = 0
-    const kospiDown = kospiFiltered.filter((s: Stock) => s.change_rate < 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    const kospiDown = kospiRanked.filter((s: Stock) => s.change_rate < 0).map((s: Stock) => ({ ...s, rank: ++rank }))
     rank = 0
-    const kosdaqUp = kosdaqFiltered.filter((s: Stock) => s.change_rate > 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    const kosdaqUp = kosdaqRanked.filter((s: Stock) => s.change_rate > 0).map((s: Stock) => ({ ...s, rank: ++rank }))
     rank = 0
-    const kosdaqDown = kosdaqFiltered.filter((s: Stock) => s.change_rate < 0).map((s: Stock) => ({ ...s, rank: ++rank }))
+    const kosdaqDown = kosdaqRanked.filter((s: Stock) => s.change_rate < 0).map((s: Stock) => ({ ...s, rank: ++rank }))
 
     return {
       rising: { kospi: kospiUp, kosdaq: kosdaqUp },
@@ -598,6 +615,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    intradayHistory={intradayHistoryData?.stocks}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP`}
@@ -617,6 +635,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    intradayHistory={intradayHistoryData?.stocks}
                   />
                 </>
               ) : (
@@ -640,6 +659,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    intradayHistory={intradayHistoryData?.stocks}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP10`}
@@ -659,6 +679,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    intradayHistory={intradayHistoryData?.stocks}
                   />
                 </>
               )}
@@ -684,6 +705,7 @@ function App() {
               isAdmin={isAdmin}
               dataTimestamp={displayData?.timestamp}
               volumeProfiles={vpData?.profiles}
+              intradayHistory={intradayHistoryData?.stocks}
             />
           )}
 
@@ -706,6 +728,7 @@ function App() {
               isAdmin={isAdmin}
               dataTimestamp={displayData?.timestamp}
               volumeProfiles={vpData?.profiles}
+              intradayHistory={intradayHistoryData?.stocks}
             />
           )}
 
@@ -729,6 +752,7 @@ function App() {
                 isAdmin={isAdmin}
                 dataTimestamp={displayData?.timestamp}
                 volumeProfiles={vpData?.profiles}
+                intradayHistory={intradayHistoryData?.stocks}
               />
               <StockList
                 title="등락률 하락 TOP20"
@@ -748,6 +772,7 @@ function App() {
                 isAdmin={isAdmin}
                 dataTimestamp={displayData?.timestamp}
                 volumeProfiles={vpData?.profiles}
+                intradayHistory={intradayHistoryData?.stocks}
               />
             </>
           )}
