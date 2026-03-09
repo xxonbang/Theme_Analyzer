@@ -3,7 +3,7 @@ import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, Chevron
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
-import { CRITERIA_CONFIG } from "@/lib/criteria"
+import { CRITERIA_CONFIG, GOLDEN_CROSS_LABELS } from "@/lib/criteria"
 import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
@@ -509,6 +509,29 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             volumeProfile={volumeProfile}
             onClose={() => setShowVolumeProfile(false)}
           />
+        )}
+
+        {/* Golden Cross Section */}
+        {isAdmin && criteria?.golden_cross?.met && (
+          <div className="border-t border-border/30 pt-1.5 mt-1.5">
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block" />
+              <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
+              <span className="text-[9px] text-yellow-600 dark:text-yellow-400 font-semibold tabular-nums">
+                {criteria.golden_cross.signal_count}/7
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {Object.entries(GOLDEN_CROSS_LABELS).map(([k, label]) => {
+                const active = criteria.golden_cross.signals?.[k]
+                return (
+                  <span key={k} className={cn("text-[8px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
+                    {active ? "✓" : "✗"} {label}
+                  </span>
+                )
+              })}
+            </div>
+          </div>
         )}
 
         {/* News Section (3차 정보 — 토글) */}

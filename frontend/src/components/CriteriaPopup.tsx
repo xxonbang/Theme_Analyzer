@@ -3,18 +3,8 @@ import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { X, Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { CRITERIA_CONFIG } from "@/lib/criteria"
+import { CRITERIA_CONFIG, GOLDEN_CROSS_LABELS } from "@/lib/criteria"
 import type { StockCriteria } from "@/types/stock"
-
-const GOLDEN_CROSS_LABELS: Record<string, string> = {
-  ema_5_20: "EMA",
-  macd: "MACD",
-  stochastic: "스토캐스틱",
-  rsi: "RSI",
-  bollinger: "볼린저",
-  dmi: "DMI",
-  obv: "OBV",
-}
 
 interface CriteriaPopupProps {
   stockName: string
