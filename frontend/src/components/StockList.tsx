@@ -32,6 +32,7 @@ interface StockListProps {
   isAdmin?: boolean
   dataTimestamp?: string
   volumeProfiles?: Record<string, StockVolumeProfile>
+  vpUpdatedAt?: string
   intradayHistory?: Record<string, IntradayDay[]>
   initialLimit?: number
 }
@@ -39,13 +40,13 @@ interface StockListProps {
 // 마켓 섹션 (KOSPI/KOSDAQ 영역)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
-  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory, initialLimit,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, initialLimit,
 }: {
   label: string; dotColor: string; stocks: Stock[];
   history: Record<string, StockHistory>; news: Record<string, StockNews>;
   type: "rising" | "falling" | "neutral";
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
-  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; intradayHistory?: Record<string, IntradayDay[]>; initialLimit?: number;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; vpUpdatedAt?: string; intradayHistory?: Record<string, IntradayDay[]>; initialLimit?: number;
 }) {
   const [expanded, setExpanded] = useState(false)
   const hasMore = initialLimit != null && stocks.length > initialLimit
@@ -67,6 +68,7 @@ function StockMarketSection({
       isAdmin={isAdmin}
       dataTimestamp={dataTimestamp}
       volumeProfile={volumeProfiles?.[stock.code]}
+      vpUpdatedAt={vpUpdatedAt}
       intradayDays={intradayHistory?.[stock.code]}
     />
   )
@@ -444,7 +446,7 @@ function CompactMarketSection({
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory, initialLimit }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, initialLimit }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -543,6 +545,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           isAdmin={isAdmin}
           dataTimestamp={dataTimestamp}
           volumeProfiles={volumeProfiles}
+          vpUpdatedAt={vpUpdatedAt}
           intradayHistory={intradayHistory}
           initialLimit={initialLimit}
         />
@@ -564,6 +567,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           isAdmin={isAdmin}
           dataTimestamp={dataTimestamp}
           volumeProfiles={volumeProfiles}
+          vpUpdatedAt={vpUpdatedAt}
           intradayHistory={intradayHistory}
           initialLimit={initialLimit}
         />

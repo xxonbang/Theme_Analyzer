@@ -28,10 +28,11 @@ interface StockCardProps {
   isAdmin?: boolean
   dataTimestamp?: string
   volumeProfile?: StockVolumeProfile
+  vpUpdatedAt?: string
   intradayDays?: IntradayDay[]
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, intradayDays }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, vpUpdatedAt, intradayDays }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
@@ -487,6 +488,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
             <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground mb-1">
               <BarChart3 className="w-3.5 h-3.5 text-amber-500/60" />
               <span className="font-semibold tracking-wider">매물대</span>
+              {vpUpdatedAt && (
+                <span className="text-[9px] text-muted-foreground/70 tabular-nums">{vpUpdatedAt.slice(11, 16)}</span>
+              )}
               <button
                 onClick={(e) => { e.stopPropagation(); setVpExpanded(v => !v) }}
                 className="ml-auto p-0.5 hover:text-foreground transition-colors"
@@ -542,6 +546,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               >
                 <Sparkles className={cn("w-3.5 h-3.5", gcMet ? "text-yellow-500/60" : "text-muted-foreground/30")} />
                 <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
+                {dataTimestamp && (
+                  <span className="text-[9px] text-muted-foreground/70 tabular-nums">{dataTimestamp.slice(11, 16)}</span>
+                )}
                 <span className={cn("text-[9px] font-semibold tabular-nums", gcMet ? "text-yellow-600 dark:text-yellow-400" : "text-muted-foreground/40")}>
                   {gc.signal_count}/7
                 </span>

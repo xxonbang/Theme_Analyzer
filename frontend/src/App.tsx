@@ -617,6 +617,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
                     initialLimit={20}
                   />
@@ -638,6 +639,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
                     initialLimit={20}
                   />
@@ -663,6 +665,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
                   />
                   <StockList
@@ -683,6 +686,7 @@ function App() {
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
+                    vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
                   />
                 </>
@@ -709,6 +713,7 @@ function App() {
               isAdmin={isAdmin}
               dataTimestamp={displayData?.timestamp}
               volumeProfiles={vpData?.profiles}
+              vpUpdatedAt={vpData?.updated_at}
               intradayHistory={intradayHistoryData?.stocks}
             />
           )}
@@ -732,6 +737,7 @@ function App() {
               isAdmin={isAdmin}
               dataTimestamp={displayData?.timestamp}
               volumeProfiles={vpData?.profiles}
+              vpUpdatedAt={vpData?.updated_at}
               intradayHistory={intradayHistoryData?.stocks}
             />
           )}
@@ -756,6 +762,7 @@ function App() {
                 isAdmin={isAdmin}
                 dataTimestamp={displayData?.timestamp}
                 volumeProfiles={vpData?.profiles}
+                vpUpdatedAt={vpData?.updated_at}
                 intradayHistory={intradayHistoryData?.stocks}
               />
               <StockList
@@ -776,6 +783,7 @@ function App() {
                 isAdmin={isAdmin}
                 dataTimestamp={displayData?.timestamp}
                 volumeProfiles={vpData?.profiles}
+                vpUpdatedAt={vpData?.updated_at}
                 intradayHistory={intradayHistoryData?.stocks}
               />
             </>
