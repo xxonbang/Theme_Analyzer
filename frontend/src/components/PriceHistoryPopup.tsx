@@ -309,19 +309,35 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const lastUp = closes[closes.length - 1] >= openPrice
               const color = lastUp ? "#ef4444" : "#3b82f6"
               const xLabels = [0, Math.floor((closes.length - 1) / 2), closes.length - 1]
+              const midV = (minV + maxV) / 2
+              const yTicks = [maxV, midV, minV]
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
-                  {/* Y축 라벨 */}
-                  <text x={PAD.left - 4} y={PAD.top + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
-                    {formatPrice(maxV)}
-                  </text>
-                  <text x={PAD.left - 4} y={CH - PAD.bottom + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
-                    {formatPrice(minV)}
-                  </text>
+                  {/* 가로 그리드라인 + Y축 라벨 */}
+                  {yTicks.map((v, i) => {
+                    const y = PAD.top + PH - ((v - minV) / ((maxV - minV) || 1)) * PH
+                    return (
+                      <g key={`yg-${i}`}>
+                        <line x1={PAD.left} y1={y} x2={CW - PAD.right} y2={y}
+                          stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.12} />
+                        <text x={PAD.left - 4} y={y + 3} textAnchor="end" fill="currentColor" opacity={0.55} fontSize={9}>
+                          {formatPrice(Math.round(v))}
+                        </text>
+                      </g>
+                    )
+                  })}
+                  {/* 세로 그리드라인 */}
+                  {closes.map((_, i) => {
+                    const x = PAD.left + (i / Math.max(closes.length - 1, 1)) * PW
+                    return (
+                      <line key={`xg-${i}`} x1={x} y1={PAD.top} x2={x} y2={CH - PAD.bottom}
+                        stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.08} />
+                    )
+                  })}
                   {/* 0선 (시가 기준) */}
                   <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
-                    stroke="currentColor" strokeWidth={0.5} strokeDasharray="4,3" opacity={0.4} />
-                  <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.4} fontSize={7}>0%</text>
+                    stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
+                  <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={7}>0%</text>
                   {/* 선 */}
                   <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                   {/* 포인트 */}
@@ -330,7 +346,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   ))}
                   {/* X축 라벨 */}
                   {xLabels.map(i => (
-                    <text key={i} x={PAD.left + (i / Math.max(closes.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.5} fontSize={8}>
+                    <text key={i} x={PAD.left + (i / Math.max(closes.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.55} fontSize={8}>
                       {times[i]}
                     </text>
                   ))}
