@@ -207,7 +207,6 @@ export interface StockData {
   kospi_index?: KosdaqIndex
   kosdaq_index?: KosdaqIndex
   member_data?: Record<string, MemberInfo>
-  investor_intraday?: InvestorIntraday
 }
 
 // 모의투자 관련 타입

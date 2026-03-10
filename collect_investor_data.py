@@ -26,6 +26,7 @@ from modules.utils import KST
 
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
+INTRADAY_PATH = ROOT_DIR / "frontend" / "public" / "data" / "investor-intraday.json"
 FORECAST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "theme-forecast.json"
 
 
@@ -322,7 +323,14 @@ def main():
                     break
 
             if current_round > 0:
-                intraday = latest.get("investor_intraday", {})
+                # 별도 파일에서 intraday 로드
+                intraday = {}
+                if INTRADAY_PATH.exists():
+                    try:
+                        with open(INTRADAY_PATH, encoding="utf-8") as f:
+                            intraday = json.load(f)
+                    except (json.JSONDecodeError, IOError):
+                        pass
                 # 날짜 변경 시 초기화
                 if intraday.get("date") != today_str:
                     intraday = {"date": today_str, "snapshots": []}
@@ -394,7 +402,9 @@ def main():
                         snapshot_entry["pt"] = pt_summary
 
                     intraday.setdefault("snapshots", []).append(snapshot_entry)
-                    latest["investor_intraday"] = intraday
+                    # 별도 파일로 저장
+                    with open(INTRADAY_PATH, "w", encoding="utf-8") as f:
+                        json.dump(intraday, f, ensure_ascii=False)
                     print(f"  장중 스냅샷 {current_round}차 저장 ({len(snapshot_data)}개 종목)")
 
         # 거래량/거래대금/등락률 갱신 (메타 필드 제거)

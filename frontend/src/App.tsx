@@ -22,6 +22,7 @@ import { useVolumeProfile } from "@/hooks/useVolumeProfile"
 import { useIntradayHistory } from "@/hooks/useIntradayHistory"
 import { useMacroIndicators } from "@/hooks/useMacroIndicators"
 import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
+import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { MacroIndicators } from "@/components/MacroIndicators"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
@@ -43,6 +44,7 @@ function App() {
   const { data: intradayHistoryData } = useIntradayHistory()
   const { data: macroData } = useMacroIndicators()
   const { data: indicatorHistory, loading: indicatorHistoryLoading, fetchHistory: fetchIndicatorHistory } = useIndicatorHistory()
+  const { data: investorIntradayData } = useInvestorIntraday()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
 
   // 페이지 전환/접속 시 이력 기록
@@ -611,7 +613,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
-                    investorIntraday={displayData?.investor_intraday}
+                    investorIntraday={investorIntradayData ?? undefined}
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
@@ -632,7 +634,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
-                    investorIntraday={displayData?.investor_intraday}
+                    investorIntraday={investorIntradayData ?? undefined}
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
@@ -657,7 +659,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
-                    investorIntraday={displayData?.investor_intraday}
+                    investorIntraday={investorIntradayData ?? undefined}
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
@@ -677,7 +679,7 @@ function App() {
                     investorUpdatedAt={displayData?.investor_updated_at}
                     memberData={displayData?.member_data}
                     criteriaData={displayData?.criteria_data}
-                    investorIntraday={displayData?.investor_intraday}
+                    investorIntraday={investorIntradayData ?? undefined}
                     isAdmin={isAdmin}
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
@@ -703,7 +705,7 @@ function App() {
               investorUpdatedAt={displayData?.investor_updated_at}
               memberData={displayData?.member_data}
               criteriaData={displayData?.criteria_data}
-              investorIntraday={displayData?.investor_intraday}
+              investorIntraday={investorIntradayData ?? undefined}
               isAdmin={isAdmin}
               dataTimestamp={displayData?.timestamp}
               volumeProfiles={vpData?.profiles}
@@ -726,7 +728,7 @@ function App() {
               investorUpdatedAt={displayData?.investor_updated_at}
               memberData={displayData?.member_data}
               criteriaData={displayData?.criteria_data}
-              investorIntraday={displayData?.investor_intraday}
+              investorIntraday={investorIntradayData ?? undefined}
               isAdmin={isAdmin}
               dataTimestamp={displayData?.timestamp}
               volumeProfiles={vpData?.profiles}
@@ -750,7 +752,7 @@ function App() {
                 investorUpdatedAt={displayData?.investor_updated_at}
                 memberData={displayData?.member_data}
                 criteriaData={displayData?.criteria_data}
-                investorIntraday={displayData?.investor_intraday}
+                investorIntraday={investorIntradayData ?? undefined}
                 isAdmin={isAdmin}
                 dataTimestamp={displayData?.timestamp}
                 volumeProfiles={vpData?.profiles}
@@ -770,7 +772,7 @@ function App() {
                 investorUpdatedAt={displayData?.investor_updated_at}
                 memberData={displayData?.member_data}
                 criteriaData={displayData?.criteria_data}
-                investorIntraday={displayData?.investor_intraday}
+                investorIntraday={investorIntradayData ?? undefined}
                 isAdmin={isAdmin}
                 dataTimestamp={displayData?.timestamp}
                 volumeProfiles={vpData?.profiles}

@@ -95,6 +95,7 @@ jobs:
 
           # 수집된 데이터 백업
           cp frontend/public/data/latest.json /tmp/latest_collected.json
+          [ -f frontend/public/data/investor-intraday.json ] && cp frontend/public/data/investor-intraday.json /tmp/investor_intraday_collected.json
           [ -f frontend/public/data/macro-indicators.json ] && cp frontend/public/data/macro-indicators.json /tmp/macro_collected.json
           [ -f frontend/public/data/indicator-history.json ] && cp frontend/public/data/indicator-history.json /tmp/indicator_history_collected.json
 
@@ -111,6 +112,7 @@ jobs:
 
             # 수집된 데이터 복원 후 커밋
             cp /tmp/latest_collected.json frontend/public/data/latest.json
+            [ -f /tmp/investor_intraday_collected.json ] && cp /tmp/investor_intraday_collected.json frontend/public/data/investor-intraday.json
             [ -f /tmp/macro_collected.json ] && cp /tmp/macro_collected.json frontend/public/data/macro-indicators.json
             [ -f /tmp/indicator_history_collected.json ] && cp /tmp/indicator_history_collected.json frontend/public/data/indicator-history.json
 
@@ -119,6 +121,7 @@ jobs:
             python3 scripts/merge_workflow_data.py merge-investor
 
             git add frontend/public/data/latest.json
+            [ -f frontend/public/data/investor-intraday.json ] && git add frontend/public/data/investor-intraday.json
             [ -f frontend/public/data/macro-indicators.json ] && git add frontend/public/data/macro-indicators.json
             [ -f frontend/public/data/indicator-history.json ] && git add frontend/public/data/indicator-history.json
 
