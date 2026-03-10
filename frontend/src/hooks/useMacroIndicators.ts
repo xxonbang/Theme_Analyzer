@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react"
+import type { ExchangeData } from "@/types/stock"
 
 const DATA_URL = import.meta.env.BASE_URL + "data/macro-indicators.json"
 
@@ -14,6 +15,7 @@ export interface MacroIndicator {
 export interface MacroIndicatorsData {
   updated_at: string
   indicators: MacroIndicator[]
+  exchange?: ExchangeData
 }
 
 interface UseMacroIndicatorsReturn {

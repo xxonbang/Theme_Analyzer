@@ -21,6 +21,7 @@ from pathlib import Path
 
 from modules.kis_client import KISClient
 from modules.exchange_rate import get_quick_exchange_rates
+from modules.utils import KST
 
 ROOT_DIR = Path(__file__).parent
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "macro-indicators.json"
@@ -63,7 +64,7 @@ def collect_nq_futures() -> dict | None:
 
 def get_kospi200_futures_code() -> str:
     """현재 근월물 종목코드 계산 (분기월: 3,6,9,12)"""
-    now = datetime.now()
+    now = datetime.now(KST)
     month_codes = {3: "H", 6: "M", 9: "U", 12: "Z"}
     quarter_months = [3, 6, 9, 12]
     year_2d = now.strftime("%y")
@@ -206,7 +207,7 @@ def main():
     print(f"  수집 완료: {len(indicators)}/6")
 
     output = {
-        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
         "indicators": indicators,
         "exchange": exchange,
     }
@@ -224,7 +225,7 @@ def main():
 
 def update_indicator_history(indicators: list[dict]):
     """indicator-history.json에 오늘의 스냅샷을 추가 (30일 롤링)."""
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = datetime.now(KST).strftime("%Y-%m-%d")
 
     # 기존 히스토리 로드
     history: dict = {"updated_at": "", "macro": {}, "exchange": {}}
@@ -269,7 +270,7 @@ def update_indicator_history(indicators: list[dict]):
         except (json.JSONDecodeError, KeyError):
             pass
 
-    history["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    history["updated_at"] = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
     HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(HISTORY_PATH, "w", encoding="utf-8") as f:

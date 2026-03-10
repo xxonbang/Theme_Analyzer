@@ -549,8 +549,8 @@ function App() {
         {/* Macro Indicators - Admin only */}
         {isAdmin && macroData && <MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
 
-        {/* Exchange Rate */}
-        {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
+        {/* Exchange Rate — macro-indicators.json 우선 (프리마켓/선물 워크플로우에서 최신 환율 반영) */}
+        {(macroData?.exchange || displayData?.exchange) && <ExchangeRate exchange={(macroData?.exchange ?? displayData?.exchange)!} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
 
         {/* Index MA Alert (KOSPI + KOSDAQ) */}
         <IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} />

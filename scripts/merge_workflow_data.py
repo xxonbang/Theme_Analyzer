@@ -54,6 +54,10 @@ def merge_investor():
     elif ri.get("snapshots") and not li.get("snapshots"):
         data["investor_intraday"] = ri
         changed = True
+    elif ri.get("date") and li.get("date") and ri["date"] > li["date"]:
+        # 원격이 더 최신 날짜 → 원격 데이터 사용 (DTA가 구 날짜를 덮어쓰는 것 방지)
+        data["investor_intraday"] = ri
+        changed = True
 
     # investor_data: 원격이 더 최신이면 사용
     ru = remote.get("investor_updated_at", "")
