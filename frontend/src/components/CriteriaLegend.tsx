@@ -66,13 +66,13 @@ export function CriteriaLegend() {
 
   return (
     <>
-      <div className="bg-muted/40 rounded-lg text-[10px] sm:text-xs text-muted-foreground">
+      <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-800/40 rounded-lg text-[10px] sm:text-xs text-muted-foreground">
         <button
           onClick={() => setExpanded(v => !v)}
           className="flex items-center justify-between w-full px-3 py-2 hover:text-foreground transition-colors"
         >
-          <span className="font-medium text-foreground/70">선정 기준</span>
-          <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", expanded && "rotate-180")} />
+          <span className="font-semibold text-amber-700 dark:text-amber-400">선정 기준</span>
+          <ChevronDown className={cn("w-3.5 h-3.5 text-amber-500 transition-transform", expanded && "rotate-180")} />
         </button>
         {expanded && (
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 pb-2">

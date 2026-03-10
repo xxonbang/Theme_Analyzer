@@ -141,7 +141,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
           <ArrowLeftRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">환율</span>
           {exchange.timestamp && (
-            <span className="text-[10px] text-muted-foreground/35 tabular-nums ml-1.5">{exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}</span>
+            <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}</span>
           )}
           {/* History 아이콘 */}
           <span

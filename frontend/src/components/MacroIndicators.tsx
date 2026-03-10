@@ -163,7 +163,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           <BarChart3 className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">거시지표</span>
           {data.updated_at && (
-            <span className="text-[10px] text-muted-foreground/35 tabular-nums ml-1.5">{data.updated_at.slice(5, 10).replace("-", "/")} · {data.updated_at.slice(11, 16)}</span>
+            <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{data.updated_at.slice(5, 10).replace("-", "/")} · {data.updated_at.slice(11, 16)}</span>
           )}
           {/* History 아이콘 */}
           <span
