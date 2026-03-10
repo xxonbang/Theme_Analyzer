@@ -33,19 +33,24 @@ interface StockListProps {
   dataTimestamp?: string
   volumeProfiles?: Record<string, StockVolumeProfile>
   intradayHistory?: Record<string, IntradayDay[]>
+  initialLimit?: number
 }
 
 // 마켓 섹션 (KOSPI/KOSDAQ 영역)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
-  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory, initialLimit,
 }: {
   label: string; dotColor: string; stocks: Stock[];
   history: Record<string, StockHistory>; news: Record<string, StockNews>;
   type: "rising" | "falling" | "neutral";
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
-  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; intradayHistory?: Record<string, IntradayDay[]>;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; intradayHistory?: Record<string, IntradayDay[]>; initialLimit?: number;
 }) {
+  const [expanded, setExpanded] = useState(false)
+  const hasMore = initialLimit != null && stocks.length > initialLimit
+  const visibleStocks = hasMore && !expanded ? stocks.slice(0, initialLimit) : stocks
+
   const renderCard = (stock: Stock) => (
     <StockCard
       key={stock.code}
@@ -74,9 +79,19 @@ function StockMarketSection({
         <span className="text-xs sm:text-sm text-muted-foreground">({stocks.length})</span>
       </div>
       {stocks.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-          {stocks.map(renderCard)}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+            {visibleStocks.map(renderCard)}
+          </div>
+          {hasMore && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="w-full mt-2 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg border border-dashed border-border/50 transition-colors"
+            >
+              {expanded ? "접기" : `더보기 (+${stocks.length - initialLimit})`}
+            </button>
+          )}
+        </>
       ) : (
         <div className="flex flex-col items-center gap-2 py-6 sm:py-8 text-center bg-muted/20 rounded-lg border border-dashed border-border/50">
           <BarChart3 className="w-6 h-6 text-muted-foreground/40" />
@@ -358,6 +373,7 @@ function CompactMarketSection({
   isAdmin,
   volumeProfiles,
   intradayHistory,
+  initialLimit,
 }: {
   market: string
   stocks: Stock[]
@@ -375,8 +391,12 @@ function CompactMarketSection({
   isAdmin?: boolean
   volumeProfiles?: Record<string, StockVolumeProfile>
   intradayHistory?: Record<string, IntradayDay[]>
+  initialLimit?: number
 }) {
+  const [expanded, setExpanded] = useState(false)
   const hasMemberData = !!memberData && Object.keys(memberData).length > 0
+  const hasMore = initialLimit != null && stocks.length > initialLimit
+  const visibleStocks = hasMore && !expanded ? stocks.slice(0, initialLimit) : stocks
 
   if (stocks.length === 0) {
     return (
@@ -403,7 +423,7 @@ function CompactMarketSection({
           <div className="min-w-fit">
             {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
             <div className="divide-y divide-border/30">
-              {stocks.map((stock) => (
+              {visibleStocks.map((stock) => (
                 <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} volumeProfile={volumeProfiles?.[stock.code]} intradayDays={intradayHistory?.[stock.code]} />
               ))}
             </div>
@@ -412,11 +432,19 @@ function CompactMarketSection({
         {/* 수평 스크롤 힌트 (우측 fade) */}
         <div className="absolute top-0 right-0 bottom-0 w-6 pointer-events-none bg-gradient-to-l from-card to-transparent sm:hidden" />
       </div>
+      {hasMore && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full mt-1 py-1.5 text-[10px] text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded border border-dashed border-border/30 transition-colors"
+        >
+          {expanded ? "접기" : `더보기 (+${stocks.length - initialLimit})`}
+        </button>
+      )}
     </div>
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory, initialLimit }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -459,6 +487,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             isAdmin={isAdmin}
             volumeProfiles={volumeProfiles}
             intradayHistory={intradayHistory}
+            initialLimit={initialLimit}
           />
           <CompactMarketSection
             market="KOSDAQ"
@@ -477,6 +506,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             isAdmin={isAdmin}
             volumeProfiles={volumeProfiles}
             intradayHistory={intradayHistory}
+            initialLimit={initialLimit}
           />
         </CardContent>
       </Card>
@@ -514,6 +544,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           dataTimestamp={dataTimestamp}
           volumeProfiles={volumeProfiles}
           intradayHistory={intradayHistory}
+          initialLimit={initialLimit}
         />
 
         {/* KOSDAQ */}
@@ -534,6 +565,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           dataTimestamp={dataTimestamp}
           volumeProfiles={volumeProfiles}
           intradayHistory={intradayHistory}
+          initialLimit={initialLimit}
         />
       </CardContent>
     </Card>

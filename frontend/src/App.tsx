@@ -616,6 +616,7 @@ function App() {
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
                     intradayHistory={intradayHistoryData?.stocks}
+                    initialLimit={20}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP`}
@@ -636,6 +637,7 @@ function App() {
                     dataTimestamp={displayData?.timestamp}
                     volumeProfiles={vpData?.profiles}
                     intradayHistory={intradayHistoryData?.stocks}
+                    initialLimit={20}
                   />
                 </>
               ) : (
