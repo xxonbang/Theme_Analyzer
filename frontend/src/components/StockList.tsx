@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react"
-import { useVirtualizer } from "@tanstack/react-virtual"
+import { useState } from "react"
 import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -36,9 +35,7 @@ interface StockListProps {
   intradayHistory?: Record<string, IntradayDay[]>
 }
 
-const VIRTUALIZE_THRESHOLD = 20
-
-// 가상 스크롤 마켓 섹션 (뷰포트에 보이는 항목만 렌더링)
+// 마켓 섹션 (KOSPI/KOSDAQ 영역)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
   investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, intradayHistory,
@@ -49,36 +46,6 @@ function StockMarketSection({
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
   memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; intradayHistory?: Record<string, IntradayDay[]>;
 }) {
-  const parentRef = useRef<HTMLDivElement>(null)
-  const [columns, setColumns] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches ? 2 : 1
-  )
-
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 640px)")
-    const handler = (e: MediaQueryListEvent) => setColumns(e.matches ? 2 : 1)
-    mql.addEventListener("change", handler)
-    return () => mql.removeEventListener("change", handler)
-  }, [])
-
-  // 종목을 행(row) 단위로 그룹핑 (1열 또는 2열)
-  const rows = useMemo(() => {
-    const result: Stock[][] = []
-    for (let i = 0; i < stocks.length; i += columns) {
-      result.push(stocks.slice(i, i + columns))
-    }
-    return result
-  }, [stocks, columns])
-
-  const shouldVirtualize = stocks.length > VIRTUALIZE_THRESHOLD
-
-  const virtualizer = useVirtualizer({
-    count: shouldVirtualize ? rows.length : 0,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 280,
-    overscan: 3,
-  })
-
   const renderCard = (stock: Stock) => (
     <StockCard
       key={stock.code}
@@ -107,38 +74,9 @@ function StockMarketSection({
         <span className="text-xs sm:text-sm text-muted-foreground">({stocks.length})</span>
       </div>
       {stocks.length > 0 ? (
-        shouldVirtualize ? (
-          <div
-            ref={parentRef}
-            className="overflow-y-auto scrollbar-thin"
-            style={{ maxHeight: "75vh" }}
-          >
-            <div style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
-              {virtualizer.getVirtualItems().map((virtualRow) => (
-                <div
-                  key={virtualRow.key}
-                  ref={virtualizer.measureElement}
-                  data-index={virtualRow.index}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    transform: `translateY(${virtualRow.start}px)`,
-                  }}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pb-2 sm:pb-3">
-                    {rows[virtualRow.index].map(renderCard)}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-            {stocks.map(renderCard)}
-          </div>
-        )
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+          {stocks.map(renderCard)}
+        </div>
       ) : (
         <div className="flex flex-col items-center gap-2 py-6 sm:py-8 text-center bg-muted/20 rounded-lg border border-dashed border-border/50">
           <BarChart3 className="w-6 h-6 text-muted-foreground/40" />
