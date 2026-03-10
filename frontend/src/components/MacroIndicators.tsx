@@ -188,7 +188,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               return (
                 <div
                   key={item.symbol}
-                  className={`flex items-center justify-between px-2.5 py-1.5 ${isUp ? "bg-rose-200/40" : isDown ? "bg-sky-200/40" : "bg-muted/50"}`}
+                  className={`flex items-center justify-between px-2.5 py-1.5 ${isUp ? "bg-rose-100" : isDown ? "bg-sky-100" : "bg-muted/50"}`}
                 >
                   <span className="text-[10px] text-foreground/65 font-semibold">{name}</span>
                   <span className={`text-[11px] tabular-nums font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
