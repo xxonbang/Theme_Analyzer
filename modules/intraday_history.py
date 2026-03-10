@@ -36,7 +36,7 @@ def aggregate_minute_candles(
     # 시간순 정렬 (오래된 것 먼저)
     sorted_candles = sorted(candles, key=lambda c: c["time"])
 
-    # 구간 경계 생성 (09:00 ~ 15:30)
+    # 구간 경계 생성 (09:00 ~ 15:00, 시간외 거래 제외)
     boundaries = []
     hour, minute = 9, 0
     while True:
@@ -44,13 +44,13 @@ def aggregate_minute_candles(
         if minute >= 60:
             hour += minute // 60
             minute = minute % 60
-        if hour > 15 or (hour == 15 and minute > 30):
+        if hour > 15 or (hour == 15 and minute > 0):
             break
         boundaries.append(f"{hour:02d}{minute:02d}00")
 
-    # 15:30은 항상 포함
-    if not boundaries or boundaries[-1] != "153000":
-        boundaries.append("153000")
+    # 15:00은 항상 포함 (정규장 마감)
+    if not boundaries or boundaries[-1] != "150000":
+        boundaries.append("150000")
 
     # 09:00 시가 (첫 번째 캔들의 close를 시가로 사용)
     base_price = sorted_candles[0]["close"] if sorted_candles else 0

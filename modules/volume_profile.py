@@ -157,7 +157,7 @@ def fetch_minute_candles(
     path = "/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice"
     tr_id = "FHKST03010200"
     candles = []
-    cursor = "153000"
+    cursor = "150000"
 
     for _ in range(15):  # 최대 15회 (09:00까지)
         params = {
