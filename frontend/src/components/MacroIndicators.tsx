@@ -222,19 +222,19 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               return (
                 <div
                   key={item.symbol}
-                  className={`flex-1 min-w-0 flex items-center justify-between px-1.5 py-1.5 ${bg}`}
+                  className={`flex-1 flex flex-col items-center py-1 ${bg}`}
                 >
-                  <span className="text-[9px] text-foreground/65 font-semibold truncate">{name}</span>
+                  <span className="text-[9px] text-foreground/55 font-medium leading-none">{name}</span>
                   {isFng ? (
-                    <span className={`text-[10px] tabular-nums font-semibold ml-0.5 ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
+                    <span className={`text-[11px] tabular-nums font-bold leading-tight ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
                       {item.price.toFixed(0)}
                     </span>
                   ) : isVix ? (
-                    <span className={`text-[10px] tabular-nums font-semibold ml-0.5 ${isUp ? "text-amber-600" : isDown ? "text-emerald-600" : "text-muted-foreground/40"}`}>
+                    <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-amber-600" : isDown ? "text-emerald-600" : "text-muted-foreground/40"}`}>
                       {item.price.toFixed(1)}
                     </span>
                   ) : (
-                    <span className={`text-[10px] tabular-nums font-semibold ml-0.5 ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                    <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                       {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
                     </span>
                   )}

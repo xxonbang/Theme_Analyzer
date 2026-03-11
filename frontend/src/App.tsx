@@ -546,21 +546,21 @@ function App() {
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
               ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
               ...(activeTab === "composite" ? [
-                { id: "section-rising-kospi", label: "↑KP" },
-                { id: "section-rising-kosdaq", label: "↑KQ" },
-                { id: "section-falling-kospi", label: "↓KP" },
-                { id: "section-falling-kosdaq", label: "↓KQ" },
+                { id: "section-rising-kospi", label: "↑KOSPI" },
+                { id: "section-rising-kosdaq", label: "↑KOSDAQ" },
+                { id: "section-falling-kospi", label: "↓KOSPI" },
+                { id: "section-falling-kosdaq", label: "↓KOSDAQ" },
               ] : activeTab === "trading_value" ? [
-                { id: "section-trading-kospi", label: "KP" },
-                { id: "section-trading-kosdaq", label: "KQ" },
+                { id: "section-trading-kospi", label: "KOSPI" },
+                { id: "section-trading-kosdaq", label: "KOSDAQ" },
               ] : activeTab === "volume" ? [
-                { id: "section-volume-kospi", label: "KP" },
-                { id: "section-volume-kosdaq", label: "KQ" },
+                { id: "section-volume-kospi", label: "KOSPI" },
+                { id: "section-volume-kosdaq", label: "KOSDAQ" },
               ] : activeTab === "fluctuation" ? [
-                { id: "section-fluc-rising-kospi", label: "↑KP" },
-                { id: "section-fluc-rising-kosdaq", label: "↑KQ" },
-                { id: "section-fluc-falling-kospi", label: "↓KP" },
-                { id: "section-fluc-falling-kosdaq", label: "↓KQ" },
+                { id: "section-fluc-rising-kospi", label: "↑KOSPI" },
+                { id: "section-fluc-rising-kosdaq", label: "↑KOSDAQ" },
+                { id: "section-fluc-falling-kospi", label: "↓KOSPI" },
+                { id: "section-fluc-falling-kosdaq", label: "↓KOSDAQ" },
               ] : []),
             ].map((s) => (
               <button
