@@ -73,6 +73,19 @@ def main():
         all_stocks = all_stocks[:3]
         print(f"  테스트 모드: {len(all_stocks)}종목만 수집")
 
+    # 장중 모드: criteria 점수 상위 종목으로 제한 (API 호출량 절감)
+    INTRADAY_MAX = 80
+    if intraday_mode and not test_mode and len(all_stocks) > INTRADAY_MAX:
+        criteria_data = latest.get("criteria_data", {})
+        scored = []
+        for s in all_stocks:
+            cd = criteria_data.get(s["code"], {})
+            score = sum(1 for k, v in cd.items() if isinstance(v, dict) and v.get("met") and not v.get("warning"))
+            scored.append((score, s))
+        scored.sort(key=lambda x: x[0], reverse=True)
+        all_stocks = [s for _, s in scored[:INTRADAY_MAX]]
+        print(f"  장중 모드: criteria 상위 {INTRADAY_MAX}종목만 수집")
+
     # 2. 기존 데이터 로드 (장중 모드: 장기 데이터 보존)
     existing = load_json(OUTPUT_PATH) if intraday_mode else {}
 
