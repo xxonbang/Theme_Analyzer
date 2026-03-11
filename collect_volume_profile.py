@@ -12,7 +12,7 @@ import json
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from modules.kis_client import KISClient
@@ -117,7 +117,8 @@ def main():
         profiles = merged
 
     # 5. 저장
-    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    KST = timezone(timedelta(hours=9))
+    now_str = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
     output = {
         "updated_at": now_str,
         "mode": "intraday" if intraday_mode else "full",
