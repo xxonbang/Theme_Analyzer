@@ -266,7 +266,6 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
           <span className="text-muted-foreground">{stocks.length}종목</span>
           {hitCount > 0 && <span className="text-emerald-600 text-[10px]">{hitCount}적중</span>}
           {missCount > 0 && <span className="text-red-500 text-[10px]">{missCount}미스</span>}
-          {isSimulating && <Badge className="text-[9px] px-1 py-0 bg-violet-100 text-violet-700">시뮬레이션</Badge>}
         </div>
         {expanded ? (
           <ChevronUp className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
