@@ -115,7 +115,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
         <span>
           {mode === "high" ? "최고가" : "종가"}
           {mode === "high" && stock.high_price_adjusted && <span className="text-amber-500 text-[9px] ml-0.5">종가적용</span>}
-          {mode === "high" && stock.high_time && <span className="text-muted-foreground/70">({stock.high_time})</span>}
+          {mode === "high" && <span className="text-muted-foreground/70">({stock.high_time || "종가"})</span>}
           {" "}<span className="font-medium text-foreground">{displaySellPrice.toLocaleString()}</span>
         </span>
 
@@ -156,8 +156,8 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
                   {fmtRate(row.rate)}
                 </span>
               )}
-              {"time" in row && row.time && (
-                <span className="text-muted-foreground/50 text-[10px]">{row.time}</span>
+              {"time" in row && (
+                <span className="text-muted-foreground/50 text-[10px]">{row.time || "종가"}</span>
               )}
             </div>
           ))}
