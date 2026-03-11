@@ -12,8 +12,8 @@ interface MacroIndicatorsProps {
   onRequestHistory?: () => void
 }
 
-const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "069500", "EWY", "KORU"]
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200F" }
+const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "069500", "EWY", "KORU", "^VIX", "FNG"]
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200F", "^VIX": "VIX", "FNG": "F&G" }
 const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
 
 function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
@@ -186,15 +186,32 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               const isUp = item.change_pct > 0
               const isDown = item.change_pct < 0
               const name = SHORT_NAMES[item.symbol] || (item.symbol === "KOSPI200F" ? (item.name.includes("지수") ? "K200" : "K200F") : item.name)
+              const isFng = item.symbol === "FNG"
+              const isVix = item.symbol === "^VIX"
+              const bg = isFng
+                ? (item.price >= 75 ? "bg-rose-100" : item.price >= 50 ? "bg-orange-50" : item.price >= 25 ? "bg-amber-50" : "bg-sky-100")
+                : isVix
+                  ? (isUp ? "bg-amber-50" : isDown ? "bg-emerald-50" : "bg-muted/50")
+                  : (isUp ? "bg-rose-100" : isDown ? "bg-sky-100" : "bg-muted/50")
               return (
                 <div
                   key={item.symbol}
-                  className={`flex items-center justify-between px-2.5 py-1.5 ${isUp ? "bg-rose-100" : isDown ? "bg-sky-100" : "bg-muted/50"}`}
+                  className={`flex items-center justify-between px-2.5 py-1.5 ${bg}`}
                 >
                   <span className="text-[10px] text-foreground/65 font-semibold">{name}</span>
-                  <span className={`text-[11px] tabular-nums font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
-                    {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
-                  </span>
+                  {isFng ? (
+                    <span className={`text-[11px] tabular-nums font-semibold ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
+                      {item.price.toFixed(0)}
+                    </span>
+                  ) : isVix ? (
+                    <span className={`text-[11px] tabular-nums font-semibold ${isUp ? "text-amber-600" : isDown ? "text-emerald-600" : "text-muted-foreground/40"}`}>
+                      {item.price.toFixed(1)}
+                    </span>
+                  ) : (
+                    <span className={`text-[11px] tabular-nums font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                      {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
+                    </span>
+                  )}
                 </div>
               )
             })}

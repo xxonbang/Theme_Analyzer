@@ -5,6 +5,8 @@
   - NQ=F (나스닥100 선물) — yfinance
   - KOSPI200 선물 (근월물) — KIS 국내선물
   - MU, SOXX, EWY, KORU — KIS 해외
+  - ^VIX (변동성지수) — yfinance
+  - Fear & Greed Index — CNN
   - USD, JPY, EUR, CNY 환율 — 다중 소스
 
 사용법:
@@ -18,6 +20,8 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
+
+import requests
 
 from modules.kis_client import KISClient
 from modules.exchange_rate import get_quick_exchange_rates
@@ -59,6 +63,64 @@ def collect_nq_futures() -> dict | None:
         }
     except Exception as e:
         print(f"  [오류] NQ=F: {e}")
+        return None
+
+
+def collect_vix() -> dict | None:
+    """yfinance로 VIX 현재가/등락 수집."""
+    try:
+        import yfinance as yf
+
+        ticker = yf.Ticker("^VIX")
+        info = ticker.fast_info
+        price = info.last_price
+        prev = info.previous_close
+        if price is None or prev is None:
+            return None
+        change = round(price - prev, 2)
+        change_pct = round(change / prev * 100, 2) if prev else 0
+        return {
+            "symbol": "^VIX",
+            "name": "VIX",
+            "price": round(price, 2),
+            "change": change,
+            "change_pct": change_pct,
+            "source": "yfinance",
+        }
+    except Exception as e:
+        print(f"  [오류] VIX: {e}")
+        return None
+
+
+def collect_fear_greed() -> dict | None:
+    """CNN Fear & Greed Index 수집."""
+    try:
+        url = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Accept": "*/*",
+        }
+        resp = requests.get(url, headers=headers, timeout=10)
+        if resp.status_code != 200:
+            return None
+        fg = resp.json().get("fear_and_greed", {})
+        score = fg.get("score")
+        rating = fg.get("rating", "")
+        prev = fg.get("previous_close")
+        if score is None:
+            return None
+        change = round(score - prev, 2) if prev else 0
+        change_pct = round(change / prev * 100, 2) if prev and prev != 0 else 0
+        return {
+            "symbol": "FNG",
+            "name": f"F&G ({rating})",
+            "price": round(score, 1),
+            "change": change,
+            "change_pct": change_pct,
+            "source": "cnn",
+        }
+    except Exception as e:
+        print(f"  [오류] Fear & Greed: {e}")
         return None
 
 
@@ -196,7 +258,21 @@ def main():
             print(f"    → {item['price']} ({item['change']:+.2f}, {item['change_pct']:+.2f}%)")
         time.sleep(0.3)
 
-    # 5. 환율 (다중 소스)
+    # 5. VIX (yfinance)
+    print("  ^VIX (변동성지수)...")
+    vix = collect_vix()
+    if vix:
+        indicators.append(vix)
+        print(f"    → {vix['price']} ({vix['change']:+.2f}, {vix['change_pct']:+.2f}%)")
+
+    # 6. Fear & Greed (CNN)
+    print("  Fear & Greed Index...")
+    fng = collect_fear_greed()
+    if fng:
+        indicators.append(fng)
+        print(f"    → {fng['price']} ({fng['name']})")
+
+    # 7. 환율 (다중 소스)
     print("  환율 수집...")
     exchange = get_quick_exchange_rates()
     if exchange:
@@ -204,7 +280,7 @@ def main():
     else:
         print("    → 환율 수집 실패")
 
-    print(f"  수집 완료: {len(indicators)}/6")
+    print(f"  수집 완료: {len(indicators)}/8")
 
     output = {
         "updated_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
