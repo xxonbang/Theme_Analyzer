@@ -541,7 +541,7 @@ function App() {
         />
         {/* 섹션 퀵네비 */}
         <div className="bg-background/95 backdrop-blur-sm border-b border-border/30">
-          <div className="container flex flex-wrap gap-1 px-3 sm:px-4 py-1.5">
+          <div className="container flex items-center px-3 sm:px-4 py-1">
             {[
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
               ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
@@ -562,9 +562,9 @@ function App() {
                 { id: "section-fluc-falling-kospi", label: "↓KOSPI" },
                 { id: "section-fluc-falling-kosdaq", label: "↓KOSDAQ" },
               ] : []),
-            ].map((s) => (
+            ].map((s, i, arr) => (
+              <span key={s.id} className="flex items-center">
               <button
-                key={s.id}
                 onClick={() => {
                   const el = document.getElementById(s.id)
                   if (el) {
@@ -574,10 +574,12 @@ function App() {
                     window.scrollTo({ top: y, behavior: "smooth" })
                   }
                 }}
-                className="text-[11px] px-2 py-0.5 rounded-full border border-border/40 text-muted-foreground/70 hover:text-foreground hover:border-border hover:bg-muted/50 transition-colors"
+                className="text-[11px] px-1.5 py-0.5 text-muted-foreground/70 hover:text-foreground transition-colors"
               >
                 {s.label}
               </button>
+              {i < arr.length - 1 && <span className="text-border text-[10px]">|</span>}
+              </span>
             ))}
           </div>
         </div>

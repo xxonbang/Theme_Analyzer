@@ -16,6 +16,17 @@ const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "069500", "EWY", "KORU", "^VIX", "
 const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200F", "^VIX": "VIX", "FNG": "F&G" }
 const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
 
+const INDICATOR_DESC: Record<string, string> = {
+  "NQ=F": "나스닥100 선물 (E-mini). 미국 기술주 100개 종목 선물지수. 한국 시장 개장 전 미국 시장 방향성을 가늠하는 핵심 지표.",
+  "KOSPI200F": "코스피200 선물. 코스피200 지수를 기초자산으로 하는 파생상품. 기관/외국인 수급 방향을 선행적으로 반영.",
+  "069500": "KODEX 200 ETF (코스피200 지수 추종). 코스피200 현물 지수의 실시간 대리 지표로 활용.",
+  "EWY": "iShares MSCI South Korea ETF. 미국에 상장된 한국 대표 ETF. 외국인 투자자의 한국 시장 투자 심리를 반영.",
+  "KORU": "Direxion Daily South Korea Bull 3X. 한국 시장 3배 레버리지 ETF. 외국인의 한국 시장 공격적 매수/매도 심리 반영.",
+  "SOXX": "iShares Semiconductor ETF. 미국 반도체 섹터 ETF. 삼성전자·SK하이닉스 등 한국 반도체주와 높은 상관관계.",
+  "^VIX": "CBOE 변동성지수 (공포지수). S&P500 옵션의 내재 변동성 측정. 20 이하 안정, 30 이상 공포 구간.",
+  "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
+}
+
 function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
   const [hidden, setHidden] = useState<Set<string>>(new Set())
 
@@ -134,6 +145,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
 export function MacroIndicators({ data, history, historyLoading, onRequestHistory }: MacroIndicatorsProps) {
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
+  const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null)
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false))
 
   // 스크롤 잠금
@@ -261,7 +273,8 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             return (
               <div
                 key={item.symbol}
-                className={`rounded-md border border-border/50 border-l-2 ${accent} bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1 transition-colors hover:bg-card`}
+                onClick={() => setSelectedIndicator(item.symbol)}
+                className={`rounded-md border border-border/50 border-l-2 ${accent} bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1 transition-colors hover:bg-card cursor-pointer`}
               >
                 <span className="text-[10px] text-muted-foreground/60 font-medium truncate leading-none">
                   {item.name}
@@ -276,6 +289,27 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             )
           })}
         </div>
+      )}
+
+      {/* 지표 설명 팝업 */}
+      {selectedIndicator && createPortal(
+        <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={() => setSelectedIndicator(null)}>
+          <div className="absolute inset-0 bg-black/25" />
+          <div className="relative mx-4 max-w-sm w-full bg-popover text-popover-foreground rounded-xl shadow-xl border border-border p-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold">
+                {data.indicators.find(i => i.symbol === selectedIndicator)?.name || selectedIndicator}
+              </span>
+              <button onClick={() => setSelectedIndicator(null)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {INDICATOR_DESC[selectedIndicator] || "설명 없음"}
+            </p>
+          </div>
+        </div>,
+        document.body
       )}
 
       {/* 히스토리 Bottom Sheet */}
