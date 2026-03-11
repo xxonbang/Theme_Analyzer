@@ -540,27 +540,27 @@ function App() {
           onCompositeModeChange={handleCompositeModeChange}
         />
         {/* 섹션 퀵네비 */}
-        <div className="bg-background/95 backdrop-blur-sm border-b border-border/30 overflow-x-auto scrollbar-hide">
-          <div className="container flex gap-1.5 px-3 sm:px-4 py-1.5">
+        <div className="bg-background/95 backdrop-blur-sm border-b border-border/30">
+          <div className="container flex flex-wrap gap-1 px-3 sm:px-4 py-1.5">
             {[
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
               ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
               ...(activeTab === "composite" ? [
-                { id: "section-rising-kospi", label: "상승KOSPI" },
-                { id: "section-rising-kosdaq", label: "상승KOSDAQ" },
-                { id: "section-falling-kospi", label: "하락KOSPI" },
-                { id: "section-falling-kosdaq", label: "하락KOSDAQ" },
+                { id: "section-rising-kospi", label: "↑KP" },
+                { id: "section-rising-kosdaq", label: "↑KQ" },
+                { id: "section-falling-kospi", label: "↓KP" },
+                { id: "section-falling-kosdaq", label: "↓KQ" },
               ] : activeTab === "trading_value" ? [
-                { id: "section-trading-kospi", label: "KOSPI" },
-                { id: "section-trading-kosdaq", label: "KOSDAQ" },
+                { id: "section-trading-kospi", label: "KP" },
+                { id: "section-trading-kosdaq", label: "KQ" },
               ] : activeTab === "volume" ? [
-                { id: "section-volume-kospi", label: "KOSPI" },
-                { id: "section-volume-kosdaq", label: "KOSDAQ" },
+                { id: "section-volume-kospi", label: "KP" },
+                { id: "section-volume-kosdaq", label: "KQ" },
               ] : activeTab === "fluctuation" ? [
-                { id: "section-fluc-rising-kospi", label: "상승KOSPI" },
-                { id: "section-fluc-rising-kosdaq", label: "상승KOSDAQ" },
-                { id: "section-fluc-falling-kospi", label: "하락KOSPI" },
-                { id: "section-fluc-falling-kosdaq", label: "하락KOSDAQ" },
+                { id: "section-fluc-rising-kospi", label: "↑KP" },
+                { id: "section-fluc-rising-kosdaq", label: "↑KQ" },
+                { id: "section-fluc-falling-kospi", label: "↓KP" },
+                { id: "section-fluc-falling-kosdaq", label: "↓KQ" },
               ] : []),
             ].map((s) => (
               <button
@@ -574,7 +574,7 @@ function App() {
                     window.scrollTo({ top: y, behavior: "smooth" })
                   }
                 }}
-                className="shrink-0 text-[11px] px-2.5 py-1 rounded-full border border-border/40 text-muted-foreground/70 hover:text-foreground hover:border-border hover:bg-muted/50 transition-colors"
+                className="text-[11px] px-2 py-0.5 rounded-full border border-border/40 text-muted-foreground/70 hover:text-foreground hover:border-border hover:bg-muted/50 transition-colors"
               >
                 {s.label}
               </button>

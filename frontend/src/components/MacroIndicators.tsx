@@ -207,7 +207,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
         {/* 접힌 상태: 4칸 그리드로 전체 너비 활용 */}
         {!expanded && (
-          <div className="grid grid-cols-4 gap-px bg-border/30 rounded-md overflow-hidden mt-1">
+          <div className="flex gap-px bg-border/30 rounded-md overflow-hidden mt-1">
             {summaryItems.map((item) => {
               const isUp = item.change_pct > 0
               const isDown = item.change_pct < 0
@@ -222,19 +222,19 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               return (
                 <div
                   key={item.symbol}
-                  className={`flex items-center justify-between px-2.5 py-1.5 ${bg}`}
+                  className={`flex-1 min-w-0 flex items-center justify-between px-1.5 py-1.5 ${bg}`}
                 >
-                  <span className="text-[10px] text-foreground/65 font-semibold">{name}</span>
+                  <span className="text-[9px] text-foreground/65 font-semibold truncate">{name}</span>
                   {isFng ? (
-                    <span className={`text-[11px] tabular-nums font-semibold ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
+                    <span className={`text-[10px] tabular-nums font-semibold ml-0.5 ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
                       {item.price.toFixed(0)}
                     </span>
                   ) : isVix ? (
-                    <span className={`text-[11px] tabular-nums font-semibold ${isUp ? "text-amber-600" : isDown ? "text-emerald-600" : "text-muted-foreground/40"}`}>
+                    <span className={`text-[10px] tabular-nums font-semibold ml-0.5 ${isUp ? "text-amber-600" : isDown ? "text-emerald-600" : "text-muted-foreground/40"}`}>
                       {item.price.toFixed(1)}
                     </span>
                   ) : (
-                    <span className={`text-[11px] tabular-nums font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                    <span className={`text-[10px] tabular-nums font-semibold ml-0.5 ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                       {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
                     </span>
                   )}
