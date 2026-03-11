@@ -540,49 +540,45 @@ function App() {
           onCompositeModeChange={handleCompositeModeChange}
         />
         {/* 섹션 퀵네비 */}
-        <div className="bg-muted/50 border-y border-border/40">
-          <div className="container overflow-x-auto px-3 sm:px-4">
-            <div className="flex items-center whitespace-nowrap py-1.5 gap-0.5">
-              {[
-                ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
-                ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
-                ...(activeTab === "composite" ? [
-                  { id: "section-rising-kospi", label: "↑KOSPI" },
-                  { id: "section-rising-kosdaq", label: "↑KOSDAQ" },
-                  { id: "section-falling-kospi", label: "↓KOSPI" },
-                  { id: "section-falling-kosdaq", label: "↓KOSDAQ" },
-                ] : activeTab === "trading_value" ? [
-                  { id: "section-trading-kospi", label: "KOSPI" },
-                  { id: "section-trading-kosdaq", label: "KOSDAQ" },
-                ] : activeTab === "volume" ? [
-                  { id: "section-volume-kospi", label: "KOSPI" },
-                  { id: "section-volume-kosdaq", label: "KOSDAQ" },
-                ] : activeTab === "fluctuation" ? [
-                  { id: "section-fluc-rising-kospi", label: "↑KOSPI" },
-                  { id: "section-fluc-rising-kosdaq", label: "↑KOSDAQ" },
-                  { id: "section-fluc-falling-kospi", label: "↓KOSPI" },
-                  { id: "section-fluc-falling-kosdaq", label: "↓KOSDAQ" },
-                ] : []),
-              ].map((s, i, arr) => (
-                <span key={s.id} className="flex items-center shrink-0">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById(s.id)
-                    if (el) {
-                      const headerH = headerHidden ? 0 : (window.innerWidth >= 640 ? 64 : 56)
-                      const stickyH = stickyBarRef.current?.offsetHeight || 0
-                      const y = el.getBoundingClientRect().top + window.scrollY - headerH - stickyH - 8
-                      window.scrollTo({ top: y, behavior: "smooth" })
-                    }
-                  }}
-                  className="text-xs font-medium px-2 py-0.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {s.label}
-                </button>
-                {i < arr.length - 1 && <span className="text-border/60 text-[10px]">·</span>}
-                </span>
-              ))}
-            </div>
+        <div className="border-y border-border/40">
+          <div className="container flex px-0 sm:px-4">
+            {[
+              ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
+              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
+              ...(activeTab === "composite" ? [
+                { id: "section-rising-kospi", label: "↑KOSPI" },
+                { id: "section-rising-kosdaq", label: "↑KOSDAQ" },
+                { id: "section-falling-kospi", label: "↓KOSPI" },
+                { id: "section-falling-kosdaq", label: "↓KOSDAQ" },
+              ] : activeTab === "trading_value" ? [
+                { id: "section-trading-kospi", label: "KOSPI" },
+                { id: "section-trading-kosdaq", label: "KOSDAQ" },
+              ] : activeTab === "volume" ? [
+                { id: "section-volume-kospi", label: "KOSPI" },
+                { id: "section-volume-kosdaq", label: "KOSDAQ" },
+              ] : activeTab === "fluctuation" ? [
+                { id: "section-fluc-rising-kospi", label: "↑KOSPI" },
+                { id: "section-fluc-rising-kosdaq", label: "↑KOSDAQ" },
+                { id: "section-fluc-falling-kospi", label: "↓KOSPI" },
+                { id: "section-fluc-falling-kosdaq", label: "↓KOSDAQ" },
+              ] : []),
+            ].map((s, i, arr) => (
+              <button
+                key={s.id}
+                onClick={() => {
+                  const el = document.getElementById(s.id)
+                  if (el) {
+                    const headerH = headerHidden ? 0 : (window.innerWidth >= 640 ? 64 : 56)
+                    const stickyH = stickyBarRef.current?.offsetHeight || 0
+                    const y = el.getBoundingClientRect().top + window.scrollY - headerH - stickyH - 8
+                    window.scrollTo({ top: y, behavior: "smooth" })
+                  }
+                }}
+                className={`flex-1 text-center text-[11px] sm:text-xs font-medium py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 active:bg-muted transition-colors ${i < arr.length - 1 ? "border-r border-border/40" : ""}`}
+              >
+                {s.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
