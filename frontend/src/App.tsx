@@ -118,6 +118,7 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [headerHidden, setHeaderHidden] = useState(false)
   const lastScrollY = useRef(0)
+  const stickyBarRef = useRef<HTMLDivElement>(null)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
 
   useEffect(() => {
@@ -493,7 +494,7 @@ function App() {
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
       {/* 히스토리 배너 + Tab Bar (하나의 sticky 컨테이너) */}
-      <div className={cn("sticky z-40 transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}>
+      <div ref={stickyBarRef} className={cn("sticky z-40 transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}>
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
             <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
@@ -543,7 +544,7 @@ function App() {
             {[
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
               ...(displayData?.exchange ? [{ id: "section-exchange", label: "환율" }] : []),
-              { id: "section-index", label: "지수" },
+              { id: "section-index", label: "MA상태" },
               ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "테마분석" }] : []),
               { id: "section-stocks", label: "종목" },
             ].map((s) => (
@@ -552,8 +553,9 @@ function App() {
                 onClick={() => {
                   const el = document.getElementById(s.id)
                   if (el) {
-                    const stickyOffset = headerHidden ? 80 : 140
-                    const y = el.getBoundingClientRect().top + window.scrollY - stickyOffset
+                    const headerH = headerHidden ? 0 : (window.innerWidth >= 640 ? 64 : 56)
+                    const stickyH = stickyBarRef.current?.offsetHeight || 0
+                    const y = el.getBoundingClientRect().top + window.scrollY - headerH - stickyH - 8
                     window.scrollTo({ top: y, behavior: "smooth" })
                   }
                 }}
