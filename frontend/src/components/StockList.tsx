@@ -158,10 +158,10 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
       <div className="flex items-center py-2 hover:bg-muted/50 transition-colors group">
       {/* Sticky left: Rank + Name */}
       <div className={cn(
-        "sticky left-0 z-20 group-hover:bg-muted/50 self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pr-1 transition-colors",
+        "sticky left-0 z-20 self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pr-1 transition-colors",
         allMet
-          ? "border-l-[3px] border-l-yellow-400 bg-yellow-400/10 pl-[5px]"
-          : "bg-card pl-2"
+          ? "border-l-[3px] border-l-yellow-400 bg-amber-50 dark:bg-amber-950 pl-[5px] group-hover:bg-amber-100 dark:group-hover:bg-amber-900"
+          : "bg-card pl-2 group-hover:bg-muted"
       )}>
         <span className={cn(
           "w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-full shrink-0 relative",
