@@ -21,6 +21,7 @@ from pathlib import Path
 from config.settings import *  # noqa: F401,F403 — 환경변수 로드
 from modules.kis_client import KISClient
 from modules.kis_rank import KISRankAPI
+from modules.exchange_rate import ExchangeRateAPI
 from modules.telegram import TelegramSender
 from modules.utils import KST
 
@@ -241,6 +242,19 @@ def main():
         print(f"  등락률(전용): 상승 {up}개, 하락 {down}개")
     except Exception as e:
         print(f"  ⚠ 등락률(전용) 수집 실패: {e}")
+
+    # 3-3. 환율 정보 갱신
+    print("\n[환율 정보 조회]")
+    try:
+        exchange_api = ExchangeRateAPI()
+        exchange_data = exchange_api.get_exchange_rates()
+        if exchange_data.get("rates"):
+            latest["exchange"] = exchange_data
+            print(f"  ✓ 환율 조회 완료 (기준일: {exchange_data.get('search_date', '')})")
+        else:
+            print("  ⚠ 환율 데이터 없음 (기존 데이터 유지)")
+    except Exception as e:
+        print(f"  ⚠ 환율 조회 실패 (기존 데이터 유지): {e}")
 
     # 4. 수집 성공 검증 — 대상의 절반 이상 수집되어야 유효
     min_required = max(1, len(all_stocks) // 2)
