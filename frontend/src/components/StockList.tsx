@@ -135,7 +135,7 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
 }
 
 // 컴팩트 모드용 간단한 종목 행 (flex: sticky left + scrollable right)
-function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, investorIntraday, memberInfo, hasMemberData, criteria, isAdmin, volumeProfile, intradayDays }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; investorIntraday?: InvestorIntraday; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean; volumeProfile?: StockVolumeProfile; intradayDays?: IntradayDay[] }) {
+function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, investorEstimated, investorUpdatedAt, investorIntraday, memberInfo, hasMemberData, criteria, isAdmin, volumeProfile, intradayDays }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; investorEstimated?: boolean; investorUpdatedAt?: string; investorIntraday?: InvestorIntraday; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean; volumeProfile?: StockVolumeProfile; intradayDays?: IntradayDay[] }) {
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
   const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
   const allMet = isAdmin && criteria?.all_met
@@ -332,6 +332,8 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
           investorInfo={investorInfo}
           stockCode={stock.code}
           investorIntraday={investorIntraday}
+          investorEstimated={investorEstimated}
+          investorUpdatedAt={investorUpdatedAt}
           onClose={() => setShowInvestorChart(false)}
         />
       )}
@@ -426,7 +428,7 @@ function CompactMarketSection({
             {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
             <div className="divide-y divide-border/30">
               {visibleStocks.map((stock) => (
-                <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} volumeProfile={volumeProfiles?.[stock.code]} intradayDays={intradayHistory?.[stock.code]} />
+                <CompactStockRow key={stock.code} stock={stock} history={history?.[stock.code]} type={type} showTradingValue={showTradingValue} investorInfo={investorData?.[stock.code]} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} investorIntraday={investorIntraday} memberInfo={memberData?.[stock.code]} hasMemberData={hasMemberData} criteria={criteriaData?.[stock.code]} isAdmin={isAdmin} volumeProfile={volumeProfiles?.[stock.code]} intradayDays={intradayHistory?.[stock.code]} />
               ))}
             </div>
           </div>
