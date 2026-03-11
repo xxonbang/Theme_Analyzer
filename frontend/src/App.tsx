@@ -540,7 +540,7 @@ function App() {
           onCompositeModeChange={handleCompositeModeChange}
         />
         {/* 섹션 퀵네비 */}
-        <div className="border-y border-border/40">
+        <div className="bg-slate-800 dark:bg-slate-900">
           <div className="container flex px-0 sm:px-4">
             {[
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
@@ -574,7 +574,7 @@ function App() {
                     window.scrollTo({ top: y, behavior: "smooth" })
                   }
                 }}
-                className={`flex-1 text-center text-[11px] sm:text-xs font-medium py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 active:bg-muted transition-colors ${i < arr.length - 1 ? "border-r border-border/40" : ""}`}
+                className={`flex-1 text-center text-[11px] sm:text-xs font-medium py-1.5 text-slate-300 hover:text-white hover:bg-slate-700 active:bg-slate-600 transition-colors ${i < arr.length - 1 ? "border-r border-slate-600/50" : ""}`}
               >
                 {s.label}
               </button>
