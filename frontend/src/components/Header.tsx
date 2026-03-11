@@ -206,7 +206,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
-          onClick={() => { if (currentPage !== "home") onPageChange?.("home"); else onRefresh?.() }}
+          onClick={() => { if (currentPage !== "home") onPageChange?.("home"); else window.location.reload() }}
           className="flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0"
         >
           <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10">
