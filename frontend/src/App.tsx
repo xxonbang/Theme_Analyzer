@@ -495,7 +495,7 @@ function App() {
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
       {/* 히스토리 배너 + Tab Bar (하나의 sticky 컨테이너) */}
-      <div ref={stickyBarRef} className={cn("sticky z-40 transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}>
+      <div ref={stickyBarRef} className={cn("sticky z-40 transition-[top] duration-300 bg-background", headerHidden ? "top-0" : "top-14 sm:top-16")}>
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
             <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
