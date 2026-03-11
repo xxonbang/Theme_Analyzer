@@ -543,10 +543,11 @@ function App() {
           <div className="container flex gap-1.5 px-3 sm:px-4 py-1.5">
             {[
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
-              ...(displayData?.exchange ? [{ id: "section-exchange", label: "환율" }] : []),
-              { id: "section-index", label: "MA상태" },
-              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "테마분석" }] : []),
-              { id: "section-stocks", label: "종목" },
+              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
+              { id: "section-rising-kospi", label: "상승KOSPI" },
+              { id: "section-rising-kosdaq", label: "상승KOSDAQ" },
+              { id: "section-falling-kospi", label: "하락KOSPI" },
+              { id: "section-falling-kosdaq", label: "하락KOSDAQ" },
             ].map((s) => (
               <button
                 key={s.id}
@@ -649,6 +650,7 @@ function App() {
                     vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
                     initialLimit={20}
+                    sectionId="section-rising"
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP`}
@@ -671,6 +673,7 @@ function App() {
                     vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
                     initialLimit={20}
+                    sectionId="section-falling"
                   />
                 </>
               ) : (

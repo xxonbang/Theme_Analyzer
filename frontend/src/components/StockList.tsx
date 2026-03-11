@@ -35,6 +35,7 @@ interface StockListProps {
   vpUpdatedAt?: string
   intradayHistory?: Record<string, IntradayDay[]>
   initialLimit?: number
+  sectionId?: string
 }
 
 // 마켓 섹션 (KOSPI/KOSDAQ 영역)
@@ -448,7 +449,7 @@ function CompactMarketSection({
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, initialLimit }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, initialLimit, sectionId }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -474,6 +475,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           </CardTitle>
         </CardHeader>
         <CardContent className="p-2 sm:p-3 space-y-3">
+          <div id={sectionId ? `${sectionId}-kospi` : undefined}>
           <CompactMarketSection
             market="KOSPI"
             stocks={kospiStocks}
@@ -493,6 +495,8 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             intradayHistory={intradayHistory}
             initialLimit={initialLimit}
           />
+          </div>
+          <div id={sectionId ? `${sectionId}-kosdaq` : undefined}>
           <CompactMarketSection
             market="KOSDAQ"
             stocks={kosdaqStocks}
@@ -512,6 +516,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             intradayHistory={intradayHistory}
             initialLimit={initialLimit}
           />
+          </div>
         </CardContent>
       </Card>
     )
@@ -531,6 +536,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-4 sm:space-y-6">
         {/* KOSPI */}
+        <div id={sectionId ? `${sectionId}-kospi` : undefined}>
         <StockMarketSection
           label="KOSPI"
           dotColor="bg-blue-600"
@@ -551,8 +557,10 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           intradayHistory={intradayHistory}
           initialLimit={initialLimit}
         />
+        </div>
 
         {/* KOSDAQ */}
+        <div id={sectionId ? `${sectionId}-kosdaq` : undefined}>
         <StockMarketSection
           label="KOSDAQ"
           dotColor="bg-green-600"
@@ -573,6 +581,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           intradayHistory={intradayHistory}
           initialLimit={initialLimit}
         />
+        </div>
       </CardContent>
     </Card>
   )
