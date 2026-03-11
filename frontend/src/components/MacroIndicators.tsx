@@ -23,19 +23,30 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
 
   const visibleRows = rows.filter(r => !hidden.has(r.name))
 
-  const W = 280, H = 120, PX = 28, PY = 14
-  const chartW = W - PX * 2, chartH = H - PY * 2
+  const W = 320, H = 140, PL = 34, PR = 6, PT = 10, PB = 16
+  const chartW = W - PL - PR, chartH = H - PT - PB
 
   // visible 종목 기준 min/max
   const allVals = visibleRows.flatMap(r => r.entries.map(e => e.change_pct))
-  const min = allVals.length ? Math.min(...allVals) : -1
-  const max = allVals.length ? Math.max(...allVals) : 1
+  const rawMin = allVals.length ? Math.min(...allVals) : -1
+  const rawMax = allVals.length ? Math.max(...allVals) : 1
+  // 여백 5% 추가
+  const pad = (rawMax - rawMin) * 0.05 || 0.1
+  const min = rawMin - pad
+  const max = rawMax + pad
   const range = max - min || 1
 
-  const toY = (v: number) => PY + (1 - (v - min) / range) * chartH
-  const toX = (i: number) => PX + (i / (dates.length - 1)) * chartW
+  const toY = (v: number) => PT + (1 - (v - min) / range) * chartH
+  const toX = (i: number) => PL + (i / (dates.length - 1)) * chartW
 
-  const yLabels = [max, 0, min].filter((v, i, a) => a.indexOf(v) === i)
+  // Y축 라벨: 0선 + 상/하 경계 + 중간값
+  const yLabelSet = new Set<number>()
+  yLabelSet.add(rawMax)
+  yLabelSet.add(rawMin)
+  if (rawMin < 0 && rawMax > 0) yLabelSet.add(0)
+  const mid = (rawMax + rawMin) / 2
+  if (Math.abs(mid - rawMax) > (rawMax - rawMin) * 0.2) yLabelSet.add(mid)
+  const yLabels = [...yLabelSet].sort((a, b) => b - a)
 
   const toggle = (name: string) => {
     setHidden(prev => {
@@ -64,14 +75,29 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
           )
         })}
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 140 }}>
-        {/* Y축 그리드 */}
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 160 }}>
+        {/* Y축 가로 그리드선 + 라벨 */}
         {yLabels.map((v, i) => {
           const y = toY(v)
           return (
             <g key={i}>
-              <line x1={PX} y1={y} x2={W - PX} y2={y} stroke="currentColor" strokeOpacity={v === 0 ? 0.15 : 0.06} strokeDasharray={v === 0 ? "none" : "2,2"} />
-              <text x={PX - 3} y={y + 3} textAnchor="end" className="fill-muted-foreground/40" fontSize={7}>{v.toFixed(1)}%</text>
+              <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={v === 0 ? 0.18 : 0.08} strokeDasharray={v === 0 ? "none" : "3,3"} />
+              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-muted-foreground/50" fontSize={7}>{v.toFixed(2)}%</text>
+            </g>
+          )
+        })}
+        {/* X축 세로 그리드선 + 라벨 */}
+        {dates.map((d, idx) => {
+          const x = toX(idx)
+          const showLabel = dates.length <= 5 || idx === 0 || idx === dates.length - 1 || idx === Math.floor(dates.length / 2)
+          return (
+            <g key={idx}>
+              <line x1={x} y1={PT} x2={x} y2={PT + chartH} stroke="currentColor" strokeOpacity={0.05} strokeDasharray="2,4" />
+              {showLabel && (
+                <text x={x} y={H - 2} textAnchor="middle" className="fill-muted-foreground/50" fontSize={7}>
+                  {d.slice(5).replace("-", "/")}
+                </text>
+              )}
             </g>
           )
         })}
@@ -87,19 +113,13 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
           const color = LINE_COLORS[ri % LINE_COLORS.length]
           return (
             <g key={row.name}>
-              <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.2} strokeLinejoin="round" opacity={0.8} />
+              <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.3} strokeLinejoin="round" opacity={0.85} />
               {points.map((p, i) => (
-                <circle key={i} cx={p.x} cy={p.y} r={1.5} fill={color} />
+                <circle key={i} cx={p.x} cy={p.y} r={1.8} fill={color} />
               ))}
             </g>
           )
         })}
-        {/* X축 라벨 */}
-        {[0, Math.floor(dates.length / 2), dates.length - 1].map((idx) => (
-          <text key={idx} x={toX(idx)} y={H - 1} textAnchor="middle" className="fill-muted-foreground/40" fontSize={7}>
-            {dates[idx].slice(5).replace("-", "/")}
-          </text>
-        ))}
       </svg>
     </div>
   )
