@@ -247,8 +247,12 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
             const profitRate = newBuyPrice > 0
               ? Math.round((profitAmount / newBuyPrice) * 10000) / 100
               : 0
-            const highPrice = stock.high_price ?? stock.close_price
-            const highProfitAmount = highPrice - newBuyPrice
+            // 최고가가 매수 시각 이전이면 종가로 대체
+            const buyTimeHHMM = snapshot.timestamp.slice(11, 16) // "HH:MM"
+            const highTimeValid = stock.high_time && stock.high_time > buyTimeHHMM
+            const effectiveHighPrice = highTimeValid ? (stock.high_price ?? stock.close_price) : stock.close_price
+            const effectiveHighTime = highTimeValid ? stock.high_time : undefined
+            const highProfitAmount = effectiveHighPrice - newBuyPrice
             const highProfitRate = newBuyPrice > 0
               ? Math.round((highProfitAmount / newBuyPrice) * 10000) / 100
               : 0
@@ -258,6 +262,8 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
               theme: leader?.theme ?? stock.theme,
               profit_rate: profitRate,
               profit_amount: profitAmount,
+              high_price: effectiveHighPrice,
+              high_time: effectiveHighTime,
               high_profit_rate: highProfitRate,
               high_profit_amount: highProfitAmount,
             }
@@ -272,7 +278,7 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
         const totalProfitRate = totalInvested > 0
           ? Math.round((totalProfit / totalInvested) * 10000) / 100
           : 0
-        const highTotalValue = newStocks.reduce((sum, s) => sum + (s.high_price ?? s.close_price), 0)
+        const highTotalValue = newStocks.reduce((sum, s) => sum + s.high_price!, 0)
         const highTotalProfit = highTotalValue - totalInvested
         const highTotalProfitRate = totalInvested > 0
           ? Math.round((highTotalProfit / totalInvested) * 10000) / 100
@@ -309,6 +315,7 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
       }
 
       // 기존 동작: 가격만 교체 (leader_stocks 없는 경우)
+      const buyTimeHHMM2 = snapshot.timestamp.slice(11, 16)
       const newStocks: PaperTradingStock[] = data.stocks.map(stock => {
         const newBuyPrice = snapshot.prices[stock.code]
         if (newBuyPrice == null) return stock
@@ -316,14 +323,18 @@ export function usePaperTradingData(): UsePaperTradingDataReturn {
         const profitRate = newBuyPrice > 0
           ? Math.round((profitAmount / newBuyPrice) * 10000) / 100
           : 0
-        const highPrice = stock.high_price ?? stock.close_price
-        const highProfitAmount = highPrice - newBuyPrice
+        const highTimeValid2 = stock.high_time && stock.high_time > buyTimeHHMM2
+        const effectiveHighPrice2 = highTimeValid2 ? (stock.high_price ?? stock.close_price) : stock.close_price
+        const effectiveHighTime2 = highTimeValid2 ? stock.high_time : undefined
+        const highProfitAmount = effectiveHighPrice2 - newBuyPrice
         const highProfitRate = newBuyPrice > 0
           ? Math.round((highProfitAmount / newBuyPrice) * 10000) / 100
           : 0
         return {
           ...stock,
           buy_price: newBuyPrice,
+          high_price: effectiveHighPrice2,
+          high_time: effectiveHighTime2,
           profit_rate: profitRate,
           profit_amount: profitAmount,
           high_profit_rate: highProfitRate,
