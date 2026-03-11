@@ -537,6 +537,33 @@ function App() {
           compositeMode={compositeMode}
           onCompositeModeChange={handleCompositeModeChange}
         />
+        {/* 섹션 퀵네비 */}
+        <div className="bg-background/95 backdrop-blur-sm border-b border-border/30 overflow-x-auto scrollbar-hide">
+          <div className="container flex gap-1.5 px-3 sm:px-4 py-1.5">
+            {[
+              ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
+              ...(displayData?.exchange ? [{ id: "section-exchange", label: "환율" }] : []),
+              { id: "section-index", label: "지수" },
+              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "테마분석" }] : []),
+              { id: "section-stocks", label: "종목" },
+            ].map((s) => (
+              <button
+                key={s.id}
+                onClick={() => {
+                  const el = document.getElementById(s.id)
+                  if (el) {
+                    const stickyOffset = headerHidden ? 80 : 140
+                    const y = el.getBoundingClientRect().top + window.scrollY - stickyOffset
+                    window.scrollTo({ top: y, behavior: "smooth" })
+                  }
+                }}
+                className="shrink-0 text-[11px] px-2.5 py-1 rounded-full border border-border/40 text-muted-foreground/70 hover:text-foreground hover:border-border hover:bg-muted/50 transition-colors"
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       <main className="container px-3 sm:px-4 py-4 sm:py-6">
@@ -549,17 +576,17 @@ function App() {
         )}
 
         {/* Macro Indicators - Admin only */}
-        {isAdmin && macroData && <MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
+        {isAdmin && macroData && <div id="section-macro"><MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
 
         {/* Exchange Rate */}
-        {displayData?.exchange && <ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} />}
+        {displayData?.exchange && <div id="section-exchange"><ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
 
         {/* Index MA Alert (KOSPI + KOSDAQ) */}
-        <IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} />
+        <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} /></div>
 
         {/* AI Theme Analysis */}
         {displayData?.theme_analysis && (
-          <AIThemeAnalysis
+          <div id="section-theme"><AIThemeAnalysis
             themeAnalysis={displayData.theme_analysis}
             criteriaData={displayData?.criteria_data}
             isAdmin={isAdmin}
@@ -583,7 +610,7 @@ function App() {
               }
               return map
             })()}
-          />
+          /></div>
         )}
 
         {/* Criteria Legend (admin only) */}
@@ -594,7 +621,7 @@ function App() {
         )}
 
         {/* Tab Content */}
-        <div key={activeTab} className="space-y-4 sm:space-y-6 animate-tab-fade-in">
+        <div id="section-stocks" key={activeTab} className="space-y-4 sm:space-y-6 animate-tab-fade-in">
           {activeTab === "composite" && displayData && (
             <>
               {compositeData ? (
