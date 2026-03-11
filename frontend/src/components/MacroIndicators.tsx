@@ -13,7 +13,7 @@ interface MacroIndicatorsProps {
 }
 
 const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "069500", "EWY", "KORU"]
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200F": "K200F", "069500": "K200F" }
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200F" }
 const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
 
 function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
@@ -143,7 +143,8 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
   const historyRows = history?.macro
     ? data.indicators.map((item) => {
         const entries = (history.macro[item.symbol] || []).slice(-10)
-        return { symbol: item.symbol, name: SHORT_NAMES[item.symbol] || item.name, entries }
+        const shortName = SHORT_NAMES[item.symbol] || (item.symbol === "KOSPI200F" ? (item.name.includes("지수") ? "K200" : "K200F") : item.name)
+        return { symbol: item.symbol, name: shortName, entries }
       })
     : []
 
@@ -184,7 +185,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             {summaryItems.map((item) => {
               const isUp = item.change_pct > 0
               const isDown = item.change_pct < 0
-              const name = SHORT_NAMES[item.symbol] || item.name
+              const name = SHORT_NAMES[item.symbol] || (item.symbol === "KOSPI200F" ? (item.name.includes("지수") ? "K200" : "K200F") : item.name)
               return (
                 <div
                   key={item.symbol}
