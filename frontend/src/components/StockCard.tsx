@@ -392,6 +392,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                       stockCode={stock.code}
                       investorIntraday={investorIntraday}
                       investorEstimated={investorEstimated}
+                      investorUpdatedAt={investorUpdatedAt}
                       onClose={() => setShowInvestorChart(false)}
                     />
                   )}

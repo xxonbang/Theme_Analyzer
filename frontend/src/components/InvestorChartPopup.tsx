@@ -12,6 +12,7 @@ function shortLabel(qty: number): string {
   if (abs >= 10_000) return `${sign}${Math.round(qty / 10_000)}만`
   return `${sign}${qty.toLocaleString("ko-KR")}`
 }
+import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
 import type { InvestorInfo, InvestorIntraday } from "@/types/stock"
 
 interface InvestorChartPopupProps {
@@ -20,6 +21,7 @@ interface InvestorChartPopupProps {
   stockCode?: string
   investorIntraday?: InvestorIntraday
   investorEstimated?: boolean
+  investorUpdatedAt?: string
   onClose: () => void
 }
 
@@ -41,7 +43,7 @@ function buildLine(values: number[], allMin: number, allMax: number): string {
   }).join(" ")
 }
 
-export function InvestorChartPopup({ stockName, investorInfo, stockCode, investorIntraday, investorEstimated, onClose }: InvestorChartPopupProps) {
+export function InvestorChartPopup({ stockName, investorInfo, stockCode, investorIntraday, investorEstimated, investorUpdatedAt, onClose }: InvestorChartPopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   // === 일봉 데이터 ===
@@ -51,6 +53,8 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     { foreign_net: investorInfo.foreign_net, institution_net: investorInfo.institution_net, individual_net: investorInfo.individual_net, program_net: investorInfo.program_net },
   ]
   const labels = allDays.map((_, i) => i === allDays.length - 1 ? "D" : `D-${allDays.length - 1 - i}`)
+  const scheduleInfo = investorUpdatedAt ? getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated) : null
+  const dSuffix = scheduleInfo ? ("round" in scheduleInfo ? scheduleInfo.label : scheduleInfo.label) : null
 
   const foreignVals = allDays.map(d => d.foreign_net)
   const instVals = allDays.map(d => d.institution_net)
@@ -274,7 +278,15 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               {/* X축 라벨 */}
               {labels.map((label, i) => {
                 const x = PAD.left + (i / Math.max(labels.length - 1, 1)) * PLOT_W
-                return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+                const isLast = i === labels.length - 1
+                return (
+                  <g key={i}>
+                    <text x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+                    {isLast && dSuffix && (
+                      <text x={x + 8} y={CHART_H - 2} textAnchor="start" fontSize={6} fill="#f59e0b" opacity={0.8}>{dSuffix}</text>
+                    )}
+                  </g>
+                )
               })}
               {/* 꺾은선 */}
               {series.map((s, idx) => {
@@ -310,7 +322,10 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                 const isToday = idx === allDays.length - 1
                 return (
                   <div key={idx} className={`flex items-center py-1 text-[10px] ${isToday ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < allDays.length - 1 ? "border-b border-border/20" : ""}`}>
-                    <span className="w-8 shrink-0 text-muted-foreground font-medium">{labels[idx]}</span>
+                    <span className="w-8 shrink-0 text-muted-foreground font-medium">
+                      {labels[idx]}
+                      {isToday && dSuffix && <span className="text-[8px] text-amber-500 ml-0.5">{dSuffix}</span>}
+                    </span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.foreign_net))}>{formatNetBuy(d.foreign_net)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.institution_net))}>{formatNetBuy(d.institution_net)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.individual_net ?? 0))}>{d.individual_net != null ? formatNetBuy(d.individual_net) : "-"}</span>
