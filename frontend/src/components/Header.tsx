@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, MoreVertical, Sun, Moon } from "lucide-react"
+import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -26,8 +26,6 @@ interface HeaderProps {
 
 export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme, onCancelRefresh }: HeaderProps) {
   const { signOut } = useAuth()
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const mobileMenuRef = useRef<HTMLDivElement>(null)
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
@@ -37,18 +35,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [refreshFocusRing, setRefreshFocusRing] = useState(false)
   const [historyFocusRing, setHistoryFocusRing] = useState(false)
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  // 모바일 메뉴 외부 클릭 닫기
-  useEffect(() => {
-    if (!showMobileMenu) return
-    const handler = (e: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
-        setShowMobileMenu(false)
-      }
-    }
-    document.addEventListener("mousedown", handler)
-    return () => document.removeEventListener("mousedown", handler)
-  }, [showMobileMenu])
 
   // 툴팁 자동 숨김 (3초 후 fade-out)
   useEffect(() => {
@@ -264,10 +250,9 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </div>
           )}
 
-          {/* Page Navigation Buttons (desktop only, mobile in menu) */}
+          {/* Page Navigation Buttons (desktop only) */}
           {onPageChange && (
             <>
-              {/* 테마 예측 버튼 (admin only) */}
               {isAdmin && <button
                 onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
                 className={cn(
@@ -292,7 +277,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 )} />
               </button>}
 
-              {/* 모의투자 버튼 (desktop only) */}
               <button
                 onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
                 className={cn(
@@ -319,7 +303,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </>
           )}
 
-          {/* History Button (desktop only, mobile in menu) */}
+          {/* History Button (desktop only) */}
           {onHistoryClick && (
             <button
               onClick={handleHistoryClick}
@@ -338,7 +322,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
               )}
               title="히스토리"
             >
-              {/* 임시 Focus Ring */}
               <div
                 className={cn(
                   "absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background",
@@ -346,47 +329,24 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                   historyFocusRing ? "opacity-100" : "opacity-0"
                 )}
               />
-
-              {/* Glow effect on hover */}
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Shimmer effect */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-              {/* Icon */}
-              <div className={cn(
-                "relative z-10 transition-all duration-300",
-                "group-hover:rotate-12 group-active:rotate-0"
-              )}>
-                <History className={cn(
-                  "w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
-                  isViewingHistory && "text-primary"
-                )} />
+              <div className={cn("relative z-10 transition-all duration-300", "group-hover:rotate-12 group-active:rotate-0")}>
+                <History className={cn("w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", isViewingHistory && "text-primary")} />
               </div>
-
-              {/* Ripple effect */}
               {historyRipple.show && (
-                <span
-                  className="absolute rounded-full bg-primary/30 animate-ripple"
-                  style={{
-                    left: historyRipple.x,
-                    top: historyRipple.y,
-                    width: '4px',
-                    height: '4px',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
+                <span className="absolute rounded-full bg-primary/30 animate-ripple" style={{ left: historyRipple.x, top: historyRipple.y, width: '4px', height: '4px', transform: 'translate(-50%, -50%)' }} />
               )}
             </button>
           )}
 
-          {/* Theme Toggle Button */}
+          {/* Theme Toggle (desktop only) */}
           {onToggleTheme && (
             <button
               onClick={onToggleTheme}
               className={cn(
                 "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -400,22 +360,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             >
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
-                {isDark ? (
-                  <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
-                ) : (
-                  <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
-                )}
+                {isDark ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />}
               </div>
             </button>
           )}
 
-          {/* Compact Mode Toggle Button */}
+          {/* Compact Mode Toggle (desktop only) */}
           {onToggleCompact && (
             <button
               onClick={handleToggleClick}
               className={cn(
                 "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -427,45 +383,14 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
               )}
               title={compactMode ? "상세 보기" : "간단 보기"}
             >
-              {/* 임시 Focus Ring - 나타났다 사라짐 */}
-              <div
-                className={cn(
-                  "absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background",
-                  "transition-opacity duration-300",
-                  toggleFocusRing ? "opacity-100" : "opacity-0"
-                )}
-              />
-
-              {/* Glow effect on hover */}
+              <div className={cn("absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background", "transition-opacity duration-300", toggleFocusRing ? "opacity-100" : "opacity-0")} />
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Shimmer effect */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-              {/* Icon */}
-              <div className={cn(
-                "relative z-10 transition-all duration-300",
-                "group-hover:rotate-12 group-active:rotate-0"
-              )}>
-                {compactMode ? (
-                  <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" />
-                ) : (
-                  <List className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" />
-                )}
+              <div className={cn("relative z-10 transition-all duration-300", "group-hover:rotate-12 group-active:rotate-0")}>
+                {compactMode ? <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" /> : <List className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" />}
               </div>
-
-              {/* Ripple effect */}
               {toggleRipple.show && (
-                <span
-                  className="absolute rounded-full bg-primary/30 animate-ripple"
-                  style={{
-                    left: toggleRipple.x,
-                    top: toggleRipple.y,
-                    width: '4px',
-                    height: '4px',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
+                <span className="absolute rounded-full bg-primary/30 animate-ripple" style={{ left: toggleRipple.x, top: toggleRipple.y, width: '4px', height: '4px', transform: 'translate(-50%, -50%)' }} />
               )}
             </button>
           )}
@@ -572,7 +497,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </span>
           )}
 
-          {/* Logout Button (desktop only, mobile in menu) */}
+          {/* Logout Button (desktop only) */}
           <button
             onClick={() => signOut()}
             className={cn(
@@ -593,72 +518,65 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
           >
             <LogOut className="relative z-10 w-3 h-3 sm:w-4 sm:h-4" />
           </button>
+        </div>
+      </div>
 
-          {/* Mobile More Menu (sm:hidden) */}
-          <div ref={mobileMenuRef} className="relative sm:hidden">
+      {/* Mobile 2단 툴바 (sm:hidden) */}
+      <div className="flex sm:hidden items-center justify-between px-3 py-1 border-t border-border/30 bg-muted/30">
+        {/* 페이지 네비게이션 */}
+        <div className="flex items-center gap-0.5">
+          {onPageChange && isAdmin && (
             <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
               className={cn(
-                "flex items-center justify-center w-8 h-8",
-                "rounded-lg",
-                "bg-secondary border border-border/50",
-                "transition-all duration-200",
-                "active:scale-95",
-                showMobileMenu && "bg-muted"
+                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                currentPage === "theme-forecast" ? "text-amber-600 bg-amber-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
-              <MoreVertical className="w-4 h-4" />
+              <Sparkles className="w-3 h-3" />
+              예측
             </button>
-
-            {showMobileMenu && (
-              <div className="absolute right-0 top-full mt-1.5 w-44 bg-popover border border-border rounded-lg shadow-xl z-50 py-1 animate-tab-fade-in">
-                {onPageChange && isAdmin && (
-                  <button
-                    onClick={() => { onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast"); setShowMobileMenu(false) }}
-                    className={cn(
-                      "flex items-center gap-2.5 w-full px-3 py-2.5 text-sm transition-colors",
-                      currentPage === "theme-forecast" ? "text-amber-600 bg-amber-500/5" : "text-foreground hover:bg-muted"
-                    )}
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    테마 예측
-                  </button>
-                )}
-                {onPageChange && (
-                  <button
-                    onClick={() => { onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading"); setShowMobileMenu(false) }}
-                    className={cn(
-                      "flex items-center gap-2.5 w-full px-3 py-2.5 text-sm transition-colors",
-                      currentPage === "paper-trading" ? "text-primary bg-primary/5" : "text-foreground hover:bg-muted"
-                    )}
-                  >
-                    <LineChart className="w-4 h-4" />
-                    모의투자
-                  </button>
-                )}
-                {onHistoryClick && (
-                  <button
-                    onClick={() => { onHistoryClick(); setShowMobileMenu(false) }}
-                    className={cn(
-                      "flex items-center gap-2.5 w-full px-3 py-2.5 text-sm transition-colors",
-                      isViewingHistory ? "text-primary bg-primary/5" : "text-foreground hover:bg-muted"
-                    )}
-                  >
-                    <History className="w-4 h-4" />
-                    히스토리
-                  </button>
-                )}
-                <div className="mx-2 my-1 border-t border-border/50" />
-                <button
-                  onClick={() => { signOut(); setShowMobileMenu(false) }}
-                  className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm text-destructive hover:bg-destructive/5 transition-colors"
-                >
-                  <LogOut className="w-4 h-4" />
-                  로그아웃
-                </button>
-              </div>
-            )}
-          </div>
+          )}
+          {onPageChange && (
+            <button
+              onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
+              className={cn(
+                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                currentPage === "paper-trading" ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <LineChart className="w-3 h-3" />
+              모의투자
+            </button>
+          )}
+          {onHistoryClick && (
+            <button
+              onClick={() => onHistoryClick()}
+              className={cn(
+                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                isViewingHistory ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <History className="w-3 h-3" />
+              히스토리
+            </button>
+          )}
+        </div>
+        {/* 유틸리티 */}
+        <div className="flex items-center gap-0.5">
+          {onToggleTheme && (
+            <button onClick={onToggleTheme} className="flex items-center justify-center w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5 text-indigo-500" />}
+            </button>
+          )}
+          {onToggleCompact && (
+            <button onClick={handleToggleClick} className="flex items-center justify-center w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+              {compactMode ? <LayoutGrid className="w-3.5 h-3.5" /> : <List className="w-3.5 h-3.5" />}
+            </button>
+          )}
+          <button onClick={() => signOut()} className="flex items-center justify-center w-7 h-7 rounded-md text-destructive/70 hover:text-destructive hover:bg-destructive/5 transition-colors">
+            <LogOut className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
