@@ -60,6 +60,12 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
     <div className="mb-2">
       {/* 범례 토글 */}
       <div className="flex flex-wrap gap-1 px-1 mb-1">
+        <button
+          onClick={() => setHidden(prev => prev.size === 0 ? new Set(rows.map(r => r.name)) : new Set())}
+          className="text-[9px] px-1.5 py-0.5 rounded border border-border/40 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors"
+        >
+          {hidden.size === 0 ? "전체해제" : "전체선택"}
+        </button>
         {rows.map((row, ri) => {
           const active = !hidden.has(row.name)
           const color = LINE_COLORS[ri % LINE_COLORS.length]
