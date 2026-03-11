@@ -379,6 +379,7 @@ function App() {
   // 탭 전환 핸들러 (활동 로그 포함)
   const handleTabChange = useCallback((tab: TabType) => {
     setActiveTab(tab)
+    window.scrollTo({ top: 0, behavior: "instant" })
     logActivity("tab_switch", { tab })
   }, [logActivity])
 
@@ -544,10 +545,23 @@ function App() {
             {[
               ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
               ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
-              { id: "section-rising-kospi", label: "상승KOSPI" },
-              { id: "section-rising-kosdaq", label: "상승KOSDAQ" },
-              { id: "section-falling-kospi", label: "하락KOSPI" },
-              { id: "section-falling-kosdaq", label: "하락KOSDAQ" },
+              ...(activeTab === "composite" ? [
+                { id: "section-rising-kospi", label: "상승KOSPI" },
+                { id: "section-rising-kosdaq", label: "상승KOSDAQ" },
+                { id: "section-falling-kospi", label: "하락KOSPI" },
+                { id: "section-falling-kosdaq", label: "하락KOSDAQ" },
+              ] : activeTab === "trading_value" ? [
+                { id: "section-trading-kospi", label: "KOSPI" },
+                { id: "section-trading-kosdaq", label: "KOSDAQ" },
+              ] : activeTab === "volume" ? [
+                { id: "section-volume-kospi", label: "KOSPI" },
+                { id: "section-volume-kosdaq", label: "KOSDAQ" },
+              ] : activeTab === "fluctuation" ? [
+                { id: "section-fluc-rising-kospi", label: "상승KOSPI" },
+                { id: "section-fluc-rising-kosdaq", label: "상승KOSDAQ" },
+                { id: "section-fluc-falling-kospi", label: "하락KOSPI" },
+                { id: "section-fluc-falling-kosdaq", label: "하락KOSDAQ" },
+              ] : []),
             ].map((s) => (
               <button
                 key={s.id}
@@ -747,6 +761,7 @@ function App() {
               volumeProfiles={vpData?.profiles}
               vpUpdatedAt={vpData?.updated_at}
               intradayHistory={intradayHistoryData?.stocks}
+              sectionId="section-trading"
             />
           )}
 
@@ -771,6 +786,7 @@ function App() {
               volumeProfiles={vpData?.profiles}
               vpUpdatedAt={vpData?.updated_at}
               intradayHistory={intradayHistoryData?.stocks}
+              sectionId="section-volume"
             />
           )}
 
@@ -796,6 +812,7 @@ function App() {
                 volumeProfiles={vpData?.profiles}
                 vpUpdatedAt={vpData?.updated_at}
                 intradayHistory={intradayHistoryData?.stocks}
+                sectionId="section-fluc-rising"
               />
               <StockList
                 title="등락률 하락 TOP20"
@@ -817,6 +834,7 @@ function App() {
                 volumeProfiles={vpData?.profiles}
                 vpUpdatedAt={vpData?.updated_at}
                 intradayHistory={intradayHistoryData?.stocks}
+                sectionId="section-fluc-falling"
               />
             </>
           )}
