@@ -872,14 +872,19 @@ function App() {
         className={cn(
           "fixed bottom-6 right-6 z-50",
           "w-10 h-10 rounded-full",
-          "bg-slate-400/40 text-slate-700 dark:bg-slate-500/40 dark:text-slate-200",
-          "border border-slate-300/50 dark:border-slate-500/50",
-          "backdrop-blur-xl shadow-lg",
+          "shadow-lg",
           "flex items-center justify-center",
-          "hover:bg-slate-400/60 hover:text-slate-900 dark:hover:bg-slate-500/60 dark:hover:text-white hover:scale-110 active:scale-95",
+          "hover:scale-110 active:scale-95",
           "transition-all duration-200",
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
         )}
+        style={{
+          backgroundColor: "rgba(120, 120, 140, 0.35)",
+          color: "rgba(50, 50, 60, 0.8)",
+          border: "1px solid rgba(120, 120, 140, 0.2)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+        }}
       >
         <ChevronUp className="w-5 h-5" />
       </button>
