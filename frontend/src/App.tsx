@@ -606,6 +606,10 @@ function App() {
               <button
                 key={s.id}
                 onClick={() => {
+                  if (s.id === "section-macro") {
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                    return
+                  }
                   const el = document.getElementById(s.id)
                   if (el) {
                     const headerH = headerHidden ? 0 : (window.innerWidth >= 640 ? 64 : 56)
