@@ -121,21 +121,32 @@ function App() {
   const stickyBarRef = useRef<HTMLDivElement>(null)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
 
+  const scrollCooldown = useRef(0)
   useEffect(() => {
+    const SCROLL_DEADZONE = 8
+    const COOLDOWN_MS = 350 // 트랜지션 완료까지 스크롤 이벤트 무시
     const handleScroll = () => {
       const currentY = window.scrollY
       setShowScrollTop(currentY > 300)
-      // 스크롤 다운 60px 이상이면 숨김, 스크롤 업이면 표시
-      if (currentY > lastScrollY.current && currentY > 80) {
-        setHeaderHidden(true)
-      } else {
-        setHeaderHidden(false)
+      if (Date.now() < scrollCooldown.current) {
+        lastScrollY.current = currentY
+        return
       }
-      lastScrollY.current = currentY
+      const delta = currentY - lastScrollY.current
+      if (delta > SCROLL_DEADZONE && currentY > 80) {
+        setHeaderHidden(true)
+        scrollCooldown.current = Date.now() + COOLDOWN_MS
+        lastScrollY.current = currentY
+      } else if (delta < -SCROLL_DEADZONE) {
+        setHeaderHidden(false)
+        scrollCooldown.current = Date.now() + COOLDOWN_MS
+        lastScrollY.current = currentY
+      }
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -495,9 +506,15 @@ function App() {
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
       {/* 히스토리 배너 + Tab Bar + 퀵네비 (하나의 sticky 컨테이너) */}
-      <div ref={stickyBarRef} className={cn("sticky z-40 transition-[top] duration-300 bg-background", headerHidden ? "top-0" : "top-14 sm:top-16")}>
-        {/* 히스토리 배너 + TabBar: 스크롤 다운 시 숨김 */}
-        <div className={cn("transition-all duration-300 overflow-hidden", headerHidden ? "max-h-0 opacity-0" : "max-h-[300px] opacity-100")}>
+      {/* marginTop으로 TabBar를 위로 밀어냄 — 퀵네비만 표시 */}
+      <div
+        ref={stickyBarRef}
+        className={cn("sticky z-40 bg-background transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}
+      >
+        <div
+          className="overflow-hidden transition-[max-height] duration-300 ease-out"
+          style={{ maxHeight: headerHidden ? 0 : 200 }}
+        >
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
             <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
