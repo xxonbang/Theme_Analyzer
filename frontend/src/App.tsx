@@ -580,29 +580,29 @@ function App() {
         </div>
         </div>
         {/* 섹션 퀵네비 (항상 표시) */}
-        <div className="bg-slate-500/90 dark:bg-slate-700">
-          <div className="container flex px-0 sm:px-4">
+        <div className="bg-slate-100 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+          <div className="container flex items-center gap-1 px-1.5 sm:px-4 py-1.5">
             {[
-              ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표" }] : []),
-              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마" }] : []),
+              ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표", type: "neutral" as const }] : []),
+              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마", type: "neutral" as const }] : []),
               ...(activeTab === "composite" ? [
-                { id: "section-rising-kospi", label: "↑KOSPI" },
-                { id: "section-rising-kosdaq", label: "↑KOSDAQ" },
-                { id: "section-falling-kospi", label: "↓KOSPI" },
-                { id: "section-falling-kosdaq", label: "↓KOSDAQ" },
+                { id: "section-rising-kospi", label: "↑KOSPI", type: "rising" as const },
+                { id: "section-rising-kosdaq", label: "↑KOSDAQ", type: "rising" as const },
+                { id: "section-falling-kospi", label: "↓KOSPI", type: "falling" as const },
+                { id: "section-falling-kosdaq", label: "↓KOSDAQ", type: "falling" as const },
               ] : activeTab === "trading_value" ? [
-                { id: "section-trading-kospi", label: "KOSPI" },
-                { id: "section-trading-kosdaq", label: "KOSDAQ" },
+                { id: "section-trading-kospi", label: "KOSPI", type: "neutral" as const },
+                { id: "section-trading-kosdaq", label: "KOSDAQ", type: "neutral" as const },
               ] : activeTab === "volume" ? [
-                { id: "section-volume-kospi", label: "KOSPI" },
-                { id: "section-volume-kosdaq", label: "KOSDAQ" },
+                { id: "section-volume-kospi", label: "KOSPI", type: "neutral" as const },
+                { id: "section-volume-kosdaq", label: "KOSDAQ", type: "neutral" as const },
               ] : activeTab === "fluctuation" ? [
-                { id: "section-fluc-rising-kospi", label: "↑KOSPI" },
-                { id: "section-fluc-rising-kosdaq", label: "↑KOSDAQ" },
-                { id: "section-fluc-falling-kospi", label: "↓KOSPI" },
-                { id: "section-fluc-falling-kosdaq", label: "↓KOSDAQ" },
+                { id: "section-fluc-rising-kospi", label: "↑KOSPI", type: "rising" as const },
+                { id: "section-fluc-rising-kosdaq", label: "↑KOSDAQ", type: "rising" as const },
+                { id: "section-fluc-falling-kospi", label: "↓KOSPI", type: "falling" as const },
+                { id: "section-fluc-falling-kosdaq", label: "↓KOSDAQ", type: "falling" as const },
               ] : []),
-            ].map((s, i, arr) => (
+            ].map((s) => (
               <button
                 key={s.id}
                 onClick={() => {
@@ -614,7 +614,16 @@ function App() {
                     window.scrollTo({ top: y, behavior: "smooth" })
                   }
                 }}
-                className={`flex-1 text-center text-[11px] sm:text-xs font-medium py-1.5 text-white/80 hover:text-white hover:bg-white/10 active:bg-white/20 transition-colors ${i < arr.length - 1 ? "border-r border-white/20" : ""}`}
+                className={cn(
+                  "flex-1 px-0.5 py-1 rounded-full text-[10px] sm:text-xs font-medium text-center whitespace-nowrap",
+                  "shadow-sm border transition-all duration-150",
+                  "hover:shadow-md hover:scale-105 active:scale-95 active:shadow-none",
+                  s.type === "rising"
+                    ? "bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                    : s.type === "falling"
+                    ? "bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800"
+                    : "bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-600"
+                )}
               >
                 {s.label}
               </button>
