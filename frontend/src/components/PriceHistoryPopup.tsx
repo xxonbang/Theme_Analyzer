@@ -8,7 +8,7 @@ import type { HistoryChange, IntradayDay } from "@/types/stock"
 // 차트 상수
 const CW = 360
 const CH = 150
-const PAD = { top: 14, right: 8, bottom: 24, left: 36 }
+const PAD = { top: 14, right: 40, bottom: 24, left: 36 }
 const PW = CW - PAD.left - PAD.right
 const PH = CH - PAD.top - PAD.bottom
 
@@ -152,18 +152,23 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const up = closes[closes.length - 1] >= closes[0]
               const color = up ? "#ef4444" : "#3b82f6"
               const xLabels = [0, Math.floor((data.length - 1) / 2), data.length - 1]
+              const baseClose = closes[0]
               const midV = (minV + maxV) / 2
               const yTicks = [maxV, midV, minV]
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
-                  {/* 가로 그리드라인 + Y축 라벨 */}
+                  {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
                   {yTicks.map((v, i) => {
                     const y = PAD.top + PH - ((v - minV) / ((maxV - minV) || 1)) * PH
+                    const rate = baseClose ? ((v - baseClose) / baseClose) * 100 : 0
                     return (
                       <g key={`yg-${i}`}>
                         <line x1={PAD.left} y1={y} x2={CW - PAD.right} y2={y}
                           stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.15} />
                         <text x={PAD.left - 4} y={y + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={9}>
+                          {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
+                        </text>
+                        <text x={CW - PAD.right + 4} y={y + 3} textAnchor="start" fill="currentColor" opacity={0.4} fontSize={8}>
                           {formatPrice(Math.round(v))}
                         </text>
                       </g>
@@ -318,14 +323,18 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const yTicks = [maxV, midV, minV]
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
-                  {/* 가로 그리드라인 + Y축 라벨 */}
+                  {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
                   {yTicks.map((v, i) => {
                     const y = PAD.top + PH - ((v - minV) / ((maxV - minV) || 1)) * PH
+                    const rate = openPrice ? ((v - openPrice) / openPrice) * 100 : 0
                     return (
                       <g key={`yg-${i}`}>
                         <line x1={PAD.left} y1={y} x2={CW - PAD.right} y2={y}
                           stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.12} />
                         <text x={PAD.left - 4} y={y + 3} textAnchor="end" fill="currentColor" opacity={0.55} fontSize={9}>
+                          {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
+                        </text>
+                        <text x={CW - PAD.right + 4} y={y + 3} textAnchor="start" fill="currentColor" opacity={0.4} fontSize={8}>
                           {formatPrice(Math.round(v))}
                         </text>
                       </g>

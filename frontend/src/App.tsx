@@ -494,8 +494,10 @@ function App() {
 
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
-      {/* 히스토리 배너 + Tab Bar (하나의 sticky 컨테이너) */}
+      {/* 히스토리 배너 + Tab Bar + 퀵네비 (하나의 sticky 컨테이너) */}
       <div ref={stickyBarRef} className={cn("sticky z-40 transition-[top] duration-300 bg-background", headerHidden ? "top-0" : "top-14 sm:top-16")}>
+        {/* 히스토리 배너 + TabBar: 스크롤 다운 시 숨김 */}
+        <div className={cn("transition-all duration-300 overflow-hidden", headerHidden ? "max-h-0 opacity-0" : "max-h-[300px] opacity-100")}>
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
             <div className="container px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
@@ -539,7 +541,8 @@ function App() {
           compositeMode={compositeMode}
           onCompositeModeChange={handleCompositeModeChange}
         />
-        {/* 섹션 퀵네비 */}
+        </div>
+        {/* 섹션 퀵네비 (항상 표시) */}
         <div className="bg-slate-500/90 dark:bg-slate-700">
           <div className="container flex px-0 sm:px-4">
             {[

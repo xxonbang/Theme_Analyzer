@@ -227,10 +227,10 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               const isFng = item.symbol === "FNG"
               const isVix = item.symbol === "^VIX"
               const bg = isFng
-                ? (item.price >= 75 ? "bg-rose-100" : item.price >= 50 ? "bg-orange-50" : item.price >= 25 ? "bg-amber-50" : "bg-sky-100")
+                ? (item.price >= 75 ? "bg-rose-100 dark:bg-rose-950" : item.price >= 50 ? "bg-orange-50 dark:bg-orange-950" : item.price >= 25 ? "bg-amber-50 dark:bg-amber-950" : "bg-sky-100 dark:bg-sky-950")
                 : isVix
-                  ? (isUp ? "bg-amber-50" : isDown ? "bg-emerald-50" : "bg-muted/50")
-                  : (isUp ? "bg-rose-100" : isDown ? "bg-sky-100" : "bg-muted/50")
+                  ? (isUp ? "bg-amber-50 dark:bg-amber-950" : isDown ? "bg-emerald-50 dark:bg-emerald-950" : "bg-muted/50")
+                  : (isUp ? "bg-rose-100 dark:bg-rose-950" : isDown ? "bg-sky-100 dark:bg-sky-950" : "bg-muted/50")
               return (
                 <div
                   key={item.symbol}
