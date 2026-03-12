@@ -12,6 +12,7 @@ import { InvestorChartPopup } from "@/components/InvestorChartPopup"
 import { InvestorSchedulePopup } from "@/components/InvestorSchedulePopup"
 import { Sparkline } from "@/components/Sparkline"
 import { VolumeProfilePopup } from "@/components/VolumeProfilePopup"
+import { MemberChartPopup } from "@/components/MemberChartPopup"
 import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay } from "@/types/stock"
 
 interface StockCardProps {
@@ -39,6 +40,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [showTradingChart, setShowTradingChart] = useState(false)
   const [showInvestorChart, setShowInvestorChart] = useState(false)
   const [showVolumeProfile, setShowVolumeProfile] = useState(false)
+  const [showMemberChart, setShowMemberChart] = useState(false)
   const [vpExpanded, setVpExpanded] = useState(true)
   const [showSchedule, setShowSchedule] = useState(false)
   const [isTradingHistoryExpanded, setIsTradingHistoryExpanded] = useState(false)
@@ -452,7 +454,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               </button>
               {memberExpanded && (
                 memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) ? (
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 cursor-pointer hover:bg-muted/30 rounded-md transition-colors -mx-1 px-1 py-0.5" onClick={() => setShowMemberChart(true)}>
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
                 {memberInfo.buy_top5.map((b, i) => (
@@ -481,6 +483,13 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 ) : (
                   <p className="text-[10px] text-muted-foreground/60 py-2 text-center">거래원 데이터 수집 전</p>
                 )
+              )}
+              {showMemberChart && memberInfo && (
+                <MemberChartPopup
+                  stockName={stock.name}
+                  memberInfo={memberInfo}
+                  onClose={() => setShowMemberChart(false)}
+                />
               )}
             </div>
           )}

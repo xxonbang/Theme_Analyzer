@@ -137,6 +137,9 @@ export interface MemberInfo {
   name: string
   buy_top5: MemberBroker[]
   sell_top5: MemberBroker[]
+  total_sell_qty: number
+  total_buy_qty: number
+  acml_vol: number
   foreign_buy: number
   foreign_sell: number
   foreign_net: number

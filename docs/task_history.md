@@ -6,6 +6,10 @@
 
 ## 2026-03-12
 
+### [기능] 거래원 바 차트 팝업 추가 (2026-03-12 23:44 KST)
+- **변경 파일**: `MemberChartPopup.tsx`(신규), `StockCard.tsx`, `stock.ts`, `kis_rank.py`
+- **내용**: 거래원 TOP5 영역 클릭 시 바 차트+상세 테이블 팝업 표시. 매도(파란)/매수(빨간) 바 차트, 수량 비율 막대바 포함 테이블. 백엔드에 total_sell_qty/total_buy_qty/acml_vol 필드 추가.
+
 ### [개선] 퀵네비 Pill 디자인 + 거시지표 최상단 이동 (2026-03-12 23:18 KST)
 - **변경 파일**: `App.tsx`
 - **내용**: 퀵네비를 Pill/Chip 스타일로 변경(rounded-full, shadow, border). 상승(↑) 초록, 하락(↓) 빨강, 일반 흰색 색상 코딩. 거시지표 버튼 클릭 시 최상단 스크롤 이동.
