@@ -114,7 +114,7 @@ export function AuthPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="pl-10"
+                  className="pl-10 text-base"
                   autoComplete="email"
                 />
               </div>
@@ -127,7 +127,7 @@ export function AuthPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className="pl-10"
+                  className="pl-10 text-base"
                   autoComplete={tab === "login" ? "current-password" : "new-password"}
                 />
               </div>
@@ -140,7 +140,7 @@ export function AuthPage() {
                     value={inviteCode}
                     onChange={(e) => setInviteCode(e.target.value)}
                     required
-                    className="pl-10"
+                    className="pl-10 text-base"
                     autoComplete="off"
                   />
                 </div>
