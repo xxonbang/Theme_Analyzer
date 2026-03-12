@@ -113,28 +113,27 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
         </div>
 
         {/* 탭 */}
-        {hasIntraday && (
-          <div className="flex gap-1 mb-2">
-            <button
-              onClick={() => setActiveTab("daily")}
-              className={cn(
-                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
-                activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              )}
-            >
-              일별
-            </button>
-            <button
-              onClick={() => setActiveTab("intraday")}
-              className={cn(
-                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
-                activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              )}
-            >
-              장중
-            </button>
-          </div>
-        )}
+        <div className="flex gap-1 mb-2">
+          <button
+            onClick={() => setActiveTab("daily")}
+            className={cn(
+              "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+              activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            일별
+          </button>
+          <button
+            onClick={() => hasIntraday ? setActiveTab("intraday") : undefined}
+            className={cn(
+              "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+              !hasIntraday ? "text-muted-foreground/40 cursor-not-allowed" :
+              activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            장중{!hasIntraday && <span className="text-[9px] ml-1">(수집 전)</span>}
+          </button>
+        </div>
 
         {/* === 일별 탭 === */}
         {activeTab === "daily" && (

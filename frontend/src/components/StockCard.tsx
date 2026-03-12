@@ -439,7 +439,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
           )}
 
           {/* 수급원 TOP5 (admin만 표시) */}
-          {isAdmin && memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) && (
+          {isAdmin && (
             <div className="pt-1.5 border-t border-border/30">
               <button
                 onClick={() => setMemberExpanded(prev => !prev)}
@@ -451,6 +451,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 <ChevronDown className={cn("w-3 h-3 text-muted-foreground/40 ml-auto transition-transform", memberExpanded && "rotate-180")} />
               </button>
               {memberExpanded && (
+                memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0) ? (
               <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
@@ -477,6 +478,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 ))}
               </div>
             </div>
+                ) : (
+                  <p className="text-[10px] text-muted-foreground/60 py-2 text-center">거래원 데이터 수집 전</p>
+                )
               )}
             </div>
           )}
@@ -484,7 +488,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         </div>
 
         {/* 매물대 (admin만 표시) */}
-        {isAdmin && volumeProfile && (
+        {isAdmin && (
           <div className="pt-1.5 border-t border-border/30 -mx-3 px-3 -mb-1 pb-1 sm:-mx-4 sm:px-4">
             <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-muted-foreground mb-1">
               <BarChart3 className="w-3.5 h-3.5 text-amber-500/60" />
@@ -500,6 +504,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               </button>
             </div>
             {vpExpanded && (
+              volumeProfile ? (
               <div
                 className="flex gap-1.5 cursor-pointer hover:bg-muted/30 transition-colors rounded-md"
                 onClick={() => setShowVolumeProfile(true)}
@@ -523,6 +528,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   )
                 })}
               </div>
+              ) : (
+                <p className="text-[10px] text-muted-foreground/60 py-2 text-center">매물대 데이터 수집 전</p>
+              )
             )}
           </div>
         )}
@@ -536,8 +544,19 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         )}
 
         {/* Golden Cross Section */}
-        {isAdmin && criteria?.golden_cross && (() => {
-          const gc = criteria.golden_cross
+        {isAdmin && (() => {
+          const gc = criteria?.golden_cross
+          if (!gc) {
+            return (
+              <div className="border-t border-border/30 pt-1.5 mt-1.5">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-muted-foreground/30" />
+                  <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
+                  <span className="text-[9px] text-muted-foreground/50 ml-1">데이터 수집 전</span>
+                </div>
+              </div>
+            )
+          }
           const gcMet = !!gc.met
           return (
             <div className="border-t border-border/30 pt-1.5 mt-1.5">
@@ -587,44 +606,43 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         })()}
 
         {/* News Section (3차 정보 — 토글) */}
-        {hasNews && (
-          <div className="mt-2 pt-2 border-t border-border/50">
-            <button
-              onClick={() => setIsNewsExpanded(!isNewsExpanded)}
-              className="flex items-center justify-between w-full text-left"
-            >
-              <div className="flex items-center gap-1.5">
-                <Newspaper className="w-3 h-3 text-muted-foreground" />
-                <span className="text-[10px] font-medium text-muted-foreground">
-                  관련 뉴스 ({news.news.length})
-                </span>
-              </div>
-              {isNewsExpanded ? (
-                <ChevronUp className="w-4 h-4 text-muted-foreground" />
-              ) : (
-                <ChevronDown className="w-4 h-4 text-muted-foreground" />
-              )}
-            </button>
+        <div className="mt-2 pt-2 border-t border-border/50">
+          <button
+            onClick={() => hasNews && setIsNewsExpanded(!isNewsExpanded)}
+            className="flex items-center justify-between w-full text-left"
+          >
+            <div className="flex items-center gap-1.5">
+              <Newspaper className="w-3 h-3 text-muted-foreground" />
+              <span className="text-[10px] font-medium text-muted-foreground">
+                {hasNews ? `관련 뉴스 (${news!.news.length})` : "관련 뉴스"}
+              </span>
+              {!hasNews && <span className="text-[9px] text-muted-foreground/50">뉴스 없음</span>}
+            </div>
+            {hasNews && (isNewsExpanded ? (
+              <ChevronUp className="w-4 h-4 text-muted-foreground" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            ))}
+          </button>
 
-            {isNewsExpanded && (
-              <ul className="mt-1.5 space-y-1">
-                {news.news.slice(0, 3).map((item, idx) => (
-                  <li key={idx}>
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[11px] sm:text-xs text-muted-foreground hover:text-primary transition-colors line-clamp-2 sm:line-clamp-1 block"
-                      title={item.title}
-                    >
-                      • {item.title.replace(/<[^>]*>/g, '')}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
+          {hasNews && isNewsExpanded && (
+            <ul className="mt-1.5 space-y-1">
+              {news!.news.slice(0, 3).map((item, idx) => (
+                <li key={idx}>
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] sm:text-xs text-muted-foreground hover:text-primary transition-colors line-clamp-2 sm:line-clamp-1 block"
+                    title={item.title}
+                  >
+                    • {item.title.replace(/<[^>]*>/g, '')}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </CardContent>
     </Card>
   )
