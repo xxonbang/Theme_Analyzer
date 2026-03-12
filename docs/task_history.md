@@ -1,0 +1,248 @@
+# Task History
+
+작업 이력을 시간순(최신 상단)으로 기록합니다. (KST 기준)
+
+---
+
+## 2026-03-12
+
+### [개선] TabBar 숨김 애니메이션 매끄럽게 개선 (2026-03-12 22:57 KST)
+- **변경 파일**: `App.tsx`
+- **내용**: max-height 방식에서 margin-top + ResizeObserver 방식으로 전환. 실제 콘텐츠 높이를 측정하여 margin-top 음수값으로 적용, 숨김 시 빈 공간 제거(height:0). extra `</div>` 태그 수정.
+
+### [개선] TabBar 스크롤 시 숨김 + 퀵네비 sticky 유지 (2026-03-12 22:25 KST)
+- **변경 파일**: `App.tsx`
+- **내용**: 스크롤 다운 시 TabBar(탭+구성+등락률소스) 영역을 overflow-hidden + max-height:0으로 숨기고, 퀵네비만 sticky 유지. 스크롤 deadzone(8px) + 쿨다운(350ms)으로 떨림/피드백루프 방지.
+
+### [버그픽스] 거시지표 다크모드 라벨 안 보임 수정 (2026-03-12 21:39 KST)
+- **변경 파일**: `MacroIndicators.tsx`
+- **내용**: 접힌 상태 거시지표 카드 배경색에 dark 변형 추가. bg-rose-100→dark:bg-rose-950 등. 다크모드에서 라벨(NQ, K200F 등)이 보이지 않던 문제 해소.
+
+### [개선] 등락률 팝업 차트 Y축 이중 라벨 — 왼쪽 등락률/오른쪽 가격 (2026-03-12 21:32 KST)
+- **변경 파일**: `PriceHistoryPopup.tsx`
+- **내용**: 일별/장중 차트 왼쪽 Y축에 등락률(%), 오른쪽 Y축에 가격(원) 표시. PAD.right 8→40 확장.
+
+### [설정] Stop hook — task_history.md 업데이트 체크 자동화 (2026-03-12 21:21 KST)
+- **변경 파일**: `.claude/hooks/check-task-history.sh`, `.claude/settings.local.json`
+- **내용**: Stop hook 추가. 코드 파일 수정 후 task_history.md 미업데이트 시 exit 2로 차단하여 기록 강제. 감지 대상: frontend/src, modules, .github 하위 코드 파일.
+
+### [버그픽스] 로그인 input iOS 자동 zoom-in 방지 (2026-03-12 20:55 KST)
+- **변경 파일**: `AuthPage.tsx`
+- **내용**: 이메일/비밀번호/가입코드 input에 `text-base`(16px) 적용. iOS Safari/WKWebView에서 font-size < 16px input focus 시 자동 zoom-in되는 현상 해소.
+
+### [진단] 장중 데이터(intraday-history) 수집 안 됨 원인 확인 (2026-03-12 12:18 KST)
+- **원인**: `collect-intraday-history.yml` timeout 10분 → 오늘 4회(09:30~12:00 KST) 모두 ~10m20s에 cancelled
+- **상태**: da770be 커밋에서 20분으로 확장 완료. 12:00 실행은 구 버전 사용. 13:00 KST 실행부터 신 버전 적용 예정.
+
+### [개선] 데이터 없는 섹션도 항상 표시 + "수집 전" 안내 문구 (2026-03-12 12:09 KST)
+- **변경 파일**: `StockCard.tsx`, `PriceHistoryPopup.tsx`
+- **내용**: 거래원/매물대/골든크로스/뉴스 섹션 — 데이터 없어도 섹션 표시 + "수집 전"/"뉴스 없음" 안내. 등락률 팝업 장중 탭 항상 표시 + 데이터 없으면 "(수집 전)" + 비활성.
+
+### [개선] 등락률 팝업 그래프 확장 + 장중 탭 자동선택 + intraday 타임아웃 확장 (2026-03-12 12:04 KST)
+- **변경 파일**: `PriceHistoryPopup.tsx`, `collect-intraday-history.yml`
+- **내용**: 그래프 viewBox 300→360 확장. 장 시간(09:00~15:30)에 장중 탭 자동선택. Collect Intraday History timeout 10분→20분(매번 cancelled 해결).
+
+### [개선] 플로팅 버튼 반투명 인라인 스타일 적용 (2026-03-12 11:53 KST)
+- **변경 파일**: `App.tsx`
+- **내용**: Tailwind 클래스 → 인라인 style로 변경. rgba(120,120,140,0.35) 배경 + backdropFilter/WebkitBackdropFilter 직접 지정. CSS purge 및 iOS Safari 호환 보장.
+
+### [개선] 플로팅 버튼 반투명 효과 재수정 — slate-400/40 색상 틴트 적용 (2026-03-12 11:08 KST)
+- **변경 파일**: `App.tsx`
+- **내용**: bg-foreground/15(흰 배경에서 투명 안보임) → bg-slate-400/40으로 변경. 흰 배경 위에서도 확실히 반투명 회색으로 보이도록.
+
+### [개선] 플로팅 버튼 반투명 효과 수정 (2026-03-12 11:05 KST)
+- **커밋**: `f8dd7ec`
+- **변경 파일**: `App.tsx`
+- **내용**: bg-background/40(라이트모드에서 투명 안보임) → bg-foreground/15 + backdrop-blur-xl로 변경하여 반투명 글래스 효과 확실히 적용.
+
+### [버그픽스] Collect Investor Data 타임아웃 15분→30분 확장 (2026-03-12 09:50 KST)
+- **커밋**: `58e4cd3`
+- **변경 파일**: `collect-investor-data.yml`
+- **내용**: 데이터 수집 ~15분 소요로 빌드/배포 단계 도달 전 타임아웃. 30분으로 확장.
+
+---
+
+## 2026-03-11
+
+### [개선] 헤더 2단 구조 — 모바일 ... 메뉴 제거, 모든 버튼 직접 노출 (2026-03-11 23:16 KST)
+- **변경 파일**: `Header.tsx`
+- **내용**: 모바일 2단 툴바 추가(1단: 로고+타임스탬프+새로고침, 2단: 예측/모의투자/히스토리+다크모드/컴팩트/로그아웃). MoreVertical 메뉴 완전 제거.
+
+### [개선] 퀵네비 배경색 밝게 조정 + 컴팩트 모드 sticky 불투명 배경 (2026-03-11 23:11 KST)
+- **커밋**: `9f43b2e`
+- **변경 파일**: `App.tsx`, `StockList.tsx`
+- **내용**: 퀵네비 slate-800→slate-500/90으로 밝게. 컴팩트 모드 sticky 종목명 영역 반투명→불투명 배경으로 가로 스크롤 시 겹침 수정.
+
+### [버그픽스] 퀵네비 sticky 스크롤 시 콘텐츠 겹침 수정 (2026-03-11 23:07 KST)
+- **커밋**: `ecd5612`
+- **변경 파일**: `App.tsx`
+- **내용**: sticky 컨테이너에 bg-background 추가하여 스크롤 시 뒤 콘텐츠 비침 방지.
+
+### [개선] 퀵네비 어두운 배경으로 섹션 구분 강화 (2026-03-11 23:05 KST)
+- **커밋**: `03922ed`
+- **변경 파일**: `App.tsx`
+- **내용**: bg-slate-800 어두운 배경 + slate-300 텍스트로 주변 섹션과 명확 구분.
+
+### [개선] 퀵네비 flex-1 균등 분할 + 세로 구분선 (2026-03-11 23:02 KST)
+- **커밋**: `04ef194`
+- **변경 파일**: `App.tsx`
+- **내용**: 버튼 flex-1 균등 분할로 가로 스크롤 완전 제거. border-r 세로 구분선으로 버튼 간 구분. 모바일 text-[11px].
+
+### [개선] 퀵네비 한 줄 레이아웃 수정 (2026-03-11 22:58 KST)
+- **커밋**: `1c53296`
+- **변경 파일**: `App.tsx`
+- **내용**: whitespace-nowrap + shrink-0으로 줄바꿈 완전 방지. overflow-x-auto 가로 스크롤 대비. 구분자 |→· 변경.
+
+### [개선] 퀵네비 가독성 개선 및 섹션 구분 강화 (2026-03-11 22:51 KST)
+- **커밋**: `840d4f6`
+- **변경 파일**: `App.tsx`
+- **내용**: 퀵네비 폰트 확대(11px→12px, font-medium), 배경 음영(bg-muted/60) + 상하 border + shadow-sm으로 주변 섹션과 명확 구분. 중앙 정렬.
+
+### [개선] 모의투자 최고가 종가 대체 시 "(종가)" 라벨 표시 (2026-03-11 22:43 KST)
+- **변경 파일**: `PaperTradingStockCard.tsx`
+- **내용**: 최고가 시각이 없는 경우(종가 대체) "최고가(종가)" 형식으로 표시. 상세 확장 영역 고가 행에도 동일 적용.
+
+### [버그픽스] 모의투자 최고가 매수 이전 시각 표시 수정 (2026-03-11 22:21 KST)
+- **변경 파일**: `usePaperTradingData.ts`
+- **내용**: 최고가 시각이 매수 시각 이전이면 종가로 대체하여 수익률 계산. leader_stocks 있는 경우 + 하위호환 경로 모두 적용.
+
+### [개선] 예측이력 스냅샷 기반 뷰로 전환 (2026-03-11 22:02 KST)
+- **변경 파일**: `useForecastSnapshots.ts`, `PredictionHistory.tsx`
+- **내용**: 예측이력 DateGroup 펼침 시 최신 스냅샷 자동 선택하여 시점별 대장주만 표시. 시뮬레이션 뱃지 제거. 스냅샷 토글 해제 방지.
+
+### [개선] 퀵네비 텍스트 링크화 및 거시지표 카드 설명 팝업 추가 (2026-03-11 17:49 KST)
+- **변경 파일**: `App.tsx`, `MacroIndicators.tsx`
+- **내용**: 퀵네비 칩→구분자(|) 기반 텍스트 링크로 변경하여 한 줄 표시. 거시지표 펼친 상태 카드 클릭 시 지표 설명 모달 팝업 추가(8개 지표).
+
+### [개선] 거시지표 세로 2단 배치 및 퀵네비 칩 KOSPI/KOSDAQ 전체명 표시 (2026-03-11 17:42 KST)
+- **커밋**: `b1db2a2`
+- **변경 파일**: `MacroIndicators.tsx`, `App.tsx`
+- **내용**: 거시지표 접힌 상태를 가로→세로 2단(이름/값) 배치로 변경하여 종목명 truncate 해소. 퀵네비 칩 라벨을 ↑KP→↑KOSPI 등 전체명으로 변경.
+
+### [개선] 거시지표 한 줄 표시 및 퀵네비 칩 모바일 최적화 (2026-03-11 17:35 KST)
+- **커밋**: `bc03f85`
+- **변경 파일**: `MacroIndicators.tsx`, `App.tsx`
+- **내용**: 거시지표 접힌 상태 grid-cols-4→flex 한 줄 배치. 퀵네비 칩 라벨 축약(↑KP/↓KQ 등), flex-wrap 적용, 가로스크롤 제거.
+
+### [개선] 탭별 퀵네비 칩 동적 구성 및 탭 전환 시 스크롤 최상단 이동 (2026-03-11 17:30 KST)
+- **커밋**: `e26e32c`
+- **변경 파일**: `App.tsx`
+- **내용**: 탭별로 퀵네비 칩을 동적 구성(composite/fluctuation: 상승/하락+KOSPI/KOSDAQ, trading_value/volume: KOSPI/KOSDAQ). 탭 전환 시 scrollTo top 추가. 각 탭 StockList에 sectionId 부여.
+
+### [개선] 퀵네비 스크롤 타겟을 섹션별 KOSPI/KOSDAQ 단위로 세분화 (2026-03-11 17:20 KST)
+- **커밋**: `aaa2927`
+- **변경 파일**: `App.tsx`, `StockList.tsx`
+- **내용**: StockList에 sectionId prop 추가. 퀵네비 칩을 거시지표/AI테마/상승KOSPI/상승KOSDAQ/하락KOSPI/하락KOSDAQ 6개로 변경.
+
+### [개선] 섹션 퀵네비 스크롤 오프셋 동적 계산 및 MA상태 라벨 변경 (2026-03-11 17:10 KST)
+- **커밋**: `ff91d36`
+- **변경 파일**: `App.tsx`
+- **내용**: sticky 영역 높이를 ref로 동적 측정하여 정확한 스크롤 위치 계산. "지수" 라벨 → "MA상태" 변경.
+
+### [버그픽스] 로고/사이트명 클릭 시 데이터 재수집→페이지 새로고침으로 변경 (2026-03-11 17:03 KST)
+- **커밋**: `e11575b`
+- **변경 파일**: `Header.tsx`
+- **내용**: 홈 페이지에서 로고 클릭 시 `onRefresh()`(API 재수집) 대신 `window.location.reload()` 호출하도록 수정.
+
+### [버그픽스] Collect Paper Trading 타임아웃 10분→20분 확장 (2026-03-11 16:59 KST)
+- **커밋**: `d16789e`
+- **변경 파일**: `collect-paper-trading.yml`
+- **원인**: 매물대 수집(`collect_volume_profile.py`) 포함 시 10분 초과로 cancelled 발생
+- **내용**: timeout-minutes 10→20 확장
+
+### [기능] 홈화면 섹션 퀵네비게이션 칩 바 추가 (2026-03-11 16:51 KST)
+- **커밋**: `a8ba987`
+- **변경 파일**: `App.tsx`
+- **내용**: TabBar 하단에 거시지표/환율/지수/테마분석/종목 칩 버튼 추가. 클릭 시 해당 섹션으로 smooth scroll. 조건부 표시 + 모바일 가로 스크롤 대응.
+
+### [설정] task_history 확인 규칙 보완 — 오늘자 이력 없을 시 직전 작업일 확인 (2026-03-11 16:38 KST)
+- **변경 파일**: `CLAUDE.md`, 메모리
+- **내용**: 오늘자 이력이 없으면 직전 작업일 이력을 확인하고 날짜+건수 표시하도록 규칙 추가.
+
+### [개선] 거시지표 히스토리 범례 전체선택/해제 버튼 추가 (2026-03-11 16:33 KST)
+- **커밋**: `c4ae71e`
+- **변경 파일**: `MacroIndicators.tsx`
+- **내용**: 히스토리 차트 범례에 "전체선택/전체해제" 토글 버튼 추가.
+
+### [개선] 거시지표 히스토리 차트 가독성 개선 (2026-03-11 16:32 KST)
+- **커밋**: `011bc25`
+- **변경 파일**: `MacroIndicators.tsx`
+- **내용**: 차트 영역 확장(W280→320, H120→140), 우측 여백 축소, Y축 소수점 2자리+중간값 라벨 추가, X축 세로 그리드선 추가, 데이터 영역 상하 5% 여백.
+
+### [기능] 거시지표에 VIX, Fear & Greed Index 추가 (2026-03-11 16:29 KST)
+- **커밋**: `b8a9f67`
+- **변경 파일**: `collect_macro_indicators.py`, `MacroIndicators.tsx`
+- **내용**: VIX(yfinance ^VIX), Fear & Greed(CNN graphdata API) 수집 추가. 프론트엔드 접힌 상태에서 VIX는 현재값, F&G는 점수(0~100) 표시. 특수 색상 처리.
+
+### [개선] 거시지표 코스피200 선물/지수 라벨 구분 표시 (2026-03-11 15:51 KST)
+- **커밋**: `53efecf`
+- **변경 파일**: `MacroIndicators.tsx`
+- **내용**: 선물 데이터일 때 "K200F", 지수 fallback일 때 "K200"으로 구분 표시. 접힌 상태 및 히스토리 테이블 모두 적용.
+
+### [개선] Collect Investor Data에 환율 수집 추가 (2026-03-11 14:00 KST)
+- **커밋**: `c7d20e6`
+- **변경 파일**: `collect_investor_data.py`
+- **내용**: ExchangeRateAPI 호출 추가. Refresh Stock Data 타임아웃 시에도 환율이 갱신되도록 이중화. 3일간 환율 미갱신 문제 해결.
+
+### [개선] 컴팩트 모드 InvestorChartPopup props 누락 수정 (2026-03-11 13:55 KST)
+- **커밋**: `832142c`
+- **변경 파일**: `StockList.tsx`
+- **내용**: CompactStockRow에 `investorEstimated`, `investorUpdatedAt` 전달 추가. InvestorChartPopup 팝업에서 D(당일) 수집 시점 표시가 컴팩트 모드에서도 정상 동작하도록 수정.
+
+### [설정] task_history 확인 표시 규칙 추가 (2026-03-11 13:55 KST)
+- **변경 파일**: `CLAUDE.md`, 메모리
+- **내용**: context compacting/신규 세션 시 task_history 확인 후 "[task_history 확인 완료] 오늘자 N건 확인" 메시지를 반드시 사용자에게 표시하도록 규칙 추가.
+
+### [버그픽스] 수집 스크립트 updated_at UTC→KST 보정 및 Refresh Data 타임아웃 30분 확장 (2026-03-11 13:50 KST)
+- **커밋**: `10fa1bf`
+- **변경 파일**: `collect_volume_profile.py`, `collect_intraday_history.py`, `refresh-data.yml`
+- **내용**: datetime.now() → datetime.now(KST) 변경으로 GitHub Actions에서 KST 시각 기록. Refresh Data 워크플로우 타임아웃 20분→30분 확장 (매물대 수집 포함 시 초과 문제 해결).
+
+### [기능] 수급 일봉 탭 D(당일) 수집 시점 표시 (2026-03-11 13:35 KST)
+- **커밋**: `2b81f2f`
+- **변경 파일**: `InvestorChartPopup.tsx`, `StockCard.tsx`
+- **내용**: 일봉 차트 X축 및 테이블 D 라벨 우측에 수집 라운드(1차~5차/확정) 표시. investorUpdatedAt prop 전달 추가.
+
+### [설정] 세션/컴팩팅 시 task_history 확인 규칙 추가 (2026-03-11 13:35 KST)
+- **변경 파일**: `CLAUDE.md`, 메모리
+- **내용**: 새 세션 또는 context compacting 발생 시 `docs/task_history.md` 오늘자 이력을 반드시 확인하도록 규칙 설정. 작업 연속성 최대화 목적.
+
+### [설정] docs/research 폴더 생성 및 연구문서 관리 규칙 설정 (2026-03-11 12:30 KST)
+- **변경 파일**: `CLAUDE.md`, `docs/research/`
+- **내용**: `docs/research/` 폴더 신규 생성. 진단 보고서 이동 (`diagnostic-2026-03-11.md` → `2026-03-11-project-diagnostic.md`). 파일명 규칙: `YYYY-MM-DD-<단어1>-<단어2>.md`.
+
+### [설정] task_history 포맷 변경 및 역순 정렬 적용 (2026-03-11 12:00 KST)
+- **변경 파일**: `CLAUDE.md`, `docs/task_history.md`
+- **내용**: 이력 항목 포맷을 `(YYYY-MM-DD HH:MM KST)`으로 변경. 최신 항목이 상단에 오도록 역순 정렬 적용.
+
+### [설정] task_history 시각 기준 UTC → KST 변경 (2026-03-11 12:00 KST)
+- **변경 파일**: `CLAUDE.md`, `docs/task_history.md`
+- **내용**: 이력 시각 기준을 KST로 통일.
+
+### [버그픽스] Theme Forecast Intraday 타임아웃 20분으로 재조정 (2026-03-11 11:29 KST)
+- **커밋**: `be9c8a6`
+- **변경 파일**: `theme-forecast-intraday.yml`
+- **내용**: 로컬 테스트 결과 매물대 수집만 ~7.5분 소요 (150종목). Gemini forecast 합산 시 15분 초과 가능 → 20분으로 여유 확보.
+
+### [원상복구] intraday 매물대 종목 제한 로직 제거 (2026-03-11 11:13 KST)
+- **커밋**: `985ccf4`
+- **변경 파일**: `collect_volume_profile.py`
+- **내용**: criteria 점수 상위 80종목 제한 로직 제거. 전체 종목 수집으로 복원.
+
+### [버그픽스] Theme Forecast Intraday 워크플로우 타임아웃 (2026-03-11 10:25 KST)
+- **커밋**: `2d8d0d3`
+- **변경 파일**: `theme-forecast-intraday.yml`, `collect_volume_profile.py`
+- **수정 내용**: 워크플로우 타임아웃 10분 → 15분 증가, intraday criteria 80종목 제한 추가 (이후 원상복구됨)
+
+### [설정] task_history.md 생성 및 CLAUDE.md 자동 기록 설정 (2026-03-11 10:25 KST)
+- **파일**: `docs/task_history.md`, `CLAUDE.md`
+- **내용**: 작업 이력 자동 기록 체계 수립.
+
+### [진단] 프로젝트 전체 진단 보고서 작성 (2026-03-11 10:00 KST)
+- **파일**: `docs/diagnostic-2026-03-11.md`
+- **내용**: 백엔드/프론트엔드/인프라 3개 영역 병렬 진단. Critical 4건, High 10건, Medium 9건, Low 5건 도출.
+
+### [기능] 매물대/골든크로스 섹션 수집시각 표시 (2026-03-11 09:30 KST)
+- **커밋**: `468621a`
+- **변경 파일**: `App.tsx`, `StockCard.tsx`, `StockList.tsx`
+- **내용**: 매물대 섹션에 `volume-profile.json`의 `updated_at`, 골든크로스 섹션에 `latest.json`의 `timestamp`를 HH:MM 형식으로 표시.

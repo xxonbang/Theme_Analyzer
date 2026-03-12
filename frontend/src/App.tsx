@@ -119,6 +119,8 @@ function App() {
   const [headerHidden, setHeaderHidden] = useState(false)
   const lastScrollY = useRef(0)
   const stickyBarRef = useRef<HTMLDivElement>(null)
+  const collapsibleRef = useRef<HTMLDivElement>(null)
+  const [collapsibleH, setCollapsibleH] = useState(150)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
 
   const scrollCooldown = useRef(0)
@@ -146,6 +148,21 @@ function App() {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // collapsible 영역의 실제 콘텐츠 높이 측정
+  useEffect(() => {
+    const el = collapsibleRef.current
+    if (!el) return
+    const update = () => {
+      const h = el.scrollHeight
+      if (h > 0) setCollapsibleH(h)
+    }
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [currentPage])
+
 
 
   const scrollToTop = useCallback(() => {
@@ -511,9 +528,11 @@ function App() {
         ref={stickyBarRef}
         className={cn("sticky z-40 bg-background transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}
       >
+        <div className="overflow-hidden" style={{ height: headerHidden ? 0 : "auto" }}>
         <div
-          className="overflow-hidden transition-[max-height] duration-300 ease-out"
-          style={{ maxHeight: headerHidden ? 0 : 200 }}
+          ref={collapsibleRef}
+          className="transition-[margin-top] duration-300 ease-out"
+          style={{ marginTop: headerHidden ? -collapsibleH : 0 }}
         >
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">
@@ -558,6 +577,7 @@ function App() {
           compositeMode={compositeMode}
           onCompositeModeChange={handleCompositeModeChange}
         />
+        </div>
         </div>
         {/* 섹션 퀵네비 (항상 표시) */}
         <div className="bg-slate-500/90 dark:bg-slate-700">
