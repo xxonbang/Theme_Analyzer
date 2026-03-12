@@ -872,10 +872,11 @@ function App() {
         className={cn(
           "fixed bottom-6 right-6 z-50",
           "w-10 h-10 rounded-full",
-          "bg-foreground/15 text-foreground/70 border border-foreground/10",
+          "bg-slate-400/40 text-slate-700 dark:bg-slate-500/40 dark:text-slate-200",
+          "border border-slate-300/50 dark:border-slate-500/50",
           "backdrop-blur-xl shadow-lg",
           "flex items-center justify-center",
-          "hover:bg-foreground/25 hover:text-foreground hover:scale-110 active:scale-95",
+          "hover:bg-slate-400/60 hover:text-slate-900 dark:hover:bg-slate-500/60 dark:hover:text-white hover:scale-110 active:scale-95",
           "transition-all duration-200",
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
         )}
