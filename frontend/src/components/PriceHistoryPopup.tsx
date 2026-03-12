@@ -6,9 +6,9 @@ import { cn, formatPrice, formatVolume, formatTradingValue, getChangeBgColor } f
 import type { HistoryChange, IntradayDay } from "@/types/stock"
 
 // 차트 상수
-const CW = 300
-const CH = 140
-const PAD = { top: 14, right: 4, bottom: 24, left: 32 }
+const CW = 360
+const CH = 150
+const PAD = { top: 14, right: 8, bottom: 24, left: 36 }
 const PW = CW - PAD.left - PAD.right
 const PH = CH - PAD.top - PAD.bottom
 
@@ -46,9 +46,15 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
   // 시간순 정렬, 최근 11일(D-10 ~ D)만 표시
   const reversed = [...changes].slice(0, 11).reverse()
 
-  // 탭 상태
+  // 탭 상태: 장중(09:00~15:30) + intraday 데이터 있으면 장중 탭 기본
   const hasIntraday = intradayDays && intradayDays.length > 0
-  const [activeTab, setActiveTab] = useState<"daily" | "intraday">("daily")
+  const isMarketHours = (() => {
+    const now = new Date()
+    const h = now.getHours(), m = now.getMinutes()
+    const t = h * 60 + m
+    return t >= 9 * 60 && t <= 15 * 60 + 30
+  })()
+  const [activeTab, setActiveTab] = useState<"daily" | "intraday">(hasIntraday && isMarketHours ? "intraday" : "daily")
   const [interval, setInterval] = useState<"30m" | "60m">("30m")
   const [selectedDayIdx, setSelectedDayIdx] = useState(0)
 
