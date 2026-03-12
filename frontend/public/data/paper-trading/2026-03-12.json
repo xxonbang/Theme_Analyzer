@@ -1,0 +1,538 @@
+{
+  "trade_date": "2026-03-12",
+  "morning_timestamp": "2026-03-12 09:21:46",
+  "collected_at": "2026-03-12 06:40:53",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-12 09:21:46",
+      "prices": {
+        "010170": 7700,
+        "230240": 26300,
+        "047040": 10630,
+        "047400": 1858,
+        "322000": 113500,
+        "006910": 12150,
+        "050890": 12410,
+        "380540": 4630,
+        "357880": 3230,
+        "048410": 16490,
+        "476060": 22100
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비 및 5G 관련주"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 5G 관련주"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 인프라 관련주"
+        },
+        {
+          "code": "047400",
+          "name": "유니온머티리얼",
+          "theme": "희토류/핵심광물 관련주"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "신재생에너지 및 원전 관련주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-12 09:32:05",
+      "prices": {
+        "010170": 7700,
+        "230240": 26300,
+        "047040": 10630,
+        "047400": 1858,
+        "322000": 116900,
+        "006910": 11690,
+        "050890": 12800,
+        "380540": 4630,
+        "357880": 3230,
+        "048410": 18390,
+        "476060": 22100
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비 및 5G 관련주"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 5G 관련주"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 인프라 관련주"
+        },
+        {
+          "code": "047400",
+          "name": "유니온머티리얼",
+          "theme": "희토류/핵심광물 관련주"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "신재생에너지 및 원전 관련주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-12 09:51:11",
+      "prices": {
+        "010170": 8680,
+        "230240": 27600,
+        "047040": 10220,
+        "047400": 1662,
+        "322000": 117500,
+        "006910": 11560,
+        "050890": 13400,
+        "380540": 5020,
+        "357880": 3685,
+        "048410": 17440,
+        "476060": 22800
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "380540",
+          "name": "옵티코어",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "357880",
+          "name": "SKAI",
+          "theme": "AI 솔루션 및 플랫폼"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "혁신 신약 개발 바이오"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "혁신 신약 개발 바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-12 10:02:10",
+      "prices": {
+        "010170": 8680,
+        "230240": 27600,
+        "047040": 10510,
+        "047400": 1662,
+        "322000": 117500,
+        "006910": 11430,
+        "050890": 13400,
+        "380540": 5020,
+        "357880": 3685,
+        "048410": 17440,
+        "476060": 22800
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "380540",
+          "name": "옵티코어",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "357880",
+          "name": "SKAI",
+          "theme": "AI 솔루션 및 플랫폼"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "혁신 신약 개발 바이오"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "혁신 신약 개발 바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-12 11:32:09",
+      "prices": {
+        "010170": 8680,
+        "230240": 27600,
+        "047040": 10190,
+        "047400": 1662,
+        "322000": 117500,
+        "006910": 11100,
+        "050890": 13400,
+        "380540": 5020,
+        "357880": 3685,
+        "048410": 17440,
+        "476060": 22250
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "380540",
+          "name": "옵티코어",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "357880",
+          "name": "SKAI",
+          "theme": "AI 솔루션 및 플랫폼"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "혁신 신약 개발 바이오"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "혁신 신약 개발 바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-12 13:22:08",
+      "prices": {
+        "010170": 8680,
+        "230240": 27600,
+        "047040": 10370,
+        "047400": 1662,
+        "322000": 117500,
+        "006910": 11330,
+        "050890": 13400,
+        "380540": 5020,
+        "357880": 3685,
+        "048410": 17440,
+        "476060": 22600
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "380540",
+          "name": "옵티코어",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "357880",
+          "name": "SKAI",
+          "theme": "AI 솔루션 및 플랫폼"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "혁신 신약 개발 바이오"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "혁신 신약 개발 바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-12 14:32:13",
+      "prices": {
+        "010170": 8680,
+        "230240": 27600,
+        "047040": 10430,
+        "047400": 1662,
+        "322000": 117500,
+        "006910": 11410,
+        "050890": 13400,
+        "380540": 5020,
+        "357880": 3685,
+        "048410": 17440,
+        "476060": 22550
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "380540",
+          "name": "옵티코어",
+          "theme": "5G/6G 통신 및 AI 데이터센터 인프라"
+        },
+        {
+          "code": "357880",
+          "name": "SKAI",
+          "theme": "AI 솔루션 및 플랫폼"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광)"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "혁신 신약 개발 바이오"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "혁신 신약 개발 바이오"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "통신장비 및 5G 관련주",
+      "market": "KOSPI",
+      "buy_price": 7700,
+      "close_price": 7670,
+      "profit_rate": -0.39,
+      "profit_amount": -30,
+      "high_price": 8900,
+      "high_time": "09:24",
+      "high_profit_rate": 15.58,
+      "high_profit_amount": 1200
+    },
+    {
+      "code": "230240",
+      "name": "에치에프알",
+      "theme": "통신장비 및 5G 관련주",
+      "market": "KOSPI",
+      "buy_price": 26300,
+      "close_price": 27600,
+      "profit_rate": 4.94,
+      "profit_amount": 1300,
+      "high_price": 27600,
+      "high_time": "15:30",
+      "high_profit_rate": 4.94,
+      "high_profit_amount": 1300
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설 및 인프라 관련주",
+      "market": "KOSPI",
+      "buy_price": 10630,
+      "close_price": 10460,
+      "profit_rate": -1.6,
+      "profit_amount": -170,
+      "high_price": 10910,
+      "high_time": "09:56",
+      "high_profit_rate": 2.63,
+      "high_profit_amount": 280
+    },
+    {
+      "code": "047400",
+      "name": "유니온머티리얼",
+      "theme": "희토류/핵심광물 관련주",
+      "market": "KOSPI",
+      "buy_price": 1858,
+      "close_price": 1646,
+      "profit_rate": -11.41,
+      "profit_amount": -212,
+      "high_price": 1709,
+      "high_time": "09:23",
+      "high_profit_rate": -8.02,
+      "high_profit_amount": -149
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지 및 원전 관련주",
+      "market": "KOSDAQ",
+      "buy_price": 113500,
+      "close_price": 130700,
+      "profit_rate": 15.15,
+      "profit_amount": 17200,
+      "high_price": 135300,
+      "high_time": "12:01",
+      "high_profit_rate": 19.21,
+      "high_profit_amount": 21800
+    },
+    {
+      "code": "006910",
+      "name": "보성파워텍",
+      "theme": "신재생에너지 및 원전 관련주",
+      "market": "KOSPI",
+      "buy_price": 12150,
+      "close_price": 11470,
+      "profit_rate": -5.6,
+      "profit_amount": -680,
+      "high_price": 11820,
+      "high_time": "09:48",
+      "high_profit_rate": -2.72,
+      "high_profit_amount": -330
+    },
+    {
+      "code": "050890",
+      "name": "쏠리드",
+      "theme": "5G/6G 통신 및 AI 데이터센터 인프라",
+      "market": "KOSPI",
+      "buy_price": 12410,
+      "close_price": 12400,
+      "profit_rate": -0.08,
+      "profit_amount": -10,
+      "high_price": 13410,
+      "high_time": "09:29",
+      "high_profit_rate": 8.06,
+      "high_profit_amount": 1000
+    },
+    {
+      "code": "380540",
+      "name": "옵티코어",
+      "theme": "5G/6G 통신 및 AI 데이터센터 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 4630,
+      "close_price": 5020,
+      "profit_rate": 8.42,
+      "profit_amount": 390,
+      "high_price": 5250,
+      "high_time": "11:20",
+      "high_profit_rate": 13.39,
+      "high_profit_amount": 620
+    },
+    {
+      "code": "357880",
+      "name": "SKAI",
+      "theme": "AI 솔루션 및 플랫폼",
+      "market": "KOSDAQ",
+      "buy_price": 3230,
+      "close_price": 3710,
+      "profit_rate": 14.86,
+      "profit_amount": 480,
+      "high_price": 3965,
+      "high_time": "15:04",
+      "high_profit_rate": 22.76,
+      "high_profit_amount": 735
+    },
+    {
+      "code": "048410",
+      "name": "현대바이오",
+      "theme": "혁신 신약 개발 바이오",
+      "market": "KOSPI",
+      "buy_price": 16490,
+      "close_price": 16650,
+      "profit_rate": 0.97,
+      "profit_amount": 160,
+      "high_price": 18450,
+      "high_time": "09:43",
+      "high_profit_rate": 11.89,
+      "high_profit_amount": 1960
+    },
+    {
+      "code": "476060",
+      "name": "온코닉테라퓨틱스",
+      "theme": "혁신 신약 개발 바이오",
+      "market": "KOSDAQ",
+      "buy_price": 22100,
+      "close_price": 22550,
+      "profit_rate": 2.04,
+      "profit_amount": 450,
+      "high_price": 23450,
+      "high_time": "09:39",
+      "high_profit_rate": 6.11,
+      "high_profit_amount": 1350
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 6,
+    "loss_stocks": 5,
+    "total_invested": 230998,
+    "total_value": 249876,
+    "total_profit": 18878,
+    "total_profit_rate": 8.17,
+    "high_total_value": 260764,
+    "high_total_profit": 29766,
+    "high_total_profit_rate": 12.89,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 2
+  }
+}
