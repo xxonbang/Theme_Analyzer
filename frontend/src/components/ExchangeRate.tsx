@@ -22,14 +22,14 @@ const currencyInfo: Record<string, { flag: string; label: string }> = {
 function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; label: string }) {
   if (entries.length < 2) return <p className="text-[10px] text-muted-foreground/50 text-center py-4">데이터 부족</p>
 
-  const W = 300, H = 100, PX = 20, PY = 12
-  const chartW = W - PX * 2, chartH = H - PY * 2
+  const W = 300, H = 100, PL = 38, PR = 8, PY = 12
+  const chartW = W - PL - PR, chartH = H - PY * 2
   const rates = entries.map(e => e.rate)
   const min = Math.min(...rates), max = Math.max(...rates)
   const range = max - min || 1
 
   const points = entries.map((e, i) => ({
-    x: PX + (i / (entries.length - 1)) * chartW,
+    x: PL + (i / (entries.length - 1)) * chartW,
     y: PY + (1 - (e.rate - min) / range) * chartH,
     rate: e.rate,
     date: e.date,
@@ -52,8 +52,8 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           const y = PY + (1 - (v - min) / range) * chartH
           return (
             <g key={i}>
-              <line x1={PX} y1={y} x2={W - PX} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
-              <text x={PX + 2} y={y - 3} textAnchor="start" className="fill-foreground/50" fontSize={7}>{v.toLocaleString()}</text>
+              <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
+              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-foreground/50" fontSize={7}>{v.toLocaleString()}</text>
             </g>
           )
         })}
