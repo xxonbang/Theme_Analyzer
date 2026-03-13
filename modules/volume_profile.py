@@ -157,7 +157,9 @@ def fetch_minute_candles(
     path = "/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice"
     tr_id = "FHKST03010200"
     candles = []
-    cursor = "150000"
+    # 현재 시각 이후의 가짜 캔들 방지: 커서를 현재 KST 시각으로 설정 (최대 15:00)
+    now_hhmm = datetime.now().strftime("%H%M00")
+    cursor = min(now_hhmm, "150000")
 
     for _ in range(15):  # 최대 15회 (09:00까지)
         params = {
