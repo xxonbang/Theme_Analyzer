@@ -373,7 +373,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                   </tr>
                 </thead>
                 <tbody>
-                  {[...dates].reverse().map((date, di) => (
+                  {dates.map((date, di) => (
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
                       <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
                       {historyRows.map((row) => {
