@@ -81,11 +81,17 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
     }
   }, [])
 
-  // 장중 선택된 날짜 데이터
+  // 장중 선택된 날짜 데이터 — 오늘이면 현재 시각까지만 표시
   const selectedDay = hasIntraday && selectedDayIdx >= 0 ? intradayDays[selectedDayIdx] : null
-  const intervals = selectedDay
-    ? (interval === "30m" ? selectedDay.intervals_30m : selectedDay.intervals_60m)
-    : []
+  const intervals = (() => {
+    if (!selectedDay) return []
+    const raw = interval === "30m" ? selectedDay.intervals_30m : selectedDay.intervals_60m
+    if (selectedDay.date !== todayKST) return raw
+    // 오늘: 현재 시각(HH:MM) 이전 봉만
+    const now = new Date()
+    const nowHHMM = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`
+    return raw.filter(item => item.time <= nowHHMM)
+  })()
 
   // 날짜 포맷 (2026-03-09 → 2026.03.09)
   const formatDate = (date: string) => {
