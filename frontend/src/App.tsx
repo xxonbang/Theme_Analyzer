@@ -120,7 +120,6 @@ function App() {
   const lastScrollY = useRef(0)
   const stickyBarRef = useRef<HTMLDivElement>(null)
   const collapsibleRef = useRef<HTMLDivElement>(null)
-  const [collapsibleH, setCollapsibleH] = useState(150)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
 
   const scrollCooldown = useRef(0)
@@ -148,20 +147,6 @@ function App() {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  // collapsible 영역의 실제 콘텐츠 높이 측정
-  useEffect(() => {
-    const el = collapsibleRef.current
-    if (!el) return
-    const update = () => {
-      const h = el.scrollHeight
-      if (h > 0) setCollapsibleH(h)
-    }
-    update()
-    const ro = new ResizeObserver(update)
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [currentPage])
 
 
 
@@ -526,13 +511,11 @@ function App() {
       {/* marginTop으로 TabBar를 위로 밀어냄 — 퀵네비만 표시 */}
       <div
         ref={stickyBarRef}
-        className={cn("sticky z-40 bg-background transition-[top] duration-300", headerHidden ? "top-0" : "top-14 sm:top-16")}
+        className={cn("sticky z-40 bg-background", headerHidden ? "top-0" : "top-[5.75rem] sm:top-16")}
       >
-        <div className="overflow-hidden" style={{ height: headerHidden ? 0 : "auto" }}>
+        <div style={{ display: headerHidden ? "none" : "block" }}>
         <div
           ref={collapsibleRef}
-          className="transition-[margin-top] duration-300 ease-out"
-          style={{ marginTop: headerHidden ? -collapsibleH : 0 }}
         >
         {isViewingHistory && selectedEntry && (
           <div className="bg-muted/80 border-b border-border backdrop-blur-sm">

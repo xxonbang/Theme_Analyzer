@@ -188,7 +188,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const relativeTime = timestamp ? getRelativeTime(timestamp) : null
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full border-b bg-card shadow-sm transition-transform duration-300", headerHidden && "-translate-y-full")}>
+    <header className={cn("sticky top-0 z-50 w-full border-b bg-card shadow-sm", headerHidden ? "-translate-y-full" : "translate-y-0")}>
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
