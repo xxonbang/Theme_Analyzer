@@ -143,13 +143,14 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
           {exchange.timestamp && (
             <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}</span>
           )}
-          {/* History 아이콘 */}
+          {/* History 버튼 */}
           <span
             role="button"
             onClick={handleHistoryClick}
-            className="inline-flex items-center text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors ml-1.5"
+            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
           >
             <History className="w-3 h-3" />
+            히스토리
           </span>
           <span className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground/50 transition-colors">
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
