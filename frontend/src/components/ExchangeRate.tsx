@@ -53,7 +53,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           return (
             <g key={i}>
               <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
-              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-foreground/50" fontSize={7}>{v.toLocaleString()}</text>
+              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-foreground/70" fontSize={7}>{v.toLocaleString()}</text>
             </g>
           )
         })}
@@ -65,12 +65,12 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
         ))}
         {/* X축 라벨: 첫/중간/끝 */}
         {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => (
-          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" className="fill-foreground/50" fontSize={7}>
+          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" className="fill-foreground/70" fontSize={7}>
             {entries[idx].date.slice(5).replace("-", "/")}
           </text>
         ))}
       </svg>
-      <div className="flex items-center justify-between text-[9px] text-foreground/60 px-1 mt-0.5">
+      <div className="flex items-center justify-between text-[9px] text-foreground/70 px-1 mt-0.5">
         <span>{label} {first.toLocaleString()}원</span>
         <span style={{ color }}>{isUp ? "▲" : last < first ? "▼" : ""}{Math.abs(last - first).toFixed(1)}원 ({((last - first) / first * 100).toFixed(2)}%)</span>
         <span>{last.toLocaleString()}원</span>
@@ -258,7 +258,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                 {/* 테이블 */}
                 <table className="w-full text-[10px] tabular-nums">
                   <thead>
-                    <tr className="text-foreground/60">
+                    <tr className="text-foreground/80">
                       <th className="text-left py-0.5 pr-2 font-medium">날짜</th>
                       {historyRows.map((row) => (
                         <th key={row.currency} className="text-right py-0.5 px-1 font-medium">{row.label}</th>
@@ -268,7 +268,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                   <tbody>
                     {[...dates].reverse().map((date) => (
                       <tr key={date} className="border-t border-border/20">
-                        <td className="py-1 pr-2 text-foreground/70 align-top">{date.slice(5).replace("-", "/")}</td>
+                        <td className="py-1 pr-2 text-foreground/80 align-top">{date.slice(5).replace("-", "/")}</td>
                         {historyRows.map((row) => {
                           const entry = row.entries.find(e => e.date === date)
                           if (!entry) return <td key={row.currency} className="text-right py-1 px-1 text-muted-foreground/30">—</td>
