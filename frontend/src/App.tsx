@@ -222,7 +222,7 @@ function App() {
     if (!hasNewFields) return null // 이전 JSON이면 null → 폴백
 
     const weights: Record<string, { tv: number; vol: number; fluc: number }> = {
-      trading_fluc: { tv: 1.5, vol: 0, fluc: 1.5 },
+      trading_fluc: { tv: 5, vol: 0, fluc: 1 },
       volume_fluc: { tv: 0, vol: 1.5, fluc: 1.5 },
       all: { tv: 1, vol: 1, fluc: 1 },
       trading_volume: { tv: 1.5, vol: 1.5, fluc: 0 },
