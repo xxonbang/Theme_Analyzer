@@ -268,23 +268,22 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                   <tbody>
                     {[...dates].reverse().map((date) => (
                       <tr key={date} className="border-t border-border/20">
-                        <td className="py-0.5 pr-2 text-muted-foreground/60">{date.slice(5).replace("-", "/")}</td>
+                        <td className="py-1 pr-2 text-muted-foreground/60 align-top">{date.slice(5).replace("-", "/")}</td>
                         {historyRows.map((row) => {
                           const entry = row.entries.find(e => e.date === date)
-                          if (!entry) return <td key={row.currency} className="text-right py-0.5 px-1 text-muted-foreground/30">—</td>
+                          if (!entry) return <td key={row.currency} className="text-right py-1 px-1 text-muted-foreground/30">—</td>
                           const change = entry.change
                           const isUp = change != null && change > 0
                           const isDown = change != null && change < 0
                           return (
-                            <td
-                              key={row.currency}
-                              className={`text-right py-0.5 px-1 font-medium ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
-                            >
-                              <span className="text-muted-foreground/50">{entry.rate.toLocaleString()}</span>
-                              {change != null && change !== 0 && (
-                                <span className="ml-0.5">
+                            <td key={row.currency} className="text-right py-1 px-1">
+                              <div className="text-muted-foreground/70 text-[10px]">{entry.rate.toLocaleString()}</div>
+                              {change != null && change !== 0 ? (
+                                <div className={`text-[9px] font-medium ${isUp ? "text-red-500" : "text-blue-500"}`}>
                                   {isUp ? "▲" : "▼"}{Math.abs(change).toFixed(1)}
-                                </span>
+                                </div>
+                              ) : (
+                                <div className="text-[9px] text-muted-foreground/30">-</div>
                               )}
                             </td>
                           )
