@@ -27,8 +27,7 @@ const INDICATOR_DESC: Record<string, string> = {
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
 }
 
-function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
-  const [hidden, setHidden] = useState<Set<string>>(new Set())
+function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[]; hidden: Set<string>; setHidden: React.Dispatch<React.SetStateAction<Set<string>>> }) {
 
   if (dates.length < 2 || rows.length === 0) return null
 
@@ -175,6 +174,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null)
+  const [chartHidden, setChartHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false))
 
   // 스크롤 잠금
@@ -362,15 +362,18 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음</p>
             ) : (
               <>
-              <MacroChart rows={historyRows} dates={dates} />
+              <MacroChart rows={historyRows} dates={dates} hidden={chartHidden} setHidden={setChartHidden} />
               <hr className="border-border/30 my-3" />
               <table className="w-full text-[10px] tabular-nums">
                 <thead>
                   <tr className="text-foreground/80 border-b border-border/30">
                     <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
-                    {historyRows.map((row) => (
-                      <th key={row.symbol} className="text-right py-1.5 px-0.5 font-semibold">{row.name}</th>
-                    ))}
+                    {historyRows.map((row) => {
+                      const active = chartHidden.size > 0 && !chartHidden.has(row.name)
+                      return (
+                        <th key={row.symbol} className={`text-right py-1.5 px-0.5 font-semibold ${active ? "bg-primary/8" : chartHidden.size > 0 ? "opacity-30" : ""}`}>{row.name}</th>
+                      )
+                    })}
                   </tr>
                 </thead>
                 <tbody>
@@ -378,14 +381,16 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
                       <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
                       {historyRows.map((row) => {
+                        const active = chartHidden.size > 0 && !chartHidden.has(row.name)
+                        const dimmed = chartHidden.size > 0 && chartHidden.has(row.name)
                         const entry = row.entries.find(e => e.date === date)
-                        if (!entry) return <td key={row.symbol} className="text-right py-2 px-0.5 text-muted-foreground/30">—</td>
+                        if (!entry) return <td key={row.symbol} className={`text-right py-2 px-0.5 text-muted-foreground/30 ${active ? "bg-primary/8" : ""}`}>—</td>
                         const isUp = entry.change_pct > 0
                         const isDown = entry.change_pct < 0
                         return (
                           <td
                             key={row.symbol}
-                            className={`text-right py-2 px-0.5 font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
+                            className={`text-right py-2 px-0.5 font-semibold ${active ? "bg-primary/8" : ""} ${dimmed ? "opacity-30" : ""} ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
                           >
                             {isUp ? "+" : ""}{entry.change_pct.toFixed(1)}
                           </td>
