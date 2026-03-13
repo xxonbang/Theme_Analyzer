@@ -22,7 +22,7 @@ jobs:
       group: refresh-data
       cancel-in-progress: true
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - name: Notify start via Telegram
