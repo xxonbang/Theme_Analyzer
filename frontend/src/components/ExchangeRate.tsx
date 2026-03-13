@@ -53,7 +53,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           return (
             <g key={i}>
               <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
-              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-foreground/70" fontSize={7}>{v.toLocaleString()}</text>
+              <text x={PL - 3} y={y + 3} textAnchor="end" fill="currentColor" opacity={0.6} fontSize={9}>{v.toLocaleString()}</text>
             </g>
           )
         })}
@@ -65,7 +65,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
         ))}
         {/* X축 라벨: 첫/중간/끝 */}
         {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => (
-          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" className="fill-foreground/70" fontSize={7}>
+          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" fill="currentColor" opacity={0.6} fontSize={9}>
             {entries[idx].date.slice(5).replace("-", "/")}
           </text>
         ))}
@@ -256,41 +256,43 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                 <hr className="border-border/20 my-1.5" />
 
                 {/* 테이블 */}
-                <table className="w-full text-[10px] tabular-nums">
-                  <thead>
-                    <tr className="text-foreground/80">
-                      <th className="text-left py-0.5 pr-2 font-medium">날짜</th>
-                      {historyRows.map((row) => (
-                        <th key={row.currency} className="text-right py-0.5 px-1 font-medium">{row.label}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...dates].reverse().map((date) => (
-                      <tr key={date} className="border-t border-border/20">
-                        <td className="py-1 pr-2 text-foreground/80 align-top">{date.slice(5).replace("-", "/")}</td>
-                        {historyRows.map((row) => {
-                          const entry = row.entries.find(e => e.date === date)
-                          if (!entry) return <td key={row.currency} className="text-right py-1 px-1 text-muted-foreground/30">—</td>
-                          const change = entry.change
-                          const isUp = change != null && change > 0
-                          return (
-                            <td key={row.currency} className="text-right py-1 px-1">
-                              <div className="text-foreground/80 text-[10px] font-medium">{entry.rate.toLocaleString()}</div>
-                              {change != null && change !== 0 ? (
-                                <div className={`text-[9px] font-medium ${isUp ? "text-red-500" : "text-blue-500"}`}>
-                                  {isUp ? "▲" : "▼"}{Math.abs(change).toFixed(1)}
-                                </div>
-                              ) : (
-                                <div className="text-[9px] text-muted-foreground/30">-</div>
-                              )}
-                            </td>
-                          )
-                        })}
+                <div className="overflow-x-auto -mx-3 px-3 sm:-mx-4 sm:px-4">
+                  <table className="w-full text-[11px] tabular-nums" style={{ minWidth: 360 }}>
+                    <thead>
+                      <tr className="text-foreground/80">
+                        <th className="text-left py-1 pr-3 font-semibold sticky left-0 bg-popover z-[1]">날짜</th>
+                        {historyRows.map((row) => (
+                          <th key={row.currency} className="text-right py-1 px-1.5 font-semibold whitespace-nowrap">{row.label}</th>
+                        ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {[...dates].reverse().map((date, di) => (
+                        <tr key={date} className={`border-t border-border/20 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
+                          <td className="py-1 pr-3 text-foreground/70 font-medium align-top sticky left-0 bg-popover z-[1]">{date.slice(5).replace("-", "/")}</td>
+                          {historyRows.map((row) => {
+                            const entry = row.entries.find(e => e.date === date)
+                            if (!entry) return <td key={row.currency} className="text-right py-1 px-1.5 text-muted-foreground/30">—</td>
+                            const change = entry.change
+                            const isUp = change != null && change > 0
+                            return (
+                              <td key={row.currency} className="text-right py-1 px-1.5">
+                                <div className="text-foreground/80 text-[11px] font-medium">{entry.rate.toLocaleString()}</div>
+                                {change != null && change !== 0 ? (
+                                  <div className={`text-[10px] font-medium ${isUp ? "text-red-500" : "text-blue-500"}`}>
+                                    {isUp ? "▲" : "▼"}{Math.abs(change).toFixed(1)}
+                                  </div>
+                                ) : (
+                                  <div className="text-[10px] text-muted-foreground/30">-</div>
+                                )}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </>
             )}
           </div>

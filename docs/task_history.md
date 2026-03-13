@@ -6,6 +6,10 @@
 
 ## 2026-03-13
 
+### [개선] 히스토리 팝업 근본적 가독성 개선 (2026-03-13 16:36 KST)
+- **변경 파일**: `MacroIndicators.tsx`, `ExchangeRate.tsx`
+- **내용**: SVG 텍스트를 Tailwind fill 클래스에서 `fill="currentColor" opacity={0.6}`으로 변경 (oklch 호환), 폰트 크기 7→9, 테이블 폰트 10→11px, 가로 스크롤 + 날짜 열 sticky, 줄무늬 행 배경 추가.
+
 ### [개선] 거시지표 히스토리 텍스트 가독성 개선 (2026-03-13 16:23 KST)
 - **변경 파일**: `frontend/src/components/MacroIndicators.tsx`
 - **내용**: 차트 Y/X축 라벨, 테이블 헤더·날짜 텍스트 불투명도 상향으로 가독성 개선.
