@@ -6,6 +6,10 @@
 
 ## 2026-03-13
 
+### [개선] 히스토리 팝업 행 간격·차트 라벨·스크롤 개선 (2026-03-13 16:46 KST)
+- **변경 파일**: `MacroIndicators.tsx`, `ExchangeRate.tsx`
+- **내용**: 차트-테이블 간격 확대(my-1.5→my-3), 테이블 행 패딩 확대(py-1→py-2), SVG 라벨 fill="#666" fontWeight=600, 가로 스크롤 제거 + % 기호 생략으로 전체 컬럼 표시, 줄무늬 행 유지.
+
 ### [개선] 히스토리 팝업 근본적 가독성 개선 (2026-03-13 16:36 KST)
 - **변경 파일**: `MacroIndicators.tsx`, `ExchangeRate.tsx`
 - **내용**: SVG 텍스트를 Tailwind fill 클래스에서 `fill="currentColor" opacity={0.6}`으로 변경 (oklch 호환), 폰트 크기 7→9, 테이블 폰트 10→11px, 가로 스크롤 + 날짜 열 sticky, 줄무늬 행 배경 추가.

@@ -99,7 +99,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
           return (
             <g key={i}>
               <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={v === 0 ? 0.18 : 0.08} strokeDasharray={v === 0 ? "none" : "3,3"} />
-              <text x={PL - 3} y={y + 3} textAnchor="end" fill="currentColor" opacity={0.6} fontSize={9}>{v.toFixed(2)}%</text>
+              <text x={PL - 3} y={y + 3} textAnchor="end" fill="#666" fontWeight={600} fontSize={9}>{v.toFixed(2)}%</text>
             </g>
           )
         })}
@@ -111,7 +111,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
             <g key={idx}>
               <line x1={x} y1={PT} x2={x} y2={PT + chartH} stroke="currentColor" strokeOpacity={0.05} strokeDasharray="2,4" />
               {showLabel && (
-                <text x={x} y={H - 2} textAnchor="middle" fill="currentColor" opacity={0.6} fontSize={9}>
+                <text x={x} y={H - 2} textAnchor="middle" fill="#666" fontWeight={600} fontSize={9}>
                   {d.slice(5).replace("-", "/")}
                 </text>
               )}
@@ -333,40 +333,38 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             ) : (
               <>
               <MacroChart rows={historyRows} dates={dates} />
-              <hr className="border-border/20 my-1.5" />
-              <div className="overflow-x-auto -mx-3 px-3 sm:-mx-4 sm:px-4">
-                <table className="w-full text-[11px] tabular-nums" style={{ minWidth: 420 }}>
-                  <thead>
-                    <tr className="text-foreground/80">
-                      <th className="text-left py-1 pr-3 font-semibold sticky left-0 bg-popover z-[1]">날짜</th>
-                      {historyRows.map((row) => (
-                        <th key={row.symbol} className="text-right py-1 px-1.5 font-semibold whitespace-nowrap">{row.name}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...dates].reverse().map((date, di) => (
-                      <tr key={date} className={`border-t border-border/20 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                        <td className="py-1 pr-3 text-foreground/70 font-medium sticky left-0 bg-popover z-[1]">{date.slice(5).replace("-", "/")}</td>
-                        {historyRows.map((row) => {
-                          const entry = row.entries.find(e => e.date === date)
-                          if (!entry) return <td key={row.symbol} className="text-right py-1 px-1.5 text-muted-foreground/30">—</td>
-                          const isUp = entry.change_pct > 0
-                          const isDown = entry.change_pct < 0
-                          return (
-                            <td
-                              key={row.symbol}
-                              className={`text-right py-1 px-1.5 font-medium whitespace-nowrap ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
-                            >
-                              {isUp ? "+" : ""}{entry.change_pct.toFixed(1)}%
-                            </td>
-                          )
-                        })}
-                      </tr>
+              <hr className="border-border/30 my-3" />
+              <table className="w-full text-[10px] tabular-nums">
+                <thead>
+                  <tr className="text-foreground/80 border-b border-border/30">
+                    <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
+                    {historyRows.map((row) => (
+                      <th key={row.symbol} className="text-right py-1.5 px-0.5 font-semibold">{row.name}</th>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...dates].reverse().map((date, di) => (
+                    <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
+                      <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
+                      {historyRows.map((row) => {
+                        const entry = row.entries.find(e => e.date === date)
+                        if (!entry) return <td key={row.symbol} className="text-right py-2 px-0.5 text-muted-foreground/30">—</td>
+                        const isUp = entry.change_pct > 0
+                        const isDown = entry.change_pct < 0
+                        return (
+                          <td
+                            key={row.symbol}
+                            className={`text-right py-2 px-0.5 font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
+                          >
+                            {isUp ? "+" : ""}{entry.change_pct.toFixed(1)}
+                          </td>
+                        )
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
               </>
             )}
           </div>
