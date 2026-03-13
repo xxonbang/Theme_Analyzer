@@ -37,17 +37,29 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
   const W = 360, H = 170, PL = 48, PR = 36, PT = 12, PB = 18
   const chartW = W - PL - PR, chartH = H - PT - PB
 
-  // visible 종목 기준 min/max
+  // visible 종목 기준 min/max — IQR 기반 이상치 제거
   const allVals = visibleRows.flatMap(r => r.entries.map(e => e.change_pct))
-  const rawMin = allVals.length ? Math.min(...allVals) : -1
-  const rawMax = allVals.length ? Math.max(...allVals) : 1
-  // 여백 10% 추가
-  const pad = (rawMax - rawMin) * 0.1 || 0.1
+  const sorted = [...allVals].sort((a, b) => a - b)
+  const q1 = sorted[Math.floor(sorted.length * 0.25)] ?? -1
+  const q3 = sorted[Math.floor(sorted.length * 0.75)] ?? 1
+  const iqr = q3 - q1 || 1
+  const lowerFence = q1 - iqr * 1.5
+  const upperFence = q3 + iqr * 1.5
+  // 이상치 제외한 min/max
+  const inliers = allVals.filter(v => v >= lowerFence && v <= upperFence)
+  const rawMin = inliers.length ? Math.min(...inliers) : (allVals.length ? Math.min(...allVals) : -1)
+  const rawMax = inliers.length ? Math.max(...inliers) : (allVals.length ? Math.max(...allVals) : 1)
+  // 여백 15% 추가
+  const pad = (rawMax - rawMin) * 0.15 || 0.5
   const min = rawMin - pad
   const max = rawMax + pad
   const range = max - min || 1
 
-  const toY = (v: number) => PT + (1 - (v - min) / range) * chartH
+  // 이상치는 차트 경계에 클램핑
+  const toY = (v: number) => {
+    const clamped = Math.max(min, Math.min(max, v))
+    return PT + (1 - (clamped - min) / range) * chartH
+  }
   const toX = (i: number) => PL + (i / (dates.length - 1)) * chartW
 
   // Y축 라벨: 균등 5분할
