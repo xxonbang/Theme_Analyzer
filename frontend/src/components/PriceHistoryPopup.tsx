@@ -56,7 +56,13 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
   })()
   const [activeTab, setActiveTab] = useState<"daily" | "intraday">(hasIntraday && isMarketHours ? "intraday" : "daily")
   const [interval, setInterval] = useState<"30m" | "60m">("30m")
-  const [selectedDayIdx, setSelectedDayIdx] = useState(0)
+  // 오늘 날짜(KST) 기준 초기 선택
+  const todayKST = (() => {
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+  })()
+  const todayInArray = hasIntraday ? intradayDays.findIndex(d => d.date === todayKST) : -1
+  const [selectedDayIdx, setSelectedDayIdx] = useState(todayInArray >= 0 ? todayInArray : -1)
 
   useEffect(() => {
     const scrollY = window.scrollY
@@ -76,7 +82,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
   }, [])
 
   // 장중 선택된 날짜 데이터
-  const selectedDay = hasIntraday ? intradayDays[selectedDayIdx] : null
+  const selectedDay = hasIntraday && selectedDayIdx >= 0 ? intradayDays[selectedDayIdx] : null
   const intervals = selectedDay
     ? (interval === "30m" ? selectedDay.intervals_30m : selectedDay.intervals_60m)
     : []
@@ -259,18 +265,24 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1">
                 <button
-                  onClick={() => setSelectedDayIdx(Math.min(selectedDayIdx + 1, intradayDays.length - 1))}
+                  onClick={() => {
+                    if (selectedDayIdx === -1) setSelectedDayIdx(0)
+                    else setSelectedDayIdx(Math.min(selectedDayIdx + 1, intradayDays.length - 1))
+                  }}
                   disabled={selectedDayIdx >= intradayDays.length - 1}
                   className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <span className="text-[11px] font-medium tabular-nums min-w-[130px] text-center">
-                  {selectedDay ? formatDate(selectedDay.date) : "-"}
+                  {selectedDay ? formatDate(selectedDay.date) : formatDate(todayKST)}
                 </span>
                 <button
-                  onClick={() => setSelectedDayIdx(Math.max(selectedDayIdx - 1, 0))}
-                  disabled={selectedDayIdx <= 0}
+                  onClick={() => {
+                    if (selectedDayIdx === 0 && todayInArray < 0) setSelectedDayIdx(-1)
+                    else setSelectedDayIdx(Math.max(selectedDayIdx - 1, 0))
+                  }}
+                  disabled={selectedDayIdx === -1}
                   className="p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   <ChevronRight className="w-4 h-4" />

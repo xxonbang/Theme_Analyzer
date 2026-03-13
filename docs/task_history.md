@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-03-13
+
+### [버그픽스] 장중 탭 초기 날짜를 오늘로 변경 (2026-03-13 09:54 KST)
+- **변경 파일**: `PriceHistoryPopup.tsx`
+- **내용**: 장중 탭 초기 selectedDayIdx가 0(가장 오래된 날짜)이던 것을 오늘 날짜(KST) 기준으로 변경. 오늘 데이터 미수집 시 "데이터 없음" 표시, 좌우 화살표로 수집된 날짜 탐색 가능.
+
+### [버그픽스] MemberChartPopup TS 빌드 에러 수정 (2026-03-13 09:20 KST)
+- **변경 파일**: `MemberChartPopup.tsx`
+- **내용**: useSwipeToDismiss 반환값 이름 수정(swipeRef→sheetRef, overlayRef→handleRef), 미사용 변수(formatQty, chartW) 제거. deploy-pages 빌드 실패 해소.
+
+---
+
 ## 2026-03-12
 
 ### [기능] 거래원 바 차트 팝업 추가 (2026-03-12 23:44 KST)
