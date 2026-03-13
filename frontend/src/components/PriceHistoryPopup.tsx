@@ -330,9 +330,14 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const zeroY = PAD.top + PH - ((openPrice - minV) / ((maxV - minV) || 1)) * PH
               const lastUp = closes[closes.length - 1] >= openPrice
               const color = lastUp ? "#ef4444" : "#3b82f6"
-              const xLabels = [0, Math.floor((closes.length - 1) / 2), closes.length - 1]
-              const midV = (minV + maxV) / 2
-              const yTicks = [maxV, midV, minV]
+              // X축: 정시(":00") 라벨만 표시 + 첫/끝 항상 표시
+              const xLabelIdxs: number[] = []
+              times.forEach((t, i) => {
+                if (i === 0 || i === times.length - 1 || t.endsWith(":00")) xLabelIdxs.push(i)
+              })
+              // Y축: 5단계 균등 분할
+              const ySteps = 4
+              const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (maxV - minV) * (i / ySteps))
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
@@ -371,7 +376,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                     <circle key={i} cx={p.x} cy={p.y} r={2} fill={color} />
                   ))}
                   {/* X축 라벨 */}
-                  {xLabels.map(i => (
+                  {xLabelIdxs.map(i => (
                     <text key={i} x={PAD.left + (i / Math.max(closes.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.55} fontSize={8}>
                       {times[i]}
                     </text>
