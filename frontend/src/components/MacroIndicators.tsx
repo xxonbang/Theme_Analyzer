@@ -99,7 +99,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
           return (
             <g key={i}>
               <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={v === 0 ? 0.18 : 0.08} strokeDasharray={v === 0 ? "none" : "3,3"} />
-              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-muted-foreground/50" fontSize={7}>{v.toFixed(2)}%</text>
+              <text x={PL - 3} y={y + 3} textAnchor="end" className="fill-foreground/50" fontSize={7}>{v.toFixed(2)}%</text>
             </g>
           )
         })}
@@ -111,7 +111,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
             <g key={idx}>
               <line x1={x} y1={PT} x2={x} y2={PT + chartH} stroke="currentColor" strokeOpacity={0.05} strokeDasharray="2,4" />
               {showLabel && (
-                <text x={x} y={H - 2} textAnchor="middle" className="fill-muted-foreground/50" fontSize={7}>
+                <text x={x} y={H - 2} textAnchor="middle" className="fill-foreground/50" fontSize={7}>
                   {d.slice(5).replace("-", "/")}
                 </text>
               )}
@@ -336,7 +336,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               <hr className="border-border/20 my-1.5" />
               <table className="w-full text-[10px] tabular-nums">
                 <thead>
-                  <tr className="text-muted-foreground/50">
+                  <tr className="text-foreground/60">
                     <th className="text-left py-0.5 pr-2 font-medium">날짜</th>
                     {historyRows.map((row) => (
                       <th key={row.symbol} className="text-right py-0.5 px-1 font-medium">{row.name}</th>
@@ -346,7 +346,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                 <tbody>
                   {[...dates].reverse().map((date) => (
                     <tr key={date} className="border-t border-border/20">
-                      <td className="py-0.5 pr-2 text-muted-foreground/60">{date.slice(5).replace("-", "/")}</td>
+                      <td className="py-0.5 pr-2 text-foreground/70">{date.slice(5).replace("-", "/")}</td>
                       {historyRows.map((row) => {
                         const entry = row.entries.find(e => e.date === date)
                         if (!entry) return <td key={row.symbol} className="text-right py-0.5 px-1 text-muted-foreground/30">—</td>
