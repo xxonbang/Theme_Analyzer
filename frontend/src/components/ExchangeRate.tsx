@@ -22,15 +22,15 @@ const currencyInfo: Record<string, { flag: string; label: string }> = {
 function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; label: string }) {
   if (entries.length < 2) return <p className="text-[10px] text-muted-foreground/50 text-center py-4">데이터 부족</p>
 
-  const W = 300, H = 100, PL = 38, PR = 8, PY = 12
-  const chartW = W - PL - PR, chartH = H - PY * 2
+  const W = 300, H = 110, PL = 38, PR = 20, PT = 12, PB = 22
+  const chartW = W - PL - PR, chartH = H - PT - PB
   const rates = entries.map(e => e.rate)
   const min = Math.min(...rates), max = Math.max(...rates)
   const range = max - min || 1
 
   const points = entries.map((e, i) => ({
     x: PL + (i / (entries.length - 1)) * chartW,
-    y: PY + (1 - (e.rate - min) / range) * chartH,
+    y: PT + (1 - (e.rate - min) / range) * chartH,
     rate: e.rate,
     date: e.date,
   }))
@@ -49,7 +49,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 120 }}>
         {/* Y축 그리드 + 라벨 */}
         {yLabels.map((v, i) => {
-          const y = PY + (1 - (v - min) / range) * chartH
+          const y = PT + (1 - (v - min) / range) * chartH
           return (
             <g key={i}>
               <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
@@ -64,11 +64,14 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           <circle key={i} cx={p.x} cy={p.y} r={entries.length > 15 ? 1.5 : 2} fill={color} />
         ))}
         {/* X축 라벨: 첫/중간/끝 */}
-        {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => (
-          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" fill="#666" fontWeight={600} fontSize={9}>
-            {entries[idx].date.slice(5).replace("-", "/")}
-          </text>
-        ))}
+        {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => {
+          const anchor = idx === 0 ? "start" : idx === entries.length - 1 ? "end" : "middle"
+          return (
+            <text key={idx} x={points[idx].x} y={PT + chartH + 12} textAnchor={anchor} fill="#555" fontWeight={600} fontSize={9}>
+              {entries[idx].date.slice(5).replace("-", "/")}
+            </text>
+          )
+        })}
       </svg>
       <div className="flex items-center justify-between text-[9px] text-foreground/70 px-1 mt-0.5">
         <span>{label} {first.toLocaleString()}원</span>
