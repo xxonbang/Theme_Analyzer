@@ -21,14 +21,8 @@ function shortenName(name: string): string {
     .replace(/모건증권$/, "모건")
 }
 
-function formatQty(n: number): string {
-  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + "M"
-  if (n >= 1_000) return Math.round(n / 1_000).toLocaleString() + "K"
-  return n.toLocaleString()
-}
-
 export function MemberChartPopup({ stockName, memberInfo, onClose }: MemberChartPopupProps) {
-  const { swipeRef, overlayRef } = useSwipeToDismiss(onClose)
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => e.key === "Escape" && onClose()
@@ -45,18 +39,16 @@ export function MemberChartPopup({ stockName, memberInfo, onClose }: MemberChart
   const BAR_MAX_H = 120
   const BAR_W = 32
   const GAP = 6
-  const sellCount = sell_top5.length
   const buyCount = buy_top5.length
-  const chartW = (sellCount + buyCount) * (BAR_W + GAP) + 24 // 24 = 중간 간격
 
   return createPortal(
     <div
-      ref={overlayRef}
+      ref={handleRef}
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
-        ref={swipeRef}
+        ref={sheetRef}
         className="bg-background rounded-t-2xl sm:rounded-2xl w-full max-w-md mx-auto shadow-xl max-h-[85vh] overflow-y-auto"
       >
         {/* 헤더 */}
