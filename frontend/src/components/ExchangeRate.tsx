@@ -22,7 +22,7 @@ const currencyInfo: Record<string, { flag: string; label: string }> = {
 function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; label: string }) {
   if (entries.length < 2) return <p className="text-[10px] text-muted-foreground/50 text-center py-4">데이터 부족</p>
 
-  const W = 300, H = 100, PX = 8, PY = 12
+  const W = 300, H = 100, PX = 20, PY = 12
   const chartW = W - PX * 2, chartH = H - PY * 2
   const rates = entries.map(e => e.rate)
   const min = Math.min(...rates), max = Math.max(...rates)
