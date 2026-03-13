@@ -5,6 +5,8 @@ import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import type { ExchangeData } from "@/types/stock"
 import type { IndicatorHistoryData, ExchangeHistoryEntry } from "@/hooks/useIndicatorHistory"
 
+const fmtRate = (v: number) => v.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+
 interface ExchangeRateProps {
   exchange: ExchangeData
   history?: IndicatorHistoryData | null
@@ -53,7 +55,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           return (
             <g key={i}>
               <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
-              <text x={PL - 3} y={y + 3} textAnchor="end" fill="#666" fontWeight={600} fontSize={9}>{v.toLocaleString()}</text>
+              <text x={PL - 3} y={y + 3} textAnchor="end" fill="#666" fontWeight={600} fontSize={9}>{fmtRate(v)}</text>
             </g>
           )
         })}
@@ -74,9 +76,9 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
         })}
       </svg>
       <div className="flex items-center justify-between text-[9px] text-foreground/70 px-1 mt-0.5">
-        <span>{label} {first.toLocaleString()}원</span>
+        <span>{label} {fmtRate(first)}원</span>
         <span style={{ color }}>{isUp ? "▲" : last < first ? "▼" : ""}{Math.abs(last - first).toFixed(1)}원 ({((last - first) / first * 100).toFixed(2)}%)</span>
-        <span>{last.toLocaleString()}원</span>
+        <span>{fmtRate(last)}원</span>
       </div>
     </div>
   )
@@ -170,11 +172,11 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
               <span className="text-[10px] text-muted-foreground/55 font-medium">🇺🇸 USD</span>
               <span className="flex items-center gap-2">
                 <span className="text-[12px] tabular-nums font-semibold text-foreground/90">
-                  {usd.rate.toLocaleString()}<span className="text-muted-foreground/40 text-[10px] font-normal ml-0.5">원</span>
+                  {fmtRate(usd.rate)}<span className="text-muted-foreground/40 text-[10px] font-normal ml-0.5">원</span>
                 </span>
                 {change != null && change !== 0 && (
                   <span className={`text-[10px] tabular-nums font-medium ${isUp ? "text-red-500" : "text-blue-500"}`}>
-                    {isUp ? "▲" : "▼"}{Math.abs(change).toLocaleString()}
+                    {isUp ? "▲" : "▼"}{fmtRate(Math.abs(change))}
                   </span>
                 )}
               </span>
@@ -202,11 +204,11 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                   {info.flag} {info.label}
                 </span>
                 <span className="text-[13px] font-bold tabular-nums tracking-tight leading-none text-foreground">
-                  {rate.rate.toLocaleString()}<span className="text-muted-foreground/40 text-[10px] font-normal ml-0.5">원</span>
+                  {fmtRate(rate.rate)}<span className="text-muted-foreground/40 text-[10px] font-normal ml-0.5">원</span>
                 </span>
                 <span className={`text-[10px] font-medium tabular-nums leading-none ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                   {change != null && change !== 0
-                    ? `${isUp ? "▲" : "▼"} ${Math.abs(change).toLocaleString()}${rate.change_rate ? ` (${rate.change_rate > 0 ? "+" : ""}${rate.change_rate.toFixed(2)}%)` : ""}`
+                    ? `${isUp ? "▲" : "▼"} ${fmtRate(Math.abs(change))}${rate.change_rate ? ` (${rate.change_rate > 0 ? "+" : ""}${rate.change_rate.toFixed(2)}%)` : ""}`
                     : "— 0"}
                 </span>
               </div>
@@ -280,7 +282,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                           const isUp = change != null && change > 0
                           return (
                             <td key={row.currency} className="text-right py-2 px-1">
-                              <div className="text-foreground/80 text-[11px] font-medium">{entry.rate.toLocaleString()}</div>
+                              <div className="text-foreground/80 text-[11px] font-medium">{fmtRate(entry.rate)}</div>
                               {change != null && change !== 0 ? (
                                 <div className={`text-[10px] font-semibold ${isUp ? "text-red-500" : "text-blue-500"}`}>
                                   {isUp ? "▲" : "▼"}{Math.abs(change).toFixed(1)}
