@@ -407,7 +407,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               {intervals.length === 0 && (
                 <div className="text-center text-xs text-muted-foreground py-6">데이터 없음</div>
               )}
-              {[...intervals].reverse().map((item, idx) => (
+              {intervals.map((item, idx) => (
                 <div
                   key={item.time}
                   className={cn(

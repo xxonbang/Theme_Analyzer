@@ -6,6 +6,10 @@
 
 ## 2026-03-13
 
+### [개선] 장중 시간 테이블 오름차순 정렬 (2026-03-13 20:02 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`
+- **내용**: 장중 탭 시간 테이블을 내림차순(15:00→09:30)에서 오름차순(09:30→15:00)으로 변경. `.reverse()` 제거.
+
 ### [버그픽스] 장중 등락률 기준을 시가→전일종가로 변경 (2026-03-13 19:50 KST)
 - **변경 파일**: `modules/intraday_history.py`, `frontend/src/components/PriceHistoryPopup.tsx`, `frontend/src/types/stock.ts`
 - **내용**: 장중 등락률이 시가 기준으로 계산되어 일봉과 불일치하던 문제 수정. KIS 현재가 API로 전일 종가를 조회하여 base_price로 사용. 전일종가 fallback 시 시가 사용. 프론트엔드에 전일종가 표시 추가.
