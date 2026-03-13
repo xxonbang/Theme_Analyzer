@@ -34,7 +34,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
 
   const visibleRows = rows.filter(r => !hidden.has(r.name))
 
-  const W = 340, H = 160, PL = 48, PR = 8, PT = 12, PB = 18
+  const W = 360, H = 170, PL = 48, PR = 36, PT = 12, PB = 18
   const chartW = W - PL - PR, chartH = H - PT - PB
 
   // visible 종목 기준 min/max
@@ -101,7 +101,7 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
           )
         })}
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 180 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 200 }}>
         {/* Y축 가로 그리드선 + 라벨 */}
         {yLabels.map((v, i) => {
           const y = toY(v)
@@ -139,10 +139,18 @@ function MacroChart({ rows, dates }: { rows: { name: string; entries: { date: st
           const color = LINE_COLORS[ri % LINE_COLORS.length]
           return (
             <g key={row.name}>
-              <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.3} strokeLinejoin="round" opacity={0.85} />
+              <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.8} strokeLinejoin="round" opacity={0.85} />
               {points.map((p, i) => (
-                <circle key={i} cx={p.x} cy={p.y} r={1.8} fill={color} />
+                <circle key={i} cx={p.x} cy={p.y} r={2.2} fill={color} />
               ))}
+              {/* 선 끝 종목명 라벨 */}
+              {(() => {
+                const last = points[points.length - 1]
+                if (!last) return null
+                return (
+                  <text x={last.x + 4} y={last.y + 3} fill={color} fontSize={8} fontWeight={700}>{row.name}</text>
+                )
+              })()}
             </g>
           )
         })}
