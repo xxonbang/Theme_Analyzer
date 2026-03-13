@@ -214,7 +214,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
       </div>
 
       {/* Scrollable right: Data columns */}
-      <div className="flex items-center shrink-0 ml-auto">
+      <div className="flex items-center shrink-0">
         <a href={naverUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
           <span className="text-xs font-medium tabular-nums text-right w-16 sm:w-20">
             {formatPrice(stock.current_price)}<span className="text-[9px] text-muted-foreground">원</span>
@@ -294,15 +294,19 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             </span>
           )}
         </a>
-        {/* 매물대 버튼 (admin만) */}
-        {isAdmin && volumeProfile && (
-          <button
-            onClick={() => setShowVolumeProfile(true)}
-            className="text-[9px] text-muted-foreground hover:text-amber-600 transition-colors w-6 text-center"
-            title="매물대"
-          >
-            VP
-          </button>
+        {/* 매물대 버튼 (admin만) — 정렬 유지를 위해 항상 렌더 */}
+        {isAdmin && (
+          volumeProfile ? (
+            <button
+              onClick={() => setShowVolumeProfile(true)}
+              className="text-[9px] text-muted-foreground hover:text-amber-600 transition-colors w-6 text-center"
+              title="매물대"
+            >
+              VP
+            </button>
+          ) : (
+            <span className="w-6" />
+          )
         )}
         {/* 등락률 → 가격 변동 팝업 */}
         <button
