@@ -293,6 +293,7 @@ export interface IntradayInterval {
 export interface IntradayDay {
   date: string          // "2026-03-09"
   open: number
+  prev_close: number
   intervals_30m: IntradayInterval[]
   intervals_60m: IntradayInterval[]
 }

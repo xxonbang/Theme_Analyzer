@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 def aggregate_minute_candles(
     candles: List[Dict[str, Any]],
     interval_min: int = 30,
+    **kwargs: Any,
 ) -> List[Dict[str, Any]]:
     """1분봉 리스트 -> interval_min 단위 집계.
 
@@ -52,8 +53,8 @@ def aggregate_minute_candles(
     if not boundaries or boundaries[-1] != "150000":
         boundaries.append("150000")
 
-    # 09:00 시가 (첫 번째 캔들의 close를 시가로 사용)
-    base_price = sorted_candles[0]["close"] if sorted_candles else 0
+    # base_price: 전일 종가 또는 시가 fallback
+    base_price = kwargs.get("prev_close", 0) or (sorted_candles[0]["close"] if sorted_candles else 0)
 
     results = []
     prev_boundary = "090000"
@@ -104,8 +105,21 @@ def collect_stock_intraday(
     sorted_candles = sorted(candles, key=lambda c: c["time"])
     open_price = sorted_candles[0]["close"] if sorted_candles else 0
 
-    intervals_30m = aggregate_minute_candles(candles, 30)
-    intervals_60m = aggregate_minute_candles(candles, 60)
+    # 전일 종가 조회 (등락률 기준)
+    prev_close = 0
+    try:
+        price_data = client.get_stock_price(code)
+        if price_data.get("rt_cd") == "0":
+            output = price_data.get("output", {})
+            current = int(output.get("stck_prpr", 0))
+            change = int(output.get("prdy_vrss", 0))
+            if current and change is not None:
+                prev_close = current - change
+    except Exception:
+        pass
+
+    intervals_30m = aggregate_minute_candles(candles, 30, prev_close=prev_close)
+    intervals_60m = aggregate_minute_candles(candles, 60, prev_close=prev_close)
 
     if not intervals_30m:
         return None
@@ -116,6 +130,7 @@ def collect_stock_intraday(
     return {
         "date": today,
         "open": open_price,
+        "prev_close": prev_close,
         "intervals_30m": intervals_30m,
         "intervals_60m": intervals_60m,
     }

@@ -316,10 +316,13 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               </div>
             </div>
 
-            {/* 시가 표시 */}
+            {/* 시가/전일종가 표시 */}
             {selectedDay && (
-              <div className="text-[10px] text-muted-foreground mb-1">
-                시가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.open)}</span>원
+              <div className="text-[10px] text-muted-foreground mb-1 flex gap-3">
+                <span>시가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.open)}</span>원</span>
+                {selectedDay.prev_close > 0 && (
+                  <span>전일종가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.prev_close)}</span>원</span>
+                )}
               </div>
             )}
 
