@@ -93,13 +93,16 @@ class StockHistoryAPI:
                     except Exception:
                         pass  # 추가 조회 실패 시 기존 100건만 사용
 
-            if len(output2) < days + 1:
-                # 데이터가 부족한 경우
+            if len(output2) < 2:
+                # 최소 2건 필요 (오늘 + 어제)
                 return {"code": stock_code, "changes": [], "total_change_rate": 0}
+
+            # 가용한 데이터만큼만 사용
+            actual_days = min(days, len(output2) - 1)
 
             changes = []
             has_volume = False
-            for i in range(days):
+            for i in range(actual_days):
                 today = output2[i]
                 yesterday = output2[i + 1]
 
@@ -145,9 +148,9 @@ class StockHistoryAPI:
                 c.pop("_raw_date", None)
 
             # N일간 총 등락률 계산 (첫날 종가 vs N일 전 종가)
-            if len(output2) > days:
+            if len(output2) > actual_days:
                 latest_close = int(output2[0].get("stck_clpr", 0))
-                base_close = int(output2[days].get("stck_clpr", 0))
+                base_close = int(output2[actual_days].get("stck_clpr", 0))
                 if base_close > 0:
                     total_change_rate = ((latest_close - base_close) / base_close) * 100
                 else:
