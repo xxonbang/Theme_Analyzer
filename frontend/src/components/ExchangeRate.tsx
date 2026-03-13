@@ -22,7 +22,7 @@ const currencyInfo: Record<string, { flag: string; label: string }> = {
 function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; label: string }) {
   if (entries.length < 2) return <p className="text-[10px] text-muted-foreground/50 text-center py-4">데이터 부족</p>
 
-  const W = 260, H = 100, PX = 32, PY = 12
+  const W = 300, H = 100, PX = 8, PY = 12
   const chartW = W - PX * 2, chartH = H - PY * 2
   const rates = entries.map(e => e.rate)
   const min = Math.min(...rates), max = Math.max(...rates)
@@ -53,7 +53,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           return (
             <g key={i}>
               <line x1={PX} y1={y} x2={W - PX} y2={y} stroke="currentColor" strokeOpacity={0.08} strokeDasharray="2,2" />
-              <text x={PX - 3} y={y + 3} textAnchor="end" className="fill-muted-foreground/40" fontSize={7}>{v.toLocaleString()}</text>
+              <text x={PX + 2} y={y - 3} textAnchor="start" className="fill-foreground/50" fontSize={7}>{v.toLocaleString()}</text>
             </g>
           )
         })}
@@ -65,12 +65,12 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
         ))}
         {/* X축 라벨: 첫/중간/끝 */}
         {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => (
-          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" className="fill-muted-foreground/40" fontSize={7}>
+          <text key={idx} x={points[idx].x} y={H - 1} textAnchor="middle" className="fill-foreground/50" fontSize={7}>
             {entries[idx].date.slice(5).replace("-", "/")}
           </text>
         ))}
       </svg>
-      <div className="flex items-center justify-between text-[9px] text-muted-foreground/50 px-1 mt-0.5">
+      <div className="flex items-center justify-between text-[9px] text-foreground/60 px-1 mt-0.5">
         <span>{label} {first.toLocaleString()}원</span>
         <span style={{ color }}>{isUp ? "▲" : last < first ? "▼" : ""}{Math.abs(last - first).toFixed(1)}원 ({((last - first) / first * 100).toFixed(2)}%)</span>
         <span>{last.toLocaleString()}원</span>
