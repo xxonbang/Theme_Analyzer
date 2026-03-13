@@ -256,6 +256,9 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 </span>
               </div>
               {/* 스파크라인 + bottom sheet */}
+              {!(history?.changes && history.changes.length > 1) && (
+                <span className="text-[9px] text-muted-foreground/50 py-1">거래 이력 부족</span>
+              )}
               {history?.changes && history.changes.length > 1 && (() => {
                 const reversed = [...history.changes].slice(0, 11).reverse()
                 const tradingSparkData = reversed.map((c, i) =>
