@@ -163,10 +163,10 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const pts = pointCoords(closes, minV, maxV)
               const up = closes[closes.length - 1] >= closes[0]
               const color = up ? "#ef4444" : "#3b82f6"
-              const xLabels = [0, Math.floor((data.length - 1) / 2), data.length - 1]
               const baseClose = closes[0]
-              const midV = (minV + maxV) / 2
-              const yTicks = [maxV, midV, minV]
+              // Y축: 5단계 균등 분할
+              const ySteps = 4
+              const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (maxV - minV) * (i / ySteps))
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
@@ -200,10 +200,10 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   {pts.map((p, i) => (
                     <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={color} />
                   ))}
-                  {/* X축 라벨 */}
-                  {xLabels.map(i => (
-                    <text key={i} x={PAD.left + (i / Math.max(data.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.5} fontSize={8}>
-                      {data[i].label}
+                  {/* X축 라벨: 전체 표시 */}
+                  {data.map((d, i) => (
+                    <text key={i} x={PAD.left + (i / Math.max(data.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.5} fontSize={7}>
+                      {d.label}
                     </text>
                   ))}
                 </svg>
