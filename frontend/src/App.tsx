@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react"
+import { createPortal } from "react-dom"
 import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { AIThemeAnalysis } from "@/components/AIThemeAnalysis"
@@ -23,6 +24,7 @@ import { useIntradayHistory } from "@/hooks/useIntradayHistory"
 import { useMacroIndicators } from "@/hooks/useMacroIndicators"
 import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
+import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { MacroIndicators } from "@/components/MacroIndicators"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
@@ -163,6 +165,26 @@ const SCHEDULE_DATA = [
 ]
 
 function SchedulePanel({ onClose }: { onClose: () => void }) {
+  const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+
+  // 스크롤 잠금
+  useEffect(() => {
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
+    }
+  }, [])
+
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
     window.addEventListener("keydown", handleKey)
@@ -174,16 +196,23 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
   const nowHHMM = `${String(nowKST.getHours()).padStart(2, "0")}:${String(nowKST.getMinutes()).padStart(2, "0")}`
   const isWeekday = nowKST.getDay() >= 1 && nowKST.getDay() <= 5
 
-  return (
-    <div className="sticky top-14 sm:top-16 z-[45] bg-card border-b border-border shadow-md">
-      <div className="container px-3 sm:px-4 py-3 max-h-[70vh] overflow-y-auto">
+  return createPortal(
+    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+      <div className="absolute inset-0 bg-black/25" onClick={onClose} />
+      <div
+        ref={sheetRef}
+        className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[80vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4"
+      >
+        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+        </div>
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
+          <div>
             <span className="text-sm font-semibold">데이터 수집 스케줄</span>
-            <span className="text-[10px] text-muted-foreground/60">월~금 · cron-job.org → GitHub Actions</span>
+            <p className="text-[10px] text-muted-foreground/60 mt-0.5">월~금 · cron-job.org → GitHub Actions</p>
           </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground text-xs font-medium px-1.5 py-0.5 rounded hover:bg-muted transition-colors">
-            닫기
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+            <X className="w-4 h-4" />
           </button>
         </div>
         <div className="space-y-3">
@@ -192,7 +221,6 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
               <div className="text-[11px] font-semibold text-muted-foreground/70 mb-1 px-1">{group.category}</div>
               <div className="space-y-0.5">
                 {group.items.map((item) => {
-                  // 시간 비교로 완료/진행중/대기 판별
                   const firstTime = item.time.split("~")[0].split(",")[0].trim()
                   const isDone = isWeekday && nowHHMM > firstTime
                   const isNext = isWeekday && !isDone && nowHHMM <= firstTime
@@ -226,7 +254,8 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
         </div>
         <p className="text-[9px] text-muted-foreground/40 text-center mt-3">주말·공휴일은 수집하지 않습니다</p>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 

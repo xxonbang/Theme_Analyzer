@@ -278,13 +278,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Schedule Button (desktop only) */}
+          {/* Schedule Button */}
           {onScheduleClick && (
             <button
               onClick={onScheduleClick}
               className={cn(
                 "relative overflow-hidden group",
-                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -587,18 +587,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             >
               <Search className="w-3 h-3" />
               검색
-            </button>
-          )}
-          {onScheduleClick && (
-            <button
-              onClick={onScheduleClick}
-              className={cn(
-                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
-                scheduleOpen ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              )}
-            >
-              <CalendarClock className="w-3 h-3" />
-              스케줄
             </button>
           )}
           {onPageChange && isAdmin && (
