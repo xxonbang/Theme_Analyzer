@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
-import { ChevronDown, ChevronUp, BarChart3, History, X } from "lucide-react"
+import { ChevronDown, ChevronUp, BarChart3, History, X, TrendingUp } from "lucide-react"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
-import type { MacroIndicatorsData } from "@/hooks/useMacroIndicators"
+import type { MacroIndicatorsData, InvestorTrendDay } from "@/hooks/useMacroIndicators"
 import type { IndicatorHistoryData } from "@/hooks/useIndicatorHistory"
 
 interface MacroIndicatorsProps {
@@ -25,6 +25,147 @@ const INDICATOR_DESC: Record<string, string> = {
   "SOXX": "iShares Semiconductor ETF. 미국 반도체 섹터 ETF. 삼성전자·SK하이닉스 등 한국 반도체주와 높은 상관관계.",
   "^VIX": "CBOE 변동성지수 (공포지수). S&P500 옵션의 내재 변동성 측정. 20 이하 안정, 30 이상 공포 구간.",
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
+}
+
+function formatAmount(v: number): string {
+  const abs = Math.abs(v)
+  if (abs >= 10_000_000) return (v / 10_000_000).toFixed(1) + "조"
+  if (abs >= 10_000) return (v / 10_000).toFixed(0) + "억"
+  return v.toFixed(0) + "백만"
+}
+
+function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
+  const [showDetail, setShowDetail] = useState(false)
+  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false))
+
+  useEffect(() => {
+    if (!showDetail) return
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
+    }
+  }, [showDetail])
+
+  if (!data || data.length === 0) return null
+
+  const latest = data[data.length - 1]
+  const recentDays = data.slice(-5)
+
+  const renderCell = (val: number) => {
+    const isUp = val > 0
+    const isDown = val < 0
+    return (
+      <span className={`font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+        {isUp ? "+" : ""}{formatAmount(val)}
+      </span>
+    )
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => setShowDetail(true)}
+        className="w-full mt-1.5 cursor-pointer group text-left"
+      >
+        <div className="flex items-center px-1 py-1 mb-1">
+          <TrendingUp className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+          <span className="text-xs font-semibold text-foreground/80 ml-1.5">투자자 수급</span>
+          <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{latest.date.slice(5).replace("-", "/")}</span>
+          <span className="ml-auto text-[9px] text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors">상세보기</span>
+        </div>
+        <div className="grid grid-cols-2 gap-px bg-border/30 rounded-md overflow-hidden">
+          {(["kospi", "kosdaq"] as const).map((market) => {
+            const d = latest[market]
+            return (
+              <div key={market} className="bg-card/60 px-2.5 py-1.5">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-semibold text-foreground/70">{market === "kospi" ? "코스피" : "코스닥"}</span>
+                  <span className={`text-[10px] tabular-nums font-medium ${d.change_pct > 0 ? "text-red-500" : d.change_pct < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                    {d.index.toLocaleString(undefined, { maximumFractionDigits: 2 })} ({d.change_pct > 0 ? "+" : ""}{d.change_pct.toFixed(2)}%)
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-1">
+                  {([
+                    { label: "외국인", key: "foreign" as const },
+                    { label: "기관", key: "institution" as const },
+                    { label: "개인", key: "individual" as const },
+                  ]).map(({ label, key }) => (
+                    <div key={key} className="text-center">
+                      <span className="text-[9px] text-muted-foreground/60 block leading-none mb-0.5">{label}</span>
+                      <span className={`text-[10px] tabular-nums font-semibold leading-none ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                        {d[key] > 0 ? "+" : ""}{formatAmount(d[key])}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </button>
+
+      {showDetail && createPortal(
+        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+          <div className="absolute inset-0 bg-black/25" onClick={() => setShowDetail(false)} />
+          <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+            <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+            </div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-semibold">투자자 수급 동향</span>
+              <button onClick={() => setShowDetail(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            {(["kospi", "kosdaq"] as const).map((market) => (
+              <div key={market} className="mb-3">
+                <h3 className="text-xs font-semibold text-foreground/80 mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</h3>
+                <table className="w-full text-[10px] tabular-nums">
+                  <thead>
+                    <tr className="text-foreground/80 border-b border-border/30">
+                      <th className="text-left py-1.5 pr-1 font-semibold">날짜</th>
+                      <th className="text-right py-1.5 px-1 font-semibold">지수</th>
+                      <th className="text-right py-1.5 px-1 font-semibold">외국인</th>
+                      <th className="text-right py-1.5 px-1 font-semibold">기관</th>
+                      <th className="text-right py-1.5 px-1 font-semibold">개인</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentDays.slice().reverse().map((day, di) => {
+                      const d = day[market]
+                      return (
+                        <tr key={day.date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
+                          <td className="py-1.5 pr-1 text-foreground/70 font-medium">{day.date.slice(5).replace("-", "/")}</td>
+                          <td className={`text-right py-1.5 px-1 ${d.change_pct > 0 ? "text-red-500" : d.change_pct < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                            {d.change_pct > 0 ? "+" : ""}{d.change_pct.toFixed(2)}%
+                          </td>
+                          <td className="text-right py-1.5 px-1">{renderCell(d.foreign)}</td>
+                          <td className="text-right py-1.5 px-1">{renderCell(d.institution)}</td>
+                          <td className="text-right py-1.5 px-1">{renderCell(d.individual)}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+            <p className="text-[9px] text-muted-foreground/50 mt-1">단위: 백만원 (1조 = 10,000억)</p>
+          </div>
+        </div>,
+        document.body
+      )}
+    </>
+  )
 }
 
 function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[]; hidden: Set<string>; setHidden: React.Dispatch<React.SetStateAction<Set<string>>> }) {
@@ -340,6 +481,11 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           </div>
         </div>,
         document.body
+      )}
+
+      {/* 투자자 수급 */}
+      {data.investor_trend && data.investor_trend.length > 0 && (
+        <InvestorTrendBar data={data.investor_trend} />
       )}
 
       {/* 히스토리 Bottom Sheet */}

@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [기능] 거시지표에 코스피/코스닥 투자자 수급 데이터 추가 (2026-03-15 08:26 KST)
+- **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/hooks/useMacroIndicators.ts`
+- **내용**: KIS API(FHPTJ04040000) 시장별 투자자매매동향(일별) 20일분 수집. 거시지표 하단에 코스피/코스닥 외국인/기관/개인 순매수 요약 표시. 클릭 시 5일간 상세 Bottom Sheet.
+
 ### [버그픽스] 코스닥 지수 API 코드 수정: 2001→1001 (2026-03-15 00:42 KST)
 - **변경 파일**: `main.py`, `modules/kis_client.py`
 - **내용**: 코스닥 종합지수 조회 시 잘못된 코드(2001, 812.93)를 올바른 코드(1001, 1152.96)로 수정. MTS 확인값과 일치.

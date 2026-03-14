@@ -226,6 +226,68 @@ def collect_overseas(client: KISClient, code: str, exchange: str, name: str) -> 
         return None
 
 
+def collect_market_investor_trend(client: KISClient, days: int = 20) -> list[dict] | None:
+    """코스피/코스닥 시장 전체 투자자별 순매수 일별 데이터 수집.
+
+    Returns:
+        [{"date": "2026-03-13", "kospi": {...}, "kosdaq": {...}}, ...]
+        각 시장: {index, change_pct, foreign, individual, institution} (금액 백만원)
+    """
+    markets = {
+        "kospi": {"iscd": "0001", "iscd1": "KSP", "iscd2": "0001"},
+        "kosdaq": {"iscd": "1001", "iscd1": "KSQ", "iscd2": "1001"},
+    }
+
+    all_data: dict[str, dict] = {}  # date -> {kospi: ..., kosdaq: ...}
+
+    for market_name, params in markets.items():
+        try:
+            resp = client.request(
+                "GET",
+                "/uapi/domestic-stock/v1/quotations/inquire-investor-daily-by-market",
+                "FHPTJ04040000",
+                params={
+                    "FID_COND_MRKT_DIV_CODE": "U",
+                    "FID_INPUT_ISCD": params["iscd"],
+                    "FID_INPUT_DATE_1": datetime.now(KST).strftime("%Y%m%d"),
+                    "FID_INPUT_ISCD_1": params["iscd1"],
+                    "FID_INPUT_DATE_2": datetime.now(KST).strftime("%Y%m%d"),
+                    "FID_INPUT_ISCD_2": params["iscd2"],
+                },
+            )
+            if resp.get("rt_cd") != "0":
+                print(f"  [오류] {market_name} 수급: {resp.get('msg1', '')}")
+                continue
+
+            for item in resp.get("output", [])[:days]:
+                date_raw = item.get("stck_bsop_date", "")
+                if not date_raw:
+                    continue
+                date_str = f"{date_raw[:4]}-{date_raw[4:6]}-{date_raw[6:8]}"
+                entry = all_data.setdefault(date_str, {})
+                entry[market_name] = {
+                    "index": float(item.get("bstp_nmix_prpr", 0)),
+                    "change_pct": float(item.get("bstp_nmix_prdy_ctrt", 0)),
+                    "foreign": int(item.get("frgn_ntby_tr_pbmn", 0)),
+                    "individual": int(item.get("prsn_ntby_tr_pbmn", 0)),
+                    "institution": int(item.get("orgn_ntby_tr_pbmn", 0)),
+                }
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"  [오류] {market_name} 수급: {e}")
+
+    if not all_data:
+        return None
+
+    result = []
+    for date_str in sorted(all_data.keys()):
+        entry = all_data[date_str]
+        if "kospi" in entry and "kosdaq" in entry:
+            result.append({"date": date_str, **entry})
+
+    return result if result else None
+
+
 def main():
     test_mode = "--test" in sys.argv
     print("[거시지표 수집]")
@@ -280,12 +342,21 @@ def main():
     else:
         print("    → 환율 수집 실패")
 
+    # 8. 시장별 투자자 수급 (KIS)
+    print("  시장별 투자자 수급...")
+    investor_trend = collect_market_investor_trend(client)
+    if investor_trend:
+        print(f"    → {len(investor_trend)}일분 수집 완료")
+    else:
+        print("    → 수급 수집 실패")
+
     print(f"  수집 완료: {len(indicators)}/8")
 
     output = {
         "updated_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
         "indicators": indicators,
         "exchange": exchange,
+        "investor_trend": investor_trend,
     }
 
     if test_mode:

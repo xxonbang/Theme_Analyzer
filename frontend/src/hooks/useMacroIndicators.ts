@@ -12,10 +12,25 @@ export interface MacroIndicator {
   source: string
 }
 
+export interface MarketInvestorEntry {
+  index: number
+  change_pct: number
+  foreign: number
+  individual: number
+  institution: number
+}
+
+export interface InvestorTrendDay {
+  date: string
+  kospi: MarketInvestorEntry
+  kosdaq: MarketInvestorEntry
+}
+
 export interface MacroIndicatorsData {
   updated_at: string
   indicators: MacroIndicator[]
   exchange?: ExchangeData
+  investor_trend?: InvestorTrendDay[]
 }
 
 interface UseMacroIndicatorsReturn {
