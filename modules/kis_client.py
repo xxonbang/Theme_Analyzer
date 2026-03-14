@@ -595,7 +595,7 @@ class KISClient:
 
     def get_index_daily_price(
         self,
-        index_code: str = "2001",  # 2001 = 코스닥 종합
+        index_code: str = "1001",  # 1001 = 코스닥 종합
         period: str = "D",
         start_date: str = None,
         end_date: str = None,

@@ -249,7 +249,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             for page in range(6):  # 최대 6페이지 (300건) — MA120 충분
                 start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
                 idx_resp = client.get_index_daily_price(
-                    "2001", start_date=start_date, end_date=end_date
+                    "1001", start_date=start_date, end_date=end_date
                 )
                 rt_cd = idx_resp.get("rt_cd")
                 if rt_cd != "0":
