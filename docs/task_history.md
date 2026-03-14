@@ -6,6 +6,10 @@
 
 ## 2026-03-14
 
+### [개선] 스케줄 내용 보강: 매물대 분석 항목 분리 + AI분석 명칭 추가 (2026-03-14 22:29 KST)
+- **변경 파일**: `frontend/src/App.tsx`
+- **내용**: 매물대(Volume Profile) 분석을 별도 카테고리로 분리(3항목). 장중 데이터 수집 카테고리에 '당일 테마 및 대장주 AI분석' 텍스트 추가.
+
 ### [개선] 스케줄 패널 bottom sheet 전환 + 스케줄 버튼 상단 헤더 이동 (2026-03-14 22:25 KST)
 - **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/Header.tsx`
 - **내용**: 스케줄 패널을 sticky 패널에서 bottom sheet(createPortal + useSwipeToDismiss)로 변경. 스케줄 버튼을 모바일 2단 툴바에서 상단 헤더 1단으로 이동(모바일에서도 아이콘 직접 접근).
