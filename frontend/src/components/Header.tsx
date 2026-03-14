@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon } from "lucide-react"
+import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -22,9 +22,11 @@ interface HeaderProps {
   isDark?: boolean
   onToggleTheme?: () => void
   onCancelRefresh?: () => void
+  onSearchClick?: () => void
+  searchOpen?: boolean
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme, onCancelRefresh }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme, onCancelRefresh, onSearchClick, searchOpen }: HeaderProps) {
   const { signOut } = useAuth()
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
@@ -248,6 +250,30 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 </div>
               )}
             </div>
+          )}
+
+          {/* Search Button (desktop only) */}
+          {onSearchClick && (
+            <button
+              onClick={onSearchClick}
+              className={cn(
+                "relative overflow-hidden group",
+                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "rounded-lg",
+                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                "border border-border/50",
+                "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                "transition-all duration-300 ease-out",
+                "hover:scale-110 active:scale-95",
+                "hover:border-primary/30",
+                "focus:outline-none",
+                searchOpen && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
+              )}
+              title="종목 검색"
+            >
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Search className={cn("relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", searchOpen && "text-primary")} />
+            </button>
           )}
 
           {/* Page Navigation Buttons (desktop only) */}
@@ -525,6 +551,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       <div className="flex sm:hidden items-center justify-between px-3 py-1 border-t border-border/30 bg-muted/30">
         {/* 페이지 네비게이션 */}
         <div className="flex items-center gap-0.5">
+          {onSearchClick && (
+            <button
+              onClick={onSearchClick}
+              className={cn(
+                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                searchOpen ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <Search className="w-3 h-3" />
+              검색
+            </button>
+          )}
           {onPageChange && isAdmin && (
             <button
               onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}

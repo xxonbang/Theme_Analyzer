@@ -24,12 +24,110 @@ import { useMacroIndicators } from "@/hooks/useMacroIndicators"
 import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { MacroIndicators } from "@/components/MacroIndicators"
-import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react"
+import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
 
 type PageType = "home" | "paper-trading" | "theme-forecast"
+
+const TAB_LABELS: Record<string, string> = {
+  composite: "종합",
+  trading_value: "거래대금",
+  volume: "거래량",
+  fluctuation: "등락률",
+}
+
+function StockSearchPanel({ stocks, onSelect, onClose }: {
+  stocks: Array<Stock & { tabs: TabType[] }>
+  onSelect: (code: string) => void
+  onClose: () => void
+}) {
+  const [query, setQuery] = useState("")
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [onClose])
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return []
+    const q = query.trim().toLowerCase()
+    return stocks.filter(s =>
+      s.name.toLowerCase().includes(q) || s.code.includes(q)
+    ).slice(0, 20)
+  }, [query, stocks])
+
+  return (
+    <div className="sticky top-14 sm:top-16 z-[45] bg-card border-b border-border shadow-md">
+      <div className="container px-3 sm:px-4 py-2">
+        <div className="flex items-center gap-2">
+          <Search className="w-4 h-4 text-muted-foreground shrink-0" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="종목명 또는 코드 검색..."
+            className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/50"
+          />
+          {query && (
+            <button onClick={() => setQuery("")} className="text-muted-foreground hover:text-foreground p-0.5">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground text-xs font-medium px-1.5 py-0.5 rounded hover:bg-muted transition-colors">
+            닫기
+          </button>
+        </div>
+        {filtered.length > 0 && (
+          <div className="mt-2 max-h-64 overflow-y-auto border-t border-border/30 pt-1">
+            {filtered.map(s => {
+              const isUp = s.change_rate > 0
+              const isDown = s.change_rate < 0
+              return (
+                <button
+                  key={s.code}
+                  onClick={() => onSelect(s.code)}
+                  className="w-full flex items-center justify-between px-2 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-sm font-medium truncate">{s.name}</span>
+                    <span className="text-[10px] text-muted-foreground/60 tabular-nums shrink-0">{s.code}</span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className={cn(
+                      "text-xs font-semibold tabular-nums",
+                      isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-foreground/70"
+                    )}>
+                      {isUp ? "+" : ""}{s.change_rate.toFixed(2)}%
+                    </span>
+                    <div className="flex gap-0.5">
+                      {s.tabs.slice(0, 2).map(t => (
+                        <span key={t} className="text-[9px] px-1 py-0.5 rounded bg-muted text-muted-foreground/70">{TAB_LABELS[t]}</span>
+                      ))}
+                    </div>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        )}
+        {query.trim() && filtered.length === 0 && (
+          <p className="text-xs text-muted-foreground/50 text-center py-3">검색 결과 없음</p>
+        )}
+      </div>
+    </div>
+  )
+}
 
 // 로컬 스토리지 키
 const COMPACT_MODE_KEY = "stock-dashboard-compact-mode"
@@ -71,6 +169,9 @@ function App() {
 
   // 히스토리 모달 상태
   const [showHistoryModal, setShowHistoryModal] = useState(false)
+
+  // 종목 검색 상태
+  const [searchOpen, setSearchOpen] = useState(false)
 
   // 컴팩트 모드 상태 (로컬 스토리지에서 복원)
   const [compactMode, setCompactMode] = useState(() => {
@@ -345,6 +446,44 @@ function App() {
     return map
   }, [displayData, compositeData, tradingValueTabData, volumeTabData, activeFluctuationData])
 
+  // 검색용 전체 종목 통합 리스트 (중복 제거, 이름/코드/가격/등락률/탭)
+  const allStocksForSearch = useMemo(() => {
+    if (!displayData) return []
+    const seen = new Set<string>()
+    const result: Array<Stock & { tabs: TabType[] }> = []
+    const collect = (stocks: Stock[] | undefined) => {
+      for (const s of stocks || []) {
+        if (seen.has(s.code)) continue
+        seen.add(s.code)
+        result.push({ ...s, tabs: stockTabMap[s.code] || [] })
+      }
+    }
+    // composite
+    if (compositeData) {
+      collect(compositeData.rising.kospi)
+      collect(compositeData.rising.kosdaq)
+      collect(compositeData.falling.kospi)
+      collect(compositeData.falling.kosdaq)
+    }
+    collect(tradingValueTabData?.kospi)
+    collect(tradingValueTabData?.kosdaq)
+    collect(volumeTabData?.kospi)
+    collect(volumeTabData?.kosdaq)
+    collect(activeFluctuationData?.kospi_up)
+    collect(activeFluctuationData?.kospi_down)
+    collect(activeFluctuationData?.kosdaq_up)
+    collect(activeFluctuationData?.kosdaq_down)
+    if (displayData.rising) {
+      collect(displayData.rising.kospi)
+      collect(displayData.rising.kosdaq)
+    }
+    if (displayData.falling) {
+      collect(displayData.falling.kospi)
+      collect(displayData.falling.kosdaq)
+    }
+    return result
+  }, [displayData, compositeData, tradingValueTabData, volumeTabData, activeFluctuationData, stockTabMap])
+
   // 탭 전환 후 스크롤 대기 처리 (DOM 렌더링 대기 재시도)
   useEffect(() => {
     if (!pendingScrollTarget) return
@@ -487,7 +626,21 @@ function App() {
         isDark={isDark}
         onToggleTheme={toggleTheme}
         onCancelRefresh={cancelRefresh}
+        onSearchClick={() => setSearchOpen(prev => !prev)}
+        searchOpen={searchOpen}
       />
+
+      {/* 종목 검색 패널 */}
+      {searchOpen && currentPage === "home" && (
+        <StockSearchPanel
+          stocks={allStocksForSearch}
+          onSelect={(code) => {
+            setSearchOpen(false)
+            scrollToStock(code)
+          }}
+          onClose={() => setSearchOpen(false)}
+        />
+      )}
 
       <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />
 
