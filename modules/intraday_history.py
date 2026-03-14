@@ -53,6 +53,9 @@ def aggregate_minute_candles(
     if not boundaries or boundaries[-1] != "150000":
         boundaries.append("150000")
 
+    # 15:30 동시호가 포함
+    boundaries.append("153000")
+
     # base_price: 전일 종가 또는 시가 fallback
     base_price = kwargs.get("prev_close", 0) or (sorted_candles[0]["close"] if sorted_candles else 0)
 

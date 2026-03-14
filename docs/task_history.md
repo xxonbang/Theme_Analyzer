@@ -6,6 +6,18 @@
 
 ## 2026-03-14
 
+### [개선] TabBar UI 개선: full-width + 높이 축소 + 모던 디자인 (2026-03-14 22:57 KST)
+- **변경 파일**: `frontend/src/components/TabBar.tsx`
+- **내용**: 4개 탭이 전체 너비 균등 분배(inline-grid→grid). 높이 축소(padding 감소). 배경 투명감·hover 간결화.
+
+### [버그픽스] 장중 데이터 동시호가(15:20~15:30) 미수집 수정 (2026-03-14 22:57 KST)
+- **변경 파일**: `modules/volume_profile.py`, `modules/intraday_history.py`
+- **내용**: fetch_minute_candles 커서 150000→153000으로 변경하여 동시호가 1분봉 수집. aggregate_minute_candles 경계에 153000 추가하여 동시호가 구간 집계.
+
+### [개선] 스케줄 패널 내용 명확화: 유망 테마 예측 화면 명시 (2026-03-14 22:57 KST)
+- **변경 파일**: `frontend/src/App.tsx`
+- **내용**: 07:30 테마 예측/10:00·13:00 장중 재예측이 'AI 유망 테마 예측' 화면 대상임을 명시.
+
 ### [개선] 스케줄 내용 보강: 매물대 분석 항목 분리 + AI분석 명칭 추가 (2026-03-14 22:29 KST)
 - **변경 파일**: `frontend/src/App.tsx`
 - **내용**: 매물대(Volume Profile) 분석을 별도 카테고리로 분리(3항목). 장중 데이터 수집 카테고리에 '당일 테마 및 대장주 AI분석' 텍스트 추가.

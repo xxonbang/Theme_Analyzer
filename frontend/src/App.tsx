@@ -134,7 +134,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
 const SCHEDULE_DATA = [
   { category: "장전", items: [
     { time: "07:00", label: "해외 시장/환율", desc: "나스닥100 선물, 해외 ETF(MU/SOXX/EWY/KORU), KOSPI200, 환율(USD/JPY/EUR/CNY)" },
-    { time: "07:30", label: "테마 예측", desc: "Gemini AI 장전 테마/섹터 예측 분석" },
+    { time: "07:30", label: "AI 유망 테마 예측", desc: "Gemini AI 장전 테마/섹터 예측 → 'AI 유망 테마 예측' 화면" },
     { time: "08:45", label: "선물/거시지표", desc: "KOSPI200 선물 + 전체 거시지표 갱신" },
   ]},
   { category: "장중 데이터 수집 + 당일 테마 및 대장주 AI분석", items: [
@@ -154,9 +154,9 @@ const SCHEDULE_DATA = [
     { time: "09:30~15:00", label: "매시간 수집", desc: "1분봉 → 30분/1시간 집계 (09:30, 10:00, 11:00, 12:00, 13:00, 14:00, 15:00)" },
     { time: "11:30, 15:40", label: "추가 수집", desc: "보충 수집 (장중 + 장 마감 직후)" },
   ]},
-  { category: "장중 테마 재예측", items: [
-    { time: "10:00", label: "조기 재예측", desc: "장중 실시간 데이터 기반 테마 보정" },
-    { time: "13:00", label: "오후 재예측", desc: "오후 흐름 반영 테마 보정" },
+  { category: "장중 유망 테마 재예측 → 'AI 유망 테마 예측' 화면", items: [
+    { time: "10:00", label: "조기 재예측", desc: "장중 실시간 데이터 기반 유망 테마 보정" },
+    { time: "13:00", label: "오후 재예측", desc: "오후 흐름 반영 유망 테마 보정" },
   ]},
   { category: "매물대(Volume Profile) 분석", items: [
     { time: "10:00", label: "장중 매물대 (1차)", desc: "장중 테마 재예측 시 함께 수집 (상위 80종목)" },

@@ -107,55 +107,49 @@ export function TabBar({ activeTab, onTabChange, fluctuationMode, onFluctuationM
   const isDirect = fluctuationMode === "direct"
 
   return (
-    <div className="bg-card/80 backdrop-blur-sm border-b border-border/50 shadow-sm">
-      <div className="container px-3 sm:px-4 py-2.5 sm:py-3">
-        {/* 상단: 탭 */}
-        <div className="flex items-center">
+    <div className="bg-card/80 backdrop-blur-sm border-b border-border/50">
+      <div className="container px-3 sm:px-4 py-1.5 sm:py-2">
+        {/* 상단: 탭 (full-width) */}
+        <div
+          ref={containerRef}
+          role="tablist"
+          aria-label="데이터 카테고리"
+          className="relative grid grid-cols-4 rounded-lg bg-muted/60 p-0.5"
+        >
+          {/* 슬라이딩 인디케이터 */}
           <div
-            ref={containerRef}
-            role="tablist"
-            aria-label="데이터 카테고리"
-            className="relative inline-grid grid-cols-4 rounded-lg bg-muted p-1"
-          >
-            {/* 슬라이딩 인디케이터 */}
-            <div
-              className="absolute top-1 bottom-1 rounded-md bg-background shadow-sm ring-1 ring-border/30 transition-all duration-200 ease-out"
-              style={{
-                width: indicator.width,
-                transform: `translateX(${indicator.left}px)`,
-              }}
-            />
-            {tabs.map((tab) => (
-              <button
-                key={tab.key}
-                ref={(el) => { tabRefs.current[tab.key] = el }}
-                role="tab"
-                aria-selected={activeTab === tab.key}
-                tabIndex={activeTab === tab.key ? 0 : -1}
-                onClick={() => onTabChange(tab.key)}
-                onKeyDown={(e) => handleTabKeyDown(e, tab.key)}
-                className={cn(
-                  "relative z-10 flex items-center justify-center px-3 sm:px-4 py-2 sm:py-2 text-[11px] sm:text-sm font-medium rounded-md",
-                  "transition-all duration-200 whitespace-nowrap",
-                  activeTab === tab.key
-                    ? "text-foreground"
-                    : [
-                        "text-muted-foreground",
-                        "hover:text-foreground",
-                        "hover:bg-background/60",
-                        "hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]",
-                        "hover:scale-[1.03]",
-                        "active:scale-[0.97]",
-                        "active:bg-background/40",
-                      ],
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-                )}
-              >
-                <span className="hidden sm:inline">{tab.label}</span>
-                <span className="sm:hidden">{tab.shortLabel}</span>
-              </button>
-            ))}
-          </div>
+            className="absolute top-0.5 bottom-0.5 rounded-md bg-background shadow-sm ring-1 ring-border/30 transition-all duration-200 ease-out"
+            style={{
+              width: indicator.width,
+              transform: `translateX(${indicator.left}px)`,
+            }}
+          />
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              ref={(el) => { tabRefs.current[tab.key] = el }}
+              role="tab"
+              aria-selected={activeTab === tab.key}
+              tabIndex={activeTab === tab.key ? 0 : -1}
+              onClick={() => onTabChange(tab.key)}
+              onKeyDown={(e) => handleTabKeyDown(e, tab.key)}
+              className={cn(
+                "relative z-10 flex items-center justify-center py-1.5 sm:py-2 text-[11px] sm:text-sm font-medium rounded-md",
+                "transition-all duration-200 whitespace-nowrap",
+                activeTab === tab.key
+                  ? "text-foreground font-semibold"
+                  : [
+                      "text-muted-foreground/70",
+                      "hover:text-foreground",
+                      "active:scale-[0.97]",
+                    ],
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+              )}
+            >
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.shortLabel}</span>
+            </button>
+          ))}
         </div>
 
         {/* 하단: 컨트롤 영역 (애니메이션 포함) */}
