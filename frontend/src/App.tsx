@@ -129,6 +129,107 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
   )
 }
 
+const SCHEDULE_DATA = [
+  { category: "장전", items: [
+    { time: "07:00", label: "해외 시장/환율", desc: "나스닥100 선물, 해외 ETF(MU/SOXX/EWY/KORU), KOSPI200, 환율(USD/JPY/EUR/CNY)" },
+    { time: "07:30", label: "테마 예측", desc: "Gemini AI 장전 테마/섹터 예측 분석" },
+    { time: "08:45", label: "선물/거시지표", desc: "KOSPI200 선물 + 전체 거시지표 갱신" },
+  ]},
+  { category: "장중 데이터 수집", items: [
+    { time: "09:05", label: "1차 전체 수집", desc: "KIS 등락률/거래량/거래대금 + 뉴스 + AI 테마 분석 + 환율" },
+    { time: "09:28", label: "2차 전체 수집", desc: "KIS 등락률/거래량/거래대금 + 뉴스 + AI 테마 분석 + 환율" },
+  ]},
+  { category: "장중 수급(외국인/기관)", items: [
+    { time: "09:31", label: "1차 가집계", desc: "외국인 09:30 반영" },
+    { time: "10:01", label: "2차 가집계", desc: "기관 10:00 반영" },
+    { time: "11:31", label: "3차 가집계", desc: "외국인+기관 11:30 반영" },
+    { time: "13:21", label: "4차 가집계", desc: "외국인+기관 13:20 반영" },
+    { time: "14:31", label: "5차 가집계", desc: "외국인+기관 14:30 반영 (장중 최종)" },
+    { time: "15:45", label: "장후 수집", desc: "장 마감 후 수급 데이터 수집" },
+    { time: "18:05", label: "확정 + 검증", desc: "확정치 수집 + pykrx 교차검증" },
+  ]},
+  { category: "장중 등락 히스토리", items: [
+    { time: "09:30~15:00", label: "매시간 수집", desc: "1분봉 → 30분/1시간 집계 (09:30, 10:00, 11:00, 12:00, 13:00, 14:00, 15:00)" },
+    { time: "11:30, 15:40", label: "추가 수집", desc: "보충 수집 (장중 + 장 마감 직후)" },
+  ]},
+  { category: "장중 테마 재예측", items: [
+    { time: "10:00", label: "조기 재예측", desc: "장중 실시간 데이터 기반 테마 보정 + 매물대 분석" },
+    { time: "13:00", label: "오후 재예측", desc: "오후 흐름 반영 테마 보정 + 매물대 분석" },
+  ]},
+  { category: "장후", items: [
+    { time: "15:40", label: "모의투자", desc: "AI 선정 대장주 매수 시뮬레이션 → 종가 매도 수익률 산출 + 매물대 + 장중 히스토리" },
+    { time: "18:00", label: "백테스트", desc: "예측 모델 적중률 평가 (예측 vs 실제 가격)" },
+  ]},
+]
+
+function SchedulePanel({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [onClose])
+
+  // 현재 KST 시각
+  const nowKST = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }))
+  const nowHHMM = `${String(nowKST.getHours()).padStart(2, "0")}:${String(nowKST.getMinutes()).padStart(2, "0")}`
+  const isWeekday = nowKST.getDay() >= 1 && nowKST.getDay() <= 5
+
+  return (
+    <div className="sticky top-14 sm:top-16 z-[45] bg-card border-b border-border shadow-md">
+      <div className="container px-3 sm:px-4 py-3 max-h-[70vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold">데이터 수집 스케줄</span>
+            <span className="text-[10px] text-muted-foreground/60">월~금 · cron-job.org → GitHub Actions</span>
+          </div>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground text-xs font-medium px-1.5 py-0.5 rounded hover:bg-muted transition-colors">
+            닫기
+          </button>
+        </div>
+        <div className="space-y-3">
+          {SCHEDULE_DATA.map((group) => (
+            <div key={group.category}>
+              <div className="text-[11px] font-semibold text-muted-foreground/70 mb-1 px-1">{group.category}</div>
+              <div className="space-y-0.5">
+                {group.items.map((item) => {
+                  // 시간 비교로 완료/진행중/대기 판별
+                  const firstTime = item.time.split("~")[0].split(",")[0].trim()
+                  const isDone = isWeekday && nowHHMM > firstTime
+                  const isNext = isWeekday && !isDone && nowHHMM <= firstTime
+                  return (
+                    <div
+                      key={item.time + item.label}
+                      className={cn(
+                        "flex items-start gap-2 px-2 py-1.5 rounded-md text-left",
+                        isNext && "bg-primary/5 border border-primary/20",
+                        isDone && "opacity-50"
+                      )}
+                    >
+                      <span className={cn(
+                        "text-[11px] font-mono font-semibold tabular-nums shrink-0 w-[72px]",
+                        isNext ? "text-primary" : "text-foreground/70"
+                      )}>
+                        {item.time}
+                      </span>
+                      <div className="min-w-0">
+                        <span className={cn("text-xs font-medium", isNext && "text-primary")}>{item.label}</span>
+                        <p className="text-[10px] text-muted-foreground/60 leading-tight mt-0.5">{item.desc}</p>
+                      </div>
+                      {isDone && <span className="text-[9px] text-green-500/70 shrink-0 mt-0.5">완료</span>}
+                      {isNext && <span className="text-[9px] text-primary font-semibold shrink-0 mt-0.5 animate-pulse">다음</span>}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-[9px] text-muted-foreground/40 text-center mt-3">주말·공휴일은 수집하지 않습니다</p>
+      </div>
+    </div>
+  )
+}
+
 // 로컬 스토리지 키
 const COMPACT_MODE_KEY = "stock-dashboard-compact-mode"
 const ACTIVE_TAB_KEY = "stock-dashboard-active-tab"
@@ -172,6 +273,7 @@ function App() {
 
   // 종목 검색 상태
   const [searchOpen, setSearchOpen] = useState(false)
+  const [scheduleOpen, setScheduleOpen] = useState(false)
 
   // 컴팩트 모드 상태 (로컬 스토리지에서 복원)
   const [compactMode, setCompactMode] = useState(() => {
@@ -626,8 +728,10 @@ function App() {
         isDark={isDark}
         onToggleTheme={toggleTheme}
         onCancelRefresh={cancelRefresh}
-        onSearchClick={() => setSearchOpen(prev => !prev)}
+        onSearchClick={() => { setSearchOpen(prev => !prev); setScheduleOpen(false) }}
         searchOpen={searchOpen}
+        onScheduleClick={() => { setScheduleOpen(prev => !prev); setSearchOpen(false) }}
+        scheduleOpen={scheduleOpen}
       />
 
       {/* 종목 검색 패널 */}
@@ -640,6 +744,11 @@ function App() {
           }}
           onClose={() => setSearchOpen(false)}
         />
+      )}
+
+      {/* 수집 스케줄 패널 */}
+      {scheduleOpen && (
+        <SchedulePanel onClose={() => setScheduleOpen(false)} />
       )}
 
       <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />

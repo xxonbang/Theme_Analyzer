@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search } from "lucide-react"
+import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -24,9 +24,11 @@ interface HeaderProps {
   onCancelRefresh?: () => void
   onSearchClick?: () => void
   searchOpen?: boolean
+  onScheduleClick?: () => void
+  scheduleOpen?: boolean
 }
 
-export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme, onCancelRefresh, onSearchClick, searchOpen }: HeaderProps) {
+export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCompact, onHistoryClick, isViewingHistory, refreshElapsed, currentPage = "home", onPageChange, isAdmin, headerHidden, isDark, onToggleTheme, onCancelRefresh, onSearchClick, searchOpen, onScheduleClick, scheduleOpen }: HeaderProps) {
   const { signOut } = useAuth()
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
@@ -273,6 +275,30 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             >
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <Search className={cn("relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", searchOpen && "text-primary")} />
+            </button>
+          )}
+
+          {/* Schedule Button (desktop only) */}
+          {onScheduleClick && (
+            <button
+              onClick={onScheduleClick}
+              className={cn(
+                "relative overflow-hidden group",
+                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "rounded-lg",
+                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                "border border-border/50",
+                "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                "transition-all duration-300 ease-out",
+                "hover:scale-110 active:scale-95",
+                "hover:border-primary/30",
+                "focus:outline-none",
+                scheduleOpen && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
+              )}
+              title="수집 스케줄"
+            >
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <CalendarClock className={cn("relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", scheduleOpen && "text-primary")} />
             </button>
           )}
 
@@ -561,6 +587,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             >
               <Search className="w-3 h-3" />
               검색
+            </button>
+          )}
+          {onScheduleClick && (
+            <button
+              onClick={onScheduleClick}
+              className={cn(
+                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                scheduleOpen ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <CalendarClock className="w-3 h-3" />
+              스케줄
             </button>
           )}
           {onPageChange && isAdmin && (
