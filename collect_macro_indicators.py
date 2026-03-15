@@ -3,7 +3,7 @@
 
 수집 항목:
   - NQ=F (나스닥100 선물) — yfinance
-  - KOSPI200 선물 (근월물) — KIS 국내선물
+  - KOSPI200 지수 — yfinance (^KS200)
   - MU, SOXX, EWY, KORU — KIS 해외
   - ^VIX (변동성지수) — yfinance
   - Fear & Greed Index — CNN
@@ -124,74 +124,30 @@ def collect_fear_greed() -> dict | None:
         return None
 
 
-def get_kospi200_futures_code() -> str:
-    """현재 근월물 종목코드 계산 (분기월: 3,6,9,12)"""
-    now = datetime.now(KST)
-    month_codes = {3: "H", 6: "M", 9: "U", 12: "Z"}
-    quarter_months = [3, 6, 9, 12]
-    year_2d = now.strftime("%y")
-    for qm in quarter_months:
-        if now.month <= qm:
-            return f"101{month_codes[qm]}{year_2d}"
-    # 12월 지나면 다음해 3월물
-    return f"101H{int(year_2d) + 1:02d}"
-
-
-def collect_kospi200_futures(client: KISClient) -> dict | None:
-    """KIS 국내선물 API로 KOSPI200 선물 현재가 수집.
-
-    1순위: 호가 API (장중 실시간)
-    2순위: 현재가 API output3 (장외 시 KOSPI200 지수)
-    """
-    code = get_kospi200_futures_code()
+def collect_kospi200_index() -> dict | None:
+    """yfinance로 KOSPI200 지수 현재가/등락 수집."""
     try:
-        # 1순위: 호가 API (장중)
-        path = "/uapi/domestic-futureoption/v1/quotations/inquire-asking-price"
-        tr_id = "FHMIF10010000"
-        params = {"FID_COND_MRKT_DIV_CODE": "F", "FID_INPUT_ISCD": code}
-        resp = client.request("GET", path, tr_id, params=params)
-        if resp.get("rt_cd") == "0":
-            out = resp.get("output1", {})
-            price = float(out.get("futs_prpr", 0))
-            if price > 0:
-                change = float(out.get("futs_prdy_vrss", 0))
-                prev = price - change
-                change_pct = round(change / prev * 100, 2) if prev else 0
-                return {
-                    "symbol": "KOSPI200F",
-                    "name": f"코스피200 F {code}",
-                    "price": price,
-                    "change": change,
-                    "change_pct": change_pct,
-                    "source": "kis_futures",
-                }
-    except Exception as e:
-        print(f"  [참고] 호가 API 실패, fallback 시도: {e}")
+        import yfinance as yf
 
-    try:
-        # 2순위: 현재가 API output3 (KOSPI200 지수)
-        path = "/uapi/domestic-futureoption/v1/quotations/inquire-price"
-        tr_id = "FHMIF10000000"
-        params = {"FID_COND_MRKT_DIV_CODE": "F", "FID_INPUT_ISCD": code}
-        resp = client.request("GET", path, tr_id, params=params)
-        if resp.get("rt_cd") == "0":
-            out3 = resp.get("output3", {})
-            price = float(out3.get("bstp_nmix_prpr", 0))
-            if price > 0:
-                change = float(out3.get("bstp_nmix_prdy_vrss", 0))
-                change_pct = float(out3.get("bstp_nmix_prdy_ctrt", 0))
-                return {
-                    "symbol": "KOSPI200F",
-                    "name": "코스피200 (지수)",
-                    "price": price,
-                    "change": change,
-                    "change_pct": change_pct,
-                    "source": "kis_futures",
-                }
+        ticker = yf.Ticker("^KS200")
+        info = ticker.fast_info
+        price = info.last_price
+        prev = info.previous_close
+        if price is None or prev is None:
+            return None
+        change = round(price - prev, 2)
+        change_pct = round(change / prev * 100, 2) if prev else 0
+        return {
+            "symbol": "KOSPI200",
+            "name": "코스피200",
+            "price": round(price, 2),
+            "change": change,
+            "change_pct": change_pct,
+            "source": "yfinance",
+        }
     except Exception as e:
-        print(f"  [오류] KOSPI200F: {e}")
-
-    return None
+        print(f"  [오류] KOSPI200: {e}")
+        return None
 
 
 def collect_overseas(client: KISClient, code: str, exchange: str, name: str) -> dict | None:
@@ -375,7 +331,14 @@ def main():
     # 2. KIS 클라이언트
     client = KISClient()
 
-    # 3. 해외 종목
+    # 3. KOSPI200 지수 (yfinance)
+    print("  KOSPI200 지수...")
+    k200 = collect_kospi200_index()
+    if k200:
+        indicators.append(k200)
+        print(f"    → {k200['price']} ({k200['change']:+.2f}, {k200['change_pct']:+.2f}%)")
+
+    # 4. 해외 종목
     for code, exchange, name in OVERSEAS_ITEMS:
         print(f"  {code} ({name})...")
         item = collect_overseas(client, code, exchange, name)

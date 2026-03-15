@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 거시지표 KOSPI200F(선물) → KOSPI200(지수)로 변경 (2026-03-15 14:37 KST)
+- **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`
+- **내용**: KIS 선물 API 기반 KOSPI200F 수집을 yfinance 기반 KOSPI200 지수(^KS200) 수집으로 교체. 프론트엔드 심볼/약칭/설명 업데이트.
+
 ### [개선] 거시지표에서 K200(KOSPI200F) 항목 제거 (2026-03-15 14:31 KST)
 - **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`
 - **내용**: esignal 선물 섹션으로 대체되므로 거시지표에서 KOSPI200F 수집 및 표시 제거. SUMMARY_SYMBOLS, SHORT_NAMES, INDICATOR_DESC 정리.
