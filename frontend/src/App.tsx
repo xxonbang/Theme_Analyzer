@@ -862,8 +862,6 @@ function App() {
         <div className="bg-slate-100 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
           <div className="container flex items-center gap-1 px-1.5 sm:px-4 py-1.5">
             {[
-              ...(isAdmin && macroData ? [{ id: "section-macro", label: "거시지표", type: "neutral" as const }] : []),
-              ...(displayData?.theme_analysis ? [{ id: "section-theme", label: "AI테마", type: "neutral" as const }] : []),
               ...(activeTab === "composite" ? [
                 { id: "section-rising-kospi", label: "↑KOSPI", type: "rising" as const },
                 { id: "section-rising-kosdaq", label: "↑KOSDAQ", type: "rising" as const },
@@ -925,43 +923,46 @@ function App() {
           </div>
         )}
 
-        {/* Macro Indicators - Admin only */}
-        {isAdmin && macroData && <div id="section-macro"><MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
+        {/* 홈 탭 전용 콘텐츠 */}
+        {activeTab === "home" && <>
+          {/* Macro Indicators - Admin only */}
+          {isAdmin && macroData && <div id="section-macro"><MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
 
-        {/* Exchange Rate */}
-        {displayData?.exchange && <div id="section-exchange"><ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
+          {/* Exchange Rate */}
+          {displayData?.exchange && <div id="section-exchange"><ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
 
-        {/* Index MA Alert (KOSPI + KOSDAQ) */}
-        <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>
+          {/* Index MA Alert (KOSPI + KOSDAQ) */}
+          <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>
 
-        {/* AI Theme Analysis */}
-        {displayData?.theme_analysis && (
-          <div id="section-theme"><AIThemeAnalysis
-            themeAnalysis={displayData.theme_analysis}
-            criteriaData={displayData?.criteria_data}
-            isAdmin={isAdmin}
-            onScrollToStock={scrollToStock}
-            stockMarketMap={(() => {
-              const map: Record<string, string> = {}
-              const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
-              for (const sec of sections) {
-                if (!sec) continue
-                for (const s of sec.kospi || []) map[s.code] = 'kospi'
-                for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
-              }
-              return map
-            })()}
-            stockTradingRankMap={(() => {
-              const map: Record<string, number> = {}
-              const tv = displayData.trading_value
-              if (tv) {
-                for (const s of tv.kospi || []) map[s.code] = s.rank
-                for (const s of tv.kosdaq || []) map[s.code] = s.rank
-              }
-              return map
-            })()}
-          /></div>
-        )}
+          {/* AI Theme Analysis */}
+          {displayData?.theme_analysis && (
+            <div id="section-theme"><AIThemeAnalysis
+              themeAnalysis={displayData.theme_analysis}
+              criteriaData={displayData?.criteria_data}
+              isAdmin={isAdmin}
+              onScrollToStock={scrollToStock}
+              stockMarketMap={(() => {
+                const map: Record<string, string> = {}
+                const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
+                for (const sec of sections) {
+                  if (!sec) continue
+                  for (const s of sec.kospi || []) map[s.code] = 'kospi'
+                  for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
+                }
+                return map
+              })()}
+              stockTradingRankMap={(() => {
+                const map: Record<string, number> = {}
+                const tv = displayData.trading_value
+                if (tv) {
+                  for (const s of tv.kospi || []) map[s.code] = s.rank
+                  for (const s of tv.kosdaq || []) map[s.code] = s.rank
+                }
+                return map
+              })()}
+            /></div>
+          )}
+        </>}
 
         {/* 홈 탭이 아닐 때만 종목 리스트 표시 */}
         {activeTab !== "home" && <>
