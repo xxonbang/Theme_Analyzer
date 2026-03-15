@@ -13,6 +13,7 @@ interface TabBarProps {
 }
 
 const tabs: { key: TabType; label: string; shortLabel: string }[] = [
+  { key: "home", label: "홈", shortLabel: "홈" },
   { key: "composite", label: "종합", shortLabel: "종합" },
   { key: "trading_value", label: "거래대금 TOP20", shortLabel: "거래대금" },
   { key: "volume", label: "거래량 TOP20", shortLabel: "거래량" },
@@ -81,7 +82,7 @@ export function TabBar({ activeTab, onTabChange }: Pick<TabBarProps, "activeTab"
             ref={containerRef}
             role="tablist"
             aria-label="데이터 카테고리"
-            className="relative grid grid-cols-4 py-1"
+            className="relative grid grid-cols-5 py-1"
           >
             {/* 슬라이딩 인디케이터 */}
             <div

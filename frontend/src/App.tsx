@@ -318,7 +318,7 @@ function App() {
   // 탭 상태 (로컬 스토리지에서 복원)
   const [activeTab, setActiveTab] = useState<TabType>(() => {
     const saved = localStorage.getItem(ACTIVE_TAB_KEY)
-    return (saved as TabType) || "composite"
+    return (saved as TabType) || "home"
   })
 
   // 등락률 모드 상태 (로컬 스토리지에서 복원)
@@ -848,17 +848,20 @@ function App() {
             </div>
           </div>
         )}
-        <TabControls
-          activeTab={activeTab}
-          onTabChange={handleTabChange}
-          fluctuationMode={fluctuationMode}
-          onFluctuationModeChange={handleFluctuationModeChange}
-          compositeMode={compositeMode}
-          onCompositeModeChange={handleCompositeModeChange}
-        />
+        {activeTab !== "home" && (
+          <TabControls
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+            fluctuationMode={fluctuationMode}
+            onFluctuationModeChange={handleFluctuationModeChange}
+            compositeMode={compositeMode}
+            onCompositeModeChange={handleCompositeModeChange}
+          />
+        )}
         </div>
         </div>
-        {/* 섹션 퀵네비 (항상 표시) */}
+        {/* 섹션 퀵네비 (홈 탭 제외) */}
+        {activeTab !== "home" && (
         <div className="bg-slate-100 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
           <div className="container flex items-center gap-1 px-1.5 sm:px-4 py-1.5">
             {[
@@ -913,6 +916,7 @@ function App() {
             ))}
           </div>
         </div>
+        )}
       </div>
 
       <main className="container px-3 sm:px-4 py-4 sm:py-6">
@@ -962,6 +966,8 @@ function App() {
           /></div>
         )}
 
+        {/* 홈 탭이 아닐 때만 종목 리스트 표시 */}
+        {activeTab !== "home" && <>
         {/* Criteria Legend (admin only) */}
         {isAdmin && displayData?.criteria_data && (
           <div className="mb-4">
@@ -1177,6 +1183,7 @@ function App() {
             </>
           )}
         </div>
+        </>}
 
         {/* Footer */}
         <footer className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-border/30">

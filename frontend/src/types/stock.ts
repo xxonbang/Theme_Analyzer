@@ -73,7 +73,7 @@ export interface FluctuationData {
   kosdaq_down: Stock[]
 }
 
-export type TabType = "composite" | "trading_value" | "volume" | "fluctuation"
+export type TabType = "home" | "composite" | "trading_value" | "volume" | "fluctuation"
 export type FluctuationMode = "calculated" | "direct"
 export type CompositeMode = "all" | "trading_volume" | "trading_fluc" | "volume_fluc"
 

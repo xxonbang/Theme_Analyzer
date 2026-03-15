@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [기능] 홈 화면 분리 및 하단 메뉴바에 홈 탭 추가 (2026-03-15 21:27 KST)
+- **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/TabBar.tsx`, `frontend/src/types/stock.ts`
+- **내용**: TabType에 "home" 추가, 하단 메뉴바 5탭(홈/종합/거래대금/거래량/등락률) 구성. 홈 탭에서는 거시지표~AI 테마 분석까지만 표시, 종목 리스트는 나머지 탭에서만 표시.
+
 ### [버그픽스] 바텀시트 팝업 시 배경 스크롤 잠금 (2026-03-15 21:17 KST)
 - **변경 파일**: `frontend/src/index.css`
 - **내용**: `body.popup-open { overflow: hidden; }` 추가하여 팝업 열림 시 배경 스크롤 차단.
