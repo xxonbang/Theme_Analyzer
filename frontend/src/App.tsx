@@ -803,8 +803,8 @@ function App() {
 
       {/* 메인 대시보드 */}
       {currentPage === "home" && <>
-      {/* 히스토리 배너 + Tab Bar + 퀵네비 (하나의 sticky 컨테이너) */}
-      {/* marginTop으로 TabBar를 위로 밀어냄 — 퀵네비만 표시 */}
+      {/* 히스토리 배너 + TabControls + 퀵네비 (하나의 sticky 컨테이너, 홈 탭 제외) */}
+      {activeTab !== "home" && (
       <div
         ref={stickyBarRef}
         className={cn("sticky z-40 bg-background", headerHidden ? "top-0" : "top-[5.75rem] sm:top-16")}
@@ -848,20 +848,17 @@ function App() {
             </div>
           </div>
         )}
-        {activeTab !== "home" && (
-          <TabControls
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-            fluctuationMode={fluctuationMode}
-            onFluctuationModeChange={handleFluctuationModeChange}
-            compositeMode={compositeMode}
-            onCompositeModeChange={handleCompositeModeChange}
-          />
-        )}
+        <TabControls
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+          fluctuationMode={fluctuationMode}
+          onFluctuationModeChange={handleFluctuationModeChange}
+          compositeMode={compositeMode}
+          onCompositeModeChange={handleCompositeModeChange}
+        />
         </div>
         </div>
-        {/* 섹션 퀵네비 (홈 탭 제외) */}
-        {activeTab !== "home" && (
+        {/* 섹션 퀵네비 */}
         <div className="bg-slate-100 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
           <div className="container flex items-center gap-1 px-1.5 sm:px-4 py-1.5">
             {[
@@ -916,8 +913,8 @@ function App() {
             ))}
           </div>
         </div>
-        )}
       </div>
+      )}
 
       <main className="container px-3 sm:px-4 py-4 sm:py-6">
         {apiAlerts.length > 0 && <ApiKeyAlertBanner alerts={apiAlerts} />}
