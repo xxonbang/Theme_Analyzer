@@ -21,10 +21,21 @@ export interface HistoryChange {
   trading_value?: number
 }
 
+export interface RawDailyPrice {
+  stck_bsop_date: string
+  stck_clpr: string
+  stck_oprc?: string
+  stck_hgpr?: string
+  stck_lwpr?: string
+  acml_vol?: string
+  acml_tr_pbmn?: string
+}
+
 export interface StockHistory {
   code: string
   name: string
   changes: HistoryChange[]
+  raw_daily_prices?: RawDailyPrice[]
 }
 
 export interface NewsItem {
@@ -210,6 +221,23 @@ export interface StockData {
   kospi_index?: KosdaqIndex
   kosdaq_index?: KosdaqIndex
   member_data?: Record<string, MemberInfo>
+  fundamental_data?: Record<string, FundamentalInfo>
+}
+
+export interface FundamentalInfo {
+  per: number | null
+  pbr: number | null
+  eps: number | null
+  bps: number | null
+  market_cap: number | null
+  roe: number | null
+  debt_ratio: number | null
+  eps_growth: number | null
+  opm: number | null
+  peg: number | null
+  rsi: number | null
+  w52_hgpr: number | null
+  w52_lwpr: number | null
 }
 
 // 모의투자 관련 타입

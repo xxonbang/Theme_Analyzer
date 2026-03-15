@@ -6,6 +6,14 @@
 
 ## 2026-03-15
 
+### [기능] 종목별 가격/PER 정규분포 분석 차트 추가 (2026-03-15 15:00 KST)
+- **변경 파일**: `modules/data_exporter.py`, `main.py`, `frontend/src/components/DistributionPopup.tsx`(신규), `StockCard.tsx`, `StockList.tsx`, `App.tsx`, `types/stock.ts`
+- **내용**: 종목 카드에 "분포" 버튼 추가. 클릭 시 가격 분포(일별 종가 기반)와 PER 분포(종가÷EPS) 정규분포 차트를 1M/3M/6M/1Y 기간별로 표시. Z-Score 및 σ 밴드로 현재 가격/PER 위치 시각화. fundamental_data를 latest.json에 export 추가.
+
+### [설정] cron-job API 키 등록 및 워크플로우 주석 업데이트 (2026-03-15 14:50 KST)
+- **변경 파일**: `.env`, `.env.example`, `.github/workflows/collect-macro-futures.yml`
+- **내용**: 외부 cron-job 서비스 API 키를 .env에 등록. 워크플로우 주석/텔레그램 알림을 KOSPI200 지수 기준으로 수정.
+
 ### [개선] 거시지표 KOSPI200F(선물) → KOSPI200(지수)로 변경 (2026-03-15 14:37 KST)
 - **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`
 - **내용**: KIS 선물 API 기반 KOSPI200F 수집을 yfinance 기반 KOSPI200 지수(^KS200) 수집으로 교체. 프론트엔드 심볼/약칭/설명 업데이트.

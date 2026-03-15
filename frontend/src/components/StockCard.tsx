@@ -13,7 +13,8 @@ import { InvestorSchedulePopup } from "@/components/InvestorSchedulePopup"
 import { Sparkline } from "@/components/Sparkline"
 import { VolumeProfilePopup } from "@/components/VolumeProfilePopup"
 import { MemberChartPopup } from "@/components/MemberChartPopup"
-import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay } from "@/types/stock"
+import DistributionPopup from "@/components/DistributionPopup"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay, FundamentalInfo } from "@/types/stock"
 
 interface StockCardProps {
   stock: Stock
@@ -31,9 +32,10 @@ interface StockCardProps {
   volumeProfile?: StockVolumeProfile
   vpUpdatedAt?: string
   intradayDays?: IntradayDay[]
+  fundamental?: FundamentalInfo
 }
 
-export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, vpUpdatedAt, intradayDays }: StockCardProps) {
+export function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, vpUpdatedAt, intradayDays, fundamental }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
@@ -41,6 +43,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
   const [showInvestorChart, setShowInvestorChart] = useState(false)
   const [showVolumeProfile, setShowVolumeProfile] = useState(false)
   const [showMemberChart, setShowMemberChart] = useState(false)
+  const [showDistribution, setShowDistribution] = useState(false)
   const hasMemberData = !!(memberInfo && (memberInfo.buy_top5.length > 0 || memberInfo.sell_top5.length > 0))
   const hasVpData = !!volumeProfile
   const [vpExpanded, setVpExpanded] = useState(hasVpData)
@@ -199,6 +202,14 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 <TrendIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5" />
                 {formatChangeRate(stock.change_rate)}
               </Badge>
+              {history?.raw_daily_prices && history.raw_daily_prices.length > 20 && (
+                <button
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDistribution(true) }}
+                  className="text-[8px] px-1 py-0.5 rounded bg-violet-500/10 text-violet-500 hover:bg-violet-500/20 transition-colors font-medium"
+                >
+                  분포
+                </button>
+              )}
             </div>
             {/* 10일 가격 변동 팝업 */}
             {showPriceHistory && history && history.changes && (
@@ -209,6 +220,16 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 changes={history.changes}
                 intradayDays={intradayDays}
                 onClose={() => setShowPriceHistory(false)}
+              />
+            )}
+            {/* 분포 분석 팝업 */}
+            {showDistribution && history?.raw_daily_prices && (
+              <DistributionPopup
+                stockName={stock.name}
+                currentPrice={stock.current_price}
+                rawDailyPrices={history.raw_daily_prices}
+                fundamental={fundamental}
+                onClose={() => setShowDistribution(false)}
               />
             )}
           </div>

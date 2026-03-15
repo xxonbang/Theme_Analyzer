@@ -12,7 +12,7 @@ import { InvestorChartPopup } from "@/components/InvestorChartPopup"
 import { PriceHistoryPopup } from "@/components/PriceHistoryPopup"
 import { Sparkline } from "@/components/Sparkline"
 import { VolumeProfilePopup } from "@/components/VolumeProfilePopup"
-import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay } from "@/types/stock"
+import type { Stock, StockHistory, StockNews, InvestorInfo, MemberInfo, StockCriteria, InvestorIntraday, StockVolumeProfile, IntradayDay, FundamentalInfo } from "@/types/stock"
 
 interface StockListProps {
   title: string
@@ -34,6 +34,7 @@ interface StockListProps {
   volumeProfiles?: Record<string, StockVolumeProfile>
   vpUpdatedAt?: string
   intradayHistory?: Record<string, IntradayDay[]>
+  fundamentalData?: Record<string, FundamentalInfo>
   initialLimit?: number
   sectionId?: string
 }
@@ -41,13 +42,13 @@ interface StockListProps {
 // 마켓 섹션 (KOSPI/KOSDAQ 영역)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
-  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, initialLimit,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit,
 }: {
   label: string; dotColor: string; stocks: Stock[];
   history: Record<string, StockHistory>; news: Record<string, StockNews>;
   type: "rising" | "falling" | "neutral";
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
-  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; vpUpdatedAt?: string; intradayHistory?: Record<string, IntradayDay[]>; initialLimit?: number;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; vpUpdatedAt?: string; intradayHistory?: Record<string, IntradayDay[]>; fundamentalData?: Record<string, FundamentalInfo>; initialLimit?: number;
 }) {
   const [expanded, setExpanded] = useState(false)
   const hasMore = initialLimit != null && stocks.length > initialLimit
@@ -71,6 +72,7 @@ function StockMarketSection({
       volumeProfile={volumeProfiles?.[stock.code]}
       vpUpdatedAt={vpUpdatedAt}
       intradayDays={intradayHistory?.[stock.code]}
+      fundamental={fundamentalData?.[stock.code]}
     />
   )
 
@@ -453,7 +455,7 @@ function CompactMarketSection({
   )
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, initialLimit, sectionId }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit, sectionId }: StockListProps) {
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -559,6 +561,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           volumeProfiles={volumeProfiles}
           vpUpdatedAt={vpUpdatedAt}
           intradayHistory={intradayHistory}
+          fundamentalData={fundamentalData}
           initialLimit={initialLimit}
         />
         </div>
@@ -583,6 +586,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           volumeProfiles={volumeProfiles}
           vpUpdatedAt={vpUpdatedAt}
           intradayHistory={intradayHistory}
+          fundamentalData={fundamentalData}
           initialLimit={initialLimit}
         />
         </div>

@@ -995,6 +995,7 @@ function App() {
                     volumeProfiles={vpData?.profiles}
                     vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
+                    fundamentalData={displayData?.fundamental_data}
                     initialLimit={20}
                     sectionId="section-rising"
                   />
@@ -1018,6 +1019,7 @@ function App() {
                     volumeProfiles={vpData?.profiles}
                     vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
+                    fundamentalData={displayData?.fundamental_data}
                     initialLimit={20}
                     sectionId="section-falling"
                   />
@@ -1045,6 +1047,7 @@ function App() {
                     volumeProfiles={vpData?.profiles}
                     vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
+                    fundamentalData={displayData?.fundamental_data}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP10`}
@@ -1066,6 +1069,7 @@ function App() {
                     volumeProfiles={vpData?.profiles}
                     vpUpdatedAt={vpData?.updated_at}
                     intradayHistory={intradayHistoryData?.stocks}
+                    fundamentalData={displayData?.fundamental_data}
                   />
                 </>
               )}
@@ -1093,6 +1097,7 @@ function App() {
               volumeProfiles={vpData?.profiles}
               vpUpdatedAt={vpData?.updated_at}
               intradayHistory={intradayHistoryData?.stocks}
+              fundamentalData={displayData?.fundamental_data}
               sectionId="section-trading"
             />
           )}
@@ -1118,6 +1123,7 @@ function App() {
               volumeProfiles={vpData?.profiles}
               vpUpdatedAt={vpData?.updated_at}
               intradayHistory={intradayHistoryData?.stocks}
+              fundamentalData={displayData?.fundamental_data}
               sectionId="section-volume"
             />
           )}

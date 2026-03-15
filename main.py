@@ -656,6 +656,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             kosdaq_index=kosdaq_index_data,
             member_data=member_data,
             investor_updated_at=datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S") if investor_data else None,
+            fundamental_data=fundamental_data,
         )
         print(f"  ✓ 데이터 내보내기 완료: {export_path}")
     except Exception as e:

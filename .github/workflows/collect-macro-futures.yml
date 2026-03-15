@@ -2,10 +2,9 @@ name: Collect Macro Futures
 
 on:
   # 외부 cron-job(workflow_dispatch)으로 실행
-  # 권장 시각: KST 08:45 (월~금, 선물 호가 시작 시점)
+  # 권장 시각: KST 09:10 (월~금, 장 개시 직후)
   #
-  # KOSPI200 선물 호가가 08:45부터 조회 가능하므로
-  # 전체 거시지표를 재수집하여 선물 실시간 데이터로 갱신
+  # KOSPI200 지수 + esignal 선물 포함 전체 거시지표 재수집
   workflow_dispatch:
 
 permissions:
@@ -145,7 +144,7 @@ jobs:
 
           if [ "$COLLECT" = "success" ] && [ "$JOB" = "success" ]; then
             MESSAGE="<b>[THEME_ANALYSIS][Macro Futures] 완료</b>
-          KOSPI200 선물 포함 거시지표 갱신 (08:45)"
+          KOSPI200 지수 포함 거시지표 갱신"
           else
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
             MESSAGE="<b>[THEME_ANALYSIS][Macro Futures] 실패</b>
