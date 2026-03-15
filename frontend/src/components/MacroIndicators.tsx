@@ -268,20 +268,20 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
           </span>
           <span className="ml-auto text-[10px] font-medium text-primary/70 group-hover:text-primary transition-colors">상세보기 ›</span>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1.5">
           {(["kospi", "kosdaq"] as const).map((market) => {
             const d = latest[market]
             return (
-              <div key={market} className="bg-muted/40 rounded-lg px-3 py-2.5 border border-border/40">
-                <span className="text-[11px] font-bold text-foreground block mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</span>
-                <div className="grid grid-cols-3 gap-1.5">
+              <div key={market} className="bg-muted/40 rounded-lg px-2.5 py-1.5 border border-border/40">
+                <span className="text-[11px] font-bold text-foreground block mb-1">{market === "kospi" ? "코스피" : "코스닥"}</span>
+                <div className="grid grid-cols-3 gap-1">
                   {([
                     { label: "외국인", key: "foreign" as const },
                     { label: "기관", key: "institution" as const },
                     { label: "개인", key: "individual" as const },
                   ]).map(({ label, key }) => (
                     <div key={key} className="text-center">
-                      <span className="text-[9px] text-muted-foreground block leading-none mb-1">{label}</span>
+                      <span className="text-[9px] text-muted-foreground block leading-none mb-0.5">{label}</span>
                       <span className={`text-[11px] tabular-nums font-bold leading-none ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground"}`}>
                         {d[key] > 0 ? "+" : ""}{formatAmount(d[key])}
                       </span>
