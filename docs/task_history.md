@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 홈 섹션 헤더 폰트 크기·효과 통일 (2026-03-15 22:15 KST)
+- **변경 파일**: `frontend/src/components/MacroIndicators.tsx`, `frontend/src/components/KosdaqIndexAlert.tsx`
+- **내용**: 투자자 수급 섹션(font-bold→font-semibold, 아이콘·텍스트 색상 통일), 코스피/코스닥 지수 카드(font-medium→font-semibold, 아이콘 크기·색상 통일)를 거시지표/주요선물/환율 기준으로 맞춤.
+
 ### [기능] 주요 선물·투자자 수급 섹션에 날짜/시간 표시 및 히스토리 기능 추가 (2026-03-15 22:10 KST)
 - **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/hooks/useIndicatorHistory.ts`
 - **내용**: 주요 선물 섹션에 날짜·시간 표시 + 히스토리 바텀시트 팝업 추가. 투자자 수급 섹션에 시간 표시 + 히스토리 버튼 추가(최대 20일 표시). 백엔드에 선물/투자자 수급 30일 롤링 히스토리 축적 기능 추가.

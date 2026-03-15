@@ -333,8 +333,8 @@ export function IndexAlertSection({ kospi, kosdaq, investorTrend }: IndexAlertSe
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-muted-foreground" />
-            <span className="font-medium text-xs sm:text-sm truncate">{label}</span>
+            <BarChart3 className="w-3.5 h-3.5 shrink-0 text-muted-foreground/50" />
+            <span className="font-semibold text-xs sm:text-sm text-foreground/80 truncate">{label}</span>
             <span className={cn("text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-semibold border", sc.badge)}>
               {data.status}
             </span>
