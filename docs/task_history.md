@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 4개 탭을 하단 고정 메뉴바로 이동 (2026-03-15 17:47 KST)
+- **변경 파일**: `frontend/src/components/TabBar.tsx`, `frontend/src/App.tsx`, `frontend/src/index.css`
+- **내용**: 종합/거래대금/거래량/등락률 탭을 화면 하단 고정 메뉴바로 이동. 하위 컨트롤(구성 방식, 등락률 소스)은 TabControls로 분리하여 인라인 배치. safe-area-bottom 지원, 스크롤탑 버튼 위치 조정.
+
 ### [개선] 정규분포 기간탭·매매지침·버튼위치 전면 개편 (2026-03-15 15:54 KST)
 - **변경 파일**: `frontend/src/components/DistributionPopup.tsx`, `StockCard.tsx`
 - **내용**: 기간 탭을 1일~5일+한달로 변경(기본 5일). 매매 지침을 중립 표현으로 변경(적극 매수→극단적 저위치 등). 데이터 10개 미만 시 신뢰도 경고 표시. 버튼을 가격 좌측으로 이동, 명칭 '분포'→'정규분포'로 변경.

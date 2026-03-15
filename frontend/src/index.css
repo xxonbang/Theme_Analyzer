@@ -202,3 +202,8 @@ body {
     padding-right: 2rem;
   }
 }
+
+/* 하단 탭바 safe area (노치 디바이스) */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

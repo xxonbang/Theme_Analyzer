@@ -4,7 +4,7 @@ import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { AIThemeAnalysis } from "@/components/AIThemeAnalysis"
 import { StockList } from "@/components/StockList"
-import { TabBar } from "@/components/TabBar"
+import { TabBar, TabControls } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
 import { PaperTradingPage } from "@/components/PaperTradingPage"
 import { ThemeForecastPage } from "@/components/ThemeForecastPage"
@@ -848,7 +848,7 @@ function App() {
             </div>
           </div>
         )}
-        <TabBar
+        <TabControls
           activeTab={activeTab}
           onTabChange={handleTabChange}
           fluctuationMode={fluctuationMode}
@@ -1189,6 +1189,8 @@ function App() {
             <span>투자 판단의 책임은 본인에게 있습니다</span>
           </div>
         </footer>
+        {/* 하단 탭바 높이만큼 여백 */}
+        <div className="h-16" />
       </main>
 
       </>}
@@ -1203,12 +1205,20 @@ function App() {
         error={historyError}
       />
 
+      {/* 하단 고정 탭 바 (메인 대시보드에서만) */}
+      {currentPage === "home" && (
+        <TabBar
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
+      )}
+
       {/* Scroll to Top */}
       <button
         onClick={scrollToTop}
         aria-label="맨 위로 이동"
         className={cn(
-          "fixed bottom-6 right-6 z-50",
+          "fixed bottom-20 right-6 z-50",
           "w-10 h-10 rounded-full",
           "shadow-lg",
           "flex items-center justify-center",
