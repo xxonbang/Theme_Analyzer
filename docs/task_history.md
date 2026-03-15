@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [버그픽스] 바텀시트 팝업 시 배경 스크롤 잠금 (2026-03-15 21:17 KST)
+- **변경 파일**: `frontend/src/index.css`
+- **내용**: `body.popup-open { overflow: hidden; }` 추가하여 팝업 열림 시 배경 스크롤 차단.
+
 ### [버그픽스] 바텀시트 팝업 시 하단 탭바 숨김 처리 (2026-03-15 21:12 KST)
 - **변경 파일**: `frontend/src/hooks/useSwipeToDismiss.ts`, `frontend/src/components/TabBar.tsx`, `frontend/src/index.css`
 - **내용**: 바텀시트 팝업이 하단 탭바를 가리는 문제 해결. useSwipeToDismiss에서 mount/unmount 시 body에 popup-open 클래스 토글, CSS로 탭바 숨김.
