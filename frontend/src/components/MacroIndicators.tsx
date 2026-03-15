@@ -75,7 +75,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
         onClick={() => setExpanded(!expanded)}
         className="w-full cursor-pointer group text-left"
       >
-        <div className="flex items-center px-1 py-1 mb-1">
+        <div className="flex items-center px-1 py-1">
           <BarChart3 className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">주요 선물</span>
           {updatedAt && (
@@ -96,7 +96,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
 
         {/* 접힌 상태: 6칸 그리드 */}
         {!expanded && (
-          <div className="flex gap-px bg-border/30 rounded-md overflow-hidden">
+          <div className="flex gap-px bg-border/30 rounded-md overflow-hidden mt-1">
             {data.map((item) => {
               const isUp = item.change > 0
               const isDown = item.change < 0
@@ -111,7 +111,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 "GOLD_F": "금",
               }
               return (
-                <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1 ${bg}`}>
+                <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1.5 gap-0.5 ${bg}`}>
                   <span className="text-[9px] text-foreground/55 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
                   <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                     {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%

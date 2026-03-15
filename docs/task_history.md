@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 주요 선물 셀 높이를 거시지표와 통일 (2026-03-15 22:25 KST)
+- **변경 파일**: `frontend/src/components/MacroIndicators.tsx`
+- **내용**: 주요 선물 접힌 상태 셀의 세로 패딩(py-1→py-1.5)과 간격(gap-0.5) 추가하여 거시지표 셀과 동일한 높이로 통일. 헤더-그리드 간격도 거시지표와 동일하게 조정.
+
 ### [개선] 홈 섹션 헤더 폰트 크기·효과 통일 (2026-03-15 22:15 KST)
 - **변경 파일**: `frontend/src/components/MacroIndicators.tsx`, `frontend/src/components/KosdaqIndexAlert.tsx`
 - **내용**: 투자자 수급 섹션(font-bold→font-semibold, 아이콘·텍스트 색상 통일), 코스피/코스닥 지수 카드(font-medium→font-semibold, 아이콘 크기·색상 통일)를 거시지표/주요선물/환율 기준으로 맞춤.
