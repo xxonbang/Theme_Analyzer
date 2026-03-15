@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { ChevronDown, ChevronUp, BarChart3, History, X, TrendingUp } from "lucide-react"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
-import type { MacroIndicatorsData, InvestorTrendDay } from "@/hooks/useMacroIndicators"
+import type { MacroIndicatorsData, InvestorTrendDay, FuturesItem } from "@/hooks/useMacroIndicators"
 import type { IndicatorHistoryData } from "@/hooks/useIndicatorHistory"
 
 interface MacroIndicatorsProps {
@@ -25,6 +25,80 @@ const INDICATOR_DESC: Record<string, string> = {
   "SOXX": "iShares Semiconductor ETF. 미국 반도체 섹터 ETF. 삼성전자·SK하이닉스 등 한국 반도체주와 높은 상관관계.",
   "^VIX": "CBOE 변동성지수 (공포지수). S&P500 옵션의 내재 변동성 측정. 20 이하 안정, 30 이상 공포 구간.",
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
+}
+
+function FuturesBar({ data }: { data: FuturesItem[] }) {
+  const [expanded, setExpanded] = useState(false)
+
+  if (!data || data.length === 0) return null
+
+  return (
+    <div className="mt-1.5">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full cursor-pointer group text-left"
+      >
+        <div className="flex items-center px-1 py-1 mb-1">
+          <BarChart3 className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+          <span className="text-xs font-semibold text-foreground/80 ml-1.5">주요 선물</span>
+          <span className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground/50 transition-colors">
+            {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </span>
+        </div>
+
+        {/* 접힌 상태: 6칸 그리드 */}
+        {!expanded && (
+          <div className="flex gap-px bg-border/30 rounded-md overflow-hidden">
+            {data.map((item) => {
+              const isUp = item.change > 0
+              const isDown = item.change < 0
+              const bg = isUp ? "bg-rose-100 dark:bg-rose-950" : isDown ? "bg-sky-100 dark:bg-sky-950" : "bg-muted/50"
+              // 짧은 라벨
+              const shortName: Record<string, string> = {
+                "K200F_DAY": "K200주",
+                "K200F_NGT": "K200야",
+                "SPX_F": "S&P",
+                "NQ_F": "NQ",
+                "OIL_F": "원유",
+                "GOLD_F": "금",
+              }
+              return (
+                <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1 ${bg}`}>
+                  <span className="text-[9px] text-foreground/55 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
+                  <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                    {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </button>
+
+      {/* 펼친 상태 */}
+      {expanded && (
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-0.5 px-1">
+          {data.map((item) => {
+            const isUp = item.change > 0
+            const isDown = item.change < 0
+            const accent = isUp ? "border-l-red-500/60" : isDown ? "border-l-blue-500/60" : "border-l-border"
+            const priceStr = item.price >= 10000
+              ? item.price.toLocaleString(undefined, { maximumFractionDigits: 2 })
+              : item.price.toFixed(2)
+            return (
+              <div key={item.symbol} className={`rounded-md border border-border/50 border-l-2 ${accent} bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1`}>
+                <span className="text-[10px] text-muted-foreground/60 font-medium truncate leading-none">{item.name}</span>
+                <span className="text-[13px] font-bold tabular-nums tracking-tight leading-none text-foreground">{priceStr}</span>
+                <span className={`text-[10px] font-medium tabular-nums leading-none ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                  {isUp ? "+" : ""}{item.change_pct.toFixed(2)}%
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
 }
 
 function formatAmount(v: number): string {
@@ -481,6 +555,11 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           </div>
         </div>,
         document.body
+      )}
+
+      {/* 주요 선물 */}
+      {data.futures && data.futures.length > 0 && (
+        <FuturesBar data={data.futures} />
       )}
 
       {/* 투자자 수급 */}

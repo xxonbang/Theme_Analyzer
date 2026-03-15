@@ -26,11 +26,22 @@ export interface InvestorTrendDay {
   kosdaq: MarketInvestorEntry
 }
 
+export interface FuturesItem {
+  symbol: string
+  name: string
+  price: number
+  change: number
+  change_pct: number
+  status: string
+  source: string
+}
+
 export interface MacroIndicatorsData {
   updated_at: string
   indicators: MacroIndicator[]
   exchange?: ExchangeData
   investor_trend?: InvestorTrendDay[]
+  futures?: FuturesItem[]
 }
 
 interface UseMacroIndicatorsReturn {

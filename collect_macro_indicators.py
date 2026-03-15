@@ -226,6 +226,77 @@ def collect_overseas(client: KISClient, code: str, exchange: str, name: str) -> 
         return None
 
 
+ESIGNAL_ITEMS = [
+    {"file": "sparkline_day", "key": "day", "name": "코스피200 주간선물", "symbol": "K200F_DAY"},
+    {"file": "sparkline_ngt", "key": "ngt", "name": "코스피200 야간선물", "symbol": "K200F_NGT"},
+    {"file": "sparkline_spx", "key": "spx", "name": "S&P500 선물", "symbol": "SPX_F"},
+    {"file": "sparkline_nasdaq", "key": "nasdaq", "name": "나스닥 선물", "symbol": "NQ_F"},
+    {"file": "sparkline_oil", "key": "oil", "name": "원유 선물", "symbol": "OIL_F"},
+    {"file": "sparkline_gold", "key": "gold", "name": "금 선물", "symbol": "GOLD_F"},
+]
+
+ESIGNAL_HEADERS = {
+    "Referer": "https://esignal.co.kr/",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+}
+
+
+def collect_esignal_futures() -> list[dict]:
+    """esignal.co.kr에서 주요 선물 데이터 수집."""
+    import re
+
+    results = []
+    for item in ESIGNAL_ITEMS:
+        try:
+            url = f"https://esignal.co.kr/data/{item['file']}.js"
+            resp = requests.get(url, headers=ESIGNAL_HEADERS, timeout=10)
+            if resp.status_code != 200:
+                print(f"    [오류] {item['name']}: HTTP {resp.status_code}")
+                continue
+
+            text = resp.text
+
+            # sl_close_xxx = '809.25 (-16.55)' 파싱
+            close_match = re.search(
+                rf"sl_close_{item['key']}\s*=\s*'([^']+)'", text
+            )
+            if not close_match:
+                continue
+
+            close_str = close_match.group(1)  # e.g. "809.25 (-16.55)"
+            # 콤마 제거 후 파싱
+            clean = close_str.replace(",", "")
+            price_match = re.match(r"([\d.]+)\s*\(([+-]?[\d.]+)\)", clean)
+            if not price_match:
+                continue
+
+            price = float(price_match.group(1))
+            change = float(price_match.group(2))
+            prev = price - change
+            change_pct = round(change / prev * 100, 2) if prev else 0
+
+            # 상승/하락 상태
+            bg_match = re.search(rf"sl_bg_{item['key']}\s*=\s*'([^']+)'", text)
+            status = ""
+            if bg_match:
+                bg = bg_match.group(1)
+                status = "up" if bg == "bk-bg-danger" else ("down" if bg == "bk-bg-primary" else "flat")
+
+            results.append({
+                "symbol": item["symbol"],
+                "name": item["name"],
+                "price": price,
+                "change": change,
+                "change_pct": change_pct,
+                "status": status,
+                "source": "esignal",
+            })
+        except Exception as e:
+            print(f"    [오류] {item['name']}: {e}")
+
+    return results
+
+
 def collect_market_investor_trend(client: KISClient, days: int = 20) -> list[dict] | None:
     """코스피/코스닥 시장 전체 투자자별 순매수 일별 데이터 수집.
 
@@ -342,7 +413,17 @@ def main():
     else:
         print("    → 환율 수집 실패")
 
-    # 8. 시장별 투자자 수급 (KIS)
+    # 8. 주요 선물 (esignal.co.kr)
+    print("  주요 선물 (esignal)...")
+    esignal_futures = collect_esignal_futures()
+    if esignal_futures:
+        print(f"    → {len(esignal_futures)}개 종목 수집 완료")
+        for f in esignal_futures:
+            print(f"      {f['name']}: {f['price']} ({f['change']:+.2f}, {f['change_pct']:+.2f}%)")
+    else:
+        print("    → 선물 수집 실패")
+
+    # 9. 시장별 투자자 수급 (KIS)
     print("  시장별 투자자 수급...")
     investor_trend = collect_market_investor_trend(client)
     if investor_trend:
@@ -357,6 +438,7 @@ def main():
         "indicators": indicators,
         "exchange": exchange,
         "investor_trend": investor_trend,
+        "futures": esignal_futures if esignal_futures else None,
     }
 
     if test_mode:
