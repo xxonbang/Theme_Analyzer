@@ -279,7 +279,7 @@ function MethodologyPopup({ onClose }: { onClose: () => void }) {
   return createPortal(
     <div className="fixed inset-0 z-[10000]" onClick={onClose}>
       <div className="absolute inset-0 bg-black/50" />
-      <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 bg-background rounded-2xl shadow-2xl max-h-[80vh] overflow-y-auto"
+      <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 bg-background rounded-2xl shadow-2xl max-h-[80vh] overflow-y-auto overscroll-contain"
         onClick={(e) => e.stopPropagation()}>
         <div className="px-4 py-3 border-b border-border/50 flex items-center justify-between sticky top-0 bg-background rounded-t-2xl">
           <h3 className="text-sm font-semibold">분석 방법론</h3>
@@ -398,7 +398,7 @@ export default function DistributionPopup({
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
       <div
         ref={sheetRef}
-        className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto"
+        className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto overscroll-contain"
       >
         <div ref={handleRef} className="flex justify-center pt-2 pb-1 cursor-grab">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
