@@ -6,6 +6,11 @@
 
 ## 2026-03-15
 
+### [버그픽스] 홈 탭 스크롤 불가 및 하단 메뉴바 사라짐 근본 원인 수정 (2026-03-15 21:53 KST)
+- **변경 파일**: `frontend/src/hooks/useSwipeToDismiss.ts`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/components/ExchangeRate.tsx`
+- **내용**: useSwipeToDismiss 훅이 마운트 시 무조건 popup-open 클래스를 body에 추가하는 것이 근본 원인. isOpen 파라미터 추가하여 팝업이 실제로 열렸을 때만 적용하도록 수정. MacroIndicators(InvestorTrendBar, 거시지표 히스토리), ExchangeRate 3곳에 적용.
+- **원인**: 항상 마운트되는 컴포넌트에서 useSwipeToDismiss를 무조건 호출 → popup-open 클래스 상시 적용 → overflow:hidden + 탭바 display:none
+
 ### [버그픽스] 홈 탭 스크롤 불가 및 하단 메뉴바 사라짐 수정 (2026-03-15 21:39 KST)
 - **변경 파일**: `frontend/src/App.tsx`
 - **내용**: 홈 탭에서 sticky 컨테이너(TabControls+퀵네비) 전체를 렌더링하지 않도록 변경. headerHidden에 의한 display:none 부작용 제거.

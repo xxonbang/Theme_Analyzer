@@ -109,7 +109,7 @@ function formatAmount(v: number): string {
 
 function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
   const [showDetail, setShowDetail] = useState(false)
-  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false))
+  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false), 80, showDetail)
 
   useEffect(() => {
     if (!showDetail) return
@@ -384,7 +384,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
   const [showHistory, setShowHistory] = useState(false)
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null)
   const [chartHidden, setChartHidden] = useState<Set<string>>(new Set())
-  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false))
+  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
 
   // 스크롤 잠금
   useEffect(() => {

@@ -4,7 +4,7 @@ import { useRef, useEffect, useCallback } from "react"
  * Bottom sheet 핸들 바를 아래로 스와이프하면 닫히는 동작.
  * handleRef → 드래그 핸들 영역, sheetRef → bottom sheet 컨테이너.
  */
-export function useSwipeToDismiss(onClose: () => void, threshold = 80) {
+export function useSwipeToDismiss(onClose: () => void, threshold = 80, isOpen = true) {
   const handleRef = useRef<HTMLDivElement>(null)
   const sheetRef = useRef<HTMLDivElement>(null)
   const startY = useRef(0)
@@ -14,9 +14,10 @@ export function useSwipeToDismiss(onClose: () => void, threshold = 80) {
 
   // 팝업 열림 시 하단 탭바 숨기기
   useEffect(() => {
+    if (!isOpen) return
     document.body.classList.add("popup-open")
     return () => { document.body.classList.remove("popup-open") }
-  }, [])
+  }, [isOpen])
 
   useEffect(() => {
     const handle = handleRef.current

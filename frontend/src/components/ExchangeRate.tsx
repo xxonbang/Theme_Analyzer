@@ -88,7 +88,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [chartCurrency, setChartCurrency] = useState("USD")
-  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false))
+  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
 
   // 스크롤 잠금
   useEffect(() => {
