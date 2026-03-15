@@ -208,12 +208,15 @@ function BellCurveChart({
         {showResistance && vpOverlay && vpOverlay.resistanceBins.map((bin, i) => {
           if (!isInRange(bin.price)) return null
           const bx = valToX(bin.price)
+          const isSupport = bin.price <= current
+          const srLabel = isSupport ? "S" : "R"
+          const srColor = isSupport ? "#22c55e" : "#ef4444"
           return (
             <g key={`sr-${i}`}>
               <line x1={bx} y1={PAD.top} x2={bx} y2={PAD.top + PH}
-                stroke="#a855f7" strokeWidth={1} strokeDasharray="4,2" opacity={0.5} />
+                stroke={srColor} strokeWidth={1} strokeDasharray="4,2" opacity={0.5} />
               <text x={bx + 3} y={PAD.top + 10 + i * 10} fontSize={7}
-                fill="#a855f7" opacity={0.7}>S/R</text>
+                fill={srColor} opacity={0.8} fontWeight="bold">{srLabel}</text>
             </g>
           )
         })}
@@ -539,7 +542,9 @@ export default function DistributionPopup({
                 {" · "}
                 <span className="text-amber-500">POC</span> 최대 거래량 집중 가격대
                 {" · "}
-                <span className="text-purple-500">S/R</span> 고거래량 지지/저항
+                <span className="text-green-500">S</span> 지지(현재가 이하)
+                {" · "}
+                <span className="text-red-500">R</span> 저항(현재가 이상)
               </div>
             )}
           </div>

@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 매물대 지지/저항 라벨 구분 (S/R → S, R 분리) (2026-03-15 15:44 KST)
+- **변경 파일**: `frontend/src/components/DistributionPopup.tsx`
+- **내용**: 현재가 기준으로 지지(S, 녹색)와 저항(R, 빨간색)을 구분 표시. 범례도 S/R 통합에서 개별 설명으로 변경.
+
 ### [버그픽스] 분포 분석 팝업 배경 스크롤 전파 방지 (2026-03-15 15:41 KST)
 - **변경 파일**: `frontend/src/components/DistributionPopup.tsx`
 - **내용**: 방법론 팝업 및 분포 분석 Bottom Sheet에 `overscroll-contain` 적용하여 내부 스크롤 끝 도달 시 배경 페이지 스크롤 전파 차단.
