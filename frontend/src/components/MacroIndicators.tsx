@@ -150,29 +150,27 @@ function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
         onClick={() => setShowDetail(true)}
         className="w-full mt-1.5 cursor-pointer group text-left"
       >
-        <div className="flex items-center px-1 py-1 mb-1">
-          <TrendingUp className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
-          <span className="text-xs font-semibold text-foreground/80 ml-1.5">투자자 수급</span>
-          <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{latest.date.slice(5).replace("-", "/")}</span>
-          <span className="ml-auto text-[9px] text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors">상세보기</span>
+        <div className="flex items-center px-1 py-1.5 mb-1">
+          <TrendingUp className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+          <span className="text-xs font-bold text-foreground ml-1.5">투자자 수급</span>
+          <span className="text-[10px] text-muted-foreground tabular-nums ml-1.5">{latest.date.slice(5).replace("-", "/")}</span>
+          <span className="ml-auto text-[10px] font-medium text-primary/70 group-hover:text-primary transition-colors">상세보기 ›</span>
         </div>
-        <div className="grid grid-cols-2 gap-px bg-border/30 rounded-md overflow-hidden">
+        <div className="grid grid-cols-2 gap-2">
           {(["kospi", "kosdaq"] as const).map((market) => {
             const d = latest[market]
             return (
-              <div key={market} className="bg-card/60 px-2.5 py-1.5">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-semibold text-foreground/70">{market === "kospi" ? "코스피" : "코스닥"}</span>
-                </div>
-                <div className="grid grid-cols-3 gap-1">
+              <div key={market} className="bg-muted/40 rounded-lg px-3 py-2.5 border border-border/40">
+                <span className="text-[11px] font-bold text-foreground block mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</span>
+                <div className="grid grid-cols-3 gap-1.5">
                   {([
                     { label: "외국인", key: "foreign" as const },
                     { label: "기관", key: "institution" as const },
                     { label: "개인", key: "individual" as const },
                   ]).map(({ label, key }) => (
                     <div key={key} className="text-center">
-                      <span className="text-[9px] text-muted-foreground/60 block leading-none mb-0.5">{label}</span>
-                      <span className={`text-[10px] tabular-nums font-semibold leading-none ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                      <span className="text-[9px] text-muted-foreground block leading-none mb-1">{label}</span>
+                      <span className={`text-[11px] tabular-nums font-bold leading-none ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground"}`}>
                         {d[key] > 0 ? "+" : ""}{formatAmount(d[key])}
                       </span>
                     </div>
