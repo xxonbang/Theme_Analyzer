@@ -375,14 +375,7 @@ def main():
     # 2. KIS 클라이언트
     client = KISClient()
 
-    # 3. KOSPI200 선물
-    print("  KOSPI200 선물...")
-    futures = collect_kospi200_futures(client)
-    if futures:
-        indicators.append(futures)
-        print(f"    → {futures['price']} ({futures['change']:+.2f}, {futures['change_pct']:+.2f}%)")
-
-    # 4. 해외 종목
+    # 3. 해외 종목
     for code, exchange, name in OVERSEAS_ITEMS:
         print(f"  {code} ({name})...")
         item = collect_overseas(client, code, exchange, name)

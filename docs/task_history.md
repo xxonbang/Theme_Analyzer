@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 거시지표에서 K200(KOSPI200F) 항목 제거 (2026-03-15 14:31 KST)
+- **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`
+- **내용**: esignal 선물 섹션으로 대체되므로 거시지표에서 KOSPI200F 수집 및 표시 제거. SUMMARY_SYMBOLS, SHORT_NAMES, INDICATOR_DESC 정리.
+
 ### [기능] esignal.co.kr 주요 선물 데이터 수집 및 표시 추가 (2026-03-15 14:18 KST)
 - **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/hooks/useMacroIndicators.ts`
 - **내용**: esignal.co.kr에서 6개 선물 데이터 수집(코스피200 주간/야간, S&P500, 나스닥, 원유, 금). 거시지표 아래에 선물 요약 바 + 펼침 상세 카드 표시.

@@ -12,14 +12,12 @@ interface MacroIndicatorsProps {
   onRequestHistory?: () => void
 }
 
-const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200F", "069500", "EWY", "KORU", "^VIX", "FNG"]
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "069500": "K200F", "^VIX": "VIX", "FNG": "F&G" }
+const SUMMARY_SYMBOLS = ["NQ=F", "EWY", "KORU", "^VIX", "FNG"]
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "^VIX": "VIX", "FNG": "F&G" }
 const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
 
 const INDICATOR_DESC: Record<string, string> = {
   "NQ=F": "나스닥100 선물 (E-mini). 미국 기술주 100개 종목 선물지수. 한국 시장 개장 전 미국 시장 방향성을 가늠하는 핵심 지표.",
-  "KOSPI200F": "코스피200 선물. 코스피200 지수를 기초자산으로 하는 파생상품. 기관/외국인 수급 방향을 선행적으로 반영.",
-  "069500": "KODEX 200 ETF (코스피200 지수 추종). 코스피200 현물 지수의 실시간 대리 지표로 활용.",
   "EWY": "iShares MSCI South Korea ETF. 미국에 상장된 한국 대표 ETF. 외국인 투자자의 한국 시장 투자 심리를 반영.",
   "KORU": "Direxion Daily South Korea Bull 3X. 한국 시장 3배 레버리지 ETF. 외국인의 한국 시장 공격적 매수/매도 심리 반영.",
   "SOXX": "iShares Semiconductor ETF. 미국 반도체 섹터 ETF. 삼성전자·SK하이닉스 등 한국 반도체주와 높은 상관관계.",
@@ -425,7 +423,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
   const historyRows = history?.macro
     ? data.indicators.map((item) => {
         const entries = (history.macro[item.symbol] || []).slice(-10)
-        const shortName = SHORT_NAMES[item.symbol] || (item.symbol === "KOSPI200F" ? (item.name.includes("지수") ? "K200" : "K200F") : item.name)
+        const shortName = SHORT_NAMES[item.symbol] || item.name
         return { symbol: item.symbol, name: shortName, entries }
       })
     : []
@@ -468,7 +466,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             {summaryItems.map((item) => {
               const isUp = item.change_pct > 0
               const isDown = item.change_pct < 0
-              const name = SHORT_NAMES[item.symbol] || (item.symbol === "KOSPI200F" ? (item.name.includes("지수") ? "K200" : "K200F") : item.name)
+              const name = SHORT_NAMES[item.symbol] || item.name
               const isFng = item.symbol === "FNG"
               const isVix = item.symbol === "^VIX"
               const bg = isFng
