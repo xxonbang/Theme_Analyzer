@@ -9,7 +9,7 @@ import type { InvestorTrendDay } from "@/hooks/useMacroIndicators"
 // 차트 상수
 const CW = 340
 const CH = 120
-const PAD = { top: 10, right: 12, bottom: 20, left: 36 }
+const PAD = { top: 10, right: 16, bottom: 22, left: 40 }
 const PW = CW - PAD.left - PAD.right
 const PH = CH - PAD.top - PAD.bottom
 
@@ -55,8 +55,8 @@ function MiniLineChart({
         <g key={i}>
           <line x1={PAD.left} y1={t.y} x2={PAD.left + PW} y2={t.y}
             stroke="currentColor" className="text-border" strokeWidth={0.5} strokeDasharray="3,3" />
-          <text x={PAD.left - 4} y={t.y + 3} textAnchor="end" fontSize={7}
-            className="fill-muted-foreground" opacity={0.5}>{formatY(t.val)}</text>
+          <text x={PAD.left - 4} y={t.y + 3} textAnchor="end" fontSize={9}
+            className="fill-muted-foreground" opacity={0.8}>{formatY(t.val)}</text>
         </g>
       ))}
 
@@ -69,10 +69,12 @@ function MiniLineChart({
       {/* X축 라벨 */}
       {labels.map((l, i) => {
         if (labels.length > 10 && i % 2 !== 0 && i !== labels.length - 1) return null
+        // 마지막 라벨과 겹침 방지: 마지막 직전 라벨 스킵
+        if (labels.length > 5 && i === labels.length - 2) return null
         const x = PAD.left + (i / (labels.length - 1)) * PW
         return (
-          <text key={i} x={x} y={PAD.top + PH + 12} textAnchor="middle" fontSize={7}
-            className="fill-muted-foreground" opacity={0.5}>{l}</text>
+          <text key={i} x={x} y={PAD.top + PH + 14} textAnchor="middle" fontSize={9}
+            className="fill-muted-foreground" opacity={0.8}>{l}</text>
         )
       })}
 
@@ -106,12 +108,14 @@ function IndexDetailPopup({
   const [tab, setTab] = useState<Tab>("change")
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
-  // 등락률 탭 데이터 (최근→과거 순서를 과거→최근으로 역순)
-  const changeDays = useMemo(() => [...trendData].reverse(), [trendData])
-  const changeValues = changeDays.map((d) => d[market].change_pct)
-  const changeLabels = changeDays.map((d) => d.date.slice(5).replace("-", "/"))
-  const indexValues = changeDays.map((d) => d[market].index)
+  // 등락률 탭 데이터 (trendData: oldest→newest, 차트용 그대로 사용)
+  const chartDays = trendData
+  const changeValues = chartDays.map((d) => d[market].change_pct)
+  const changeLabels = chartDays.map((d) => d.date.slice(5).replace("-", "/"))
+  const indexValues = chartDays.map((d) => d[market].index)
   const indexLabels = changeLabels
+  // 테이블용: 최신→과거 역순
+  const tableDays = useMemo(() => [...trendData].reverse(), [trendData])
 
   // 이동평균선 탭 데이터
   const maValues = [
@@ -208,9 +212,9 @@ function IndexDetailPopup({
                   </tr>
                 </thead>
                 <tbody>
-                  {[...changeDays].reverse().map((day, di) => {
+                  {tableDays.map((day, di) => {
                     const d = day[market]
-                    const prevDay = changeDays[changeDays.length - 1 - di - 1]
+                    const prevDay = tableDays[di + 1]
                     const prevIdx = prevDay ? prevDay[market].index : null
                     const diff = prevIdx ? d.index - prevIdx : null
                     return (

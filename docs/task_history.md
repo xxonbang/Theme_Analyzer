@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 장중 차트 X/Y축 라벨 가독성 및 정렬 개선 (2026-03-15 15:33 KST)
+- **변경 파일**: `frontend/src/components/KosdaqIndexAlert.tsx`
+- **내용**: MiniLineChart X/Y축 라벨 fontSize 7→9, opacity 0.5→0.8로 가독성 향상. X축 데이터 순서 수정(최신 날짜가 오른쪽). 우측 라벨 겹침 방지. PAD 여유 확보.
+
 ### [개선] 지수 이동평균선 팝업에서 MA 그리드 카드 제거 (2026-03-15 15:27 KST)
 - **변경 파일**: `frontend/src/components/KosdaqIndexAlert.tsx`
 - **내용**: 이동평균선 탭에서 현재가 헤더+MA 그리드 카드 제거. 하단 테이블과 중복되므로 차트+테이블만 유지.
