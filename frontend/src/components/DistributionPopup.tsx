@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
-import { X } from "lucide-react"
+import { X, Info } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
 import type { FundamentalInfo, StockVolumeProfile, VolumeProfileBin } from "@/types/stock"
 
@@ -19,10 +19,10 @@ interface DistributionPopupProps {
   onClose: () => void
 }
 
-type Period = "1M" | "3M" | "6M" | "1Y"
-const PERIOD_DAYS: Record<Period, number> = { "1M": 22, "3M": 66, "6M": 132, "1Y": 252 }
-const PERIOD_LABELS: Record<Period, string> = { "1M": "1개월", "3M": "3개월", "6M": "6개월", "1Y": "1년" }
-const PERIOD_TO_VP: Record<Period, string> = { "1M": "1m", "3M": "3m", "6M": "6m", "1Y": "1y" }
+type Period = "1W" | "1M" | "3M" | "6M" | "1Y"
+const PERIOD_DAYS: Record<Period, number> = { "1W": 5, "1M": 22, "3M": 66, "6M": 132, "1Y": 252 }
+const PERIOD_LABELS: Record<Period, string> = { "1W": "1주", "1M": "1개월", "3M": "3개월", "6M": "6개월", "1Y": "1년" }
+const PERIOD_TO_VP: Record<Period, string> = { "1W": "1m", "1M": "1m", "3M": "3m", "6M": "6m", "1Y": "1y" }
 
 // 차트 상수
 const CW = 360
@@ -275,6 +275,69 @@ function BellCurveChart({
   )
 }
 
+function MethodologyPopup({ onClose }: { onClose: () => void }) {
+  return createPortal(
+    <div className="fixed inset-0 z-[10000]" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 bg-background rounded-2xl shadow-2xl max-h-[80vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}>
+        <div className="px-4 py-3 border-b border-border/50 flex items-center justify-between sticky top-0 bg-background rounded-t-2xl">
+          <h3 className="text-sm font-semibold">분석 방법론</h3>
+          <button onClick={onClose} className="p-1 rounded-lg hover:bg-muted">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="px-4 py-3 text-[11px] text-foreground/90 leading-relaxed space-y-3">
+          <section>
+            <h4 className="font-semibold text-xs mb-1">데이터 기반</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-muted-foreground">
+              <li><span className="text-foreground font-medium">가격 분포</span>: KIS(한국투자증권) API에서 수집한 종목별 일별 종가(최대 200거래일)</li>
+              <li><span className="text-foreground font-medium">PER 분포</span>: 일별 종가 ÷ EPS(주당순이익)로 산출한 일별 PER</li>
+              <li><span className="text-foreground font-medium">매물대(POC/S/R)</span>: KIS API 매물대 데이터 — 가격대별 거래량 분포</li>
+            </ul>
+          </section>
+          <section>
+            <h4 className="font-semibold text-xs mb-1">계산 방법</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-muted-foreground">
+              <li><span className="text-foreground font-medium">평균(μ)</span>: 선택 기간 내 종가(또는 PER)의 산술평균</li>
+              <li><span className="text-foreground font-medium">표준편차(σ)</span>: 표본 표준편차 (N-1 보정)</li>
+              <li><span className="text-foreground font-medium">Z-Score</span>: (현재값 - 평균) ÷ 표준편차 — 평균 대비 현재 위치를 σ 단위로 표현</li>
+              <li><span className="text-foreground font-medium">정규분포 곡선</span>: 평균·표준편차 기반 확률밀도함수(PDF) 시각화</li>
+            </ul>
+          </section>
+          <section>
+            <h4 className="font-semibold text-xs mb-1">σ 구간 해석</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-muted-foreground">
+              <li><span className="text-green-500 font-medium">±1σ 이내</span>: 정상 범위 — 통계적으로 68%의 데이터가 분포하는 구간</li>
+              <li><span className="text-yellow-500 font-medium">±1~2σ</span>: 주의 구간 — 95% 범위의 외곽, 추세 전환 가능성</li>
+              <li><span className="text-red-500 font-medium">±2σ 초과</span>: 극단값 — 상위/하위 2.5%, 평균 회귀 가능성 높음</li>
+            </ul>
+          </section>
+          <section>
+            <h4 className="font-semibold text-xs mb-1">매매 지침 기준</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-muted-foreground">
+              <li><span className="text-red-500 font-medium">-2σ 이하</span>: 적극 매수 — 극도의 저평가 구간</li>
+              <li><span className="text-red-400 font-medium">-1~-2σ</span>: 분할 매수 — 평균 이하 저평가</li>
+              <li><span className="text-green-500 font-medium">±1σ 이내</span>: 관망/보유 — 정상 가격대</li>
+              <li><span className="text-blue-400 font-medium">+1~+2σ</span>: 분할 매도 — 평균 이상 고평가</li>
+              <li><span className="text-blue-500 font-medium">+2σ 이상</span>: 적극 매도 — 극도의 고평가 구간</li>
+            </ul>
+          </section>
+          <section className="pb-1">
+            <h4 className="font-semibold text-xs mb-1">유의사항</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-muted-foreground">
+              <li>정규분포 가정은 주가의 단기 변동에 대한 근사적 모델이며, 실제 주가는 비대칭·두꺼운 꼬리 분포를 가질 수 있습니다.</li>
+              <li>매매 지침은 통계적 참고 지표이며, 투자 결정은 다양한 요인을 종합 고려해야 합니다.</li>
+              <li>기간이 짧을수록(1주) 데이터 수가 적어 신뢰도가 낮아질 수 있습니다.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>,
+    document.body
+  )
+}
+
 export default function DistributionPopup({
   stockName,
   currentPrice,
@@ -286,6 +349,7 @@ export default function DistributionPopup({
   const [period, setPeriod] = useState<Period>("3M")
   const [showPoc, setShowPoc] = useState(true)
   const [showResistance, setShowResistance] = useState(false)
+  const [showMethodology, setShowMethodology] = useState(false)
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   const prices = useMemo(() => {
@@ -349,9 +413,16 @@ export default function DistributionPopup({
                 정규분포 기반 가격·밸류에이션 위치 분석
               </p>
             </div>
-            <button onClick={onClose} className="p-1 rounded-lg hover:bg-muted">
-              <X className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button onClick={() => setShowMethodology(true)}
+                className="p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                title="분석 방법론">
+                <Info className="w-4 h-4" />
+              </button>
+              <button onClick={onClose} className="p-1 rounded-lg hover:bg-muted">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* 기간 선택 + 매물대 토글 */}
@@ -474,6 +545,7 @@ export default function DistributionPopup({
           </div>
         </div>
       </div>
+      {showMethodology && <MethodologyPopup onClose={() => setShowMethodology(false)} />}
     </div>,
     document.body
   )

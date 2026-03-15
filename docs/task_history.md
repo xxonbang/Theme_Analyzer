@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [기능] 분포 분석 방법론 설명 팝업 및 1주 기간 추가 (2026-03-15 15:38 KST)
+- **변경 파일**: `frontend/src/components/DistributionPopup.tsx`
+- **내용**: 헤더에 Info 아이콘 버튼 추가 → 클릭 시 데이터 기반·계산 방법·σ 구간 해석·매매 지침·유의사항 설명 팝업. 기간 선택에 "1주"(5거래일) 옵션 추가.
+
 ### [개선] 장중 차트 X/Y축 라벨 가독성 및 정렬 개선 (2026-03-15 15:33 KST)
 - **변경 파일**: `frontend/src/components/KosdaqIndexAlert.tsx`
 - **내용**: MiniLineChart X/Y축 라벨 fontSize 7→9, opacity 0.5→0.8로 가독성 향상. X축 데이터 순서 수정(최신 날짜가 오른쪽). 우측 라벨 겹침 방지. PAD 여유 확보.
