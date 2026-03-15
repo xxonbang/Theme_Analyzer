@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [버그픽스] 장중 탭 컬럼명 수정: 종가→현재가 (2026-03-15 14:08 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`
+- **내용**: 장중 탭 테이블 헤더의 "종가"를 "현재가"로 수정. 시간대별 데이터에 적합한 용어로 변경.
+
 ### [기능] 거시지표에 코스피/코스닥 투자자 수급 데이터 추가 (2026-03-15 08:26 KST)
 - **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/hooks/useMacroIndicators.ts`
 - **내용**: KIS API(FHPTJ04040000) 시장별 투자자매매동향(일별) 20일분 수집. 거시지표 하단에 코스피/코스닥 외국인/기관/개인 순매수 요약 표시. 클릭 시 5일간 상세 Bottom Sheet.

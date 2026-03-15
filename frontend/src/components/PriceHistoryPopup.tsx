@@ -397,7 +397,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
             {/* 테이블 헤더 */}
             <div className="flex items-center gap-x-2 text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
               <span className="w-10 shrink-0">시간</span>
-              <span className="flex-[4] text-right">종가</span>
+              <span className="flex-[4] text-right">현재가</span>
               <span className="flex-[3] text-right">등락률</span>
               <span className="flex-[3] text-right">거래량</span>
             </div>
