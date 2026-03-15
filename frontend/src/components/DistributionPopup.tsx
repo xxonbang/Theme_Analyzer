@@ -19,10 +19,10 @@ interface DistributionPopupProps {
   onClose: () => void
 }
 
-type Period = "1W" | "1M" | "3M" | "6M" | "1Y"
-const PERIOD_DAYS: Record<Period, number> = { "1W": 5, "1M": 22, "3M": 66, "6M": 132, "1Y": 252 }
-const PERIOD_LABELS: Record<Period, string> = { "1W": "1주", "1M": "1개월", "3M": "3개월", "6M": "6개월", "1Y": "1년" }
-const PERIOD_TO_VP: Record<Period, string> = { "1W": "1m", "1M": "1m", "3M": "3m", "6M": "6m", "1Y": "1y" }
+type Period = "1D" | "2D" | "3D" | "4D" | "5D" | "1M"
+const PERIOD_DAYS: Record<Period, number> = { "1D": 1, "2D": 2, "3D": 3, "4D": 4, "5D": 5, "1M": 22 }
+const PERIOD_LABELS: Record<Period, string> = { "1D": "1일", "2D": "2일", "3D": "3일", "4D": "4일", "5D": "5일", "1M": "한달" }
+const PERIOD_TO_VP: Record<Period, string> = { "1D": "1m", "2D": "1m", "3D": "1m", "4D": "1m", "5D": "1m", "1M": "1m" }
 
 // 차트 상수
 const CW = 360
@@ -38,7 +38,7 @@ function normalPdf(x: number, mean: number, std: number): number {
 }
 
 function calcStats(values: number[]): { mean: number; std: number; min: number; max: number } | null {
-  if (values.length < 3) return null
+  if (values.length < 2) return null
   const mean = values.reduce((a, b) => a + b, 0) / values.length
   const variance = values.reduce((a, v) => a + (v - mean) ** 2, 0) / (values.length - 1)
   const std = Math.sqrt(variance)
@@ -139,17 +139,17 @@ function BellCurveChart({
 
   const getSigmaLabel = (z: number) => {
     const absZ = Math.abs(z)
-    if (absZ <= 1) return "정상 범위"
-    if (absZ <= 2) return z > 0 ? "고평가 주의" : "저평가 구간"
-    return z > 0 ? "과대평가" : "과소평가"
+    if (absZ <= 1) return "평균 근처"
+    if (absZ <= 2) return z > 0 ? "통계적 고위치" : "통계적 저위치"
+    return z > 0 ? "극단적 고위치" : "극단적 저위치"
   }
 
   const getActionGuide = (z: number) => {
-    if (z <= -2) return { text: "적극 매수", color: "text-red-500 bg-red-500/10" }
-    if (z <= -1) return { text: "분할 매수", color: "text-red-400 bg-red-400/10" }
-    if (z < 1) return { text: "관망/보유", color: "text-green-500 bg-green-500/10" }
-    if (z < 2) return { text: "분할 매도", color: "text-blue-400 bg-blue-400/10" }
-    return { text: "적극 매도", color: "text-blue-500 bg-blue-500/10" }
+    if (z <= -2) return { text: "극단적 저위치", color: "text-blue-500 bg-blue-500/10" }
+    if (z <= -1) return { text: "평균 하회", color: "text-blue-400 bg-blue-400/10" }
+    if (z < 1) return { text: "평균 근처", color: "text-green-500 bg-green-500/10" }
+    if (z < 2) return { text: "평균 상회", color: "text-amber-500 bg-amber-500/10" }
+    return { text: "극단적 고위치", color: "text-red-500 bg-red-500/10" }
   }
 
   const action = getActionGuide(zScore)
@@ -274,6 +274,11 @@ function BellCurveChart({
           <div className="font-mono font-medium text-foreground">{values.length}일</div>
         </div>
       </div>
+      {values.length < 10 && (
+        <div className="mt-1.5 text-center text-[9px] text-amber-500 font-medium">
+          ⚠ 데이터 {values.length}개 — 참고용 (통계적 신뢰도 낮음)
+        </div>
+      )}
     </div>
   )
 }
@@ -317,13 +322,13 @@ function MethodologyPopup({ onClose }: { onClose: () => void }) {
             </ul>
           </section>
           <section>
-            <h4 className="font-semibold text-xs mb-1">매매 지침 기준</h4>
+            <h4 className="font-semibold text-xs mb-1">위치 해석 기준</h4>
             <ul className="list-disc pl-4 space-y-0.5 text-muted-foreground">
-              <li><span className="text-red-500 font-medium">-2σ 이하</span>: 적극 매수 — 극도의 저평가 구간</li>
-              <li><span className="text-red-400 font-medium">-1~-2σ</span>: 분할 매수 — 평균 이하 저평가</li>
-              <li><span className="text-green-500 font-medium">±1σ 이내</span>: 관망/보유 — 정상 가격대</li>
-              <li><span className="text-blue-400 font-medium">+1~+2σ</span>: 분할 매도 — 평균 이상 고평가</li>
-              <li><span className="text-blue-500 font-medium">+2σ 이상</span>: 적극 매도 — 극도의 고평가 구간</li>
+              <li><span className="text-blue-500 font-medium">-2σ 이하</span>: 극단적 저위치 — 선택 기간 내 하위 2.5% 구간</li>
+              <li><span className="text-blue-400 font-medium">-1~-2σ</span>: 평균 하회 — 선택 기간 평균 이하</li>
+              <li><span className="text-green-500 font-medium">±1σ 이내</span>: 평균 근처 — 통계적 정상 범위 (68%)</li>
+              <li><span className="text-amber-500 font-medium">+1~+2σ</span>: 평균 상회 — 선택 기간 평균 이상</li>
+              <li><span className="text-red-500 font-medium">+2σ 이상</span>: 극단적 고위치 — 선택 기간 내 상위 2.5% 구간</li>
             </ul>
           </section>
           <section className="pb-1">
@@ -349,7 +354,7 @@ export default function DistributionPopup({
   volumeProfile,
   onClose,
 }: DistributionPopupProps) {
-  const [period, setPeriod] = useState<Period>("3M")
+  const [period, setPeriod] = useState<Period>("5D")
   const [showPoc, setShowPoc] = useState(true)
   const [showResistance, setShowResistance] = useState(false)
   const [showMethodology, setShowMethodology] = useState(false)
@@ -524,17 +529,17 @@ export default function DistributionPopup({
               <span className="text-red-500">±2σ↑</span> 극단값
             </div>
             <div>
-              <span className="font-medium text-foreground">매매 지침</span>
+              <span className="font-medium text-foreground">위치 해석</span>
               {" · "}
-              <span className="text-red-500">-2σ↓</span> 적극 매수
+              <span className="text-blue-500">-2σ↓</span> 극단적 저위치
               {" · "}
-              <span className="text-red-400">-1~-2σ</span> 분할 매수
+              <span className="text-blue-400">-1~-2σ</span> 평균 하회
               {" · "}
-              <span className="text-green-500">±1σ</span> 관망/보유
+              <span className="text-green-500">±1σ</span> 평균 근처
               {" · "}
-              <span className="text-blue-400">+1~+2σ</span> 분할 매도
+              <span className="text-amber-500">+1~+2σ</span> 평균 상회
               {" · "}
-              <span className="text-blue-500">+2σ↑</span> 적극 매도
+              <span className="text-red-500">+2σ↑</span> 극단적 고위치
             </div>
             {hasVp && (
               <div>

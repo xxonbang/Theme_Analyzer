@@ -167,10 +167,20 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
 
           {/* Right: Price + Change */}
           <div className="text-right shrink-0">
-            <p className="font-bold text-sm sm:text-base tabular-nums">
-              {formatPrice(stock.current_price)}
-              <span className="text-muted-foreground text-[10px] sm:text-xs ml-0.5">원</span>
-            </p>
+            <div className="flex items-center justify-end gap-1">
+              {history?.raw_daily_prices && history.raw_daily_prices.length > 20 && (
+                <button
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDistribution(true) }}
+                  className="text-[8px] px-1 py-0.5 rounded bg-violet-500/10 text-violet-500 hover:bg-violet-500/20 transition-colors font-medium"
+                >
+                  정규분포
+                </button>
+              )}
+              <p className="font-bold text-sm sm:text-base tabular-nums">
+                {formatPrice(stock.current_price)}
+                <span className="text-muted-foreground text-[10px] sm:text-xs ml-0.5">원</span>
+              </p>
+            </div>
             <div className="flex items-center justify-end gap-1">
               {/* D-2, D-1 등락률 (클릭하면 10일 팝업) */}
               {history && history.changes && history.changes.length > 0 && (() => {
@@ -202,14 +212,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 <TrendIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5" />
                 {formatChangeRate(stock.change_rate)}
               </Badge>
-              {history?.raw_daily_prices && history.raw_daily_prices.length > 20 && (
-                <button
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDistribution(true) }}
-                  className="text-[8px] px-1 py-0.5 rounded bg-violet-500/10 text-violet-500 hover:bg-violet-500/20 transition-colors font-medium"
-                >
-                  분포
-                </button>
-              )}
             </div>
             {/* 10일 가격 변동 팝업 */}
             {showPriceHistory && history && history.changes && (
