@@ -75,7 +75,7 @@ export function TabBar({ activeTab, onTabChange }: Pick<TabBarProps, "activeTab"
   return (
     <>
       {/* 하단 고정 탭 바 */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-t border-border/50 safe-area-bottom">
+      <div className="bottom-tab-bar fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-t border-border/50 safe-area-bottom">
         <div className="container px-2 sm:px-4">
           <div
             ref={containerRef}

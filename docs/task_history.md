@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [버그픽스] 바텀시트 팝업 시 하단 탭바 숨김 처리 (2026-03-15 21:12 KST)
+- **변경 파일**: `frontend/src/hooks/useSwipeToDismiss.ts`, `frontend/src/components/TabBar.tsx`, `frontend/src/index.css`
+- **내용**: 바텀시트 팝업이 하단 탭바를 가리는 문제 해결. useSwipeToDismiss에서 mount/unmount 시 body에 popup-open 클래스 토글, CSS로 탭바 숨김.
+
 ### [개선] 4개 탭을 하단 고정 메뉴바로 이동 (2026-03-15 17:47 KST)
 - **변경 파일**: `frontend/src/components/TabBar.tsx`, `frontend/src/App.tsx`, `frontend/src/index.css`
 - **내용**: 종합/거래대금/거래량/등락률 탭을 화면 하단 고정 메뉴바로 이동. 하위 컨트롤(구성 방식, 등락률 소스)은 TabControls로 분리하여 인라인 배치. safe-area-bottom 지원, 스크롤탑 버튼 위치 조정.

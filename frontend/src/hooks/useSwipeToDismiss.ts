@@ -12,6 +12,12 @@ export function useSwipeToDismiss(onClose: () => void, threshold = 80) {
 
   const stableClose = useCallback(onClose, [onClose])
 
+  // 팝업 열림 시 하단 탭바 숨기기
+  useEffect(() => {
+    document.body.classList.add("popup-open")
+    return () => { document.body.classList.remove("popup-open") }
+  }, [])
+
   useEffect(() => {
     const handle = handleRef.current
     if (!handle) return

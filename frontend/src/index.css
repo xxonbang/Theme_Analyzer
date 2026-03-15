@@ -207,3 +207,8 @@ body {
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/* 팝업 열림 시 하단 탭바 숨김 */
+body.popup-open .bottom-tab-bar {
+  display: none;
+}
