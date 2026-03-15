@@ -229,6 +229,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                 currentPrice={stock.current_price}
                 rawDailyPrices={history.raw_daily_prices}
                 fundamental={fundamental}
+                volumeProfile={volumeProfile}
                 onClose={() => setShowDistribution(false)}
               />
             )}

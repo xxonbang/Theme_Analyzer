@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [개선] 정규분포 차트에 매매 지침 및 매물대 오버레이 추가 (2026-03-15 15:10 KST)
+- **변경 파일**: `frontend/src/components/DistributionPopup.tsx`, `StockCard.tsx`
+- **내용**: σ 구간별 매매 지침 표시(적극 매수/분할 매수/관망/분할 매도/적극 매도). 매물대 POC(기본 ON) 및 지지/저항 상위 3구간(기본 OFF) 토글 오버레이. PER 차트에도 가격÷EPS 변환 적용.
+
 ### [기능] 종목별 가격/PER 정규분포 분석 차트 추가 (2026-03-15 15:00 KST)
 - **변경 파일**: `modules/data_exporter.py`, `main.py`, `frontend/src/components/DistributionPopup.tsx`(신규), `StockCard.tsx`, `StockList.tsx`, `App.tsx`, `types/stock.ts`
 - **내용**: 종목 카드에 "분포" 버튼 추가. 클릭 시 가격 분포(일별 종가 기반)와 PER 분포(종가÷EPS) 정규분포 차트를 1M/3M/6M/1Y 기간별로 표시. Z-Score 및 σ 밴드로 현재 가격/PER 위치 시각화. fundamental_data를 latest.json에 export 추가.
