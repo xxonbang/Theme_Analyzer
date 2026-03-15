@@ -931,7 +931,7 @@ function App() {
         {displayData?.exchange && <div id="section-exchange"><ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
 
         {/* Index MA Alert (KOSPI + KOSDAQ) */}
-        <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} /></div>
+        <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>
 
         {/* AI Theme Analysis */}
         {displayData?.theme_analysis && (

@@ -163,9 +163,6 @@ function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
               <div key={market} className="bg-card/60 px-2.5 py-1.5">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-[10px] font-semibold text-foreground/70">{market === "kospi" ? "코스피" : "코스닥"}</span>
-                  <span className={`text-[10px] tabular-nums font-medium ${d.change_pct > 0 ? "text-red-500" : d.change_pct < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
-                    {d.index.toLocaleString(undefined, { maximumFractionDigits: 2 })} ({d.change_pct > 0 ? "+" : ""}{d.change_pct.toFixed(2)}%)
-                  </span>
                 </div>
                 <div className="grid grid-cols-3 gap-1">
                   {([
