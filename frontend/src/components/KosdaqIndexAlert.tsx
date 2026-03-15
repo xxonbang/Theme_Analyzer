@@ -251,29 +251,6 @@ function IndexDetailPopup({
                   color="#10b981"
                 />
               </div>
-              {/* 현재가 */}
-              <div className="flex items-baseline justify-between px-1">
-                <span className="text-xs font-semibold text-foreground">현재</span>
-                <span className="text-base font-bold tabular-nums">{maData.current.toFixed(2)}</span>
-              </div>
-              {/* MA 그리드 */}
-              <div className="grid grid-cols-3 gap-1.5">
-                {maValues.map(({ label, value }) => {
-                  const gapPct = (maData.current - value) / value * 100
-                  const isAbove = maData.current >= value
-                  return (
-                    <div key={label} className={cn("rounded-md px-2 py-2", isAbove ? "bg-emerald-500/10" : "bg-red-500/10")}>
-                      <div className={cn("text-[10px] font-semibold leading-none", isAbove ? "text-emerald-600" : "text-red-500")}>
-                        {label}
-                      </div>
-                      <div className="text-xs font-bold leading-tight mt-1 tabular-nums">{value.toFixed(2)}</div>
-                      <div className={cn("text-[10px] leading-none mt-1 font-semibold tabular-nums", isAbove ? "text-emerald-600" : "text-red-500")}>
-                        {gapPct > 0 ? "+" : ""}{gapPct.toFixed(1)}%
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
               {/* MA 테이블 */}
               <table className="w-full text-[10px] tabular-nums">
                 <thead>
