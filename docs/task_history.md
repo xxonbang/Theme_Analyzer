@@ -6,6 +6,10 @@
 
 ## 2026-03-15
 
+### [기능] 주요 선물·투자자 수급 섹션에 날짜/시간 표시 및 히스토리 기능 추가 (2026-03-15 22:10 KST)
+- **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/hooks/useIndicatorHistory.ts`
+- **내용**: 주요 선물 섹션에 날짜·시간 표시 + 히스토리 바텀시트 팝업 추가. 투자자 수급 섹션에 시간 표시 + 히스토리 버튼 추가(최대 20일 표시). 백엔드에 선물/투자자 수급 30일 롤링 히스토리 축적 기능 추가.
+
 ### [개선] 홈 전용 콘텐츠를 다른 탭에서 제거 (2026-03-15 22:03 KST)
 - **변경 파일**: `frontend/src/App.tsx`
 - **내용**: MacroIndicators, ExchangeRate, IndexAlertSection, AIThemeAnalysis를 홈 탭 전용으로 분리. 다른 탭(종합/거래대금/거래량/등락률)에서는 종목 리스트만 표시. 퀵네비에서 거시지표/AI테마 버튼 제거.

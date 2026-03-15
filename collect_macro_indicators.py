@@ -405,10 +405,10 @@ def main():
         with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(output, f, ensure_ascii=False)
         print(f"  저장: {OUTPUT_PATH}")
-        update_indicator_history(indicators)
+        update_indicator_history(indicators, esignal_futures, investor_trend)
 
 
-def update_indicator_history(indicators: list[dict]):
+def update_indicator_history(indicators: list[dict], futures: list[dict] | None = None, investor_trend: list[dict] | None = None):
     """indicator-history.json에 오늘의 스냅샷을 추가 (30일 롤링)."""
     today = datetime.now(KST).strftime("%Y-%m-%d")
 
@@ -431,6 +431,27 @@ def update_indicator_history(indicators: list[dict]):
         entries.append({"date": today, "price": item["price"], "change_pct": item["change_pct"]})
         entries.sort(key=lambda e: e["date"])
         macro[sym] = entries[-30:]
+
+    # futures: 선물 히스토리 저장
+    if futures:
+        fut_hist = history.setdefault("futures", {})
+        for item in futures:
+            sym = item["symbol"]
+            entries = fut_hist.setdefault(sym, [])
+            entries = [e for e in entries if e["date"] != today]
+            entries.append({"date": today, "price": item["price"], "change_pct": item["change_pct"]})
+            entries.sort(key=lambda e: e["date"])
+            fut_hist[sym] = entries[-30:]
+
+    # investor_trend: 투자자 수급 히스토리 저장
+    if investor_trend:
+        inv_hist = history.setdefault("investor_trend", [])
+        existing_dates = {e["date"] for e in inv_hist}
+        for day in investor_trend:
+            if day["date"] not in existing_dates:
+                inv_hist.append(day)
+        inv_hist.sort(key=lambda e: e["date"])
+        history["investor_trend"] = inv_hist[-30:]
 
     # exchange: latest.json에서 환율 로드
     latest_path = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"

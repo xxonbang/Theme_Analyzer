@@ -15,10 +15,24 @@ export interface ExchangeHistoryEntry {
   change_rate: number | null
 }
 
+export interface FuturesHistoryEntry {
+  date: string
+  price: number
+  change_pct: number
+}
+
+export interface InvestorTrendHistoryEntry {
+  date: string
+  kospi: { index: number; change_pct: number; foreign: number; individual: number; institution: number }
+  kosdaq: { index: number; change_pct: number; foreign: number; individual: number; institution: number }
+}
+
 export interface IndicatorHistoryData {
   updated_at: string
   macro: Record<string, MacroHistoryEntry[]>
   exchange: Record<string, ExchangeHistoryEntry[]>
+  futures?: Record<string, FuturesHistoryEntry[]>
+  investor_trend?: InvestorTrendHistoryEntry[]
 }
 
 interface UseIndicatorHistoryReturn {

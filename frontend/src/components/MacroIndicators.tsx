@@ -26,10 +26,48 @@ const INDICATOR_DESC: Record<string, string> = {
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
 }
 
-function FuturesBar({ data }: { data: FuturesItem[] }) {
+const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "NQ_F": "NQ", "OIL_F": "원유", "GOLD_F": "금" }
+
+function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: FuturesItem[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [expanded, setExpanded] = useState(false)
+  const [showHistory, setShowHistory] = useState(false)
+  const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
+
+  useEffect(() => {
+    if (!showHistory) return
+    const scrollY = window.scrollY
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    return () => {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.left = ""
+      document.body.style.right = ""
+      window.scrollTo(0, scrollY)
+    }
+  }, [showHistory])
 
   if (!data || data.length === 0) return null
+
+  const handleHistoryClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!showHistory && onRequestHistory) onRequestHistory()
+    setShowHistory(!showHistory)
+  }
+
+  // 히스토리 차트 데이터 준비
+  const futHist = history?.futures
+  const histRows = futHist ? data.map(item => {
+    const entries = (futHist[item.symbol] || []).slice(-10)
+    return { symbol: item.symbol, name: FUTURES_SHORT[item.symbol] || item.name, entries }
+  }) : []
+  const histDates = histRows.length > 0
+    ? histRows.reduce((longest, row) => row.entries.length > longest.length ? row.entries : longest, [] as { date: string }[]).map(e => e.date)
+    : []
 
   return (
     <div className="mt-1.5">
@@ -40,6 +78,17 @@ function FuturesBar({ data }: { data: FuturesItem[] }) {
         <div className="flex items-center px-1 py-1 mb-1">
           <BarChart3 className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">주요 선물</span>
+          {updatedAt && (
+            <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{updatedAt.slice(5, 10).replace("-", "/")} · {updatedAt.slice(11, 16)}</span>
+          )}
+          <span
+            role="button"
+            onClick={handleHistoryClick}
+            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
+          >
+            <History className="w-3 h-3" />
+            히스토리
+          </span>
           <span className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground/50 transition-colors">
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </span>
@@ -96,6 +145,59 @@ function FuturesBar({ data }: { data: FuturesItem[] }) {
           })}
         </div>
       )}
+
+      {/* 선물 히스토리 Bottom Sheet */}
+      {showHistory && createPortal(
+        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+          <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
+          <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+            <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+            </div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-semibold">주요 선물 히스토리</span>
+              <button onClick={() => setShowHistory(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            {historyLoading ? (
+              <p className="text-[10px] text-muted-foreground/50 text-center py-2">로딩 중...</p>
+            ) : histDates.length === 0 ? (
+              <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음 (다음 수집 시 축적됩니다)</p>
+            ) : (
+              <table className="w-full text-[10px] tabular-nums">
+                <thead>
+                  <tr className="text-foreground/80 border-b border-border/30">
+                    <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
+                    {histRows.map((row) => (
+                      <th key={row.symbol} className="text-right py-1.5 px-0.5 font-semibold">{row.name}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {histDates.map((date, di) => (
+                    <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
+                      <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
+                      {histRows.map((row) => {
+                        const entry = row.entries.find(e => e.date === date)
+                        if (!entry) return <td key={row.symbol} className="text-right py-2 px-0.5 text-muted-foreground/30">—</td>
+                        const isUp = entry.change_pct > 0
+                        const isDown = entry.change_pct < 0
+                        return (
+                          <td key={row.symbol} className={`text-right py-2 px-0.5 font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                            {isUp ? "+" : ""}{entry.change_pct.toFixed(1)}
+                          </td>
+                        )
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }
@@ -107,7 +209,7 @@ function formatAmount(v: number): string {
   return v.toFixed(0) + "백만"
 }
 
-function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
+function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: InvestorTrendDay[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [showDetail, setShowDetail] = useState(false)
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false), 80, showDetail)
 
@@ -132,7 +234,6 @@ function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
   if (!data || data.length === 0) return null
 
   const latest = data[data.length - 1]
-  const recentDays = data.slice(-5)
 
   const renderCell = (val: number) => {
     const isUp = val > 0
@@ -153,7 +254,18 @@ function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
         <div className="flex items-center px-1 py-1.5 mb-1">
           <TrendingUp className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
           <span className="text-xs font-bold text-foreground ml-1.5">투자자 수급</span>
-          <span className="text-[10px] text-muted-foreground tabular-nums ml-1.5">{latest.date.slice(5).replace("-", "/")}</span>
+          <span className="text-[10px] text-muted-foreground tabular-nums ml-1.5">
+            {latest.date.slice(5).replace("-", "/")}
+            {updatedAt && <span> · {updatedAt.slice(11, 16)}</span>}
+          </span>
+          <span
+            role="button"
+            onClick={(e) => { e.stopPropagation(); if (onRequestHistory) onRequestHistory(); setShowDetail(true) }}
+            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
+          >
+            <History className="w-3 h-3" />
+            히스토리
+          </span>
           <span className="ml-auto text-[10px] font-medium text-primary/70 group-hover:text-primary transition-colors">상세보기 ›</span>
         </div>
         <div className="grid grid-cols-2 gap-2">
@@ -195,38 +307,50 @@ function InvestorTrendBar({ data }: { data: InvestorTrendDay[] }) {
                 <X className="w-4 h-4" />
               </button>
             </div>
-            {(["kospi", "kosdaq"] as const).map((market) => (
-              <div key={market} className="mb-3">
-                <h3 className="text-xs font-semibold text-foreground/80 mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</h3>
-                <table className="w-full text-[10px] tabular-nums">
-                  <thead>
-                    <tr className="text-foreground/80 border-b border-border/30">
-                      <th className="text-left py-1.5 pr-1 font-semibold">날짜</th>
-                      <th className="text-right py-1.5 px-1 font-semibold">지수</th>
-                      <th className="text-right py-1.5 px-1 font-semibold">외국인</th>
-                      <th className="text-right py-1.5 px-1 font-semibold">기관</th>
-                      <th className="text-right py-1.5 px-1 font-semibold">개인</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {recentDays.slice().reverse().map((day, di) => {
-                      const d = day[market]
-                      return (
-                        <tr key={day.date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                          <td className="py-1.5 pr-1 text-foreground/70 font-medium">{day.date.slice(5).replace("-", "/")}</td>
-                          <td className={`text-right py-1.5 px-1 ${d.change_pct > 0 ? "text-red-500" : d.change_pct < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
-                            {d.change_pct > 0 ? "+" : ""}{d.change_pct.toFixed(2)}%
-                          </td>
-                          <td className="text-right py-1.5 px-1">{renderCell(d.foreign)}</td>
-                          <td className="text-right py-1.5 px-1">{renderCell(d.institution)}</td>
-                          <td className="text-right py-1.5 px-1">{renderCell(d.individual)}</td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            ))}
+            {(() => {
+              // 히스토리 데이터(30일)와 현재 데이터 병합, 중복 날짜 제거
+              const invHist = history?.investor_trend || []
+              const merged = [...invHist]
+              const existingDates = new Set(merged.map(d => d.date))
+              for (const d of data) {
+                if (!existingDates.has(d.date)) merged.push(d as typeof merged[0])
+              }
+              merged.sort((a, b) => b.date.localeCompare(a.date))
+              const displayDays = merged.slice(0, 20) // 최대 20일
+              return (["kospi", "kosdaq"] as const).map((market) => (
+                <div key={market} className="mb-3">
+                  <h3 className="text-xs font-semibold text-foreground/80 mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</h3>
+                  <table className="w-full text-[10px] tabular-nums">
+                    <thead>
+                      <tr className="text-foreground/80 border-b border-border/30">
+                        <th className="text-left py-1.5 pr-1 font-semibold">날짜</th>
+                        <th className="text-right py-1.5 px-1 font-semibold">지수</th>
+                        <th className="text-right py-1.5 px-1 font-semibold">외국인</th>
+                        <th className="text-right py-1.5 px-1 font-semibold">기관</th>
+                        <th className="text-right py-1.5 px-1 font-semibold">개인</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {displayDays.map((day, di) => {
+                        const d = day[market]
+                        return (
+                          <tr key={day.date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
+                            <td className="py-1.5 pr-1 text-foreground/70 font-medium">{day.date.slice(5).replace("-", "/")}</td>
+                            <td className={`text-right py-1.5 px-1 ${d.change_pct > 0 ? "text-red-500" : d.change_pct < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                              {d.change_pct > 0 ? "+" : ""}{d.change_pct.toFixed(2)}%
+                            </td>
+                            <td className="text-right py-1.5 px-1">{renderCell(d.foreign)}</td>
+                            <td className="text-right py-1.5 px-1">{renderCell(d.institution)}</td>
+                            <td className="text-right py-1.5 px-1">{renderCell(d.individual)}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ))
+            })()}
+            {historyLoading && <p className="text-[10px] text-muted-foreground/50 text-center py-1">히스토리 로딩 중...</p>}
             <p className="text-[9px] text-muted-foreground/50 mt-1">단위: 백만원 (1조 = 10,000억)</p>
           </div>
         </div>,
@@ -553,12 +677,12 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
       {/* 주요 선물 */}
       {data.futures && data.futures.length > 0 && (
-        <FuturesBar data={data.futures} />
+        <FuturesBar data={data.futures} updatedAt={data.updated_at} history={history} historyLoading={historyLoading} onRequestHistory={onRequestHistory} />
       )}
 
       {/* 투자자 수급 */}
       {data.investor_trend && data.investor_trend.length > 0 && (
-        <InvestorTrendBar data={data.investor_trend} />
+        <InvestorTrendBar data={data.investor_trend} updatedAt={data.updated_at} history={history} historyLoading={historyLoading} onRequestHistory={onRequestHistory} />
       )}
 
       {/* 히스토리 Bottom Sheet */}
