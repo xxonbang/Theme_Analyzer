@@ -221,6 +221,7 @@ function formatAmount(v: number): string {
 
 function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: InvestorTrendDay[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [showDetail, setShowDetail] = useState(false)
+  const [activeMarket, setActiveMarket] = useState<"kospi" | "kosdaq">("kospi")
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false), 80, showDetail)
 
   useEffect(() => {
@@ -313,7 +314,6 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
               </button>
             </div>
             {(() => {
-              // 히스토리 데이터(30일)와 현재 데이터 병합, 중복 날짜 제거
               const invHist = history?.investor_trend || []
               const merged = [...invHist]
               const existingDates = new Set(merged.map(d => d.date))
@@ -321,19 +321,28 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                 if (!existingDates.has(d.date)) merged.push(d as typeof merged[0])
               }
               merged.sort((a, b) => b.date.localeCompare(a.date))
-              const displayDays = merged.slice(0, 20) // 최대 20일
-              // 차트용 데이터: 날짜 오름차순
+              const displayDays = merged.slice(0, 20)
               const chartDays = [...displayDays].reverse()
               const chartDates = chartDays.map(d => d.date)
-              return (["kospi", "kosdaq"] as const).map((market) => {
-                const investorRows = [
-                  { name: "외국인", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].foreign / 100 })) },
-                  { name: "기관", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].institution / 100 })) },
-                  { name: "개인", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].individual / 100 })) },
-                ]
-                return (
-                <div key={market} className="mb-3">
-                  <h3 className="text-xs font-semibold text-foreground/80 mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</h3>
+              const market = activeMarket
+              const investorRows = [
+                { name: "외국인", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].foreign / 100 })) },
+                { name: "기관", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].institution / 100 })) },
+                { name: "개인", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].individual / 100 })) },
+              ]
+              return (
+                <>
+                  <div className="flex gap-1 mb-2">
+                    {(["kospi", "kosdaq"] as const).map((m) => (
+                      <button
+                        key={m}
+                        onClick={() => setActiveMarket(m)}
+                        className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${activeMarket === m ? "bg-primary text-primary-foreground" : "bg-muted/60 text-muted-foreground hover:bg-muted"}`}
+                      >
+                        {m === "kospi" ? "코스피" : "코스닥"}
+                      </button>
+                    ))}
+                  </div>
                   {chartDates.length >= 2 && (
                     <>
                       <InvestorChart rows={investorRows} dates={chartDates} />
@@ -367,8 +376,8 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                       })}
                     </tbody>
                   </table>
-                </div>
-              )})
+                </>
+              )
             })()}
             {historyLoading && <p className="text-[10px] text-muted-foreground/50 text-center py-1">히스토리 로딩 중...</p>}
             <p className="text-[9px] text-muted-foreground/50 mt-1">단위: 백만원 (1조 = 10,000억)</p>
