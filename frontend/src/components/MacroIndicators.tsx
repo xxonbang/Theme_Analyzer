@@ -112,7 +112,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 "GOLD_F": "금",
               }
               return (
-                <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1.5 gap-0.5 ${bg}`}>
+                <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1 ${bg}`}>
                   <span className="text-[9px] text-foreground/55 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
                   <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                     {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
@@ -215,7 +215,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
 function formatAmount(v: number): string {
   const abs = Math.abs(v)
   if (abs >= 10_000_000) return (v / 10_000_000).toFixed(1) + "조"
-  if (abs >= 10_000) return (v / 10_000).toFixed(0) + "억"
+  if (abs >= 1_000) return (v / 10_000).toFixed(1) + "억"
   return v.toFixed(0) + "백만"
 }
 
@@ -257,10 +257,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
 
   return (
     <>
-      <button
-        onClick={() => setShowDetail(true)}
-        className="w-full mt-1.5 cursor-pointer group text-left"
-      >
+      <div className="mt-1.5">
         <div className="flex items-center px-1 py-1.5 mb-1">
           <TrendingUp className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">투자자 수급</span>
@@ -268,15 +265,13 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
             {latest.date.slice(5).replace("-", "/")}
             {updatedAt && <span> · {updatedAt.slice(11, 16)}</span>}
           </span>
-          <span
-            role="button"
-            onClick={(e) => { e.stopPropagation(); if (onRequestHistory) onRequestHistory(); setShowDetail(true) }}
+          <button
+            onClick={() => { if (onRequestHistory) onRequestHistory(); setShowDetail(true) }}
             className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
           >
             <History className="w-3 h-3" />
             히스토리
-          </span>
-          <span className="ml-auto text-[10px] font-medium text-primary/70 group-hover:text-primary transition-colors">상세보기 ›</span>
+          </button>
         </div>
         <div className="grid grid-cols-2 gap-1.5">
           {(["kospi", "kosdaq"] as const).map((market) => {
@@ -302,7 +297,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
             )
           })}
         </div>
-      </button>
+      </div>
 
       {showDetail && createPortal(
         <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
