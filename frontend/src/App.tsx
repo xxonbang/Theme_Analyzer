@@ -889,7 +889,7 @@ function App() {
                   }
                   const el = document.getElementById(s.id)
                   if (el) {
-                    const headerH = headerHidden ? 0 : (window.innerWidth >= 640 ? 64 : 56)
+                    const headerH = headerHidden ? 0 : (window.innerWidth >= 640 ? 64 : 92)
                     const stickyH = stickyBarRef.current?.offsetHeight || 0
                     const y = el.getBoundingClientRect().top + window.scrollY - headerH - stickyH - 8
                     window.scrollTo({ top: y, behavior: "smooth" })

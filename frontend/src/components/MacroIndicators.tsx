@@ -31,6 +31,7 @@ const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_N
 function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: FuturesItem[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
+  const [chartHidden, setChartHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
 
   useEffect(() => {
@@ -165,13 +166,19 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
             ) : histDates.length === 0 ? (
               <p className="text-[10px] text-muted-foreground/50 text-center py-2">히스토리 없음 (다음 수집 시 축적됩니다)</p>
             ) : (
+              <>
+              <MacroChart rows={histRows} dates={histDates} hidden={chartHidden} setHidden={setChartHidden} />
+              <hr className="border-border/30 my-3" />
               <table className="w-full text-[10px] tabular-nums">
                 <thead>
                   <tr className="text-foreground/80 border-b border-border/30">
                     <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
-                    {histRows.map((row) => (
-                      <th key={row.symbol} className="text-right py-1.5 px-0.5 font-semibold">{row.name}</th>
-                    ))}
+                    {histRows.map((row) => {
+                      const active = chartHidden.size > 0 && !chartHidden.has(row.name)
+                      return (
+                        <th key={row.symbol} className={`text-right py-1.5 px-0.5 font-semibold ${active ? "bg-primary/8" : chartHidden.size > 0 ? "opacity-30" : ""}`}>{row.name}</th>
+                      )
+                    })}
                   </tr>
                 </thead>
                 <tbody>
@@ -179,12 +186,14 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
                       <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
                       {histRows.map((row) => {
+                        const active = chartHidden.size > 0 && !chartHidden.has(row.name)
+                        const dimmed = chartHidden.size > 0 && chartHidden.has(row.name)
                         const entry = row.entries.find(e => e.date === date)
-                        if (!entry) return <td key={row.symbol} className="text-right py-2 px-0.5 text-muted-foreground/30">—</td>
+                        if (!entry) return <td key={row.symbol} className={`text-right py-2 px-0.5 text-muted-foreground/30 ${active ? "bg-primary/8" : ""}`}>—</td>
                         const isUp = entry.change_pct > 0
                         const isDown = entry.change_pct < 0
                         return (
-                          <td key={row.symbol} className={`text-right py-2 px-0.5 font-semibold ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+                          <td key={row.symbol} className={`text-right py-2 px-0.5 font-semibold ${active ? "bg-primary/8" : ""} ${dimmed ? "opacity-30" : ""} ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                             {isUp ? "+" : ""}{entry.change_pct.toFixed(1)}
                           </td>
                         )
@@ -193,6 +202,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                   ))}
                 </tbody>
               </table>
+              </>
             )}
           </div>
         </div>,
@@ -317,9 +327,24 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
               }
               merged.sort((a, b) => b.date.localeCompare(a.date))
               const displayDays = merged.slice(0, 20) // 최대 20일
-              return (["kospi", "kosdaq"] as const).map((market) => (
+              // 차트용 데이터: 날짜 오름차순
+              const chartDays = [...displayDays].reverse()
+              const chartDates = chartDays.map(d => d.date)
+              return (["kospi", "kosdaq"] as const).map((market) => {
+                const investorRows = [
+                  { name: "외국인", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].foreign / 100 })) },
+                  { name: "기관", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].institution / 100 })) },
+                  { name: "개인", entries: chartDays.map(d => ({ date: d.date, change_pct: d[market].individual / 100 })) },
+                ]
+                return (
                 <div key={market} className="mb-3">
                   <h3 className="text-xs font-semibold text-foreground/80 mb-1.5">{market === "kospi" ? "코스피" : "코스닥"}</h3>
+                  {chartDates.length >= 2 && (
+                    <>
+                      <InvestorChart rows={investorRows} dates={chartDates} />
+                      <hr className="border-border/30 my-2" />
+                    </>
+                  )}
                   <table className="w-full text-[10px] tabular-nums">
                     <thead>
                       <tr className="text-foreground/80 border-b border-border/30">
@@ -348,7 +373,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                     </tbody>
                   </table>
                 </div>
-              ))
+              )})
             })()}
             {historyLoading && <p className="text-[10px] text-muted-foreground/50 text-center py-1">히스토리 로딩 중...</p>}
             <p className="text-[9px] text-muted-foreground/50 mt-1">단위: 백만원 (1조 = 10,000억)</p>
@@ -357,6 +382,85 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
         document.body
       )}
     </>
+  )
+}
+
+const INVESTOR_COLORS = ["#ef4444", "#3b82f6", "#10b981"] // 외국인(빨강), 기관(파랑), 개인(초록)
+
+function InvestorChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
+  if (dates.length < 2 || rows.length === 0) return null
+
+  const W = 360, H = 150, PL = 48, PR = 36, PT = 12, PB = 18
+  const chartW = W - PL - PR, chartH = H - PT - PB
+
+  const allVals = rows.flatMap(r => r.entries.map(e => e.change_pct))
+  const rawMin = Math.min(...allVals)
+  const rawMax = Math.max(...allVals)
+  const pad = (rawMax - rawMin) * 0.15 || 0.5
+  const min = rawMin - pad
+  const max = rawMax + pad
+  const range = max - min || 1
+
+  const toY = (v: number) => PT + (1 - (Math.max(min, Math.min(max, v)) - min) / range) * chartH
+  const toX = (i: number) => PL + (i / (dates.length - 1)) * chartW
+
+  const ySteps = 3
+  const yLabels = Array.from({ length: ySteps + 1 }, (_, i) => rawMin + (rawMax - rawMin) * (i / ySteps))
+  if (rawMin < 0 && rawMax > 0 && !yLabels.some(v => Math.abs(v) < 0.01)) yLabels.push(0)
+
+  const fmtY = (v: number) => {
+    const abs = Math.abs(v)
+    if (abs >= 100000) return (v / 10000).toFixed(0) + "조"
+    if (abs >= 100) return (v / 100).toFixed(0) + "억"
+    return v.toFixed(0) + "백만"
+  }
+
+  return (
+    <div className="mb-1">
+      <div className="flex flex-wrap gap-1.5 px-1 mb-1">
+        {rows.map((row, ri) => (
+          <span key={row.name} className="text-[9px] font-semibold px-1.5 py-0.5 rounded" style={{ backgroundColor: INVESTOR_COLORS[ri] + "18", color: INVESTOR_COLORS[ri] }}>
+            {row.name}
+          </span>
+        ))}
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 170 }}>
+        {yLabels.map((v, i) => {
+          const y = toY(v)
+          return (
+            <g key={i}>
+              <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="currentColor" strokeOpacity={Math.abs(v) < 0.01 ? 0.2 : 0.08} strokeDasharray={Math.abs(v) < 0.01 ? "none" : "3,3"} />
+              <text x={PL - 4} y={y + 3.5} textAnchor="end" fill="#555" fontWeight={600} fontSize={8}>{fmtY(v)}</text>
+            </g>
+          )
+        })}
+        {dates.map((d, idx) => {
+          const x = toX(idx)
+          const showLabel = dates.length <= 5 || idx === 0 || idx === dates.length - 1 || idx === Math.floor(dates.length / 2)
+          return (
+            <g key={idx}>
+              <line x1={x} y1={PT} x2={x} y2={PT + chartH} stroke="currentColor" strokeOpacity={0.05} strokeDasharray="2,4" />
+              {showLabel && <text x={x} y={H - 2} textAnchor="middle" fill="#555" fontWeight={600} fontSize={9}>{d.slice(5).replace("-", "/")}</text>}
+            </g>
+          )
+        })}
+        {rows.map((row, ri) => {
+          const points = dates.map((d, i) => {
+            const entry = row.entries.find(e => e.date === d)
+            return entry ? { x: toX(i), y: toY(entry.change_pct) } : null
+          }).filter(Boolean) as { x: number; y: number }[]
+          if (points.length < 2) return null
+          const color = INVESTOR_COLORS[ri]
+          return (
+            <g key={row.name}>
+              <polyline points={points.map(p => `${p.x},${p.y}`).join(" ")} fill="none" stroke={color} strokeWidth={1.8} strokeLinejoin="round" opacity={0.85} />
+              {points.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r={2.2} fill={color} />)}
+              {(() => { const last = points[points.length - 1]; return last ? <text x={last.x + 4} y={last.y + 3} fill={color} fontSize={8} fontWeight={700}>{row.name}</text> : null })()}
+            </g>
+          )
+        })}
+      </svg>
+    </div>
   )
 }
 
