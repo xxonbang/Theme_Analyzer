@@ -443,13 +443,12 @@ def update_indicator_history(indicators: list[dict], futures: list[dict] | None 
             entries.sort(key=lambda e: e["date"])
             fut_hist[sym] = entries[-30:]
 
-    # investor_trend: 투자자 수급 히스토리 저장
+    # investor_trend: 투자자 수급 히스토리 저장 (같은 날짜는 최신 데이터로 덮어쓰기)
     if investor_trend:
         inv_hist = history.setdefault("investor_trend", [])
-        existing_dates = {e["date"] for e in inv_hist}
-        for day in investor_trend:
-            if day["date"] not in existing_dates:
-                inv_hist.append(day)
+        update_dates = {day["date"] for day in investor_trend}
+        inv_hist = [e for e in inv_hist if e["date"] not in update_dates]
+        inv_hist.extend(investor_trend)
         inv_hist.sort(key=lambda e: e["date"])
         history["investor_trend"] = inv_hist[-30:]
 
