@@ -355,6 +355,7 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [headerHidden, setHeaderHidden] = useState(false)
   const lastScrollY = useRef(0)
+  const headerHiddenRef = useRef(false)
   const stickyBarRef = useRef<HTMLDivElement>(null)
   const collapsibleRef = useRef<HTMLDivElement>(null)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
@@ -370,13 +371,25 @@ function App() {
         lastScrollY.current = currentY
         return
       }
+      // 스크롤이 헤더 영역 높이 이하이면 무조건 헤더 표시
+      if (currentY <= 100) {
+        if (headerHiddenRef.current) {
+          setHeaderHidden(false)
+          headerHiddenRef.current = false
+          scrollCooldown.current = Date.now() + COOLDOWN_MS
+        }
+        lastScrollY.current = currentY
+        return
+      }
       const delta = currentY - lastScrollY.current
-      if (delta > SCROLL_DEADZONE && currentY > 80) {
+      if (delta > SCROLL_DEADZONE && currentY > 200) {
         setHeaderHidden(true)
+        headerHiddenRef.current = true
         scrollCooldown.current = Date.now() + COOLDOWN_MS
         lastScrollY.current = currentY
       } else if (delta < -SCROLL_DEADZONE) {
         setHeaderHidden(false)
+        headerHiddenRef.current = false
         scrollCooldown.current = Date.now() + COOLDOWN_MS
         lastScrollY.current = currentY
       }
