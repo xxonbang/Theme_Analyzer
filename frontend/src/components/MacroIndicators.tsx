@@ -222,6 +222,7 @@ function formatAmount(v: number): string {
 function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: InvestorTrendDay[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [showDetail, setShowDetail] = useState(false)
   const [activeMarket, setActiveMarket] = useState<"kospi" | "kosdaq">("kospi")
+  const [investorHidden, setInvestorHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false), 80, showDetail)
 
   useEffect(() => {
@@ -332,7 +333,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
               ]
               return (
                 <>
-                  <div className="flex gap-1 mb-2">
+                  <div className="flex items-center gap-1 mb-2">
                     {(["kospi", "kosdaq"] as const).map((m) => (
                       <button
                         key={m}
@@ -342,10 +343,26 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                         {m === "kospi" ? "코스피" : "코스닥"}
                       </button>
                     ))}
+                    <div className="flex gap-1 ml-auto">
+                      {investorRows.map((row, ri) => {
+                        const active = !investorHidden.has(row.name)
+                        const color = INVESTOR_COLORS[ri]
+                        return (
+                          <button
+                            key={row.name}
+                            onClick={() => setInvestorHidden(prev => { const next = new Set(prev); if (next.has(row.name)) next.delete(row.name); else next.add(row.name); return next })}
+                            className={`text-[9px] font-semibold px-1.5 py-0.5 rounded transition-colors ${active ? "" : "opacity-30"}`}
+                            style={active ? { backgroundColor: color + "18", color } : undefined}
+                          >
+                            {row.name}
+                          </button>
+                        )
+                      })}
+                    </div>
                   </div>
                   {chartDates.length >= 2 && (
                     <>
-                      <InvestorChart rows={investorRows} dates={chartDates} />
+                      <InvestorChart rows={investorRows} dates={chartDates} hidden={investorHidden} />
                       <hr className="border-border/30 my-2" />
                     </>
                   )}
@@ -391,13 +408,16 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
 
 const INVESTOR_COLORS = ["#ef4444", "#3b82f6", "#10b981"] // 외국인(빨강), 기관(파랑), 개인(초록)
 
-function InvestorChart({ rows, dates }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[] }) {
+function InvestorChart({ rows, dates, hidden }: { rows: { name: string; entries: { date: string; change_pct: number }[] }[]; dates: string[]; hidden: Set<string> }) {
   if (dates.length < 2 || rows.length === 0) return null
+
+  const visibleRows = rows.filter(r => !hidden.has(r.name))
 
   const W = 360, H = 150, PL = 48, PR = 36, PT = 12, PB = 18
   const chartW = W - PL - PR, chartH = H - PT - PB
 
-  const allVals = rows.flatMap(r => r.entries.map(e => e.change_pct))
+  const allVals = visibleRows.flatMap(r => r.entries.map(e => e.change_pct))
+  if (allVals.length === 0) return null
   const rawMin = Math.min(...allVals)
   const rawMax = Math.max(...allVals)
   const pad = (rawMax - rawMin) * 0.15 || 0.5
@@ -421,13 +441,6 @@ function InvestorChart({ rows, dates }: { rows: { name: string; entries: { date:
 
   return (
     <div className="mb-1">
-      <div className="flex flex-wrap gap-1.5 px-1 mb-1">
-        {rows.map((row, ri) => (
-          <span key={row.name} className="text-[9px] font-semibold px-1.5 py-0.5 rounded" style={{ backgroundColor: INVESTOR_COLORS[ri] + "18", color: INVESTOR_COLORS[ri] }}>
-            {row.name}
-          </span>
-        ))}
-      </div>
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 170 }}>
         {yLabels.map((v, i) => {
           const y = toY(v)
@@ -448,7 +461,8 @@ function InvestorChart({ rows, dates }: { rows: { name: string; entries: { date:
             </g>
           )
         })}
-        {rows.map((row, ri) => {
+        {visibleRows.map((row) => {
+          const ri = rows.indexOf(row)
           const points = dates.map((d, i) => {
             const entry = row.entries.find(e => e.date === d)
             return entry ? { x: toX(i), y: toY(entry.change_pct) } : null
