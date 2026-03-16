@@ -154,24 +154,33 @@ def find_morning_price(data: dict, code: str) -> tuple[Optional[int], Optional[s
 
 
 def get_stock_prices(client: KISClient, code: str) -> Optional[dict]:
-    """KIS API로 종가 + 최고가 조회"""
+    """KIS 일별시세 API로 정규장 종가 + 고가 조회.
+
+    inquire-daily-price의 stck_clpr(종가), stck_hgpr(고가)를 사용하여
+    시간외 거래 가격 혼입을 방지합니다.
+    """
     try:
-        result = client.get_stock_price(code)
-        if result.get("rt_cd") == "0":
-            output = result.get("output", {})
-            close_str = output.get("stck_prpr", "0")
-            high_str = output.get("stck_hgpr", "0")
-            close_price = int(close_str) if close_str else None
-            high_price = int(high_str) if high_str else None
-            if close_price is None:
-                return None
-            return {
-                "close_price": close_price,
-                "high_price": high_price if high_price else close_price,
-            }
-        else:
-            print(f"  [오류] {code} API 응답: {result.get('msg1', 'Unknown')}")
+        path = "/uapi/domestic-stock/v1/quotations/inquire-daily-price"
+        tr_id = "FHKST01010400"
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": code,
+            "FID_PERIOD_DIV_CODE": "D",
+            "FID_ORG_ADJ_PRC": "0",
+        }
+        result = client.request("GET", path, tr_id, params=params)
+        items = result.get("output", [])
+        if not items:
             return None
+        today = items[0]
+        close_price = int(today.get("stck_clpr", "0"))
+        high_price = int(today.get("stck_hgpr", "0"))
+        if close_price == 0:
+            return None
+        return {
+            "close_price": close_price,
+            "high_price": high_price if high_price else close_price,
+        }
     except Exception as e:
         print(f"  [오류] {code} 가격 조회 실패: {e}")
         return None

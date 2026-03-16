@@ -6,6 +6,11 @@
 
 ## 2026-03-16
 
+### [버그픽스] 모의투자 종가/고가 수집 API 변경 (2026-03-16 22:43 KST)
+- **변경 파일**: `collect_paper_trading.py`, `frontend/public/data/paper-trading/2026-03-16.json`
+- **내용**: `inquire-price`(stck_prpr, 시간외 포함 현재가) → `inquire-daily-price`(stck_clpr, 정규장 종가) API로 변경. 03/16 데이터 고가 수정(네오펙트 1050→1105, 오르비텍 10490→10650).
+- **원인**: stck_prpr은 시간외 거래 가격이 혼입되어 정규장 종가와 불일치. stck_hgpr도 inquire-price보다 inquire-daily-price가 더 정확.
+
 ### [개선] 투자자 수급 차트 범례를 토글 버튼으로 변경 (2026-03-16 22:23 KST)
 - **변경 파일**: `frontend/src/components/MacroIndicators.tsx`
 - **내용**: 외국인/기관/개인 범례를 코스피/코스닥 탭과 같은 줄 우측으로 이동. 범례를 토글 버튼으로 변경하여 활성화된 항목만 차트에 표시. Y축 스케일도 보이는 라인 기준으로 재계산.
