@@ -6,6 +6,11 @@
 
 ## 2026-03-17
 
+### [버그픽스] refresh-data 워크플로우 뉴스 수집 누락 수정 (2026-03-17 23:44 KST)
+- **변경 파일**: `.github/workflows/refresh-data.yml`
+- **내용**: Collect stock data 스텝에 NAVER_CLIENT_ID/SECRET 환경변수 추가. 장중 갱신(KST 11:30) 시 네이버 API 자격증명 누락으로 뉴스가 빈 배열로 덮어씌워지던 문제 해결.
+- **원인**: daily-theme-analysis.yml에는 환경변수가 있었으나 refresh-data.yml에는 누락
+
 ### [개선] 15:30 캔들 종가 보정 및 가격 변동 차트 개선 (2026-03-17 23:31 KST)
 - **변경 파일**: `modules/intraday_history.py`, `collect_intraday_history.py`, `frontend/src/components/PriceHistoryPopup.tsx`
 - **내용**: 1) 장중 히스토리 15:30 캔들 종가를 inquire-daily-price API 확정 종가로 보정 (전 종목 대상). 2) paper-trading 기반 보정 로직 제거 (9종목 한정→불필요). 3) 가격 변동 차트 거래량 막대 Y축 라벨 겹침 해결 (bar inset). 4) 등락률 표시 toFixed(1)→toFixed(2). 5) 종가/거래량 범례 추가.
