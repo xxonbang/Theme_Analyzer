@@ -6,6 +6,10 @@
 
 ## 2026-03-17
 
+### [개선] 가격 변동 차트 거래량 막대 추가 및 UI 개선 (2026-03-17 22:53 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`, `frontend/src/components/InvestorChartPopup.tsx`, `frontend/src/components/StockCard.tsx`
+- **내용**: 1) 일별 변동 차트에 거래량 막대 그래프 추가(색상=등락 방향). 2) 수급 차트 Y축 패딩 30→42로 확대(우측 라벨 잘림 해결). 3) 거래원 매수/매도 TOP5 좌우 위치 교체.
+
 ### [개선] 수급 차트 범례 전체 on/off 기능 추가 (2026-03-17 22:35 KST)
 - **변경 파일**: `frontend/src/components/InvestorChartPopup.tsx`
 - **내용**: 외국인/기관/개인/프로그램 토글 버튼에 더블클릭 기능 추가. 전체 ON 시 더블클릭 → 해당 항목만 ON. 일부 ON 시 더블클릭 → 전체 ON. 모두 OFF 시 자동 전체 ON.

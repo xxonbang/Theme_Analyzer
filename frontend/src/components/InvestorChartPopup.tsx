@@ -27,7 +27,7 @@ interface InvestorChartPopupProps {
 
 const CHART_W = 300
 const CHART_H = 150
-const PAD = { top: 10, right: 30, bottom: 20, left: 30 }
+const PAD = { top: 10, right: 42, bottom: 20, left: 42 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 

@@ -150,20 +150,29 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
         {/* === 일별 탭 === */}
         {activeTab === "daily" && (
           <>
-            {/* 종가 꺾은선 그래프 */}
+            {/* 종가 라인 + 거래량 막대 그래프 */}
             {(() => {
               const data = reversed.map((c, idx) => ({
                 close: idx === reversed.length - 1 ? currentPrice : (c.close || 0),
+                rate: idx === reversed.length - 1 ? currentChangeRate : c.change_rate,
+                volume: c.volume || 0,
                 label: idx === reversed.length - 1 ? "D" : `D-${reversed.length - 1 - idx}`,
               })).filter(d => d.close > 0)
               if (data.length < 2) return null
               const closes = data.map(d => d.close)
+              const volumes = data.map(d => d.volume)
               const minV = Math.min(...closes)
               const maxV = Math.max(...closes)
               const pts = pointCoords(closes, minV, maxV)
               const up = closes[closes.length - 1] >= closes[0]
-              const color = up ? "#ef4444" : "#3b82f6"
+              const lineColor = up ? "#ef4444" : "#3b82f6"
               const baseClose = closes[0]
+
+              // 거래량 스케일 (차트 하단 40% 영역 사용)
+              const volMax = Math.max(...volumes, 1)
+              const volAreaH = PH * 0.4
+              const barW = Math.min(PW / data.length * 0.5, 12)
+
               // Y축: 5단계 균등 분할
               const ySteps = 4
               const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (maxV - minV) * (i / ySteps))
@@ -194,13 +203,24 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                         stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.15} />
                     )
                   })}
-                  {/* 선 */}
-                  <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                  {/* 거래량 막대 (하단 정렬, 등락 방향 색상) */}
+                  {data.map((d, i) => {
+                    const x = PAD.left + (i / Math.max(data.length - 1, 1)) * PW
+                    const barH = (d.volume / volMax) * volAreaH
+                    const barY = PAD.top + PH - barH
+                    const barColor = d.rate >= 0 ? "#ef4444" : "#3b82f6"
+                    return (
+                      <rect key={`bar-${i}`} x={x - barW / 2} y={barY} width={barW} height={Math.max(barH, 0.5)}
+                        fill={barColor} opacity={0.2} rx={1} />
+                    )
+                  })}
+                  {/* 종가 선 */}
+                  <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={lineColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                   {/* 포인트 */}
                   {pts.map((p, i) => (
-                    <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={color} />
+                    <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={lineColor} />
                   ))}
-                  {/* X축 라벨: 전체 표시 */}
+                  {/* X축 라벨 */}
                   {data.map((d, i) => (
                     <text key={i} x={PAD.left + (i / Math.max(data.length - 1, 1)) * PW} y={CH - 4} textAnchor="middle" fill="currentColor" opacity={0.5} fontSize={7}>
                       {d.label}

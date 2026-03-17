@@ -485,18 +485,6 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
               {memberExpanded && hasMemberData && (
               <div className="grid grid-cols-2 gap-3 cursor-pointer hover:bg-muted/30 rounded-md transition-colors -mx-1 px-1 py-0.5" onClick={() => setShowMemberChart(true)}>
               <div>
-                <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
-                {memberInfo.buy_top5.map((b, i) => (
-                  <div key={i} className={cn(
-                    "flex items-center justify-between text-[10px] sm:text-[11px] px-1 py-px rounded",
-                    i % 2 === 0 && "bg-muted/50"
-                  )}>
-                    <span className={b.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{b.name}</span>
-                    <span className="text-muted-foreground tabular-nums">{b.ratio.toFixed(1)}%</span>
-                  </div>
-                ))}
-              </div>
-              <div>
                 <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매도 TOP5</p>
                 {memberInfo.sell_top5.map((s, i) => (
                   <div key={i} className={cn(
@@ -505,6 +493,18 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
                   )}>
                     <span className={s.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{s.name}</span>
                     <span className="text-muted-foreground tabular-nums">{s.ratio.toFixed(1)}%</span>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <p className="text-[10px] sm:text-[11px] font-semibold text-muted-foreground mb-1">매수 TOP5</p>
+                {memberInfo.buy_top5.map((b, i) => (
+                  <div key={i} className={cn(
+                    "flex items-center justify-between text-[10px] sm:text-[11px] px-1 py-px rounded",
+                    i % 2 === 0 && "bg-muted/50"
+                  )}>
+                    <span className={b.is_foreign ? "text-red-500 font-medium" : "text-foreground"}>{b.name}</span>
+                    <span className="text-muted-foreground tabular-nums">{b.ratio.toFixed(1)}%</span>
                   </div>
                 ))}
               </div>
