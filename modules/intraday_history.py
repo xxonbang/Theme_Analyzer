@@ -53,7 +53,7 @@ def aggregate_minute_candles(
     if not boundaries or boundaries[-1] != "150000":
         boundaries.append("150000")
 
-    # 15:30 동시호가 포함
+    # 15:30 동시호가 포함 (close 값은 collect_intraday_history.py에서 종가로 보정)
     boundaries.append("153000")
 
     # base_price: 전일 종가 또는 시가 fallback
@@ -108,16 +108,18 @@ def collect_stock_intraday(
     sorted_candles = sorted(candles, key=lambda c: c["time"])
     open_price = sorted_candles[0]["close"] if sorted_candles else 0
 
-    # 전일 종가 조회 (등락률 기준)
+    # 전일 종가 + 당일 확정 종가 조회 (inquire-daily-price)
     prev_close = 0
+    close_price = 0
     try:
-        price_data = client.get_stock_price(code)
-        if price_data.get("rt_cd") == "0":
-            output = price_data.get("output", {})
-            current = int(output.get("stck_prpr", 0))
-            change = int(output.get("prdy_vrss", 0))
-            if current and change is not None:
-                prev_close = current - change
+        daily = client.get_stock_daily_ohlcv(code)
+        if daily.get("rt_cd") == "0":
+            output = daily.get("output", [])
+            if output and len(output) >= 2:
+                close_price = int(output[0].get("stck_clpr", 0))
+                prev_close = int(output[1].get("stck_clpr", 0))
+            elif output:
+                close_price = int(output[0].get("stck_clpr", 0))
     except Exception:
         pass
 
@@ -126,6 +128,15 @@ def collect_stock_intraday(
 
     if not intervals_30m:
         return None
+
+    # 15:30 캔들의 close를 확정 종가로 보정
+    if close_price and prev_close:
+        for intervals in (intervals_30m, intervals_60m):
+            if intervals and intervals[-1]["time"] == "15:30":
+                intervals[-1]["close"] = close_price
+                intervals[-1]["change_rate"] = round(
+                    (close_price - prev_close) / prev_close * 100, 2
+                )
 
     from datetime import datetime
     today = datetime.now().strftime("%Y-%m-%d")

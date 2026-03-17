@@ -6,6 +6,10 @@
 
 ## 2026-03-17
 
+### [개선] 15:30 캔들 종가 보정 및 가격 변동 차트 개선 (2026-03-17 23:31 KST)
+- **변경 파일**: `modules/intraday_history.py`, `collect_intraday_history.py`, `frontend/src/components/PriceHistoryPopup.tsx`
+- **내용**: 1) 장중 히스토리 15:30 캔들 종가를 inquire-daily-price API 확정 종가로 보정 (전 종목 대상). 2) paper-trading 기반 보정 로직 제거 (9종목 한정→불필요). 3) 가격 변동 차트 거래량 막대 Y축 라벨 겹침 해결 (bar inset). 4) 등락률 표시 toFixed(1)→toFixed(2). 5) 종가/거래량 범례 추가.
+
 ### [개선] 가격 변동 차트 거래량 막대 추가 및 UI 개선 (2026-03-17 22:53 KST)
 - **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`, `frontend/src/components/InvestorChartPopup.tsx`, `frontend/src/components/StockCard.tsx`
 - **내용**: 1) 일별 변동 차트에 거래량 막대 그래프 추가(색상=등락 방향). 2) 수급 차트 Y축 패딩 30→42로 확대(우측 라벨 잘림 해결). 3) 거래원 매수/매도 TOP5 좌우 위치 교체.

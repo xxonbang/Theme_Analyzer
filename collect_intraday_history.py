@@ -20,7 +20,6 @@ from modules.intraday_history import collect_stock_intraday
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "intraday-history.json"
-
 MAX_DAYS = 10  # 최대 보관 일수
 
 
@@ -104,12 +103,12 @@ def main():
     print(f"  수집 완료: {len(today_data)}/{len(all_stocks)}종목 ({elapsed:.1f}초)")
 
     # 4. 기존 데이터에 오늘 데이터 추가/갱신, 10일 초과분 제거
+    KST = timezone(timedelta(hours=9))
+    today_str = datetime.now(KST).strftime("%Y-%m-%d")
     merged_stocks: dict[str, list] = {}
 
     # 수집된 종목들 처리
     all_codes = set(today_data.keys()) | set(existing_stocks.keys())
-    KST = timezone(timedelta(hours=9))
-    today_str = datetime.now(KST).strftime("%Y-%m-%d")
 
     for code in all_codes:
         days = list(existing_stocks.get(code, []))

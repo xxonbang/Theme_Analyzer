@@ -203,9 +203,11 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                         stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.15} />
                     )
                   })}
-                  {/* 거래량 막대 (하단 정렬, 등락 방향 색상) */}
+                  {/* 거래량 막대 (하단 정렬, 등락 방향 색상, 양 끝 인셋) */}
                   {data.map((d, i) => {
-                    const x = PAD.left + (i / Math.max(data.length - 1, 1)) * PW
+                    const barInset = barW * 0.7
+                    const barPlotW = PW - barInset * 2
+                    const x = PAD.left + barInset + (i / Math.max(data.length - 1, 1)) * barPlotW
                     const barH = (d.volume / volMax) * volAreaH
                     const barY = PAD.top + PH - barH
                     const barColor = d.rate >= 0 ? "#ef4444" : "#3b82f6"
@@ -229,6 +231,13 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                 </svg>
               )
             })()}
+
+            {/* 범례 */}
+            <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
+              <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-blue-500 rounded inline-block" />종가</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 bg-red-500/20 rounded-sm inline-block" />거래량(상승)</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 bg-blue-500/20 rounded-sm inline-block" />거래량(하락)</span>
+            </div>
 
             {/* 테이블 헤더 */}
             <div className="flex items-center gap-x-2 text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
@@ -268,7 +277,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                         "inline-block font-bold tabular-nums px-1 py-0.5 rounded",
                         getChangeBgColor(rate)
                       )}>
-                        {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
+                        {rate > 0 ? "+" : ""}{rate.toFixed(2)}%
                       </span>
                     </span>
                     <span className="flex-[3] text-right tabular-nums text-muted-foreground">
