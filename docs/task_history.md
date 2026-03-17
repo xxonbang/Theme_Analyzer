@@ -6,6 +6,10 @@
 
 ## 2026-03-17
 
+### [개선] 수급 차트 범례 전체 on/off 기능 추가 (2026-03-17 22:35 KST)
+- **변경 파일**: `frontend/src/components/InvestorChartPopup.tsx`
+- **내용**: 외국인/기관/개인/프로그램 토글 버튼에 더블클릭 기능 추가. 전체 ON 시 더블클릭 → 해당 항목만 ON. 일부 ON 시 더블클릭 → 전체 ON. 모두 OFF 시 자동 전체 ON.
+
 ### [버그픽스] 거래 추이 풀차트 데이터 기간 오류 수정 (2026-03-17 22:09 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx`
 - **내용**: `.reverse().slice(0, 11)` → `.slice(0, 11).reverse()`로 변경. 최근 11일이 아닌 가장 오래된 11일(3개월 전)이 표시되던 버그 수정.

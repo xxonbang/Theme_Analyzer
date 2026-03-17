@@ -216,17 +216,39 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             </button>
           </div>
           <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground ml-auto flex-wrap">
-            {([
-              { key: "f" as const, label: "외국인", color: "bg-red-500", active: "bg-red-500/10 border-red-500/25 hover:bg-red-500/15" },
-              { key: "i" as const, label: "기관", color: "bg-violet-500", active: "bg-violet-500/10 border-violet-500/25 hover:bg-violet-500/15" },
-              ...(activeTab === "daily" ? [{ key: "p" as const, label: "개인", color: "bg-green-500", active: "bg-green-500/10 border-green-500/25 hover:bg-green-500/15" }] : []),
-              { key: "prog" as const, label: "프로그램", color: "bg-cyan-500", active: "bg-cyan-500/10 border-cyan-500/25 hover:bg-cyan-500/15" },
-            ]).map(({ key, label, color, active }) => {
+            {(() => {
+              const legendItems = [
+                { key: "f" as const, label: "외국인", color: "bg-red-500", active: "bg-red-500/10 border-red-500/25 hover:bg-red-500/15" },
+                { key: "i" as const, label: "기관", color: "bg-violet-500", active: "bg-violet-500/10 border-violet-500/25 hover:bg-violet-500/15" },
+                ...(activeTab === "daily" ? [{ key: "p" as const, label: "개인", color: "bg-green-500", active: "bg-green-500/10 border-green-500/25 hover:bg-green-500/15" }] : []),
+                { key: "prog" as const, label: "프로그램", color: "bg-cyan-500", active: "bg-cyan-500/10 border-cyan-500/25 hover:bg-cyan-500/15" },
+              ]
+              const allOn = legendItems.every(l => visibleLines[l.key as keyof typeof visibleLines])
+              return legendItems.map(({ key, label, color, active }) => {
               const isActive = visibleLines[key as keyof typeof visibleLines]
               return (
                 <button
                   key={key}
-                  onClick={() => setVisibleLines(v => ({ ...v, [key]: !v[key as keyof typeof v] }))}
+                  onClick={() => {
+                    setVisibleLines(v => {
+                      const next = { ...v, [key]: !v[key as keyof typeof v] }
+                      // 모두 꺼지면 전체 켜기
+                      const keys = legendItems.map(l => l.key)
+                      if (keys.every(k => !next[k as keyof typeof next])) {
+                        return { f: true, i: true, p: true, prog: true }
+                      }
+                      return next
+                    })
+                  }}
+                  onDoubleClick={() => {
+                    if (allOn) {
+                      // 전체 ON → 더블클릭한 것만 ON
+                      setVisibleLines({ f: key === "f", i: key === "i", p: key === "p", prog: key === "prog" })
+                    } else {
+                      // 일부만 ON → 전체 ON
+                      setVisibleLines({ f: true, i: true, p: true, prog: true })
+                    }
+                  }}
                   className={cn(
                     "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
                     isActive ? active : "border-transparent opacity-35 hover:opacity-55"
@@ -236,7 +258,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   {label}
                 </button>
               )
-            })}
+            })})()}
             {activeTab === "intraday" && intradayChart?.hasCr && (
               <button
                 onClick={() => setShowCr(v => !v)}
