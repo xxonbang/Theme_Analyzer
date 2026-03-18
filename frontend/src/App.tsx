@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { AIThemeAnalysis } from "@/components/AIThemeAnalysis"
+import { IntradayInsights } from "@/components/IntradayInsights"
 import { StockList } from "@/components/StockList"
 import { TabBar, TabControls } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
@@ -24,6 +25,7 @@ import { useIntradayHistory } from "@/hooks/useIntradayHistory"
 import { useMacroIndicators } from "@/hooks/useMacroIndicators"
 import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
+import { useThemeForecast } from "@/hooks/useThemeForecast"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { MacroIndicators } from "@/components/MacroIndicators"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X } from "lucide-react"
@@ -278,6 +280,7 @@ function App() {
   const { data: macroData } = useMacroIndicators()
   const { data: indicatorHistory, loading: indicatorHistoryLoading, fetchHistory: fetchIndicatorHistory } = useIndicatorHistory()
   const { data: investorIntradayData } = useInvestorIntraday()
+  const { data: themeForecastData } = useThemeForecast()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
 
   // 페이지 전환/접속 시 이력 기록
@@ -413,6 +416,27 @@ function App() {
   // 현재 데이터 or 히스토리 데이터 표시
   const displayData = historyData || currentData
   const isViewingHistory = !!historyData
+
+  // 장중 동향용 종목코드→이름 맵
+  const stockNameMap = useMemo(() => {
+    if (!displayData) return {}
+    const map: Record<string, string> = {}
+    const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
+    for (const sec of sections) {
+      if (!sec) continue
+      for (const s of [...(sec.kospi || []), ...(sec.kosdaq || [])]) {
+        if (s.code && s.name) map[s.code] = s.name
+      }
+    }
+    if (displayData.theme_analysis?.themes) {
+      for (const theme of displayData.theme_analysis.themes) {
+        for (const stock of theme.leader_stocks) {
+          if (stock.code && stock.name) map[stock.code] = stock.name
+        }
+      }
+    }
+    return map
+  }, [displayData])
 
   // 신규 JSON 여부 (volume 필드가 있으면 신규)
   const hasNewFields = !!displayData?.volume
@@ -946,6 +970,18 @@ function App() {
 
           {/* Index MA Alert (KOSPI + KOSDAQ) */}
           <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>
+
+          {/* Intraday Insights */}
+          <div id="section-intraday-insights">
+            <IntradayInsights
+              themeAnalysis={displayData?.theme_analysis}
+              themeForecast={themeForecastData}
+              intradayHistory={intradayHistoryData}
+              investorIntraday={investorIntradayData}
+              stockNameMap={stockNameMap}
+              onNavigateToForecast={() => setCurrentPage("theme-forecast")}
+            />
+          </div>
 
           {/* AI Theme Analysis */}
           {displayData?.theme_analysis && (

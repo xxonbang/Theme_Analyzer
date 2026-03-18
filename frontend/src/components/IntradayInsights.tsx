@@ -1,0 +1,203 @@
+import { useMemo, useState } from "react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp } from "lucide-react"
+import { cn } from "@/lib/utils"
+import type { ThemeAnalysis, IntradayHistoryData, InvestorIntraday, ThemeForecast } from "@/types/stock"
+
+interface IntradayInsightsProps {
+  themeAnalysis?: ThemeAnalysis
+  themeForecast?: ThemeForecast | null
+  intradayHistory?: IntradayHistoryData | null
+  investorIntraday?: InvestorIntraday | null
+  stockNameMap: Record<string, string>
+  onNavigateToForecast?: () => void
+}
+
+function getTodayKST(): string {
+  const now = new Date()
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000
+  return new Date(utc + 9 * 3600000).toISOString().slice(0, 10)
+}
+
+export function IntradayInsights({
+  themeAnalysis,
+  themeForecast,
+  intradayHistory,
+  investorIntraday,
+  stockNameMap,
+  onNavigateToForecast,
+}: IntradayInsightsProps) {
+  const [showMovers, setShowMovers] = useState(false)
+  const todayKST = useMemo(getTodayKST, [])
+
+  // B-1: Forecast freshness
+  const forecastInfo = useMemo(() => {
+    if (!themeForecast?.generated_at) return null
+    const forecastTime = new Date(themeForecast.generated_at)
+    const analysisTime = themeAnalysis?.analyzed_at ? new Date(themeAnalysis.analyzed_at) : null
+    const isNewer = analysisTime ? forecastTime > analysisTime : false
+    const timeStr = forecastTime.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit", hour12: false })
+    return { isNewer, timeStr, todayCount: themeForecast.today?.length || 0 }
+  }, [themeForecast, themeAnalysis])
+
+  // D-1: Theme momentum — avg intraday change rate per theme
+  const themeMomentum = useMemo(() => {
+    if (!themeAnalysis?.themes || !intradayHistory?.stocks) return []
+
+    return themeAnalysis.themes.map(theme => {
+      const rates: number[] = []
+      const stockDetails: { name: string; rate: number; foreignNet: number | null }[] = []
+
+      for (const stock of theme.leader_stocks) {
+        const days = intradayHistory.stocks[stock.code]
+        if (!days) continue
+        const today = days.find(d => d.date === todayKST)
+        if (!today?.intervals_30m?.length) continue
+        const latest = today.intervals_30m[today.intervals_30m.length - 1]
+        rates.push(latest.change_rate)
+
+        // investor data for this stock
+        let foreignNet: number | null = null
+        if (investorIntraday?.snapshots?.length) {
+          const lastSnap = investorIntraday.snapshots[investorIntraday.snapshots.length - 1]
+          foreignNet = lastSnap.data[stock.code]?.f ?? null
+        }
+
+        stockDetails.push({ name: stock.name, rate: latest.change_rate, foreignNet })
+      }
+
+      const avg = rates.length > 0 ? rates.reduce((a, b) => a + b, 0) / rates.length : null
+      return { name: theme.theme_name, avgRate: avg, stockCount: theme.leader_stocks.length, dataCount: rates.length, stockDetails }
+    }).filter(t => t.avgRate !== null)
+  }, [themeAnalysis, intradayHistory, investorIntraday, todayKST])
+
+  // A-1: Momentum shifts — biggest change_rate delta in latest period
+  const momentumShifts = useMemo(() => {
+    if (!intradayHistory?.stocks) return { gainers: [], losers: [] }
+
+    const items: { code: string; name: string; rate: number; delta: number }[] = []
+
+    for (const [code, days] of Object.entries(intradayHistory.stocks)) {
+      const today = days.find(d => d.date === todayKST)
+      if (!today?.intervals_30m || today.intervals_30m.length < 2) continue
+      const intervals = today.intervals_30m
+      const latest = intervals[intervals.length - 1]
+      const prev = intervals[intervals.length - 2]
+      const delta = latest.change_rate - prev.change_rate
+      const name = stockNameMap[code]
+      if (!name) continue
+      items.push({ code, name, rate: latest.change_rate, delta })
+    }
+
+    items.sort((a, b) => b.delta - a.delta)
+
+    return {
+      gainers: items.slice(0, 5),
+      losers: items.slice(-5).reverse(),
+    }
+  }, [intradayHistory, todayKST, stockNameMap])
+
+  const hasThemeMomentum = themeMomentum.length > 0
+  const hasMovers = momentumShifts.gainers.length > 0
+  if (!hasThemeMomentum && !hasMovers && !forecastInfo?.isNewer) return null
+
+  return (
+    <Card className="mb-4 sm:mb-6 shadow-sm border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.03] to-transparent">
+      <CardContent className="p-3 sm:p-4 space-y-3">
+        {/* Header */}
+        <div className="flex items-center gap-2">
+          <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
+          <span className="font-semibold text-sm sm:text-base">장중 시장 동향</span>
+          {intradayHistory?.updated_at && (
+            <span className="text-[10px] text-muted-foreground">
+              {intradayHistory.updated_at.split(" ")[1]?.slice(0, 5)} 기준
+            </span>
+          )}
+        </div>
+
+        {/* B-1: Forecast freshness banner */}
+        {forecastInfo?.isNewer && (
+          <button
+            onClick={onNavigateToForecast}
+            className="w-full flex items-center gap-2 bg-amber-500/10 rounded-md px-3 py-1.5 text-xs text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition-colors cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span>AI 장중 재분석 완료 ({forecastInfo.timeStr}) — {forecastInfo.todayCount}개 유망 테마</span>
+            <span className="ml-auto text-amber-500 shrink-0">보기 →</span>
+          </button>
+        )}
+
+        {/* D-1: Theme momentum */}
+        {hasThemeMomentum && (
+          <div>
+            <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 장중 등락률 (대장주 평균)</div>
+            <div className="grid grid-cols-2 gap-1.5">
+              {themeMomentum.map(t => (
+                <div key={t.name} className="flex items-center justify-between bg-muted/50 rounded-md px-2.5 py-1.5">
+                  <span className="text-xs font-medium truncate mr-2">{t.name}</span>
+                  <span className={cn(
+                    "text-xs font-bold tabular-nums shrink-0",
+                    t.avgRate! >= 0 ? "text-red-500" : "text-blue-500"
+                  )}>
+                    {t.avgRate! > 0 ? "+" : ""}{t.avgRate!.toFixed(2)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* A-1: Momentum shifts */}
+        {hasMovers && (
+          <div>
+            <button
+              onClick={() => setShowMovers(!showMovers)}
+              className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium mb-1 hover:text-foreground transition-colors"
+            >
+              {showMovers ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+              장중 모멘텀 급변 TOP5 (최근 30분 변동폭)
+            </button>
+            {showMovers && (
+              <div className="grid grid-cols-2 gap-3">
+                {/* Gainers */}
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-1 text-[10px] text-red-500 font-medium mb-0.5">
+                    <TrendingUp className="w-3 h-3" /> 급등 전환
+                  </div>
+                  {momentumShifts.gainers.map(s => (
+                    <div key={s.code} className="flex items-center justify-between text-[11px]">
+                      <span className="truncate mr-1">{s.name}</span>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                          {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
+                        </span>
+                        <span className="text-[9px] text-red-400">(+{s.delta.toFixed(1)})</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Losers */}
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-1 text-[10px] text-blue-500 font-medium mb-0.5">
+                    <TrendingDown className="w-3 h-3" /> 급락 전환
+                  </div>
+                  {momentumShifts.losers.map(s => (
+                    <div key={s.code} className="flex items-center justify-between text-[11px]">
+                      <span className="truncate mr-1">{s.name}</span>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                          {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
+                        </span>
+                        <span className="text-[9px] text-blue-400">({s.delta.toFixed(1)})</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
