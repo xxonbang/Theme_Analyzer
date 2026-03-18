@@ -8,6 +8,7 @@ from typing import Dict, Any, List, Tuple
 from datetime import datetime
 
 from modules.kis_client import KISClient
+from modules.utils import KST
 from modules.market_hours import is_market_hours
 
 
@@ -331,7 +332,7 @@ class KISRankAPI:
         return {
             "kospi": self.get_volume_rank(market="KOSPI", limit=30, exclude_etf=exclude_etf),
             "kosdaq": self.get_volume_rank(market="KOSDAQ", limit=30, exclude_etf=exclude_etf),
-            "collected_at": datetime.now().isoformat(),
+            "collected_at": datetime.now(KST).isoformat(),
             "category": "volume",
             "exclude_etf": exclude_etf,
         }
@@ -359,7 +360,7 @@ class KISRankAPI:
             "kospi_down": self.get_fluctuation_rank(market="KOSPI", direction="DOWN", limit=30, exclude_etf=exclude_etf),
             "kosdaq_up": self.get_fluctuation_rank(market="KOSDAQ", direction="UP", limit=30, exclude_etf=exclude_etf),
             "kosdaq_down": self.get_fluctuation_rank(market="KOSDAQ", direction="DOWN", limit=30, exclude_etf=exclude_etf),
-            "collected_at": datetime.now().isoformat(),
+            "collected_at": datetime.now(KST).isoformat(),
             "category": "fluctuation",
             "exclude_etf": exclude_etf,
         }
@@ -448,7 +449,7 @@ class KISRankAPI:
         return {
             "kospi": self.get_trading_value_rank(market="KOSPI", limit=30, exclude_etf=exclude_etf),
             "kosdaq": self.get_trading_value_rank(market="KOSDAQ", limit=30, exclude_etf=exclude_etf),
-            "collected_at": datetime.now().isoformat(),
+            "collected_at": datetime.now(KST).isoformat(),
             "category": "trading_value",
             "exclude_etf": exclude_etf,
         }
@@ -651,7 +652,7 @@ class KISRankAPI:
 
         return {
             **categories,
-            "collected_at": datetime.now().isoformat(),
+            "collected_at": datetime.now(KST).isoformat(),
             "category": "fluctuation_direct",
             "exclude_etf": exclude_etf,
         }

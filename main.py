@@ -123,7 +123,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     """
     print("=" * 60)
     print("  KIS 거래량+등락폭 TOP10 텔레그램 발송")
-    print(f"  실행 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"  실행 시간: {datetime.now(KST).strftime('%Y-%m-%d %H:%M:%S')}")
     if test_mode:
         print("  [테스트 모드] 텔레그램 발송 없이 콘솔 출력만 수행")
     print("=" * 60)
@@ -170,9 +170,9 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 print(f"  재시도 ({attempt + 1}/3)...")
 
             all_items = []
-            end_date = datetime.now().strftime("%Y%m%d")
+            end_date = datetime.now(KST).strftime("%Y%m%d")
             for page in range(6):
-                start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
+                start_date = (datetime.now(KST) - timedelta(days=300)).strftime("%Y%m%d")
                 idx_resp = client.get_index_daily_price(
                     "0001", start_date=start_date, end_date=end_date
                 )
@@ -245,9 +245,9 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 print(f"  재시도 ({attempt + 1}/3)...")
 
             all_items = []
-            end_date = datetime.now().strftime("%Y%m%d")
+            end_date = datetime.now(KST).strftime("%Y%m%d")
             for page in range(6):  # 최대 6페이지 (300건) — MA120 충분
-                start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
+                start_date = (datetime.now(KST) - timedelta(days=300)).strftime("%Y%m%d")
                 idx_resp = client.get_index_daily_price(
                     "1001", start_date=start_date, end_date=end_date
                 )
@@ -419,7 +419,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     if short_target_codes:
         print(f"\n[8-2/13] 공매도 비중 수집 중... ({len(short_target_codes)}개 종목)")
         try:
-            today = datetime.now().strftime("%Y%m%d")
+            today = datetime.now(KST).strftime("%Y%m%d")
             target_list = [s for s in all_stocks if s.get("code", "") in short_target_codes]
             for idx, stock in enumerate(target_list):
                 code = stock.get("code", "")

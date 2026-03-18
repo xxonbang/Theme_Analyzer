@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import type { InvestorIntraday } from "@/types/stock"
+import { useAutoPolling } from "./useAutoPolling"
 
 const DATA_URL = import.meta.env.BASE_URL + "data/investor-intraday.json"
 
@@ -13,7 +14,7 @@ export function useInvestorIntraday(): UseInvestorIntradayReturn {
 
   const refetch = useCallback(async () => {
     try {
-      const response = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
+      const response = await fetch(DATA_URL + "?t=" + Date.now())
       if (!response.ok) return
       const json = await response.json()
       setData(json)
@@ -25,6 +26,8 @@ export function useInvestorIntraday(): UseInvestorIntradayReturn {
   useEffect(() => {
     refetch()
   }, [refetch])
+
+  useAutoPolling(refetch)
 
   return { data, refetch }
 }

@@ -139,7 +139,8 @@ class TelegramSender:
 
     def _get_timestamp(self) -> str:
         """현재 시각 포맷"""
-        return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        from modules.utils import KST
+        return datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
     def format_start_barricade(self, exchange_data: Optional[Dict[str, Any]] = None) -> str:
         """시작 바리케이트 메시지 (환율 정보 포함)"""

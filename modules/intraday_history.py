@@ -120,8 +120,8 @@ def collect_stock_intraday(
                 prev_close = int(output[1].get("stck_clpr", 0))
             elif output:
                 close_price = int(output[0].get("stck_clpr", 0))
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"  ⚠ {code} 전일종가/확정종가 조회 실패 (시가 기준 등락률로 대체): {e}")
 
     intervals_30m = aggregate_minute_candles(candles, 30, prev_close=prev_close)
     intervals_60m = aggregate_minute_candles(candles, 60, prev_close=prev_close)
@@ -139,7 +139,8 @@ def collect_stock_intraday(
                 )
 
     from datetime import datetime
-    today = datetime.now().strftime("%Y-%m-%d")
+    from modules.utils import KST
+    today = datetime.now(KST).strftime("%Y-%m-%d")
 
     return {
         "date": today,

@@ -15,6 +15,7 @@ import threading
 import requests
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from modules.utils import KST
 from typing import Optional, Dict, Any
 
 import sys
@@ -337,7 +338,7 @@ class KISClient:
         KIS API는 실제로 토큰 발급 횟수를 제한하므로, 남용 시 계정에 문제가 생길 수 있습니다.
         """
         # 일일 횟수 제한 체크
-        today = datetime.now().date()
+        today = datetime.now(KST).date()
         if self._force_refresh_date != today:
             self._force_refresh_count = 0
             self._force_refresh_date = today
@@ -542,9 +543,9 @@ class KISClient:
         tr_id = "FHKST03010100"
 
         if end_date is None:
-            end_date = datetime.now().strftime("%Y%m%d")
+            end_date = datetime.now(KST).strftime("%Y%m%d")
         if start_date is None:
-            start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
+            start_date = (datetime.now(KST) - timedelta(days=300)).strftime("%Y%m%d")
 
         params = {
             "FID_COND_MRKT_DIV_CODE": "J",
@@ -604,9 +605,9 @@ class KISClient:
         path = "/uapi/domestic-stock/v1/quotations/inquire-daily-indexchartprice"
         tr_id = "FHKUP03500100"
         if end_date is None:
-            end_date = datetime.now().strftime("%Y%m%d")
+            end_date = datetime.now(KST).strftime("%Y%m%d")
         if start_date is None:
-            start_date = (datetime.now() - timedelta(days=300)).strftime("%Y%m%d")
+            start_date = (datetime.now(KST) - timedelta(days=300)).strftime("%Y%m%d")
         params = {
             "FID_COND_MRKT_DIV_CODE": "U",
             "FID_INPUT_ISCD": index_code,
@@ -640,7 +641,7 @@ class KISClient:
         path = "/uapi/domestic-stock/v1/quotations/daily-short-sale"
         tr_id = "FHPST04830000"
         if end_date is None:
-            end_date = datetime.now().strftime("%Y%m%d")
+            end_date = datetime.now(KST).strftime("%Y%m%d")
         if start_date is None:
             start_date = end_date  # 당일만
         params = {
@@ -648,6 +649,26 @@ class KISClient:
             "FID_INPUT_ISCD": stock_code,
             "FID_INPUT_DATE_1": start_date,
             "FID_INPUT_DATE_2": end_date,
+        }
+        return self.request("GET", path, tr_id, params=params)
+
+    def get_asking_price(self, stock_code: str) -> Dict[str, Any]:
+        """주식현재가 호가/예상체결 조회 (FHKST01010200)"""
+        path = "/uapi/domestic-stock/v1/quotations/inquire-asking-price-exp-ccn"
+        tr_id = "FHKST01010200"
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+        }
+        return self.request("GET", path, tr_id, params=params)
+
+    def get_ccnl(self, stock_code: str) -> Dict[str, Any]:
+        """주식현재가 체결 조회 (FHKST01010300)"""
+        path = "/uapi/domestic-stock/v1/quotations/inquire-ccnl"
+        tr_id = "FHKST01010300"
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
         }
         return self.request("GET", path, tr_id, params=params)
 

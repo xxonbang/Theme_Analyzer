@@ -599,6 +599,47 @@ def _self_consistency_vote(prompt: str, api_key: str, n_samples: int = 3, use_se
     return responses[best_idx], all_sources
 
 
+def _fetch_prediction_accuracy() -> Optional[List[Dict]]:
+    """Supabase theme_predictions 테이블에서 카테고리별 적중률 조회"""
+    try:
+        from modules.supabase_client import get_supabase_manager
+        manager = get_supabase_manager()
+        client = manager._get_client()
+        if not client:
+            return None
+
+        response = client.table("theme_predictions").select(
+            "category, status"
+        ).in_("status", ["hit", "missed"]).execute()
+
+        if not response.data:
+            return None
+
+        # 카테고리별 적중률 계산
+        stats: Dict[str, Dict[str, int]] = {}
+        for row in response.data:
+            cat = row.get("category", "unknown")
+            status = row.get("status", "")
+            if cat not in stats:
+                stats[cat] = {"hit": 0, "missed": 0}
+            if status == "hit":
+                stats[cat]["hit"] += 1
+            elif status == "missed":
+                stats[cat]["missed"] += 1
+
+        result = []
+        for cat, counts in stats.items():
+            total = counts["hit"] + counts["missed"]
+            if total > 0:
+                accuracy = round(counts["hit"] / total * 100, 1)
+                result.append({"category": cat, "hit": counts["hit"], "missed": counts["missed"], "total": total, "accuracy": accuracy})
+
+        return result if result else None
+    except Exception as e:
+        logger.debug("적중률 조회 실패: %s", e)
+        return None
+
+
 def build_forecast_context(
     latest_data: Dict[str, Any],
     theme_history: List[Dict[str, Any]],
@@ -607,6 +648,9 @@ def build_forecast_context(
     momentum_scores: Optional[List[Dict]] = None,
     rotation_data: Optional[List[Dict]] = None,
     global_news: Optional[List[Dict]] = None,
+    intraday_investor: Optional[Dict] = None,
+    intraday_history: Optional[Dict] = None,
+    prediction_accuracy: Optional[List[Dict]] = None,
 ) -> str:
     """Gemini 입력용 예측 컨텍스트 구성
 
@@ -618,6 +662,9 @@ def build_forecast_context(
         momentum_scores: 테마 모멘텀 분석 결과
         rotation_data: 섹터 로테이션 분석 결과
         global_news: Finnhub 글로벌 시장 뉴스
+        intraday_investor: 장중 수급 데이터 (investor-intraday.json)
+        intraday_history: 장중 분봉 데이터 (intraday-history.json)
+        prediction_accuracy: 카테고리별 적중률 통계 (자동 조회 가능)
     """
     lines = []
 
@@ -757,6 +804,108 @@ def build_forecast_context(
                     parts.append("정배열")
 
                 lines.append(f"- {' | '.join(parts)}")
+
+    # 6. 장중 실시간 수급 (--intraday 모드)
+    if intraday_investor and intraday_investor.get("snapshots"):
+        # 종목코드 → 이름 매핑 구축 (여러 소스에서 수집)
+        code_to_name = {}
+        for key in ("rising", "falling", "volume", "trading_value", "fluctuation", "fluctuation_direct"):
+            val = latest_data.get(key, {})
+            if isinstance(val, dict):
+                for mkt in val.values():
+                    if isinstance(mkt, list):
+                        for s in mkt:
+                            if s.get("code") and s.get("name"):
+                                code_to_name[s["code"]] = s["name"]
+        for theme in latest_data.get("theme_analysis", {}).get("themes", []):
+            for s in theme.get("leader_stocks", []):
+                if s.get("code") and s.get("name"):
+                    code_to_name[s["code"]] = s["name"]
+
+        last_snap = intraday_investor["snapshots"][-1]
+        snap_round = last_snap.get("round", "?")
+        snap_time = last_snap.get("time", "N/A")
+
+        lines.append(f"\n## 장중 실시간 수급 ({snap_round}라운드 {snap_time} KST)")
+        # 등락률 상위 30종목만 (프롬프트 크기 제한)
+        snap_data = last_snap.get("data", {})
+        sorted_stocks = sorted(
+            snap_data.items(),
+            key=lambda x: abs(x[1].get("cr", 0)),
+            reverse=True,
+        )[:30]
+        for code, info in sorted_stocks:
+            name = code_to_name.get(code, code)
+            cr = info.get("cr", 0)
+            f_net = info.get("f", 0)  # 외국인 순매수
+            i_net = info.get("i", 0)  # 기관 순매수
+            f_str = f"외국인 {'+' if f_net >= 0 else ''}{f_net / 10000:.1f}만주" if f_net else "외국인 0"
+            i_str = f"기관 {'+' if i_net >= 0 else ''}{i_net / 10000:.1f}만주" if i_net else "기관 0"
+            lines.append(f"- {name}({code}): {f_str} | {i_str} | {cr:+.2f}%")
+
+    # 7. 장중 모멘텀 변화 (최근 30분)
+    if intraday_history and intraday_history.get("stocks"):
+        stocks = intraday_history["stocks"]
+        # 종목코드 → 이름 매핑 (위에서 이미 구축했을 수 있으나, 독립적으로도 동작)
+        if not intraday_investor:
+            code_to_name = {}
+            for key in ("rising", "falling", "volume", "trading_value", "fluctuation", "fluctuation_direct"):
+                val = latest_data.get(key, {})
+                if isinstance(val, dict):
+                    for mkt in val.values():
+                        if isinstance(mkt, list):
+                            for s in mkt:
+                                if s.get("code") and s.get("name"):
+                                    code_to_name[s["code"]] = s["name"]
+            for theme in latest_data.get("theme_analysis", {}).get("themes", []):
+                for s in theme.get("leader_stocks", []):
+                    if s.get("code") and s.get("name"):
+                        code_to_name[s["code"]] = s["name"]
+
+        momentum_changes = []
+        for code, days in stocks.items():
+            if not isinstance(days, list) or not days:
+                continue
+            # 오늘(최신 날짜)의 30분 봉
+            latest_day = days[-1]
+            intervals = latest_day.get("intervals_30m", [])
+            if len(intervals) < 2:
+                continue
+            last_cr = intervals[-1].get("change_rate", 0)
+            prev_cr = intervals[-2].get("change_rate", 0)
+            delta = last_cr - prev_cr
+            if abs(delta) >= 0.5:  # 0.5%p 이상 변화만
+                name = code_to_name.get(code, code)
+                momentum_changes.append((name, code, delta, last_cr))
+
+        if momentum_changes:
+            lines.append("\n## 장중 모멘텀 변화 (최근 30분)")
+            rising = sorted(
+                [m for m in momentum_changes if m[2] > 0],
+                key=lambda x: x[2], reverse=True,
+            )[:10]
+            falling = sorted(
+                [m for m in momentum_changes if m[2] < 0],
+                key=lambda x: x[2],
+            )[:10]
+            if rising:
+                items = ", ".join(f"{n}({c:+.1f}%p)" for n, _, c, _ in rising)
+                lines.append(f"- 급등 전환: {items}")
+            if falling:
+                items = ", ".join(f"{n}({c:+.1f}%p)" for n, _, c, _ in falling)
+                lines.append(f"- 급락 전환: {items}")
+
+    # 과거 예측 성과 (적중률)
+    accuracy = prediction_accuracy
+    if accuracy is None:
+        accuracy = _fetch_prediction_accuracy()
+    if accuracy:
+        lines.append("\n## 과거 예측 성과")
+        cat_labels = {"today": "당일", "short_term": "단기(7일)", "long_term": "장기(1개월)"}
+        for a in accuracy:
+            label = cat_labels.get(a["category"], a["category"])
+            lines.append(f"- {label}: 적중률 {a['accuracy']}% ({a['hit']}/{a['total']}건)")
+        lines.append("※ 적중률이 낮은 카테고리는 보수적으로 예측하세요.")
 
     return "\n".join(lines)
 
@@ -952,6 +1101,8 @@ def generate_forecast(
     rotation_data: Optional[List[Dict]] = None,
     global_news: Optional[List[Dict]] = None,
     intraday: bool = False,
+    intraday_investor: Optional[Dict] = None,
+    intraday_history: Optional[Dict] = None,
 ) -> Optional[Dict]:
     """유망 테마 예측 실행
 
@@ -964,6 +1115,8 @@ def generate_forecast(
         rotation_data: 섹터 로테이션 데이터
         global_news: 글로벌 시장 뉴스
         intraday: 장중 재예측 모드 (경량 파이프라인: Phase1 1회 + Phase2 1회 = 2회)
+        intraday_investor: 장중 수급 데이터 (investor-intraday.json)
+        intraday_history: 장중 분봉 데이터 (intraday-history.json)
 
     Returns:
         예측 결과 dict 또는 실패 시 None
@@ -980,6 +1133,8 @@ def generate_forecast(
         momentum_scores=momentum_scores,
         rotation_data=rotation_data,
         global_news=global_news,
+        intraday_investor=intraday_investor,
+        intraday_history=intraday_history,
     )
     if not context.strip():
         logger.warning("예측 컨텍스트가 비어있습니다")

@@ -78,7 +78,7 @@ class NaverNewsAPI:
         try:
             dt = datetime.strptime(date_str, "%a, %d %b %Y %H:%M:%S %z")
             return dt.strftime("%m-%d %H:%M")
-        except:
+        except (ValueError, TypeError):
             return date_str[:16] if date_str else ""
 
     def search_news(

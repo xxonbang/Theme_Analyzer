@@ -125,6 +125,28 @@ def main():
     except ImportError:
         print("  ⏭ 섹터 로테이션 모듈 미설치 (건너뜀)")
 
+    # Step 4.5: 장중 데이터 로드 (--intraday 모드)
+    intraday_investor = None
+    intraday_history = None
+    if intraday_mode:
+        print("\n[4.5/6] 장중 수급/분봉 데이터 로드...")
+        inv_path = DATA_DIR / "investor-intraday.json"
+        hist_path = DATA_DIR / "intraday-history.json"
+        if inv_path.exists():
+            with open(inv_path, "r", encoding="utf-8") as f:
+                intraday_investor = json.load(f)
+            snap_count = len(intraday_investor.get("snapshots", []))
+            print(f"  ✓ 장중 수급 로드 완료 ({snap_count}라운드)")
+        else:
+            print("  ⚠ investor-intraday.json 없음 (건너뜀)")
+        if hist_path.exists():
+            with open(hist_path, "r", encoding="utf-8") as f:
+                intraday_history = json.load(f)
+            stock_count = len(intraday_history.get("stocks", {}))
+            print(f"  ✓ 장중 분봉 로드 완료 ({stock_count}종목)")
+        else:
+            print("  ⚠ intraday-history.json 없음 (건너뜀)")
+
     # Step 5: Gemini 유망 테마 예측
     print("\n[5/6] Gemini 유망 테마 예측...")
     forecast = generate_forecast(
@@ -135,6 +157,8 @@ def main():
         rotation_data=rotation_data,
         global_news=global_news,
         intraday=intraday_mode,
+        intraday_investor=intraday_investor,
+        intraday_history=intraday_history,
     )
 
     if not forecast:
@@ -205,8 +229,8 @@ def main():
         from modules.api_health import resolve_key_alert
         resolve_key_alert("GEMINI_API_KEY")
         resolve_key_alert("FINNHUB_API_KEY")
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"  ⚠ API 알림 해제 실패 (무시): {e}")
 
     print("\n" + "=" * 50)
     print("✅ 유망 테마 예측 완료")

@@ -5,6 +5,7 @@ import { PaperTradingStockCard } from "@/components/PaperTradingStockCard"
 import { PaperTradingSummary } from "@/components/PaperTradingSummary"
 import { PaperTradingDateSelector } from "@/components/PaperTradingDateSelector"
 import { usePaperTradingData, calcEqualWeightSummary, calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
+import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import type { PaperTradingData, PaperTradingMode, InvestMode } from "@/types/stock"
@@ -32,6 +33,7 @@ export function PaperTradingPage() {
   } = usePaperTradingData()
 
   const { logActivity } = useAuth()
+  const { data: intradayData } = useInvestorIntraday()
   const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState<PaperTradingMode>("close")
   const [investMode, setInvestMode] = useState<InvestMode>("equal")
@@ -159,6 +161,48 @@ export function PaperTradingPage() {
           {error}
         </div>
       )}
+
+      {/* 장중 실시간 손익 */}
+      {intradayData && intradayData.snapshots?.length > 0 && selectedDailyData.length > 0 && (() => {
+        const todayStr = intradayData.date
+        const todayData = adjustedDailyData.get(todayStr)
+        if (!todayData || !selectedDates.has(todayStr)) return null
+        const lastSnap = intradayData.snapshots[intradayData.snapshots.length - 1]
+        const snapData = lastSnap.data || {}
+        const activeForToday = todayData.stocks.filter(s => !isStockExcluded(todayStr, s.code))
+        const realtimeItems = activeForToday
+          .map(s => {
+            const cp = snapData[s.code]?.cp
+            if (!cp || !s.buy_price) return null
+            const pnlRate = Math.round(((cp - s.buy_price) / s.buy_price) * 10000) / 100
+            return { name: s.name, code: s.code, buyPrice: s.buy_price, currentPrice: cp, pnlRate }
+          })
+          .filter(Boolean) as Array<{ name: string; code: string; buyPrice: number; currentPrice: number; pnlRate: number }>
+        if (realtimeItems.length === 0) return null
+        const avgPnl = Math.round(realtimeItems.reduce((s, i) => s + i.pnlRate, 0) / realtimeItems.length * 100) / 100
+        return (
+          <Card className="overflow-hidden shadow-sm border-amber-500/30">
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs sm:text-sm font-semibold">장중 실시간 ({lastSnap.time})</span>
+                <span className={cn("font-bold text-sm tabular-nums", avgPnl > 0 ? "text-red-600" : avgPnl < 0 ? "text-blue-600" : "")}>
+                  평균 {avgPnl >= 0 ? "+" : ""}{avgPnl}%
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                {realtimeItems.map(item => (
+                  <div key={item.code} className="flex items-center justify-between text-[10px] sm:text-xs px-2 py-1 rounded bg-muted/30">
+                    <span className="truncate mr-1">{item.name}</span>
+                    <span className={cn("font-semibold tabular-nums shrink-0", item.pnlRate > 0 ? "text-red-600" : item.pnlRate < 0 ? "text-blue-600" : "")}>
+                      {item.pnlRate >= 0 ? "+" : ""}{item.pnlRate}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )
+      })()}
 
       {/* 종합 요약 */}
       {selectedDailyData.length > 0 && (

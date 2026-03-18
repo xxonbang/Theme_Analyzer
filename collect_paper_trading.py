@@ -16,6 +16,7 @@ import argparse
 import subprocess
 import time
 from datetime import datetime, timedelta
+from modules.utils import KST
 from pathlib import Path
 from typing import Optional
 
@@ -281,7 +282,7 @@ def collect_paper_trading_data(
     test_mode: bool = False,
 ) -> Optional[dict]:
     """모의투자 데이터 수집"""
-    now = datetime.now()
+    now = datetime.now(KST)
     today_str = now.strftime("%Y-%m-%d")
 
     # git 히스토리에서 오늘 모든 스냅샷 수집
@@ -569,7 +570,7 @@ def update_index(result_data: dict):
 
 def cleanup_old_files():
     """30일 이전 파일 정리"""
-    cutoff = datetime.now() - timedelta(days=RETENTION_DAYS)
+    cutoff = datetime.now(KST) - timedelta(days=RETENTION_DAYS)
     cutoff_str = cutoff.strftime("%Y-%m-%d")
 
     removed = 0

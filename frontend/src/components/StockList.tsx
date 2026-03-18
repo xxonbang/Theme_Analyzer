@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -455,7 +455,23 @@ function CompactMarketSection({
   )
 }
 
+type SortOption = "default" | "foreign_net" | "institution_net" | "change_rate"
+
+function sortStocks(stocks: Stock[], sortBy: SortOption, investorData?: Record<string, InvestorInfo>): Stock[] {
+  if (sortBy === "default") return stocks
+  return [...stocks].sort((a, b) => {
+    if (sortBy === "change_rate") return (b.change_rate ?? 0) - (a.change_rate ?? 0)
+    if (sortBy === "foreign_net") return (investorData?.[b.code]?.foreign_net ?? 0) - (investorData?.[a.code]?.foreign_net ?? 0)
+    if (sortBy === "institution_net") return (investorData?.[b.code]?.institution_net ?? 0) - (investorData?.[a.code]?.institution_net ?? 0)
+    return 0
+  })
+}
+
 export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit, sectionId }: StockListProps) {
+  const [sortBy, setSortBy] = useState<SortOption>("default")
+  const sortedKospi = useMemo(() => sortStocks(kospiStocks, sortBy, investorData), [kospiStocks, sortBy, investorData])
+  const sortedKosdaq = useMemo(() => sortStocks(kosdaqStocks, sortBy, investorData), [kosdaqStocks, sortBy, investorData])
+
   const isNeutral = type === "neutral"
   const isRising = type === "rising"
   const Icon = isNeutral ? BarChart3 : isRising ? TrendingUp : TrendingDown
@@ -475,6 +491,18 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
             <Icon className={cn("w-4 h-4", iconColor)} />
             <span className="truncate">{title}</span>
+            {isAdmin && investorData && (
+              <select
+                value={sortBy}
+                onChange={e => setSortBy(e.target.value as SortOption)}
+                className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground ml-1"
+              >
+                <option value="default">기본 정렬</option>
+                <option value="foreign_net">외국인순</option>
+                <option value="institution_net">기관순</option>
+                <option value="change_rate">등락률순</option>
+              </select>
+            )}
             <Badge variant={badgeVariant as any} className="ml-auto text-[9px] sm:text-[10px] shrink-0">
               {kospiStocks.length + kosdaqStocks.length}
             </Badge>
@@ -484,7 +512,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           <div id={sectionId ? `${sectionId}-kospi` : undefined}>
           <CompactMarketSection
             market="KOSPI"
-            stocks={kospiStocks}
+            stocks={sortedKospi}
             history={history}
             type={type}
             bgColor="bg-blue-600"
@@ -505,7 +533,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           <div id={sectionId ? `${sectionId}-kosdaq` : undefined}>
           <CompactMarketSection
             market="KOSDAQ"
-            stocks={kosdaqStocks}
+            stocks={sortedKosdaq}
             history={history}
             type={type}
             bgColor="bg-green-600"
@@ -535,6 +563,18 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
           <Icon className={cn("w-4 h-4 sm:w-5 sm:h-5", iconColor)} />
           <span className="truncate">{title}</span>
+          {isAdmin && investorData && (
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value as SortOption)}
+              className="text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground ml-1"
+            >
+              <option value="default">기본 정렬</option>
+              <option value="foreign_net">외국인순</option>
+              <option value="institution_net">기관순</option>
+              <option value="change_rate">등락률순</option>
+            </select>
+          )}
           <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-xs shrink-0">
             {kospiStocks.length + kosdaqStocks.length} 종목
           </Badge>
@@ -546,7 +586,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
         <StockMarketSection
           label="KOSPI"
           dotColor="bg-blue-600"
-          stocks={kospiStocks}
+          stocks={sortedKospi}
           history={history}
           news={news}
           type={type}
@@ -571,7 +611,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
         <StockMarketSection
           label="KOSDAQ"
           dotColor="bg-green-600"
-          stocks={kosdaqStocks}
+          stocks={sortedKosdaq}
           history={history}
           news={news}
           type={type}

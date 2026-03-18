@@ -4,6 +4,7 @@ import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
 import { AIThemeAnalysis } from "@/components/AIThemeAnalysis"
 import { IntradayInsights } from "@/components/IntradayInsights"
+import { DataFreshness } from "@/components/DataFreshness"
 import { StockList } from "@/components/StockList"
 import { TabBar, TabControls } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
@@ -26,6 +27,7 @@ import { useMacroIndicators } from "@/hooks/useMacroIndicators"
 import { useIndicatorHistory } from "@/hooks/useIndicatorHistory"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
+import { useStockHistory } from "@/hooks/useStockHistory"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { MacroIndicators } from "@/components/MacroIndicators"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X } from "lucide-react"
@@ -290,6 +292,7 @@ function App() {
   }, [currentPage, recordVisit, logActivity])
   const apiAlerts = useApiAlerts(isAdmin)
   const { data: currentData, loading, error, refetch, refreshFromAPI, cancelRefresh, refreshElapsed } = useStockData()
+  const { history: stockHistoryData } = useStockHistory()
   const { containerRef, pullDistance, isRefreshing, canRelease } = usePullToRefresh({
     onRefresh: refetch,
     enabled: !loading,
@@ -416,6 +419,9 @@ function App() {
   // 현재 데이터 or 히스토리 데이터 표시
   const displayData = historyData || currentData
   const isViewingHistory = !!historyData
+
+  // 종목별 등락률 이력: 별도 파일 우선, fallback은 latest.json 내장 history
+  const mergedHistory = stockHistoryData || displayData?.history || {}
 
   // 장중 동향용 종목코드→이름 맵
   const stockNameMap = useMemo(() => {
@@ -971,6 +977,14 @@ function App() {
           {/* Index MA Alert (KOSPI + KOSDAQ) */}
           <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>
 
+          {/* Data Freshness */}
+          <DataFreshness
+            stockData={currentData ?? null}
+            investorIntraday={investorIntradayData ?? null}
+            intradayHistory={intradayHistoryData ?? null}
+            themeForecast={themeForecastData ?? null}
+          />
+
           {/* Intraday Insights */}
           <div id="section-intraday-insights">
             <IntradayInsights
@@ -1032,7 +1046,7 @@ function App() {
                     title={`${compositeTitle} + 상승률 TOP`}
                     kospiStocks={compositeData.rising.kospi}
                     kosdaqStocks={compositeData.rising.kosdaq}
-                    history={displayData.history}
+                    history={mergedHistory}
                     news={displayData.news}
                     type="rising"
                     compactMode={compactMode}
@@ -1056,7 +1070,7 @@ function App() {
                     title={`${compositeTitle} + 하락률 TOP`}
                     kospiStocks={compositeData.falling.kospi}
                     kosdaqStocks={compositeData.falling.kosdaq}
-                    history={displayData.history}
+                    history={mergedHistory}
                     news={displayData.news}
                     type="falling"
                     compactMode={compactMode}
@@ -1084,7 +1098,7 @@ function App() {
                     title={`${compositeTitle} + 상승률 TOP10`}
                     kospiStocks={displayData.rising.kospi}
                     kosdaqStocks={displayData.rising.kosdaq}
-                    history={displayData.history}
+                    history={mergedHistory}
                     news={displayData.news}
                     type="rising"
                     compactMode={compactMode}
@@ -1106,7 +1120,7 @@ function App() {
                     title={`${compositeTitle} + 하락률 TOP10`}
                     kospiStocks={displayData.falling.kospi}
                     kosdaqStocks={displayData.falling.kosdaq}
-                    history={displayData.history}
+                    history={mergedHistory}
                     news={displayData.news}
                     type="falling"
                     compactMode={compactMode}
@@ -1134,7 +1148,7 @@ function App() {
               title="거래대금 TOP20"
               kospiStocks={tradingValueTabData.kospi.slice(0, 20)}
               kosdaqStocks={tradingValueTabData.kosdaq.slice(0, 20)}
-              history={displayData.history}
+              history={mergedHistory}
               news={displayData.news}
               type="neutral"
               compactMode={compactMode}
@@ -1160,7 +1174,7 @@ function App() {
               title="거래량 TOP20"
               kospiStocks={volumeTabData.kospi.slice(0, 20)}
               kosdaqStocks={volumeTabData.kosdaq.slice(0, 20)}
-              history={displayData.history}
+              history={mergedHistory}
               news={displayData.news}
               type="neutral"
               compactMode={compactMode}
@@ -1187,7 +1201,7 @@ function App() {
                 title="등락률 상승 TOP20"
                 kospiStocks={(activeFluctuationData.kospi_up || []).slice(0, 20)}
                 kosdaqStocks={(activeFluctuationData.kosdaq_up || []).slice(0, 20)}
-                history={displayData.history}
+                history={mergedHistory}
                 news={displayData.news}
                 type="rising"
                 compactMode={compactMode}
@@ -1209,7 +1223,7 @@ function App() {
                 title="등락률 하락 TOP20"
                 kospiStocks={(activeFluctuationData.kospi_down || []).slice(0, 20)}
                 kosdaqStocks={(activeFluctuationData.kosdaq_down || []).slice(0, 20)}
-                history={displayData.history}
+                history={mergedHistory}
                 news={displayData.news}
                 type="falling"
                 compactMode={compactMode}

@@ -13,8 +13,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   send-report:
@@ -170,36 +168,6 @@ jobs:
             echo "No data file found"
           fi
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm ci
-
-      - name: Build frontend
-        working-directory: frontend
-        env:
-          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_PAT }}
-          VITE_GITHUB_REPO: xxonbang/theme-analyzer
-          VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: frontend/dist
-
       - name: Notify completion via Telegram
         if: always()
         env:
@@ -212,9 +180,6 @@ jobs:
           if [ "$ANALYSIS" = "success" ] && [ "$JOB" = "success" ]; then
             MESSAGE="<b>[THEME_ANALYSIS][Daily Theme Analysis] 완료</b>
           Gemini AI 기반 당일 테마 분석 + 리포트 생성 + Telegram 전송"
-          elif [ "$ANALYSIS" = "success" ]; then
-            MESSAGE="<b>[THEME_ANALYSIS][Daily Theme Analysis] 완료 (배포 오류)</b>
-          분석·전송 성공, 빌드/배포 단계에서 오류 발생"
           else
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
             MESSAGE="<b>[THEME_ANALYSIS][Daily Theme Analysis] 실패</b>
@@ -226,16 +191,3 @@ jobs:
             -d text="${MESSAGE}" \
             -d parse_mode="HTML"
 
-  deploy:
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: send-report
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

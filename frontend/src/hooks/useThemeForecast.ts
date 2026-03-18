@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react"
 import type { ThemeForecast } from "@/types/stock"
+import { useAutoPolling } from "./useAutoPolling"
 
 const FORECAST_URL = import.meta.env.BASE_URL + "data/theme-forecast.json"
 
@@ -20,7 +21,7 @@ export function useThemeForecast(): UseThemeForecastReturn {
     setError(null)
 
     try {
-      const response = await fetch(FORECAST_URL + "?t=" + Date.now(), { cache: "no-store" })
+      const response = await fetch(FORECAST_URL + "?t=" + Date.now())
       if (!response.ok) {
         if (response.status === 404) {
           // 아직 예측 데이터가 없는 경우
@@ -43,6 +44,8 @@ export function useThemeForecast(): UseThemeForecastReturn {
   useEffect(() => {
     fetchData()
   }, [fetchData])
+
+  useAutoPolling(fetchData)
 
   return { data, loading, error, refetch: fetchData }
 }

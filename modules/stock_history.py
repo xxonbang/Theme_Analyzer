@@ -195,7 +195,8 @@ class StockHistoryAPI:
                 try:
                     code, history = future.result()
                     result[code] = history
-                except Exception:
-                    pass
+                except Exception as e:
+                    code = futures[future]
+                    print(f"  ⚠ {code} 등락률 이력 조회 실패: {e}")
 
         return result

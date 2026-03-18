@@ -120,6 +120,66 @@ def build_leader_info(forecast: dict, theme_analysis: dict = None) -> dict[str, 
     return info
 
 
+def _check_and_trigger_event(latest: dict, investor_data: dict, leader_codes: set):
+    """외국인 순매수 전환 감지 시 theme-forecast-intraday workflow_dispatch 트리거"""
+    import os
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if not github_token:
+        return  # 환경변수 없으면 건너뜀
+
+    # 이전 라운드 수급과 비교 (intraday snapshots에서)
+    intraday = {}
+    if INTRADAY_PATH.exists():
+        try:
+            with open(INTRADAY_PATH, encoding="utf-8") as f:
+                intraday = json.load(f)
+        except (json.JSONDecodeError, IOError):
+            return
+
+    snapshots = intraday.get("snapshots", [])
+    if len(snapshots) < 2:
+        return  # 이전 라운드가 없으면 비교 불가
+
+    prev_snap = snapshots[-2].get("data", {})
+    triggered = False
+
+    for code in leader_codes:
+        curr = investor_data.get(code, {})
+        prev = prev_snap.get(code, {})
+        curr_foreign = curr.get("foreign_net", 0)
+        prev_foreign = prev.get("f", 0)
+
+        # 감지 조건: 부호 반전 + 절대값 10만주 이상
+        if prev_foreign and curr_foreign:
+            if prev_foreign < 0 and curr_foreign > 0 and abs(curr_foreign) >= 100_000:
+                triggered = True
+                print(f"  [이벤트] {code} 외국인 순매수 전환: {prev_foreign:,} → {curr_foreign:,}")
+                break
+            if prev_foreign > 0 and curr_foreign < 0 and abs(curr_foreign) >= 100_000:
+                triggered = True
+                print(f"  [이벤트] {code} 외국인 순매도 전환: {prev_foreign:,} → {curr_foreign:,}")
+                break
+
+    if triggered:
+        try:
+            import requests as _requests
+            repo = os.environ.get("GITHUB_REPOSITORY", "")
+            if not repo:
+                print("  ⚠ GITHUB_REPOSITORY 미설정 — 트리거 건너뜀")
+                return
+            url = f"https://api.github.com/repos/{repo}/actions/workflows/theme-forecast-intraday.yml/dispatches"
+            resp = _requests.post(url, json={"ref": "main"}, headers={
+                "Authorization": f"Bearer {github_token}",
+                "Accept": "application/vnd.github.v3+json",
+            }, timeout=10)
+            if resp.status_code == 204:
+                print("  ✓ theme-forecast-intraday workflow_dispatch 트리거 완료")
+            else:
+                print(f"  ⚠ workflow_dispatch 트리거 실패: HTTP {resp.status_code}")
+        except Exception as e:
+            print(f"  ⚠ workflow_dispatch 트리거 실패: {e}")
+
+
 def main():
     test_mode = "--test" in sys.argv
     now = datetime.now(KST)
@@ -171,8 +231,8 @@ def main():
             pgtr = output.get("pgtr_ntby_qty")
             if pgtr is not None and pgtr != "":
                 return code, int(pgtr)
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  ⚠ {code} 프로그램매매 수급 조회 실패: {e}")
         return code, None
 
     pgtr_count = 0
@@ -421,11 +481,52 @@ def main():
                         json.dump(intraday, f, ensure_ascii=False)
                     print(f"  장중 스냅샷 {current_round}차 저장 ({len(snapshot_data)}개 종목)")
 
+                    # Supabase intraday_snapshots 테이블에 INSERT
+                    try:
+                        from modules.supabase_client import get_supabase_manager
+                        sb_manager = get_supabase_manager()
+                        sb_client = sb_manager._get_client()
+                        if sb_client:
+                            row = {
+                                "snapshot_date": today_str,
+                                "round": current_round,
+                                "snapshot_time": INTRADAY_SCHEDULE[current_round - 1]["time"],
+                                "data": snapshot_data,
+                            }
+                            if pt_summary:
+                                row["pt"] = pt_summary
+                            sb_client.table("intraday_snapshots").upsert(
+                                row, on_conflict="snapshot_date,round"
+                            ).execute()
+                            print(f"  Supabase intraday_snapshots INSERT 완료")
+                    except Exception as e:
+                        print(f"  ⚠ Supabase INSERT 실패 (JSON 저장은 정상): {e}")
+
         # 거래량/거래대금/등락률 갱신 (메타 필드 제거)
         meta_keys = {"collected_at", "category", "exclude_etf"}
         if volume_data:
             latest["volume"] = {k: v for k, v in volume_data.items() if k not in meta_keys}
         if trading_value_data:
+            # 이전 거래대금 순위 맵 구축 (code → rank)
+            old_tv = latest.get("trading_value", {})
+            old_rank_map = {}
+            for market in ["kospi", "kosdaq"]:
+                for stock in old_tv.get(market, []):
+                    code = stock.get("code", "")
+                    if code:
+                        old_rank_map[code] = stock.get("rank", 0)
+
+            # 새 데이터에 rank_change, is_new 추가
+            for market in ["kospi", "kosdaq"]:
+                for stock in trading_value_data.get(market, []):
+                    code = stock.get("code", "")
+                    if code in old_rank_map:
+                        stock["rank_change"] = old_rank_map[code] - stock.get("rank", 0)
+                        stock["is_new"] = False
+                    else:
+                        stock["rank_change"] = None
+                        stock["is_new"] = True
+
             latest["trading_value"] = {k: v for k, v in trading_value_data.items() if k not in meta_keys}
         if fluctuation_data:
             latest["fluctuation"] = {k: v for k, v in fluctuation_data.items() if k not in meta_keys}
@@ -471,7 +572,8 @@ def main():
                         "volume": safe_int(output.get("acml_vol", 0)),
                         "trading_value": safe_int(output.get("acml_tr_pbmn", 0)),
                     }
-                except Exception:
+                except Exception as e:
+                    print(f"  ⚠ {code} 가격 조회 실패: {e}")
                     return code, None
 
             price_map = {}
@@ -551,6 +653,31 @@ def main():
             except Exception as e:
                 print(f"  ⚠ 신규 종목 데이터 보충 실패 (기존 데이터로 계속): {e}")
 
+        # criteria_data 수급 관련 기준 부분 재계산 (investor_net + trading_value_rank)
+        try:
+            existing_criteria = latest.get("criteria_data") or {}
+            if existing_criteria:
+                from modules.stock_criteria import check_supply_demand, check_top30_trading_value
+                tv_top30_codes = set()
+                for mkt in ["kospi", "kosdaq"]:
+                    for s in latest.get("trading_value", {}).get(mkt, [])[:30]:
+                        tv_top30_codes.add(s.get("code", ""))
+
+                recalc_count = 0
+                for code, criteria in existing_criteria.items():
+                    if not isinstance(criteria, dict):
+                        continue
+                    inv = investor_data.get(code)
+                    criteria["supply_demand"] = check_supply_demand(inv)
+                    criteria["top30_trading_value"] = check_top30_trading_value(code, tv_top30_codes)
+                    # all_met 재계산
+                    non_warning = {k: v for k, v in criteria.items() if isinstance(v, dict) and not v.get("warning") and k not in ("bnf", "golden_cross", "all_met")}
+                    criteria["all_met"] = all(c.get("met", False) for c in non_warning.values())
+                    recalc_count += 1
+                print(f"\n[criteria 부분 재계산] {recalc_count}개 종목 수급/거래대금 기준 갱신")
+        except Exception as e:
+            print(f"  ⚠ criteria 부분 재계산 실패 (기존 데이터로 계속): {e}")
+
         # member(거래원) 수집 — 화면에 표시되는 모든 종목 대상, 매 라운드 갱신
         try:
             all_codes_map = {s["code"]: s.get("name", s["code"]) for s in all_stocks}
@@ -574,6 +701,10 @@ def main():
         with open(LATEST_PATH, "w", encoding="utf-8") as f:
             json.dump(latest, f, ensure_ascii=False, indent=2)
         print(f"\n  latest.json 갱신 완료")
+
+        # 이벤트 드리븐: 외국인 순매수 전환 감지 → workflow_dispatch 트리거
+        if is_estimated:
+            _check_and_trigger_event(latest, investor_data, leader_codes)
     else:
         print(f"\n  [테스트] latest.json 갱신 건너뜀")
 

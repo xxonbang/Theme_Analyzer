@@ -35,12 +35,12 @@ def save_history_file(data: Dict[str, Any], history_dir: Path) -> str:
     return filename
 
 
-def cleanup_old_history(history_dir: Path, days: int = 30) -> int:
-    """30일 이상 된 히스토리 파일 삭제
+def cleanup_old_history(history_dir: Path, days: int = 5) -> int:
+    """보관 기간 이상 된 히스토리 파일 삭제
 
     Args:
         history_dir: 히스토리 디렉토리 경로
-        days: 보관 기간 (기본 30일)
+        days: 보관 기간 (기본 5일 — 리포지토리 용량 절감)
 
     Returns:
         삭제된 파일 수
@@ -215,6 +215,13 @@ def export_for_frontend(
         except Exception:
             pass
 
+    # history를 별도 파일로 분리 (latest.json 경량화)
+    history_stock_data = data.pop("history", {})
+    if history_stock_data:
+        history_stock_path = output_path / "stock-history.json"
+        with open(history_stock_path, "w", encoding="utf-8") as f:
+            json.dump(history_stock_data, f, ensure_ascii=False)
+
     # JSON 파일 저장 (latest.json)
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -223,7 +230,7 @@ def export_for_frontend(
     if save_history:
         history_dir = output_path / "history"
         save_history_file(data, history_dir)
-        cleanup_old_history(history_dir, days=30)
+        cleanup_old_history(history_dir, days=5)
         update_history_index(output_path)
 
     return str(file_path)

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp } from "lucide-react"
+import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp, ShieldAlert } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { ThemeAnalysis, IntradayHistoryData, InvestorIntraday, ThemeForecast } from "@/types/stock"
 
@@ -97,9 +97,50 @@ export function IntradayInsights({
     }
   }, [intradayHistory, todayKST, stockNameMap])
 
+  // 수급-가격 괴리 신호
+  const supplyDemandSignals = useMemo(() => {
+    if (!investorIntraday?.snapshots?.length) return []
+    const lastSnap = investorIntraday.snapshots[investorIntraday.snapshots.length - 1]
+    const signals: { code: string; name: string; label: string; rate: number; foreignNet: number; institutionNet: number }[] = []
+
+    for (const [code, entry] of Object.entries(lastSnap.data)) {
+      const name = stockNameMap[code]
+      if (!name) continue
+
+      // 등락률: cr 필드 우선, 없으면 intradayHistory에서 가져오기
+      let rate = entry.cr ?? null
+      if (rate === null || rate === undefined) {
+        const days = intradayHistory?.stocks?.[code]
+        if (days) {
+          const today = days.find(d => d.date === todayKST)
+          if (today?.intervals_30m?.length) {
+            rate = today.intervals_30m[today.intervals_30m.length - 1].change_rate
+          }
+        }
+      }
+      if (rate === null || rate === undefined) continue
+
+      const f = entry.f
+      const i = entry.i
+
+      if (f > 300000 && rate < 0) {
+        signals.push({ code, name, label: "외국인 저가 매집", rate, foreignNet: f, institutionNet: i })
+      } else if (f < -300000 && rate > 0) {
+        signals.push({ code, name, label: "외국인 차익 실현", rate, foreignNet: f, institutionNet: i })
+      } else if (i > 200000 && rate < -1) {
+        signals.push({ code, name, label: "기관 저가 매집", rate, foreignNet: f, institutionNet: i })
+      }
+    }
+
+    // 순매수 절대값 큰 순으로 정렬
+    signals.sort((a, b) => Math.max(Math.abs(b.foreignNet), Math.abs(b.institutionNet)) - Math.max(Math.abs(a.foreignNet), Math.abs(a.institutionNet)))
+    return signals
+  }, [investorIntraday, intradayHistory, stockNameMap, todayKST])
+
   const hasThemeMomentum = themeMomentum.length > 0
   const hasMovers = momentumShifts.gainers.length > 0
-  if (!hasThemeMomentum && !hasMovers && !forecastInfo?.isNewer) return null
+  const hasSupplyDemand = supplyDemandSignals.length > 0
+  if (!hasThemeMomentum && !hasMovers && !hasSupplyDemand && !forecastInfo?.isNewer) return null
 
   return (
     <Card className="mb-4 sm:mb-6 shadow-sm border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.03] to-transparent">
@@ -195,6 +236,35 @@ export function IntradayInsights({
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* 수급 특이 신호 */}
+        {hasSupplyDemand && (
+          <div>
+            <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium mb-1.5">
+              <ShieldAlert className="w-3 h-3 text-orange-500" />
+              수급 특이 신호
+            </div>
+            <div className="space-y-1">
+              {supplyDemandSignals.map(s => (
+                <div key={s.code} className="flex items-center justify-between bg-orange-500/5 rounded-md px-2.5 py-1.5">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[10px] font-medium text-orange-600 dark:text-orange-400 shrink-0">{s.label}</span>
+                    <span className="text-xs truncate">{s.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className={cn("text-xs font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                      {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
+                    </span>
+                    <span className="text-[9px] text-muted-foreground tabular-nums">
+                      외{s.foreignNet > 0 ? "+" : ""}{(s.foreignNet / 1000).toFixed(0)}k
+                      {" "}기{s.institutionNet > 0 ? "+" : ""}{(s.institutionNet / 1000).toFixed(0)}k
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </CardContent>

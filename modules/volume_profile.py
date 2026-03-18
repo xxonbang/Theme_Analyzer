@@ -8,6 +8,7 @@ from __future__ import annotations
 import logging
 import time
 from datetime import datetime, timedelta
+from modules.utils import KST
 from typing import Any, Dict, List, Optional
 
 from modules.kis_client import KISClient
@@ -158,7 +159,7 @@ def fetch_minute_candles(
     tr_id = "FHKST03010200"
     candles = []
     # 현재 시각 이후의 가짜 캔들 방지: 커서를 현재 KST 시각으로 설정 (최대 15:30, 동시호가 포함)
-    now_hhmm = datetime.now().strftime("%H%M00")
+    now_hhmm = datetime.now(KST).strftime("%H%M00")
     cursor = min(now_hhmm, "153000")
 
     for _ in range(15):  # 최대 15회 (09:00까지)
@@ -216,7 +217,7 @@ def collect_full(
 
     1년치 일봉을 1회 수집 후 기간별 필터링.
     """
-    now = datetime.now()
+    now = datetime.now(KST)
     end_date = now.strftime("%Y%m%d")
     start_1y = (now - timedelta(days=365)).strftime("%Y%m%d")
 

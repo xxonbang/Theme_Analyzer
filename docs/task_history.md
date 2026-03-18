@@ -6,6 +6,50 @@
 
 ## 2026-03-18
 
+### [개선] 연구결과 25개 항목 일괄 구현 (2026-03-18 23:23 KST)
+- **변경 파일**: 36개 수정 + 7개 신규 (총 41개 파일)
+- **내용**: 8차 심화 연구에서 도출된 25개 개선 항목 전체 구현
+  - P0: except:pass→에러 로깅, VITE_GITHUB_PAT 보안 제거, datetime.now()→KST 통일
+  - T1: latest.json history 분리, cache:no-store 제거, 1분 자동 폴링, 데이터 신선도 배지, 수급-가격 괴리 신호
+  - T2: Gemini 장중 데이터 프롬프트, 장중 재예측 5회 확대, history 5일 보존, 빌드/배포 분리, 거래대금 순위 변동
+  - T3: criteria_data 부분 재계산, 이벤트 드리븐, 종목 정렬/필터, 모의투자 손익, 백테스트 적중률
+  - T4: Supabase Realtime, Service Worker, KIS 호가/체결 API, DART 전자공시, 테스트+CI
+- **검증**: TypeScript 빌드 통과, pytest 26건 전부 통과
+
+### [기능] T3-16~T4-25 일괄 구현 (2026-03-18 23:13 KST)
+- **변경 파일**: `collect_investor_data.py`, `modules/stock_criteria.py`(참조), `modules/theme_forecast.py`, `modules/kis_client.py`, `modules/dart_client.py`(신규), `modules/supabase_client.py`(참조), `frontend/src/components/StockList.tsx`, `frontend/src/components/PaperTradingPage.tsx`, `frontend/public/sw.js`(신규), `frontend/index.html`, `docs/sql/intraday_snapshots.sql`(신규), `tests/test_utils.py`(신규), `tests/test_data_exporter.py`(신규), `.github/workflows/ci.yml`(신규)
+- **내용**: 10개 작업 순차 구현:
+  - T3-16: criteria_data 수급(investor_net)+거래대금(top30) 2개 기준 부분 재계산
+  - T3-17: 외국인 순매수 전환 감지(부호반전+10만주) → theme-forecast-intraday workflow_dispatch 트리거
+  - T3-18: StockList 정렬 옵션(외국인순/기관순/등락률순) 드롭다운 추가
+  - T3-19: PaperTradingPage 장중 실시간 손익 표시(useInvestorIntraday의 cp 기반)
+  - T3-20: build_forecast_context에 Supabase theme_predictions 적중률 조회→프롬프트 주입
+  - T4-21: intraday_snapshots Supabase INSERT(upsert) + 테이블 생성 SQL
+  - T4-22: Service Worker(stale-while-revalidate) + data/*.json 오프라인 캐싱
+  - T4-23: KIS 호가(FHKST01010200)/체결(FHKST01010300) API 메서드 추가
+  - T4-24: DART OpenAPI 클라이언트(최근 공시+종목 매핑)
+  - T4-25: pytest 유닛테스트 26건(safe_int/float, cleanup_old_history) + CI 워크플로우
+
+### [진단] 시장 추세 지연 8차 심화 연구 (2026-03-18 22:40 KST)
+- **변경 파일**: `docs/research/2026-03-18-realtime-lag-phase8.md` (신규)
+- **내용**: 이전 7차와 중복 없는 5개 신규 영역 분석. 1) Python 에러 핸들링(bare except+pass 40건 이상, intraday_history.py prev_close 실패 시 등락률 오류 Critical 발견). 2) 프론트엔드 상태 관리(17개 훅 중 6개 에러/로딩 상태 미관리, React Query 도입 효과 분석). 3) 보안(VITE_GITHUB_PAT이 프론트엔드 번들에 노출, Supabase RLS 확인 필요). 4) 테스트(자동화 테스트 0건, CI 테스트 스텝 0건). 5) 장중 데이터 정확성(prev_close fallback 오류, datetime UTC/KST 혼용, 15:30 동시호가 보정 실패 가능). 위험도 평가 10건 + Phase 0~3 권장 조치 순서(총 42시간).
+
+### [진단] 시장 추세 지연 7차 심화 연구 (2026-03-18 22:30 KST)
+- **변경 파일**: `docs/research/2026-03-18-realtime-lag-phase7.md` (신규)
+- **내용**: 5개 완전 신규 영역 분석 + 1~7차 전체 종합 로드맵. 1) Gemini API 비용 분석(일 12~14회, 월 ~$5 또는 Free tier 무료, Self-Consistency 일 $0.01 비용효율적, 재예측 5회/일 확대 가능). 2) 데이터 신선도 대시보드(8개 소스 중 2개만 갱신 시각 표시, 인라인 배지+종합 대시보드 설계). 3) 이벤트 드리븐 아키텍처(cron+이상감지 하이브리드, 급등/수급급변/테마교체 트리거). 4) 히스토리 아카이빙(813MB→5일 보존 163MB, R2 아카이빙). 5) 종합 로드맵(30개 개선안 ROI 평가, 즉시 8h/단기 24h/중기 32h/장기 48h 4단계).
+
+### [진단] 시장 추세 지연 6차 심화 연구 (2026-03-18 22:08 KST)
+- **변경 파일**: `docs/research/2026-03-18-realtime-lag-phase6.md` (신규)
+- **내용**: 5개 완전 신규 영역 심층 분석. 1) 텔레그램 봇 전수 조사(일 41~45메시지, 단방향 전용, 모의투자 미발송, 양방향 봇 설계안). 2) 종목 발굴 타임라인 역추적(테마 09:28 확정 후 6시간 미갱신, 시나리오별 최선 30분~최악 20시간 지연). 3) 경쟁 서비스 대비(실시간성 열위, AI 테마 발굴/모의투자 자동 추적이 강점). 4) 캐시/CDN 전략(GitHub Pages max-age=600, cache:no-store로 19MB 매번 다운, Service Worker stale-while-revalidate 제안). 5) 모의투자 20일 분석(평균 -0.70%, 승률 40%, KOSDAQ alpha 미측정, 분봉 데이터 미저장).
+
+### [진단] 시장 추세 지연 5차 심화 연구 (2026-03-18 18:58 KST)
+- **변경 파일**: `docs/research/2026-03-18-realtime-lag-phase5.md` (신규)
+- **내용**: 5개 신규 영역 심층 분석. 1) 프론트엔드 초기 로딩 23.4MB(history 63%=12MB가 불필요), 코드 스플리팅/캐시 전략 부재. 2) AI 예측 피드백 루프 단절(백테스트 결과가 프롬프트에 미반영), 적중 기준 관대함(시장 alpha 미측정). 3) KIS API 11개 활용 중 호가/체결 등 미사용, 가격대별 분할 조회 비효율(하루 105회). 4) merge_workflow_data.py에서 criteria/member/ranking 필드 병합 누락, 섹션별 시점 불일치. 5) 종목 리스트 도달까지 스크롤 4~5회, 데이터 신선도 표시 부족.
+
+### [진단] 시장 추세 지연 4차 심화 연구 (2026-03-18 18:44 KST)
+- **변경 파일**: `docs/research/2026-03-18-realtime-lag-phase4.md` (신규)
+- **내용**: GitHub Actions 워크플로우 최적화(빌드 중복 17회/일 발견), 테마 분류 실시간성, 외부 데이터 소스 활용도, 알림/푸시 시스템 가능성, 데이터 압축/최적화(latest.json 19MB, history/ 813MB 무한 증가 문제) 5개 영역 심층 분석
+
 ### [기능] 장중 시장 동향 섹션 추가 (2026-03-18 09:05 KST)
 - **변경 파일**: `frontend/src/components/IntradayInsights.tsx` (신규), `frontend/src/App.tsx`
 - **내용**: 홈 탭에 "장중 시장 동향" 카드 추가. 1) AI 장중 재분석 배너(theme-forecast.json 최신 여부 표시). 2) 테마별 장중 등락률(대장주 평균). 3) 장중 모멘텀 급변 TOP5(최근 30분 변동폭). 시장 추세 1일 지연 문제 개선.

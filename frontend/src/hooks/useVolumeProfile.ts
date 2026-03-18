@@ -13,7 +13,7 @@ export function useVolumeProfile(): UseVolumeProfileReturn {
 
   const refetch = useCallback(async () => {
     try {
-      const response = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
+      const response = await fetch(DATA_URL + "?t=" + Date.now())
       if (!response.ok) return
       const json = await response.json()
       setData(json)
