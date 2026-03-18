@@ -279,7 +279,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
           {(["kospi", "kosdaq"] as const).map((market) => {
             const d = latest[market]
             return (
-              <div key={market} className="bg-muted/40 rounded-lg px-2.5 py-1.5 border border-border/40">
+              <div key={market} className="bg-muted/40 rounded-lg px-2 py-1.5 border border-border/40">
                 <span className="text-[11px] font-bold text-foreground block mb-1">{market === "kospi" ? "코스피" : "코스닥"}</span>
                 <div className="grid grid-cols-3 gap-1">
                   {([
@@ -287,9 +287,9 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                     { label: "기관", key: "institution" as const },
                     { label: "개인", key: "individual" as const },
                   ]).map(({ label, key }) => (
-                    <div key={key} className="text-center">
+                    <div key={key} className="text-center min-w-0">
                       <span className="text-[9px] text-muted-foreground block leading-none mb-0.5">{label}</span>
-                      <span className={`text-[11px] tabular-nums font-bold leading-none ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground"}`}>
+                      <span className={`text-[11px] tabular-nums font-bold leading-none whitespace-nowrap ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground"}`}>
                         {d[key] > 0 ? "+" : ""}{formatAmount(d[key])}
                       </span>
                     </div>
