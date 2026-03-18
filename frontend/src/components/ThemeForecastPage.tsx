@@ -18,9 +18,9 @@ import { HistoryModal } from "@/components/HistoryModal"
 import type { ForecastTheme, ForecastStock, StockCriteria, GroundingSource } from "@/types/stock"
 
 const CONFIDENCE_CONFIG = {
-  "높음": { badge: "bg-red-500/15 text-red-700", dot: "bg-red-500" },
-  "보통": { badge: "bg-amber-500/15 text-amber-700", dot: "bg-amber-500" },
-  "낮음": { badge: "bg-slate-500/15 text-slate-600", dot: "bg-slate-400" },
+  "높음": { badge: "bg-red-500/15 text-red-700 dark:text-red-400", dot: "bg-red-500" },
+  "보통": { badge: "bg-amber-500/15 text-amber-700 dark:text-amber-400", dot: "bg-amber-500" },
+  "낮음": { badge: "bg-slate-500/15 text-slate-600 dark:text-slate-400", dot: "bg-slate-400" },
 } as const
 
 const LEGEND_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
@@ -101,10 +101,10 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
         "text-xs sm:text-sm font-medium",
         "transition-all duration-150",
         allMet
-          ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 ring-1 ring-yellow-400/60 animate-[shimmer_3s_ease-in-out_infinite]"
+          ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 dark:text-yellow-400 ring-1 ring-yellow-400/60 animate-[shimmer_3s_ease-in-out_infinite]"
           : stock.data_verified
-            ? "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600"
-            : "bg-slate-500/10 hover:bg-slate-500/15 text-slate-500"
+            ? "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400"
+            : "bg-slate-500/10 hover:bg-slate-500/15 text-slate-500 dark:text-slate-400"
       )}
     >
       {/* 경고 알림 뱃지 */}

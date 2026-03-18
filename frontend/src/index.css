@@ -32,50 +32,62 @@
 
 /* Dark Theme */
 html.dark {
-    --color-background: oklch(14% 0.005 260);
-    --color-foreground: oklch(92% 0.01 260);
-    --color-card: oklch(20% 0.008 260);
-    --color-card-foreground: oklch(92% 0.01 260);
-    --color-primary: oklch(65% 0.2 260);
+    --color-background: oklch(13% 0.01 250);
+    --color-foreground: oklch(93% 0.008 250);
+    --color-card: oklch(19% 0.015 250);
+    --color-card-foreground: oklch(93% 0.008 250);
+    --color-primary: oklch(68% 0.18 250);
     --color-primary-foreground: oklch(10% 0 0);
-    --color-secondary: oklch(22% 0.01 260);
-    --color-secondary-foreground: oklch(85% 0.01 260);
-    --color-muted: oklch(22% 0.005 260);
-    --color-muted-foreground: oklch(66% 0.015 260);
-    --color-accent: oklch(24% 0.015 260);
-    --color-accent-foreground: oklch(90% 0.01 260);
-    --color-destructive: oklch(60% 0.25 25);
+    --color-secondary: oklch(23% 0.015 250);
+    --color-secondary-foreground: oklch(88% 0.008 250);
+    --color-muted: oklch(23% 0.01 250);
+    --color-muted-foreground: oklch(72% 0.012 250);
+    --color-accent: oklch(25% 0.02 250);
+    --color-accent-foreground: oklch(92% 0.008 250);
+    --color-destructive: oklch(62% 0.25 25);
     --color-destructive-foreground: oklch(100% 0 0);
-    --color-popover: oklch(18% 0.008 260);
-    --color-popover-foreground: oklch(92% 0.01 260);
-    --color-border: oklch(28% 0.01 260);
-    --color-input: oklch(25% 0.01 260);
-    --color-ring: oklch(65% 0.2 260);
-    --color-success: oklch(60% 0.2 145);
+    --color-popover: oklch(17% 0.015 250);
+    --color-popover-foreground: oklch(93% 0.008 250);
+    --color-border: oklch(30% 0.015 250);
+    --color-input: oklch(26% 0.015 250);
+    --color-ring: oklch(68% 0.18 250);
+    --color-success: oklch(65% 0.18 155);
     --color-success-foreground: oklch(100% 0 0);
-    --color-warning: oklch(70% 0.15 70);
-    --color-warning-foreground: oklch(90% 0.02 70);
+    --color-warning: oklch(75% 0.15 70);
+    --color-warning-foreground: oklch(92% 0.02 70);
 
     /* ── 다크모드 가독성: 하드코딩 Tailwind 색상 밝기 보정 ── */
     /* 수익(빨강) */
-    --color-red-500: oklch(68% 0.22 25);
-    --color-red-600: oklch(65% 0.24 27);
-    --color-red-700: oklch(68% 0.18 25);
+    --color-red-500: oklch(70% 0.22 25);
+    --color-red-600: oklch(67% 0.24 27);
+    --color-red-700: oklch(70% 0.18 25);
     /* 손실(파랑) */
-    --color-blue-500: oklch(68% 0.18 260);
-    --color-blue-600: oklch(65% 0.20 262);
+    --color-blue-500: oklch(72% 0.16 250);
+    --color-blue-600: oklch(68% 0.18 252);
     /* 긍정(초록) */
-    --color-emerald-600: oklch(68% 0.17 163);
+    --color-emerald-600: oklch(70% 0.17 160);
     /* 경고(호박/주황) */
-    --color-amber-500: oklch(80% 0.16 70);
-    --color-amber-600: oklch(75% 0.17 58);
+    --color-amber-500: oklch(82% 0.16 70);
+    --color-amber-600: oklch(78% 0.17 58);
     /* 차트(인디고) */
-    --color-indigo-600: oklch(62% 0.22 277);
+    --color-indigo-600: oklch(65% 0.20 270);
     /* 중립(슬레이트) */
-    --color-slate-400: oklch(72% 0.015 264);
+    --color-slate-400: oklch(75% 0.012 250);
     /* 뱃지 배경 (밝은 톤 → 다크 톤) */
-    --color-red-100: oklch(25% 0.05 25);
-    --color-blue-100: oklch(25% 0.05 260);
+    --color-red-100: oklch(26% 0.06 25);
+    --color-blue-100: oklch(26% 0.06 250);
+
+    /* ── 다크모드 매크로 카드 배경 보정 ── */
+    --color-rose-950: oklch(22% 0.04 15);
+    --color-sky-950: oklch(22% 0.04 240);
+    --color-orange-950: oklch(22% 0.04 50);
+    --color-amber-950: oklch(22% 0.04 65);
+    --color-emerald-950: oklch(22% 0.04 160);
+    --color-rose-100: oklch(26% 0.05 15);
+    --color-sky-100: oklch(26% 0.05 240);
+    --color-amber-50: oklch(24% 0.03 65);
+    --color-emerald-50: oklch(24% 0.03 160);
+    --color-orange-50: oklch(24% 0.03 50);
 }
 
 @layer base {

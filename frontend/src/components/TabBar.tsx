@@ -107,7 +107,7 @@ export function TabBar({ activeTab, onTabChange }: Pick<TabBarProps, "activeTab"
                   activeTab === tab.key
                     ? "text-primary font-semibold"
                     : [
-                        "text-muted-foreground/60",
+                        "text-muted-foreground/70",
                         "hover:text-foreground",
                         "active:scale-[0.97]",
                       ],

@@ -101,7 +101,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
             {data.map((item) => {
               const isUp = item.change > 0
               const isDown = item.change < 0
-              const bg = isUp ? "bg-rose-100 dark:bg-rose-950" : isDown ? "bg-sky-100 dark:bg-sky-950" : "bg-muted/50"
+              const bg = isUp ? "bg-rose-100 dark:bg-red-500/8" : isDown ? "bg-sky-100 dark:bg-blue-500/8" : "bg-muted/50"
               // 짧은 라벨
               const shortName: Record<string, string> = {
                 "K200F_DAY": "K200주",
@@ -113,7 +113,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
               }
               return (
                 <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1 ${bg}`}>
-                  <span className="text-[9px] text-foreground/55 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
+                  <span className="text-[9px] text-foreground/65 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
                   <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                     {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
                   </span>
@@ -712,16 +712,16 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               const isFng = item.symbol === "FNG"
               const isVix = item.symbol === "^VIX"
               const bg = isFng
-                ? (item.price >= 75 ? "bg-rose-100 dark:bg-rose-950" : item.price >= 50 ? "bg-orange-50 dark:bg-orange-950" : item.price >= 25 ? "bg-amber-50 dark:bg-amber-950" : "bg-sky-100 dark:bg-sky-950")
+                ? (item.price >= 75 ? "bg-rose-100 dark:bg-red-500/8" : item.price >= 50 ? "bg-orange-50 dark:bg-orange-500/8" : item.price >= 25 ? "bg-amber-50 dark:bg-amber-500/8" : "bg-sky-100 dark:bg-blue-500/8")
                 : isVix
-                  ? (isUp ? "bg-amber-50 dark:bg-amber-950" : isDown ? "bg-emerald-50 dark:bg-emerald-950" : "bg-muted/50")
-                  : (isUp ? "bg-rose-100 dark:bg-rose-950" : isDown ? "bg-sky-100 dark:bg-sky-950" : "bg-muted/50")
+                  ? (isUp ? "bg-amber-50 dark:bg-amber-500/8" : isDown ? "bg-emerald-50 dark:bg-emerald-500/8" : "bg-muted/50")
+                  : (isUp ? "bg-rose-100 dark:bg-red-500/8" : isDown ? "bg-sky-100 dark:bg-blue-500/8" : "bg-muted/50")
               return (
                 <div
                   key={item.symbol}
                   className={`flex-1 flex flex-col items-center py-1 ${bg}`}
                 >
-                  <span className="text-[9px] text-foreground/55 font-medium leading-none">{name}</span>
+                  <span className="text-[9px] text-foreground/65 font-medium leading-none">{name}</span>
                   {isFng ? (
                     <span className={`text-[11px] tabular-nums font-bold leading-tight ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
                       {item.price.toFixed(0)}

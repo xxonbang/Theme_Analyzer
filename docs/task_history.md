@@ -6,6 +6,10 @@
 
 ## 2026-03-18
 
+### [개선] 다크테마 전반 색상 개선 (2026-03-18 23:59 KST)
+- **변경 파일**: `frontend/src/index.css`, `frontend/src/components/ThemeForecastPage.tsx`, `frontend/src/components/PredictionHistory.tsx`, `frontend/src/components/MacroIndicators.tsx`, `frontend/src/components/TabBar.tsx`, `frontend/src/App.tsx`
+- **내용**: CSS 변수 다크모드 전면 보정(배경/카드 대비 강화, 보더 밝기 30%, muted 텍스트 72%, 매크로 카드 배경 보정), 컴포넌트 인라인 dark: 색상 추가(신뢰도 뱃지, 상태 뱃지, 선물 그리드, 퀵네비)
+
 ### [개선] 연구결과 25개 항목 일괄 구현 (2026-03-18 23:23 KST)
 - **변경 파일**: 36개 수정 + 7개 신규 (총 41개 파일)
 - **내용**: 8차 심화 연구에서 도출된 25개 개선 항목 전체 구현
