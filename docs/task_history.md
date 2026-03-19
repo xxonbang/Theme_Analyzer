@@ -6,6 +6,11 @@
 
 ## 2026-03-19
 
+### [버그픽스] 장중 탭 등락률·현재가 MTS 불일치 수정 (2026-03-19 13:29 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`, `frontend/src/types/stock.ts`, `modules/volume_profile.py`
+- **내용**: ①차트 Y축 등락률이 시가 기준으로 재계산되던 버그 → 전일종가(prev_close) 기준으로 통일. ②KIS 1분봉 API가 미래 시간대 플레이스홀더 캔들 반환 → cutoff_time 필터 추가하여 현재 시각 이후 캔들 제거
+- **원인**: ①PriceHistoryPopup에서 openPrice 기준 재계산 ②fetch_minute_candles에서 미래 캔들 미필터링
+
 ### [기능] 포트폴리오 관리 페이지 신규 구현 (2026-03-19 10:53 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`(신규), `frontend/src/App.tsx`, `frontend/src/components/Header.tsx`
 - **내용**: 보유 종목 CRUD(localStorage) + 7가지 분석 기능 실시간 계산. ①실시간 수익률 ②포트폴리오 총 손익 ③손절/익절 알림(-5/-10/+10/+20%) ④매물대 대비 위치(POC) ⑤52주 대비 매수 위치 ⑥외국인/기관 수급 ⑦AI 분석 신호 매칭. 헤더 데스크톱+모바일에 포트폴리오 버튼 추가

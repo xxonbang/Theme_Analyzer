@@ -360,13 +360,13 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               if (!selectedDay || intervals.length < 2) return null
               const closes = intervals.map(item => item.close)
               const times = intervals.map(item => item.time)
-              const openPrice = selectedDay.open
-              const allVals = [...closes, openPrice]
+              const basePrice = selectedDay.prev_close > 0 ? selectedDay.prev_close : selectedDay.open
+              const allVals = [...closes, basePrice]
               const minV = Math.min(...allVals)
               const maxV = Math.max(...allVals)
               const pts = pointCoords(closes, minV, maxV)
-              const zeroY = PAD.top + PH - ((openPrice - minV) / ((maxV - minV) || 1)) * PH
-              const lastUp = closes[closes.length - 1] >= openPrice
+              const zeroY = PAD.top + PH - ((basePrice - minV) / ((maxV - minV) || 1)) * PH
+              const lastUp = closes[closes.length - 1] >= basePrice
               const color = lastUp ? "#ef4444" : "#3b82f6"
               // X축: 정시(":00") 라벨만 표시 + 첫/끝 항상 표시
               const xLabelIdxs: number[] = []
@@ -381,7 +381,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
                   {yTicks.map((v, i) => {
                     const y = PAD.top + PH - ((v - minV) / ((maxV - minV) || 1)) * PH
-                    const rate = openPrice ? ((v - openPrice) / openPrice) * 100 : 0
+                    const rate = basePrice ? ((v - basePrice) / basePrice) * 100 : 0
                     return (
                       <g key={`yg-${i}`}>
                         <line x1={PAD.left} y1={y} x2={CW - PAD.right} y2={y}
@@ -403,7 +403,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                         stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.08} />
                     )
                   })}
-                  {/* 0선 (시가 기준) */}
+                  {/* 0선 (전일종가 기준) */}
                   <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
                     stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
                   <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={7}>0%</text>

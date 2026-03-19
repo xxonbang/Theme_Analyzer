@@ -314,7 +314,7 @@ export interface IntradayInterval {
   close: number
   high: number
   low: number
-  change_rate: number   // 시가 대비 %
+  change_rate: number   // 전일종가 대비 %
   volume: number
 }
 

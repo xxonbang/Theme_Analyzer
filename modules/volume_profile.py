@@ -161,6 +161,8 @@ def fetch_minute_candles(
     # 현재 시각 이후의 가짜 캔들 방지: 커서를 현재 KST 시각으로 설정 (최대 15:30, 동시호가 포함)
     now_hhmm = datetime.now(KST).strftime("%H%M00")
     cursor = min(now_hhmm, "153000")
+    # KIS API가 미래 시간대 플레이스홀더 캔들을 반환하므로, 현재 시각 이후 캔들 제거용
+    cutoff_time = cursor
 
     for _ in range(15):  # 최대 15회 (09:00까지)
         params = {
@@ -181,7 +183,7 @@ def fetch_minute_candles(
 
         for item in output2:
             t = item.get("stck_cntg_hour", "")
-            if not t:
+            if not t or t > cutoff_time:
                 continue
             candles.append({
                 "time": t,
