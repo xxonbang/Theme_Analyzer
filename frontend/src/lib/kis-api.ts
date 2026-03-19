@@ -25,7 +25,18 @@ export async function fetchKisPrices(codes: string[]): Promise<Record<string, Ki
     body: { action: "prices", codes },
   })
 
-  if (error) throw new Error(`KIS API 호출 실패: ${error.message}`)
+  if (error) {
+    console.error("[KIS] fetchKisPrices error:", error)
+    // Edge Function 응답 body 확인
+    if (error instanceof Error && "context" in error) {
+      console.error("[KIS] error context:", (error as Record<string, unknown>).context)
+    }
+    throw new Error(`KIS API 호출 실패: ${error.message}`)
+  }
+  if (data?.error) {
+    console.error("[KIS] Edge Function error:", data.error)
+    throw new Error(`KIS API 오류: ${data.error}`)
+  }
   return (data?.prices as Record<string, KisStockPrice>) ?? {}
 }
 

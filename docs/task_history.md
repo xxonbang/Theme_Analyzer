@@ -6,6 +6,11 @@
 
 ## 2026-03-19
 
+### [버그픽스] KIS proxy Edge Function JWT 인증 실패 수정 (2026-03-19 22:32 KST)
+- **변경 파일**: `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`
+- **내용**: Edge Function의 `auth.getUser()` JWT 검증이 브라우저 세션 만료 시 실패 → 인증 헤더 존재만 확인하도록 완화. kis-api.ts에 에러 로깅 및 Edge Function 응답 에러 처리 추가
+- **원인**: ExpireStorage로 인한 세션 JWT 만료 시 Edge Function에서 "Invalid token" 반환
+
 ### [개선] 종목 검색 커버리지 확장 (2026-03-19 22:24 KST)
 - **변경 파일**: `frontend/public/data/stock-master.json`, `frontend/src/components/PortfolioPage.tsx`
 - **내용**: stock-master.json을 KRX 전종목(2,618종목)으로 확장 (기존 113종목). 검색 결과 없을 때 "6자리 코드로 KIS API 조회" 안내 메시지 추가
