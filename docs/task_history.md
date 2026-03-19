@@ -6,6 +6,11 @@
 
 ## 2026-03-19
 
+### [버그픽스] KIS API 호출을 직접 fetch로 전환 (2026-03-19 22:34 KST)
+- **변경 파일**: `frontend/src/lib/kis-api.ts`
+- **내용**: `supabase.functions.invoke()` → 직접 `fetch` + anon key로 전환. SDK 내부 세션 처리 우회하여 세션 만료 시에도 Edge Function 호출 가능
+- **원인**: Supabase SDK가 만료된 JWT를 자동 포함하여 Edge Function 호출 실패
+
 ### [버그픽스] KIS proxy Edge Function JWT 인증 실패 수정 (2026-03-19 22:32 KST)
 - **변경 파일**: `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`
 - **내용**: Edge Function의 `auth.getUser()` JWT 검증이 브라우저 세션 만료 시 실패 → 인증 헤더 존재만 확인하도록 완화. kis-api.ts에 에러 로깅 및 Edge Function 응답 에러 처리 추가
