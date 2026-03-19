@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [기능] 포트폴리오 관리 페이지 신규 구현 (2026-03-19 10:53 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`(신규), `frontend/src/App.tsx`, `frontend/src/components/Header.tsx`
+- **내용**: 보유 종목 CRUD(localStorage) + 7가지 분석 기능 실시간 계산. ①실시간 수익률 ②포트폴리오 총 손익 ③손절/익절 알림(-5/-10/+10/+20%) ④매물대 대비 위치(POC) ⑤52주 대비 매수 위치 ⑥외국인/기관 수급 ⑦AI 분석 신호 매칭. 헤더 데스크톱+모바일에 포트폴리오 버튼 추가
+
 ### [개선] DataFreshness-IntradayInsights 여백 추가 + 수급 신호 종목 클릭→네이버 증권 이동 (2026-03-19 10:25 KST)
 - **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/IntradayInsights.tsx`
 - **내용**: DataFreshness 뱃지와 장중 시장 동향 카드 사이 여백(mb-3/4) 추가. 수급 특이 신호 종목을 `<a>` 태그로 변경하여 클릭 시 네이버 증권 새 탭 이동 (기존 패턴 재활용)

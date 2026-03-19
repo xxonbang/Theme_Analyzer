@@ -10,6 +10,7 @@ import { TabBar, TabControls } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
 import { PaperTradingPage } from "@/components/PaperTradingPage"
 import { ThemeForecastPage } from "@/components/ThemeForecastPage"
+import { PortfolioPage } from "@/components/PortfolioPage"
 import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
 import { IndexAlertSection } from "@/components/KosdaqIndexAlert"
@@ -35,7 +36,7 @@ import { cn, getWeekday } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
 
-type PageType = "home" | "paper-trading" | "theme-forecast"
+type PageType = "home" | "paper-trading" | "theme-forecast" | "portfolio"
 
 const TAB_LABELS: Record<string, string> = {
   composite: "종합",
@@ -841,6 +842,17 @@ function App() {
       {currentPage === "theme-forecast" && (
         <main className="container px-3 sm:px-4 py-4 sm:py-6">
           <ThemeForecastPage criteriaData={displayData?.criteria_data} isAdmin={isAdmin} />
+        </main>
+      )}
+
+      {/* 포트폴리오 페이지 */}
+      {currentPage === "portfolio" && (
+        <main className="container px-3 sm:px-4 py-4 sm:py-6">
+          <PortfolioPage
+            stockData={currentData ?? null}
+            volumeProfileData={vpData ?? null}
+            themeForecast={themeForecastData ?? null}
+          />
         </main>
       )}
 

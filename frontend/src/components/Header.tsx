@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock } from "lucide-react"
+import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
 
-type PageType = "home" | "paper-trading" | "theme-forecast"
+type PageType = "home" | "paper-trading" | "theme-forecast" | "portfolio"
 
 interface HeaderProps {
   timestamp?: string
@@ -352,6 +352,30 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                   currentPage === "paper-trading" && "text-primary"
                 )} />
               </button>
+
+              <button
+                onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
+                className={cn(
+                  "relative overflow-hidden group",
+                  "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                  "rounded-lg",
+                  "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                  "border border-border/50",
+                  "shadow-sm hover:shadow-md hover:shadow-primary/10",
+                  "transition-all duration-300 ease-out",
+                  "hover:scale-110 active:scale-95",
+                  "hover:border-primary/30",
+                  "focus:outline-none",
+                  currentPage === "portfolio" && "ring-2 ring-violet-500/50 border-violet-500/30 bg-violet-500/5"
+                )}
+                title="포트폴리오"
+              >
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Briefcase className={cn(
+                  "relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
+                  currentPage === "portfolio" && "text-violet-500"
+                )} />
+              </button>
             </>
           )}
 
@@ -611,6 +635,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             >
               <LineChart className="w-3 h-3" />
               모의투자
+            </button>
+          )}
+          {onPageChange && (
+            <button
+              onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
+              className={cn(
+                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                currentPage === "portfolio" ? "text-violet-600 bg-violet-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <Briefcase className="w-3 h-3" />
+              포트폴리오
             </button>
           )}
           {onHistoryClick && (
