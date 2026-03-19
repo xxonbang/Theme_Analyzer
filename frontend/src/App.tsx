@@ -1309,9 +1309,9 @@ function App() {
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
         )}
         style={{
-          backgroundColor: "rgba(120, 120, 140, 0.15)",
-          color: "rgba(50, 50, 60, 0.6)",
-          border: "1px solid rgba(120, 120, 140, 0.1)",
+          backgroundColor: isDark ? "rgba(180, 180, 200, 0.2)" : "rgba(120, 120, 140, 0.15)",
+          color: isDark ? "rgba(220, 220, 230, 0.8)" : "rgba(50, 50, 60, 0.6)",
+          border: isDark ? "1px solid rgba(180, 180, 200, 0.2)" : "1px solid rgba(120, 120, 140, 0.1)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
         }}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, Repeat, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase } from "lucide-react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
@@ -33,11 +33,11 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
-  const [refreshRipple, setRefreshRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [historyRipple, setHistoryRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
   const [toggleFocusRing, setToggleFocusRing] = useState(false)
-  const [refreshFocusRing, setRefreshFocusRing] = useState(false)
   const [historyFocusRing, setHistoryFocusRing] = useState(false)
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false)
+  const moreMenuRef = useRef<HTMLDivElement>(null)
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // 툴팁 자동 숨김 (3초 후 fade-out)
@@ -63,6 +63,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       }
     }
   }, [showTooltip, tooltipFading])
+
+  // more 메뉴 외부 클릭 닫기
+  useEffect(() => {
+    if (!moreMenuOpen) return
+    const handleClick = (e: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
+        setMoreMenuOpen(false)
+      }
+    }
+    document.addEventListener("click", handleClick)
+    return () => document.removeEventListener("click", handleClick)
+  }, [moreMenuOpen])
 
   // 타임스탬프 클릭 핸들러
   const handleTimestampClick = () => {
@@ -97,26 +109,12 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     onToggleCompact?.()
   }
 
-  // Refresh 버튼 클릭 효과
-  const handleRefreshClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // loading 중 재클릭 → 취소
+  // Refresh 버튼 클릭
+  const handleRefreshClick = () => {
     if (loading) {
       onCancelRefresh?.()
       return
     }
-
-    const rect = e.currentTarget.getBoundingClientRect()
-    setRefreshRipple({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      show: true,
-    })
-    setTimeout(() => setRefreshRipple(prev => ({ ...prev, show: false })), 500)
-
-    // 임시 focus ring
-    setRefreshFocusRing(true)
-    setTimeout(() => setRefreshFocusRing(false), 400)
-
     onRefresh?.()
   }
 
@@ -196,7 +194,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
-          onClick={() => { if (currentPage !== "home") onPageChange?.("home"); else window.location.reload() }}
+          onClick={() => window.location.reload()}
           className="flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0"
         >
           <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10">
@@ -254,13 +252,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </div>
           )}
 
-          {/* Search Button (desktop only) */}
+          {/* Search Button */}
           {onSearchClick && (
             <button
               onClick={onSearchClick}
               className={cn(
                 "relative overflow-hidden group",
-                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -416,13 +414,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Theme Toggle (desktop only) */}
+          {/* Theme Toggle */}
           {onToggleTheme && (
             <button
               onClick={onToggleTheme}
               className={cn(
                 "relative overflow-hidden group",
-                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -441,13 +439,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Compact Mode Toggle (desktop only) */}
+          {/* Compact Mode Toggle */}
           {onToggleCompact && (
             <button
               onClick={handleToggleClick}
               className={cn(
                 "relative overflow-hidden group",
-                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
+                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
                 "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
                 "border border-border/50",
@@ -471,153 +469,71 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </button>
           )}
 
-          {/* Page Reload Button (all users) */}
-          <button
-            onClick={() => window.location.reload()}
-            className={cn(
-              "relative overflow-hidden group",
-              "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-              "rounded-lg",
-              "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-              "border border-border/50",
-              "shadow-sm hover:shadow-md hover:shadow-primary/10",
-              "transition-all duration-300 ease-out",
-              "hover:scale-110 active:scale-95",
-              "hover:border-primary/30",
-              "focus:outline-none"
-            )}
-            title="페이지 새로고침"
-          >
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <Repeat className="relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" />
-          </button>
+          {/* Refresh Elapsed Time (admin only) */}
+          {isAdmin && loading && refreshElapsed != null && refreshElapsed > 0 && (
+            <span className="text-xs text-muted-foreground tabular-nums animate-pulse">
+              {refreshElapsed <= 15 ? "시작 중..." : <><span className="hidden sm:inline">데이터 수집 중 </span>{refreshElapsed}초</>}
+            </span>
+          )}
 
-          {/* Refresh Button (admin only) */}
-          {isAdmin && onRefresh && (
+          {/* More Menu (refresh + logout) */}
+          <div className="relative" ref={moreMenuRef}>
             <button
-              onClick={handleRefreshClick}
+              onClick={() => setMoreMenuOpen(prev => !prev)}
               className={cn(
                 "relative overflow-hidden group",
                 "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
                 "rounded-lg",
-                "bg-gradient-to-br from-primary/10 via-primary/5 to-primary/10",
-                "text-primary",
-                "border border-primary/20",
-                "shadow-sm",
+                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
+                "border border-border/50",
+                "shadow-sm hover:shadow-md hover:shadow-primary/10",
                 "transition-all duration-300 ease-out",
-                "hover:shadow-lg hover:shadow-primary/20",
-                "hover:scale-110 hover:border-primary/40",
-                "hover:from-primary/20 hover:via-primary/10 hover:to-primary/20",
-                "active:scale-95",
+                "hover:scale-110 active:scale-95",
+                "hover:border-primary/30",
                 "focus:outline-none",
-                loading && "border-destructive/30 text-destructive",
+                moreMenuOpen && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
               )}
-              title={loading ? "클릭하여 취소" : "새로고침"}
+              title="더보기"
             >
-              {/* 임시 Focus Ring */}
-              <div
-                className={cn(
-                  "absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background",
-                  "transition-opacity duration-300",
-                  refreshFocusRing ? "opacity-100" : "opacity-0"
-                )}
-              />
-
-              {/* Glow effect on hover */}
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-              {/* Shimmer effect */}
-              <div className={cn(
-                "absolute inset-0 -translate-x-full transition-transform duration-700 ease-out",
-                "bg-gradient-to-r from-transparent via-white/20 to-transparent",
-                !loading && "group-hover:translate-x-full"
-              )} />
-
-              {/* Icon */}
-              <RefreshCw className={cn(
-                "relative z-10 w-3 h-3 sm:w-4 sm:h-4",
-                "transition-transform duration-500",
-                loading ? "animate-spin" : "group-hover:rotate-180"
-              )} />
-
-              {/* Ripple effect */}
-              {refreshRipple.show && !loading && (
-                <span
-                  className="absolute rounded-full bg-primary/40 animate-ripple"
-                  style={{
-                    left: refreshRipple.x,
-                    top: refreshRipple.y,
-                    width: '4px',
-                    height: '4px',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
-              )}
+              <MoreVertical className="relative z-10 w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
-          )}
 
-          {/* Refresh Elapsed Time (admin only) */}
-          {isAdmin && loading && refreshElapsed != null && refreshElapsed > 0 && (
-            <span className="text-xs text-muted-foreground tabular-nums animate-pulse">
-              {refreshElapsed <= 15 ? (
-                <span className="hidden sm:inline">시작 중...</span>
-              ) : (
-                <>
-                  <span className="hidden sm:inline">데이터 수집 중 </span>
-                  {refreshElapsed}초
-                </>
-              )}
-              {refreshElapsed <= 15 && (
-                <span className="sm:hidden">{refreshElapsed}초</span>
-              )}
-            </span>
-          )}
-
-          {/* Logout Button (desktop only) */}
-          <button
-            onClick={() => signOut()}
-            className={cn(
-              "relative overflow-hidden group",
-              "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-              "rounded-lg",
-              "bg-gradient-to-br from-destructive/10 via-destructive/5 to-destructive/10",
-              "text-destructive",
-              "border border-destructive/20",
-              "shadow-sm",
-              "transition-all duration-300 ease-out",
-              "hover:shadow-md hover:shadow-destructive/10",
-              "hover:scale-110 hover:border-destructive/40",
-              "active:scale-95",
-              "focus:outline-none"
+            {moreMenuOpen && (
+              <div className="absolute right-0 top-full mt-1.5 w-40 bg-popover border border-border rounded-lg shadow-lg z-50 py-1 animate-in fade-in-0 zoom-in-95 duration-150">
+                {isAdmin && onRefresh && (
+                  <button
+                    onClick={() => { setMoreMenuOpen(false); handleRefreshClick() }}
+                    className={cn(
+                      "flex items-center gap-2 w-full px-3 py-2 text-sm transition-colors",
+                      loading ? "text-destructive hover:bg-destructive/5" : "text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
+                    {loading ? "수집 취소" : "데이터 새로고침"}
+                  </button>
+                )}
+                <button
+                  onClick={() => { setMoreMenuOpen(false); signOut() }}
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-destructive hover:bg-destructive/5 transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  로그아웃
+                </button>
+              </div>
             )}
-            title="로그아웃"
-          >
-            <LogOut className="relative z-10 w-3 h-3 sm:w-4 sm:h-4" />
-          </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile 2단 툴바 (sm:hidden) */}
-      <div className="flex sm:hidden items-center justify-between px-3 py-1 border-t border-border/30 bg-muted/30">
-        {/* 페이지 네비게이션 */}
-        <div className="flex items-center gap-0.5">
-          {onSearchClick && (
-            <button
-              onClick={onSearchClick}
-              className={cn(
-                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
-                searchOpen ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              )}
-            >
-              <Search className="w-3 h-3" />
-              검색
-            </button>
-          )}
+      {/* Mobile 2단 툴바 - 페이지 네비게이션 (sm:hidden) */}
+      <div className="flex sm:hidden items-center justify-center px-3 py-1 border-t border-border/30 bg-muted/30">
+        <div className="flex items-center gap-1">
           {onPageChange && isAdmin && (
             <button
               onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
               className={cn(
-                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 currentPage === "theme-forecast" ? "text-amber-600 bg-amber-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -629,7 +545,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             <button
               onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
               className={cn(
-                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 currentPage === "paper-trading" ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -641,7 +557,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             <button
               onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
               className={cn(
-                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 currentPage === "portfolio" ? "text-violet-600 bg-violet-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -653,7 +569,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             <button
               onClick={() => onHistoryClick()}
               className={cn(
-                "flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
+                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 isViewingHistory ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -661,22 +577,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
               히스토리
             </button>
           )}
-        </div>
-        {/* 유틸리티 */}
-        <div className="flex items-center gap-0.5">
-          {onToggleTheme && (
-            <button onClick={onToggleTheme} className="flex items-center justify-center w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5 text-indigo-500" />}
-            </button>
-          )}
-          {onToggleCompact && (
-            <button onClick={handleToggleClick} className="flex items-center justify-center w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-              {compactMode ? <LayoutGrid className="w-3.5 h-3.5" /> : <List className="w-3.5 h-3.5" />}
-            </button>
-          )}
-          <button onClick={() => signOut()} className="flex items-center justify-center w-7 h-7 rounded-md text-destructive/70 hover:text-destructive hover:bg-destructive/5 transition-colors">
-            <LogOut className="w-3.5 h-3.5" />
-          </button>
         </div>
       </div>
 
