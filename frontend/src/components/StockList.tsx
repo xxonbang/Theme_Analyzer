@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -37,20 +37,28 @@ interface StockListProps {
   fundamentalData?: Record<string, FundamentalInfo>
   initialLimit?: number
   sectionId?: string
+  expandForCode?: string | null
 }
 
 // 마켓 섹션 (KOSPI/KOSDAQ 영역)
 function StockMarketSection({
   label, dotColor, stocks, history, news, type,
-  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit,
+  investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit, expandForCode,
 }: {
   label: string; dotColor: string; stocks: Stock[];
   history: Record<string, StockHistory>; news: Record<string, StockNews>;
   type: "rising" | "falling" | "neutral";
   investorData?: Record<string, InvestorInfo>; investorEstimated?: boolean; investorUpdatedAt?: string;
-  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; vpUpdatedAt?: string; intradayHistory?: Record<string, IntradayDay[]>; fundamentalData?: Record<string, FundamentalInfo>; initialLimit?: number;
+  memberData?: Record<string, MemberInfo>; criteriaData?: Record<string, StockCriteria>; investorIntraday?: InvestorIntraday; isAdmin?: boolean; dataTimestamp?: string; volumeProfiles?: Record<string, StockVolumeProfile>; vpUpdatedAt?: string; intradayHistory?: Record<string, IntradayDay[]>; fundamentalData?: Record<string, FundamentalInfo>; initialLimit?: number; expandForCode?: string | null;
 }) {
   const [expanded, setExpanded] = useState(false)
+
+  // 스크롤 대상 종목이 initialLimit 밖에 있으면 자동 확장
+  useEffect(() => {
+    if (!expandForCode || !initialLimit || expanded) return
+    const idx = stocks.findIndex(s => s.code === expandForCode)
+    if (idx >= initialLimit) setExpanded(true)
+  }, [expandForCode, initialLimit, stocks, expanded])
   const hasMore = initialLimit != null && stocks.length > initialLimit
   const visibleStocks = hasMore && !expanded ? stocks.slice(0, initialLimit) : stocks
 
@@ -384,7 +392,7 @@ function CompactMarketSection({
   isAdmin,
   volumeProfiles,
   intradayHistory,
-  initialLimit,
+  initialLimit, expandForCode,
 }: {
   market: string
   stocks: Stock[]
@@ -403,8 +411,15 @@ function CompactMarketSection({
   volumeProfiles?: Record<string, StockVolumeProfile>
   intradayHistory?: Record<string, IntradayDay[]>
   initialLimit?: number
+  expandForCode?: string | null
 }) {
   const [expanded, setExpanded] = useState(false)
+
+  useEffect(() => {
+    if (!expandForCode || !initialLimit || expanded) return
+    const idx = stocks.findIndex(s => s.code === expandForCode)
+    if (idx >= initialLimit) setExpanded(true)
+  }, [expandForCode, initialLimit, stocks, expanded])
   const hasMemberData = !!memberData && Object.keys(memberData).length > 0
   const hasMore = initialLimit != null && stocks.length > initialLimit
   const visibleStocks = hasMore && !expanded ? stocks.slice(0, initialLimit) : stocks
@@ -467,7 +482,7 @@ function sortStocks(stocks: Stock[], sortBy: SortOption, investorData?: Record<s
   })
 }
 
-export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit, sectionId }: StockListProps) {
+export function StockList({ title, kospiStocks, kosdaqStocks, history, news, type, compactMode, showTradingValue, investorData, investorEstimated, investorUpdatedAt, memberData, criteriaData, investorIntraday, isAdmin, dataTimestamp, volumeProfiles, vpUpdatedAt, intradayHistory, fundamentalData, initialLimit, sectionId, expandForCode }: StockListProps) {
   const [sortBy, setSortBy] = useState<SortOption>("default")
   const sortedKospi = useMemo(() => sortStocks(kospiStocks, sortBy, investorData), [kospiStocks, sortBy, investorData])
   const sortedKosdaq = useMemo(() => sortStocks(kosdaqStocks, sortBy, investorData), [kosdaqStocks, sortBy, investorData])
@@ -528,6 +543,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             volumeProfiles={volumeProfiles}
             intradayHistory={intradayHistory}
             initialLimit={initialLimit}
+            expandForCode={expandForCode}
           />
           </div>
           <div id={sectionId ? `${sectionId}-kosdaq` : undefined}>
@@ -549,6 +565,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             volumeProfiles={volumeProfiles}
             intradayHistory={intradayHistory}
             initialLimit={initialLimit}
+            expandForCode={expandForCode}
           />
           </div>
         </CardContent>
@@ -603,6 +620,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           intradayHistory={intradayHistory}
           fundamentalData={fundamentalData}
           initialLimit={initialLimit}
+          expandForCode={expandForCode}
         />
         </div>
 
@@ -628,6 +646,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           intradayHistory={intradayHistory}
           fundamentalData={fundamentalData}
           initialLimit={initialLimit}
+          expandForCode={expandForCode}
         />
         </div>
       </CardContent>

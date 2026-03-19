@@ -74,7 +74,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
   }, [query, stocks])
 
   return (
-    <div className="sticky top-14 sm:top-16 z-[45] bg-card border-b border-border shadow-md">
+    <div className="sticky top-[5.75rem] sm:top-16 z-[45] bg-card border-b border-border shadow-md">
       <div className="container px-3 sm:px-4 py-2">
         <div className="flex items-center gap-2">
           <Search className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -675,11 +675,12 @@ function App() {
       const el = document.getElementById(`stock-${pendingScrollTarget}`)
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" })
+        triedTabsRef.current.clear()
         setPendingScrollTarget(null)
         return
       }
       attempts++
-      if (attempts < 5) {
+      if (attempts < 10) {
         setTimeout(tryScroll, 50)
       } else {
         // 현재 탭에 없으면 stockTabMap에서 해당 종목이 있는 탭으로 전환
@@ -701,20 +702,22 @@ function App() {
 
   // 대장주 클릭 시 해당 종목으로 이동
   const scrollToStock = useCallback((code: string) => {
+    triedTabsRef.current.clear()
     // 0. 홈이 아닌 페이지에 있으면 먼저 홈으로 이동
     if (currentPage !== "home") {
       setCurrentPage("home")
-      triedTabsRef.current.clear()
       setPendingScrollTarget(code)
       return
     }
-    // 1. 현재 탭에서 찾기
-    const el = document.getElementById(`stock-${code}`)
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" })
-      return
+    // 1. 현재 탭(환경분석이 아닌 경우)에서 찾기
+    if (activeTab !== "home") {
+      const el = document.getElementById(`stock-${code}`)
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" })
+        return
+      }
     }
-    // 2. 다른 탭에서 찾기
+    // 2. stockTabMap에서 해당 종목이 있는 탭으로 전환
     const tabs = stockTabMap[code]
     if (tabs && tabs.length > 0) {
       const targetTab = tabs.find(t => t !== activeTab) || tabs[0]
@@ -831,7 +834,7 @@ function App() {
       />
 
       {/* 종목 검색 패널 */}
-      {searchOpen && currentPage === "home" && (
+      {searchOpen && (
         <StockSearchPanel
           stocks={allStocksForSearch}
           onSelect={(code) => {
@@ -1102,6 +1105,7 @@ function App() {
                     fundamentalData={displayData?.fundamental_data}
                     initialLimit={20}
                     sectionId="section-rising"
+                    expandForCode={pendingScrollTarget}
                   />
                   <StockList
                     title={`${compositeTitle} + 하락률 TOP`}
@@ -1126,6 +1130,7 @@ function App() {
                     fundamentalData={displayData?.fundamental_data}
                     initialLimit={20}
                     sectionId="section-falling"
+                    expandForCode={pendingScrollTarget}
                   />
                 </>
               ) : (
@@ -1203,6 +1208,7 @@ function App() {
               intradayHistory={intradayHistoryData?.stocks}
               fundamentalData={displayData?.fundamental_data}
               sectionId="section-trading"
+              expandForCode={pendingScrollTarget}
             />
           )}
 
@@ -1229,6 +1235,7 @@ function App() {
               intradayHistory={intradayHistoryData?.stocks}
               fundamentalData={displayData?.fundamental_data}
               sectionId="section-volume"
+              expandForCode={pendingScrollTarget}
             />
           )}
 
@@ -1255,6 +1262,7 @@ function App() {
                 vpUpdatedAt={vpData?.updated_at}
                 intradayHistory={intradayHistoryData?.stocks}
                 sectionId="section-fluc-rising"
+                expandForCode={pendingScrollTarget}
               />
               <StockList
                 title="등락률 하락 TOP20"
@@ -1277,6 +1285,7 @@ function App() {
                 vpUpdatedAt={vpData?.updated_at}
                 intradayHistory={intradayHistoryData?.stocks}
                 sectionId="section-fluc-falling"
+                expandForCode={pendingScrollTarget}
               />
             </>
           )}

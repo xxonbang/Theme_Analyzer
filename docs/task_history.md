@@ -6,6 +6,11 @@
 
 ## 2026-03-20
 
+### [버그픽스] 검색/AI분석에서 종목 이동이 동작하지 않는 버그 수정 (2026-03-20 00:15 KST)
+- **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/StockList.tsx`
+- **내용**: ①환경분석 탭에서 DOM 검색 생략 후 바로 탭 전환 ②StockList에 expandForCode prop 추가하여 initialLimit(20) 밖 종목 자동 확장 ③triedTabsRef 초기화 누락 수정 ④검색 패널 sticky 위치 모바일 헤더 높이에 맞춤 ⑤검색 패널 currentPage 조건 제거(모든 페이지에서 동작)
+- **원인**: activeTab="home"일 때 종목 카드 미렌더링, initialLimit로 20위 밖 종목 DOM 미존재, triedTabsRef 잔여값
+
 ### [버그픽스] 타 페이지에서 '종목으로 이동' 시 잘못된 종목으로 스크롤되는 버그 수정 (2026-03-20 00:01 KST)
 - **변경 파일**: `frontend/src/App.tsx`
 - **내용**: AI분석 등 홈 외 페이지에서 종목 이동 시 현재 탭에 없는 종목이면 탭 전환 없이 포기하던 문제 수정. pendingScrollTarget useEffect에서 stockTabMap 조회 후 자동 탭 전환+재시도 로직 추가, triedTabsRef로 무한 루프 방지
