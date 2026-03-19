@@ -978,12 +978,14 @@ function App() {
           <div id="section-index"><IndexAlertSection kospi={displayData?.kospi_index} kosdaq={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>
 
           {/* Data Freshness */}
+          <div className="mb-3 sm:mb-4">
           <DataFreshness
             stockData={currentData ?? null}
             investorIntraday={investorIntradayData ?? null}
             intradayHistory={intradayHistoryData ?? null}
             themeForecast={themeForecastData ?? null}
           />
+          </div>
 
           {/* Intraday Insights */}
           <div id="section-intraday-insights">

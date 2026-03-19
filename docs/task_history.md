@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [개선] DataFreshness-IntradayInsights 여백 추가 + 수급 신호 종목 클릭→네이버 증권 이동 (2026-03-19 10:25 KST)
+- **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/IntradayInsights.tsx`
+- **내용**: DataFreshness 뱃지와 장중 시장 동향 카드 사이 여백(mb-3/4) 추가. 수급 특이 신호 종목을 `<a>` 태그로 변경하여 클릭 시 네이버 증권 새 탭 이동 (기존 패턴 재활용)
+
 ### [버그픽스] 데이터 수집 후 웹 미반영 — deploy-pages workflow_run 트리거 추가 (2026-03-19 10:14 KST)
 - **변경 파일**: `.github/workflows/deploy-pages.yml`
 - **내용**: GITHUB_TOKEN으로 수행된 push는 다른 워크플로우를 트리거하지 않는 GitHub Actions 제한사항. T2-13에서 빌드/배포를 분리하면서 발생. `workflow_run` 트리거 추가하여 9개 데이터 워크플로우 완료 시 자동 배포

@@ -248,7 +248,13 @@ export function IntradayInsights({
             </div>
             <div className="space-y-1">
               {supplyDemandSignals.map(s => (
-                <div key={s.code} className="flex items-center justify-between bg-orange-500/5 rounded-md px-2.5 py-1.5">
+                <a
+                  key={s.code}
+                  href={`https://m.stock.naver.com/domestic/stock/${s.code}/total`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between bg-orange-500/5 rounded-md px-2.5 py-1.5 hover:bg-orange-500/10 transition-colors cursor-pointer"
+                >
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span className="text-[10px] font-medium text-orange-600 dark:text-orange-400 shrink-0">{s.label}</span>
                     <span className="text-xs truncate">{s.name}</span>
@@ -262,7 +268,7 @@ export function IntradayInsights({
                       {" "}기{s.institutionNet > 0 ? "+" : ""}{(s.institutionNet / 1000).toFixed(0)}k
                     </span>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
