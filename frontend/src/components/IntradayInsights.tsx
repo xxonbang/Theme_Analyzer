@@ -30,7 +30,8 @@ export function IntradayInsights({
   onScrollToStock,
 }: IntradayInsightsProps) {
   const [showMovers, setShowMovers] = useState(false)
-  const [actionPopup, setActionPopup] = useState<{ code: string; name: string } | null>(null)
+  const [actionPopup, setActionPopup] = useState<{ code: string; name: string; x: number; y: number } | null>(null)
+  const [themePopup, setThemePopup] = useState<{ name: string; stocks: { name: string; rate: number }[]; x: number; y: number } | null>(null)
   const todayKST = useMemo(getTodayKST, [])
 
   // B-1: Forecast freshness
@@ -178,7 +179,11 @@ export function IntradayInsights({
             <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 장중 등락률 (대장주 평균)</div>
             <div className="grid grid-cols-2 gap-1.5">
               {themeMomentum.map(t => (
-                <div key={t.name} className="flex items-center justify-between bg-muted/50 rounded-md px-2.5 py-1.5">
+                <div
+                  key={t.name}
+                  className="flex items-center justify-between bg-muted/50 rounded-md px-2.5 py-1.5 cursor-pointer hover:bg-muted/80 transition-colors"
+                  onClick={(e) => setThemePopup({ name: t.name, stocks: t.stockDetails.map(s => ({ name: s.name, rate: s.rate })), x: e.clientX, y: e.clientY })}
+                >
                   <span className="text-xs font-medium truncate mr-2">{t.name}</span>
                   <span className={cn(
                     "text-xs font-bold tabular-nums shrink-0",
@@ -211,7 +216,7 @@ export function IntradayInsights({
                   </div>
                   {momentumShifts.gainers.map(s => (
                     <div key={s.code} className="flex items-center justify-between text-[11px]">
-                      <span className="truncate mr-1 cursor-pointer hover:underline" onClick={() => setActionPopup({ code: s.code, name: s.name })}>{s.name}</span>
+                      <span className="truncate mr-1 cursor-pointer hover:underline" onClick={(e) => setActionPopup({ code: s.code, name: s.name, x: e.clientX, y: e.clientY })}>{s.name}</span>
                       <div className="flex items-center gap-1 shrink-0">
                         <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                           {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
@@ -228,7 +233,7 @@ export function IntradayInsights({
                   </div>
                   {momentumShifts.losers.map(s => (
                     <div key={s.code} className="flex items-center justify-between text-[11px]">
-                      <span className="truncate mr-1 cursor-pointer hover:underline" onClick={() => setActionPopup({ code: s.code, name: s.name })}>{s.name}</span>
+                      <span className="truncate mr-1 cursor-pointer hover:underline" onClick={(e) => setActionPopup({ code: s.code, name: s.name, x: e.clientX, y: e.clientY })}>{s.name}</span>
                       <div className="flex items-center gap-1 shrink-0">
                         <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                           {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
@@ -254,7 +259,7 @@ export function IntradayInsights({
               {supplyDemandSignals.map(s => (
                 <div
                   key={s.code}
-                  onClick={() => setActionPopup({ code: s.code, name: s.name })}
+                  onClick={(e) => setActionPopup({ code: s.code, name: s.name, x: e.clientX, y: e.clientY })}
                   className="bg-orange-500/5 rounded-md px-2.5 py-1.5 hover:bg-orange-500/10 transition-colors cursor-pointer"
                 >
                   <div className="flex items-center justify-between">
@@ -285,8 +290,15 @@ export function IntradayInsights({
 
         {/* 종목 클릭 액션 팝업 */}
         {actionPopup && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={() => setActionPopup(null)}>
-            <div className="bg-card border rounded-lg shadow-lg py-1 w-44" onClick={e => e.stopPropagation()}>
+          <div className="fixed inset-0 z-50" onClick={() => setActionPopup(null)}>
+            <div
+              className="fixed bg-card border rounded-lg shadow-lg py-1 w-44"
+              style={{
+                left: Math.min(actionPopup.x, window.innerWidth - 180),
+                top: Math.min(actionPopup.y + 4, window.innerHeight - 100),
+              }}
+              onClick={e => e.stopPropagation()}
+            >
               <a
                 href={`https://m.stock.naver.com/domestic/stock/${actionPopup.code}/total`}
                 target="_blank"
@@ -306,6 +318,30 @@ export function IntradayInsights({
                   종목으로 이동
                 </button>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* 테마 종목 팝업 */}
+        {themePopup && (
+          <div className="fixed inset-0 z-50" onClick={() => setThemePopup(null)}>
+            <div
+              className="fixed bg-card border rounded-lg shadow-lg py-1.5 w-48"
+              style={{
+                left: Math.min(themePopup.x, window.innerWidth - 200),
+                top: Math.min(themePopup.y + 4, window.innerHeight - themePopup.stocks.length * 28 - 40),
+              }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="px-3 py-1 text-xs font-semibold border-b border-border/50 mb-1">{themePopup.name}</div>
+              {themePopup.stocks.map(s => (
+                <div key={s.name} className="flex items-center justify-between px-3 py-0.5 text-xs">
+                  <span className="truncate mr-2">{s.name}</span>
+                  <span className={cn("tabular-nums shrink-0 font-medium", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                    {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         )}
