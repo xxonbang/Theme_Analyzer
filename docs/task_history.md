@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [설정] cron-job.org 장중 수집 스케줄 30분 간격 재등록 (2026-03-19 14:48 KST)
+- **변경 파일**: 없음 (cron-job.org API 작업)
+- **내용**: 기존 7개 cron-job(0930~1500, 1시간 간격) 전체 삭제 → 13개 신규 등록(09:15~15:15, 30분 간격). 대상 워크플로우: `collect-intraday-history.yml`, 평일(월~금) KST 기준
+
 ### [기능] 포트폴리오 KIS API 실시간 시세 + 종목 검색 확장 (2026-03-19 14:33 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`, `frontend/src/lib/kis-api.ts`(신규), `supabase/functions/kis-proxy/index.ts`(신규), `supabase/functions/_shared/cors.ts`(신규), `supabase/config.toml`(신규), `scripts/generate_stock_master.py`(신규), `frontend/public/data/stock-master.json`(신규)
 - **내용**: ①Supabase Edge Function(kis-proxy) 구현 및 배포 — KIS API 프록시(CORS+키은닉, JWT 인증) ②포트폴리오 "실시간" 리프레시 버튼 — 보유 종목 전체 KIS API 실시간 시세 조회 및 재계산 ③종목 검색 확장 — stock-master.json(113종목) 로드 + 6자리 코드 미존재 시 KIS API 자동 fallback 조회
