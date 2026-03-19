@@ -2,7 +2,7 @@ name: Collect Intraday History
 
 on:
   # 외부 cron-job(workflow_dispatch)으로 실행 (월~금):
-  #   KST 09:30, 10:00, 11:00, 12:00, 13:00, 14:00, 15:00 (7회)
+  #   KST 09:15~15:15, 30분 간격 (13회)
   #   11:30은 refresh-data.yml, 15:40은 collect-paper-trading.yml에서 추가 수집
   workflow_dispatch: {}
 
@@ -13,7 +13,7 @@ jobs:
   collect:
     concurrency:
       group: intraday-history
-      cancel-in-progress: true
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 20
 

@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [설정] 장중 히스토리 cron-job 30분 간격 전환 대응 (2026-03-19 13:40 KST)
+- **변경 파일**: `.github/workflows/collect-intraday-history.yml`, `.github/workflows/deploy-pages.yml`, `frontend/src/App.tsx`
+- **내용**: cron-job 스케줄 7회(1시간)→13회(30분) 전환에 따른 소스 영향도 분석 및 조치. ①concurrency cancel-in-progress false로 변경(실행 취소 방지) ②deploy-pages에서 Intraday History 트리거 제거(배포 폭증 방지) ③스케줄 표시 텍스트 갱신
+
 ### [버그픽스] 장중 탭 등락률·현재가 MTS 불일치 수정 (2026-03-19 13:29 KST)
 - **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`, `frontend/src/types/stock.ts`, `modules/volume_profile.py`
 - **내용**: ①차트 Y축 등락률이 시가 기준으로 재계산되던 버그 → 전일종가(prev_close) 기준으로 통일. ②KIS 1분봉 API가 미래 시간대 플레이스홀더 캔들 반환 → cutoff_time 필터 추가하여 현재 시각 이후 캔들 제거

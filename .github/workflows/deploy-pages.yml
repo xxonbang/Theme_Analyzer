@@ -12,7 +12,6 @@ on:
       - "Daily Theme Analysis"
       - "Refresh Stock Data"
       - "Collect Investor Data"
-      - "Collect Intraday History"
       - "Collect Paper Trading Data"
       - "Collect Macro Futures"
       - "Collect Macro Premarket"
