@@ -6,6 +6,20 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/deploy-pages.yml'
+  # 데이터 워크플로우 완료 시 자동 배포 (GITHUB_TOKEN push는 다른 워크플로우를 트리거하지 않으므로)
+  workflow_run:
+    workflows:
+      - "Daily Theme Analysis"
+      - "Refresh Stock Data"
+      - "Collect Investor Data"
+      - "Collect Intraday History"
+      - "Collect Paper Trading Data"
+      - "Collect Macro Futures"
+      - "Collect Macro Premarket"
+      - "Theme Forecast"
+      - "Theme Forecast Intraday"
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +30,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # workflow_run 트리거 시 성공한 경우에만 배포
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Notify start via Telegram
         env:
