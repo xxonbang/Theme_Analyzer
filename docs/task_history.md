@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [개선] 장중 모멘텀/수급 신호 UI 추가 개선 (2026-03-19 23:16 KST)
+- **변경 파일**: `frontend/src/components/IntradayInsights.tsx`
+- **내용**: ①외/기/프 값 0일 때 회색 처리 ②외/기/프 열 고정 너비로 세로정렬 ③모멘텀 급변 종목명 클릭 시 액션 팝업(네이버 보기/종목 이동) 추가 ④팝업 위치 flex 센터링으로 수정(transform 부모 영향 제거)
+
 ### [개선] 수급 특이 신호 UI 개선 및 갱신 배지 수정 (2026-03-19 23:03 KST)
 - **변경 파일**: `frontend/src/components/IntradayInsights.tsx`, `frontend/src/components/DataFreshness.tsx`, `frontend/src/App.tsx`, `frontend/src/components/PortfolioPage.tsx`
 - **내용**: ①수급 특이 신호 2줄 레이아웃(종목명 잘림 해소) ②프로그램 수급(외/기/프) 추가 ③매수/매도 색상 구분(빨강/파랑) ④종목 클릭 시 컴팩트 팝업(네이버 보기/종목 이동) ⑤갱신 배지 수급 시간에 장마감 확정 데이터 반영 ⑥포트폴리오 LIVE 위치 refresh 버튼 좌측으로 이동

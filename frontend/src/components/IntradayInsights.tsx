@@ -211,7 +211,7 @@ export function IntradayInsights({
                   </div>
                   {momentumShifts.gainers.map(s => (
                     <div key={s.code} className="flex items-center justify-between text-[11px]">
-                      <span className="truncate mr-1">{s.name}</span>
+                      <span className="truncate mr-1 cursor-pointer hover:underline" onClick={() => setActionPopup({ code: s.code, name: s.name })}>{s.name}</span>
                       <div className="flex items-center gap-1 shrink-0">
                         <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                           {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
@@ -228,7 +228,7 @@ export function IntradayInsights({
                   </div>
                   {momentumShifts.losers.map(s => (
                     <div key={s.code} className="flex items-center justify-between text-[11px]">
-                      <span className="truncate mr-1">{s.name}</span>
+                      <span className="truncate mr-1 cursor-pointer hover:underline" onClick={() => setActionPopup({ code: s.code, name: s.name })}>{s.name}</span>
                       <div className="flex items-center gap-1 shrink-0">
                         <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                           {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
@@ -266,14 +266,14 @@ export function IntradayInsights({
                       {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
                     </span>
                   </div>
-                  <div className="flex justify-end gap-2 mt-0.5">
-                    <span className={cn("text-[10px] tabular-nums", s.foreignNet >= 0 ? "text-red-400" : "text-blue-400")}>
+                  <div className="flex justify-end mt-0.5">
+                    <span className={cn("text-[10px] tabular-nums w-[66px] text-right", s.foreignNet === 0 ? "text-muted-foreground/50" : s.foreignNet > 0 ? "text-red-400" : "text-blue-400")}>
                       외 {s.foreignNet > 0 ? "+" : ""}{(s.foreignNet / 1000).toFixed(0)}k
                     </span>
-                    <span className={cn("text-[10px] tabular-nums", s.institutionNet >= 0 ? "text-red-400" : "text-blue-400")}>
+                    <span className={cn("text-[10px] tabular-nums w-[52px] text-right", s.institutionNet === 0 ? "text-muted-foreground/50" : s.institutionNet > 0 ? "text-red-400" : "text-blue-400")}>
                       기 {s.institutionNet > 0 ? "+" : ""}{(s.institutionNet / 1000).toFixed(0)}k
                     </span>
-                    <span className={cn("text-[10px] tabular-nums", s.programNet >= 0 ? "text-red-400" : "text-blue-400")}>
+                    <span className={cn("text-[10px] tabular-nums w-[60px] text-right", s.programNet === 0 ? "text-muted-foreground/50" : s.programNet > 0 ? "text-red-400" : "text-blue-400")}>
                       프 {s.programNet > 0 ? "+" : ""}{(s.programNet / 1000).toFixed(0)}k
                     </span>
                   </div>
@@ -285,8 +285,8 @@ export function IntradayInsights({
 
         {/* 종목 클릭 액션 팝업 */}
         {actionPopup && (
-          <div className="fixed inset-0 z-50" onClick={() => setActionPopup(null)}>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card border rounded-lg shadow-lg py-1 w-44" onClick={e => e.stopPropagation()}>
+          <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={() => setActionPopup(null)}>
+            <div className="bg-card border rounded-lg shadow-lg py-1 w-44" onClick={e => e.stopPropagation()}>
               <a
                 href={`https://m.stock.naver.com/domestic/stock/${actionPopup.code}/total`}
                 target="_blank"
