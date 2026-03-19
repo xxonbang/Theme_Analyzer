@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [개선] 다크 테마 배경색 밝기 상향 (2026-03-19 21:57 KST)
+- **변경 파일**: `frontend/src/index.css`
+- **내용**: 다크 모드 배경색 lightness를 약 4%p씩 상향 (background 13→17%, card 19→23%, secondary/muted 23→27%, accent 25→29%, popover 17→21%, border 30→34%, 매크로 카드 배경 동일 비율 상향)
+
 ### [설정] cron-job.org 장중 수집 스케줄 30분 간격 재등록 (2026-03-19 14:48 KST)
 - **변경 파일**: 없음 (cron-job.org API 작업)
 - **내용**: 기존 7개 cron-job(0930~1500, 1시간 간격) 전체 삭제 → 13개 신규 등록(09:15~15:15, 30분 간격). 대상 워크플로우: `collect-intraday-history.yml`, 평일(월~금) KST 기준
