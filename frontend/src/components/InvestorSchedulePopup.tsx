@@ -41,9 +41,12 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
         ref={sheetRef}
         className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5"
       >
-        {/* 드래그 핸들 (모바일) */}
-        <div ref={handleRef} className="flex justify-center mb-3 sm:hidden cursor-grab active:cursor-grabbing py-1 -mt-2">
+        {/* 드래그 핸들 + 닫기 (모바일) */}
+        <div ref={handleRef} className="flex items-center justify-center mb-3 sm:hidden cursor-grab active:cursor-grabbing py-1 -mt-2 relative">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+            <X className="w-4 h-4" />
+          </button>
         </div>
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-3">
@@ -51,7 +54,7 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
             <Clock className="w-3.5 h-3.5 text-muted-foreground" />
             <span className="text-sm font-semibold">수급 데이터 수집 스케줄</span>
           </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+          <button onClick={onClose} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>

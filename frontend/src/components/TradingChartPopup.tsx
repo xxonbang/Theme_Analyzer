@@ -65,9 +65,12 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
-        {/* 모바일 드래그 핸들 */}
-        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+        {/* 모바일 드래그 핸들 + 닫기 */}
+        <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* 헤더 */}
@@ -76,7 +79,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
             <span className="text-sm font-semibold">{stockName}</span>
             <span className="text-xs text-muted-foreground ml-2">거래 추이 ({reversed.length}일)</span>
           </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+          <button onClick={onClose} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>

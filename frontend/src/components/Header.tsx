@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical } from "lucide-react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical, BrainCircuit } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
 
-type PageType = "home" | "paper-trading" | "theme-forecast" | "portfolio"
+type PageType = "home" | "ai-analysis" | "paper-trading" | "theme-forecast" | "portfolio"
 
 interface HeaderProps {
   timestamp?: string
@@ -194,7 +194,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
-          onClick={() => window.location.reload()}
+          onClick={() => { if (currentPage !== "home") { onPageChange?.("home") } else { window.location.reload() } }}
           className="flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0"
         >
           <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10">
@@ -527,25 +527,37 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       </div>
 
       {/* Mobile 2단 툴바 - 페이지 네비게이션 (sm:hidden) */}
-      <div className="flex sm:hidden items-center justify-center px-3 py-1 border-t border-border/30 bg-muted/30">
-        <div className="flex items-center gap-1">
-          {onPageChange && isAdmin && (
+      <div className="flex sm:hidden items-center px-2 py-1 border-t border-border/30 bg-muted/30 overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-0.5 mx-auto">
+          {onPageChange && (
             <button
-              onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
+              onClick={() => onPageChange("home")}
               className={cn(
-                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
-                currentPage === "theme-forecast" ? "text-amber-600 bg-amber-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                "flex items-center gap-0.5 px-2 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
+                currentPage === "home" ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
-              <Sparkles className="w-3 h-3" />
-              예측
+              <LayoutGrid className="w-3 h-3" />
+              홈
+            </button>
+          )}
+          {onPageChange && (
+            <button
+              onClick={() => onPageChange(currentPage === "ai-analysis" ? "home" : "ai-analysis")}
+              className={cn(
+                "flex items-center gap-0.5 px-2 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
+                currentPage === "ai-analysis" ? "text-orange-600 bg-orange-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <BrainCircuit className="w-3 h-3" />
+              AI분석
             </button>
           )}
           {onPageChange && (
             <button
               onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
               className={cn(
-                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
+                "flex items-center gap-0.5 px-2 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 currentPage === "paper-trading" ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -557,7 +569,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             <button
               onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
               className={cn(
-                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
+                "flex items-center gap-0.5 px-2 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 currentPage === "portfolio" ? "text-violet-600 bg-violet-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
@@ -569,12 +581,24 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             <button
               onClick={() => onHistoryClick()}
               className={cn(
-                "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
+                "flex items-center gap-0.5 px-2 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
                 isViewingHistory ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               <History className="w-3 h-3" />
               히스토리
+            </button>
+          )}
+          {onPageChange && isAdmin && (
+            <button
+              onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
+              className={cn(
+                "flex items-center gap-0.5 px-2 py-1 rounded-md text-[11px] font-medium transition-colors whitespace-nowrap",
+                currentPage === "theme-forecast" ? "text-amber-600 bg-amber-500/10" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
+            >
+              <Sparkles className="w-3 h-3" />
+              예측
             </button>
           )}
         </div>

@@ -36,7 +36,7 @@ import { cn, getWeekday } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
 
-type PageType = "home" | "paper-trading" | "theme-forecast" | "portfolio"
+type PageType = "home" | "ai-analysis" | "paper-trading" | "theme-forecast" | "portfolio"
 
 const TAB_LABELS: Record<string, string> = {
   composite: "종합",
@@ -686,10 +686,16 @@ function App() {
     }
     requestAnimationFrame(tryScroll)
     return () => { cancelled = true }
-  }, [pendingScrollTarget, activeTab])
+  }, [pendingScrollTarget, activeTab, currentPage])
 
   // 대장주 클릭 시 해당 종목으로 이동
   const scrollToStock = useCallback((code: string) => {
+    // 0. 홈이 아닌 페이지에 있으면 먼저 홈으로 이동
+    if (currentPage !== "home") {
+      setCurrentPage("home")
+      setPendingScrollTarget(code)
+      return
+    }
     // 1. 현재 탭에서 찾기
     const el = document.getElementById(`stock-${code}`)
     if (el) {
@@ -706,7 +712,7 @@ function App() {
     }
     // 3. 모든 탭에 없음
     alert("모든 탭에 해당 종목이 없습니다.")
-  }, [stockTabMap, activeTab])
+  }, [stockTabMap, activeTab, currentPage])
 
   // 탭 전환 핸들러 (활동 로그 포함)
   const handleTabChange = useCallback((tab: TabType) => {
@@ -835,6 +841,37 @@ function App() {
       {currentPage === "paper-trading" && (
         <main className="container px-3 sm:px-4 py-4 sm:py-6">
           <PaperTradingPage />
+        </main>
+      )}
+
+      {/* AI 테마 분석 페이지 */}
+      {currentPage === "ai-analysis" && displayData?.theme_analysis && (
+        <main className="container px-3 sm:px-4 py-4 sm:py-6">
+          <AIThemeAnalysis
+            themeAnalysis={displayData.theme_analysis}
+            criteriaData={displayData?.criteria_data}
+            isAdmin={isAdmin}
+            onScrollToStock={scrollToStock}
+            stockMarketMap={(() => {
+              const map: Record<string, string> = {}
+              const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
+              for (const sec of sections) {
+                if (!sec) continue
+                for (const s of sec.kospi || []) map[s.code] = 'kospi'
+                for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
+              }
+              return map
+            })()}
+            stockTradingRankMap={(() => {
+              const map: Record<string, number> = {}
+              const tv = displayData.trading_value
+              if (tv) {
+                for (const s of tv.kospi || []) map[s.code] = s.rank
+                for (const s of tv.kosdaq || []) map[s.code] = s.rank
+              }
+              return map
+            })()}
+          />
         </main>
       )}
 
@@ -1012,34 +1049,7 @@ function App() {
             />
           </div>
 
-          {/* AI Theme Analysis */}
-          {displayData?.theme_analysis && (
-            <div id="section-theme"><AIThemeAnalysis
-              themeAnalysis={displayData.theme_analysis}
-              criteriaData={displayData?.criteria_data}
-              isAdmin={isAdmin}
-              onScrollToStock={scrollToStock}
-              stockMarketMap={(() => {
-                const map: Record<string, string> = {}
-                const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
-                for (const sec of sections) {
-                  if (!sec) continue
-                  for (const s of sec.kospi || []) map[s.code] = 'kospi'
-                  for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
-                }
-                return map
-              })()}
-              stockTradingRankMap={(() => {
-                const map: Record<string, number> = {}
-                const tv = displayData.trading_value
-                if (tv) {
-                  for (const s of tv.kospi || []) map[s.code] = s.rank
-                  for (const s of tv.kosdaq || []) map[s.code] = s.rank
-                }
-                return map
-              })()}
-            /></div>
-          )}
+          {/* AI Theme Analysis → ai-analysis 페이지로 이동됨 */}
         </>}
 
         {/* 홈 탭이 아닐 때만 종목 리스트 표시 */}
@@ -1261,17 +1271,6 @@ function App() {
         </div>
         </>}
 
-        {/* Footer */}
-        <footer className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-border/30">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-[10px] sm:text-xs text-muted-foreground/60">
-            <div className="flex items-center gap-3">
-              <span>KIS API · Naver News API</span>
-              <span className="hidden sm:inline">·</span>
-              <span>매일 09:30, 21:00 KST 자동 업데이트</span>
-            </div>
-            <span>투자 판단의 책임은 본인에게 있습니다</span>
-          </div>
-        </footer>
         {/* 하단 탭바 높이만큼 여백 */}
         <div className="h-16" />
       </main>

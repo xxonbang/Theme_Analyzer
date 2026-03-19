@@ -106,9 +106,12 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
 
       <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
-        {/* 모바일 드래그 핸들 */}
-        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-1 cursor-grab">
+        {/* 모바일 드래그 핸들 + 닫기 */}
+        <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-1 cursor-grab relative">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* 헤더 */}
@@ -119,7 +122,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               <span className="text-xs text-muted-foreground ml-2">최근 {reversed.length}일 변동</span>
             )}
           </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+          <button onClick={onClose} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>

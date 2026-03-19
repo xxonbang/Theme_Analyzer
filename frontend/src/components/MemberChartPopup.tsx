@@ -51,13 +51,21 @@ export function MemberChartPopup({ stockName, memberInfo, onClose }: MemberChart
         ref={sheetRef}
         className="bg-background rounded-t-2xl sm:rounded-2xl w-full max-w-md mx-auto shadow-xl max-h-[85vh] overflow-y-auto"
       >
+        {/* 모바일 드래그 핸들 + 닫기 */}
+        <div className="sm:hidden flex items-center justify-center pt-3 pb-1 relative">
+          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <button onClick={onClose} className="absolute right-4 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
         {/* 헤더 */}
-        <div className="sticky top-0 bg-background z-10 flex items-center justify-between px-4 pt-4 pb-2 border-b border-border/30">
+        <div className="sticky top-0 bg-background z-10 flex items-center justify-between px-4 pt-4 sm:pt-4 pb-2 border-b border-border/30">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-sm">{stockName}</span>
             <span className="text-xs text-muted-foreground">거래원</span>
           </div>
-          <button onClick={onClose} className="p-1 rounded-full hover:bg-muted transition-colors">
+          <button onClick={onClose} className="hidden sm:block p-1 rounded-full hover:bg-muted transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>

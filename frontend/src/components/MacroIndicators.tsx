@@ -152,12 +152,15 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
         <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
-            <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+            <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
               <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              <button onClick={() => setShowHistory(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+                <X className="w-4 h-4" />
+              </button>
             </div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-semibold">주요 선물 히스토리</span>
-              <button onClick={() => setShowHistory(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+              <button onClick={() => setShowHistory(false)} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -305,12 +308,15 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
         <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowDetail(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
-            <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+            <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
               <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              <button onClick={() => setShowDetail(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+                <X className="w-4 h-4" />
+              </button>
             </div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-semibold">투자자 수급 동향</span>
-              <button onClick={() => setShowDetail(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+              <button onClick={() => setShowDetail(false)} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -812,12 +818,15 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
         <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
-            <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
+            <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
               <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              <button onClick={() => setShowHistory(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+                <X className="w-4 h-4" />
+              </button>
             </div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-semibold">거시지표 히스토리</span>
-              <button onClick={() => setShowHistory(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+              <button onClick={() => setShowHistory(false)} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
                 <X className="w-4 h-4" />
               </button>
             </div>

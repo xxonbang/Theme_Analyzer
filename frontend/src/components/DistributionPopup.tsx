@@ -408,8 +408,11 @@ export default function DistributionPopup({
         ref={sheetRef}
         className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto overscroll-contain"
       >
-        <div ref={handleRef} className="flex justify-center pt-2 pb-1 cursor-grab">
+        <div ref={handleRef} className="flex items-center justify-center pt-2 pb-1 cursor-grab relative">
           <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <button onClick={onClose} className="absolute right-4 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         <div className="px-4 pb-4">
@@ -421,16 +424,11 @@ export default function DistributionPopup({
                 정규분포 기반 가격·밸류에이션 위치 분석
               </p>
             </div>
-            <div className="flex items-center gap-1">
-              <button onClick={() => setShowMethodology(true)}
-                className="p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                title="분석 방법론">
-                <Info className="w-4 h-4" />
-              </button>
-              <button onClick={onClose} className="p-1 rounded-lg hover:bg-muted">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            <button onClick={() => setShowMethodology(true)}
+              className="p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+              title="분석 방법론">
+              <Info className="w-4 h-4" />
+            </button>
           </div>
 
           {/* 기간 선택 + 매물대 토글 */}
