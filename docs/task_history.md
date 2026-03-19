@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [개선] 수급 특이 신호 UI 개선 및 갱신 배지 수정 (2026-03-19 23:03 KST)
+- **변경 파일**: `frontend/src/components/IntradayInsights.tsx`, `frontend/src/components/DataFreshness.tsx`, `frontend/src/App.tsx`, `frontend/src/components/PortfolioPage.tsx`
+- **내용**: ①수급 특이 신호 2줄 레이아웃(종목명 잘림 해소) ②프로그램 수급(외/기/프) 추가 ③매수/매도 색상 구분(빨강/파랑) ④종목 클릭 시 컴팩트 팝업(네이버 보기/종목 이동) ⑤갱신 배지 수급 시간에 장마감 확정 데이터 반영 ⑥포트폴리오 LIVE 위치 refresh 버튼 좌측으로 이동
+
 ### [버그픽스] KIS API 호출을 직접 fetch로 전환 (2026-03-19 22:34 KST)
 - **변경 파일**: `frontend/src/lib/kis-api.ts`
 - **내용**: `supabase.functions.invoke()` → 직접 `fetch` + anon key로 전환. SDK 내부 세션 처리 우회하여 세션 만료 시에도 Edge Function 호출 가능

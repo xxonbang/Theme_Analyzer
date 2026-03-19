@@ -437,44 +437,44 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Briefcase className="w-5 h-5 text-primary" />
-          <h2 className="text-lg font-bold">내 포트폴리오</h2>
-          <span className="text-xs text-muted-foreground">{holdings.length}종목</span>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <Briefcase className="w-5 h-5 text-primary shrink-0" />
+          <h2 className="text-lg font-bold whitespace-nowrap">내 포트폴리오</h2>
+          <span className="text-xs text-muted-foreground whitespace-nowrap">{holdings.length}종목</span>
+        </div>
+        <div className="flex items-center gap-1.5 shrink-0">
           {lastRefreshed && (
-            <span className="text-[10px] text-emerald-600 dark:text-emerald-400">
-              LIVE {lastRefreshed.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 whitespace-nowrap leading-tight text-center">
+              <span className="block font-semibold">LIVE</span>
+              <span className="block">{lastRefreshed.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}</span>
             </span>
           )}
-        </div>
-        <div className="flex items-center gap-1.5">
           {holdings.length > 0 && (
             <button
               onClick={handleRefresh}
               disabled={refreshing}
               className={cn(
-                "flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors",
+                "flex items-center justify-center w-8 h-8 rounded-lg transition-colors",
                 "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20",
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
               title="KIS API 실시간 시세 조회"
             >
-              <RefreshCw className={cn("w-3.5 h-3.5", refreshing && "animate-spin")} />
-              <span className="hidden sm:inline">{refreshing ? "조회 중..." : "실시간"}</span>
+              <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
             </button>
           )}
           <button
             onClick={() => setShowAddForm(!showAddForm)}
             className={cn(
-              "flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
+              "flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors",
               showAddForm
                 ? "bg-muted text-muted-foreground"
                 : "bg-primary text-primary-foreground hover:bg-primary/90"
             )}
           >
             {showAddForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            {showAddForm ? "취소" : "종목 추가"}
+            {showAddForm ? "취소" : "추가"}
           </button>
         </div>
       </div>

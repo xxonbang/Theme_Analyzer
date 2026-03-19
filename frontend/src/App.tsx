@@ -1008,6 +1008,7 @@ function App() {
               investorIntraday={investorIntradayData}
               stockNameMap={stockNameMap}
               onNavigateToForecast={() => setCurrentPage("theme-forecast")}
+              onScrollToStock={scrollToStock}
             />
           </div>
 

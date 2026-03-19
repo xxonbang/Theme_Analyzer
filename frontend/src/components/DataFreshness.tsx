@@ -49,12 +49,18 @@ export function DataFreshness({ stockData, investorIntraday, intradayHistory, th
       time: stockData?.timestamp ?? null,
     })
 
-    // investor-intraday: 마지막 snapshot time + date
+    // 수급: intraday 마지막 스냅샷 vs latest.json 확정 데이터 중 최신
     const snapshots = investorIntraday?.snapshots
     const lastSnapshot = snapshots?.[snapshots.length - 1]
-    const investorTime = lastSnapshot && investorIntraday?.date
+    const intradayTime = lastSnapshot && investorIntraday?.date
       ? `${investorIntraday.date}T${lastSnapshot.time}:00+09:00`
       : null
+    const confirmedTime = stockData?.investor_updated_at ?? null
+    const intradayDate = intradayTime ? parseTimeToDate(intradayTime) : null
+    const confirmedDate = confirmedTime ? parseTimeToDate(confirmedTime) : null
+    const investorTime = intradayDate && confirmedDate
+      ? (confirmedDate > intradayDate ? confirmedTime : intradayTime)
+      : confirmedTime ?? intradayTime
     items.push({
       label: "수급",
       time: investorTime,

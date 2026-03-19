@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp, ShieldAlert } from "lucide-react"
+import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp, ShieldAlert, ExternalLink, Send } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { ThemeAnalysis, IntradayHistoryData, InvestorIntraday, ThemeForecast } from "@/types/stock"
 
@@ -11,6 +11,7 @@ interface IntradayInsightsProps {
   investorIntraday?: InvestorIntraday | null
   stockNameMap: Record<string, string>
   onNavigateToForecast?: () => void
+  onScrollToStock?: (code: string) => void
 }
 
 function getTodayKST(): string {
@@ -26,8 +27,10 @@ export function IntradayInsights({
   investorIntraday,
   stockNameMap,
   onNavigateToForecast,
+  onScrollToStock,
 }: IntradayInsightsProps) {
   const [showMovers, setShowMovers] = useState(false)
+  const [actionPopup, setActionPopup] = useState<{ code: string; name: string } | null>(null)
   const todayKST = useMemo(getTodayKST, [])
 
   // B-1: Forecast freshness
@@ -101,7 +104,7 @@ export function IntradayInsights({
   const supplyDemandSignals = useMemo(() => {
     if (!investorIntraday?.snapshots?.length) return []
     const lastSnap = investorIntraday.snapshots[investorIntraday.snapshots.length - 1]
-    const signals: { code: string; name: string; label: string; rate: number; foreignNet: number; institutionNet: number }[] = []
+    const signals: { code: string; name: string; label: string; rate: number; foreignNet: number; institutionNet: number; programNet: number }[] = []
 
     for (const [code, entry] of Object.entries(lastSnap.data)) {
       const name = stockNameMap[code]
@@ -122,13 +125,14 @@ export function IntradayInsights({
 
       const f = entry.f
       const i = entry.i
+      const pg = entry.pg ?? 0
 
       if (f > 300000 && rate < 0) {
-        signals.push({ code, name, label: "외국인 저가 매집", rate, foreignNet: f, institutionNet: i })
+        signals.push({ code, name, label: "외국인 저가 매집", rate, foreignNet: f, institutionNet: i, programNet: pg })
       } else if (f < -300000 && rate > 0) {
-        signals.push({ code, name, label: "외국인 차익 실현", rate, foreignNet: f, institutionNet: i })
+        signals.push({ code, name, label: "외국인 차익 실현", rate, foreignNet: f, institutionNet: i, programNet: pg })
       } else if (i > 200000 && rate < -1) {
-        signals.push({ code, name, label: "기관 저가 매집", rate, foreignNet: f, institutionNet: i })
+        signals.push({ code, name, label: "기관 저가 매집", rate, foreignNet: f, institutionNet: i, programNet: pg })
       }
     }
 
@@ -248,28 +252,60 @@ export function IntradayInsights({
             </div>
             <div className="space-y-1">
               {supplyDemandSignals.map(s => (
-                <a
+                <div
                   key={s.code}
-                  href={`https://m.stock.naver.com/domestic/stock/${s.code}/total`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-orange-500/5 rounded-md px-2.5 py-1.5 hover:bg-orange-500/10 transition-colors cursor-pointer"
+                  onClick={() => setActionPopup({ code: s.code, name: s.name })}
+                  className="bg-orange-500/5 rounded-md px-2.5 py-1.5 hover:bg-orange-500/10 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-[10px] font-medium text-orange-600 dark:text-orange-400 shrink-0">{s.label}</span>
-                    <span className="text-xs truncate">{s.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className={cn("text-xs font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="text-[10px] font-medium text-orange-600 dark:text-orange-400 shrink-0">{s.label}</span>
+                      <span className="text-xs truncate">{s.name}</span>
+                    </div>
+                    <span className={cn("text-xs font-bold tabular-nums shrink-0 ml-2", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                       {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
                     </span>
-                    <span className="text-[9px] text-muted-foreground tabular-nums">
-                      외{s.foreignNet > 0 ? "+" : ""}{(s.foreignNet / 1000).toFixed(0)}k
-                      {" "}기{s.institutionNet > 0 ? "+" : ""}{(s.institutionNet / 1000).toFixed(0)}k
+                  </div>
+                  <div className="flex justify-end gap-2 mt-0.5">
+                    <span className={cn("text-[10px] tabular-nums", s.foreignNet >= 0 ? "text-red-400" : "text-blue-400")}>
+                      외 {s.foreignNet > 0 ? "+" : ""}{(s.foreignNet / 1000).toFixed(0)}k
+                    </span>
+                    <span className={cn("text-[10px] tabular-nums", s.institutionNet >= 0 ? "text-red-400" : "text-blue-400")}>
+                      기 {s.institutionNet > 0 ? "+" : ""}{(s.institutionNet / 1000).toFixed(0)}k
+                    </span>
+                    <span className={cn("text-[10px] tabular-nums", s.programNet >= 0 ? "text-red-400" : "text-blue-400")}>
+                      프 {s.programNet > 0 ? "+" : ""}{(s.programNet / 1000).toFixed(0)}k
                     </span>
                   </div>
-                </a>
+                </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* 종목 클릭 액션 팝업 */}
+        {actionPopup && (
+          <div className="fixed inset-0 z-50" onClick={() => setActionPopup(null)}>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card border rounded-lg shadow-lg py-1 w-44" onClick={e => e.stopPropagation()}>
+              <a
+                href={`https://m.stock.naver.com/domestic/stock/${actionPopup.code}/total`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-muted transition-colors"
+                onClick={() => setActionPopup(null)}
+              >
+                <ExternalLink className="w-4 h-4 text-emerald-500" />
+                네이버 보기
+              </a>
+              {onScrollToStock && (
+                <button
+                  className="flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-muted transition-colors w-full"
+                  onClick={() => { onScrollToStock(actionPopup.code); setActionPopup(null) }}
+                >
+                  <Send className="w-4 h-4 text-blue-500" />
+                  종목으로 이동
+                </button>
+              )}
             </div>
           </div>
         )}
