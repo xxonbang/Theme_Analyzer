@@ -366,6 +366,7 @@ function App() {
   const stickyBarRef = useRef<HTMLDivElement>(null)
   const collapsibleRef = useRef<HTMLDivElement>(null)
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null)
+  const triedTabsRef = useRef<Set<TabType>>(new Set())
 
   const scrollCooldown = useRef(0)
   useEffect(() => {
@@ -681,18 +682,29 @@ function App() {
       if (attempts < 5) {
         setTimeout(tryScroll, 50)
       } else {
-        setPendingScrollTarget(null)
+        // 현재 탭에 없으면 stockTabMap에서 해당 종목이 있는 탭으로 전환
+        triedTabsRef.current.add(activeTab)
+        const tabs = stockTabMap[pendingScrollTarget]
+        const untried = tabs?.filter(t => !triedTabsRef.current.has(t))
+        if (untried && untried.length > 0) {
+          setActiveTab(untried[0])
+          // pendingScrollTarget 유지 → 탭 전환 후 useEffect 재실행
+        } else {
+          triedTabsRef.current.clear()
+          setPendingScrollTarget(null)
+        }
       }
     }
     requestAnimationFrame(tryScroll)
     return () => { cancelled = true }
-  }, [pendingScrollTarget, activeTab, currentPage])
+  }, [pendingScrollTarget, activeTab, currentPage, stockTabMap])
 
   // 대장주 클릭 시 해당 종목으로 이동
   const scrollToStock = useCallback((code: string) => {
     // 0. 홈이 아닌 페이지에 있으면 먼저 홈으로 이동
     if (currentPage !== "home") {
       setCurrentPage("home")
+      triedTabsRef.current.clear()
       setPendingScrollTarget(code)
       return
     }

@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-03-20
+
+### [버그픽스] 타 페이지에서 '종목으로 이동' 시 잘못된 종목으로 스크롤되는 버그 수정 (2026-03-20 00:01 KST)
+- **변경 파일**: `frontend/src/App.tsx`
+- **내용**: AI분석 등 홈 외 페이지에서 종목 이동 시 현재 탭에 없는 종목이면 탭 전환 없이 포기하던 문제 수정. pendingScrollTarget useEffect에서 stockTabMap 조회 후 자동 탭 전환+재시도 로직 추가, triedTabsRef로 무한 루프 방지
+- **원인**: scrollToStock이 currentPage !== "home"일 때 pendingScrollTarget만 설정하고 탭 전환 로직을 거치지 않음
+
+---
+
 ## 2026-03-19
 
 ### [개선] 네비게이션 구조 개편 및 bottom sheet X 버튼 위치 통일 (2026-03-19 23:55 KST)
