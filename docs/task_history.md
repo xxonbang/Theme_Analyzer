@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [기능] 포트폴리오 Supabase 동기화 (2026-03-19 22:16 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
+- **내용**: 포트폴리오 저장소를 localStorage → Supabase `portfolio_holdings` 테이블로 전환. RLS 정책(사용자 본인 데이터만 접근), UNIQUE(user_id, code) 중복 방지, DB 로딩 스피너 추가. 모든 기기에서 동일 포트폴리오 확인 가능
+
 ### [개선] 헤더 레이아웃 정리 및 다크 모드 UI 개선 (2026-03-19 22:09 KST)
 - **변경 파일**: `frontend/src/components/Header.tsx`, `frontend/src/App.tsx`, `frontend/src/index.css`
 - **내용**: ①모바일 2단 툴바 줄바꿈 해소 — 검색·테마·보기모드·로그아웃을 헤더 1단으로 이동, 2단은 페이지 네비게이션만 유지 ②리프레시+로그아웃을 "..." 드롭다운 메뉴로 통합 ③페이지 리로드 버튼 제거 → 로고 클릭으로 대체 ④다크 테마 배경색 밝기 4%p 상향 ⑤플로팅 버튼 다크 모드 가독성 개선

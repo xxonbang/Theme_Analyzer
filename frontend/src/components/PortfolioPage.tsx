@@ -6,6 +6,8 @@ import {
   RefreshCw, Search, Loader2,
 } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
+import { supabase } from "@/lib/supabase"
+import { useAuth } from "@/hooks/useAuth"
 import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
@@ -29,21 +31,24 @@ interface PortfolioPageProps {
   themeForecast: ThemeForecast | null
 }
 
-// --- localStorage persistence ---
+// --- Supabase persistence ---
 
-const STORAGE_KEY = "portfolio-holdings"
+async function fetchHoldingsFromDB(userId: string): Promise<Holding[]> {
+  const { data, error } = await supabase
+    .from("portfolio_holdings")
+    .select("*")
+    .eq("user_id", userId)
+    .order("added_at", { ascending: true })
 
-function loadHoldings(): Holding[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch {
-    return []
-  }
-}
-
-function saveHoldings(holdings: Holding[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(holdings))
+  if (error || !data) return []
+  return data.map(row => ({
+    id: row.id,
+    code: row.code,
+    name: row.name,
+    avgPrice: row.avg_price,
+    quantity: row.quantity,
+    addedAt: row.added_at,
+  }))
 }
 
 // --- Helpers ---
@@ -89,10 +94,6 @@ function buildNameList(data: StockData | null): { code: string; name: string }[]
   return result
 }
 
-function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
-}
-
 // --- Alert thresholds ---
 const ALERT_THRESHOLDS = [
   { pct: -10, label: "손절 -10%", color: "text-red-600 dark:text-red-400", bg: "bg-red-500/10" },
@@ -104,7 +105,9 @@ const ALERT_THRESHOLDS = [
 // --- Component ---
 
 export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: PortfolioPageProps) {
-  const [holdings, setHoldings] = useState<Holding[]>(loadHoldings)
+  const { user } = useAuth()
+  const [holdings, setHoldings] = useState<Holding[]>([])
+  const [dbLoading, setDbLoading] = useState(true)
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
@@ -133,6 +136,16 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
 
   const searchInputRef = useRef<HTMLInputElement>(null)
 
+  // Supabase에서 holdings 로드
+  useEffect(() => {
+    if (!user) { setDbLoading(false); return }
+    setDbLoading(true)
+    fetchHoldingsFromDB(user.id).then(data => {
+      setHoldings(data)
+      setDbLoading(false)
+    })
+  }, [user])
+
   // 종목 마스터 로드
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/stock-master.json`)
@@ -142,9 +155,6 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       })
       .catch(() => {})
   }, [])
-
-  // Persist on change
-  useEffect(() => { saveHoldings(holdings) }, [holdings])
 
   // Stock data maps
   const stockMap = useMemo(() => buildStockMap(stockData), [stockData])
@@ -228,29 +238,52 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     }
   }, [refreshing, holdings])
 
-  // --- CRUD ---
-  const addHolding = useCallback(() => {
-    if (!selectedStock || !formAvgPrice || !formQuantity) return
+  // --- CRUD (Supabase) ---
+  const addHolding = useCallback(async () => {
+    if (!selectedStock || !formAvgPrice || !formQuantity || !user) return
     const avgPrice = parseInt(formAvgPrice.replace(/,/g, ""))
     const quantity = parseInt(formQuantity.replace(/,/g, ""))
     if (isNaN(avgPrice) || isNaN(quantity) || avgPrice <= 0 || quantity <= 0) return
 
+    const { data, error } = await supabase
+      .from("portfolio_holdings")
+      .insert({
+        user_id: user.id,
+        code: selectedStock.code,
+        name: selectedStock.name,
+        avg_price: avgPrice,
+        quantity,
+      })
+      .select()
+      .single()
+
+    if (error) {
+      alert(error.code === "23505" ? "이미 등록된 종목입니다." : `저장 실패: ${error.message}`)
+      return
+    }
+
     setHoldings(prev => [...prev, {
-      id: generateId(),
-      code: selectedStock.code,
-      name: selectedStock.name,
-      avgPrice,
-      quantity,
-      addedAt: new Date().toISOString(),
+      id: data.id,
+      code: data.code,
+      name: data.name,
+      avgPrice: data.avg_price,
+      quantity: data.quantity,
+      addedAt: data.added_at,
     }])
     setSelectedStock(null)
     setSearchQuery("")
     setFormAvgPrice("")
     setFormQuantity("")
     setShowAddForm(false)
-  }, [selectedStock, formAvgPrice, formQuantity])
+  }, [selectedStock, formAvgPrice, formQuantity, user])
 
-  const deleteHolding = useCallback((id: string) => {
+  const deleteHolding = useCallback(async (id: string) => {
+    const { error } = await supabase
+      .from("portfolio_holdings")
+      .delete()
+      .eq("id", id)
+
+    if (error) { alert(`삭제 실패: ${error.message}`); return }
     setHoldings(prev => prev.filter(h => h.id !== id))
     if (expandedId === id) setExpandedId(null)
   }, [expandedId])
@@ -261,11 +294,17 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     setEditQuantity(h.quantity.toString())
   }, [])
 
-  const saveEdit = useCallback((id: string) => {
+  const saveEdit = useCallback(async (id: string) => {
     const avgPrice = parseInt(editAvgPrice.replace(/,/g, ""))
     const quantity = parseInt(editQuantity.replace(/,/g, ""))
     if (isNaN(avgPrice) || isNaN(quantity) || avgPrice <= 0 || quantity <= 0) return
 
+    const { error } = await supabase
+      .from("portfolio_holdings")
+      .update({ avg_price: avgPrice, quantity, updated_at: new Date().toISOString() })
+      .eq("id", id)
+
+    if (error) { alert(`수정 실패: ${error.message}`); return }
     setHoldings(prev => prev.map(h =>
       h.id === id ? { ...h, avgPrice, quantity } : h
     ))
@@ -589,7 +628,14 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       )}
 
       {/* Holdings List */}
-      {enrichedHoldings.length === 0 && !showAddForm && (
+      {dbLoading && (
+        <div className="text-center py-12 text-muted-foreground">
+          <Loader2 className="w-6 h-6 mx-auto mb-2 animate-spin opacity-50" />
+          <p className="text-sm">포트폴리오 로딩 중...</p>
+        </div>
+      )}
+
+      {!dbLoading && enrichedHoldings.length === 0 && !showAddForm && (
         <div className="text-center py-12 text-muted-foreground">
           <Briefcase className="w-10 h-10 mx-auto mb-3 opacity-30" />
           <p className="text-sm">보유 종목이 없습니다</p>
