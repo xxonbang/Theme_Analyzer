@@ -6,6 +6,11 @@
 
 ## 2026-03-19
 
+### [버그픽스] 데이터 수집 후 웹 미반영 — deploy-pages workflow_run 트리거 추가 (2026-03-19 10:14 KST)
+- **변경 파일**: `.github/workflows/deploy-pages.yml`
+- **내용**: GITHUB_TOKEN으로 수행된 push는 다른 워크플로우를 트리거하지 않는 GitHub Actions 제한사항. T2-13에서 빌드/배포를 분리하면서 발생. `workflow_run` 트리거 추가하여 9개 데이터 워크플로우 완료 시 자동 배포
+- **원인**: GitHub Actions 설계 — GITHUB_TOKEN push는 workflow trigger 비활성
+
 ### [버그픽스] 투자자 수급 카드 "억" 강제 줄바꿈 수정 (2026-03-19 00:11 KST)
 - **변경 파일**: `frontend/src/components/MacroIndicators.tsx`
 - **내용**: 투자자 수급 금액 텍스트에 `whitespace-nowrap` 추가, 카드 padding 축소(`px-2.5` → `px-2`)로 공간 확보
