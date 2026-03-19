@@ -3,8 +3,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import {
   Plus, Trash2, Edit3, Check, X, TrendingUp, TrendingDown,
   AlertTriangle, Briefcase, ExternalLink, ChevronDown, ChevronUp,
+  RefreshCw, Search, Loader2,
 } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
+import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
   ThemeForecast, Stock,
@@ -117,7 +119,29 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const [editAvgPrice, setEditAvgPrice] = useState("")
   const [editQuantity, setEditQuantity] = useState("")
 
+  // KIS API 실시간 데이터
+  const [livePrices, setLivePrices] = useState<Record<string, KisStockPrice>>({})
+  const [refreshing, setRefreshing] = useState(false)
+  const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null)
+
+  // 종목 검색 KIS fallback
+  const [kisSearching, setKisSearching] = useState(false)
+  const [kisSearchResult, setKisSearchResult] = useState<KisStockPrice | null>(null)
+
+  // 종목 마스터 데이터 (stock-master.json)
+  const [masterStocks, setMasterStocks] = useState<{ code: string; name: string; market: string }[]>([])
+
   const searchInputRef = useRef<HTMLInputElement>(null)
+
+  // 종목 마스터 로드
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/stock-master.json`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.stocks) setMasterStocks(data.stocks)
+      })
+      .catch(() => {})
+  }, [])
 
   // Persist on change
   useEffect(() => { saveHoldings(holdings) }, [holdings])
@@ -126,14 +150,83 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const stockMap = useMemo(() => buildStockMap(stockData), [stockData])
   const nameList = useMemo(() => buildNameList(stockData), [stockData])
 
-  // Search autocomplete
+  // 통합 종목 리스트 (nameList + masterStocks 병합)
+  const mergedNameList = useMemo(() => {
+    const seen = new Set<string>()
+    const result: { code: string; name: string }[] = []
+    // 기존 데이터 우선
+    for (const s of nameList) {
+      if (!seen.has(s.code)) {
+        seen.add(s.code)
+        result.push(s)
+      }
+    }
+    // 마스터 데이터 보충
+    for (const s of masterStocks) {
+      if (!seen.has(s.code)) {
+        seen.add(s.code)
+        result.push({ code: s.code, name: s.name })
+      }
+    }
+    return result
+  }, [nameList, masterStocks])
+
+  // Search autocomplete (통합 리스트 사용)
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return []
     const q = searchQuery.trim().toLowerCase()
-    return nameList
+    return mergedNameList
       .filter(s => s.name.toLowerCase().includes(q) || s.code.includes(q))
       .slice(0, 8)
-  }, [searchQuery, nameList])
+  }, [searchQuery, mergedNameList])
+
+  // KIS API fallback: 6자리 코드인데 로컬 검색 결과가 없을 때
+  const canKisSearch = useMemo(() => {
+    const q = searchQuery.trim()
+    return /^\d{6}$/.test(q) && searchResults.length === 0 && !selectedStock
+  }, [searchQuery, searchResults, selectedStock])
+
+  const handleKisSearch = useCallback(async () => {
+    const code = searchQuery.trim()
+    if (!code || kisSearching) return
+    setKisSearching(true)
+    setKisSearchResult(null)
+    try {
+      const result = await searchKisStock(code)
+      setKisSearchResult(result)
+    } catch (e) {
+      console.error("KIS 검색 실패:", e)
+    } finally {
+      setKisSearching(false)
+    }
+  }, [searchQuery, kisSearching])
+
+  // 자동 KIS 검색 트리거 (6자리 코드 입력 후 500ms 대기)
+  useEffect(() => {
+    if (!canKisSearch) {
+      setKisSearchResult(null)
+      return
+    }
+    const timer = setTimeout(handleKisSearch, 500)
+    return () => clearTimeout(timer)
+  }, [canKisSearch, handleKisSearch])
+
+  // 리프레시: KIS API로 실시간 시세 가져오기
+  const handleRefresh = useCallback(async () => {
+    if (refreshing || holdings.length === 0) return
+    setRefreshing(true)
+    try {
+      const codes = holdings.map(h => h.code)
+      const prices = await fetchKisPrices(codes)
+      setLivePrices(prices)
+      setLastRefreshed(new Date())
+    } catch (e) {
+      console.error("실시간 시세 조회 실패:", e)
+      alert("실시간 시세 조회에 실패했습니다. 잠시 후 다시 시도해주세요.")
+    } finally {
+      setRefreshing(false)
+    }
+  }, [refreshing, holdings])
 
   // --- CRUD ---
   const addHolding = useCallback(() => {
@@ -184,8 +277,10 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const enrichedHoldings = useMemo(() => {
     return holdings.map(h => {
       const stock = stockMap.get(h.code)
-      const currentPrice = stock?.current_price ?? null
-      const changeRate = stock?.change_rate ?? null
+      const live = livePrices[h.code]
+      // KIS 실시간 데이터 우선, 없으면 정적 데이터 폴백
+      const currentPrice = live?.current_price ?? stock?.current_price ?? null
+      const changeRate = live?.change_rate ?? stock?.change_rate ?? null
       const fundamental = stockData?.fundamental_data?.[h.code] as FundamentalInfo | undefined
       const investorInfo = stockData?.investor_data?.[h.code] as InvestorInfo | undefined
 
@@ -215,12 +310,14 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
         }
       }
 
-      // 5. 52주 대비 위치
+      // 5. 52주 대비 위치 (KIS 실시간 데이터 우선)
       let w52Position: number | null = null
-      if (fundamental?.w52_hgpr && fundamental?.w52_lwpr) {
-        const range = fundamental.w52_hgpr - fundamental.w52_lwpr
+      const w52High = live?.w52_hgpr || fundamental?.w52_hgpr || null
+      const w52Low = live?.w52_lwpr || fundamental?.w52_lwpr || null
+      if (w52High && w52Low) {
+        const range = w52High - w52Low
         if (range > 0) {
-          w52Position = ((h.avgPrice - fundamental.w52_lwpr) / range) * 100
+          w52Position = ((h.avgPrice - w52Low) / range) * 100
         }
       }
 
@@ -263,15 +360,15 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
         pocPrice,
         pocPosition,
         w52Position,
-        w52High: fundamental?.w52_hgpr ?? null,
-        w52Low: fundamental?.w52_lwpr ?? null,
+        w52High: w52High,
+        w52Low: w52Low,
         foreignNet,
         institutionNet,
         aiSignal,
         aiForecast,
       }
     })
-  }, [holdings, stockMap, stockData, volumeProfileData, themeForecast])
+  }, [holdings, stockMap, stockData, volumeProfileData, themeForecast, livePrices])
 
   // 2. 포트폴리오 총 손익
   const summary = useMemo(() => {
@@ -306,19 +403,41 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
           <Briefcase className="w-5 h-5 text-primary" />
           <h2 className="text-lg font-bold">내 포트폴리오</h2>
           <span className="text-xs text-muted-foreground">{holdings.length}종목</span>
-        </div>
-        <button
-          onClick={() => setShowAddForm(!showAddForm)}
-          className={cn(
-            "flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
-            showAddForm
-              ? "bg-muted text-muted-foreground"
-              : "bg-primary text-primary-foreground hover:bg-primary/90"
+          {lastRefreshed && (
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400">
+              LIVE {lastRefreshed.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
+            </span>
           )}
-        >
-          {showAddForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-          {showAddForm ? "취소" : "종목 추가"}
-        </button>
+        </div>
+        <div className="flex items-center gap-1.5">
+          {holdings.length > 0 && (
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              className={cn(
+                "flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors",
+                "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20",
+                "disabled:opacity-50 disabled:cursor-not-allowed"
+              )}
+              title="KIS API 실시간 시세 조회"
+            >
+              <RefreshCw className={cn("w-3.5 h-3.5", refreshing && "animate-spin")} />
+              <span className="hidden sm:inline">{refreshing ? "조회 중..." : "실시간"}</span>
+            </button>
+          )}
+          <button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className={cn(
+              "flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
+              showAddForm
+                ? "bg-muted text-muted-foreground"
+                : "bg-primary text-primary-foreground hover:bg-primary/90"
+            )}
+          >
+            {showAddForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+            {showAddForm ? "취소" : "종목 추가"}
+          </button>
+        </div>
       </div>
 
       {/* Add Form */}
@@ -346,6 +465,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                       onClick={() => {
                         setSelectedStock(s)
                         setSearchQuery("")
+                        setKisSearchResult(null)
                       }}
                       className="w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-muted transition-colors"
                     >
@@ -353,6 +473,44 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                       <span className="text-muted-foreground text-xs">{s.code}</span>
                     </button>
                   ))}
+                </div>
+              )}
+              {/* KIS API fallback 검색 결과 */}
+              {!selectedStock && canKisSearch && (
+                <div className="absolute z-20 top-full mt-1 w-full bg-popover border rounded-lg shadow-lg">
+                  {kisSearching && (
+                    <div className="flex items-center gap-2 px-3 py-3 text-sm text-muted-foreground">
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      KIS API에서 종목 조회 중...
+                    </div>
+                  )}
+                  {!kisSearching && kisSearchResult && (
+                    <button
+                      onClick={() => {
+                        setSelectedStock({ code: kisSearchResult.code, name: kisSearchResult.name })
+                        setSearchQuery("")
+                        setKisSearchResult(null)
+                      }}
+                      className="w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-muted transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Search className="w-3 h-3 text-emerald-500" />
+                        <span className="font-medium">{kisSearchResult.name}</span>
+                        <span className="text-muted-foreground text-xs">{kisSearchResult.code}</span>
+                      </div>
+                      <span className={cn(
+                        "text-xs font-semibold tabular-nums",
+                        kisSearchResult.change_rate >= 0 ? "text-red-500" : "text-blue-500"
+                      )}>
+                        {formatPrice(kisSearchResult.current_price)}원
+                      </span>
+                    </button>
+                  )}
+                  {!kisSearching && !kisSearchResult && (
+                    <div className="px-3 py-3 text-xs text-muted-foreground/50 text-center">
+                      KIS API 조회 결과 없음
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -473,7 +631,10 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                     <div className="text-right">
                       {h.currentPrice !== null ? (
                         <>
-                          <div className="text-xs text-muted-foreground">{formatPrice(h.currentPrice)}원</div>
+                          <div className="flex items-center justify-end gap-1">
+                            {livePrices[h.code] && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" title="실시간" />}
+                            <span className="text-xs text-muted-foreground">{formatPrice(h.currentPrice)}원</span>
+                          </div>
                           <div className={cn("text-sm font-bold tabular-nums", (h.profitRate ?? 0) >= 0 ? "text-red-500" : "text-blue-500")}>
                             {h.profitRate !== null ? `${h.profitRate >= 0 ? "+" : ""}${h.profitRate.toFixed(2)}%` : "-"}
                           </div>

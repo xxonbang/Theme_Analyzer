@@ -6,6 +6,14 @@
 
 ## 2026-03-19
 
+### [기능] 포트폴리오 KIS API 실시간 시세 + 종목 검색 확장 (2026-03-19 14:33 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`, `frontend/src/lib/kis-api.ts`(신규), `supabase/functions/kis-proxy/index.ts`(신규), `supabase/functions/_shared/cors.ts`(신규), `supabase/config.toml`(신규), `scripts/generate_stock_master.py`(신규), `frontend/public/data/stock-master.json`(신규)
+- **내용**: ①Supabase Edge Function(kis-proxy) 구현 및 배포 — KIS API 프록시(CORS+키은닉, JWT 인증) ②포트폴리오 "실시간" 리프레시 버튼 — 보유 종목 전체 KIS API 실시간 시세 조회 및 재계산 ③종목 검색 확장 — stock-master.json(113종목) 로드 + 6자리 코드 미존재 시 KIS API 자동 fallback 조회
+
+### [진단] KIS API 사용 가이드 문서 작성 (2026-03-19 14:05 KST)
+- **변경 파일**: `docs/research/2026-03-19-kis-api-guide.md`(신규)
+- **내용**: 타 시스템 공유용 KIS Open API 사용 가이드. API 키 설정, OAuth 토큰 관리(1일 1회 제한, Supabase 이중 캐시), Supabase 테이블 스키마/SQL/SDK 예시, 16개 API 목록(tr_id/용도), Rate Limiting, 트러블슈팅
+
 ### [설정] 장중 히스토리 cron-job 30분 간격 전환 대응 (2026-03-19 13:40 KST)
 - **변경 파일**: `.github/workflows/collect-intraday-history.yml`, `.github/workflows/deploy-pages.yml`, `frontend/src/App.tsx`
 - **내용**: cron-job 스케줄 7회(1시간)→13회(30분) 전환에 따른 소스 영향도 분석 및 조치. ①concurrency cancel-in-progress false로 변경(실행 취소 방지) ②deploy-pages에서 Intraday History 트리거 제거(배포 폭증 방지) ③스케줄 표시 텍스트 갱신
