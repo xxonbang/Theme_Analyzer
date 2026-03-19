@@ -6,6 +6,10 @@
 
 ## 2026-03-19
 
+### [개선] 종목 검색 커버리지 확장 (2026-03-19 22:24 KST)
+- **변경 파일**: `frontend/public/data/stock-master.json`, `frontend/src/components/PortfolioPage.tsx`
+- **내용**: stock-master.json을 KRX 전종목(2,618종목)으로 확장 (기존 113종목). 검색 결과 없을 때 "6자리 코드로 KIS API 조회" 안내 메시지 추가
+
 ### [기능] 포트폴리오 Supabase 동기화 (2026-03-19 22:16 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **내용**: 포트폴리오 저장소를 localStorage → Supabase `portfolio_holdings` 테이블로 전환. RLS 정책(사용자 본인 데이터만 접근), UNIQUE(user_id, code) 중복 방지, DB 로딩 스피너 추가. 모든 기기에서 동일 포트폴리오 확인 가능

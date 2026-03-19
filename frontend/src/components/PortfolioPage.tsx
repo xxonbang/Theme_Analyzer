@@ -514,6 +514,15 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                   ))}
                 </div>
               )}
+              {/* 검색 결과 없음 + KIS 안내 */}
+              {!selectedStock && searchQuery.trim().length > 0 && searchResults.length === 0 && !canKisSearch && !kisSearching && (
+                <div className="absolute z-20 top-full mt-1 w-full bg-popover border rounded-lg shadow-lg">
+                  <div className="px-3 py-3 text-xs text-muted-foreground text-center space-y-1">
+                    <p>검색 결과가 없습니다</p>
+                    <p className="text-muted-foreground/60">종목 코드 6자리 입력 시 KIS API로 실시간 조회합니다</p>
+                  </div>
+                </div>
+              )}
               {/* KIS API fallback 검색 결과 */}
               {!selectedStock && canKisSearch && (
                 <div className="absolute z-20 top-full mt-1 w-full bg-popover border rounded-lg shadow-lg">
