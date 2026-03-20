@@ -6,6 +6,11 @@
 
 ## 2026-03-20
 
+### [버그픽스] 로그인 페이지 다크모드 autofill 배경색 수정 (2026-03-20 09:50 KST)
+- **변경 파일**: `frontend/src/index.css`
+- **내용**: 브라우저 자동완성(autofill) 시 입력 필드가 밝은 배경으로 표시되는 문제 수정. `-webkit-box-shadow` inset 트릭으로 다크모드 배경/텍스트 색상 강제 적용
+- **원인**: Chrome/Safari autofill 스타일이 CSS 변수 기반 다크모드 배경색을 덮어씀
+
 ### [버그픽스] 검색/AI분석에서 종목 이동이 동작하지 않는 버그 수정 (2026-03-20 00:15 KST)
 - **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/StockList.tsx`
 - **내용**: ①환경분석 탭에서 DOM 검색 생략 후 바로 탭 전환 ②StockList에 expandForCode prop 추가하여 initialLimit(20) 밖 종목 자동 확장 ③triedTabsRef 초기화 누락 수정 ④검색 패널 sticky 위치 모바일 헤더 높이에 맞춤 ⑤검색 패널 currentPage 조건 제거(모든 페이지에서 동작)
