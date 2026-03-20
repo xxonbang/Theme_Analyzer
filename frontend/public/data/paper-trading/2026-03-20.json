@@ -1,0 +1,567 @@
+{
+  "trade_date": "2026-03-20",
+  "morning_timestamp": "2026-03-20 09:23:42",
+  "collected_at": "2026-03-20 15:40:48",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-20 09:23:42",
+      "prices": {
+        "493280": 104000,
+        "009830": 55400,
+        "100090": 24150,
+        "036930": 69700,
+        "353200": 82000,
+        "047040": 17690,
+        "006360": 29000,
+        "375500": 58150,
+        "475150": 63300,
+        "042700": 311500
+      },
+      "leader_stocks": [
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지/친환경"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지/친환경"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비/부품"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체 장비/부품"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-20 09:32:35",
+      "prices": {
+        "493280": 104000,
+        "009830": 55400,
+        "100090": 25550,
+        "036930": 71800,
+        "353200": 81000,
+        "047040": 17690,
+        "006360": 31000,
+        "375500": 62100,
+        "475150": 63300,
+        "042700": 311000
+      },
+      "leader_stocks": [
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지/친환경"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지/친환경"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비/부품"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체 장비/부품"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-20 09:50:20",
+      "prices": {
+        "493280": 104000,
+        "009830": 54000,
+        "100090": 24700,
+        "036930": 72300,
+        "353200": 82800,
+        "047040": 18190,
+        "006360": 30950,
+        "375500": 61400,
+        "475150": 65300,
+        "042700": 311000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-20 10:02:30",
+      "prices": {
+        "493280": 104000,
+        "009830": 54700,
+        "100090": 24700,
+        "036930": 76000,
+        "353200": 82800,
+        "047040": 18190,
+        "006360": 31300,
+        "375500": 64300,
+        "475150": 65300,
+        "042700": 310000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-20 11:32:32",
+      "prices": {
+        "493280": 104000,
+        "009830": 52100,
+        "100090": 24700,
+        "036930": 76600,
+        "353200": 82800,
+        "047040": 18190,
+        "006360": 30600,
+        "375500": 63900,
+        "475150": 65300,
+        "042700": 311000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-20 11:51:48",
+      "prices": {
+        "493280": 104000,
+        "009830": 52200,
+        "100090": 23550,
+        "036930": 77700,
+        "353200": 82600,
+        "047040": 18790,
+        "006360": 30850,
+        "375500": 64200,
+        "475150": 57900,
+        "042700": 311000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-20 14:32:22",
+      "prices": {
+        "493280": 104000,
+        "009830": 52500,
+        "100090": 25450,
+        "036930": 73500,
+        "353200": 83100,
+        "047040": 18790,
+        "006360": 31550,
+        "375500": 64200,
+        "475150": 57900,
+        "042700": 309750
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/원전"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/AI"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "493280",
+      "name": "아이엠바이오로직스",
+      "theme": "바이오/제약",
+      "market": "KOSDAQ",
+      "buy_price": 104000,
+      "close_price": 104000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 104000,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0
+    },
+    {
+      "code": "009830",
+      "name": "한화솔루션",
+      "theme": "신재생에너지/친환경",
+      "market": "KOSPI",
+      "buy_price": 55400,
+      "close_price": 51700,
+      "profit_rate": -6.68,
+      "profit_amount": -3700,
+      "high_price": 56800,
+      "high_time": "09:59",
+      "high_profit_rate": 2.53,
+      "high_profit_amount": 1400
+    },
+    {
+      "code": "100090",
+      "name": "SK오션플랜트",
+      "theme": "신재생에너지/친환경",
+      "market": "KOSPI",
+      "buy_price": 24150,
+      "close_price": 25550,
+      "profit_rate": 5.8,
+      "profit_amount": 1400,
+      "high_price": 25550,
+      "high_time": "15:30",
+      "high_profit_rate": 5.8,
+      "high_profit_amount": 1400
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체 장비/부품",
+      "market": "KOSPI",
+      "buy_price": 69700,
+      "close_price": 72800,
+      "profit_rate": 4.45,
+      "profit_amount": 3100,
+      "high_price": 78500,
+      "high_time": "10:55",
+      "high_profit_rate": 12.63,
+      "high_profit_amount": 8800
+    },
+    {
+      "code": "353200",
+      "name": "대덕전자",
+      "theme": "반도체 장비/부품",
+      "market": "KOSDAQ",
+      "buy_price": 82000,
+      "close_price": 82800,
+      "profit_rate": 0.98,
+      "profit_amount": 800,
+      "high_price": 86300,
+      "high_time": "12:32",
+      "high_profit_rate": 5.24,
+      "high_profit_amount": 4300
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 17690,
+      "close_price": 19110,
+      "profit_rate": 8.03,
+      "profit_amount": 1420,
+      "high_price": 19430,
+      "high_time": "12:37",
+      "high_profit_rate": 9.84,
+      "high_profit_amount": 1740
+    },
+    {
+      "code": "006360",
+      "name": "GS건설",
+      "theme": "건설/원전",
+      "market": "KOSPI",
+      "buy_price": 29000,
+      "close_price": 31800,
+      "profit_rate": 9.66,
+      "profit_amount": 2800,
+      "high_price": 32700,
+      "high_time": "13:57",
+      "high_profit_rate": 12.76,
+      "high_profit_amount": 3700
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "건설/원전",
+      "market": "KOSDAQ",
+      "buy_price": 58150,
+      "close_price": 67400,
+      "profit_rate": 15.91,
+      "profit_amount": 9250,
+      "high_price": 67400,
+      "high_time": "15:30",
+      "high_profit_rate": 15.91,
+      "high_profit_amount": 9250
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 63300,
+      "close_price": 59900,
+      "profit_rate": -5.37,
+      "profit_amount": -3400,
+      "high_price": 67000,
+      "high_time": "09:37",
+      "high_profit_rate": 5.85,
+      "high_profit_amount": 3700
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "반도체/AI",
+      "market": "KOSPI",
+      "buy_price": 311500,
+      "close_price": 309500,
+      "profit_rate": -0.64,
+      "profit_amount": -2000,
+      "high_price": 314000,
+      "high_time": "09:32",
+      "high_profit_rate": 0.8,
+      "high_profit_amount": 2500
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 6,
+    "loss_stocks": 3,
+    "total_invested": 814890,
+    "total_value": 824560,
+    "total_profit": 9670,
+    "total_profit_rate": 1.19,
+    "high_total_value": 851680,
+    "high_total_profit": 36790,
+    "high_total_profit_rate": 4.51,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 0
+  }
+}
