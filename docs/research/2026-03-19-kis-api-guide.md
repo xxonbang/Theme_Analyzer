@@ -31,15 +31,15 @@
 
 ```bash
 # 필수
-KIS_APP_KEY=REDACTED_KIS_APP_KEY
-KIS_APP_SECRET=REDACTED_KIS_APP_SECRET
+KIS_APP_KEY=<your-app-key>
+KIS_APP_SECRET=<your-app-secret>
 
 # 선택 (계좌번호 — 주문 API 사용 시)
-KIS_ACCOUNT_NO=12345678-01
+KIS_ACCOUNT_NO=<your-account-no>
 
 # Supabase (토큰 공유용)
-SUPABASE_URL=https://fyklcplybyfrfryopzvx.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=REDACTED_SUPABASE_SERVICE_ROLE_KEY
+SUPABASE_URL=<your-supabase-url>
+SUPABASE_SERVICE_ROLE_KEY=<your-service-role-key>
 ```
 
 ### 2.2 Supabase 중앙 관리 (다중 환경 토큰 공유)
