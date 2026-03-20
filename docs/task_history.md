@@ -6,6 +6,11 @@
 
 ## 2026-03-20
 
+### [버그픽스] stock-history.json 워크플로우 커밋 누락 수정 (2026-03-20 10:03 KST)
+- **변경 파일**: `.github/workflows/daily-theme-analysis.yml`, `.github/workflows/refresh-data.yml`
+- **내용**: `data_exporter.py`가 `latest.json`에서 분리 생성하는 `stock-history.json`이 GitHub Actions 워크플로우의 backup/restore/git-add 단계에 포함되지 않아 커밋되지 않던 문제 수정. 두 워크플로우 모두에 `stock-history.json` 처리 추가
+- **원인**: `data_exporter.py`가 history 데이터를 별도 파일로 분리하는 변경 이후 워크플로우 업데이트 누락
+
 ### [개선] 포트폴리오 입력창 iOS 자동 줌인 방지 (2026-03-20 09:54 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **내용**: 모든 input 폰트 사이즈를 text-sm/text-xs → text-base(16px)로 변경. iOS Safari에서 16px 미만 input 포커스 시 자동 줌인 방지
