@@ -6,6 +6,10 @@
 
 ## 2026-03-20
 
+### [개선] 포트폴리오 입력창 iOS 자동 줌인 방지 (2026-03-20 09:54 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
+- **내용**: 모든 input 폰트 사이즈를 text-sm/text-xs → text-base(16px)로 변경. iOS Safari에서 16px 미만 input 포커스 시 자동 줌인 방지
+
 ### [버그픽스] 로그인 페이지 다크모드 autofill 배경색 수정 (2026-03-20 09:50 KST)
 - **변경 파일**: `frontend/src/index.css`
 - **내용**: 브라우저 자동완성(autofill) 시 입력 필드가 밝은 배경으로 표시되는 문제 수정. `-webkit-box-shadow` inset 트릭으로 다크모드 배경/텍스트 색상 강제 적용

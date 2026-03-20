@@ -494,7 +494,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                   setSearchQuery(e.target.value)
                 }}
                 placeholder="종목명 또는 코드 검색"
-                className="w-full px-3 py-2 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-2 rounded-lg border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
               {searchResults.length > 0 && !selectedStock && (
                 <div className="absolute z-20 top-full mt-1 w-full bg-popover border rounded-lg shadow-lg max-h-48 overflow-y-auto">
@@ -573,7 +573,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                   value={formAvgPrice}
                   onChange={e => setFormAvgPrice(e.target.value.replace(/[^0-9]/g, ""))}
                   placeholder="예: 50000"
-                  className="w-full px-3 py-2 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full px-3 py-2 rounded-lg border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
               <div>
@@ -584,7 +584,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                   value={formQuantity}
                   onChange={e => setFormQuantity(e.target.value.replace(/[^0-9]/g, ""))}
                   placeholder="예: 100"
-                  className="w-full px-3 py-2 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full px-3 py-2 rounded-lg border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
             </div>
@@ -723,7 +723,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                         inputMode="numeric"
                         value={editAvgPrice}
                         onChange={e => setEditAvgPrice(e.target.value.replace(/[^0-9]/g, ""))}
-                        className="w-full px-2 py-1 rounded border bg-background text-xs focus:outline-none focus:ring-1 focus:ring-primary/50"
+                        className="w-full px-2 py-1 rounded border bg-background text-base focus:outline-none focus:ring-1 focus:ring-primary/50"
                       />
                     </div>
                     <div className="flex-1">
@@ -733,7 +733,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                         inputMode="numeric"
                         value={editQuantity}
                         onChange={e => setEditQuantity(e.target.value.replace(/[^0-9]/g, ""))}
-                        className="w-full px-2 py-1 rounded border bg-background text-xs focus:outline-none focus:ring-1 focus:ring-primary/50"
+                        className="w-full px-2 py-1 rounded border bg-background text-base focus:outline-none focus:ring-1 focus:ring-primary/50"
                       />
                     </div>
                     <div className="flex items-center gap-1 pt-3">
