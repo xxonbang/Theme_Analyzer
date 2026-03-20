@@ -2,6 +2,9 @@
 .env
 .env.local
 
+# MCP config (개인 설정)
+.mcp.json
+
 # Cache
 .candle_cache.json
 

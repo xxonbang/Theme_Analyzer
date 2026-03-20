@@ -612,6 +612,9 @@ def main():
 
     if result_data and not args.test:
         save_paper_trading_data(result_data)
+        # 누적 성과 분석 갱신
+        from modules.paper_trading_analytics import save_analytics
+        save_analytics()
     elif args.test:
         print("\n[테스트 모드] 파일 저장을 건너뜁니다.")
 

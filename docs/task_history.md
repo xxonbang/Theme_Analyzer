@@ -6,6 +6,14 @@
 
 ## 2026-03-20
 
+### [기능] KIS API 활용 개선 3건 (2026-03-20 23:21 KST)
+- **변경 파일**: `modules/sector_performance.py`(신규), `modules/paper_trading_analytics.py`(신규), `main.py`, `modules/gemini_analyzer.py`, `modules/data_exporter.py`, `collect_paper_trading.py`, `.github/workflows/collect-paper-trading.yml`, `.mcp.json`(신규), `.gitignore`
+- **내용**:
+  1. **업종별 시세 API 추가**: KOSPI 17개 + KOSDAQ 2개 업종 당일 등락률 수집, Gemini 프롬프트에 섹터 컨텍스트 추가, 프론트엔드 데이터 내보내기 연동
+  2. **KIS Code Assistant MCP 개발 도구 도입**: `.mcp.json` 설정으로 Claude Code에서 334개 KIS API 자연어 검색 가능
+  3. **모의투자 누적 성과 분석 강화**: 누적 수익률(복리), 승률, 손익비, MDD, 샤프비율, 변동성, 테마별/시장별 성과 분석 → `paper-trading-analytics.json` 자동 생성
+- **연구 문서**: `docs/research/2026-03-20-kis-enhancement.md`, `docs/research/2026-03-20-gcp-cost.md`
+
 ### [개선] 텔레그램 메시지 [THEME_ANALYSIS] 말머리 제거 (2026-03-20 22:32 KST)
 - **변경 파일**: `.github/workflows/` 내 10개 워크플로우 파일
 - **내용**: 모든 텔레그램 알림 메시지에서 `[THEME_ANALYSIS]` 접두사 29건 일괄 제거

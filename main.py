@@ -21,6 +21,7 @@ from modules.exchange_rate import ExchangeRateAPI
 from modules.gemini_analyzer import analyze_themes
 from modules.fundamental import FundamentalCollector
 from modules.stock_criteria import evaluate_all_stocks
+from modules.sector_performance import collect_sector_performance
 from modules.utils import KST
 
 
@@ -311,6 +312,23 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             if attempt == 2:
                 break
 
+    # 2-3. 업종별 시세 수집 [선택] — 실패 시 빈 데이터로 진행
+    sector_data = {}
+    print("\n[2-3/13] 업종별 시세 수집 중...")
+    try:
+        sector_data = collect_sector_performance(client)
+        sector_count = len(sector_data.get("sectors", []))
+        if sector_count > 0:
+            top = sector_data["sectors"][0]
+            bottom = sector_data["sectors"][-1]
+            print(f"  ✓ {sector_count}개 업종 수집 완료")
+            print(f"    상승 1위: {top['name']} ({top['change_rate']:+.2f}%)")
+            print(f"    하락 1위: {bottom['name']} ({bottom['change_rate']:+.2f}%)")
+        else:
+            print("  ⚠ 업종 데이터 없음")
+    except Exception as e:
+        print(f"  ⚠ 업종별 시세 수집 실패 (빈 데이터로 계속): {e}")
+
     # 3. 거래량 TOP30 조회 [필수] — 실패 시 전체 중단
     print("\n[3/13] 거래량 TOP30 조회 중...")
     try:
@@ -550,6 +568,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
                 stock_context,
                 fundamental_data=fundamental_data,
                 investor_data=investor_data,
+                sector_data=sector_data,
             )
             if theme_analysis:
                 theme_count = len(theme_analysis.get("themes", []))
@@ -657,6 +676,7 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
             member_data=member_data,
             investor_updated_at=datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S") if investor_data else None,
             fundamental_data=fundamental_data,
+            sector_data=sector_data if sector_data else None,
         )
         print(f"  ✓ 데이터 내보내기 완료: {export_path}")
     except Exception as e:

@@ -1,0 +1,302 @@
+{
+  "generated_at": "2026-03-20 23:20:26",
+  "period": {
+    "start": "2026-02-10",
+    "end": "2026-03-20",
+    "trading_days": 27
+  },
+  "overall": {
+    "cumulative_return": -13.4,
+    "cumulative_high_return": 157.17,
+    "avg_daily_return": -0.38,
+    "volatility": 5.46,
+    "sharpe_ratio": -0.07,
+    "max_drawdown": 25.93,
+    "win_rate": 44.4,
+    "win_days": 12,
+    "loss_days": 11,
+    "flat_days": 4,
+    "avg_win": 3.49,
+    "avg_loss": -4.73,
+    "profit_loss_ratio": 0.74,
+    "max_win_streak": 2,
+    "max_loss_streak": 2,
+    "best_day": {
+      "date": "2026-03-12",
+      "return": 8.17
+    },
+    "worst_day": {
+      "date": "2026-03-04",
+      "return": -19.72
+    }
+  },
+  "recent_5d": {
+    "avg_return": 0.8,
+    "win_rate": 60.0
+  },
+  "theme_performance": [
+    {
+      "theme": "반도체/AI 관련주",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 9.8,
+      "total_return": 29.39
+    },
+    {
+      "theme": "해운/물류",
+      "count": 4,
+      "win_rate": 100.0,
+      "avg_return": 8.85,
+      "total_return": 35.4
+    },
+    {
+      "theme": "반도체 및 AI 관련주",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 4.95,
+      "total_return": 14.85
+    },
+    {
+      "theme": "방산/우주항공",
+      "count": 5,
+      "win_rate": 100.0,
+      "avg_return": 4.18,
+      "total_return": 20.89
+    },
+    {
+      "theme": "신재생에너지 및 전력 설비",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 4.06,
+      "total_return": 12.17
+    },
+    {
+      "theme": "반도체/AI",
+      "count": 4,
+      "win_rate": 50.0,
+      "avg_return": 2.89,
+      "total_return": 11.55
+    },
+    {
+      "theme": "AI 반도체 및 CXL 기술",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 2.75,
+      "total_return": 8.24
+    },
+    {
+      "theme": "에너지/유가 관련주",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 1.67,
+      "total_return": 5.0
+    },
+    {
+      "theme": "바이오/헬스케어",
+      "count": 7,
+      "win_rate": 57.1,
+      "avg_return": 1.03,
+      "total_return": 7.18
+    },
+    {
+      "theme": "AI/HBM 반도체",
+      "count": 5,
+      "win_rate": 20.0,
+      "avg_return": 0.18,
+      "total_return": 0.89
+    },
+    {
+      "theme": "로봇/우주/바이오 혁신 기술 성장",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": 0.0,
+      "total_return": 0.0
+    },
+    {
+      "theme": "증권/금융 업종 실적 개선 및 강세",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": 0.0,
+      "total_return": 0.0
+    },
+    {
+      "theme": "AI/반도체 장비 및 로봇 산업 성장 기대",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": 0.0,
+      "total_return": 0.0
+    },
+    {
+      "theme": "바이오/제약",
+      "count": 4,
+      "win_rate": 0.0,
+      "avg_return": -0.06,
+      "total_return": -0.24
+    },
+    {
+      "theme": "반도체 및 IT 솔루션",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -4.93,
+      "total_return": -14.79
+    },
+    {
+      "theme": "로봇/자동화",
+      "count": 4,
+      "win_rate": 25.0,
+      "avg_return": -7.81,
+      "total_return": -31.26
+    },
+    {
+      "theme": "에너지/유틸리티",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -7.93,
+      "total_return": -23.78
+    },
+    {
+      "theme": "보험업 강세",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -8.21,
+      "total_return": -24.62
+    },
+    {
+      "theme": "비료/사료/농업 관련주",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -10.73,
+      "total_return": -32.19
+    }
+  ],
+  "market_performance": [
+    {
+      "market": "KOSDAQ",
+      "count": 39,
+      "win_rate": 56.4,
+      "avg_return": 2.43
+    },
+    {
+      "market": "N/A",
+      "count": 103,
+      "win_rate": 30.1,
+      "avg_return": 0.41
+    },
+    {
+      "market": "KOSPI",
+      "count": 90,
+      "win_rate": 45.6,
+      "avg_return": -1.18
+    }
+  ],
+  "cumulative_series": [
+    {
+      "date": "2026-02-10",
+      "cumulative_return": -2.41
+    },
+    {
+      "date": "2026-02-11",
+      "cumulative_return": -3.99
+    },
+    {
+      "date": "2026-02-12",
+      "cumulative_return": -2.97
+    },
+    {
+      "date": "2026-02-13",
+      "cumulative_return": -4.66
+    },
+    {
+      "date": "2026-02-16",
+      "cumulative_return": -4.66
+    },
+    {
+      "date": "2026-02-17",
+      "cumulative_return": -4.66
+    },
+    {
+      "date": "2026-02-18",
+      "cumulative_return": -4.66
+    },
+    {
+      "date": "2026-02-19",
+      "cumulative_return": -4.08
+    },
+    {
+      "date": "2026-02-20",
+      "cumulative_return": -2.53
+    },
+    {
+      "date": "2026-02-23",
+      "cumulative_return": -3.24
+    },
+    {
+      "date": "2026-02-24",
+      "cumulative_return": -1.04
+    },
+    {
+      "date": "2026-02-25",
+      "cumulative_return": -5.65
+    },
+    {
+      "date": "2026-02-26",
+      "cumulative_return": 1.89
+    },
+    {
+      "date": "2026-02-27",
+      "cumulative_return": 3.07
+    },
+    {
+      "date": "2026-03-02",
+      "cumulative_return": 3.07
+    },
+    {
+      "date": "2026-03-03",
+      "cumulative_return": 9.0
+    },
+    {
+      "date": "2026-03-04",
+      "cumulative_return": -12.49
+    },
+    {
+      "date": "2026-03-05",
+      "cumulative_return": -14.03
+    },
+    {
+      "date": "2026-03-06",
+      "cumulative_return": -12.14
+    },
+    {
+      "date": "2026-03-09",
+      "cumulative_return": -17.3
+    },
+    {
+      "date": "2026-03-12",
+      "cumulative_return": -10.54
+    },
+    {
+      "date": "2026-03-13",
+      "cumulative_return": -16.39
+    },
+    {
+      "date": "2026-03-16",
+      "cumulative_return": -13.77
+    },
+    {
+      "date": "2026-03-17",
+      "cumulative_return": -19.26
+    },
+    {
+      "date": "2026-03-18",
+      "cumulative_return": -13.85
+    },
+    {
+      "date": "2026-03-19",
+      "cumulative_return": -14.42
+    },
+    {
+      "date": "2026-03-20",
+      "cumulative_return": -13.4
+    }
+  ]
+}

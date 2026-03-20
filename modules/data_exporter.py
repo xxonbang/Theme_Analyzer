@@ -140,6 +140,7 @@ def export_for_frontend(
     member_data: Dict = None,
     investor_updated_at: str = None,
     fundamental_data: Dict = None,
+    sector_data: Dict = None,
 ) -> str:
     """프론트엔드용 JSON 데이터 내보내기
 
@@ -189,6 +190,7 @@ def export_for_frontend(
         "member_data": member_data if member_data else None,
         "investor_updated_at": investor_updated_at,
         "fundamental_data": fundamental_data if fundamental_data else None,
+        "sector_data": sector_data if sector_data else None,
     }
 
     # None 값 필드 제거

@@ -72,9 +72,17 @@ def _get_api_keys() -> List[str]:
     return [k for k in keys if k]
 
 
-def _build_stock_context(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None, investor_data: Dict[str, Dict] = None) -> str:
+def _build_stock_context(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None, investor_data: Dict[str, Dict] = None, sector_data: Dict[str, Any] = None) -> str:
     """수집된 종목 데이터에서 Gemini 프롬프트용 컨텍스트 생성"""
     lines = []
+
+    # 업종별 시세 (섹터 등락률)
+    if sector_data and sector_data.get("sectors"):
+        lines.append("## 업종별 등락률")
+        for s in sector_data["sectors"]:
+            sign = "+" if s["change_rate"] >= 0 else ""
+            lines.append(f"- {s['name']}({s['market'].upper()}): {sign}{s['change_rate']:.2f}% (지수 {s['current']:,.2f})")
+        lines.append("")
 
     # 상승 TOP10
     rising_kospi = stock_data.get("rising", {}).get("kospi", [])[:10]
@@ -370,7 +378,7 @@ def _call_gemini(prompt: str, api_key: str) -> Optional[Dict]:
     return _extract_json(text)
 
 
-def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None, investor_data: Dict[str, Dict] = None) -> Optional[Dict]:
+def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict] = None, investor_data: Dict[str, Dict] = None, sector_data: Dict[str, Any] = None) -> Optional[Dict]:
     """수집된 종목 데이터로 AI 테마 분석 수행
 
     Args:
@@ -386,7 +394,7 @@ def analyze_themes(stock_data: Dict[str, Any], fundamental_data: Dict[str, Dict]
         logger.warning("Gemini API 키가 설정되지 않았습니다")
         return None
 
-    stock_context = _build_stock_context(stock_data, fundamental_data, investor_data)
+    stock_context = _build_stock_context(stock_data, fundamental_data, investor_data, sector_data)
     if not stock_context.strip():
         logger.warning("분석할 종목 데이터가 없습니다")
         return None
