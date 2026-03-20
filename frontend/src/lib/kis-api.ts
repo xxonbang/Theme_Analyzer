@@ -1,5 +1,5 @@
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/kis-proxy`
-const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+const ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export interface KisStockPrice {
   code: string

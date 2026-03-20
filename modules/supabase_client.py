@@ -14,7 +14,7 @@ class SupabaseCredentialManager:
 
     def __init__(self):
         self.url = os.getenv("SUPABASE_URL")
-        self.key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+        self.key = os.getenv("SUPABASE_SECRET_KEY") or os.getenv("SUPABASE_SERVICE_ROLE_KEY")
         self._client: Optional[Client] = None
 
     def _get_client(self) -> Optional[Client]:

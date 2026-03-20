@@ -39,4 +39,4 @@ GEMINI_API_KEY_5 = os.getenv("GEMINI_API_KEY_05")
 # Supabase 설정 (API 키 중앙 관리용)
 # https://supabase.com/dashboard 에서 프로젝트 설정 확인
 SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY") or os.getenv("SUPABASE_SERVICE_ROLE_KEY")

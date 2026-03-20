@@ -88,7 +88,7 @@ jobs:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
           GEMINI_API_KEY_01: ${{ secrets.GEMINI_API_KEY_01 }}
           GEMINI_API_KEY_02: ${{ secrets.GEMINI_API_KEY_02 }}
           GEMINI_API_KEY_03: ${{ secrets.GEMINI_API_KEY_03 }}
