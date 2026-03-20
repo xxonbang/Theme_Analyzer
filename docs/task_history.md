@@ -6,6 +6,11 @@
 
 ## 2026-03-20
 
+### [개선] Deploy Pages 스킵 시 실패 알림 대신 스킵 알림 전송 (2026-03-20 12:41 KST)
+- **변경 파일**: `.github/workflows/deploy-pages.yml`
+- **내용**: 트리거 워크플로우 실패로 build/deploy가 스킵된 경우 "실패" 대신 "스킵" 알림을 텔레그램으로 전송하도록 notify 조건 분기 추가
+- **원인**: Refresh Stock Data 타임아웃 → deploy-pages workflow_run 트리거 → build 조건 불충족 스킵 → notify가 deploy 결과만 확인하여 "실패"로 오보
+
 ### [버그픽스] stock-history.json 워크플로우 커밋 누락 수정 (2026-03-20 10:03 KST)
 - **변경 파일**: `.github/workflows/daily-theme-analysis.yml`, `.github/workflows/refresh-data.yml`
 - **내용**: `data_exporter.py`가 `latest.json`에서 분리 생성하는 `stock-history.json`이 GitHub Actions 워크플로우의 backup/restore/git-add 단계에 포함되지 않아 커밋되지 않던 문제 수정. 두 워크플로우 모두에 `stock-history.json` 처리 추가

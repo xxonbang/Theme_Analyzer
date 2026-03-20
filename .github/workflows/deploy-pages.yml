@@ -88,6 +88,9 @@ jobs:
           if [ "${{ needs.deploy.result }}" = "success" ]; then
             MESSAGE="<b>[THEME_ANALYSIS][Deploy Pages] 완료</b>
           프론트엔드 GitHub Pages 배포"
+          elif [ "${{ needs.build.result }}" = "skipped" ]; then
+            MESSAGE="<b>[THEME_ANALYSIS][Deploy Pages] 스킵</b>
+          트리거 워크플로우 실패로 배포 생략"
           else
             MESSAGE="<b>[THEME_ANALYSIS][Deploy Pages] 실패</b>
           프론트엔드 GitHub Pages 배포"
