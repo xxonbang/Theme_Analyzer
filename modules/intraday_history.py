@@ -89,6 +89,59 @@ def aggregate_minute_candles(
     return results
 
 
+def collect_stock_intraday_from_cache(
+    client: KISClient,
+    code: str,
+    candles: List[Dict[str, Any]],
+) -> Dict[str, Any] | None:
+    """캐시된 분봉 데이터로 장중 데이터 생성 (fetch_minute_candles 호출 생략)."""
+    if not candles:
+        return None
+
+    sorted_candles = sorted(candles, key=lambda c: c["time"])
+    open_price = sorted_candles[0]["close"] if sorted_candles else 0
+
+    prev_close = 0
+    close_price = 0
+    try:
+        daily = client.get_stock_daily_ohlcv(code)
+        if daily.get("rt_cd") == "0":
+            output = daily.get("output", [])
+            if output and len(output) >= 2:
+                close_price = int(output[0].get("stck_clpr", 0))
+                prev_close = int(output[1].get("stck_clpr", 0))
+            elif output:
+                close_price = int(output[0].get("stck_clpr", 0))
+    except Exception as e:
+        print(f"  ⚠ {code} 전일종가/확정종가 조회 실패 (시가 기준 등락률로 대체): {e}")
+
+    intervals_30m = aggregate_minute_candles(candles, 30, prev_close=prev_close)
+    intervals_60m = aggregate_minute_candles(candles, 60, prev_close=prev_close)
+
+    if not intervals_30m:
+        return None
+
+    if close_price and prev_close:
+        for intervals in (intervals_30m, intervals_60m):
+            if intervals and intervals[-1]["time"] == "15:30":
+                intervals[-1]["close"] = close_price
+                intervals[-1]["change_rate"] = round(
+                    (close_price - prev_close) / prev_close * 100, 2
+                )
+
+    from datetime import datetime
+    from modules.utils import KST
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+
+    return {
+        "date": today,
+        "open": open_price,
+        "prev_close": prev_close,
+        "intervals_30m": intervals_30m,
+        "intervals_60m": intervals_60m,
+    }
+
+
 def collect_stock_intraday(
     client: KISClient,
     code: str,

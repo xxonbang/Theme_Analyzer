@@ -198,7 +198,7 @@ def fetch_minute_candles(
             break
         cursor = last_time
 
-        time.sleep(0.1)
+        time.sleep(0.05)
 
     return candles
 

@@ -15,11 +15,12 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from modules.kis_client import KISClient
-from modules.intraday_history import collect_stock_intraday
+from modules.intraday_history import collect_stock_intraday, collect_stock_intraday_from_cache
 
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "intraday-history.json"
+CANDLE_CACHE_PATH = ROOT_DIR / ".candle_cache.json"
 MAX_DAYS = 10  # 최대 보관 일수
 
 
@@ -75,6 +76,16 @@ def main():
     existing = load_json(OUTPUT_PATH)
     existing_stocks = existing.get("stocks", {})
 
+    # 2-1. 분봉 캐시 로드 (collect_volume_profile.py에서 생성)
+    candle_cache: dict[str, list] = {}
+    if CANDLE_CACHE_PATH.exists():
+        try:
+            cache_data = load_json(CANDLE_CACHE_PATH)
+            candle_cache = cache_data.get("candles", {})
+            print(f"  분봉 캐시 로드: {len(candle_cache)}종목 (API 호출 생략)")
+        except Exception:
+            candle_cache = {}
+
     # 3. 병렬 수집
     client = KISClient()
     today_data: dict[str, dict] = {}
@@ -82,6 +93,9 @@ def main():
 
     def _collect(stock: dict) -> tuple[str, dict | None]:
         code = stock["code"]
+        cached = candle_cache.get(code)
+        if cached:
+            return code, collect_stock_intraday_from_cache(client, code, cached)
         return code, collect_stock_intraday(client, code)
 
     with ThreadPoolExecutor(max_workers=5) as executor:
@@ -101,6 +115,11 @@ def main():
 
     elapsed = time.time() - start_time
     print(f"  수집 완료: {len(today_data)}/{len(all_stocks)}종목 ({elapsed:.1f}초)")
+
+    # 캐시 파일 정리
+    if CANDLE_CACHE_PATH.exists():
+        CANDLE_CACHE_PATH.unlink()
+        print("  분봉 캐시 삭제")
 
     # 4. 기존 데이터에 오늘 데이터 추가/갱신, 10일 초과분 제거
     KST = timezone(timedelta(hours=9))

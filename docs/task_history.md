@@ -6,6 +6,10 @@
 
 ## 2026-03-20
 
+### [개선] Refresh Stock Data 워크플로우 실행 시간 최적화 (2026-03-20 13:02 KST)
+- **변경 파일**: `collect_volume_profile.py`, `collect_intraday_history.py`, `modules/intraday_history.py`, `modules/volume_profile.py`, `.github/workflows/refresh-data.yml`, `.gitignore`
+- **내용**: ①분봉 캐시 공유 — volume_profile에서 수집한 raw 분봉을 `.candle_cache.json`에 저장, intraday_history에서 재사용하여 중복 API 호출 제거(~13분 → ~2분) ②`fetch_minute_candles()` sleep 0.1s→0.05s 단축(rate limiter가 이미 0.05s 보장) ③워크플로우 timeout 45→60분 확대
+
 ### [개선] Deploy Pages 스킵 시 실패 알림 대신 스킵 알림 전송 (2026-03-20 12:41 KST)
 - **변경 파일**: `.github/workflows/deploy-pages.yml`
 - **내용**: 트리거 워크플로우 실패로 build/deploy가 스킵된 경우 "실패" 대신 "스킵" 알림을 텔레그램으로 전송하도록 notify 조건 분기 추가

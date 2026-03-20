@@ -16,11 +16,12 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from modules.kis_client import KISClient
-from modules.volume_profile import collect_full, collect_intraday
+from modules.volume_profile import collect_full, collect_intraday, fetch_minute_candles, calc_volume_profile
 
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "volume-profile.json"
+CANDLE_CACHE_PATH = ROOT_DIR / ".candle_cache.json"
 
 
 def load_json(path: Path) -> dict:
@@ -79,14 +80,21 @@ def main():
     # 3. 병렬 수집
     client = KISClient()
     profiles = {}
+    raw_candles: dict[str, list] = {}  # 분봉 캐시용
     start_time = time.time()
 
-    def _collect(stock: dict) -> tuple[str, dict]:
+    def _collect(stock: dict) -> tuple[str, dict, list]:
         code = stock["code"]
         if intraday_mode:
-            return code, collect_intraday(client, code)
+            minute = fetch_minute_candles(client, code)
+            if not minute:
+                return code, {}, []
+            vp = calc_volume_profile(minute)
+            if not vp:
+                return code, {}, minute
+            return code, {"today": vp}, minute
         else:
-            return code, collect_full(client, code)
+            return code, collect_full(client, code), []
 
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = {executor.submit(_collect, s): s for s in all_stocks}
@@ -95,9 +103,11 @@ def main():
             done += 1
             stock = futures[future]
             try:
-                code, vp = future.result()
+                code, vp, candles = future.result()
                 if vp:
                     profiles[code] = vp
+                if candles:
+                    raw_candles[code] = candles
                     if done % 20 == 0 or done == len(all_stocks):
                         print(f"  진행: {done}/{len(all_stocks)} ({time.time() - start_time:.1f}초)")
             except Exception as e:
@@ -133,6 +143,13 @@ def main():
         with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
             json.dump(output, f, ensure_ascii=False)
         print(f"  저장: {OUTPUT_PATH}")
+
+        # 분봉 캐시 저장 (collect_intraday_history.py에서 재사용)
+        if intraday_mode and raw_candles:
+            cache = {"timestamp": now_str, "candles": raw_candles}
+            with open(CANDLE_CACHE_PATH, "w", encoding="utf-8") as f:
+                json.dump(cache, f, ensure_ascii=False)
+            print(f"  분봉 캐시 저장: {len(raw_candles)}종목")
 
 
 if __name__ == "__main__":
