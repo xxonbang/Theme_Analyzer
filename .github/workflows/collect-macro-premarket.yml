@@ -115,11 +115,11 @@ jobs:
           JOB="${{ job.status }}"
 
           if [ "$COLLECT" = "success" ] && [ "$JOB" = "success" ]; then
-            MESSAGE="<b>[THEME_ANALYSIS][Premarket Macro] 완료</b>
+            MESSAGE="<b>[Premarket Macro] 완료</b>
           장 전 거시지표 수집 (08:00)"
           else
             ERROR=$(tail -20 /tmp/task.log 2>/dev/null || echo "로그 없음")
-            MESSAGE="<b>[THEME_ANALYSIS][Premarket Macro] 실패</b>
+            MESSAGE="<b>[Premarket Macro] 실패</b>
           <pre>${ERROR}</pre>"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \

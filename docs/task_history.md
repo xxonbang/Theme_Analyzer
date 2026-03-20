@@ -6,6 +6,10 @@
 
 ## 2026-03-20
 
+### [개선] 텔레그램 메시지 [THEME_ANALYSIS] 말머리 제거 (2026-03-20 22:32 KST)
+- **변경 파일**: `.github/workflows/` 내 10개 워크플로우 파일
+- **내용**: 모든 텔레그램 알림 메시지에서 `[THEME_ANALYSIS]` 접두사 29건 일괄 제거
+
 ### [개선] 수급/거래원/히스토리 수집 병렬화 및 워커 수 증가 (2026-03-20 14:47 KST)
 - **변경 파일**: `modules/kis_rank.py`, `modules/stock_history.py`, `collect_volume_profile.py`, `collect_intraday_history.py`
 - **내용**: ①수급 3종 API(확정/추정/가집계) 직렬 루프 → ThreadPoolExecutor(10) 병렬화 ②거래원 데이터 직렬 루프 → 병렬화 ③stock_history/volume_profile/intraday_history max_workers 5→10 증가. rate limiter(초당 20건)가 과부하 방지하므로 안전
