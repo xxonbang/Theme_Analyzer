@@ -189,7 +189,7 @@ class StockHistoryAPI:
         def _fetch(code: str) -> tuple:
             return code, self.get_recent_changes(code, days)
 
-        with ThreadPoolExecutor(max_workers=5) as executor:
+        with ThreadPoolExecutor(max_workers=10) as executor:
             futures = {executor.submit(_fetch, code): code for code in codes}
             for future in as_completed(futures):
                 try:

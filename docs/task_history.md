@@ -6,6 +6,11 @@
 
 ## 2026-03-20
 
+### [개선] 수급/거래원/히스토리 수집 병렬화 및 워커 수 증가 (2026-03-20 14:47 KST)
+- **변경 파일**: `modules/kis_rank.py`, `modules/stock_history.py`, `collect_volume_profile.py`, `collect_intraday_history.py`
+- **내용**: ①수급 3종 API(확정/추정/가집계) 직렬 루프 → ThreadPoolExecutor(10) 병렬화 ②거래원 데이터 직렬 루프 → 병렬화 ③stock_history/volume_profile/intraday_history max_workers 5→10 증가. rate limiter(초당 20건)가 과부하 방지하므로 안전
+- **효과**: main.py Step8 ~12분→~6분, Step9 ~5분→~2분, 거래원 ~2분→~1분
+
 ### [개선] Refresh Stock Data 워크플로우 실행 시간 최적화 (2026-03-20 13:02 KST)
 - **변경 파일**: `collect_volume_profile.py`, `collect_intraday_history.py`, `modules/intraday_history.py`, `modules/volume_profile.py`, `.github/workflows/refresh-data.yml`, `.gitignore`
 - **내용**: ①분봉 캐시 공유 — volume_profile에서 수집한 raw 분봉을 `.candle_cache.json`에 저장, intraday_history에서 재사용하여 중복 API 호출 제거(~13분 → ~2분) ②`fetch_minute_candles()` sleep 0.1s→0.05s 단축(rate limiter가 이미 0.05s 보장) ③워크플로우 timeout 45→60분 확대

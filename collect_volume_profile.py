@@ -96,7 +96,7 @@ def main():
         else:
             return code, collect_full(client, code), []
 
-    with ThreadPoolExecutor(max_workers=5) as executor:
+    with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {executor.submit(_collect, s): s for s in all_stocks}
         done = 0
         for future in as_completed(futures):

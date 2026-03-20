@@ -6,6 +6,7 @@
 """
 from typing import Dict, Any, List, Tuple
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from modules.kis_client import KISClient
 from modules.utils import KST
@@ -669,68 +670,66 @@ class KISRankAPI:
         Returns:
             {종목코드: {"name", "foreign_net", "institution_net", "individual_net"}, ...}
         """
-        import time
-
         path = "/uapi/domestic-stock/v1/quotations/inquire-investor"
         tr_id = "FHKST01010900"
 
         result = {}
         total = len(stocks)
 
-        for idx, stock in enumerate(stocks):
+        def _fetch_investor(stock: Dict) -> tuple:
             code = stock.get("code", "")
             name = stock.get("name", "")
-
             if not code:
-                continue
+                return None, None
 
-            try:
-                params = {
-                    "FID_COND_MRKT_DIV_CODE": "J",
-                    "FID_INPUT_ISCD": code,
-                }
+            params = {
+                "FID_COND_MRKT_DIV_CODE": "J",
+                "FID_INPUT_ISCD": code,
+            }
 
-                response = self.client.request("GET", path, tr_id, params=params)
+            response = self.client.request("GET", path, tr_id, params=params)
 
-                if response.get("rt_cd") != "0":
-                    continue
+            if response.get("rt_cd") != "0":
+                return None, None
 
-                output = response.get("output", [])
-                if not output:
-                    continue
+            output = response.get("output", [])
+            if not output:
+                return None, None
 
-                # 당일 데이터 (첫 번째 항목)
-                today = output[0]
-                investor_entry = {
-                    "name": name,
-                    "foreign_net": safe_int(today.get("frgn_ntby_qty", 0)),
-                    "institution_net": safe_int(today.get("orgn_ntby_qty", 0)),
-                    "individual_net": safe_int(today.get("prsn_ntby_qty", 0)),
-                }
+            today = output[0]
+            investor_entry = {
+                "name": name,
+                "foreign_net": safe_int(today.get("frgn_ntby_qty", 0)),
+                "institution_net": safe_int(today.get("orgn_ntby_qty", 0)),
+                "individual_net": safe_int(today.get("prsn_ntby_qty", 0)),
+            }
 
-                # D-1 ~ D-10 히스토리 (output[1:11])
-                history = []
-                for past in output[1:11]:
-                    history.append({
-                        "foreign_net": safe_int(past.get("frgn_ntby_qty", 0)),
-                        "institution_net": safe_int(past.get("orgn_ntby_qty", 0)),
-                        "individual_net": safe_int(past.get("prsn_ntby_qty", 0)),
-                    })
-                if history:
-                    investor_entry["history"] = history
+            history = []
+            for past in output[1:11]:
+                history.append({
+                    "foreign_net": safe_int(past.get("frgn_ntby_qty", 0)),
+                    "institution_net": safe_int(past.get("orgn_ntby_qty", 0)),
+                    "individual_net": safe_int(past.get("prsn_ntby_qty", 0)),
+                })
+            if history:
+                investor_entry["history"] = history
 
-                result[code] = investor_entry
+            return code, investor_entry
 
-            except Exception as e:
-                print(f"  ⚠ {name}({code}) 투자자 데이터 조회 실패: {e}")
-                continue
-
-            # 진행 상황 출력
-            if (idx + 1) % 10 == 0 or idx + 1 == total:
-                print(f"  진행: {idx + 1}/{total}")
-
-            # API 호출 간격 (Rate limit 방지)
-            time.sleep(0.05)
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {executor.submit(_fetch_investor, s): s for s in stocks}
+            done = 0
+            for future in as_completed(futures):
+                done += 1
+                try:
+                    code, entry = future.result()
+                    if code and entry:
+                        result[code] = entry
+                except Exception as e:
+                    stock = futures[future]
+                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 투자자 데이터 조회 실패: {e}")
+                if done % 20 == 0 or done == total:
+                    print(f"  진행: {done}/{total}")
 
         return result
 
@@ -746,48 +745,47 @@ class KISRankAPI:
         Returns:
             {종목코드: {"name", "foreign_net", "institution_net", "individual_net": None}, ...}
         """
-        import time
-
         result = {}
         total = len(stocks)
 
-        for idx, stock in enumerate(stocks):
+        def _fetch_estimate(stock: Dict) -> tuple:
             code = stock.get("code", "")
             name = stock.get("name", "")
-
             if not code:
-                continue
+                return None, None
 
-            try:
-                response = self.client.get_investor_trend_estimate(code)
+            response = self.client.get_investor_trend_estimate(code)
 
-                if response.get("rt_cd") != "0":
-                    continue
+            if response.get("rt_cd") != "0":
+                return None, None
 
-                output2 = response.get("output2", [])
-                if not output2:
-                    continue
+            output2 = response.get("output2", [])
+            if not output2:
+                return None, None
 
-                # bsop_hour_gb가 가장 큰(최신) 행 추출
-                latest = max(output2, key=lambda x: x.get("bsop_hour_gb", ""))
+            latest = max(output2, key=lambda x: x.get("bsop_hour_gb", ""))
 
-                result[code] = {
-                    "name": name,
-                    "foreign_net": safe_int(latest.get("frgn_fake_ntby_qty", 0)),
-                    "institution_net": safe_int(latest.get("orgn_fake_ntby_qty", 0)),
-                    "individual_net": None,
-                }
+            return code, {
+                "name": name,
+                "foreign_net": safe_int(latest.get("frgn_fake_ntby_qty", 0)),
+                "institution_net": safe_int(latest.get("orgn_fake_ntby_qty", 0)),
+                "individual_net": None,
+            }
 
-            except Exception as e:
-                print(f"  ⚠ {name}({code}) 추정 수급 조회 실패: {e}")
-                continue
-
-            # 진행 상황 출력
-            if (idx + 1) % 10 == 0 or idx + 1 == total:
-                print(f"  진행: {idx + 1}/{total}")
-
-            # API 호출 간격 (Rate limit 방지)
-            time.sleep(0.05)
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {executor.submit(_fetch_estimate, s): s for s in stocks}
+            done = 0
+            for future in as_completed(futures):
+                done += 1
+                try:
+                    code, entry = future.result()
+                    if code and entry:
+                        result[code] = entry
+                except Exception as e:
+                    stock = futures[future]
+                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 추정 수급 조회 실패: {e}")
+                if done % 20 == 0 or done == total:
+                    print(f"  진행: {done}/{total}")
 
         return result
 
@@ -804,49 +802,50 @@ class KISRankAPI:
         Returns:
             {종목코드: {"name", "foreign_net", "institution_net", "individual_net"}, ...}
         """
-        import time
-
         result = {}
         total = len(stocks)
 
-        for idx, stock in enumerate(stocks):
+        def _fetch_semi(stock: Dict) -> tuple:
             code = stock.get("code", "")
             name = stock.get("name", "")
-
             if not code:
-                continue
+                return None, None
 
-            try:
-                response = self.client.get_foreign_institution_total(code)
+            response = self.client.get_foreign_institution_total(code)
 
-                if response.get("rt_cd") != "0":
-                    continue
+            if response.get("rt_cd") != "0":
+                return None, None
 
-                output = response.get("output", [])
-                if not output:
-                    continue
+            output = response.get("output", [])
+            if not output:
+                return None, None
 
-                # 당일 최신 데이터 (첫 번째 항목)
-                today = output[0]
-                foreign_net = safe_int(today.get("frgn_ntby_qty", 0))
-                institution_net = safe_int(today.get("orgn_ntby_qty", 0))
-                individual_net = safe_int(today.get("prsn_ntby_qty", 0))
+            today = output[0]
+            foreign_net = safe_int(today.get("frgn_ntby_qty", 0))
+            institution_net = safe_int(today.get("orgn_ntby_qty", 0))
+            individual_net = safe_int(today.get("prsn_ntby_qty", 0))
 
-                result[code] = {
-                    "name": name,
-                    "foreign_net": foreign_net,
-                    "institution_net": institution_net,
-                    "individual_net": individual_net if individual_net else None,
-                }
+            return code, {
+                "name": name,
+                "foreign_net": foreign_net,
+                "institution_net": institution_net,
+                "individual_net": individual_net if individual_net else None,
+            }
 
-            except Exception as e:
-                print(f"  ⚠ {name}({code}) 가집계 수급 조회 실패: {e}")
-                continue
-
-            if (idx + 1) % 10 == 0 or idx + 1 == total:
-                print(f"  진행: {idx + 1}/{total}")
-
-            time.sleep(0.05)
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {executor.submit(_fetch_semi, s): s for s in stocks}
+            done = 0
+            for future in as_completed(futures):
+                done += 1
+                try:
+                    code, entry = future.result()
+                    if code and entry:
+                        result[code] = entry
+                except Exception as e:
+                    stock = futures[future]
+                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 가집계 수급 조회 실패: {e}")
+                if done % 20 == 0 or done == total:
+                    print(f"  진행: {done}/{total}")
 
         return result
 
@@ -896,80 +895,80 @@ class KISRankAPI:
         Returns:
             {종목코드: {"buy_top5": [...], "sell_top5": [...], "foreign_buy": int, "foreign_sell": int, "foreign_net": int}, ...}
         """
-        import time
-
         path = "/uapi/domestic-stock/v1/quotations/inquire-member"
         tr_id = "FHKST01010600"
 
         result = {}
         total = len(stocks)
 
-        for idx, stock in enumerate(stocks):
+        def _fetch_member(stock: Dict) -> tuple:
             code = stock.get("code", "")
             name = stock.get("name", "")
-
             if not code:
-                continue
+                return None, None
 
-            try:
-                params = {
-                    "FID_COND_MRKT_DIV_CODE": "J",
-                    "FID_INPUT_ISCD": code,
-                }
+            params = {
+                "FID_COND_MRKT_DIV_CODE": "J",
+                "FID_INPUT_ISCD": code,
+            }
 
-                response = self.client.request("GET", path, tr_id, params=params)
+            response = self.client.request("GET", path, tr_id, params=params)
 
-                if response.get("rt_cd") != "0":
-                    continue
+            if response.get("rt_cd") != "0":
+                return None, None
 
-                output = response.get("output", {})
-                if isinstance(output, list):
-                    output = output[0] if output else {}
-                if not output:
-                    continue
+            output = response.get("output", {})
+            if isinstance(output, list):
+                output = output[0] if output else {}
+            if not output:
+                return None, None
 
-                buy_top5 = []
-                sell_top5 = []
-                for i in range(1, 6):
-                    # 매수 상위
-                    buy_name = output.get(f"shnu_mbcr_name{i}", "").strip()
-                    if buy_name:
-                        buy_top5.append({
-                            "name": buy_name,
-                            "qty": safe_int(output.get(f"total_shnu_qty{i}", 0)),
-                            "ratio": safe_float(output.get(f"shnu_mbcr_rlim{i}", 0)),
-                            "is_foreign": output.get(f"shnu_mbcr_glob_yn_{i}", "") == "Y",
-                        })
-                    # 매도 상위
-                    sell_name = output.get(f"seln_mbcr_name{i}", "").strip()
-                    if sell_name:
-                        sell_top5.append({
-                            "name": sell_name,
-                            "qty": safe_int(output.get(f"total_seln_qty{i}", 0)),
-                            "ratio": safe_float(output.get(f"seln_mbcr_rlim{i}", 0)),
-                            "is_foreign": output.get(f"seln_mbcr_glob_yn_{i}", "") == "Y",
-                        })
+            buy_top5 = []
+            sell_top5 = []
+            for i in range(1, 6):
+                buy_name = output.get(f"shnu_mbcr_name{i}", "").strip()
+                if buy_name:
+                    buy_top5.append({
+                        "name": buy_name,
+                        "qty": safe_int(output.get(f"total_shnu_qty{i}", 0)),
+                        "ratio": safe_float(output.get(f"shnu_mbcr_rlim{i}", 0)),
+                        "is_foreign": output.get(f"shnu_mbcr_glob_yn_{i}", "") == "Y",
+                    })
+                sell_name = output.get(f"seln_mbcr_name{i}", "").strip()
+                if sell_name:
+                    sell_top5.append({
+                        "name": sell_name,
+                        "qty": safe_int(output.get(f"total_seln_qty{i}", 0)),
+                        "ratio": safe_float(output.get(f"seln_mbcr_rlim{i}", 0)),
+                        "is_foreign": output.get(f"seln_mbcr_glob_yn_{i}", "") == "Y",
+                    })
 
-                result[code] = {
-                    "name": name,
-                    "buy_top5": buy_top5,
-                    "sell_top5": sell_top5,
-                    "total_sell_qty": sum(b["qty"] for b in sell_top5),
-                    "total_buy_qty": sum(b["qty"] for b in buy_top5),
-                    "acml_vol": safe_int(output.get("acml_vol", 0)),
-                    "foreign_buy": safe_int(output.get("glob_total_shnu_qty", 0)),
-                    "foreign_sell": safe_int(output.get("glob_total_seln_qty", 0)),
-                    "foreign_net": safe_int(output.get("glob_ntby_qty", 0)),
-                }
+            return code, {
+                "name": name,
+                "buy_top5": buy_top5,
+                "sell_top5": sell_top5,
+                "total_sell_qty": sum(b["qty"] for b in sell_top5),
+                "total_buy_qty": sum(b["qty"] for b in buy_top5),
+                "acml_vol": safe_int(output.get("acml_vol", 0)),
+                "foreign_buy": safe_int(output.get("glob_total_shnu_qty", 0)),
+                "foreign_sell": safe_int(output.get("glob_total_seln_qty", 0)),
+                "foreign_net": safe_int(output.get("glob_ntby_qty", 0)),
+            }
 
-            except Exception as e:
-                print(f"  ⚠ {name}({code}) 거래원 데이터 조회 실패: {e}")
-                continue
-
-            if (idx + 1) % 10 == 0 or idx + 1 == total:
-                print(f"  진행: {idx + 1}/{total}")
-
-            time.sleep(0.05)
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {executor.submit(_fetch_member, s): s for s in stocks}
+            done = 0
+            for future in as_completed(futures):
+                done += 1
+                try:
+                    code, entry = future.result()
+                    if code and entry:
+                        result[code] = entry
+                except Exception as e:
+                    stock = futures[future]
+                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 거래원 데이터 조회 실패: {e}")
+                if done % 20 == 0 or done == total:
+                    print(f"  진행: {done}/{total}")
 
         return result
 
