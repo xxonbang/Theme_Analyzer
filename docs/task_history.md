@@ -6,6 +6,10 @@
 
 ## 2026-03-21
 
+### [개선] 투자자 수급 동향 테이블 날짜 오름차순 정렬 (2026-03-22 00:02 KST)
+- **변경 파일**: `frontend/src/components/MacroIndicators.tsx`
+- **내용**: 투자자 수급 동향 바텀시트 테이블 정렬을 날짜 내림차순→오름차순으로 변경 (오래된 날짜가 상단)
+
 ### [버그픽스] 배포 사이트 "Legacy API keys are disabled" 로그인 오류 수정 (2026-03-21 23:58 KST)
 - **변경 파일**: `frontend/src/lib/supabase.ts`, `frontend/src/lib/kis-api.ts`, `.github/workflows/deploy-pages.yml`
 - **원인**: 레거시 JWT anon key(`VITE_SUPABASE_ANON_KEY`)가 Supabase 프로젝트에서 비활성화됨. 배포 빌드에 포함되어 "Legacy API keys are disabled" 401 오류 발생

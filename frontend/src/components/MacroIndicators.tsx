@@ -328,8 +328,8 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                 if (!existingDates.has(d.date)) merged.push(d as typeof merged[0])
               }
               merged.sort((a, b) => b.date.localeCompare(a.date))
-              const displayDays = merged.slice(0, 10)
-              const chartDays = [...displayDays].reverse()
+              const displayDays = merged.slice(0, 10).reverse()
+              const chartDays = displayDays
               const chartDates = chartDays.map(d => d.date)
               const market = activeMarket
               const investorRows = [
