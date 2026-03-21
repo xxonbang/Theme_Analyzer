@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ChevronUp, History, X, ExternalLink, ChevronRight } from "lucide-react"
+import { ChevronDown, ChevronUp, History, X, ExternalLink, ChevronRight, HelpCircle } from "lucide-react"
 import { cn, parseKST } from "@/lib/utils"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import type { StockPrediction, StockPredictionsByDate, ThemeInfo } from "@/hooks/usePredictionHistory"
@@ -321,6 +321,7 @@ const CATEGORY_FILTERS: { value: CategoryFilter; label: string }[] = [
 export function PredictionHistory({ stockDates }: { stockDates: StockPredictionsByDate[] }) {
   const [expanded, setExpanded] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all")
+  const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
 
   if (stockDates.length === 0) return null
 
@@ -342,6 +343,17 @@ export function PredictionHistory({ stockDates }: { stockDates: StockPredictions
                 </span>
               )}
             </span>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowCriteriaPopup(true)
+              }}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="적중 기준 안내"
+            >
+              <HelpCircle className="w-3.5 h-3.5" />
+            </button>
           </div>
           {expanded ? (
             <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -374,6 +386,44 @@ export function PredictionHistory({ stockDates }: { stockDates: StockPredictions
           </div>
         )}
       </CardContent>
+
+      {showCriteriaPopup && createPortal(
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
+          onClick={() => setShowCriteriaPopup(false)}
+        >
+          <div
+            className="bg-card border border-border rounded-xl shadow-xl mx-4 max-w-sm w-full p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-sm">예측 적중 기준</h3>
+              <button onClick={() => setShowCriteriaPopup(false)} className="text-muted-foreground hover:text-foreground">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="text-xs text-muted-foreground space-y-2.5">
+              <p>
+                <span className="font-medium text-foreground">적중 조건:</span>{" "}
+                테마 대장주 <span className="text-emerald-500 font-medium">과반수</span>가 예측일 종가 대비{" "}
+                <span className="text-emerald-500 font-medium">+2% 이상</span> 상승
+              </p>
+              <div>
+                <span className="font-medium text-foreground">평가 기간:</span>
+                <ul className="mt-1 ml-3 space-y-0.5 list-disc list-outside">
+                  <li><span className="font-medium">당일</span> — 당일 장 마감 종가</li>
+                  <li><span className="font-medium">단기</span> — 7영업일 후 종가</li>
+                  <li><span className="font-medium">장기</span> — 30영업일 후 종가</li>
+                </ul>
+              </div>
+              <p className="text-[10px] text-muted-foreground/70 pt-1 border-t border-border">
+                예) 대장주 3종목 중 2종목 이상 +2% 달성 시 "적중"
+              </p>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </Card>
   )
 }
