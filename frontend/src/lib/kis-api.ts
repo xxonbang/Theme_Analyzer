@@ -1,6 +1,5 @@
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/kis-proxy`
-// Edge Functions는 JWT anon key 필요 (sb_publishable_* 형식 미지원)
-const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+const ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 
 export interface KisStockPrice {
   code: string

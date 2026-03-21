@@ -6,10 +6,10 @@
 
 ## 2026-03-21
 
-### [버그픽스] 배포 사이트 로그인 후 401 오류 수정 (2026-03-21 23:45 KST)
-- **변경 파일**: `frontend/src/lib/supabase.ts`, `.github/workflows/deploy-pages.yml`
-- **원인**: 배포 빌드 시 `VITE_SUPABASE_ANON_KEY`(JWT) 환경변수 누락 → `sb_publishable_*` 키로 초기화되어 데이터 접근 시 401 발생
-- **내용**: supabase.ts에서 ANON_KEY(JWT) 우선 사용, deploy-pages.yml에 VITE_SUPABASE_ANON_KEY 환경변수 추가
+### [버그픽스] 배포 사이트 "Legacy API keys are disabled" 로그인 오류 수정 (2026-03-21 23:58 KST)
+- **변경 파일**: `frontend/src/lib/supabase.ts`, `frontend/src/lib/kis-api.ts`, `.github/workflows/deploy-pages.yml`
+- **원인**: 레거시 JWT anon key(`VITE_SUPABASE_ANON_KEY`)가 Supabase 프로젝트에서 비활성화됨. 배포 빌드에 포함되어 "Legacy API keys are disabled" 401 오류 발생
+- **내용**: 레거시 ANON_KEY 참조 전면 제거. supabase.ts, kis-api.ts 모두 PUBLISHABLE_KEY만 사용. deploy-pages.yml에서 ANON_KEY 환경변수 제거
 
 ### [개선] 매크로 지표 바텀시트 높이 확대 및 투자자 동향 10일로 축소 (2026-03-21 23:42 KST)
 - **변경 파일**: `frontend/src/components/MacroIndicators.tsx`
