@@ -4,7 +4,30 @@
 
 ---
 
+## 2026-03-21
+
+### [개선] 워크플로우 스케줄 최적화 — 경합 해소 (2026-03-21 22:26 KST)
+- **변경 파일**: `.github/workflows/theme-forecast-intraday.yml`, cron-job.org 스케줄 7건 수정 + 1건 비활성화 + 5건 신규
+- **내용**:
+  1. **Refresh Stock Data 11:30→12:30 이동**: 11:30 구간 4개 워크플로우 동시 실행 → 1개로 격리 (핵심 변경)
+  2. **Collect Investor 시간 조정**: 11:31→12:00, 13:21→13:25, 14:31→14:35, 15:41→15:50 (경합 간격 확보)
+  3. **Intraday History 12:15→12:20, 12:45 비활성화**: Refresh 내부 중복 수집 제거
+  4. **Theme Forecast Intraday GitHub schedule 주석 처리 → cron-job 7건 통합**: 이중 트리거(5+2=7회) 해소, cron-job으로 일원화
+- **효과**: intraday-history/volume-profile/macro-indicators 동시 쓰기 3개→1개, git push 실패 확률 대폭 감소
+
+### [진단] GCP e2-micro 하이브리드 및 WebSocket 알림 데몬 연구 (2026-03-21 21:36 KST)
+- **변경 파일**: `docs/research/2026-03-21-websocket-alert.md`(신규), `docs/research/2026-03-20-gcp-migration.md`(보완)
+- **내용**: GCP e2-micro 하이브리드 방식 분석 → 경합 악화로 비권장 판단. WebSocket 알림 데몬(B안) 설계 → stock_toolkit과 24종 알림 중복 확인 → theme_analysis 단독 데몬 비권장, stock_toolkit에 위임 결정. GCP 무료 리전 asia-east1(대만) 오류 정정 (US 3곳만 무료)
+
+### [진단] 워크플로우 스케줄 최적화 연구 (2026-03-21 22:07 KST)
+- **변경 파일**: `docs/research/2026-03-21-workflow-optimization.md`(신규)
+- **내용**: 12개 워크플로우 경합 분석, 파일별 동시 쓰기 위험도 매핑, Refresh 11:30→12:30 이동 중심 최적화안 도출
+
 ## 2026-03-20
+
+### [진단] GitHub Actions → GCP 이관 연구 (2026-03-20 23:31 KST)
+- **변경 파일**: `docs/research/2026-03-20-gcp-migration.md`(신규)
+- **내용**: 현재 12개 워크플로우(66회/일) 아키텍처의 한계(git push 경합, 30분 갱신 한계, 콜드스타트 반복) 분석 및 GCP 이관 시 이점 연구. 3가지 옵션 비교(e2-micro 무료, e2-small $9/월, e2-small 24/7 $21/월). KIS WebSocket 실시간 체결/호가 수신 가능성 조사. 권장: e2-small + Instance Schedule(월 $9)
 
 ### [기능] KIS API 활용 개선 3건 (2026-03-20 23:21 KST)
 - **변경 파일**: `modules/sector_performance.py`(신규), `modules/paper_trading_analytics.py`(신규), `main.py`, `modules/gemini_analyzer.py`, `modules/data_exporter.py`, `collect_paper_trading.py`, `.github/workflows/collect-paper-trading.yml`, `.mcp.json`(신규), `.gitignore`

@@ -1,15 +1,15 @@
 name: Theme Forecast Intraday
 
 on:
-  # 장중 5회 실행 (월~금):
-  #   KST 09:30, 10:30, 11:30, 13:30, 14:30
-  schedule:
-    - cron: '30 0 * * 1-5'   # 09:30 KST
-    - cron: '30 1 * * 1-5'   # 10:30 KST
-    - cron: '30 2 * * 1-5'   # 11:30 KST
-    - cron: '30 4 * * 1-5'   # 13:30 KST
-    - cron: '30 5 * * 1-5'   # 14:30 KST
-  workflow_dispatch:
+  # 외부 cron-job(workflow_dispatch)으로 실행:
+  #   KST 09:30, 10:00, 10:30, 11:30, 13:00, 13:30, 14:30 (7회)
+  # schedule:
+  #   - cron: '30 0 * * 1-5'   # 09:30 KST
+  #   - cron: '30 1 * * 1-5'   # 10:30 KST
+  #   - cron: '30 2 * * 1-5'   # 11:30 KST
+  #   - cron: '30 4 * * 1-5'   # 13:30 KST
+  #   - cron: '30 5 * * 1-5'   # 14:30 KST
+  workflow_dispatch: {}
 
 permissions:
   contents: write
