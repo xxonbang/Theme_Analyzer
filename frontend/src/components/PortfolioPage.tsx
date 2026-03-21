@@ -111,6 +111,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set())
 
   // Add form state
   const [searchQuery, setSearchQuery] = useState("")
@@ -142,6 +143,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     setDbLoading(true)
     fetchHoldingsFromDB(user.id).then(data => {
       setHoldings(data)
+      setCheckedIds(new Set(data.map(h => h.id)))
       setDbLoading(false)
     })
   }, [user])
@@ -274,6 +276,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       quantity: data.quantity,
       addedAt: data.added_at,
     }])
+    setCheckedIds(prev => new Set([...prev, data.id]))
     setSelectedStock(null)
     setSearchQuery("")
     setFormAvgPrice("")
@@ -289,6 +292,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
 
     if (error) { alert(`삭제 실패: ${error.message}`); return }
     setHoldings(prev => prev.filter(h => h.id !== id))
+    setCheckedIds(prev => { const next = new Set(prev); next.delete(id); return next })
     if (expandedId === id) setExpandedId(null)
   }, [expandedId])
 
@@ -413,13 +417,14 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     })
   }, [holdings, stockMap, stockData, volumeProfileData, themeForecast, livePrices])
 
-  // 2. 포트폴리오 총 손익
+  // 2. 포트폴리오 총 손익 (체크된 종목만)
   const summary = useMemo(() => {
     let totalInvest = 0
     let totalEval = 0
     let priceAvailable = 0
 
     for (const h of enrichedHoldings) {
+      if (!checkedIds.has(h.id)) continue
       totalInvest += h.investAmount
       if (h.evalAmount !== null) {
         totalEval += h.evalAmount
@@ -429,9 +434,10 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
 
     const totalProfit = totalEval - totalInvest
     const totalProfitRate = totalInvest > 0 ? (totalProfit / totalInvest) * 100 : 0
+    const checkedCount = enrichedHoldings.filter(h => checkedIds.has(h.id)).length
 
-    return { totalInvest, totalEval, totalProfit, totalProfitRate, priceAvailable, totalCount: enrichedHoldings.length }
-  }, [enrichedHoldings])
+    return { totalInvest, totalEval, totalProfit, totalProfitRate, priceAvailable, totalCount: enrichedHoldings.length, checkedCount }
+  }, [enrichedHoldings, checkedIds])
 
   // Focus search on form open
   useEffect(() => {
@@ -608,6 +614,30 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       {holdings.length > 0 && (
         <Card className="border-primary/20 bg-gradient-to-br from-primary/[0.03] to-transparent">
           <CardContent className="p-3 sm:p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <button
+                onClick={() => {
+                  const allIds = enrichedHoldings.map(h => h.id)
+                  setCheckedIds(prev => prev.size === allIds.length ? new Set() : new Set(allIds))
+                }}
+                className="flex items-center gap-1.5 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <span className={cn(
+                  "w-4 h-4 rounded border flex items-center justify-center transition-colors",
+                  checkedIds.size === enrichedHoldings.length
+                    ? "bg-primary border-primary text-primary-foreground"
+                    : checkedIds.size > 0
+                      ? "bg-primary/50 border-primary/50 text-primary-foreground"
+                      : "border-muted-foreground/30"
+                )}>
+                  {checkedIds.size > 0 && <Check className="w-3 h-3" />}
+                </span>
+                {checkedIds.size === enrichedHoldings.length ? "전체 해제" : "전체 선택"}
+              </button>
+              {checkedIds.size < enrichedHoldings.length && checkedIds.size > 0 && (
+                <span className="text-[10px] text-muted-foreground">{summary.checkedCount}/{summary.totalCount}종목</span>
+              )}
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
                 <div className="text-[10px] text-muted-foreground">총 투자금</div>
@@ -673,6 +703,21 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
               <CardContent className="p-3 sm:p-4">
                 {/* Main row */}
                 <div className="flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => setCheckedIds(prev => {
+                      const next = new Set(prev)
+                      next.has(h.id) ? next.delete(h.id) : next.add(h.id)
+                      return next
+                    })}
+                    className={cn(
+                      "w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-colors",
+                      checkedIds.has(h.id)
+                        ? "bg-primary border-primary text-primary-foreground"
+                        : "border-muted-foreground/30"
+                    )}
+                  >
+                    {checkedIds.has(h.id) && <Check className="w-3 h-3" />}
+                  </button>
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : h.id)}
                     className="flex-1 min-w-0 text-left"
