@@ -46,10 +46,24 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
   // 시간순 정렬, 최근 11일(D-10 ~ D)만 표시
   const reversed = [...changes].slice(0, 11).reverse()
 
-  // 탭 상태: 장중(09:00~15:30) + intraday 데이터 있으면 장중 탭 기본
+  // 탭 상태: 거래일 장중(09:00~15:30) + intraday 데이터 있으면 장중 탭 기본
   const hasIntraday = intradayDays && intradayDays.length > 0
   const isMarketHours = (() => {
     const now = new Date()
+    const day = now.getDay()
+    // 주말 제외
+    if (day === 0 || day === 6) return false
+    // 한국 공휴일 (양력 고정 + 당해 음력 연휴)
+    const mm = String(now.getMonth() + 1).padStart(2, "0")
+    const dd = String(now.getDate()).padStart(2, "0")
+    const mmdd = `${mm}-${dd}`
+    const y = now.getFullYear()
+    const holidays = [
+      "01-01", "03-01", "05-05", "06-06", "08-15", "10-03", "10-09", "12-25",
+      // 2026년 설날·추석·대체공휴일 등 (매년 갱신 필요)
+      ...(y === 2026 ? ["01-28", "01-29", "01-30", "02-17", "02-18", "02-19", "05-24", "05-25", "05-26", "10-04", "10-05", "10-06"] : []),
+    ]
+    if (holidays.includes(mmdd)) return false
     const h = now.getHours(), m = now.getMinutes()
     const t = h * 60 + m
     return t >= 9 * 60 && t <= 15 * 60 + 30
