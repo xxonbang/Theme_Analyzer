@@ -405,15 +405,15 @@ export function PredictionHistory({ stockDates }: { stockDates: StockPredictions
             <div className="text-xs text-muted-foreground space-y-2.5">
               <p>
                 <span className="font-medium text-foreground">적중 조건:</span>{" "}
-                테마 대장주 <span className="text-emerald-500 font-medium">과반수</span>가 예측일 종가 대비{" "}
+                테마 대장주 <span className="text-emerald-500 font-medium">과반수</span>가{" "}
                 <span className="text-emerald-500 font-medium">+2% 이상</span> 상승
               </p>
               <div>
                 <span className="font-medium text-foreground">평가 기간:</span>
                 <ul className="mt-1 ml-3 space-y-0.5 list-disc list-outside">
-                  <li><span className="font-medium">당일</span> — 당일 장 마감 종가</li>
-                  <li><span className="font-medium">단기</span> — 7영업일 후 종가</li>
-                  <li><span className="font-medium">장기</span> — 30영업일 후 종가</li>
+                  <li><span className="font-medium">당일</span> — 전일 종가 대비 당일 종가</li>
+                  <li><span className="font-medium">단기</span> — 예측일 종가 대비 7영업일 후 종가</li>
+                  <li><span className="font-medium">장기</span> — 예측일 종가 대비 30영업일 후 종가</li>
                 </ul>
               </div>
               <p className="text-[10px] text-muted-foreground/70 pt-1 border-t border-border">
