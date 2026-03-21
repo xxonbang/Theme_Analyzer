@@ -227,12 +227,16 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     setRefreshing(true)
     try {
       const codes = holdings.map(h => h.code)
-      const prices = await fetchKisPrices(codes)
+      const { prices, failed } = await fetchKisPrices(codes)
       setLivePrices(prices)
       setLastRefreshed(new Date())
+      if (failed > 0) {
+        alert(`${Object.keys(prices).length}종목 조회 성공, ${failed}종목 실패`)
+      }
     } catch (e) {
       console.error("실시간 시세 조회 실패:", e)
-      alert("실시간 시세 조회에 실패했습니다. 잠시 후 다시 시도해주세요.")
+      const msg = e instanceof Error ? e.message : ""
+      alert(`실시간 시세 조회에 실패했습니다.\n${msg}`)
     } finally {
       setRefreshing(false)
     }

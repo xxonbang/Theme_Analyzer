@@ -58,26 +58,31 @@ function kisHeaders(creds: KisCredentials, trId: string): Record<string, string>
   }
 }
 
-async function fetchStockPrice(creds: KisCredentials, code: string) {
+async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {
   const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}`
   const res = await fetch(url, { headers: kisHeaders(creds, "FHKST01010100") })
   const data = await res.json()
 
-  if (data.rt_cd !== "0") return null
+  if (data.rt_cd !== "0") {
+    return { price: null, errorMsg: data.msg1 || `rt_cd=${data.rt_cd}` }
+  }
 
   const o = data.output
   return {
-    code,
-    name: o.hts_kor_isnm || "",
-    current_price: parseInt(o.stck_prpr) || 0,
-    change_rate: parseFloat(o.prdy_ctrt) || 0,
-    change_amount: parseInt(o.prdy_vrss) || 0,
-    volume: parseInt(o.acml_vol) || 0,
-    market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
-    w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,
-    w52_lwpr: parseInt(o.stck_dryy_lwpr) || 0,
-    per: parseFloat(o.per) || 0,
-    pbr: parseFloat(o.pbr) || 0,
+    price: {
+      code,
+      name: o.hts_kor_isnm || "",
+      current_price: parseInt(o.stck_prpr) || 0,
+      change_rate: parseFloat(o.prdy_ctrt) || 0,
+      change_amount: parseInt(o.prdy_vrss) || 0,
+      volume: parseInt(o.acml_vol) || 0,
+      market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
+      w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,
+      w52_lwpr: parseInt(o.stck_dryy_lwpr) || 0,
+      per: parseFloat(o.per) || 0,
+      pbr: parseFloat(o.pbr) || 0,
+    },
+    errorMsg: null,
   }
 }
 
@@ -116,20 +121,36 @@ Deno.serve(async (req) => {
       // Bulk price lookup (max 20 codes per request)
       const limited = codes.slice(0, 20)
       const prices: Record<string, unknown> = {}
+      let lastError: string | null = null
 
       for (const code of limited) {
-        const price = await fetchStockPrice(creds, code)
+        const { price, errorMsg } = await fetchStockPrice(creds, code)
         if (price) prices[code] = price
+        else if (errorMsg) lastError = errorMsg
         // Rate limit: 50ms between requests
         if (limited.indexOf(code) < limited.length - 1) {
           await new Promise(r => setTimeout(r, 60))
         }
       }
-      result = { prices }
+
+      // 전체 조회 실패 시 에러 반환 (토큰 만료 등)
+      if (Object.keys(prices).length === 0 && limited.length > 0) {
+        return new Response(JSON.stringify({ error: lastError || "모든 종목 조회 실패" }), {
+          status: 502,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        })
+      }
+      result = { prices, failed: limited.length - Object.keys(prices).length }
 
     } else if (action === "search" && body.code) {
       // Single stock search by code
-      const price = await fetchStockPrice(creds, body.code)
+      const { price, errorMsg } = await fetchStockPrice(creds, body.code)
+      if (!price && errorMsg) {
+        return new Response(JSON.stringify({ error: errorMsg }), {
+          status: 502,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        })
+      }
       result = { stock: price }
 
     } else {

@@ -6,6 +6,11 @@
 
 ## 2026-03-21
 
+### [개선] KIS 시세 조회 실패 시 에러 표시 개선 (2026-03-21 23:18 KST)
+- **변경 파일**: `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`, `frontend/src/components/PortfolioPage.tsx`
+- **내용**: 토큰 만료 등으로 전체 조회 실패 시 HTTP 502 + KIS 에러 메시지 반환. 부분 실패 시 failed 카운트 포함. 프론트엔드에서 실패를 정확히 사용자에게 알림
+- **원인**: 기존에는 전체 실패 시에도 HTTP 200 + 빈 결과 반환 → 정상 완료로 오인
+
 ### [버그픽스] 포트폴리오 실시간 시세 조회 401 오류 수정 (2026-03-21 23:04 KST)
 - **변경 파일**: `frontend/src/lib/kis-api.ts`, `frontend/.env.local`
 - **원인**: Supabase 새 키 형식(`sb_publishable_*`)이 Edge Functions 게이트웨이에서 401 반환. JWT anon key만 허용

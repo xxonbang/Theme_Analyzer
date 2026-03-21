@@ -35,11 +35,15 @@ async function callKisProxy(body: Record<string, unknown>): Promise<Record<strin
 
 /**
  * KIS API를 통해 여러 종목의 실시간 시세를 조회합니다.
+ * 부분 실패 시 성공 종목만 반환하되, failed 수를 포함합니다.
  */
-export async function fetchKisPrices(codes: string[]): Promise<Record<string, KisStockPrice>> {
-  if (codes.length === 0) return {}
+export async function fetchKisPrices(codes: string[]): Promise<{ prices: Record<string, KisStockPrice>; failed: number }> {
+  if (codes.length === 0) return { prices: {}, failed: 0 }
   const data = await callKisProxy({ action: "prices", codes })
-  return (data.prices as Record<string, KisStockPrice>) ?? {}
+  return {
+    prices: (data.prices as Record<string, KisStockPrice>) ?? {},
+    failed: (data.failed as number) ?? 0,
+  }
 }
 
 /**
