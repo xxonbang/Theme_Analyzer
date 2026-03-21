@@ -569,6 +569,7 @@ export function StockCard({ stock, history, news, type, investorInfo, investorEs
         {showVolumeProfile && volumeProfile && (
           <VolumeProfilePopup
             stockName={stock.name}
+            stockCode={stock.code}
             stockPrice={stock.current_price}
             volumeProfile={volumeProfile}
             onClose={() => setShowVolumeProfile(false)}

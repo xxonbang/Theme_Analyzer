@@ -365,6 +365,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
       {showVolumeProfile && volumeProfile && (
         <VolumeProfilePopup
           stockName={stock.name}
+          stockCode={stock.code}
           stockPrice={stock.current_price}
           volumeProfile={volumeProfile}
           onClose={() => setShowVolumeProfile(false)}

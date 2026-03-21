@@ -6,6 +6,10 @@
 
 ## 2026-03-21
 
+### [기능] 매물대 차트에 포트폴리오 평단가 표시 (2026-03-21 22:58 KST)
+- **변경 파일**: `frontend/src/components/VolumeProfilePopup.tsx`, `StockCard.tsx`, `StockList.tsx`
+- **내용**: 매물대 bottom sheet 열 때 포트폴리오 보유 종목이면 Supabase에서 평단가 조회, 빨간색 점선 수평선으로 표시. 범례에 평단가 항목 추가
+
 ### [기능] 예측 이력 적중 기준 안내 팝업 추가 (2026-03-21 22:48 KST)
 - **변경 파일**: `frontend/src/components/PredictionHistory.tsx`
 - **내용**: 예측 이력 헤더에 ? 아이콘 추가, 클릭 시 적중 기준(대장주 과반수 +2% 이상, 당일/단기 7영업일/장기 30영업일) 팝업 표시
