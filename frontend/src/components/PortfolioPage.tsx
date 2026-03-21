@@ -614,29 +614,21 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       {holdings.length > 0 && (
         <Card className="border-primary/20 bg-gradient-to-br from-primary/[0.03] to-transparent">
           <CardContent className="p-3 sm:p-4">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center justify-between mb-2.5">
+              <span className="text-[10px] text-muted-foreground tracking-wide">
+                {checkedIds.size === enrichedHoldings.length
+                  ? `${summary.totalCount}종목 합산`
+                  : `${summary.checkedCount}/${summary.totalCount}종목 합산`}
+              </span>
               <button
                 onClick={() => {
                   const allIds = enrichedHoldings.map(h => h.id)
                   setCheckedIds(prev => prev.size === allIds.length ? new Set() : new Set(allIds))
                 }}
-                className="flex items-center gap-1.5 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                className="text-[10px] text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2 decoration-muted-foreground/30"
               >
-                <span className={cn(
-                  "w-4 h-4 rounded border flex items-center justify-center transition-colors",
-                  checkedIds.size === enrichedHoldings.length
-                    ? "bg-primary border-primary text-primary-foreground"
-                    : checkedIds.size > 0
-                      ? "bg-primary/50 border-primary/50 text-primary-foreground"
-                      : "border-muted-foreground/30"
-                )}>
-                  {checkedIds.size > 0 && <Check className="w-3 h-3" />}
-                </span>
                 {checkedIds.size === enrichedHoldings.length ? "전체 해제" : "전체 선택"}
               </button>
-              {checkedIds.size < enrichedHoldings.length && checkedIds.size > 0 && (
-                <span className="text-[10px] text-muted-foreground">{summary.checkedCount}/{summary.totalCount}종목</span>
-              )}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
@@ -696,8 +688,9 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
             <Card
               key={h.id}
               className={cn(
-                "transition-colors",
-                hasAlert && "border-orange-500/30"
+                "transition-all duration-300 relative overflow-hidden",
+                hasAlert && "border-orange-500/30",
+                !checkedIds.has(h.id) && "opacity-40 grayscale-[30%]"
               )}
             >
               <CardContent className="p-3 sm:p-4">
@@ -709,14 +702,17 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                       next.has(h.id) ? next.delete(h.id) : next.add(h.id)
                       return next
                     })}
-                    className={cn(
-                      "w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-colors",
+                    className="shrink-0 -ml-0.5 mr-0.5"
+                    aria-label={checkedIds.has(h.id) ? "합산에서 제외" : "합산에 포함"}
+                  >
+                    <span className={cn(
+                      "w-4 h-4 rounded-[5px] flex items-center justify-center transition-all duration-200 border",
                       checkedIds.has(h.id)
                         ? "bg-primary border-primary text-primary-foreground"
-                        : "border-muted-foreground/30"
-                    )}
-                  >
-                    {checkedIds.has(h.id) && <Check className="w-3 h-3" />}
+                        : "border-muted-foreground/25 hover:border-muted-foreground/50"
+                    )}>
+                      {checkedIds.has(h.id) && <Check className="w-2.5 h-2.5" strokeWidth={3} />}
+                    </span>
                   </button>
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : h.id)}
