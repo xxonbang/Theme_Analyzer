@@ -6,6 +6,11 @@
 
 ## 2026-03-21
 
+### [버그픽스] 포트폴리오 실시간 시세 조회 401 오류 수정 (2026-03-21 23:04 KST)
+- **변경 파일**: `frontend/src/lib/kis-api.ts`, `frontend/.env.local`
+- **원인**: Supabase 새 키 형식(`sb_publishable_*`)이 Edge Functions 게이트웨이에서 401 반환. JWT anon key만 허용
+- **내용**: `.env.local`에 `VITE_SUPABASE_ANON_KEY`(JWT) 추가, `kis-api.ts`에서 JWT anon key 우선 사용하도록 순서 변경
+
 ### [기능] 매물대 차트에 포트폴리오 평단가 표시 (2026-03-21 22:58 KST)
 - **변경 파일**: `frontend/src/components/VolumeProfilePopup.tsx`, `StockCard.tsx`, `StockList.tsx`
 - **내용**: 매물대 bottom sheet 열 때 포트폴리오 보유 종목이면 Supabase에서 평단가 조회, 빨간색 점선 수평선으로 표시. 범례에 평단가 항목 추가
