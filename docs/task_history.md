@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 강제 새로고침 시 무한 로딩 및 로그아웃 미동작 수정 (2026-03-23 10:23 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **원인**: `getSession()`이 내부 lock으로 hang되면 `setLoading(false)`가 호출되지 않아 무한 로딩. `.catch()` 미설정으로 에러 시에도 동일 증상
+- **내용**: deprecated `getSession()` 제거 → `onAuthStateChange`의 `INITIAL_SESSION` 이벤트로 대체. 5초 fallback 타이머 추가
+
 ### [버그픽스] KIS 프록시 Edge Function 호출 401 오류 수정 (2026-03-23 09:59 KST)
 - **변경 파일**: `frontend/src/lib/kis-api.ts`, `supabase/functions/kis-proxy/index.ts`
 - **원인**: publishable key(JWT 아님)를 `Authorization: Bearer` 헤더에 넣어 Supabase API 게이트웨이가 401 반환. 포트폴리오 리프레시 버튼 및 종목 검색 실패의 직접 원인

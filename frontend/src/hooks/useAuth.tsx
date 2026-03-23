@@ -142,28 +142,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, isAdmin])
 
   useEffect(() => {
-    // 현재 세션 확인
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      if (session?.user) recordUserHistory(session.user)
-      setLoading(false)
-    })
-
-    // 인증 상태 변경 구독
+    // onAuthStateChange가 INITIAL_SESSION 이벤트로 현재 세션을 전달 (getSession() 대체)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
+
+      if (event === "INITIAL_SESSION") {
+        if (session?.user) recordUserHistory(session.user)
+        setLoading(false)
+      }
       if (event === "SIGNED_IN" && session?.user) {
         recordUserHistory(session.user)
         insertActivityLog(session.user.id, session.user.email ?? "", "login")
+        setLoading(false)
       }
       if (event === "SIGNED_OUT") {
         ExpireStorage.setAdmin(false)
+        setLoading(false)
       }
     })
 
-    return () => subscription.unsubscribe()
+    // fallback: INITIAL_SESSION이 5초 내에 오지 않으면 강제로 로딩 해제
+    const timeout = setTimeout(() => setLoading(false), 5000)
+
+    return () => {
+      subscription.unsubscribe()
+      clearTimeout(timeout)
+    }
   }, [])
 
   const signUp = async (email: string, password: string): Promise<{ error: string | null }> => {
