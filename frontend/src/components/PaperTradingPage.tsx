@@ -7,7 +7,6 @@ import { PaperTradingDateSelector } from "@/components/PaperTradingDateSelector"
 import { usePaperTradingData, calcEqualWeightSummary, calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { cn } from "@/lib/utils"
-import { useAuth } from "@/hooks/useAuth"
 import type { PaperTradingData, PaperTradingMode, InvestMode } from "@/types/stock"
 
 export function PaperTradingPage() {
@@ -32,7 +31,6 @@ export function PaperTradingPage() {
     activeStocks,
   } = usePaperTradingData()
 
-  const { logActivity } = useAuth()
   const { data: intradayData } = useInvestorIntraday()
   const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState<PaperTradingMode>("close")
@@ -40,7 +38,6 @@ export function PaperTradingPage() {
 
   const handleModeChange = (mode: PaperTradingMode) => {
     setActiveTab(mode)
-    logActivity("mode_change", { paper_trading_mode: mode })
   }
 
   useEffect(() => {

@@ -276,7 +276,7 @@ const FLUCTUATION_MODE_KEY = "stock-dashboard-fluctuation-mode"
 const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 
 function App() {
-  const { user, loading: authLoading, isAdmin, recordVisit, logActivity } = useAuth()
+  const { user, loading: authLoading, isAdmin } = useAuth()
   const { toggle: toggleTheme, isDark } = useThemeMode()
   const { data: vpData } = useVolumeProfile()
   const { data: intradayHistoryData } = useIntradayHistory()
@@ -286,11 +286,6 @@ function App() {
   const { data: themeForecastData } = useThemeForecast()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
 
-  // 페이지 전환/접속 시 이력 기록
-  useEffect(() => {
-    recordVisit()
-    logActivity("page_view", { page: currentPage })
-  }, [currentPage, recordVisit, logActivity])
   const apiAlerts = useApiAlerts(isAdmin)
   const { data: currentData, loading, error, refetch, refreshFromAPI, cancelRefresh, refreshElapsed } = useStockData()
   const { history: stockHistoryData } = useStockHistory()
@@ -733,18 +728,15 @@ function App() {
   const handleTabChange = useCallback((tab: TabType) => {
     setActiveTab(tab)
     window.scrollTo({ top: 0, behavior: "instant" })
-    logActivity("tab_switch", { tab })
-  }, [logActivity])
+  }, [])
 
   const handleFluctuationModeChange = useCallback((mode: FluctuationMode) => {
     setFluctuationMode(mode)
-    logActivity("mode_change", { fluctuation_mode: mode })
-  }, [logActivity])
+  }, [])
 
   const handleCompositeModeChange = useCallback((mode: CompositeMode) => {
     setCompositeMode(mode)
-    logActivity("mode_change", { composite_mode: mode })
-  }, [logActivity])
+  }, [])
 
   // 히스토리 버튼 클릭 핸들러
   const handleHistoryClick = async () => {
@@ -756,7 +748,6 @@ function App() {
   const handleHistorySelect = async (entry: HistoryEntry) => {
     await fetchHistoryData(entry)
     setShowHistoryModal(false)
-    logActivity("history_view", { date: entry.date })
   }
 
   // 실시간 데이터로 돌아가기
@@ -774,13 +765,12 @@ function App() {
 
   // 데이터 수동 새로고침 핸들러
   const handleRefresh = useCallback(async () => {
-    logActivity("data_refresh")
     const ok = await refreshFromAPI()
     setRefreshToast(ok
       ? { message: "데이터를 새로고침했습니다", type: "success" }
       : { message: "새로고침에 실패했습니다. 잠시 후 다시 시도해주세요.", type: "error" }
     )
-  }, [refreshFromAPI, logActivity])
+  }, [refreshFromAPI])
 
   // Auth guard
   if (authLoading) {

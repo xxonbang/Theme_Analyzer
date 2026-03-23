@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 로그인/로그아웃 401 오류 완전 해결 — PostgREST 호출 전면 제거 (2026-03-23 14:07 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`, `frontend/src/App.tsx`, `frontend/src/components/PaperTradingPage.tsx`
+- **원인**: Supabase JS SDK가 publishable key 사용 시 PostgREST Authorization 헤더에 유저 JWT 대신 publishable key를 설정 → user_history/user_activity_log INSERT 시 항상 401 → SDK 내부 세션 오염 → SIGNED_OUT 유발
+- **수정**: auth 흐름에서 PostgREST 호출(recordUserHistory, insertActivityLog, logActivity) 전면 제거. onAuthStateChange 콜백은 순수 React 상태 관리만 수행. auth 로직에 Supabase DB 호출이 단 하나도 없음
+
 ### [버그픽스] 로그인 실패 근본 수정 — onAuthStateChange에서 DB 호출 완전 분리 (2026-03-23 12:15 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **원인**: SIGNED_IN 콜백 안에서 즉시 PostgREST 호출 시, SDK 내부 Authorization 헤더가 아직 publishable key → user JWT로 갱신되지 않아 401 발생. 이 401이 SDK 내부 상태를 오염시켜 SIGNED_OUT 유발
