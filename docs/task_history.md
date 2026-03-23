@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [개선] signOut 세션 잔류 방지 및 auth hang 전면 보강 (2026-03-23 11:31 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **내용**: (1) signOut 시 localStorage 세션 키 직접 삭제 — SDK hang 시에도 새로고침 후 재로그인 방지 (2) 비활성 자동 로그아웃(1시간)에도 동일 즉시 정리 로직 적용 (3) 탭 복귀 시 getSession()에 1초 timeout race 적용 — hang 방지
+- **진단 결과**: Python 백엔드/GitHub Actions는 Service Role Key로 별도 접근, user_history는 system_name으로 행 분리 → 프로그램 간 간섭 없음 확인
+
 ### [버그픽스] 로그아웃 버튼 미동작 수정 (2026-03-23 11:09 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **원인**: `supabase.auth.signOut()`이 내부 lock으로 hang되어 `await`에서 무한 대기, UI 차단

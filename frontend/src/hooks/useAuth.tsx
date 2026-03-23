@@ -78,7 +78,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     inactivityTimerRef.current = setTimeout(() => {
       console.log("[Session] 비활성 시간 초과 → 자동 로그아웃")
-      supabase.auth.signOut()
+      // signOut과 동일한 즉시 정리 (stale closure 방지를 위해 인라인)
+      setSession(null)
+      setUser(null)
+      ExpireStorage.setAdmin(false)
+      const storageKey = `sb-${new URL(import.meta.env.VITE_SUPABASE_URL).hostname.split(".")[0]}-auth-token`
+      localStorage.removeItem(storageKey)
+      supabase.auth.signOut().catch(() => {})
     }, INACTIVITY_TIMEOUT_MS)
   }, [])
 
@@ -126,14 +132,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const handleVisibility = () => {
       if (document.visibilityState === "visible") {
-        // 탭 복귀 시 세션 재확인 (ExpireStorage가 만료 체크)
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        // 탭 복귀 시 세션 재확인 (1초 timeout race — hang 방지)
+        Promise.race([
+          supabase.auth.getSession(),
+          new Promise<{ data: { session: null } }>(r => setTimeout(() => r({ data: { session: null } }), 1000)),
+        ]).then(({ data: { session } }) => {
           if (!session) {
             console.log("[Session] 탭 복귀 시 세션 만료 감지 → 로그아웃")
             setSession(null)
             setUser(null)
           }
-        })
+        }).catch(() => {})
       }
     }
 
@@ -187,10 +196,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (user) {
       insertActivityLog(user.id, user.email ?? "", "logout")
     }
-    // 즉시 UI 반영 (signOut hang 방지)
+    // 즉시 UI 반영 + localStorage 세션 직접 삭제 (signOut hang 방지)
     setSession(null)
     setUser(null)
     ExpireStorage.setAdmin(false)
+    // Supabase 세션 키 직접 제거 (hang 시에도 새로고침 후 재로그인 방지)
+    const storageKey = `sb-${new URL(import.meta.env.VITE_SUPABASE_URL).hostname.split(".")[0]}-auth-token`
+    localStorage.removeItem(storageKey)
     // 서버 측 로그아웃은 비동기 (hang 시에도 UI 차단 안 함)
     supabase.auth.signOut().catch(() => {})
   }
