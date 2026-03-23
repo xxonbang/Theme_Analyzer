@@ -40,6 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     inactivityTimerRef.current = setTimeout(() => {
       setSession(null)
       setUser(null)
+      setAccessToken(null)
       ExpireStorage.setAdmin(false)
       localStorage.removeItem(STORAGE_KEY)
       supabase.auth.signOut().catch(() => {})
@@ -74,6 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (document.visibilityState === "visible" && !ExpireStorage.getItem(STORAGE_KEY)) {
         setSession(null)
         setUser(null)
+        setAccessToken(null)
       }
     }
     document.addEventListener("visibilitychange", handleVisibility)
