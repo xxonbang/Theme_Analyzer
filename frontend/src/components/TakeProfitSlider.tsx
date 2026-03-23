@@ -1,77 +1,137 @@
 import { cn } from "@/lib/utils"
 
+export interface TPSLValues {
+  tp: number | null  // 익절 % (null = off)
+  sl: number | null  // 손절 % (null = off, 음수 저장)
+}
+
 interface TakeProfitSliderProps {
-  value: number | null  // null = off
-  onChange: (value: number | null) => void
+  value: TPSLValues
+  onChange: (value: TPSLValues) => void
   label?: string
-  /** 익절 적용 후 시뮬레이션 수익률 */
   simulatedRate?: number
-  /** 원래 수익률 (비교용) */
   originalRate?: number
   compact?: boolean
 }
 
+function StepButton({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-5 h-5 flex items-center justify-center rounded text-[10px] font-bold bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors shrink-0"
+    >
+      {children}
+    </button>
+  )
+}
+
 export function TakeProfitSlider({ value, onChange, label, simulatedRate, originalRate, compact }: TakeProfitSliderProps) {
-  const isActive = value !== null
-  const displayValue = value ?? 5
+  const tpActive = value.tp !== null
+  const slActive = value.sl !== null
+  const tpVal = value.tp ?? 5
+  const slVal = value.sl ?? -3
   const hasChange = simulatedRate !== undefined && originalRate !== undefined && simulatedRate !== originalRate
 
+  const setTP = (tp: number | null) => onChange({ ...value, tp })
+  const setSL = (sl: number | null) => onChange({ ...value, sl })
+  const clampTP = (v: number) => Math.max(0.5, Math.min(30, Math.round(v * 2) / 2))
+  const clampSL = (v: number) => Math.max(-30, Math.min(-0.5, Math.round(v * 2) / 2))
+
   return (
-    <div className={cn(
-      "flex items-center gap-1.5",
-      compact ? "py-1" : "py-1.5",
-    )}>
-      {label && <span className="text-[10px] text-muted-foreground shrink-0 w-7">{label}</span>}
-      <button
-        onClick={() => onChange(isActive ? null : 5)}
-        className={cn(
-          "text-[10px] px-1.5 py-0.5 rounded border transition-colors shrink-0",
-          isActive
-            ? "bg-amber-500/15 border-amber-500/30 text-amber-600 dark:text-amber-400"
-            : "border-border text-muted-foreground hover:text-foreground"
+    <div className={cn("space-y-1", compact ? "py-1" : "py-1.5")}>
+      {/* 익절 라인 */}
+      <div className="flex items-center gap-1.5">
+        {label && <span className="text-[10px] text-muted-foreground shrink-0 w-7">{label}</span>}
+        <button
+          onClick={() => setTP(tpActive ? null : 5)}
+          className={cn(
+            "text-[10px] px-1.5 py-0.5 rounded border transition-colors shrink-0",
+            tpActive
+              ? "bg-red-500/10 border-red-500/25 text-red-500"
+              : "border-border text-muted-foreground hover:text-foreground"
+          )}
+        >
+          익절
+        </button>
+        {tpActive && (
+          <>
+            <StepButton onClick={() => setTP(clampTP(tpVal - 0.5))}>−</StepButton>
+            <input
+              type="range" min={0.5} max={30} step={0.5} value={tpVal}
+              onChange={(e) => setTP(Number(e.target.value))}
+              className="flex-1 h-1 accent-red-500 cursor-pointer min-w-0"
+            />
+            <StepButton onClick={() => setTP(clampTP(tpVal + 0.5))}>+</StepButton>
+            <span className="text-[11px] font-semibold text-red-500 tabular-nums shrink-0 w-10 text-right">
+              +{tpVal}%
+            </span>
+          </>
         )}
-      >
-        익절
-      </button>
-      {isActive && (
-        <>
-          <input
-            type="range"
-            min={0.5}
-            max={30}
-            step={0.5}
-            value={displayValue}
-            onChange={(e) => onChange(Number(e.target.value))}
-            className="flex-1 h-1 accent-amber-500 cursor-pointer min-w-0"
-          />
-          <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 tabular-nums shrink-0">
-            +{displayValue}%
-          </span>
-          {/* 시뮬레이션 결과: 변화 있으면 수익률, 변화 없으면 '=' */}
+        {/* 시뮬레이션 결과 (익절 행 우측에 표시) */}
+        {(tpActive || slActive) && (
           <span className={cn(
-            "text-[10px] tabular-nums shrink-0 ml-0.5",
+            "text-[10px] tabular-nums shrink-0 ml-auto",
             hasChange
               ? (simulatedRate! > originalRate! ? "text-red-500" : "text-blue-500")
               : "text-muted-foreground/50"
           )}>
             {hasChange
               ? `→${simulatedRate! >= 0 ? "+" : ""}${simulatedRate}%`
-              : "="}
+              : (tpActive || slActive) ? "=" : ""}
           </span>
-        </>
-      )}
+        )}
+      </div>
+
+      {/* 손절 라인 */}
+      <div className="flex items-center gap-1.5">
+        {label && <span className="text-[10px] shrink-0 w-7" />}
+        <button
+          onClick={() => setSL(slActive ? null : -3)}
+          className={cn(
+            "text-[10px] px-1.5 py-0.5 rounded border transition-colors shrink-0",
+            slActive
+              ? "bg-blue-500/10 border-blue-500/25 text-blue-500"
+              : "border-border text-muted-foreground hover:text-foreground"
+          )}
+        >
+          손절
+        </button>
+        {slActive && (
+          <>
+            <StepButton onClick={() => setSL(clampSL(slVal - 0.5))}>−</StepButton>
+            <input
+              type="range" min={-30} max={-0.5} step={0.5} value={slVal}
+              onChange={(e) => setSL(Number(e.target.value))}
+              className="flex-1 h-1 accent-blue-500 cursor-pointer min-w-0"
+            />
+            <StepButton onClick={() => setSL(clampSL(slVal + 0.5))}>+</StepButton>
+            <span className="text-[11px] font-semibold text-blue-500 tabular-nums shrink-0 w-10 text-right">
+              {slVal}%
+            </span>
+          </>
+        )}
+      </div>
     </div>
   )
 }
 
-/** 익절 라인 적용: 최고가 수익률이 라인 이상이면 라인에서 매도, 아니면 실제 수익률 유지 */
-export function applyTakeProfit(
+/** 익절+손절 적용:
+ * - 최고가 >= 익절라인 → 익절%에서 매도
+ * - 종가 <= 손절라인 → 손절%에서 매도 (최저가 기준이면 더 정확하지만, 종가 기준으로 간이 계산)
+ * - 둘 다 해당 → 익절 우선 (장중 익절이 먼저 발동한 것으로 가정)
+ */
+export function applyTPSL(
   profitRate: number,
   highProfitRate: number | undefined,
-  takeProfitPct: number | null,
+  tpsl: TPSLValues,
 ): number {
-  if (takeProfitPct === null) return profitRate
-  const maxRate = highProfitRate ?? profitRate
-  if (maxRate >= takeProfitPct) return takeProfitPct
+  const { tp, sl } = tpsl
+  // 익절 체크: 최고가 수익률이 익절라인 이상이면 익절
+  if (tp !== null) {
+    const maxRate = highProfitRate ?? profitRate
+    if (maxRate >= tp) return tp
+  }
+  // 손절 체크: 종가 수익률이 손절라인 이하이면 손절
+  if (sl !== null && profitRate <= sl) return sl
   return profitRate
 }

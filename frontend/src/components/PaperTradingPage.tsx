@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { PaperTradingStockCard } from "@/components/PaperTradingStockCard"
 import { PaperTradingSummary } from "@/components/PaperTradingSummary"
 import { PaperTradingDateSelector } from "@/components/PaperTradingDateSelector"
-import { TakeProfitSlider, applyTakeProfit } from "@/components/TakeProfitSlider"
+import { TakeProfitSlider, applyTPSL, type TPSLValues } from "@/components/TakeProfitSlider"
 import { usePaperTradingData, calcEqualWeightSummary, calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { cn } from "@/lib/utils"
@@ -37,17 +37,21 @@ export function PaperTradingPage() {
   const [activeTab, setActiveTab] = useState<PaperTradingMode>("close")
   const [investMode, setInvestMode] = useState<InvestMode>("equal")
 
-  // 익절 시뮬레이션 state
-  const [globalTP, setGlobalTP] = useState<number | null>(null)
-  const [dateTP, setDateTP] = useState<Record<string, number | null>>({})
-  const [stockTP, setStockTP] = useState<Record<string, number | null>>({})
+  // 익절/손절 시뮬레이션 state
+  const TPSL_OFF: TPSLValues = { tp: null, sl: null }
+  const [globalTPSL, setGlobalTPSL] = useState<TPSLValues>(TPSL_OFF)
+  const [dateTPSL, setDateTPSL] = useState<Record<string, TPSLValues>>({})
+  const [stockTPSL, setStockTPSL] = useState<Record<string, TPSLValues>>({})
 
-  /** 종목의 실효 익절 라인 (종목별 > 날짜별 > 글로벌) */
-  const getEffectiveTP = (date: string, code: string): number | null => {
+  /** 종목의 실효 TPSL (종목별 > 날짜별 > 글로벌) */
+  const getEffectiveTPSL = (date: string, code: string): TPSLValues => {
     const sk = `${date}:${code}`
-    if (stockTP[sk] !== undefined) return stockTP[sk]
-    if (dateTP[date] !== undefined) return dateTP[date]
-    return globalTP
+    const stock = stockTPSL[sk]
+    const day = dateTPSL[date]
+    return {
+      tp: stock?.tp ?? day?.tp ?? globalTPSL.tp,
+      sl: stock?.sl ?? day?.sl ?? globalTPSL.sl,
+    }
   }
 
 
@@ -95,12 +99,12 @@ export function PaperTradingPage() {
     ? calcEqualWeightSummary(activeStocks, selectedDates.size)
     : summary
 
-  // 글로벌 익절 시뮬레이션 수익률
+  // 글로벌 TPSL 시뮬레이션 수익률
   const globalSimRate = (() => {
-    if (globalTP === null) return null
+    if (globalTPSL.tp === null && globalTPSL.sl === null) return null
     const stocks = activeStocks
     if (stocks.length === 0) return null
-    const totalRate = stocks.reduce((sum, s) => sum + applyTakeProfit(s.profit_rate, s.high_profit_rate, globalTP), 0)
+    const totalRate = stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, globalTPSL), 0)
     return Math.round(totalRate / stocks.length * 100) / 100
   })()
 
@@ -229,8 +233,8 @@ export function PaperTradingPage() {
       {selectedDailyData.length > 0 && (
         <PaperTradingSummary summary={displaySummary} mode={activeTab}>
           <TakeProfitSlider
-            value={globalTP}
-            onChange={setGlobalTP}
+            value={globalTPSL}
+            onChange={setGlobalTPSL}
             label="전체"
             simulatedRate={globalSimRate ?? undefined}
             originalRate={activeTab === "high" ? displaySummary.highTotalProfitRate : displaySummary.totalProfitRate}
@@ -271,9 +275,12 @@ export function PaperTradingPage() {
         const snapshots = rawData?.price_snapshots
         const currentSnapIdx = selectedSnapshotIndex.get(date) ?? 0
         // 날짜별 익절 시뮬레이션
-        const dayEffTP = dateTP[date] !== undefined ? dateTP[date] : globalTP
-        const daySimRate = dayEffTP !== null && activeStocksForDay.length > 0
-          ? Math.round(activeStocksForDay.reduce((sum, s) => sum + applyTakeProfit(s.profit_rate, s.high_profit_rate, dayEffTP), 0) / activeStocksForDay.length * 100) / 100
+        const dayEffTPSL: TPSLValues = {
+          tp: dateTPSL[date]?.tp ?? globalTPSL.tp,
+          sl: dateTPSL[date]?.sl ?? globalTPSL.sl,
+        }
+        const daySimRate = (dayEffTPSL.tp !== null || dayEffTPSL.sl !== null) && activeStocksForDay.length > 0
+          ? Math.round(activeStocksForDay.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, dayEffTPSL), 0) / activeStocksForDay.length * 100) / 100
           : null
         return (
           <Card key={date} className="overflow-hidden shadow-sm">
@@ -351,8 +358,8 @@ export function PaperTradingPage() {
                 <>
                   {/* 날짜별 익절 슬라이더 */}
                   <TakeProfitSlider
-                    value={dateTP[date] ?? null}
-                    onChange={(v) => setDateTP(prev => ({ ...prev, [date]: v }))}
+                    value={dateTPSL[date] ?? TPSL_OFF}
+                    onChange={(v) => setDateTPSL(prev => ({ ...prev, [date]: v }))}
                     label="날짜"
                     simulatedRate={daySimRate ?? undefined}
                     originalRate={dayProfitRate}
@@ -373,8 +380,8 @@ export function PaperTradingPage() {
                         morningTimestamp={data.morning_timestamp}
                         mode={activeTab}
                         investMode={investMode}
-                        takeProfitPct={getEffectiveTP(date, stock.code)}
-                        onTakeProfitChange={(v) => setStockTP(prev => ({ ...prev, [`${date}:${stock.code}`]: v }))}
+                        tpsl={getEffectiveTPSL(date, stock.code)}
+                        onTPSLChange={(v) => setStockTPSL(prev => ({ ...prev, [`${date}:${stock.code}`]: v }))}
                       />
                     ))}
                   </div>

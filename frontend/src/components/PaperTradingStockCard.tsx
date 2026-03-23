@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ExternalLink, X, Plus, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { TakeProfitSlider, applyTakeProfit } from "@/components/TakeProfitSlider"
+import { TakeProfitSlider, applyTPSL, type TPSLValues } from "@/components/TakeProfitSlider"
 import type { PaperTradingStock, PaperTradingMode, InvestMode } from "@/types/stock"
 import { EQUAL_INVEST_AMOUNT } from "@/hooks/usePaperTradingData"
 
@@ -13,16 +13,16 @@ interface PaperTradingStockCardProps {
   morningTimestamp?: string
   mode: PaperTradingMode
   investMode: InvestMode
-  takeProfitPct?: number | null
-  onTakeProfitChange?: (value: number | null) => void
+  tpsl?: TPSLValues
+  onTPSLChange?: (value: TPSLValues) => void
 }
 
-export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode, takeProfitPct, onTakeProfitChange }: PaperTradingStockCardProps) {
+export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode, tpsl, onTPSLChange }: PaperTradingStockCardProps) {
   const [expanded, setExpanded] = useState(false)
 
   const rawDisplayRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
-  const displayProfitRate = takeProfitPct != null
-    ? applyTakeProfit(stock.profit_rate, stock.high_profit_rate, takeProfitPct)
+  const displayProfitRate = tpsl && (tpsl.tp !== null || tpsl.sl !== null)
+    ? applyTPSL(stock.profit_rate, stock.high_profit_rate, tpsl)
     : rawDisplayRate
   const rawProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
   const displayProfitAmount = investMode === "equal"
@@ -134,12 +134,12 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
         </button>
       </div>
 
-      {/* 종목별 익절 슬라이더 */}
-      {!isExcluded && onTakeProfitChange && (
+      {/* 종목별 익절/손절 슬라이더 */}
+      {!isExcluded && onTPSLChange && tpsl && (
         <TakeProfitSlider
-          value={takeProfitPct ?? null}
-          onChange={onTakeProfitChange}
-          simulatedRate={takeProfitPct != null ? applyTakeProfit(stock.profit_rate, stock.high_profit_rate, takeProfitPct) : undefined}
+          value={tpsl}
+          onChange={onTPSLChange}
+          simulatedRate={(tpsl.tp !== null || tpsl.sl !== null) ? applyTPSL(stock.profit_rate, stock.high_profit_rate, tpsl) : undefined}
           originalRate={rawDisplayRate}
           compact
         />
