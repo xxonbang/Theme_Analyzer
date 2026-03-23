@@ -106,6 +106,8 @@ export function TakeProfitSlider({ value, onChange, label, simulatedRate, origin
             <span className="text-[11px] font-semibold text-blue-500 tabular-nums shrink-0 w-12 text-right">
               {slVal}%
             </span>
+            {/* 익절 행의 시뮬레이션 결과 영역과 폭 맞춤 */}
+            <span className="shrink-0 w-16" />
           </>
         )}
       </div>
