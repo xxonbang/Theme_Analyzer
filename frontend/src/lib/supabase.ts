@@ -23,7 +23,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     // (SDK가 publishable key를 Authorization에 넣는 문제 우회)
     fetch: (url, options = {}) => {
       const urlStr = typeof url === "string" ? url : url instanceof Request ? url.url : ""
-      if (urlStr.includes("/rest/v1/") || urlStr.includes("/functions/v1/")) {
+      if (urlStr.includes("/rest/v1/")) {
         try {
           const stored = ExpireStorage.getItem(STORAGE_KEY)
           if (stored) {
