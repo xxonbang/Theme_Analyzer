@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 로그인 실패 근본 수정 — onAuthStateChange에서 DB 호출 완전 분리 (2026-03-23 12:15 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **원인**: SIGNED_IN 콜백 안에서 즉시 PostgREST 호출 시, SDK 내부 Authorization 헤더가 아직 publishable key → user JWT로 갱신되지 않아 401 발생. 이 401이 SDK 내부 상태를 오염시켜 SIGNED_OUT 유발
+- **수정**: onAuthStateChange 콜백은 순수 상태 관리만 수행. DB 로깅(recordUserHistory, insertActivityLog)은 user 상태 확정 후 별도 useEffect에서 1초 지연 실행
+
 ### [버그픽스] 로그인 상태 해제 방지 — setUser(null) 전수 검사 및 방어 강화 (2026-03-23 11:56 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **원인**: (1) INITIAL_SESSION(null) 지연 도착 (2) 탭 복귀 시 getSession() 1초 race가 유효 세션도 null 반환 (3) USER_UPDATED 등 예상치 못한 이벤트가 null session 전달

@@ -147,56 +147,52 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, isAdmin])
 
   useEffect(() => {
-    // SIGNED_IN 이후 도착하는 INITIAL_SESSION(null)이 상태를 덮어쓰는 것을 방지
     const authed = { current: false }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      // === 핵심 보호: 로그인 상태에서 user를 null로 만드는 유일한 경로는 SIGNED_OUT뿐 ===
+      // 상태 관리만 수행 — DB 호출은 별도 useEffect에서 처리
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         authed.current = true
       }
-
       if (event === "SIGNED_OUT") {
         authed.current = false
         setSession(null)
         setUser(null)
         ExpireStorage.setAdmin(false)
+        setLoading(false)
         return
       }
-
-      // 이미 인증된 상태에서 null session 이벤트 도착 시 무시 (INITIAL_SESSION 지연, USER_UPDATED 등)
+      // 인증 상태에서 null session 이벤트 무시
       if (authed.current && !session?.user) {
         setLoading(false)
         return
       }
-
-      // 세션이 있는 이벤트만 상태 갱신
       if (session?.user) {
         setSession(session)
         setUser(session.user)
       }
-
-      if (event === "INITIAL_SESSION") {
-        if (session?.user) recordUserHistory(session.user)
-        setLoading(false)
-      }
-      if (event === "SIGNED_IN" && session?.user) {
-        setLoading(false)
-        setTimeout(() => {
-          recordUserHistory(session.user)
-          insertActivityLog(session.user.id, session.user.email ?? "", "login")
-        }, 500)
-      }
+      setLoading(false)
     })
 
-    // Fallback: 초기화 2초 내 미완료 시 로딩 해제
     const timeout = setTimeout(() => setLoading(false), 2000)
-
-    return () => {
-      subscription.unsubscribe()
-      clearTimeout(timeout)
-    }
+    return () => { subscription.unsubscribe(); clearTimeout(timeout) }
   }, [])
+
+  // DB 로깅 — auth 상태 확정 후 별도 실행 (onAuthStateChange 밖에서 SDK 헤더 갱신 보장)
+  const loginLoggedRef = useRef(false)
+  useEffect(() => {
+    if (!user) {
+      loginLoggedRef.current = false
+      return
+    }
+    if (loginLoggedRef.current) return
+    loginLoggedRef.current = true
+    const timer = setTimeout(() => {
+      recordUserHistory(user)
+      insertActivityLog(user.id, user.email ?? "", "login")
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [user])
 
   const signUp = async (email: string, password: string): Promise<{ error: string | null }> => {
     const { error } = await supabase.auth.signUp({ email, password })
