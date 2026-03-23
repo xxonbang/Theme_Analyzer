@@ -397,6 +397,20 @@ def main():
         "futures": esignal_futures if esignal_futures else None,
     }
 
+    # 기존 데이터에서 수집 실패한 지표 보존
+    if OUTPUT_PATH.exists():
+        try:
+            with open(OUTPUT_PATH, encoding="utf-8") as f:
+                existing = json.load(f)
+            new_symbols = {i["symbol"] for i in indicators}
+            for old in existing.get("indicators", []):
+                if old["symbol"] not in new_symbols:
+                    indicators.append(old)
+                    print(f"  [보존] {old['symbol']} (신규 수집 실패 → 기존값 유지)")
+            output["indicators"] = indicators
+        except Exception:
+            pass
+
     if test_mode:
         print(json.dumps(output, ensure_ascii=False, indent=2))
         print("  [테스트] 파일 저장하지 않음")
