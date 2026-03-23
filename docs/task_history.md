@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 로그인 상태 해제 방지 — setUser(null) 전수 검사 및 방어 강화 (2026-03-23 11:56 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **원인**: (1) INITIAL_SESSION(null) 지연 도착 (2) 탭 복귀 시 getSession() 1초 race가 유효 세션도 null 반환 (3) USER_UPDATED 등 예상치 못한 이벤트가 null session 전달
+- **수정**: setUser(null) 호출 경로를 SIGNED_OUT/명시적 로그아웃만으로 제한. onAuthStateChange에서 authed 상태이면 null session 이벤트 일괄 무시. 탭 복귀는 ExpireStorage 직접 체크로 변경(네트워크/hang 의존 제거). 9개 시나리오 전수 검증 완료
+
 ### [버그픽스] 로그인 후 즉시 로그아웃되는 근본 원인 수정 (2026-03-23 11:54 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **원인**: Supabase 클라이언트 `_initialize()`가 지연되어 `INITIAL_SESSION(null)` 이벤트가 `SIGNED_IN` 이후에 도착 → `setUser(null)` 호출로 로그인 상태 즉시 해제. `getSession()` 1초 race timeout도 동일 문제 유발

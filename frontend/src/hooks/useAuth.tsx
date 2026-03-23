@@ -126,23 +126,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [isAdmin, user, resetInactivityTimer])
 
-  // 탭 복귀 시 세션 유효성 확인
+  // 탭 복귀 시 세션 유효성 확인 (ExpireStorage 만료만 체크 — 네트워크 의존 없음)
   useEffect(() => {
     if (!user || isAdmin) return
 
     const handleVisibility = () => {
       if (document.visibilityState === "visible") {
-        // 탭 복귀 시 세션 재확인 (1초 timeout race — hang 방지)
-        Promise.race([
-          supabase.auth.getSession(),
-          new Promise<{ data: { session: null } }>(r => setTimeout(() => r({ data: { session: null } }), 1000)),
-        ]).then(({ data: { session } }) => {
-          if (!session) {
-            console.log("[Session] 탭 복귀 시 세션 만료 감지 → 로그아웃")
-            setSession(null)
-            setUser(null)
-          }
-        }).catch(() => {})
+        const storageKey = `sb-${new URL(import.meta.env.VITE_SUPABASE_URL).hostname.split(".")[0]}-auth-token`
+        const stored = ExpireStorage.getItem(storageKey)
+        if (!stored) {
+          console.log("[Session] 탭 복귀 시 세션 만료 감지 → 로그아웃")
+          setSession(null)
+          setUser(null)
+        }
       }
     }
 
@@ -155,21 +151,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const authed = { current: false }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      // === 핵심 보호: 로그인 상태에서 user를 null로 만드는 유일한 경로는 SIGNED_OUT뿐 ===
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         authed.current = true
       }
+
       if (event === "SIGNED_OUT") {
         authed.current = false
+        setSession(null)
+        setUser(null)
+        ExpireStorage.setAdmin(false)
+        return
       }
 
-      // INITIAL_SESSION이 SIGNED_IN 이후 도착 시 — 로그인 상태 보호
-      if (event === "INITIAL_SESSION" && authed.current) {
+      // 이미 인증된 상태에서 null session 이벤트 도착 시 무시 (INITIAL_SESSION 지연, USER_UPDATED 등)
+      if (authed.current && !session?.user) {
         setLoading(false)
         return
       }
 
-      setSession(session)
-      setUser(session?.user ?? null)
+      // 세션이 있는 이벤트만 상태 갱신
+      if (session?.user) {
+        setSession(session)
+        setUser(session.user)
+      }
 
       if (event === "INITIAL_SESSION") {
         if (session?.user) recordUserHistory(session.user)
@@ -177,14 +182,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       if (event === "SIGNED_IN" && session?.user) {
         setLoading(false)
-        // 세션 전파 후 DB 호출 (401 방지)
         setTimeout(() => {
           recordUserHistory(session.user)
           insertActivityLog(session.user.id, session.user.email ?? "", "login")
         }, 500)
-      }
-      if (event === "SIGNED_OUT") {
-        ExpireStorage.setAdmin(false)
       }
     })
 
