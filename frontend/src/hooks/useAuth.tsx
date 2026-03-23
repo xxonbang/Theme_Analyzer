@@ -142,33 +142,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, isAdmin])
 
   useEffect(() => {
-    // onAuthStateChange가 INITIAL_SESSION 이벤트로 현재 세션을 전달 (getSession() 대체)
+    // 세션 확인 (1초 timeout race — 클라이언트 초기화 지연 방지)
+    Promise.race([
+      supabase.auth.getSession(),
+      new Promise<{ data: { session: null } }>(r => setTimeout(() => r({ data: { session: null } }), 1000)),
+    ])
+      .then(({ data: { session } }) => {
+        setSession(session)
+        setUser(session?.user ?? null)
+        if (session?.user) recordUserHistory(session.user)
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+
+    // 인증 상태 변경 구독
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
-
-      if (event === "INITIAL_SESSION") {
-        if (session?.user) recordUserHistory(session.user)
-        setLoading(false)
-      }
       if (event === "SIGNED_IN" && session?.user) {
         recordUserHistory(session.user)
         insertActivityLog(session.user.id, session.user.email ?? "", "login")
-        setLoading(false)
       }
       if (event === "SIGNED_OUT") {
         ExpireStorage.setAdmin(false)
-        setLoading(false)
       }
     })
 
-    // fallback: INITIAL_SESSION이 5초 내에 오지 않으면 강제로 로딩 해제
-    const timeout = setTimeout(() => setLoading(false), 5000)
-
-    return () => {
-      subscription.unsubscribe()
-      clearTimeout(timeout)
-    }
+    return () => subscription.unsubscribe()
   }, [])
 
   const signUp = async (email: string, password: string): Promise<{ error: string | null }> => {

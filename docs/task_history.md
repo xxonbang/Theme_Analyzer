@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [개선] 초기 로딩 지연 해소 및 헤더 클릭 로그인 화면 전환 오류 수정 (2026-03-23 11:05 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`, `frontend/src/components/Header.tsx`
+- **원인**: (1) Supabase 클라이언트 초기화 지연으로 INITIAL_SESSION 이벤트가 3~5초 후에 발생 (2) 홈에서 사이트명 클릭 시 `window.location.reload()`로 전체 페이지 리로드 → auth 재초기화 → 로딩 화면 노출
+- **내용**: (1) `getSession()` + 1초 timeout race 방식으로 변경, `.catch()`/`.finally()` 추가로 hang 방지 (2) `window.location.reload()` → `onRefresh?.()` 데이터만 새로고침
+
 ### [버그픽스] 강제 새로고침 시 무한 로딩 및 로그아웃 미동작 수정 (2026-03-23 10:23 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **원인**: `getSession()`이 내부 lock으로 hang되면 `setLoading(false)`가 호출되지 않아 무한 로딩. `.catch()` 미설정으로 에러 시에도 동일 증상
