@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 로그아웃 버튼 미동작 수정 (2026-03-23 11:09 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **원인**: `supabase.auth.signOut()`이 내부 lock으로 hang되어 `await`에서 무한 대기, UI 차단
+- **내용**: 로컬 상태(session/user) 즉시 초기화 후 서버 측 signOut은 비동기(non-blocking) 처리
+
 ### [개선] 초기 로딩 지연 해소 및 헤더 클릭 로그인 화면 전환 오류 수정 (2026-03-23 11:05 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`, `frontend/src/components/Header.tsx`
 - **원인**: (1) Supabase 클라이언트 초기화 지연으로 INITIAL_SESSION 이벤트가 3~5초 후에 발생 (2) 홈에서 사이트명 클릭 시 `window.location.reload()`로 전체 페이지 리로드 → auth 재초기화 → 로딩 화면 노출

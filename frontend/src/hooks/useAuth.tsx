@@ -187,7 +187,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (user) {
       insertActivityLog(user.id, user.email ?? "", "logout")
     }
-    await supabase.auth.signOut()
+    // 즉시 UI 반영 (signOut hang 방지)
+    setSession(null)
+    setUser(null)
+    ExpireStorage.setAdmin(false)
+    // 서버 측 로그아웃은 비동기 (hang 시에도 UI 차단 안 함)
+    supabase.auth.signOut().catch(() => {})
   }
 
   const recordVisit = useCallback(() => {
