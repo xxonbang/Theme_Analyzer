@@ -13,5 +13,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     storage: ExpireStorage,
     autoRefreshToken: true,
     persistSession: true,
+    // navigator.locks 비활성화 — 강제 새로고침 시 이전 lock 미해제로 모든 auth 메서드 hang 방지
+    lock: async <R>(_name: string, _acquireTimeout: number, fn: () => Promise<R>): Promise<R> => await fn(),
   },
 })
