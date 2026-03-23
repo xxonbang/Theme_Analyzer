@@ -6,6 +6,10 @@
 
 ## 2026-03-23
 
+### [기능] 모의투자 익절 시뮬레이션 슬라이더 (2026-03-23 16:02 KST)
+- **변경 파일**: `frontend/src/components/TakeProfitSlider.tsx`(신규), `PaperTradingPage.tsx`, `PaperTradingStockCard.tsx`
+- **내용**: 3단계 익절 라인 시뮬레이션 — 글로벌(전체 기간), 날짜별, 종목별 슬라이더. 0.5~30% 범위. 최고가 수익률이 익절 라인 이상이면 해당 %에서 매도한 것으로 계산, 미도달 시 실제 수익률 유지. 우선순위: 종목별 > 날짜별 > 글로벌
+
 ### [버그픽스] 강제 새로고침 시 세션 유지 — localStorage 직접 복원 (2026-03-23 14:13 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **원인**: SDK `_initialize()`가 `navigator.locks`에 걸려 `INITIAL_SESSION` 미발생 → 2초 fallback으로 로그인 페이지 표시

@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { PaperTradingStockCard } from "@/components/PaperTradingStockCard"
 import { PaperTradingSummary } from "@/components/PaperTradingSummary"
 import { PaperTradingDateSelector } from "@/components/PaperTradingDateSelector"
+import { TakeProfitSlider, applyTakeProfit } from "@/components/TakeProfitSlider"
 import { usePaperTradingData, calcEqualWeightSummary, calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { cn } from "@/lib/utils"
@@ -35,6 +36,20 @@ export function PaperTradingPage() {
   const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState<PaperTradingMode>("close")
   const [investMode, setInvestMode] = useState<InvestMode>("equal")
+
+  // 익절 시뮬레이션 state
+  const [globalTP, setGlobalTP] = useState<number | null>(null)
+  const [dateTP, setDateTP] = useState<Record<string, number | null>>({})
+  const [stockTP, setStockTP] = useState<Record<string, number | null>>({})
+
+  /** 종목의 실효 익절 라인 (종목별 > 날짜별 > 글로벌) */
+  const getEffectiveTP = (date: string, code: string): number | null => {
+    const sk = `${date}:${code}`
+    if (stockTP[sk] !== undefined) return stockTP[sk]
+    if (dateTP[date] !== undefined) return dateTP[date]
+    return globalTP
+  }
+
 
   const handleModeChange = (mode: PaperTradingMode) => {
     setActiveTab(mode)
@@ -79,6 +94,15 @@ export function PaperTradingPage() {
   const displaySummary = investMode === "equal"
     ? calcEqualWeightSummary(activeStocks, selectedDates.size)
     : summary
+
+  // 글로벌 익절 시뮬레이션 수익률
+  const globalSimRate = (() => {
+    if (globalTP === null) return null
+    const stocks = activeStocks
+    if (stocks.length === 0) return null
+    const totalRate = stocks.reduce((sum, s) => sum + applyTakeProfit(s.profit_rate, s.high_profit_rate, globalTP), 0)
+    return Math.round(totalRate / stocks.length * 100) / 100
+  })()
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -201,9 +225,20 @@ export function PaperTradingPage() {
         )
       })()}
 
-      {/* 종합 요약 */}
+      {/* 종합 요약 + 글로벌 익절 슬라이더 */}
       {selectedDailyData.length > 0 && (
-        <PaperTradingSummary summary={displaySummary} mode={activeTab} />
+        <div>
+          <PaperTradingSummary summary={displaySummary} mode={activeTab} />
+          <div className="mt-1 px-3 pb-2">
+            <TakeProfitSlider
+              value={globalTP}
+              onChange={setGlobalTP}
+              label="전체"
+              simulatedRate={globalSimRate ?? undefined}
+              originalRate={activeTab === "high" ? displaySummary.highTotalProfitRate : displaySummary.totalProfitRate}
+            />
+          </div>
+        </div>
       )}
 
       {/* 날짜 선택 */}
@@ -238,6 +273,11 @@ export function PaperTradingPage() {
         const rawData = dailyData.get(date)
         const snapshots = rawData?.price_snapshots
         const currentSnapIdx = selectedSnapshotIndex.get(date) ?? 0
+        // 날짜별 익절 시뮬레이션
+        const dayEffTP = dateTP[date] !== undefined ? dateTP[date] : globalTP
+        const daySimRate = dayEffTP !== null && activeStocksForDay.length > 0
+          ? Math.round(activeStocksForDay.reduce((sum, s) => sum + applyTakeProfit(s.profit_rate, s.high_profit_rate, dayEffTP), 0) / activeStocksForDay.length * 100) / 100
+          : null
         return (
           <Card key={date} className="overflow-hidden shadow-sm">
             <CardContent className="p-3 sm:p-4 space-y-3">
@@ -312,6 +352,16 @@ export function PaperTradingPage() {
 
               {!collapsed && (
                 <>
+                  {/* 날짜별 익절 슬라이더 */}
+                  <TakeProfitSlider
+                    value={dateTP[date] ?? null}
+                    onChange={(v) => setDateTP(prev => ({ ...prev, [date]: v }))}
+                    label="날짜"
+                    simulatedRate={daySimRate ?? undefined}
+                    originalRate={dayProfitRate}
+                    compact
+                  />
+
                   <hr className="border-border/50" />
 
                   {/* 종목 카드 그리드 */}
@@ -326,6 +376,8 @@ export function PaperTradingPage() {
                         morningTimestamp={data.morning_timestamp}
                         mode={activeTab}
                         investMode={investMode}
+                        takeProfitPct={getEffectiveTP(date, stock.code)}
+                        onTakeProfitChange={(v) => setStockTP(prev => ({ ...prev, [`${date}:${stock.code}`]: v }))}
                       />
                     ))}
                   </div>

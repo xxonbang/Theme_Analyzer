@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { ExternalLink, X, Plus, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { TakeProfitSlider, applyTakeProfit } from "@/components/TakeProfitSlider"
 import type { PaperTradingStock, PaperTradingMode, InvestMode } from "@/types/stock"
 import { EQUAL_INVEST_AMOUNT } from "@/hooks/usePaperTradingData"
 
@@ -12,12 +13,17 @@ interface PaperTradingStockCardProps {
   morningTimestamp?: string
   mode: PaperTradingMode
   investMode: InvestMode
+  takeProfitPct?: number | null
+  onTakeProfitChange?: (value: number | null) => void
 }
 
-export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode }: PaperTradingStockCardProps) {
+export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode, takeProfitPct, onTakeProfitChange }: PaperTradingStockCardProps) {
   const [expanded, setExpanded] = useState(false)
 
-  const displayProfitRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
+  const rawDisplayRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
+  const displayProfitRate = takeProfitPct != null
+    ? applyTakeProfit(stock.profit_rate, stock.high_profit_rate, takeProfitPct)
+    : rawDisplayRate
   const rawProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
   const displayProfitAmount = investMode === "equal"
     ? Math.round(EQUAL_INVEST_AMOUNT * displayProfitRate / 100)
@@ -127,6 +133,17 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
           {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
       </div>
+
+      {/* 종목별 익절 슬라이더 */}
+      {!isExcluded && onTakeProfitChange && (
+        <TakeProfitSlider
+          value={takeProfitPct ?? null}
+          onChange={onTakeProfitChange}
+          simulatedRate={takeProfitPct != null ? applyTakeProfit(stock.profit_rate, stock.high_profit_rate, takeProfitPct) : undefined}
+          originalRate={rawDisplayRate}
+          compact
+        />
+      )}
 
       {/* 상세 정보 (확장) */}
       {expanded && (
