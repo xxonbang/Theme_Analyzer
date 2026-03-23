@@ -44,7 +44,7 @@ def merge_investor():
     # investor_data: 원격이 더 최신이면 사용
     ru = remote.get("investor_updated_at", "")
     lu = data.get("investor_updated_at", "")
-    if ru and ru > lu:
+    if ru and ru >= lu:
         for key in ["investor_data", "investor_estimated", "investor_updated_at"]:
             if key in remote:
                 data[key] = remote[key]
@@ -65,7 +65,7 @@ def merge_main():
 
     rt = remote.get("timestamp", "")
     lt = data.get("timestamp", "")
-    if rt and rt > lt:
+    if rt and rt >= lt:
         for key in MAIN_KEYS:
             if key in remote:
                 data[key] = remote[key]
