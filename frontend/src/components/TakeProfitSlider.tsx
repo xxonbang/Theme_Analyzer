@@ -69,7 +69,7 @@ export function TakeProfitSlider({ value, onChange, label, simulatedRate, origin
             <span className={cn(
               "text-[10px] tabular-nums shrink-0 w-16 text-right",
               hasChange
-                ? (simulatedRate! > originalRate! ? "text-red-500" : "text-blue-500")
+                ? (simulatedRate! > 0 ? "text-red-500" : simulatedRate! < 0 ? "text-blue-500" : "text-muted-foreground")
                 : "text-muted-foreground/50"
             )}>
               {hasChange
