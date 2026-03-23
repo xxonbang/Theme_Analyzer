@@ -659,7 +659,8 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
   if (!data?.indicators?.length) return null
 
-  const summaryItems = data.indicators.filter((i) => SUMMARY_SYMBOLS.includes(i.symbol))
+  const indicatorMap = new Map(data.indicators.map((i) => [i.symbol, i]))
+  const summaryItems = SUMMARY_SYMBOLS.map((sym) => indicatorMap.get(sym) ?? { symbol: sym, name: SHORT_NAMES[sym] || sym, price: 0, change: 0, change_pct: 0, source: "missing" })
 
   const handleHistoryClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -712,23 +713,27 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
         {!expanded && (
           <div className="flex gap-px bg-border/30 rounded-md overflow-hidden mt-1">
             {summaryItems.map((item) => {
+              const isMissing = item.source === "missing"
               const isUp = item.change_pct > 0
               const isDown = item.change_pct < 0
               const name = SHORT_NAMES[item.symbol] || item.name
               const isFng = item.symbol === "FNG"
               const isVix = item.symbol === "^VIX"
-              const bg = isFng
-                ? (item.price >= 75 ? "bg-rose-100 dark:bg-red-500/8" : item.price >= 50 ? "bg-orange-50 dark:bg-orange-500/8" : item.price >= 25 ? "bg-amber-50 dark:bg-amber-500/8" : "bg-sky-100 dark:bg-blue-500/8")
-                : isVix
-                  ? (isUp ? "bg-amber-50 dark:bg-amber-500/8" : isDown ? "bg-emerald-50 dark:bg-emerald-500/8" : "bg-muted/50")
-                  : (isUp ? "bg-rose-100 dark:bg-red-500/8" : isDown ? "bg-sky-100 dark:bg-blue-500/8" : "bg-muted/50")
+              const bg = isMissing ? "bg-muted/30"
+                : isFng
+                  ? (item.price >= 75 ? "bg-rose-100 dark:bg-red-500/8" : item.price >= 50 ? "bg-orange-50 dark:bg-orange-500/8" : item.price >= 25 ? "bg-amber-50 dark:bg-amber-500/8" : "bg-sky-100 dark:bg-blue-500/8")
+                  : isVix
+                    ? (isUp ? "bg-amber-50 dark:bg-amber-500/8" : isDown ? "bg-emerald-50 dark:bg-emerald-500/8" : "bg-muted/50")
+                    : (isUp ? "bg-rose-100 dark:bg-red-500/8" : isDown ? "bg-sky-100 dark:bg-blue-500/8" : "bg-muted/50")
               return (
                 <div
                   key={item.symbol}
                   className={`flex-1 flex flex-col items-center py-1 ${bg}`}
                 >
                   <span className="text-[9px] text-foreground/65 font-medium leading-none">{name}</span>
-                  {isFng ? (
+                  {isMissing ? (
+                    <span className="text-[11px] tabular-nums font-bold leading-tight text-muted-foreground/30">-</span>
+                  ) : isFng ? (
                     <span className={`text-[11px] tabular-nums font-bold leading-tight ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
                       {item.price.toFixed(0)}
                     </span>
