@@ -176,22 +176,25 @@ def get_stock_prices(client: KISClient, code: str) -> Optional[dict]:
         today = items[0]
         close_price = int(today.get("stck_clpr", "0"))
         high_price = int(today.get("stck_hgpr", "0"))
+        low_price = int(today.get("stck_lwpr", "0"))
         if close_price == 0:
             return None
         return {
             "close_price": close_price,
             "high_price": high_price if high_price else close_price,
+            "low_price": low_price if low_price else close_price,
         }
     except Exception as e:
         print(f"  [오류] {code} 가격 조회 실패: {e}")
         return None
 
 
-def find_high_price_time(client: KISClient, code: str, high_price: int) -> Optional[str]:
-    """분봉 데이터에서 최고가 달성 시간 찾기"""
+def find_high_low_time(client: KISClient, code: str, high_price: int, low_price: int) -> dict:
+    """분봉 데이터에서 최고가/최저가 달성 시간 동시 탐색"""
     path = "/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice"
     tr_id = "FHKST03010200"
     cursor = "153000"
+    result_times: dict = {"high_time": None, "low_time": None}
 
     for _ in range(15):
         params = {
@@ -202,47 +205,53 @@ def find_high_price_time(client: KISClient, code: str, high_price: int) -> Optio
             "FID_PW_DATA_INCU_YN": "N",
         }
         try:
-            result = client.request("GET", path, tr_id, params=params)
-            items = result.get("output2", [])
+            resp = client.request("GET", path, tr_id, params=params)
+            items = resp.get("output2", [])
             if not items:
                 break
             for item in items:
+                t = item.get("stck_cntg_hour", "")
+                if not t:
+                    continue
+                fmt = f"{t[:2]}:{t[2:4]}"
                 candle_high = int(item.get("stck_hgpr", "0"))
-                if candle_high >= high_price:
-                    t = item.get("stck_cntg_hour", "")
-                    if t:
-                        return f"{t[:2]}:{t[2:4]}"
+                candle_low = int(item.get("stck_lwpr", "0"))
+                if candle_high >= high_price and result_times["high_time"] is None:
+                    result_times["high_time"] = fmt
+                if candle_low > 0 and candle_low <= low_price and result_times["low_time"] is None:
+                    result_times["low_time"] = fmt
             cursor = items[-1].get("stck_cntg_hour", "")
             if not cursor or cursor <= "090000":
+                break
+            # 둘 다 찾았으면 조기 종료
+            if result_times["high_time"] and result_times["low_time"]:
                 break
             time.sleep(0.1)
         except Exception:
             break
 
-    return None
+    return result_times
 
 
-def find_high_price_after(client: KISClient, code: str, after_time: str) -> Optional[dict]:
-    """매수 시점 이후의 최고가 + 달성 시간 조회
+def find_high_low_after(client: KISClient, code: str, after_time: str) -> Optional[dict]:
+    """매수 시점 이후의 최고가/최저가 + 달성 시간 조회
 
     분봉 데이터를 15:30부터 역순으로 탐색하여
-    after_time 이후 캔들 중 최고가를 찾습니다.
-
-    Args:
-        client: KIS API 클라이언트
-        code: 종목코드
-        after_time: 매수 시점 "HH:MM" (예: "09:22")
+    after_time 이후 캔들 중 최고가와 최저가를 동시에 찾습니다.
 
     Returns:
-        {"high_price": int, "high_time": "HH:MM"} or None
+        {"high_price": int, "high_time": "HH:MM",
+         "low_price": int, "low_time": "HH:MM"} or None
     """
     path = "/uapi/domestic-stock/v1/quotations/inquire-time-itemchartprice"
     tr_id = "FHKST03010200"
     cursor = "153000"
     after_hhmmss = after_time.replace(":", "") + "00"
 
-    best_price = 0
-    best_time = None
+    best_high = 0
+    best_high_time = None
+    best_low = float("inf")
+    best_low_time = None
 
     for _ in range(15):
         params = {
@@ -262,9 +271,13 @@ def find_high_price_after(client: KISClient, code: str, after_time: str) -> Opti
                 if t <= after_hhmmss:
                     continue
                 candle_high = int(item.get("stck_hgpr", "0"))
-                if candle_high > best_price:
-                    best_price = candle_high
-                    best_time = f"{t[:2]}:{t[2:4]}"
+                candle_low = int(item.get("stck_lwpr", "0"))
+                if candle_high > best_high:
+                    best_high = candle_high
+                    best_high_time = f"{t[:2]}:{t[2:4]}"
+                if candle_low > 0 and candle_low < best_low:
+                    best_low = candle_low
+                    best_low_time = f"{t[:2]}:{t[2:4]}"
             cursor = items[-1].get("stck_cntg_hour", "")
             if not cursor or cursor <= "090000":
                 break
@@ -272,8 +285,12 @@ def find_high_price_after(client: KISClient, code: str, after_time: str) -> Opti
         except Exception:
             break
 
-    if best_price > 0 and best_time:
-        return {"high_price": best_price, "high_time": best_time}
+    if best_high > 0 and best_high_time:
+        result = {"high_price": best_high, "high_time": best_high_time}
+        if best_low < float("inf") and best_low_time:
+            result["low_price"] = int(best_low)
+            result["low_time"] = best_low_time
+        return result
     return None
 
 
@@ -391,32 +408,36 @@ def collect_paper_trading_data(
 
         close_price = prices["close_price"]
         high_price = prices["high_price"]
+        low_price = prices["low_price"]
         high_price_adjusted = False
 
-        # 최고가 달성 시간 조회
-        high_time = find_high_price_time(client, code, high_price)
+        # 최고가/최저가 달성 시간 동시 조회
+        hl_times = find_high_low_time(client, code, high_price, low_price)
+        high_time = hl_times["high_time"]
+        low_time = hl_times["low_time"]
 
-        # 매수 시점 이후 최고가 검증
+        # 매수 시점 이후 최고가/최저가 검증
         buy_time_str = morning_timestamp.split(" ")[1][:5] if " " in morning_timestamp else ""
         post_buy_searched = False
         if high_time and buy_time_str and high_time <= buy_time_str:
-            # 최고가가 매수 시점 이전/동일 분 → 매수 후 최고가 재탐색
+            # 최고가가 매수 시점 이전/동일 분 → 매수 후 재탐색
             post_buy_searched = True
-            print(f"    ↳ 최고가({high_time}) ≤ 매수({buy_time_str}) → 매수 후 최고가 탐색")
-            adjusted = find_high_price_after(client, code, buy_time_str)
+            print(f"    ↳ 최고가({high_time}) ≤ 매수({buy_time_str}) → 매수 후 고가/저가 탐색")
+            adjusted = find_high_low_after(client, code, buy_time_str)
             if adjusted:
                 high_price = adjusted["high_price"]
                 high_time = adjusted["high_time"]
-                print(f"    ↳ 매수 후 최고가: {high_price:,}원 ({high_time})")
+                if "low_price" in adjusted:
+                    low_price = adjusted["low_price"]
+                    low_time = adjusted.get("low_time")
+                print(f"    ↳ 매수 후 고가: {high_price:,}원 ({high_time}), 저가: {low_price:,}원 ({low_time})")
             else:
-                # 분봉 탐색 실패 → 종가 적용
                 high_price = close_price
                 high_time = "15:30"
                 high_price_adjusted = True
                 print(f"    ↳ 분봉 탐색 실패 → 종가({close_price:,}원) 적용")
 
-        # 최종 안전장치: 매수가 > 고가 (데이터 소스 차이) 보정
-        # 매수 후 재탐색 완료 시에는 적용하지 않음 (갭하락 종목은 매수 후 최고가 < 매수가가 정상)
+        # 최종 안전장치: 매수가 > 고가 보정
         if not post_buy_searched and high_price < buy_price:
             print(f"    ↳ 고가({high_price:,}) < 매수({buy_price:,}) → 매수가를 고가로 적용")
             high_price = buy_price
@@ -432,7 +453,11 @@ def collect_paper_trading_data(
         high_profit_amount = high_price - buy_price
         high_profit_rate = round((high_profit_amount / buy_price) * 100, 2) if buy_price > 0 else 0
 
-        results.append({
+        # 최저가 기준 수익률
+        low_profit_amount = low_price - buy_price
+        low_profit_rate = round((low_profit_amount / buy_price) * 100, 2) if buy_price > 0 else 0
+
+        stock_result = {
             "code": code,
             "name": name,
             "theme": theme,
@@ -446,10 +471,16 @@ def collect_paper_trading_data(
             "high_profit_rate": high_profit_rate,
             "high_profit_amount": high_profit_amount,
             **({"high_price_adjusted": True} if high_price_adjusted else {}),
-        })
+            "low_price": low_price,
+            "low_profit_rate": low_profit_rate,
+            "low_profit_amount": low_profit_amount,
+        }
+        if low_time:
+            stock_result["low_time"] = low_time
+        results.append(stock_result)
 
         sign = "+" if profit_rate >= 0 else ""
-        print(f"  [{i+1}/{len(all_stock_list)}] {name}({code}): {buy_price:,} -> {close_price:,} ({sign}{profit_rate}%) [최고 {high_price:,}]")
+        print(f"  [{i+1}/{len(all_stock_list)}] {name}({code}): {buy_price:,} -> {close_price:,} ({sign}{profit_rate}%) [고 {high_price:,} / 저 {low_price:,}]")
 
     if not results:
         print("[결과] 수집된 종목이 없습니다.")

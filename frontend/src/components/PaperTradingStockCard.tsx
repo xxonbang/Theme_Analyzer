@@ -22,7 +22,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
 
   const rawDisplayRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
   const displayProfitRate = tpsl && (tpsl.tp !== null || tpsl.sl !== null)
-    ? applyTPSL(stock.profit_rate, stock.high_profit_rate, tpsl)
+    ? applyTPSL(stock.profit_rate, stock.high_profit_rate, tpsl, stock.low_profit_rate)
     : rawDisplayRate
   const rawProfitAmount = mode === "high" ? (stock.high_profit_amount ?? stock.profit_amount) : stock.profit_amount
   const displayProfitAmount = investMode === "equal"
@@ -139,7 +139,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
         <TakeProfitSlider
           value={tpsl}
           onChange={onTPSLChange}
-          simulatedRate={(tpsl.tp !== null || tpsl.sl !== null) ? applyTPSL(stock.profit_rate, stock.high_profit_rate, tpsl) : undefined}
+          simulatedRate={(tpsl.tp !== null || tpsl.sl !== null) ? applyTPSL(stock.profit_rate, stock.high_profit_rate, tpsl, stock.low_profit_rate) : undefined}
           originalRate={rawDisplayRate}
           compact
         />
@@ -153,6 +153,7 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
             { label: "매수", value: stock.buy_price.toLocaleString() },
             { label: "종가", value: stock.close_price.toLocaleString(), rate: stock.profit_rate },
             ...(stock.high_price != null ? [{ label: "고가", value: stock.high_price.toLocaleString(), rate: stock.high_profit_rate ?? 0, time: stock.high_time }] : []),
+            ...(stock.low_price != null ? [{ label: "저가", value: stock.low_price.toLocaleString(), rate: stock.low_profit_rate ?? 0, time: stock.low_time }] : []),
           ].map((row, idx) => (
             <div
               key={row.label}

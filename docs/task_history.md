@@ -6,6 +6,10 @@
 
 ## 2026-03-23
 
+### [기능] 장중 최저가 수집 + 손절 시뮬레이션 정확도 개선 (2026-03-23 21:33 KST)
+- **변경 파일**: `collect_paper_trading.py`, `frontend/src/types/stock.ts`, `TakeProfitSlider.tsx`, `PaperTradingPage.tsx`, `PaperTradingStockCard.tsx`
+- **내용**: (1) KIS API에서 이미 반환하던 `stck_lwpr`(저가) 추출 추가 — 추가 API 호출 없음 (2) 분봉 탐색에서 고가+저가 동시 탐색 (3) `applyTPSL`에 `lowProfitRate` 파라미터 추가 — 손절 판정을 종가→최저가 기준으로 개선 (4) 카드 상세 정보에 저가 행 추가
+
 ### [기능] 모의투자 익절 시뮬레이션 슬라이더 (2026-03-23 16:02 KST)
 - **변경 파일**: `frontend/src/components/TakeProfitSlider.tsx`(신규), `PaperTradingPage.tsx`, `PaperTradingStockCard.tsx`
 - **내용**: 3단계 익절 라인 시뮬레이션 — 글로벌(전체 기간), 날짜별, 종목별 슬라이더. 0.5~30% 범위. 최고가 수익률이 익절 라인 이상이면 해당 %에서 매도한 것으로 계산, 미도달 시 실제 수익률 유지. 우선순위: 종목별 > 날짜별 > 글로벌

@@ -260,6 +260,10 @@ export interface PaperTradingStock {
   high_profit_rate?: number
   high_profit_amount?: number
   high_price_adjusted?: boolean
+  low_price?: number
+  low_time?: string
+  low_profit_rate?: number
+  low_profit_amount?: number
 }
 
 export interface PaperTradingSummary {

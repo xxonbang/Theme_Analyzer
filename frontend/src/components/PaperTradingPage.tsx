@@ -104,7 +104,7 @@ export function PaperTradingPage() {
     if (globalTPSL.tp === null && globalTPSL.sl === null) return null
     const stocks = activeStocks
     if (stocks.length === 0) return null
-    const totalRate = stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, globalTPSL), 0)
+    const totalRate = stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, globalTPSL, s.low_profit_rate), 0)
     return Math.round(totalRate / stocks.length * 100) / 100
   })()
 
@@ -280,7 +280,7 @@ export function PaperTradingPage() {
           sl: dateTPSL[date]?.sl ?? globalTPSL.sl,
         }
         const daySimRate = (dayEffTPSL.tp !== null || dayEffTPSL.sl !== null) && activeStocksForDay.length > 0
-          ? Math.round(activeStocksForDay.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, dayEffTPSL), 0) / activeStocksForDay.length * 100) / 100
+          ? Math.round(activeStocksForDay.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, dayEffTPSL, s.low_profit_rate), 0) / activeStocksForDay.length * 100) / 100
           : null
         return (
           <Card key={date} className="overflow-hidden shadow-sm">

@@ -116,14 +116,15 @@ export function TakeProfitSlider({ value, onChange, label, simulatedRate, origin
 }
 
 /** 익절+손절 적용:
- * - 최고가 >= 익절라인 → 익절%에서 매도
- * - 종가 <= 손절라인 → 손절%에서 매도 (최저가 기준이면 더 정확하지만, 종가 기준으로 간이 계산)
+ * - 최고가 수익률 >= 익절라인 → 익절%에서 매도
+ * - 최저가 수익률 <= 손절라인 → 손절%에서 매도 (최저가 데이터 없으면 종가 기준 fallback)
  * - 둘 다 해당 → 익절 우선 (장중 익절이 먼저 발동한 것으로 가정)
  */
 export function applyTPSL(
   profitRate: number,
   highProfitRate: number | undefined,
   tpsl: TPSLValues,
+  lowProfitRate?: number,
 ): number {
   const { tp, sl } = tpsl
   // 익절 체크: 최고가 수익률이 익절라인 이상이면 익절
@@ -131,7 +132,10 @@ export function applyTPSL(
     const maxRate = highProfitRate ?? profitRate
     if (maxRate >= tp) return tp
   }
-  // 손절 체크: 종가 수익률이 손절라인 이하이면 손절
-  if (sl !== null && profitRate <= sl) return sl
+  // 손절 체크: 최저가 수익률(또는 종가)이 손절라인 이하이면 손절
+  if (sl !== null) {
+    const minRate = lowProfitRate ?? profitRate
+    if (minRate <= sl) return sl
+  }
   return profitRate
 }
