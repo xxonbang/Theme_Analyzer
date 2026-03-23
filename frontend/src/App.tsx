@@ -764,10 +764,22 @@ function App() {
     clearSelection()
   }
 
+  // 새로고침 토스트
+  const [refreshToast, setRefreshToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
+  useEffect(() => {
+    if (!refreshToast) return
+    const timer = setTimeout(() => setRefreshToast(null), 2500)
+    return () => clearTimeout(timer)
+  }, [refreshToast])
+
   // 데이터 수동 새로고침 핸들러
-  const handleRefresh = useCallback(() => {
-    refreshFromAPI()
+  const handleRefresh = useCallback(async () => {
     logActivity("data_refresh")
+    const ok = await refreshFromAPI()
+    setRefreshToast(ok
+      ? { message: "데이터를 새로고침했습니다", type: "success" }
+      : { message: "새로고침에 실패했습니다. 잠시 후 다시 시도해주세요.", type: "error" }
+    )
   }, [refreshFromAPI, logActivity])
 
   // Auth guard
@@ -1339,6 +1351,19 @@ function App() {
       >
         <ChevronUp className="w-5 h-5" />
       </button>
+
+      {/* 새로고침 토스트 */}
+      {refreshToast && createPortal(
+        <div className={cn(
+          "fixed top-20 left-1/2 -translate-x-1/2 z-[100] px-4 py-2 rounded-lg shadow-lg text-sm font-medium transition-all animate-in fade-in slide-in-from-top-2 duration-200",
+          refreshToast.type === "success"
+            ? "bg-emerald-600 text-white"
+            : "bg-destructive text-destructive-foreground"
+        )}>
+          {refreshToast.message}
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

@@ -9,7 +9,7 @@ interface UseStockDataReturn {
   loading: boolean
   error: string | null
   refetch: () => Promise<void>
-  refreshFromAPI: () => Promise<void>
+  refreshFromAPI: () => Promise<boolean>
   cancelRefresh: () => void
   refreshElapsed: number
 }
@@ -46,10 +46,23 @@ export function useStockData(): UseStockDataReturn {
     setError(null)
   }, [])
 
-  const refreshFromAPI = useCallback(async () => {
-    // 정적 데이터 재로드 (GitHub PAT 프론트엔드 노출 제거)
-    await fetchData()
-  }, [fetchData])
+  const refreshFromAPI = useCallback(async (): Promise<boolean> => {
+    // 정적 데이터 재로드 — 성공 시 true, 실패 시 false 반환
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await fetch(DATA_URL + "?t=" + Date.now())
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      setData(await response.json())
+      return true
+    } catch (err) {
+      console.error("Failed to refresh stock data:", err)
+      setError("데이터를 불러오는데 실패했습니다.")
+      return false
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
     fetchData()

@@ -195,7 +195,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
         {/* Logo & Title */}
         <button
           onClick={() => { if (currentPage !== "home") { onPageChange?.("home") } else { onRefresh?.() } }}
-          className="flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0"
+          className={cn("flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0", loading && "animate-pulse")}
         >
           <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10">
             <EyeChartLogo className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg" />

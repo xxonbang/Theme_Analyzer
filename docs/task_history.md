@@ -6,6 +6,10 @@
 
 ## 2026-03-23
 
+### [개선] 로고 클릭 새로고침 피드백 — pulse 효과 + 성공/실패 토스트 (2026-03-23 11:43 KST)
+- **변경 파일**: `frontend/src/components/Header.tsx`, `frontend/src/App.tsx`, `frontend/src/hooks/useStockData.ts`
+- **내용**: (1) 로고+사이트명 클릭 시 데이터 로딩 중 animate-pulse 효과 (2) 새로고침 성공/실패 토스트 팝업(2.5초 자동 소멸) (3) refreshFromAPI가 boolean 반환하도록 변경하여 실패 감지 가능
+
 ### [개선] signOut 세션 잔류 방지 및 auth hang 전면 보강 (2026-03-23 11:31 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`
 - **내용**: (1) signOut 시 localStorage 세션 키 직접 삭제 — SDK hang 시에도 새로고침 후 재로그인 방지 (2) 비활성 자동 로그아웃(1시간)에도 동일 즉시 정리 로직 적용 (3) 탭 복귀 시 getSession()에 1초 timeout race 적용 — hang 방지
