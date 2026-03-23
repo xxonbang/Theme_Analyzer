@@ -1,5 +1,4 @@
-const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/kis-proxy`
-const ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+import { supabase } from "./supabase"
 
 export interface KisStockPrice {
   code: string
@@ -16,18 +15,13 @@ export interface KisStockPrice {
 }
 
 async function callKisProxy(body: Record<string, unknown>): Promise<Record<string, unknown>> {
-  const res = await fetch(FUNCTIONS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${ANON_KEY}`,
-    },
-    body: JSON.stringify(body),
-  })
+  const { data, error } = await supabase.functions.invoke("kis-proxy", { body })
 
-  const data = await res.json()
-  if (!res.ok || data.error) {
-    throw new Error(data.error || `HTTP ${res.status}`)
+  if (error) {
+    throw new Error(error.message || "Edge Function 호출 실패")
+  }
+  if (data?.error) {
+    throw new Error(data.error)
   }
   return data
 }

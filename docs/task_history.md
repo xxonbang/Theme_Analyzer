@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-03-23
+
+### [버그픽스] KIS 프록시 Edge Function 호출 401 오류 수정 (2026-03-23 09:59 KST)
+- **변경 파일**: `frontend/src/lib/kis-api.ts`, `supabase/functions/kis-proxy/index.ts`
+- **원인**: publishable key(JWT 아님)를 `Authorization: Bearer` 헤더에 넣어 Supabase API 게이트웨이가 401 반환. 포트폴리오 리프레시 버튼 및 종목 검색 실패의 직접 원인
+- **내용**: raw fetch → `supabase.functions.invoke()` 전환 (SDK가 apikey/Authorization 헤더를 올바르게 설정). Edge Function 인증 체크도 apikey 헤더 허용하도록 완화
+
 ## 2026-03-22
 
 ### [버그픽스] 수급 바텀시트 범례 버튼 클릭 오류 수정 및 전체 선택/해제 버튼 추가 (2026-03-22 21:19 KST)

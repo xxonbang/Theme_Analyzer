@@ -93,9 +93,10 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Verify user auth (optional - anon key 허용)
+    // Verify caller identity (Authorization header or apikey header)
     const authHeader = req.headers.get("Authorization")
-    if (!authHeader) {
+    const apiKey = req.headers.get("apikey")
+    if (!authHeader && !apiKey) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
