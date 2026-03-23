@@ -26,7 +26,12 @@ async function getKisCredentials(supabaseServiceClient: ReturnType<typeof create
       try {
         tokenData = JSON.parse(row.credential_value)
       } catch {
-        tokenData = {}
+        // JSON이 아닌 경우 JWT 문자열 직접 사용
+        if (row.credential_value && row.credential_value.startsWith("eyJ")) {
+          tokenData = { access_token: row.credential_value }
+        } else {
+          tokenData = {}
+        }
       }
     } else {
       creds[row.credential_type] = row.credential_value
