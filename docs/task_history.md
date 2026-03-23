@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 강제 새로고침 시 세션 유지 — localStorage 직접 복원 (2026-03-23 14:13 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **원인**: SDK `_initialize()`가 `navigator.locks`에 걸려 `INITIAL_SESSION` 미발생 → 2초 fallback으로 로그인 페이지 표시
+- **수정**: 마운트 시 `ExpireStorage.getItem()`으로 localStorage에서 세션 직접 읽어 즉시 복원 (SDK 초기화 대기 없음). `onAuthStateChange`는 이후 이벤트(로그인/로그아웃/토큰 갱신)만 처리
+
 ### [버그픽스] 로그인/로그아웃 401 오류 완전 해결 — PostgREST 호출 전면 제거 (2026-03-23 14:07 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`, `frontend/src/App.tsx`, `frontend/src/components/PaperTradingPage.tsx`
 - **원인**: Supabase JS SDK가 publishable key 사용 시 PostgREST Authorization 헤더에 유저 JWT 대신 publishable key를 설정 → user_history/user_activity_log INSERT 시 항상 401 → SDK 내부 세션 오염 → SIGNED_OUT 유발

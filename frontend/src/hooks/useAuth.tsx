@@ -84,8 +84,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // --- 인증 상태 관리 (DB 호출 없음 — publishable key에서 PostgREST 401 방지) ---
   useEffect(() => {
-    const authed = { current: false }
+    // 즉시 localStorage에서 세션 복원 (SDK 초기화/navigator.locks 대기 없음)
+    try {
+      const stored = ExpireStorage.getItem(STORAGE_KEY)
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        if (parsed?.user) {
+          setSession(parsed)
+          setUser(parsed.user)
+        }
+      }
+    } catch { /* 파싱 실패 시 로그인 화면 표시 */ }
+    setLoading(false)
 
+    // SDK 이벤트 구독 (로그인/로그아웃/토큰 갱신 처리)
+    const authed = { current: false }
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") authed.current = true
       if (event === "SIGNED_OUT") {
@@ -93,16 +106,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(null)
         setUser(null)
         ExpireStorage.setAdmin(false)
-        setLoading(false)
         return
       }
-      if (authed.current && !session?.user) { setLoading(false); return }
+      if (authed.current && !session?.user) return
       if (session?.user) { setSession(session); setUser(session.user) }
-      setLoading(false)
     })
 
-    const timeout = setTimeout(() => setLoading(false), 2000)
-    return () => { subscription.unsubscribe(); clearTimeout(timeout) }
+    return () => subscription.unsubscribe()
   }, [])
 
   const signUp = async (email: string, password: string): Promise<{ error: string | null }> => {
