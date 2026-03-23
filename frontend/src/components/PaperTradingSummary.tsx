@@ -22,9 +22,10 @@ interface PaperTradingSummaryProps {
     highFlatStocks: number
   }
   mode: PaperTradingMode
+  children?: React.ReactNode
 }
 
-export function PaperTradingSummary({ summary, mode }: PaperTradingSummaryProps) {
+export function PaperTradingSummary({ summary, mode, children }: PaperTradingSummaryProps) {
   const profitRate = mode === "high" ? summary.highTotalProfitRate : summary.totalProfitRate
   const profit = mode === "high" ? summary.highTotalProfit : summary.totalProfit
   const value = mode === "high" ? summary.highTotalValue : summary.totalValue
@@ -112,6 +113,8 @@ export function PaperTradingSummary({ summary, mode }: PaperTradingSummaryProps)
           <span>{summary.totalDays}일간 데이터</span>
           <span>총 {summary.totalStocks}종목</span>
         </div>
+
+        {children}
       </CardContent>
     </Card>
   )

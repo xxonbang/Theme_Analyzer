@@ -14,10 +14,14 @@ interface TakeProfitSliderProps {
 export function TakeProfitSlider({ value, onChange, label, simulatedRate, originalRate, compact }: TakeProfitSliderProps) {
   const isActive = value !== null
   const displayValue = value ?? 5
+  const hasChange = simulatedRate !== undefined && originalRate !== undefined && simulatedRate !== originalRate
 
   return (
-    <div className={cn("flex items-center gap-2", compact ? "mt-1.5" : "mt-2")}>
-      {label && <span className="text-[10px] text-muted-foreground shrink-0">{label}</span>}
+    <div className={cn(
+      "flex items-center gap-1.5",
+      compact ? "py-1" : "py-1.5",
+    )}>
+      {label && <span className="text-[10px] text-muted-foreground shrink-0 w-7">{label}</span>}
       <button
         onClick={() => onChange(isActive ? null : 5)}
         className={cn(
@@ -38,20 +42,23 @@ export function TakeProfitSlider({ value, onChange, label, simulatedRate, origin
             step={0.5}
             value={displayValue}
             onChange={(e) => onChange(Number(e.target.value))}
-            className="flex-1 h-1 accent-amber-500 cursor-pointer"
+            className="flex-1 h-1 accent-amber-500 cursor-pointer min-w-0"
           />
-          <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 tabular-nums w-10 text-right shrink-0">
+          <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 tabular-nums shrink-0">
             +{displayValue}%
           </span>
+          {/* 시뮬레이션 결과: 변화 있으면 수익률, 변화 없으면 '=' */}
+          <span className={cn(
+            "text-[10px] tabular-nums shrink-0 ml-0.5",
+            hasChange
+              ? (simulatedRate! > originalRate! ? "text-red-500" : "text-blue-500")
+              : "text-muted-foreground/50"
+          )}>
+            {hasChange
+              ? `→${simulatedRate! >= 0 ? "+" : ""}${simulatedRate}%`
+              : "="}
+          </span>
         </>
-      )}
-      {isActive && simulatedRate !== undefined && originalRate !== undefined && simulatedRate !== originalRate && (
-        <span className={cn(
-          "text-[10px] tabular-nums shrink-0",
-          simulatedRate > originalRate ? "text-red-500" : "text-blue-500"
-        )}>
-          →{simulatedRate >= 0 ? "+" : ""}{simulatedRate}%
-        </span>
       )}
     </div>
   )

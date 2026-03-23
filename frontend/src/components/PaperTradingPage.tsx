@@ -227,18 +227,15 @@ export function PaperTradingPage() {
 
       {/* 종합 요약 + 글로벌 익절 슬라이더 */}
       {selectedDailyData.length > 0 && (
-        <div>
-          <PaperTradingSummary summary={displaySummary} mode={activeTab} />
-          <div className="mt-1 px-3 pb-2">
-            <TakeProfitSlider
-              value={globalTP}
-              onChange={setGlobalTP}
-              label="전체"
-              simulatedRate={globalSimRate ?? undefined}
-              originalRate={activeTab === "high" ? displaySummary.highTotalProfitRate : displaySummary.totalProfitRate}
-            />
-          </div>
-        </div>
+        <PaperTradingSummary summary={displaySummary} mode={activeTab}>
+          <TakeProfitSlider
+            value={globalTP}
+            onChange={setGlobalTP}
+            label="전체"
+            simulatedRate={globalSimRate ?? undefined}
+            originalRate={activeTab === "high" ? displaySummary.highTotalProfitRate : displaySummary.totalProfitRate}
+          />
+        </PaperTradingSummary>
       )}
 
       {/* 날짜 선택 */}
