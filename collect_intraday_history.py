@@ -21,7 +21,7 @@ ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "intraday-history.json"
 CANDLE_CACHE_PATH = ROOT_DIR / ".candle_cache.json"
-MAX_DAYS = 10  # 최대 보관 일수
+MAX_DAYS = 30  # 최대 보관 일수
 
 
 def load_json(path: Path) -> dict:
