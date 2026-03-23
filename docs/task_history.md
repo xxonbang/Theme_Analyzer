@@ -6,6 +6,11 @@
 
 ## 2026-03-23
 
+### [버그픽스] 로그인 후 즉시 로그아웃되는 근본 원인 수정 (2026-03-23 11:54 KST)
+- **변경 파일**: `frontend/src/hooks/useAuth.tsx`
+- **원인**: Supabase 클라이언트 `_initialize()`가 지연되어 `INITIAL_SESSION(null)` 이벤트가 `SIGNED_IN` 이후에 도착 → `setUser(null)` 호출로 로그인 상태 즉시 해제. `getSession()` 1초 race timeout도 동일 문제 유발
+- **내용**: (1) `authed` ref로 SIGNED_IN 이후 도착하는 INITIAL_SESSION(null) 무시 (2) `getSession()` race 제거 — `onAuthStateChange`만 사용 (3) SIGNED_IN 후 DB 호출 500ms 지연으로 세션 전파 대기 (4) 2초 fallback timeout
+
 ### [개선] 로고 클릭 새로고침 피드백 — pulse 효과 + 성공/실패 토스트 (2026-03-23 11:43 KST)
 - **변경 파일**: `frontend/src/components/Header.tsx`, `frontend/src/App.tsx`, `frontend/src/hooks/useStockData.ts`
 - **내용**: (1) 로고+사이트명 클릭 시 데이터 로딩 중 animate-pulse 효과 (2) 새로고침 성공/실패 토스트 팝업(2.5초 자동 소멸) (3) refreshFromAPI가 boolean 반환하도록 변경하여 실패 감지 가능

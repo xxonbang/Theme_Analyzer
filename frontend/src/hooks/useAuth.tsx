@@ -151,33 +151,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, isAdmin])
 
   useEffect(() => {
-    // 세션 확인 (1초 timeout race — 클라이언트 초기화 지연 방지)
-    Promise.race([
-      supabase.auth.getSession(),
-      new Promise<{ data: { session: null } }>(r => setTimeout(() => r({ data: { session: null } }), 1000)),
-    ])
-      .then(({ data: { session } }) => {
-        setSession(session)
-        setUser(session?.user ?? null)
-        if (session?.user) recordUserHistory(session.user)
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false))
+    // SIGNED_IN 이후 도착하는 INITIAL_SESSION(null)이 상태를 덮어쓰는 것을 방지
+    const authed = { current: false }
 
-    // 인증 상태 변경 구독
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+        authed.current = true
+      }
+      if (event === "SIGNED_OUT") {
+        authed.current = false
+      }
+
+      // INITIAL_SESSION이 SIGNED_IN 이후 도착 시 — 로그인 상태 보호
+      if (event === "INITIAL_SESSION" && authed.current) {
+        setLoading(false)
+        return
+      }
+
       setSession(session)
       setUser(session?.user ?? null)
+
+      if (event === "INITIAL_SESSION") {
+        if (session?.user) recordUserHistory(session.user)
+        setLoading(false)
+      }
       if (event === "SIGNED_IN" && session?.user) {
-        recordUserHistory(session.user)
-        insertActivityLog(session.user.id, session.user.email ?? "", "login")
+        setLoading(false)
+        // 세션 전파 후 DB 호출 (401 방지)
+        setTimeout(() => {
+          recordUserHistory(session.user)
+          insertActivityLog(session.user.id, session.user.email ?? "", "login")
+        }, 500)
       }
       if (event === "SIGNED_OUT") {
         ExpireStorage.setAdmin(false)
       }
     })
 
-    return () => subscription.unsubscribe()
+    // Fallback: 초기화 2초 내 미완료 시 로딩 해제
+    const timeout = setTimeout(() => setLoading(false), 2000)
+
+    return () => {
+      subscription.unsubscribe()
+      clearTimeout(timeout)
+    }
   }, [])
 
   const signUp = async (email: string, password: string): Promise<{ error: string | null }> => {
