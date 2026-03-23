@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useRef, useCallback, type ReactNode } from "react"
 import type { User, Session } from "@supabase/supabase-js"
-import { supabase } from "@/lib/supabase"
+import { supabase, setAccessToken, STORAGE_KEY } from "@/lib/supabase"
 import { ExpireStorage } from "@/lib/expire-storage"
 
 interface AuthContextType {
@@ -18,8 +18,6 @@ const INACTIVITY_TIMEOUT_MS = 60 * 60 * 1000
 
 /** 활동 감지 쓰로틀 간격 (30초) */
 const ACTIVITY_THROTTLE_MS = 30 * 1000
-
-const STORAGE_KEY = `sb-${new URL(import.meta.env.VITE_SUPABASE_URL).hostname.split(".")[0]}-auth-token`
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
@@ -84,7 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // --- 인증 상태 관리 (DB 호출 없음 — publishable key에서 PostgREST 401 방지) ---
   useEffect(() => {
-    // 즉시 localStorage에서 세션 복원 (SDK 초기화/navigator.locks 대기 없음)
+    // 즉시 localStorage에서 세션 복원 + access token 설정
     try {
       const stored = ExpireStorage.getItem(STORAGE_KEY)
       if (stored) {
@@ -92,22 +90,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (parsed?.user) {
           setSession(parsed)
           setUser(parsed.user)
+          setAccessToken(parsed.access_token ?? null)
         }
       }
     } catch { /* 파싱 실패 시 로그인 화면 표시 */ }
     setLoading(false)
 
-    // SDK 이벤트 구독 (로그인/로그아웃/토큰 갱신 처리)
+    // SDK 이벤트 구독
     const authed = { current: false }
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") authed.current = true
-      if (event === "SIGNED_OUT") {
-        // 무시 — 명시적 signOut/비활성타이머/탭복귀에서 이미 상태 직접 정리.
-        // SDK 내부 SIGNED_OUT(_initialize 만료세션 정리 등)으로 의도치 않은 로그아웃 방지.
-        return
-      }
+      if (event === "SIGNED_OUT") return
       if (authed.current && !session?.user) return
-      if (session?.user) { setSession(session); setUser(session.user) }
+      if (session?.user) {
+        setSession(session)
+        setUser(session.user)
+        setAccessToken(session.access_token ?? null)
+      }
     })
 
     return () => subscription.unsubscribe()
@@ -126,6 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = async () => {
     setSession(null)
     setUser(null)
+    setAccessToken(null)
     ExpireStorage.setAdmin(false)
     localStorage.removeItem(STORAGE_KEY)
     supabase.auth.signOut().catch(() => {})
