@@ -62,23 +62,21 @@ export function TakeProfitSlider({ value, onChange, label, simulatedRate, origin
               className="flex-1 h-1 accent-red-500 cursor-pointer min-w-0"
             />
             <StepButton onClick={() => setTP(clampTP(tpVal + 0.5))}>+</StepButton>
-            <span className="text-[11px] font-semibold text-red-500 tabular-nums shrink-0 w-10 text-right">
+            <span className="text-[11px] font-semibold text-red-500 tabular-nums shrink-0 w-12 text-right">
               +{tpVal}%
             </span>
+            {/* 시뮬레이션 결과 */}
+            <span className={cn(
+              "text-[10px] tabular-nums shrink-0 w-16 text-right",
+              hasChange
+                ? (simulatedRate! > originalRate! ? "text-red-500" : "text-blue-500")
+                : "text-muted-foreground/50"
+            )}>
+              {hasChange
+                ? `→${simulatedRate! >= 0 ? "+" : ""}${simulatedRate}%`
+                : (tpActive || slActive) ? "=" : ""}
+            </span>
           </>
-        )}
-        {/* 시뮬레이션 결과 (익절 행 우측에 표시) */}
-        {(tpActive || slActive) && (
-          <span className={cn(
-            "text-[10px] tabular-nums shrink-0 ml-auto",
-            hasChange
-              ? (simulatedRate! > originalRate! ? "text-red-500" : "text-blue-500")
-              : "text-muted-foreground/50"
-          )}>
-            {hasChange
-              ? `→${simulatedRate! >= 0 ? "+" : ""}${simulatedRate}%`
-              : (tpActive || slActive) ? "=" : ""}
-          </span>
         )}
       </div>
 
@@ -105,7 +103,7 @@ export function TakeProfitSlider({ value, onChange, label, simulatedRate, origin
               className="flex-1 h-1 accent-blue-500 cursor-pointer min-w-0"
             />
             <StepButton onClick={() => setSL(clampSL(slVal + 0.5))}>+</StepButton>
-            <span className="text-[11px] font-semibold text-blue-500 tabular-nums shrink-0 w-10 text-right">
+            <span className="text-[11px] font-semibold text-blue-500 tabular-nums shrink-0 w-12 text-right">
               {slVal}%
             </span>
           </>
