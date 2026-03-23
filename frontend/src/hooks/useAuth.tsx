@@ -102,10 +102,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") authed.current = true
       if (event === "SIGNED_OUT") {
-        authed.current = false
-        setSession(null)
-        setUser(null)
-        ExpireStorage.setAdmin(false)
+        // 무시 — 명시적 signOut/비활성타이머/탭복귀에서 이미 상태 직접 정리.
+        // SDK 내부 SIGNED_OUT(_initialize 만료세션 정리 등)으로 의도치 않은 로그아웃 방지.
         return
       }
       if (authed.current && !session?.user) return
