@@ -68,14 +68,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [isAdmin, user, resetInactivityTimer])
 
-  // --- 탭 복귀 시 만료 체크 (네트워크 없음) ---
+  // --- 탭 복귀 시 세션 갱신 (백그라운드에서 access_token 만료 대응) ---
   useEffect(() => {
     if (!user || isAdmin) return
     const handleVisibility = () => {
-      if (document.visibilityState === "visible" && !ExpireStorage.getItem(STORAGE_KEY)) {
-        setSession(null)
-        setUser(null)
-        setAccessToken(null)
+      if (document.visibilityState === "visible") {
+        // ExpireStorage 8시간 만료 → 로그아웃
+        if (!ExpireStorage.getItem(STORAGE_KEY)) {
+          setSession(null)
+          setUser(null)
+          setAccessToken(null)
+          return
+        }
+        // access_token 갱신 (refresh_token으로 새 토큰 발급)
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          if (session?.user) {
+            setAccessToken(session.access_token ?? null)
+          }
+        }).catch(() => {})
       }
     }
     document.addEventListener("visibilitychange", handleVisibility)
