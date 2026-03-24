@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-03-23 15:42:42",
+  "generated_at": "2026-03-24 15:44:44",
   "period": {
     "start": "2026-02-23",
-    "end": "2026-03-23",
-    "trading_days": 19
+    "end": "2026-03-24",
+    "trading_days": 20
   },
   "overall": {
-    "cumulative_return": -12.78,
-    "cumulative_high_return": 103.49,
-    "avg_daily_return": -0.5,
-    "volatility": 6.51,
-    "sharpe_ratio": -0.08,
+    "cumulative_return": -14.19,
+    "cumulative_high_return": 107.3,
+    "avg_daily_return": -0.56,
+    "volatility": 6.34,
+    "sharpe_ratio": -0.09,
     "max_drawdown": 25.93,
-    "win_rate": 47.4,
+    "win_rate": 45.0,
     "win_days": 9,
-    "loss_days": 9,
+    "loss_days": 10,
     "flat_days": 1,
     "avg_win": 4.29,
-    "avg_loss": -5.35,
-    "profit_loss_ratio": 0.8,
+    "avg_loss": -4.97,
+    "profit_loss_ratio": 0.86,
     "max_win_streak": 2,
     "max_loss_streak": 2,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -0.19,
+    "avg_return": 0.76,
     "win_rate": 40.0
   },
   "theme_performance": [
@@ -71,6 +71,13 @@
       "total_return": 12.17
     },
     {
+      "theme": "건설/인프라",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 3.67,
+      "total_return": 11.02
+    },
+    {
       "theme": "반도체/AI",
       "count": 4,
       "win_rate": 50.0,
@@ -100,10 +107,10 @@
     },
     {
       "theme": "바이오/제약",
-      "count": 4,
+      "count": 7,
       "win_rate": 0.0,
-      "avg_return": -0.06,
-      "total_return": -0.24
+      "avg_return": -3.23,
+      "total_return": -22.6
     },
     {
       "theme": "반도체 및 IT 솔루션",
@@ -144,9 +151,9 @@
   "market_performance": [
     {
       "market": "KOSDAQ",
-      "count": 41,
-      "win_rate": 56.1,
-      "avg_return": 2.31
+      "count": 45,
+      "win_rate": 55.6,
+      "avg_return": 1.77
     },
     {
       "market": "N/A",
@@ -156,9 +163,9 @@
     },
     {
       "market": "KOSPI",
-      "count": 98,
-      "win_rate": 46.9,
-      "avg_return": -0.95
+      "count": 108,
+      "win_rate": 46.3,
+      "avg_return": -0.92
     }
   ],
   "cumulative_series": [
@@ -237,6 +244,10 @@
     {
       "date": "2026-03-23",
       "cumulative_return": -12.78
+    },
+    {
+      "date": "2026-03-24",
+      "cumulative_return": -14.19
     }
   ]
 }

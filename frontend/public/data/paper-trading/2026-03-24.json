@@ -1,0 +1,733 @@
+{
+  "trade_date": "2026-03-24",
+  "morning_timestamp": "2026-03-24 09:15:05",
+  "collected_at": "2026-03-24 15:40:54",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-24 09:15:05",
+      "prices": {
+        "005930": 193600,
+        "000660": 983000,
+        "047040": 19010,
+        "261780": 5990,
+        "000250": 983000,
+        "493280": 84800,
+        "060900": 441,
+        "322000": 141700,
+        "036930": 78200,
+        "240810": 127000,
+        "450080": 64800,
+        "373220": 373500,
+        "076610": 1757,
+        "046970": 4575
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT/전자"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT/전자"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "261780",
+          "name": "차백신연구소",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "000250",
+          "name": "삼천당제약",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "060900",
+          "name": "에이전트AI",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/원전"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 09:32:05",
+      "prices": {
+        "005930": 192000,
+        "000660": 978000,
+        "047040": 19010,
+        "261780": 5990,
+        "000250": 982000,
+        "493280": 81000,
+        "060900": 441,
+        "322000": 141700,
+        "036930": 85400,
+        "240810": 133000,
+        "450080": 65300,
+        "373220": 375500,
+        "076610": 1757,
+        "046970": 4575
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT/전자"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT/전자"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "261780",
+          "name": "차백신연구소",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "000250",
+          "name": "삼천당제약",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "060900",
+          "name": "에이전트AI",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/원전"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 09:39:16",
+      "prices": {
+        "005930": 192800,
+        "000660": 986000,
+        "047040": 17260,
+        "261780": 6180,
+        "000250": 989000,
+        "493280": 82800,
+        "060900": 460,
+        "322000": 133000,
+        "036930": 85200,
+        "240810": 132600,
+        "450080": 65400,
+        "373220": 375500,
+        "076610": 1908,
+        "046970": 4430
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "076610",
+          "name": "해성옵틱스",
+          "theme": "AI 데이터센터 및 광통신"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "AI 데이터센터 및 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 10:02:12",
+      "prices": {
+        "005930": 188300,
+        "000660": 964000,
+        "047040": 16230,
+        "261780": 6180,
+        "000250": 974000,
+        "493280": 80500,
+        "060900": 460,
+        "322000": 133000,
+        "036930": 79800,
+        "240810": 129000,
+        "450080": 65400,
+        "373220": 377000,
+        "076610": 1908,
+        "046970": 4430
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "076610",
+          "name": "해성옵틱스",
+          "theme": "AI 데이터센터 및 광통신"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "AI 데이터센터 및 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 12:01:29",
+      "prices": {
+        "005930": 188600,
+        "000660": 966000,
+        "047040": 16210,
+        "261780": 6180,
+        "000250": 940000,
+        "493280": 78200,
+        "060900": 460,
+        "322000": 133000,
+        "036930": 77800,
+        "240810": 135200,
+        "450080": 65400,
+        "373220": 381500,
+        "076610": 1908,
+        "046970": 4430
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "076610",
+          "name": "해성옵틱스",
+          "theme": "AI 데이터센터 및 광통신"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "AI 데이터센터 및 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 12:39:36",
+      "prices": {
+        "005930": 189300,
+        "000660": 974000,
+        "047040": 16300,
+        "261780": 5870,
+        "000250": 944000,
+        "493280": 75500,
+        "060900": 460,
+        "322000": 123900,
+        "036930": 76700,
+        "240810": 135500,
+        "450080": 68000,
+        "373220": 388500,
+        "076610": 1900,
+        "046970": 4575
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "076610",
+          "name": "해성옵틱스",
+          "theme": "AI 데이터센터 및 광통신"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "AI 데이터센터 및 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 13:26:10",
+      "prices": {
+        "005930": 189000,
+        "000660": 976000,
+        "047040": 16240,
+        "261780": 6660,
+        "000250": 934000,
+        "493280": 76000,
+        "060900": 460,
+        "322000": 123700,
+        "036930": 76400,
+        "240810": 133800,
+        "450080": 68000,
+        "373220": 387500,
+        "076610": 1900,
+        "046970": 4575
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "076610",
+          "name": "해성옵틱스",
+          "theme": "AI 데이터센터 및 광통신"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "AI 데이터센터 및 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-24 14:36:25",
+      "prices": {
+        "005930": 189100,
+        "000660": 979000,
+        "047040": 16140,
+        "261780": 6140,
+        "000250": 928000,
+        "493280": 68400,
+        "060900": 460,
+        "322000": 122900,
+        "036930": 74600,
+        "240810": 133800,
+        "450080": 68000,
+        "373220": 386000,
+        "076610": 1900,
+        "046970": 4575
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 장비"
+        },
+        {
+          "code": "493280",
+          "name": "아이엠바이오로직스",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "076610",
+          "name": "해성옵틱스",
+          "theme": "AI 데이터센터 및 광통신"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "AI 데이터센터 및 광통신"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT/전자",
+      "market": "KOSPI",
+      "buy_price": 193600,
+      "close_price": 189700,
+      "profit_rate": -2.01,
+      "profit_amount": -3900,
+      "high_price": 193750,
+      "high_time": "09:26",
+      "high_profit_rate": 0.08,
+      "high_profit_amount": 150,
+      "low_price": 185500,
+      "low_profit_rate": -4.18,
+      "low_profit_amount": -8100,
+      "low_time": "10:58"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT/전자",
+      "market": "KOSPI",
+      "buy_price": 983000,
+      "close_price": 986000,
+      "profit_rate": 0.31,
+      "profit_amount": 3000,
+      "high_price": 992000,
+      "high_time": "15:17",
+      "high_profit_rate": 0.92,
+      "high_profit_amount": 9000,
+      "low_price": 938000,
+      "low_profit_rate": -4.58,
+      "low_profit_amount": -45000,
+      "low_time": "10:59"
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 19010,
+      "close_price": 16400,
+      "profit_rate": -13.73,
+      "profit_amount": -2610,
+      "high_price": 18410,
+      "high_time": "09:16",
+      "high_profit_rate": -3.16,
+      "high_profit_amount": -600,
+      "low_price": 15430,
+      "low_profit_rate": -18.83,
+      "low_profit_amount": -3580,
+      "low_time": "10:54"
+    },
+    {
+      "code": "261780",
+      "name": "차백신연구소",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 5990,
+      "close_price": 5700,
+      "profit_rate": -4.84,
+      "profit_amount": -290,
+      "high_price": 6720,
+      "high_time": "13:28",
+      "high_profit_rate": 12.19,
+      "high_profit_amount": 730,
+      "low_price": 5180,
+      "low_profit_rate": -13.52,
+      "low_profit_amount": -810,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000250",
+      "name": "삼천당제약",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 983000,
+      "close_price": 936000,
+      "profit_rate": -4.78,
+      "profit_amount": -47000,
+      "high_price": 993000,
+      "high_time": "09:31",
+      "high_profit_rate": 1.02,
+      "high_profit_amount": 10000,
+      "low_price": 925000,
+      "low_profit_rate": -5.9,
+      "low_profit_amount": -58000,
+      "low_time": "14:30"
+    },
+    {
+      "code": "493280",
+      "name": "아이엠바이오로직스",
+      "theme": "바이오/제약",
+      "market": "KOSDAQ",
+      "buy_price": 84800,
+      "close_price": 74000,
+      "profit_rate": -12.74,
+      "profit_amount": -10800,
+      "high_price": 84300,
+      "high_time": "09:16",
+      "high_profit_rate": -0.59,
+      "high_profit_amount": -500,
+      "low_price": 67000,
+      "low_profit_rate": -20.99,
+      "low_profit_amount": -17800,
+      "low_time": "14:30"
+    },
+    {
+      "code": "060900",
+      "name": "에이전트AI",
+      "theme": "AI/로봇",
+      "market": "KOSPI",
+      "buy_price": 441,
+      "close_price": 460,
+      "profit_rate": 4.31,
+      "profit_amount": 19,
+      "high_price": 460,
+      "high_time": "15:30",
+      "high_profit_rate": 4.31,
+      "high_profit_amount": 19,
+      "low_price": 403,
+      "low_profit_rate": -8.62,
+      "low_profit_amount": -38,
+      "low_time": "09:04"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지/원전",
+      "market": "KOSDAQ",
+      "buy_price": 141700,
+      "close_price": 124300,
+      "profit_rate": -12.28,
+      "profit_amount": -17400,
+      "high_price": 138000,
+      "high_time": "09:16",
+      "high_profit_rate": -2.61,
+      "high_profit_amount": -3700,
+      "low_price": 120800,
+      "low_profit_rate": -14.75,
+      "low_profit_amount": -20900,
+      "low_time": "10:41"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체/IT 장비",
+      "market": "KOSPI",
+      "buy_price": 78200,
+      "close_price": 77400,
+      "profit_rate": -1.02,
+      "profit_amount": -800,
+      "high_price": 85700,
+      "high_time": "09:32",
+      "high_profit_rate": 9.59,
+      "high_profit_amount": 7500,
+      "low_price": 74100,
+      "low_profit_rate": -5.24,
+      "low_profit_amount": -4100,
+      "low_time": "14:36"
+    },
+    {
+      "code": "240810",
+      "name": "원익IPS",
+      "theme": "반도체/IT 장비",
+      "market": "KOSPI",
+      "buy_price": 127000,
+      "close_price": 134700,
+      "profit_rate": 6.06,
+      "profit_amount": 7700,
+      "high_price": 138300,
+      "high_time": "11:48",
+      "high_profit_rate": 8.9,
+      "high_profit_amount": 11300,
+      "low_price": 121200,
+      "low_profit_rate": -4.57,
+      "low_profit_amount": -5800,
+      "low_time": "09:01"
+    },
+    {
+      "code": "450080",
+      "name": "에코프로머티",
+      "theme": "2차전지/전기차 부품",
+      "market": "KOSDAQ",
+      "buy_price": 64800,
+      "close_price": 68000,
+      "profit_rate": 4.94,
+      "profit_amount": 3200,
+      "high_price": 69000,
+      "high_time": "12:51",
+      "high_profit_rate": 6.48,
+      "high_profit_amount": 4200,
+      "low_price": 63100,
+      "low_profit_rate": -2.62,
+      "low_profit_amount": -1700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "theme": "2차전지/전기차 부품",
+      "market": "KOSDAQ",
+      "buy_price": 373500,
+      "close_price": 392500,
+      "profit_rate": 5.09,
+      "profit_amount": 19000,
+      "high_price": 392500,
+      "high_time": "15:30",
+      "high_profit_rate": 5.09,
+      "high_profit_amount": 19000,
+      "low_price": 368000,
+      "low_profit_rate": -1.47,
+      "low_profit_amount": -5500,
+      "low_time": "09:02"
+    },
+    {
+      "code": "076610",
+      "name": "해성옵틱스",
+      "theme": "AI 데이터센터 및 광통신",
+      "market": "KOSPI",
+      "buy_price": 1757,
+      "close_price": 1930,
+      "profit_rate": 9.85,
+      "profit_amount": 173,
+      "high_price": 1930,
+      "high_time": "15:30",
+      "high_profit_rate": 9.85,
+      "high_profit_amount": 173,
+      "low_price": 1545,
+      "low_profit_rate": -12.07,
+      "low_profit_amount": -212,
+      "low_time": "09:00"
+    },
+    {
+      "code": "046970",
+      "name": "우리로",
+      "theme": "AI 데이터센터 및 광통신",
+      "market": "KOSPI",
+      "buy_price": 4575,
+      "close_price": 4575,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 4575,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 4015,
+      "low_profit_rate": -12.24,
+      "low_profit_amount": -560,
+      "low_time": "09:13"
+    }
+  ],
+  "summary": {
+    "total_stocks": 14,
+    "profit_stocks": 6,
+    "loss_stocks": 7,
+    "total_invested": 3061373,
+    "total_value": 3011665,
+    "total_profit": -49708,
+    "total_profit_rate": -1.62,
+    "high_total_value": 3118645,
+    "high_total_profit": 57272,
+    "high_total_profit_rate": 1.87,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 3
+  }
+}
