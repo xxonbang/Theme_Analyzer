@@ -31,7 +31,7 @@ export function IntradayInsights({
 }: IntradayInsightsProps) {
   const [showMovers, setShowMovers] = useState(false)
   const [actionPopup, setActionPopup] = useState<{ code: string; name: string; x: number; y: number } | null>(null)
-  const [themePopup, setThemePopup] = useState<{ name: string; stocks: { name: string; rate: number }[]; x: number; y: number } | null>(null)
+  const [themePopup, setThemePopup] = useState<{ name: string; stocks: { code: string; name: string; rate: number }[]; x: number; y: number } | null>(null)
   const [signalHelpPopup, setSignalHelpPopup] = useState<{ x: number; y: number } | null>(null)
   const todayKST = useMemo(getTodayKST, [])
 
@@ -51,7 +51,7 @@ export function IntradayInsights({
 
     return themeAnalysis.themes.map(theme => {
       const rates: number[] = []
-      const stockDetails: { name: string; rate: number; foreignNet: number | null }[] = []
+      const stockDetails: { code: string; name: string; rate: number; foreignNet: number | null }[] = []
 
       for (const stock of theme.leader_stocks) {
         const days = intradayHistory.stocks[stock.code]
@@ -68,7 +68,7 @@ export function IntradayInsights({
           foreignNet = lastSnap.data[stock.code]?.f ?? null
         }
 
-        stockDetails.push({ name: stock.name, rate: latest.change_rate, foreignNet })
+        stockDetails.push({ code: stock.code, name: stock.name, rate: latest.change_rate, foreignNet })
       }
 
       const avg = rates.length > 0 ? rates.reduce((a, b) => a + b, 0) / rates.length : null
@@ -183,7 +183,7 @@ export function IntradayInsights({
                 <div
                   key={t.name}
                   className="flex items-center justify-between bg-muted/50 rounded-md px-2.5 py-1.5 cursor-pointer hover:bg-muted/80 transition-colors"
-                  onClick={(e) => setThemePopup({ name: t.name, stocks: t.stockDetails.map(s => ({ name: s.name, rate: s.rate })), x: e.clientX, y: e.clientY })}
+                  onClick={(e) => setThemePopup({ name: t.name, stocks: t.stockDetails.map(s => ({ code: s.code, name: s.name, rate: s.rate })), x: e.clientX, y: e.clientY })}
                 >
                   <span className="text-xs font-medium truncate mr-2">{t.name}</span>
                   <span className={cn(
@@ -372,7 +372,11 @@ export function IntradayInsights({
             >
               <div className="px-3 py-1 text-xs font-semibold border-b border-border/50 mb-1">{themePopup.name}</div>
               {themePopup.stocks.map(s => (
-                <div key={s.name} className="flex items-center justify-between px-3 py-0.5 text-xs">
+                <div
+                  key={s.code}
+                  className="flex items-center justify-between px-3 py-0.5 text-xs cursor-pointer hover:bg-muted/60 transition-colors"
+                  onClick={() => { onScrollToStock?.(s.code); setThemePopup(null) }}
+                >
                   <span className="truncate mr-2">{s.name}</span>
                   <span className={cn("tabular-nums shrink-0 font-medium", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                     {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%

@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@keyframes logo-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+button[data-loading] {
+  animation: logo-pulse 2s ease-in-out infinite !important;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -189,6 +198,7 @@ body {
 }
 
 /* Tab content fade-in */
+
 @keyframes tab-fade-in {
   from {
     opacity: 0;

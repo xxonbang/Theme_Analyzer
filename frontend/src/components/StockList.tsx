@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -415,6 +415,19 @@ function CompactMarketSection({
   expandForCode?: string | null
 }) {
   const [expanded, setExpanded] = useState(false)
+  const [scrolledToEnd, setScrolledToEnd] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const check = () => {
+      setScrolledToEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2)
+    }
+    check()
+    el.addEventListener("scroll", check, { passive: true })
+    return () => el.removeEventListener("scroll", check)
+  }, [])
 
   useEffect(() => {
     if (!expandForCode || !initialLimit || expanded) return
@@ -446,7 +459,7 @@ function CompactMarketSection({
         <span className="text-[10px] text-muted-foreground">({stocks.length})</span>
       </div>
       <div className="relative">
-        <div className="overflow-x-auto scrollbar-hide">
+        <div ref={scrollRef} className="overflow-x-auto scrollbar-hide">
           <div className="min-w-fit">
             {showHeader && <CompactHeader showTradingValue={showTradingValue} hasMemberData={hasMemberData} investorEstimated={investorEstimated} investorUpdatedAt={investorUpdatedAt} isAdmin={isAdmin} />}
             <div className="divide-y divide-border/30">
@@ -456,8 +469,8 @@ function CompactMarketSection({
             </div>
           </div>
         </div>
-        {/* 수평 스크롤 힌트 (우측 fade) */}
-        <div className="absolute top-0 right-0 bottom-0 w-6 pointer-events-none bg-gradient-to-l from-card to-transparent sm:hidden" />
+        {/* 수평 스크롤 힌트 (우측 fade) — 끝까지 스크롤하면 숨김 */}
+        {!scrolledToEnd && <div className="absolute top-0 right-0 bottom-0 w-6 pointer-events-none bg-gradient-to-l from-card to-transparent sm:hidden" />}
       </div>
       {hasMore && (
         <button

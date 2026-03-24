@@ -827,7 +827,7 @@ function App() {
         isViewingHistory={isViewingHistory}
         refreshElapsed={refreshElapsed}
         currentPage={currentPage}
-        onPageChange={setCurrentPage}
+        onPageChange={(page) => { setCurrentPage(page); if (page === "home") setActiveTab("home") }}
         isAdmin={isAdmin}
         headerHidden={headerHidden}
         isDark={isDark}

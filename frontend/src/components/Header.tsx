@@ -37,6 +37,8 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [toggleFocusRing, setToggleFocusRing] = useState(false)
   const [historyFocusRing, setHistoryFocusRing] = useState(false)
   const [moreMenuOpen, setMoreMenuOpen] = useState(false)
+  const [logoLoading, setLogoLoading] = useState(false)
+  const logoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const moreMenuRef = useRef<HTMLDivElement>(null)
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -194,8 +196,16 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
-          onClick={() => { if (currentPage !== "home") { onPageChange?.("home") } else { onRefresh?.() } }}
-          className={cn("flex items-center gap-1.5 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity shrink-0", loading && "animate-pulse")}
+          onClick={() => {
+            onPageChange?.("home")
+            onRefresh?.()
+            window.scrollTo({ top: 0, behavior: "smooth" })
+            setLogoLoading(true)
+            if (logoTimerRef.current) clearTimeout(logoTimerRef.current)
+            logoTimerRef.current = setTimeout(() => setLogoLoading(false), 6000)
+          }}
+          className="flex items-center gap-1.5 sm:gap-3 cursor-pointer shrink-0 rounded-lg px-1.5 py-1 -ml-1.5 active:scale-95"
+          data-loading={loading || logoLoading || undefined}
         >
           <div className="flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10">
             <EyeChartLogo className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg" />
