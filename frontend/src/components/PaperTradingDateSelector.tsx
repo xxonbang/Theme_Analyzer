@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import { CheckSquare, Square, CheckCheck, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import type { PaperTradingIndexEntry, PaperTradingData, PaperTradingMode, InvestMode } from "@/types/stock"
@@ -12,6 +13,7 @@ interface PaperTradingDateSelectorProps {
   onToggleAll: () => void
   mode: PaperTradingMode
   investMode: InvestMode
+  simRates?: Record<string, number>
 }
 
 export function PaperTradingDateSelector({
@@ -23,16 +25,25 @@ export function PaperTradingDateSelector({
   onToggleAll,
   mode,
   investMode,
+  simRates,
 }: PaperTradingDateSelectorProps) {
   const allSelected = entries.length > 0 && selectedDates.size === entries.length
+  const headerRef = useRef<HTMLDivElement>(null)
+
+  const handleToggleAll = () => {
+    onToggleAll()
+    requestAnimationFrame(() => {
+      headerRef.current?.scrollIntoView({ block: "nearest" })
+    })
+  }
 
   return (
     <div className="space-y-2">
       {/* 전체 선택/해제 */}
-      <div className="flex items-center justify-between">
+      <div ref={headerRef} className="flex items-center justify-between">
         <span className="text-xs sm:text-sm font-medium text-muted-foreground">날짜 선택</span>
         <button
-          onClick={onToggleAll}
+          onClick={handleToggleAll}
           className={cn(
             "flex items-center gap-1 px-2 py-1 rounded-md text-xs",
             "transition-colors duration-150",
@@ -72,9 +83,10 @@ export function PaperTradingDateSelector({
                     ? Math.round(((totalValue - totalInvested) / totalInvested) * 10000) / 100
                     : 0
                 })()
-            const isProfit = activeProfitRate > 0
-            const isLoss = activeProfitRate < 0
-            const sign = activeProfitRate >= 0 ? "+" : ""
+            const displayRate = simRates?.[entry.date] ?? activeProfitRate
+            const isProfit = displayRate > 0
+            const isLoss = displayRate < 0
+            const sign = displayRate >= 0 ? "+" : ""
 
             return (
               <button
@@ -123,7 +135,7 @@ export function PaperTradingDateSelector({
                   isLoss && "text-blue-600",
                   !isProfit && !isLoss && "text-muted-foreground",
                 )}>
-                  {sign}{activeProfitRate}%
+                  {sign}{displayRate}%
                 </span>
               </button>
             )

@@ -32,6 +32,7 @@ export function IntradayInsights({
   const [showMovers, setShowMovers] = useState(false)
   const [actionPopup, setActionPopup] = useState<{ code: string; name: string; x: number; y: number } | null>(null)
   const [themePopup, setThemePopup] = useState<{ name: string; stocks: { name: string; rate: number }[]; x: number; y: number } | null>(null)
+  const [signalHelpPopup, setSignalHelpPopup] = useState<{ x: number; y: number } | null>(null)
   const todayKST = useMemo(getTodayKST, [])
 
   // B-1: Forecast freshness
@@ -251,10 +252,13 @@ export function IntradayInsights({
         {/* 수급 특이 신호 */}
         {hasSupplyDemand && (
           <div>
-            <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium mb-1.5">
+            <button
+              onClick={(e) => setSignalHelpPopup({ x: e.clientX, y: e.clientY })}
+              className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium mb-1.5 hover:text-foreground transition-colors"
+            >
               <ShieldAlert className="w-3 h-3 text-orange-500" />
               수급 특이 신호
-            </div>
+            </button>
             <div className="space-y-1">
               {supplyDemandSignals.map(s => (
                 <div
@@ -318,6 +322,39 @@ export function IntradayInsights({
                   종목으로 이동
                 </button>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* 수급 특이 신호 설명 팝업 */}
+        {signalHelpPopup && (
+          <div className="fixed inset-0 z-50" onClick={() => setSignalHelpPopup(null)}>
+            <div
+              className="fixed bg-card border rounded-lg shadow-lg py-2 px-3 w-64"
+              style={{
+                left: Math.min(signalHelpPopup.x, window.innerWidth - 270),
+                top: Math.min(signalHelpPopup.y + 4, window.innerHeight - 220),
+              }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="text-xs font-semibold mb-2 flex items-center gap-1">
+                <ShieldAlert className="w-3.5 h-3.5 text-orange-500" />
+                수급 특이 신호란?
+              </div>
+              <div className="space-y-2 text-[11px] text-muted-foreground">
+                <div>
+                  <span className="font-medium text-orange-600 dark:text-orange-400">외국인 저가 매집</span>
+                  <p className="mt-0.5">주가 하락 중 외국인 순매수 30만주 이상. 저점 매수 가능성.</p>
+                </div>
+                <div>
+                  <span className="font-medium text-orange-600 dark:text-orange-400">외국인 차익 실현</span>
+                  <p className="mt-0.5">주가 상승 중 외국인 순매도 30만주 이상. 고점 매도 가능성.</p>
+                </div>
+                <div>
+                  <span className="font-medium text-orange-600 dark:text-orange-400">기관 저가 매집</span>
+                  <p className="mt-0.5">주가 1%+ 하락 중 기관 순매수 20만주 이상. 기관 저점 매수 가능성.</p>
+                </div>
+              </div>
             </div>
           </div>
         )}

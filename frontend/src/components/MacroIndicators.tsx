@@ -26,7 +26,7 @@ const INDICATOR_DESC: Record<string, string> = {
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
 }
 
-const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "NQ_F": "NQ", "OIL_F": "원유", "GOLD_F": "금" }
+const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "OIL_F": "원유", "GOLD_F": "금" }
 
 function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: FuturesItem[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [expanded, setExpanded] = useState(false)
@@ -52,7 +52,8 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
     }
   }, [showHistory])
 
-  if (!data || data.length === 0) return null
+  const filtered = data.filter(item => item.symbol !== "NQ_F")
+  if (!filtered || filtered.length === 0) return null
 
   const handleHistoryClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -62,7 +63,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
 
   // 히스토리 차트 데이터 준비
   const futHist = history?.futures
-  const histRows = futHist ? data.map(item => {
+  const histRows = futHist ? filtered.map(item => {
     const entries = (futHist[item.symbol] || []).slice(-10)
     return { symbol: item.symbol, name: FUTURES_SHORT[item.symbol] || item.name, entries }
   }) : []
@@ -98,7 +99,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
         {/* 접힌 상태: 6칸 그리드 */}
         {!expanded && (
           <div className="flex gap-px bg-border/30 rounded-md overflow-hidden mt-1">
-            {data.map((item) => {
+            {filtered.map((item) => {
               const isUp = item.change > 0
               const isDown = item.change < 0
               const bg = isUp ? "bg-rose-100 dark:bg-red-500/8" : isDown ? "bg-sky-100 dark:bg-blue-500/8" : "bg-muted/50"
@@ -107,7 +108,6 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 "K200F_DAY": "K200주",
                 "K200F_NGT": "K200야",
                 "SPX_F": "S&P",
-                "NQ_F": "NQ",
                 "OIL_F": "원유",
                 "GOLD_F": "금",
               }
@@ -127,7 +127,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
       {/* 펼친 상태 */}
       {expanded && (
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-0.5 px-1">
-          {data.map((item) => {
+          {filtered.map((item) => {
             const isUp = item.change > 0
             const isDown = item.change < 0
             const accent = isUp ? "border-l-red-500/60" : isDown ? "border-l-blue-500/60" : "border-l-border"
@@ -151,19 +151,19 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
       {showHistory && createPortal(
         <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
-          <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
-            <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
-              <button onClick={() => setShowHistory(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
-                <X className="w-4 h-4" />
-              </button>
+          <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+            <div ref={handleRef} className="sticky top-0 z-10 bg-popover pt-3 px-3 sm:px-0 sm:pt-0">
+              <div className="sm:hidden flex items-center justify-center mb-2 py-1 cursor-grab relative">
+                <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              </div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-semibold">주요 선물 히스토리</span>
+                <button onClick={() => setShowHistory(false)} className="text-muted-foreground hover:text-foreground p-1 -m-1" aria-label="닫기">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-semibold">주요 선물 히스토리</span>
-              <button onClick={() => setShowHistory(false)} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            <div className="px-3 sm:px-0">
             {historyLoading ? (
               <p className="text-[10px] text-muted-foreground/50 text-center py-2">로딩 중...</p>
             ) : histDates.length === 0 ? (
@@ -207,6 +207,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
               </table>
               </>
             )}
+            </div>
           </div>
         </div>,
         document.body

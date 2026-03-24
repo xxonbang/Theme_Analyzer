@@ -254,6 +254,22 @@ export function PaperTradingPage() {
             onToggleAll={toggleAllDates}
             mode={activeTab}
             investMode={investMode}
+            simRates={(() => {
+              const rates: Record<string, number> = {}
+              for (const entry of index) {
+                const data = adjustedDailyData.get(entry.date)
+                if (!data) continue
+                const stocks = data.stocks.filter(s => !isStockExcluded(entry.date, s.code))
+                if (stocks.length === 0) continue
+                const eff: TPSLValues = {
+                  tp: dateTPSL[entry.date]?.tp ?? globalTPSL.tp,
+                  sl: dateTPSL[entry.date]?.sl ?? globalTPSL.sl,
+                }
+                if (eff.tp === null && eff.sl === null) continue
+                rates[entry.date] = Math.round(stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, eff, s.low_profit_rate), 0) / stocks.length * 100) / 100
+              }
+              return Object.keys(rates).length > 0 ? rates : undefined
+            })()}
           />
         </CardContent>
       </Card>

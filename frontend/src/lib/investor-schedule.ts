@@ -3,9 +3,9 @@
 const COLLECTION_SCHEDULE = [
   { time: "09:31", label: "1차" }, // 외국인 09:30 반영
   { time: "10:01", label: "2차" }, // 기관 10:00 반영
-  { time: "11:31", label: "3차" }, // 외국인+기관 11:30 반영
-  { time: "13:21", label: "4차" }, // 외국인+기관 13:20 반영
-  { time: "14:31", label: "5차" }, // 외국인+기관 14:30 반영 (장중 최종)
+  { time: "12:00", label: "3차" }, // 외국인+기관 반영
+  { time: "13:25", label: "4차" }, // 외국인+기관 반영
+  { time: "14:35", label: "5차" }, // 외국인+기관 반영 (장중 최종)
 ] as const
 
 const CONFIRMED_TIME = "18:05" // 장후 확정 + pykrx 교차검증
