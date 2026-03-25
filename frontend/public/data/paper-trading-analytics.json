@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-03-24 15:44:44",
+  "generated_at": "2026-03-25 15:43:31",
   "period": {
     "start": "2026-02-23",
-    "end": "2026-03-24",
-    "trading_days": 20
+    "end": "2026-03-25",
+    "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -14.19,
-    "cumulative_high_return": 107.3,
-    "avg_daily_return": -0.56,
-    "volatility": 6.34,
-    "sharpe_ratio": -0.09,
+    "cumulative_return": -10.01,
+    "cumulative_high_return": 124.81,
+    "avg_daily_return": -0.3,
+    "volatility": 6.29,
+    "sharpe_ratio": -0.05,
     "max_drawdown": 25.93,
-    "win_rate": 45.0,
-    "win_days": 9,
+    "win_rate": 47.6,
+    "win_days": 10,
     "loss_days": 10,
     "flat_days": 1,
-    "avg_win": 4.29,
+    "avg_win": 4.34,
     "avg_loss": -4.97,
-    "profit_loss_ratio": 0.86,
+    "profit_loss_ratio": 0.87,
     "max_win_streak": 2,
     "max_loss_streak": 2,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": 0.76,
+    "avg_return": 0.39,
     "win_rate": 40.0
   },
   "theme_performance": [
@@ -41,6 +41,13 @@
       "win_rate": 100.0,
       "avg_return": 9.8,
       "total_return": 29.39
+    },
+    {
+      "theme": "AI/5G 통신 인프라 및 반도체",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 8.92,
+      "total_return": 26.75
     },
     {
       "theme": "해운/물류",
@@ -151,9 +158,9 @@
   "market_performance": [
     {
       "market": "KOSDAQ",
-      "count": 45,
-      "win_rate": 55.6,
-      "avg_return": 1.77
+      "count": 48,
+      "win_rate": 56.2,
+      "avg_return": 1.74
     },
     {
       "market": "N/A",
@@ -163,9 +170,9 @@
     },
     {
       "market": "KOSPI",
-      "count": 108,
-      "win_rate": 46.3,
-      "avg_return": -0.92
+      "count": 117,
+      "win_rate": 48.7,
+      "avg_return": -0.27
     }
   ],
   "cumulative_series": [
@@ -248,6 +255,10 @@
     {
       "date": "2026-03-24",
       "cumulative_return": -14.19
+    },
+    {
+      "date": "2026-03-25",
+      "cumulative_return": -10.01
     }
   ]
 }
