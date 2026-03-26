@@ -307,3 +307,74 @@ def calculate_accuracy_report(client) -> Dict:
         "by_confidence": by_confidence,
         "by_category": by_category,
     }
+
+
+def calculate_theme_accuracy(client, limit: int = 30) -> Dict:
+    """테마별 적중률 + priority별 적중률 집계 (최근 limit건)
+
+    Returns:
+        {
+            "by_theme": {"AI/반도체": {"total": 5, "hit": 3, "accuracy": 60.0}, ...},
+            "by_priority": {1: {"total": 10, "hit": 7, "accuracy": 70.0}, ...},
+            "recent_failures": [{"theme": "2차전지", "missed": 3, "total": 5}, ...]
+        }
+    """
+    response = client.table("theme_predictions").select(
+        "theme_name, status, leader_stocks"
+    ).in_(
+        "status", ["hit", "missed"]
+    ).order("prediction_date", desc=True).limit(limit).execute()
+
+    data = response.data or []
+    if not data:
+        return {"by_theme": {}, "by_priority": {}, "recent_failures": []}
+
+    by_theme: Dict[str, Dict] = {}
+    by_priority: Dict[int, Dict] = {1: {"total": 0, "hit": 0}, 2: {"total": 0, "hit": 0}, 3: {"total": 0, "hit": 0}}
+
+    for d in data:
+        theme = d.get("theme_name", "N/A")
+        is_hit = d.get("status") == "hit"
+
+        # 테마별 집계
+        if theme not in by_theme:
+            by_theme[theme] = {"total": 0, "hit": 0, "missed": 0}
+        by_theme[theme]["total"] += 1
+        if is_hit:
+            by_theme[theme]["hit"] += 1
+        else:
+            by_theme[theme]["missed"] += 1
+
+        # priority별 집계 (leader_stocks JSON에서 추출)
+        leader_stocks = d.get("leader_stocks", "[]")
+        if isinstance(leader_stocks, str):
+            try:
+                leader_stocks = json.loads(leader_stocks)
+            except (json.JSONDecodeError, TypeError):
+                leader_stocks = []
+        for stock in leader_stocks:
+            p = stock.get("priority", 3)
+            if p in by_priority:
+                by_priority[p]["total"] += 1
+                if is_hit:
+                    by_priority[p]["hit"] += 1
+
+    # 적중률 계산
+    for v in by_theme.values():
+        v["accuracy"] = round(v["hit"] / v["total"] * 100, 1) if v["total"] else 0.0
+    for v in by_priority.values():
+        v["accuracy"] = round(v["hit"] / v["total"] * 100, 1) if v["total"] else 0.0
+
+    # 최근 실패 테마 (missed > hit인 테마, missed 내림차순)
+    recent_failures = [
+        {"theme": t, "missed": v["missed"], "total": v["total"], "accuracy": v["accuracy"]}
+        for t, v in by_theme.items()
+        if v["missed"] > v["hit"] and v["total"] >= 2
+    ]
+    recent_failures.sort(key=lambda x: x["missed"], reverse=True)
+
+    return {
+        "by_theme": by_theme,
+        "by_priority": by_priority,
+        "recent_failures": recent_failures[:5],
+    }

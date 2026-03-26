@@ -450,6 +450,12 @@ def _build_phase1_prompt(context: str) -> str:
 - 한국 주식시장과 인과관계가 불분명한 해외 뉴스
 - 이미 전일 테마에 반영 완료되어 추가 모멘텀이 없는 재탕 뉴스
 
+### 테마 라이프사이클 규칙 (섹터 로테이션 분석 데이터 참고)
+- [출현] 단계: 신뢰도 "보통" 이하, 데이터 근거 부족 시 제외
+- [가속] 단계: 신뢰도 "높음" 가능, 거래대금+수급 동반 확인 필수
+- [정점] 단계: 신뢰도 "보통" 이하, 차익실현 리스크 반드시 명시
+- [쇠퇴] 단계: 원칙적 제외, 재등장 시 강력한 새 촉매 필수
+
 ### 대장주 선정 규칙
 - 각 테마당 최대 3개 종목, priority 값으로 우선순위 차별화
 - priority 1: 전일 해당 테마 거래대금 최상위 + 외국인/기관 동반 순매수 → 핵심 대장주
@@ -648,6 +654,21 @@ def _fetch_prediction_accuracy() -> Optional[List[Dict]]:
         return None
 
 
+def _fetch_theme_accuracy() -> Optional[Dict]:
+    """Supabase에서 테마별 적중률 + 실패 패턴 조회"""
+    try:
+        from modules.supabase_client import get_supabase_manager
+        from modules.backtest import calculate_theme_accuracy
+        manager = get_supabase_manager()
+        client = manager._get_client()
+        if not client:
+            return None
+        return calculate_theme_accuracy(client, limit=50)
+    except Exception as e:
+        logger.debug("테마별 적중률 조회 실패: %s", e)
+        return None
+
+
 def build_forecast_context(
     latest_data: Dict[str, Any],
     theme_history: List[Dict[str, Any]],
@@ -781,6 +802,31 @@ def build_forecast_context(
             if institution and institution != 0:
                 sign = "+" if institution > 0 else ""
                 inv_parts.append(f"기관:{sign}{institution:,}주")
+            # 수급 트렌드 (오늘+history에서 연속 매수/매도 패턴 추출)
+            history = inv.get("history", [])
+            if history:
+                for label, key in [("외인", "foreign_net"), ("기관", "institution_net")]:
+                    today_val = inv.get(key, 0)
+                    if today_val and today_val > 0:
+                        past_streak = sum(1 for h in history if h.get(key, 0) > 0)
+                        # history 앞에서부터 연속인 것만 카운트
+                        past_streak = 0
+                        for h in history:
+                            if h.get(key, 0) > 0:
+                                past_streak += 1
+                            else:
+                                break
+                        if past_streak >= 1:
+                            inv_parts.append(f"{label}{past_streak+1}일연속매수")
+                    elif today_val and today_val < 0:
+                        past_streak = 0
+                        for h in history:
+                            if h.get(key, 0) < 0:
+                                past_streak += 1
+                            else:
+                                break
+                        if past_streak >= 1:
+                            inv_parts.append(f"{label}{past_streak+1}일연속매도")
             inv_str = f" | {' '.join(inv_parts)}" if inv_parts else ""
             lines.append(
                 f"- {s.get('name')}({code}) {market} 등락:{s.get('change_rate', 0):+.2f}% "
@@ -806,10 +852,25 @@ def build_forecast_context(
                 institution = inv.get("institution_net")
                 if institution and institution != 0:
                     parts.append(f"기관:{'+'if institution>0 else ''}{institution:,}주")
-                # 정배열 여부
+                # 기술적 신호 (criteria_data)
+                signals = []
                 ma = criteria.get("ma_alignment", {})
                 if isinstance(ma, dict) and ma.get("met"):
-                    parts.append("정배열")
+                    signals.append("정배열")
+                hb = criteria.get("high_breakout", {})
+                if isinstance(hb, dict) and hb.get("met"):
+                    signals.append("52주신고가" if hb.get("is_52w_high") else "고가돌파")
+                sd = criteria.get("supply_demand", {})
+                if isinstance(sd, dict) and sd.get("met"):
+                    signals.append("수급동반")
+                oh = criteria.get("overheating", {})
+                if isinstance(oh, dict) and oh.get("level"):
+                    signals.append(f"과열:{oh['level']}")
+                gc = criteria.get("golden_cross", {})
+                if isinstance(gc, dict) and gc.get("signal_count", 0) >= 2:
+                    signals.append(f"골든크로스({gc['signal_count']})")
+                if signals:
+                    parts.append(" ".join(signals))
 
                 lines.append(f"- {' | '.join(parts)}")
 
@@ -914,6 +975,14 @@ def build_forecast_context(
             label = cat_labels.get(a["category"], a["category"])
             lines.append(f"- {label}: 적중률 {a['accuracy']}% ({a['hit']}/{a['total']}건)")
         lines.append("※ 적중률이 낮은 카테고리는 보수적으로 예측하세요.")
+
+    # 테마별 적중률 + 실패 패턴
+    theme_acc = _fetch_theme_accuracy()
+    if theme_acc and theme_acc.get("recent_failures"):
+        lines.append("\n## 최근 실패 테마 (반복 실패 회피 필수)")
+        for f in theme_acc["recent_failures"]:
+            lines.append(f"- \"{f['theme']}\": 적중률 {f['accuracy']}% ({f['total']}건 중 {f['missed']}건 실패)")
+        lines.append("※ 위 테마가 다시 등장 시, 새로운 강력한 촉매가 없으면 제외하세요.")
 
     return "\n".join(lines)
 
@@ -1194,7 +1263,37 @@ def generate_forecast(
         "long_term": result.get("long_term", []),
     }
     _fix_leader_priorities(forecast)
+    _calibrate_confidence(forecast)
     return forecast
+
+
+def _calibrate_confidence(forecast: Dict[str, Any]) -> None:
+    """백테스트 적중률 기반 신뢰도 보정 — 과신 방지
+
+    테마별 적중률이 40% 미만인데 '높음'이면 '보통'으로 다운그레이드.
+    """
+    theme_acc = _fetch_theme_accuracy()
+    if not theme_acc or not theme_acc.get("by_theme"):
+        return
+
+    by_theme = theme_acc["by_theme"]
+    for category in ("today", "short_term", "long_term"):
+        for theme in forecast.get(category, []):
+            name = theme.get("theme_name", "")
+            confidence = theme.get("confidence", "")
+            if confidence != "높음":
+                continue
+            # 정확한 이름 매칭 또는 부분 매칭
+            acc_data = by_theme.get(name)
+            if not acc_data:
+                # 부분 매칭 시도 (예: "AI/반도체" → "AI/반도체(HBM)")
+                for t_name, t_data in by_theme.items():
+                    if name in t_name or t_name in name:
+                        acc_data = t_data
+                        break
+            if acc_data and acc_data["total"] >= 3 and acc_data["accuracy"] < 40:
+                theme["confidence"] = "보통"
+                theme["confidence_note"] = f"최근 적중률 {acc_data['accuracy']}%로 하향 보정"
 
 
 def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dict]:
