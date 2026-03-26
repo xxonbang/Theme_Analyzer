@@ -72,21 +72,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!user || isAdmin) return
     const handleVisibility = () => {
-      if (document.visibilityState === "visible") {
-        // ExpireStorage 8시간 만료 → 로그아웃
-        if (!ExpireStorage.getItem(STORAGE_KEY)) {
-          setSession(null)
-          setUser(null)
-          setAccessToken(null)
-          return
-        }
-        // access_token 갱신 (refresh_token으로 새 토큰 발급)
-        supabase.auth.getSession().then(({ data: { session } }) => {
-          if (session?.user) {
-            setAccessToken(session.access_token ?? null)
-          }
-        }).catch(() => {})
+      if (document.visibilityState !== "visible") return
+      // ExpireStorage 8시간 만료 → 로그아웃
+      if (!ExpireStorage.getItem(STORAGE_KEY)) {
+        setSession(null)
+        setUser(null)
+        setAccessToken(null)
+        return
       }
+      // access_token 갱신 — iOS 백그라운드 복귀 시 getSession() hang 방지 (5초 타임아웃)
+      const timeout = new Promise<null>(resolve => setTimeout(() => resolve(null), 5000))
+      Promise.race([
+        supabase.auth.getSession().then(({ data: { session } }) => session),
+        timeout,
+      ]).then((session) => {
+        if (session?.user) {
+          setAccessToken(session.access_token ?? null)
+        } else {
+          // 타임아웃 또는 세션 없음 — localStorage에서 폴백
+          try {
+            const stored = ExpireStorage.getItem(STORAGE_KEY)
+            if (stored) {
+              const parsed = JSON.parse(stored)
+              if (parsed?.access_token) {
+                setAccessToken(parsed.access_token)
+              }
+            }
+          } catch { /* ignore */ }
+        }
+      }).catch(() => {})
     }
     document.addEventListener("visibilitychange", handleVisibility)
     return () => document.removeEventListener("visibilitychange", handleVisibility)
