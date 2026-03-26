@@ -63,6 +63,16 @@ export function PaperTradingPage() {
     fetchIndex()
   }, [fetchIndex])
 
+  // 데이터 로드 후 모든 날짜를 기본 접힘 상태로 초기화
+  useEffect(() => {
+    if (index.length > 0) {
+      setCollapsedDates(prev => {
+        if (prev.size > 0) return prev
+        return new Set(index.map(e => e.date))
+      })
+    }
+  }, [index])
+
   const toggleCollapse = (date: string) => {
     setCollapsedDates(prev => {
       const next = new Set(prev)
