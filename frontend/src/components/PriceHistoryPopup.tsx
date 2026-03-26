@@ -8,7 +8,7 @@ import type { HistoryChange, IntradayDay } from "@/types/stock"
 // 차트 상수
 const CW = 360
 const CH = 150
-const PAD = { top: 14, right: 40, bottom: 24, left: 36 }
+const PAD = { top: 14, right: 34, bottom: 24, left: 30 }
 const PW = CW - PAD.left - PAD.right
 const PH = CH - PAD.top - PAD.bottom
 

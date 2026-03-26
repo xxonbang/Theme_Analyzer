@@ -75,31 +75,7 @@ export function PaperTradingPage() {
     })
   }
 
-  if (loading && index.length === 0) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-6 h-6 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">모의투자 데이터를 불러오는 중...</p>
-        </div>
-      </div>
-    )
-  }
-
-  // 선택된 날짜의 데이터를 날짜순으로 정렬 (adjustedDailyData로 렌더링)
-  const selectedDailyData: { date: string; data: PaperTradingData }[] = []
-  for (const date of Array.from(selectedDates).sort((a, b) => b.localeCompare(a))) {
-    const data = adjustedDailyData.get(date)
-    if (data) {
-      selectedDailyData.push({ date, data })
-    }
-  }
-
-  const displaySummary = investMode === "equal"
-    ? calcEqualWeightSummary(activeStocks, selectedDates.size)
-    : summary
-
-  // 날짜별 TPSL 시뮬레이션 수익률
+  // 날짜별 TPSL 시뮬레이션 수익률 (hooks는 early return 앞에 위치해야 함)
   const simRates = useMemo(() => {
     const rates: Record<string, number> = {}
     for (const entry of index) {
@@ -125,6 +101,30 @@ export function PaperTradingPage() {
     const totalRate = stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, globalTPSL, s.low_profit_rate), 0)
     return Math.round(totalRate / stocks.length * 100) / 100
   }, [activeStocks, globalTPSL])
+
+  if (loading && index.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">모의투자 데이터를 불러오는 중...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // 선택된 날짜의 데이터를 날짜순으로 정렬 (adjustedDailyData로 렌더링)
+  const selectedDailyData: { date: string; data: PaperTradingData }[] = []
+  for (const date of Array.from(selectedDates).sort((a, b) => b.localeCompare(a))) {
+    const data = adjustedDailyData.get(date)
+    if (data) {
+      selectedDailyData.push({ date, data })
+    }
+  }
+
+  const displaySummary = investMode === "equal"
+    ? calcEqualWeightSummary(activeStocks, selectedDates.size)
+    : summary
 
   return (
     <div className="space-y-4 sm:space-y-6">
