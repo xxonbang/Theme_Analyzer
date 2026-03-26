@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, memo } from "react"
 import { ExternalLink, X, Plus, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { TakeProfitSlider, applyTPSL, type TPSLValues } from "@/components/TakeProfitSlider"
@@ -17,7 +17,7 @@ interface PaperTradingStockCardProps {
   onTPSLChange?: (value: TPSLValues) => void
 }
 
-export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode, tpsl, onTPSLChange }: PaperTradingStockCardProps) {
+export const PaperTradingStockCard = memo(function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morningTimestamp, mode, investMode, tpsl, onTPSLChange }: PaperTradingStockCardProps) {
   const [expanded, setExpanded] = useState(false)
 
   const rawDisplayRate = mode === "high" ? (stock.high_profit_rate ?? stock.profit_rate) : stock.profit_rate
@@ -183,4 +183,4 @@ export function PaperTradingStockCard({ stock, date, isExcluded, onToggle, morni
       )}
     </div>
   )
-}
+})

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react"
+import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from "react"
 import { createPortal } from "react-dom"
 import { Header } from "@/components/Header"
 import { ExchangeRate } from "@/components/ExchangeRate"
@@ -8,9 +8,9 @@ import { DataFreshness } from "@/components/DataFreshness"
 import { StockList } from "@/components/StockList"
 import { TabBar, TabControls } from "@/components/TabBar"
 import { HistoryModal } from "@/components/HistoryModal"
-import { PaperTradingPage } from "@/components/PaperTradingPage"
-import { ThemeForecastPage } from "@/components/ThemeForecastPage"
-import { PortfolioPage } from "@/components/PortfolioPage"
+const PaperTradingPage = lazy(() => import("@/components/PaperTradingPage").then(m => ({ default: m.PaperTradingPage })))
+const ThemeForecastPage = lazy(() => import("@/components/ThemeForecastPage").then(m => ({ default: m.ThemeForecastPage })))
+const PortfolioPage = lazy(() => import("@/components/PortfolioPage").then(m => ({ default: m.PortfolioPage })))
 import { AuthPage } from "@/components/AuthPage"
 import { CriteriaLegend } from "@/components/CriteriaLegend"
 import { IndexAlertSection } from "@/components/KosdaqIndexAlert"
@@ -445,6 +445,31 @@ function App() {
     return map
   }, [displayData])
 
+  // 종목코드→시장(kospi/kosdaq) 매핑
+  const stockMarketMap = useMemo(() => {
+    if (!displayData) return {}
+    const map: Record<string, string> = {}
+    const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
+    for (const sec of sections) {
+      if (!sec) continue
+      for (const s of sec.kospi || []) map[s.code] = 'kospi'
+      for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
+    }
+    return map
+  }, [displayData])
+
+  // 종목코드→거래대금 순위 매핑
+  const stockTradingRankMap = useMemo(() => {
+    if (!displayData) return {}
+    const map: Record<string, number> = {}
+    const tv = displayData.trading_value
+    if (tv) {
+      for (const s of tv.kospi || []) map[s.code] = s.rank
+      for (const s of tv.kosdaq || []) map[s.code] = s.rank
+    }
+    return map
+  }, [displayData])
+
   // 신규 JSON 여부 (volume 필드가 있으면 신규)
   const hasNewFields = !!displayData?.volume
 
@@ -860,9 +885,11 @@ function App() {
 
       {/* 모의투자 페이지 */}
       {currentPage === "paper-trading" && (
-        <main className="container px-3 sm:px-4 py-4 sm:py-6">
-          <PaperTradingPage />
-        </main>
+        <Suspense fallback={<div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>}>
+          <main className="container px-3 sm:px-4 py-4 sm:py-6">
+            <PaperTradingPage />
+          </main>
+        </Suspense>
       )}
 
       {/* AI 테마 분석 페이지 */}
@@ -873,45 +900,32 @@ function App() {
             criteriaData={displayData?.criteria_data}
             isAdmin={isAdmin}
             onScrollToStock={scrollToStock}
-            stockMarketMap={(() => {
-              const map: Record<string, string> = {}
-              const sections = [displayData.rising, displayData.falling, displayData.volume, displayData.trading_value]
-              for (const sec of sections) {
-                if (!sec) continue
-                for (const s of sec.kospi || []) map[s.code] = 'kospi'
-                for (const s of sec.kosdaq || []) map[s.code] = 'kosdaq'
-              }
-              return map
-            })()}
-            stockTradingRankMap={(() => {
-              const map: Record<string, number> = {}
-              const tv = displayData.trading_value
-              if (tv) {
-                for (const s of tv.kospi || []) map[s.code] = s.rank
-                for (const s of tv.kosdaq || []) map[s.code] = s.rank
-              }
-              return map
-            })()}
+            stockMarketMap={stockMarketMap}
+            stockTradingRankMap={stockTradingRankMap}
           />
         </main>
       )}
 
       {/* 유망 테마 예측 페이지 */}
       {currentPage === "theme-forecast" && (
-        <main className="container px-3 sm:px-4 py-4 sm:py-6">
-          <ThemeForecastPage criteriaData={displayData?.criteria_data} isAdmin={isAdmin} />
-        </main>
+        <Suspense fallback={<div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>}>
+          <main className="container px-3 sm:px-4 py-4 sm:py-6">
+            <ThemeForecastPage criteriaData={displayData?.criteria_data} isAdmin={isAdmin} />
+          </main>
+        </Suspense>
       )}
 
       {/* 포트폴리오 페이지 */}
       {currentPage === "portfolio" && (
-        <main className="container px-3 sm:px-4 py-4 sm:py-6">
-          <PortfolioPage
-            stockData={currentData ?? null}
-            volumeProfileData={vpData ?? null}
-            themeForecast={themeForecastData ?? null}
-          />
-        </main>
+        <Suspense fallback={<div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>}>
+          <main className="container px-3 sm:px-4 py-4 sm:py-6">
+            <PortfolioPage
+              stockData={currentData ?? null}
+              volumeProfileData={vpData ?? null}
+              themeForecast={themeForecastData ?? null}
+            />
+          </main>
+        </Suspense>
       )}
 
       {/* 메인 대시보드 */}

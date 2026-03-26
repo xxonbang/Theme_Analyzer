@@ -10,6 +10,7 @@ import random
 import re
 import time
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
@@ -19,6 +20,9 @@ from modules.utils import KST
 from modules.data_exporter import save_history_file, cleanup_old_history, update_history_index
 
 logger = logging.getLogger(__name__)
+
+# HTTP 연결 풀링 (Gemini API, 외부 URL 등)
+_http_session = requests.Session()
 
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 ROOT_DIR = Path(__file__).parent.parent
@@ -162,7 +166,7 @@ def _gemini_post(url: str, payload: dict, timeout: int = 180, max_retries: int =
     base_delay = 2
 
     for attempt in range(max_retries):
-        resp = requests.post(url, json=payload, timeout=timeout)
+        resp = _http_session.post(url, json=payload, timeout=timeout)
 
         if resp.ok:
             return resp
@@ -314,13 +318,17 @@ def _extract_grounding_sources(data: Dict) -> List[Dict[str, str]]:
             seen.add(uri)
             sources.append({"title": title, "uri": uri})
 
-    # 도메인만 있는 title을 실제 페이지 제목으로 교체
-    for source in sources:
-        title = source["title"]
-        if not title or "." in title and " " not in title:
-            resolved = _resolve_page_title(source["uri"])
-            if resolved:
-                source["title"] = resolved
+    # 도메인만 있는 title을 실제 페이지 제목으로 병렬 교체
+    need_resolve = [(i, s) for i, s in enumerate(sources)
+                    if not s["title"] or ("." in s["title"] and " " not in s["title"])]
+    if need_resolve:
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            futures = {pool.submit(_resolve_page_title, s["uri"]): i for i, s in need_resolve}
+            for fut in as_completed(futures):
+                idx = futures[fut]
+                resolved = fut.result()
+                if resolved:
+                    sources[idx]["title"] = resolved
     return sources
 
 

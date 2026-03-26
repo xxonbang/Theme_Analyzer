@@ -22,7 +22,7 @@ export function useAutoPolling(refetch: () => void, intervalMs = 60_000) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (isMarketHours()) {
+      if (document.visibilityState === "visible" && isMarketHours()) {
         refetchRef.current()
       }
     }, intervalMs)

@@ -74,6 +74,9 @@ class KISClient:
         self._force_refresh_count = 0
         self._force_refresh_date = None
 
+        # HTTP 연결 풀링 (TCP 핸드셰이크 재사용)
+        self._session = requests.Session()
+
         self._validate_credentials()
         self._load_cached_token()
 
@@ -298,7 +301,7 @@ class KISClient:
         print(f"[KIS] AppKey (마스킹): {masked_key}")
         print(f"[KIS] Base URL: {self.base_url}")
 
-        response = requests.post(url, headers=headers, json=body, timeout=30)
+        response = self._session.post(url, headers=headers, json=body, timeout=30)
 
         # 403 오류 시 상세 응답 출력
         if response.status_code == 403:
@@ -361,7 +364,7 @@ class KISClient:
             "appsecret": self.app_secret,
         }
 
-        response = requests.post(url, headers=headers, json=body, timeout=30)
+        response = self._session.post(url, headers=headers, json=body, timeout=30)
         response.raise_for_status()
 
         data = response.json()
@@ -424,9 +427,9 @@ class KISClient:
 
         try:
             if method.upper() == "GET":
-                response = requests.get(url, headers=headers, params=params, timeout=30)
+                response = self._session.get(url, headers=headers, params=params, timeout=30)
             else:
-                response = requests.post(url, headers=headers, json=body, timeout=30)
+                response = self._session.post(url, headers=headers, json=body, timeout=30)
 
             # 401 Unauthorized: 토큰 만료
             if response.status_code == 401 and _retry:

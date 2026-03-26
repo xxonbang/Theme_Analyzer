@@ -28,6 +28,8 @@ class KISRankAPI:
         # blng_cls_code별 _collect_extended_stocks 결과 캐시
         # 동일 blng_cls_code는 시장 무관하게 같은 데이터를 반환하므로 1회만 호출
         self._extended_stocks_cache: Dict[str, List[Dict[str, Any]]] = {}
+        # 투자자 데이터 수집용 공유 스레드풀
+        self._executor = ThreadPoolExecutor(max_workers=10)
 
     def _determine_market(self, code: str) -> str:
         """종목코드로 시장 구분
@@ -716,20 +718,19 @@ class KISRankAPI:
 
             return code, investor_entry
 
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            futures = {executor.submit(_fetch_investor, s): s for s in stocks}
-            done = 0
-            for future in as_completed(futures):
-                done += 1
-                try:
-                    code, entry = future.result()
-                    if code and entry:
-                        result[code] = entry
-                except Exception as e:
-                    stock = futures[future]
-                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 투자자 데이터 조회 실패: {e}")
-                if done % 20 == 0 or done == total:
-                    print(f"  진행: {done}/{total}")
+        futures = {self._executor.submit(_fetch_investor, s): s for s in stocks}
+        done = 0
+        for future in as_completed(futures):
+            done += 1
+            try:
+                code, entry = future.result()
+                if code and entry:
+                    result[code] = entry
+            except Exception as e:
+                stock = futures[future]
+                print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 투자자 데이터 조회 실패: {e}")
+            if done % 20 == 0 or done == total:
+                print(f"  진행: {done}/{total}")
 
         return result
 
@@ -772,20 +773,19 @@ class KISRankAPI:
                 "individual_net": None,
             }
 
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            futures = {executor.submit(_fetch_estimate, s): s for s in stocks}
-            done = 0
-            for future in as_completed(futures):
-                done += 1
-                try:
-                    code, entry = future.result()
-                    if code and entry:
-                        result[code] = entry
-                except Exception as e:
-                    stock = futures[future]
-                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 추정 수급 조회 실패: {e}")
-                if done % 20 == 0 or done == total:
-                    print(f"  진행: {done}/{total}")
+        futures = {self._executor.submit(_fetch_estimate, s): s for s in stocks}
+        done = 0
+        for future in as_completed(futures):
+            done += 1
+            try:
+                code, entry = future.result()
+                if code and entry:
+                    result[code] = entry
+            except Exception as e:
+                stock = futures[future]
+                print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 추정 수급 조회 실패: {e}")
+            if done % 20 == 0 or done == total:
+                print(f"  진행: {done}/{total}")
 
         return result
 
@@ -832,20 +832,19 @@ class KISRankAPI:
                 "individual_net": individual_net if individual_net else None,
             }
 
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            futures = {executor.submit(_fetch_semi, s): s for s in stocks}
-            done = 0
-            for future in as_completed(futures):
-                done += 1
-                try:
-                    code, entry = future.result()
-                    if code and entry:
-                        result[code] = entry
-                except Exception as e:
-                    stock = futures[future]
-                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 가집계 수급 조회 실패: {e}")
-                if done % 20 == 0 or done == total:
-                    print(f"  진행: {done}/{total}")
+        futures = {self._executor.submit(_fetch_semi, s): s for s in stocks}
+        done = 0
+        for future in as_completed(futures):
+            done += 1
+            try:
+                code, entry = future.result()
+                if code and entry:
+                    result[code] = entry
+            except Exception as e:
+                stock = futures[future]
+                print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 가집계 수급 조회 실패: {e}")
+            if done % 20 == 0 or done == total:
+                print(f"  진행: {done}/{total}")
 
         return result
 
@@ -955,20 +954,19 @@ class KISRankAPI:
                 "foreign_net": safe_int(output.get("glob_ntby_qty", 0)),
             }
 
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            futures = {executor.submit(_fetch_member, s): s for s in stocks}
-            done = 0
-            for future in as_completed(futures):
-                done += 1
-                try:
-                    code, entry = future.result()
-                    if code and entry:
-                        result[code] = entry
-                except Exception as e:
-                    stock = futures[future]
-                    print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 거래원 데이터 조회 실패: {e}")
-                if done % 20 == 0 or done == total:
-                    print(f"  진행: {done}/{total}")
+        futures = {self._executor.submit(_fetch_member, s): s for s in stocks}
+        done = 0
+        for future in as_completed(futures):
+            done += 1
+            try:
+                code, entry = future.result()
+                if code and entry:
+                    result[code] = entry
+            except Exception as e:
+                stock = futures[future]
+                print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 거래원 데이터 조회 실패: {e}")
+            if done % 20 == 0 or done == total:
+                print(f"  진행: {done}/{total}")
 
         return result
 

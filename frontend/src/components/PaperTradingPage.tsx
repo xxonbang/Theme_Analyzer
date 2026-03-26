@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Loader2, LineChart, RotateCcw, CheckCheck, ChevronDown, ChevronUp } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { PaperTradingStockCard } from "@/components/PaperTradingStockCard"
@@ -8,7 +8,7 @@ import { TakeProfitSlider, applyTPSL, type TPSLValues } from "@/components/TakeP
 import { usePaperTradingData, calcEqualWeightSummary, calcEqualDayProfitRate } from "@/hooks/usePaperTradingData"
 import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { cn } from "@/lib/utils"
-import type { PaperTradingData, PaperTradingMode, InvestMode } from "@/types/stock"
+import type { PaperTradingData, PaperTradingMode, InvestMode, InvestorIntraday } from "@/types/stock"
 
 export function PaperTradingPage() {
   const {
@@ -99,14 +99,32 @@ export function PaperTradingPage() {
     ? calcEqualWeightSummary(activeStocks, selectedDates.size)
     : summary
 
+  // 날짜별 TPSL 시뮬레이션 수익률
+  const simRates = useMemo(() => {
+    const rates: Record<string, number> = {}
+    for (const entry of index) {
+      const data = adjustedDailyData.get(entry.date)
+      if (!data) continue
+      const stocks = data.stocks.filter(s => !isStockExcluded(entry.date, s.code))
+      if (stocks.length === 0) continue
+      const eff: TPSLValues = {
+        tp: dateTPSL[entry.date]?.tp ?? globalTPSL.tp,
+        sl: dateTPSL[entry.date]?.sl ?? globalTPSL.sl,
+      }
+      if (eff.tp === null && eff.sl === null) continue
+      rates[entry.date] = Math.round(stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, eff, s.low_profit_rate), 0) / stocks.length * 100) / 100
+    }
+    return Object.keys(rates).length > 0 ? rates : undefined
+  }, [index, adjustedDailyData, isStockExcluded, dateTPSL, globalTPSL])
+
   // 글로벌 TPSL 시뮬레이션 수익률
-  const globalSimRate = (() => {
+  const globalSimRate = useMemo(() => {
     if (globalTPSL.tp === null && globalTPSL.sl === null) return null
     const stocks = activeStocks
     if (stocks.length === 0) return null
     const totalRate = stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, globalTPSL, s.low_profit_rate), 0)
     return Math.round(totalRate / stocks.length * 100) / 100
-  })()
+  }, [activeStocks, globalTPSL])
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -188,46 +206,13 @@ export function PaperTradingPage() {
       )}
 
       {/* 장중 실시간 손익 */}
-      {intradayData && intradayData.snapshots?.length > 0 && selectedDailyData.length > 0 && (() => {
-        const todayStr = intradayData.date
-        const todayData = adjustedDailyData.get(todayStr)
-        if (!todayData || !selectedDates.has(todayStr)) return null
-        const lastSnap = intradayData.snapshots[intradayData.snapshots.length - 1]
-        const snapData = lastSnap.data || {}
-        const activeForToday = todayData.stocks.filter(s => !isStockExcluded(todayStr, s.code))
-        const realtimeItems = activeForToday
-          .map(s => {
-            const cp = snapData[s.code]?.cp
-            if (!cp || !s.buy_price) return null
-            const pnlRate = Math.round(((cp - s.buy_price) / s.buy_price) * 10000) / 100
-            return { name: s.name, code: s.code, buyPrice: s.buy_price, currentPrice: cp, pnlRate }
-          })
-          .filter(Boolean) as Array<{ name: string; code: string; buyPrice: number; currentPrice: number; pnlRate: number }>
-        if (realtimeItems.length === 0) return null
-        const avgPnl = Math.round(realtimeItems.reduce((s, i) => s + i.pnlRate, 0) / realtimeItems.length * 100) / 100
-        return (
-          <Card className="overflow-hidden shadow-sm border-amber-500/30">
-            <CardContent className="p-3 sm:p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs sm:text-sm font-semibold">장중 실시간 ({lastSnap.time})</span>
-                <span className={cn("font-bold text-sm tabular-nums", avgPnl > 0 ? "text-red-600" : avgPnl < 0 ? "text-blue-600" : "")}>
-                  평균 {avgPnl >= 0 ? "+" : ""}{avgPnl}%
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                {realtimeItems.map(item => (
-                  <div key={item.code} className="flex items-center justify-between text-[10px] sm:text-xs px-2 py-1 rounded bg-muted/30">
-                    <span className="truncate mr-1">{item.name}</span>
-                    <span className={cn("font-semibold tabular-nums shrink-0", item.pnlRate > 0 ? "text-red-600" : item.pnlRate < 0 ? "text-blue-600" : "")}>
-                      {item.pnlRate >= 0 ? "+" : ""}{item.pnlRate}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )
-      })()}
+      <IntradayRealtimePnl
+        intradayData={intradayData}
+        adjustedDailyData={adjustedDailyData}
+        selectedDates={selectedDates}
+        selectedDailyData={selectedDailyData}
+        isStockExcluded={isStockExcluded}
+      />
 
       {/* 종합 요약 + 글로벌 익절 슬라이더 */}
       {selectedDailyData.length > 0 && (
@@ -254,22 +239,7 @@ export function PaperTradingPage() {
             onToggleAll={toggleAllDates}
             mode={activeTab}
             investMode={investMode}
-            simRates={(() => {
-              const rates: Record<string, number> = {}
-              for (const entry of index) {
-                const data = adjustedDailyData.get(entry.date)
-                if (!data) continue
-                const stocks = data.stocks.filter(s => !isStockExcluded(entry.date, s.code))
-                if (stocks.length === 0) continue
-                const eff: TPSLValues = {
-                  tp: dateTPSL[entry.date]?.tp ?? globalTPSL.tp,
-                  sl: dateTPSL[entry.date]?.sl ?? globalTPSL.sl,
-                }
-                if (eff.tp === null && eff.sl === null) continue
-                rates[entry.date] = Math.round(stocks.reduce((sum, s) => sum + applyTPSL(s.profit_rate, s.high_profit_rate, eff, s.low_profit_rate), 0) / stocks.length * 100) / 100
-              }
-              return Object.keys(rates).length > 0 ? rates : undefined
-            })()}
+            simRates={simRates}
           />
         </CardContent>
       </Card>
@@ -335,16 +305,11 @@ export function PaperTradingPage() {
                         )
                       })}
                     </select>
-                  ) : (
-                    (() => {
-                      const t = data.morning_timestamp?.split(" ")[1]?.slice(0, 5)
-                      return t ? (
-                        <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground inline-block">
-                          매수 {t}
-                        </span>
-                      ) : null
-                    })()
-                  )}
+                  ) : data.morning_timestamp?.split(" ")[1]?.slice(0, 5) ? (
+                    <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground inline-block">
+                      매수 {data.morning_timestamp.split(" ")[1]?.slice(0, 5)}
+                    </span>
+                  ) : null}
                 </div>
                 <div className="flex items-center gap-2">
                   {!collapsed && (
@@ -434,5 +399,54 @@ export function PaperTradingPage() {
         </div>
       )}
     </div>
+  )
+}
+
+/** 장중 실시간 손익 서브컴포넌트 */
+function IntradayRealtimePnl({ intradayData, adjustedDailyData, selectedDates, selectedDailyData, isStockExcluded }: {
+  intradayData: InvestorIntraday | null
+  adjustedDailyData: Map<string, PaperTradingData>
+  selectedDates: Set<string>
+  selectedDailyData: { date: string; data: PaperTradingData }[]
+  isStockExcluded: (date: string, code: string) => boolean
+}) {
+  if (!intradayData || !intradayData.snapshots?.length || selectedDailyData.length === 0) return null
+  const todayStr = intradayData.date
+  const todayData = adjustedDailyData.get(todayStr)
+  if (!todayData || !selectedDates.has(todayStr)) return null
+  const lastSnap = intradayData.snapshots[intradayData.snapshots.length - 1]
+  const snapData = lastSnap.data || {}
+  const activeForToday = todayData.stocks.filter(s => !isStockExcluded(todayStr, s.code))
+  const realtimeItems = activeForToday
+    .map(s => {
+      const cp = snapData[s.code]?.cp
+      if (!cp || !s.buy_price) return null
+      const pnlRate = Math.round(((cp - s.buy_price) / s.buy_price) * 10000) / 100
+      return { name: s.name, code: s.code, buyPrice: s.buy_price, currentPrice: cp, pnlRate }
+    })
+    .filter(Boolean) as Array<{ name: string; code: string; buyPrice: number; currentPrice: number; pnlRate: number }>
+  if (realtimeItems.length === 0) return null
+  const avgPnl = Math.round(realtimeItems.reduce((s, i) => s + i.pnlRate, 0) / realtimeItems.length * 100) / 100
+  return (
+    <Card className="overflow-hidden shadow-sm border-amber-500/30">
+      <CardContent className="p-3 sm:p-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs sm:text-sm font-semibold">장중 실시간 ({lastSnap.time})</span>
+          <span className={cn("font-bold text-sm tabular-nums", avgPnl > 0 ? "text-red-600" : avgPnl < 0 ? "text-blue-600" : "")}>
+            평균 {avgPnl >= 0 ? "+" : ""}{avgPnl}%
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+          {realtimeItems.map(item => (
+            <div key={item.code} className="flex items-center justify-between text-[10px] sm:text-xs px-2 py-1 rounded bg-muted/30">
+              <span className="truncate mr-1">{item.name}</span>
+              <span className={cn("font-semibold tabular-nums shrink-0", item.pnlRate > 0 ? "text-red-600" : item.pnlRate < 0 ? "text-blue-600" : "")}>
+                {item.pnlRate >= 0 ? "+" : ""}{item.pnlRate}%
+              </span>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   )
 }
