@@ -6,6 +6,11 @@
 
 ## 2026-03-27
 
+### [버그픽스] 컴팩트 테이블 투자자 컬럼 헤더 겹침 수정 (2026-03-27 13:52 KST)
+- **변경 파일**: `frontend/src/components/StockList.tsx`
+- **내용**: 외국인/기관/개인 컬럼 헤더 고정 너비(`w-14`) → 최소 너비(`min-w-[56px]`)로 변경, 부가 텍스트 포함 시 자동 확장
+- **원인**: 이전 커밋에서 `whitespace-nowrap` 추가 시 고정 너비 유지로 텍스트 겹침 발생
+
 ### [개선] 날짜 오늘 표시 + 컴팩트 테이블 컬럼 정렬 수정 (2026-03-27 13:48 KST)
 - **변경 파일**: `HistoryModal.tsx`, `PriceHistoryPopup.tsx`, `PredictionHistory.tsx`, `MacroIndicators.tsx`, `StockList.tsx`
 - **내용**:
