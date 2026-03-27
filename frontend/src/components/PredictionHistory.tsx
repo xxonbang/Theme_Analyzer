@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp, History, X, ExternalLink, ChevronRight, HelpCircle } from "lucide-react"
 import { cn, parseKST } from "@/lib/utils"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import type { StockPrediction, StockPredictionsByDate, ThemeInfo } from "@/hooks/usePredictionHistory"
 import { useForecastSnapshots } from "@/hooks/useForecastSnapshots"
 import type { ThemeForecast } from "@/types/stock"
@@ -62,7 +63,7 @@ function ThemeItem({ theme }: { theme: ThemeInfo }) {
         <div className="flex items-center gap-1">
           <ChevronRight className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform", expanded && "rotate-90")} />
           <span className="text-sm font-medium">{theme.theme_name}</span>
-          <span className="ml-auto text-[9px] text-muted-foreground">{stocks.length}종목</span>
+          <span className="ml-auto text-[10px] text-muted-foreground">{stocks.length}종목</span>
         </div>
       </button>
       {expanded && stocks.length > 0 && (
@@ -97,30 +98,14 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
   onClose: () => void
 }) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
-
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
         <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
         </div>
         <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-semibold">{stockName} ({stockCode}) 예측 테마</span>

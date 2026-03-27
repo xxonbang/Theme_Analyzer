@@ -762,7 +762,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                 {isEditing && (
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex-1">
-                      <label className="text-[9px] text-muted-foreground">평균단가</label>
+                      <label className="text-[10px] text-muted-foreground">평균단가</label>
                       <input
                         type="text"
                         inputMode="numeric"
@@ -772,7 +772,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="text-[9px] text-muted-foreground">수량</label>
+                      <label className="text-[10px] text-muted-foreground">수량</label>
                       <input
                         type="text"
                         inputMode="numeric"
@@ -848,7 +848,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                         <span className="text-muted-foreground">데이터 없음</span>
                       )}
                       {h.w52Low !== null && h.w52High !== null && (
-                        <div className="flex justify-between text-[9px] text-muted-foreground mt-0.5">
+                        <div className="flex justify-between text-[10px] text-muted-foreground mt-0.5">
                           <span>52주저 {formatPrice(h.w52Low)}원</span>
                           <span>52주고 {formatPrice(h.w52High)}원</span>
                         </div>

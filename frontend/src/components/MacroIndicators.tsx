@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { ChevronDown, ChevronUp, BarChart3, History, X, TrendingUp } from "lucide-react"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import type { MacroIndicatorsData, InvestorTrendDay, FuturesItem } from "@/hooks/useMacroIndicators"
 import type { IndicatorHistoryData } from "@/hooks/useIndicatorHistory"
 
@@ -14,7 +15,10 @@ interface MacroIndicatorsProps {
 
 const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200", "EWY", "KORU", "^VIX", "FNG"]
 const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200": "K200", "^VIX": "VIX", "FNG": "F&G" }
-const LINE_COLORS = ["#ef4444", "#3b82f6", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899"]
+const LINE_COLORS = [
+  "var(--color-chart-red)", "var(--color-chart-blue)", "var(--color-chart-amber)",
+  "var(--color-chart-green)", "var(--color-chart-violet)", "var(--color-chart-pink)",
+]
 
 const INDICATOR_DESC: Record<string, string> = {
   "NQ=F": "나스닥100 선물 (E-mini). 미국 기술주 100개 종목 선물지수. 한국 시장 개장 전 미국 시장 방향성을 가늠하는 핵심 지표.",
@@ -33,24 +37,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
   const [showHistory, setShowHistory] = useState(false)
   const [chartHidden, setChartHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
-
-  useEffect(() => {
-    if (!showHistory) return
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [showHistory])
+  useScrollLock(showHistory)
 
   const filtered = data.filter(item => item.symbol !== "NQ_F")
   if (!filtered || filtered.length === 0) return null
@@ -86,7 +73,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
           <span
             role="button"
             onClick={handleHistoryClick}
-            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
+            className="inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
           >
             <History className="w-3 h-3" />
             히스토리
@@ -113,7 +100,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
               }
               return (
                 <div key={item.symbol} className={`flex-1 flex flex-col items-center py-1 ${bg}`}>
-                  <span className="text-[9px] text-foreground/65 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
+                  <span className="text-[10px] text-foreground/65 font-medium leading-none">{shortName[item.symbol] || item.name}</span>
                   <span className={`text-[11px] tabular-nums font-bold leading-tight ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                     {isUp ? "+" : ""}{item.change_pct.toFixed(1)}%
                   </span>
@@ -154,7 +141,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
           <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
             <div ref={handleRef} className="sticky top-0 z-10 bg-popover pt-3 px-3 sm:px-0 sm:pt-0">
               <div className="sm:hidden flex items-center justify-center mb-2 py-1 cursor-grab relative">
-                <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+                <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
               </div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-semibold">주요 선물 히스토리</span>
@@ -228,24 +215,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
   const [activeMarket, setActiveMarket] = useState<"kospi" | "kosdaq">("kospi")
   const [investorHidden, setInvestorHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowDetail(false), 80, showDetail)
-
-  useEffect(() => {
-    if (!showDetail) return
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [showDetail])
+  useScrollLock(showDetail)
 
   if (!data || data.length === 0) return null
 
@@ -273,7 +243,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
           </span>
           <button
             onClick={() => { if (onRequestHistory) onRequestHistory(); setShowDetail(true) }}
-            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
+            className="inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
           >
             <History className="w-3 h-3" />
             히스토리
@@ -292,7 +262,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                     { label: "개인", key: "individual" as const },
                   ]).map(({ label, key }) => (
                     <div key={key} className="text-center min-w-0">
-                      <span className="text-[9px] text-muted-foreground block leading-none mb-0.5">{label}</span>
+                      <span className="text-[10px] text-muted-foreground block leading-none mb-0.5">{label}</span>
                       <span className={`text-[11px] tabular-nums font-bold leading-none whitespace-nowrap ${d[key] > 0 ? "text-red-500" : d[key] < 0 ? "text-blue-500" : "text-muted-foreground"}`}>
                         {d[key] > 0 ? "+" : ""}{formatAmount(d[key])}
                       </span>
@@ -310,7 +280,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowDetail(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
             <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
               <button onClick={() => setShowDetail(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
                 <X className="w-4 h-4" />
               </button>
@@ -358,7 +328,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                           <button
                             key={row.name}
                             onClick={() => setInvestorHidden(prev => { const next = new Set(prev); if (next.has(row.name)) next.delete(row.name); else next.add(row.name); return next })}
-                            className={`text-[9px] font-semibold px-1.5 py-0.5 rounded transition-colors ${active ? "" : "opacity-30"}`}
+                            className={`text-[10px] font-semibold px-1.5 py-0.5 rounded transition-colors ${active ? "" : "opacity-30"}`}
                             style={active ? { backgroundColor: color + "18", color } : undefined}
                           >
                             {row.name}
@@ -404,7 +374,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
               )
             })()}
             {historyLoading && <p className="text-[10px] text-muted-foreground/50 text-center py-1">히스토리 로딩 중...</p>}
-            <p className="text-[9px] text-muted-foreground/50 mt-1">단위: 백만원 (1조 = 10,000억)</p>
+            <p className="text-[10px] text-muted-foreground/50 mt-1">단위: 백만원 (1조 = 10,000억)</p>
           </div>
         </div>,
         document.body
@@ -555,7 +525,7 @@ function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; 
       <div className="flex flex-wrap gap-1 px-1 mb-1">
         <button
           onClick={() => setHidden(prev => prev.size === 0 ? new Set(rows.map(r => r.name)) : new Set())}
-          className="text-[9px] px-1.5 py-0.5 rounded border border-border/40 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors"
+          className="text-[10px] px-1.5 py-0.5 rounded border border-border/40 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors"
         >
           {hidden.size === 0 ? "전체해제" : "전체선택"}
         </button>
@@ -566,7 +536,7 @@ function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; 
             <button
               key={row.name}
               onClick={() => toggle(row.name)}
-              className={`text-[9px] px-1.5 py-0.5 rounded transition-colors ${active ? "font-semibold" : "opacity-30"}`}
+              className={`text-[10px] px-1.5 py-0.5 rounded transition-colors ${active ? "font-semibold" : "opacity-30"}`}
               style={active ? { backgroundColor: color + "18", color } : undefined}
             >
               {row.name}
@@ -638,25 +608,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null)
   const [chartHidden, setChartHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
-
-  // 스크롤 잠금
-  useEffect(() => {
-    if (!showHistory) return
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [showHistory])
+  useScrollLock(showHistory)
 
   if (!data?.indicators?.length) return null
 
@@ -700,7 +652,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           <span
             role="button"
             onClick={handleHistoryClick}
-            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
+            className="inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
           >
             <History className="w-3 h-3" />
             히스토리
@@ -731,7 +683,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                   key={item.symbol}
                   className={`flex-1 flex flex-col items-center py-1 ${bg}`}
                 >
-                  <span className="text-[9px] text-foreground/65 font-medium leading-none">{name}</span>
+                  <span className="text-[10px] text-foreground/65 font-medium leading-none">{name}</span>
                   {isMissing ? (
                     <span className="text-[11px] tabular-nums font-bold leading-tight text-muted-foreground/30">-</span>
                   ) : isFng ? (
@@ -825,7 +777,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
             <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
               <button onClick={() => setShowHistory(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
                 <X className="w-4 h-4" />
               </button>

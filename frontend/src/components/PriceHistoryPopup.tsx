@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn, formatPrice, formatVolume, formatTradingValue, getChangeBgColor } from "@/lib/utils"
 import type { HistoryChange, IntradayDay } from "@/types/stock"
@@ -78,22 +79,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
   const todayInArray = hasIntraday ? intradayDays.findIndex(d => d.date === todayKST) : -1
   const [selectedDayIdx, setSelectedDayIdx] = useState(todayInArray >= 0 ? todayInArray : -1)
 
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   // 장중 선택된 날짜 데이터 — 오늘이면 현재 시각까지만 표시
   const selectedDay = hasIntraday && selectedDayIdx >= 0 ? intradayDays[selectedDayIdx] : null
@@ -122,7 +108,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
       <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
         {/* 모바일 드래그 핸들 + 닫기 */}
         <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-1 cursor-grab relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>
@@ -160,7 +146,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
             )}
           >
-            장중{!hasIntraday && <span className="text-[9px] ml-1">(수집 전)</span>}
+            장중{!hasIntraday && <span className="text-[10px] ml-1">(수집 전)</span>}
           </button>
         </div>
 
@@ -257,7 +243,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
             </div>
 
             {/* 테이블 헤더 */}
-            <div className="flex items-center gap-x-2 text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
+            <div className="flex items-center gap-x-2 text-[10px] text-muted-foreground font-medium pb-1 border-b border-border/50">
               <span className="w-7 shrink-0">일자</span>
               <span className="w-12 shrink-0 text-right hidden sm:block">날짜</span>
               <span className="flex-[4] text-right">종가</span>
@@ -287,7 +273,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                     <span className="w-12 shrink-0 text-right text-muted-foreground/50 tabular-nums hidden sm:block">{c.date.slice(5)}</span>
                     <span className="flex-[4] text-right font-bold tabular-nums">
                       {close > 0 ? formatPrice(close) : "-"}
-                      <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
+                      <span className="text-muted-foreground/50 text-[10px] ml-0.5">원</span>
                     </span>
                     <span className="flex-[3] text-right">
                       <span className={cn(
@@ -441,7 +427,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
             })()}
 
             {/* 테이블 헤더 */}
-            <div className="flex items-center gap-x-2 text-[9px] text-muted-foreground font-medium pb-1 border-b border-border/50">
+            <div className="flex items-center gap-x-2 text-[10px] text-muted-foreground font-medium pb-1 border-b border-border/50">
               <span className="w-10 shrink-0">시간</span>
               <span className="flex-[4] text-right">현재가</span>
               <span className="flex-[3] text-right">등락률</span>
@@ -465,7 +451,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   <span className="w-10 shrink-0 text-muted-foreground font-semibold tabular-nums">{item.time}</span>
                   <span className="flex-[4] text-right font-bold tabular-nums">
                     {formatPrice(item.close)}
-                    <span className="text-muted-foreground/50 text-[9px] ml-0.5">원</span>
+                    <span className="text-muted-foreground/50 text-[10px] ml-0.5">원</span>
                   </span>
                   <span className="flex-[3] text-right">
                     <span className={cn(

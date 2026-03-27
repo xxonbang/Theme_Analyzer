@@ -53,7 +53,7 @@ export function MemberChartPopup({ stockName, memberInfo, onClose }: MemberChart
       >
         {/* 모바일 드래그 핸들 + 닫기 */}
         <div className="sm:hidden flex items-center justify-center pt-3 pb-1 relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-4 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>
@@ -90,7 +90,7 @@ export function MemberChartPopup({ stockName, memberInfo, onClose }: MemberChart
               const h = Math.max((b.qty / maxQty) * BAR_MAX_H, 4)
               return (
                 <div key={`sell-${i}`} className="flex flex-col items-center" style={{ width: BAR_W, marginRight: GAP }}>
-                  <span className="text-[9px] text-muted-foreground mb-0.5 whitespace-nowrap">{shortenName(b.name)}</span>
+                  <span className="text-[10px] text-muted-foreground mb-0.5 whitespace-nowrap">{shortenName(b.name)}</span>
                   <div
                     className="w-full rounded-t bg-blue-400 dark:bg-blue-500"
                     style={{ height: h }}
@@ -105,7 +105,7 @@ export function MemberChartPopup({ stockName, memberInfo, onClose }: MemberChart
               const h = Math.max((b.qty / maxQty) * BAR_MAX_H, 4)
               return (
                 <div key={`buy-${i}`} className="flex flex-col items-center" style={{ width: BAR_W, marginRight: i < buyCount - 1 ? GAP : 0 }}>
-                  <span className="text-[9px] text-muted-foreground mb-0.5 whitespace-nowrap">{shortenName(b.name)}</span>
+                  <span className="text-[10px] text-muted-foreground mb-0.5 whitespace-nowrap">{shortenName(b.name)}</span>
                   <div
                     className="w-full rounded-t bg-rose-400 dark:bg-rose-500"
                     style={{ height: h }}

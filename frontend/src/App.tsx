@@ -30,6 +30,7 @@ import { useInvestorIntraday } from "@/hooks/useInvestorIntraday"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
 import { useStockHistory } from "@/hooks/useStockHistory"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { MacroIndicators } from "@/components/MacroIndicators"
 import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
@@ -74,9 +75,9 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
   }, [query, stocks])
 
   return (
-    <div className="sticky top-[5.75rem] sm:top-16 z-[45] bg-card border-b border-border shadow-md">
+    <div className="sticky top-[5.75rem] sm:top-16 z-[45] bg-card border-b border-border shadow-md animate-tab-fade-in">
       <div className="container px-3 sm:px-4 py-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-lg border border-transparent focus-within:border-primary/30 focus-within:ring-1 focus-within:ring-primary/20 transition-all px-1">
           <Search className="w-4 h-4 text-muted-foreground shrink-0" />
           <input
             ref={inputRef}
@@ -85,6 +86,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
             onChange={e => setQuery(e.target.value)}
             placeholder="종목명 또는 코드 검색..."
             className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/50"
+            autoComplete="off"
           />
           {query && (
             <button onClick={() => setQuery("")} className="text-muted-foreground hover:text-foreground p-0.5">
@@ -119,7 +121,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
                     </span>
                     <div className="flex gap-0.5">
                       {s.tabs.slice(0, 2).map(t => (
-                        <span key={t} className="text-[9px] px-1 py-0.5 rounded bg-muted text-muted-foreground/70">{TAB_LABELS[t]}</span>
+                        <span key={t} className="text-[10px] px-1 py-0.5 rounded bg-muted text-muted-foreground/70">{TAB_LABELS[t]}</span>
                       ))}
                     </div>
                   </div>
@@ -182,22 +184,7 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   // 스크롤 잠금
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
@@ -218,7 +205,7 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
         className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[80vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4"
       >
         <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
         </div>
         <div className="flex items-center justify-between mb-3">
           <div>
@@ -247,18 +234,23 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
                         isDone && "opacity-50"
                       )}
                     >
+                      <div className="flex flex-col items-center shrink-0 pt-1">
+                        <span className={cn(
+                          "w-2 h-2 rounded-full shrink-0",
+                          isDone ? "bg-green-500/50" : isNext ? "bg-primary ring-2 ring-primary/30" : "bg-border"
+                        )} />
+                        <div className="w-px flex-1 bg-border/40 mt-0.5" />
+                      </div>
                       <span className={cn(
                         "text-[11px] font-mono font-semibold tabular-nums shrink-0 w-[72px]",
                         isNext ? "text-primary" : "text-foreground/70"
                       )}>
                         {item.time}
                       </span>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <span className={cn("text-xs font-medium", isNext && "text-primary")}>{item.label}</span>
                         <p className="text-[10px] text-muted-foreground/60 leading-tight mt-0.5">{item.desc}</p>
                       </div>
-                      {isDone && <span className="text-[9px] text-green-500/70 shrink-0 mt-0.5">완료</span>}
-                      {isNext && <span className="text-[9px] text-primary font-semibold shrink-0 mt-0.5 animate-pulse">다음</span>}
                     </div>
                   )
                 })}
@@ -266,7 +258,7 @@ function SchedulePanel({ onClose }: { onClose: () => void }) {
             </div>
           ))}
         </div>
-        <p className="text-[9px] text-muted-foreground/40 text-center mt-3">주말·공휴일은 수집하지 않습니다</p>
+        <p className="text-[10px] text-muted-foreground/40 text-center mt-3">주말·공휴일은 수집하지 않습니다</p>
       </div>
     </div>,
     document.body

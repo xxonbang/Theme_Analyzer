@@ -45,6 +45,11 @@ export function Sparkline({ data, width = 80, height = 24, color, className }: S
           stroke="currentColor" strokeWidth={0.5} strokeDasharray="2,2" opacity={0.3}
         />
       )}
+      <polygon
+        points={`${points} ${width - pad},${height - pad} ${pad},${height - pad}`}
+        fill={strokeColor}
+        fillOpacity={0.1}
+      />
       <polyline
         points={points}
         fill="none"

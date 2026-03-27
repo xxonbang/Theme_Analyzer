@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { ChevronDown, ChevronUp, ArrowLeftRight, History, X } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import type { ExchangeData } from "@/types/stock"
 import type { IndicatorHistoryData, ExchangeHistoryEntry } from "@/hooks/useIndicatorHistory"
 
@@ -63,8 +65,10 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
         <polyline points={polyline} fill="none" stroke={color} strokeWidth={1.5} strokeLinejoin="round" />
         {/* 데이터 포인트 */}
         {points.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={entries.length > 15 ? 1.5 : 2} fill={color} />
+          <circle key={i} cx={p.x} cy={p.y} r={i === points.length - 1 ? 3.5 : (entries.length > 15 ? 1.5 : 2)} fill={color} />
         ))}
+        {/* 마지막 포인트 강조 링 */}
+        <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r={6} fill={color} fillOpacity={0.15} />
         {/* X축 라벨: 첫/중간/끝 */}
         {[0, Math.floor(entries.length / 2), entries.length - 1].map((idx) => {
           const anchor = idx === 0 ? "start" : idx === entries.length - 1 ? "end" : "middle"
@@ -75,7 +79,7 @@ function ExchangeChart({ entries, label }: { entries: ExchangeHistoryEntry[]; la
           )
         })}
       </svg>
-      <div className="flex items-center justify-between text-[9px] text-foreground/70 px-1 mt-0.5">
+      <div className="flex items-center justify-between text-[10px] text-foreground/70 px-1 mt-0.5">
         <span>{label} {fmtRate(first)}원</span>
         <span style={{ color }}>{isUp ? "▲" : last < first ? "▼" : ""}{Math.abs(last - first).toFixed(1)}원 ({((last - first) / first * 100).toFixed(2)}%)</span>
         <span>{fmtRate(last)}원</span>
@@ -89,25 +93,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
   const [showHistory, setShowHistory] = useState(false)
   const [chartCurrency, setChartCurrency] = useState("USD")
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
-
-  // 스크롤 잠금
-  useEffect(() => {
-    if (!showHistory) return
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [showHistory])
+  useScrollLock(showHistory)
 
   if (!exchange?.rates?.length) {
     return null
@@ -152,7 +138,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
           <span
             role="button"
             onClick={handleHistoryClick}
-            className="inline-flex items-center gap-0.5 text-[9px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
+            className="inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground/60 hover:text-primary bg-muted/60 hover:bg-primary/10 rounded px-1.5 py-0.5 transition-colors ml-1.5"
           >
             <History className="w-3 h-3" />
             히스토리
@@ -195,10 +181,15 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
             const isDown = change != null && change < 0
             const accent = isUp ? "border-l-red-500/60" : isDown ? "border-l-blue-500/60" : "border-l-border"
 
+            const isUSD = rate.currency === "USD"
             return (
               <div
                 key={rate.currency}
-                className={`rounded-md border border-border/50 border-l-2 ${accent} bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1 transition-colors hover:bg-card`}
+                className={cn(
+                  "rounded-md border border-border/50 border-l-2 bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1 transition-colors hover:bg-card",
+                  accent,
+                  isUSD && "col-span-2 sm:col-span-1 shadow-sm"
+                )}
               >
                 <span className="text-[10px] text-muted-foreground/60 font-medium leading-none">
                   {info.flag} {info.label}
@@ -219,11 +210,11 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
 
       {/* 히스토리 Bottom Sheet */}
       {showHistory && createPortal(
-        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+        <div role="dialog" aria-modal="true" className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
-          <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
+          <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4 animate-slide-in-bottom">
             <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
               <button onClick={() => setShowHistory(false)} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
                 <X className="w-4 h-4" />
               </button>
@@ -249,7 +240,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
                         <button
                           key={cur}
                           onClick={() => setChartCurrency(cur)}
-                          className={`text-[9px] px-1.5 py-0.5 rounded transition-colors ${chartCurrency === cur ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground/50 hover:text-muted-foreground/80"}`}
+                          className={`text-[10px] px-1.5 py-0.5 rounded transition-colors ${chartCurrency === cur ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground/50 hover:text-muted-foreground/80"}`}
                         >
                           {info.label}
                         </button>

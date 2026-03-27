@@ -86,7 +86,7 @@ function StockMarketSection({
 
   return (
     <div>
-      <div className="flex items-center gap-2 mb-2 sm:mb-3">
+      <div className="flex items-center gap-2 mb-2 sm:mb-3 px-2 py-1.5 rounded-lg bg-muted/30">
         <div className={cn("w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full", dotColor)} />
         <h3 className="font-semibold text-sm sm:text-base md:text-lg">{label}</h3>
         <span className="text-xs sm:text-sm text-muted-foreground">({stocks.length})</span>
@@ -94,8 +94,13 @@ function StockMarketSection({
       {stocks.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-            {visibleStocks.map(renderCard)}
+            {visibleStocks.slice(0, 3).map(renderCard)}
           </div>
+          {visibleStocks.length > 3 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
+              {visibleStocks.slice(3).map(renderCard)}
+            </div>
+          )}
           {hasMore && (
             <button
               onClick={() => setExpanded(!expanded)}
@@ -117,12 +122,12 @@ function StockMarketSection({
 
 // 컴팩트 모드 컬럼 헤더 (flex: sticky left + scrollable right)
 function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, investorUpdatedAt, isAdmin }: { showTradingValue?: boolean; hasMemberData?: boolean; investorEstimated?: boolean; investorUpdatedAt?: string; isAdmin?: boolean }) {
-  const estimatedLabel = investorEstimated ? <span className="text-[8px] text-amber-500 ml-0.5">추정</span> : null
+  const estimatedLabel = investorEstimated ? <span className="text-[10px] text-amber-500 ml-0.5">추정</span> : null
   const scheduleInfo = investorUpdatedAt ? getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated) : null
   const roundLabel = scheduleInfo ? ("round" in scheduleInfo ? scheduleInfo.label : scheduleInfo.label) : null
-  const timeLabel = investorUpdatedAt ? <span className="text-[9px] text-muted-foreground/50 ml-0.5">{roundLabel && <span className="text-amber-500">{roundLabel}</span>} {investorUpdatedAt.slice(11, 16)}</span> : null
+  const timeLabel = investorUpdatedAt ? <span className="text-[10px] text-muted-foreground/50 ml-0.5">{roundLabel && <span className="text-amber-500">{roundLabel}</span>} {investorUpdatedAt.slice(11, 16)}</span> : null
   return (
-    <div className="flex items-center py-1.5 text-[9px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
+    <div className="flex items-center py-1.5 text-[10px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
       <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
         <span className="w-5 text-center shrink-0">#</span>
         <span>종목명</span>
@@ -135,7 +140,7 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
         {isAdmin && <span className="text-center w-14 sm:w-16">수급추이</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">외국인{estimatedLabel}{timeLabel}</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">기관{estimatedLabel}</span>}
-        {isAdmin && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[8px] text-amber-500 ml-0.5">장중</span>}</span>}
+        {isAdmin && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[10px] text-amber-500 ml-0.5">장중</span>}</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">프로그램</span>}
         {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
         {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}
@@ -227,7 +232,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
       <div className="flex items-center shrink-0">
         <a href={naverUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
           <span className="text-xs font-medium tabular-nums text-right w-16 sm:w-20">
-            {formatPrice(stock.current_price)}<span className="text-[9px] text-muted-foreground">원</span>
+            {formatPrice(stock.current_price)}<span className="text-[10px] text-muted-foreground">원</span>
           </span>
           {showTradingValue && (
             <span className="text-[10px] text-muted-foreground tabular-nums text-right w-14 sm:w-16">
@@ -309,7 +314,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
           volumeProfile ? (
             <button
               onClick={() => setShowVolumeProfile(true)}
-              className="text-[9px] text-muted-foreground hover:text-amber-600 transition-colors w-6 text-center"
+              className="text-[10px] text-muted-foreground hover:text-amber-600 transition-colors w-6 text-center"
               title="매물대"
             >
               VP
@@ -532,7 +537,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
                 <option value="change_rate">등락률순</option>
               </select>
             )}
-            <Badge variant={badgeVariant as any} className="ml-auto text-[9px] sm:text-[10px] shrink-0">
+            <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-[10px] shrink-0">
               {kospiStocks.length + kosdaqStocks.length}
             </Badge>
           </CardTitle>

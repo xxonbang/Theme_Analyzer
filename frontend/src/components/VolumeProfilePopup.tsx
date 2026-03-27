@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { X } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
@@ -278,22 +279,7 @@ export function VolumeProfilePopup({ stockName, stockCode, stockPrice, volumePro
     return ((selectedBin.price - stockPrice) / stockPrice) * 100
   }, [selectedBin, stockPrice])
 
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
@@ -301,7 +287,7 @@ export function VolumeProfilePopup({ stockName, stockCode, stockPrice, volumePro
       <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
         {/* 모바일 드래그 핸들 + 닫기 */}
         <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>

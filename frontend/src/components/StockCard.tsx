@@ -72,9 +72,9 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
 
   return (
     <Card id={`stock-${stock.code}`} className={cn(
-      "group hover:shadow-lg transition-all duration-200 hover:border-primary/30 bg-card relative",
+      "group hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hover:border-primary/30 bg-card relative",
       allMet && isAdmin
-        ? "ring-2 ring-yellow-400/70 shadow-[0_0_12px_rgba(234,179,8,0.3)] animate-[shimmer_3s_ease-in-out_infinite]"
+        ? "ring-2 ring-yellow-400/70 animate-shimmer"
         : ""
     )}>
       {/* 경고 알림 뱃지 */}
@@ -91,8 +91,14 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
           {/* Left: Rank + Name */}
           <div className="flex items-center gap-2 min-w-0 flex-1">
             <div className={cn(
-              "flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-bold shrink-0",
-              isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600"
+              "flex items-center justify-center rounded-full font-bold shrink-0",
+              stock.rank <= 3
+                ? "w-7 h-7 sm:w-9 sm:h-9 text-xs sm:text-sm ring-1"
+                : "w-6 h-6 sm:w-8 sm:h-8 text-xs sm:text-sm",
+              stock.rank === 1 && "bg-amber-500/15 text-amber-600 ring-amber-400/40",
+              stock.rank === 2 && "bg-slate-400/15 text-slate-500 ring-slate-400/30",
+              stock.rank === 3 && "bg-orange-400/15 text-orange-600 ring-orange-400/30",
+              stock.rank > 3 && (isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600")
             )}>
               {stock.rank}
             </div>
@@ -144,7 +150,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                         <button
                           onClick={(e) => handleDotClick(e)}
                           className={cn(
-                            "hidden sm:inline-flex items-center gap-0.5 text-[9px] px-1.5 py-0.5 rounded-full font-medium cursor-pointer",
+                            "hidden sm:inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded-full font-medium cursor-pointer",
                             "transition-opacity hover:opacity-80",
                             badge
                           )}
@@ -171,7 +177,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               {history?.raw_daily_prices && history.raw_daily_prices.length > 20 && (
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDistribution(true) }}
-                  className="text-[8px] px-1 py-0.5 rounded bg-violet-500/10 text-violet-500 hover:bg-violet-500/20 transition-colors font-medium"
+                  className="text-[10px] px-1 py-0.5 rounded bg-violet-500/10 text-violet-500 hover:bg-violet-500/20 transition-colors font-medium"
                 >
                   정규분포
                 </button>
@@ -195,7 +201,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                       key={idx}
                       onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowPriceHistory(true) }}
                       className={cn(
-                        "text-[8px] px-0.5 rounded font-medium whitespace-nowrap tabular-nums cursor-pointer hover:opacity-70 transition-opacity",
+                        "text-[10px] px-0.5 rounded font-medium whitespace-nowrap tabular-nums cursor-pointer hover:opacity-70 transition-opacity",
                         getChangeBgColor(change.change_rate)
                       )}
                     >
@@ -245,7 +251,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
             <div className="flex items-center gap-1 mb-1">
               <Banknote className="w-3.5 h-3.5 text-amber-500/60" />
               <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래</span>
-              {dataTimestamp && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{dataTimestamp.slice(11, 16)}</span>}
+              {dataTimestamp && <span className="text-[10px] text-muted-foreground/70 tabular-nums">{dataTimestamp.slice(11, 16)}</span>}
             </div>
             <div
               className={cn("flex items-center gap-1.5 text-xs", history?.changes && history.changes.length > 1 && "cursor-pointer")}
@@ -281,7 +287,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               </div>
               {/* 스파크라인 + bottom sheet */}
               {!(history?.changes && history.changes.length > 1) && (
-                <span className="text-[9px] text-muted-foreground/50 py-1">거래 이력 부족</span>
+                <span className="text-[10px] text-muted-foreground/50 py-1">거래 이력 부족</span>
               )}
               {history?.changes && history.changes.length > 1 && (() => {
                 const reversed = [...history.changes].slice(0, 11).reverse()
@@ -317,7 +323,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               if (allChanges.length === 0) return null
               return (
                 <div className="mt-1 text-[10px] space-y-0.5">
-                  <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-0.5 border-b border-border/30">
+                  <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-0.5 border-b border-border/30">
                     <span className="w-6 shrink-0">일자</span>
                     <span className="w-14 shrink-0 text-right">등락률</span>
                     <span className="flex-1 text-right">거래대금</span>
@@ -349,7 +355,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               <div className="flex items-center gap-1 mb-1">
                 <Users className="w-3.5 h-3.5 text-sky-500/60" />
                 <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">수급</span>
-                {investorUpdatedAt && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
+                {investorUpdatedAt && <span className="text-[10px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
               </div>
               {investorInfo ? (
                 <>
@@ -388,7 +394,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                       const info = getInvestorScheduleInfo(investorUpdatedAt, !!investorEstimated)
                       const roundText = "round" in info ? `${info.round}차` : info.label
                       return (
-                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[8px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0">
+                        <button onClick={(e) => { e.stopPropagation(); setShowSchedule(true) }} className="flex flex-col items-center leading-tight text-[10px] text-muted-foreground/60 hover:text-muted-foreground transition-colors whitespace-nowrap shrink-0">
                           <span>{roundText}</span>
                           <span>{investorUpdatedAt.slice(11, 16)}</span>
                         </button>
@@ -436,7 +442,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                     ]
                     return (
                     <div className="mt-1 text-[10px] space-y-0.5">
-                      <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-0.5 border-b border-border/30">
+                      <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-0.5 border-b border-border/30">
                         <span className="w-6 shrink-0">일자</span>
                         <span className="flex-1 text-right">외국인</span>
                         <span className="flex-1 text-right">기관</span>
@@ -463,7 +469,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                   <span>외국인 -</span>
                   <span>기관 -</span>
                   <span>개인 -</span>
-                  <span className="ml-auto text-[8px]">수집 전</span>
+                  <span className="ml-auto text-[10px]">수집 전</span>
                 </div>
               )}
             </div>
@@ -478,8 +484,8 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               >
                 <Building2 className="w-3.5 h-3.5 text-violet-500/60" />
                 <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground/80 tracking-wider">거래원</span>
-                {investorUpdatedAt && <span className="text-[9px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
-                {!hasMemberData && <span className="text-[9px] text-muted-foreground/40 ml-auto mr-1">데이터 수집 전</span>}
+                {investorUpdatedAt && <span className="text-[10px] text-muted-foreground/70 tabular-nums">{investorUpdatedAt.slice(11, 16)}</span>}
+                {!hasMemberData && <span className="text-[10px] text-muted-foreground/40 ml-auto mr-1">데이터 수집 전</span>}
                 <ChevronDown className={cn("w-3 h-3 text-muted-foreground/40 transition-transform", hasMemberData && "ml-auto", memberExpanded && "rotate-180")} />
               </button>
               {memberExpanded && hasMemberData && (
@@ -529,9 +535,9 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               <BarChart3 className="w-3.5 h-3.5 text-amber-500/60" />
               <span className="font-semibold tracking-wider">매물대</span>
               {vpUpdatedAt && (
-                <span className="text-[9px] text-muted-foreground/70 tabular-nums">{vpUpdatedAt.slice(11, 16)}</span>
+                <span className="text-[10px] text-muted-foreground/70 tabular-nums">{vpUpdatedAt.slice(11, 16)}</span>
               )}
-              {!hasVpData && <span className="text-[9px] text-muted-foreground/40 ml-auto mr-1">데이터 수집 전</span>}
+              {!hasVpData && <span className="text-[10px] text-muted-foreground/40 ml-auto mr-1">데이터 수집 전</span>}
               <button
                 onClick={(e) => { e.stopPropagation(); setVpExpanded(v => !v) }}
                 className={cn("p-0.5 hover:text-foreground transition-colors", hasVpData && "ml-auto")}
@@ -553,7 +559,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                   const vp = volumeProfile[key]
                   return (
                     <div key={key} className="flex-1 flex flex-col items-center rounded-md py-1 px-1 bg-muted/50">
-                      <span className="text-[9px] sm:text-[10px] font-medium text-muted-foreground/70 leading-tight">
+                      <span className="text-[10px] sm:text-[10px] font-medium text-muted-foreground/70 leading-tight">
                         {label}
                       </span>
                       <span className="text-[11px] sm:text-xs font-semibold tabular-nums leading-tight text-foreground/80">
@@ -584,8 +590,8 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               <div className="border-t border-border/30 pt-1.5 mt-1.5">
                 <div className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-muted-foreground/30" />
-                  <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
-                  <span className="text-[9px] text-muted-foreground/50 ml-1">데이터 수집 전</span>
+                  <span className="text-[10px] font-medium text-muted-foreground">골든크로스</span>
+                  <span className="text-[10px] text-muted-foreground/50 ml-1">데이터 수집 전</span>
                 </div>
               </div>
             )
@@ -598,11 +604,11 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 className="flex items-center gap-1.5 w-full text-left"
               >
                 <Sparkles className={cn("w-3.5 h-3.5", gcMet ? "text-yellow-500/60" : "text-muted-foreground/30")} />
-                <span className="text-[9px] font-medium text-muted-foreground">골든크로스</span>
+                <span className="text-[10px] font-medium text-muted-foreground">골든크로스</span>
                 {dataTimestamp && (
-                  <span className="text-[9px] text-muted-foreground/70 tabular-nums">{dataTimestamp.slice(11, 16)}</span>
+                  <span className="text-[10px] text-muted-foreground/70 tabular-nums">{dataTimestamp.slice(11, 16)}</span>
                 )}
-                <span className={cn("text-[9px] font-semibold tabular-nums", gcMet ? "text-yellow-600 dark:text-yellow-400" : "text-muted-foreground/40")}>
+                <span className={cn("text-[10px] font-semibold tabular-nums", gcMet ? "text-yellow-600 dark:text-yellow-400" : "text-muted-foreground/40")}>
                   {gc.signal_count}/7
                 </span>
                 <ChevronDown className={cn("w-3 h-3 text-muted-foreground/40 ml-auto transition-transform", gcExpanded && "rotate-180")} />
@@ -617,7 +623,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                           key={k}
                           onClick={() => setSelectedGcKey(prev => prev === k ? null : k)}
                           className={cn(
-                            "text-[8px] rounded-md py-1 px-1.5 cursor-pointer transition-colors",
+                            "text-[10px] rounded-md py-1 px-1.5 cursor-pointer transition-colors",
                             active ? "bg-yellow-500/15 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted/50 text-muted-foreground/50"
                           )}
                         >
@@ -627,7 +633,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                     })}
                   </div>
                   {selectedGcKey && GOLDEN_CROSS_LABELS[selectedGcKey] && (
-                    <div className="text-[9px] text-muted-foreground bg-muted/30 rounded-md p-2 space-y-1">
+                    <div className="text-[10px] text-muted-foreground bg-muted/30 rounded-md p-2 space-y-1">
                       <p className="font-medium text-foreground/70">{GOLDEN_CROSS_LABELS[selectedGcKey].description}</p>
                       <p>{GOLDEN_CROSS_LABELS[selectedGcKey].detail}</p>
                     </div>
@@ -649,7 +655,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
               <span className="text-[10px] font-medium text-muted-foreground">
                 {hasNews ? `관련 뉴스 (${news!.news.length})` : "관련 뉴스"}
               </span>
-              {!hasNews && <span className="text-[9px] text-muted-foreground/50">뉴스 없음</span>}
+              {!hasNews && <span className="text-[10px] text-muted-foreground/50">뉴스 없음</span>}
             </div>
             {hasNews && (isNewsExpanded ? (
               <ChevronUp className="w-4 h-4 text-muted-foreground" />
@@ -658,8 +664,9 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
             ))}
           </button>
 
-          {hasNews && isNewsExpanded && (
-            <ul className="mt-1.5 space-y-1">
+          {hasNews && (
+            <div className={cn("grid transition-[grid-template-rows] duration-200 ease-out", isNewsExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+            <ul className={cn("mt-1.5 space-y-1 overflow-hidden", !isNewsExpanded && "mt-0")}>
               {news!.news.slice(0, 3).map((item, idx) => (
                 <li key={idx}>
                   <a
@@ -674,6 +681,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 </li>
               ))}
             </ul>
+            </div>
           )}
         </div>
       </CardContent>

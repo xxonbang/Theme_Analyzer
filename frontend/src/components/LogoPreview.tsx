@@ -140,7 +140,7 @@ export function LogoPreview() {
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center shadow-sm">
                 <Logo className="w-4 h-4" />
               </div>
-              <span className="text-[9px] text-muted-foreground">16px</span>
+              <span className="text-[10px] text-muted-foreground">16px</span>
             </div>
 
             {/* 24px - 헤더 데스크톱 */}
@@ -148,7 +148,7 @@ export function LogoPreview() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center shadow-sm">
                 <Logo className="w-6 h-6" />
               </div>
-              <span className="text-[9px] text-muted-foreground">24px</span>
+              <span className="text-[10px] text-muted-foreground">24px</span>
             </div>
 
             {/* 32px - 로그인 */}
@@ -156,7 +156,7 @@ export function LogoPreview() {
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center shadow-lg">
                 <Logo className="w-8 h-8" />
               </div>
-              <span className="text-[9px] text-muted-foreground">32px</span>
+              <span className="text-[10px] text-muted-foreground">32px</span>
             </div>
 
             {/* 48px - 대형 표시 */}
@@ -164,7 +164,7 @@ export function LogoPreview() {
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center shadow-lg">
                 <Logo className="w-12 h-12" />
               </div>
-              <span className="text-[9px] text-muted-foreground">48px</span>
+              <span className="text-[10px] text-muted-foreground">48px</span>
             </div>
           </div>
 

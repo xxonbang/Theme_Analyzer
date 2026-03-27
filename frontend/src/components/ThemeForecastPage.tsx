@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -7,6 +7,7 @@ import { cn, parseKST } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
 import { useBacktestStats } from "@/hooks/useBacktestStats"
 import { usePredictionHistory } from "@/hooks/usePredictionHistory"
@@ -41,23 +42,7 @@ const LEGEND_DESCRIPTIONS: Record<string, { title: string; description: string }
 function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose: () => void }) {
   const info = LEGEND_DESCRIPTIONS[legendKey]
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
-
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   if (!info) return null
 
@@ -66,7 +51,7 @@ function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div ref={sheetRef} className="relative w-full sm:w-80 sm:max-w-[90vw] bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
         <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
         </div>
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-semibold">{info.title}</span>
@@ -101,7 +86,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
         "text-xs sm:text-sm font-medium",
         "transition-all duration-150",
         allMet
-          ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 dark:text-yellow-400 ring-1 ring-yellow-400/60 animate-[shimmer_3s_ease-in-out_infinite]"
+          ? "bg-yellow-400/15 hover:bg-yellow-400/25 text-yellow-700 dark:text-yellow-400 ring-1 ring-yellow-400/60 animate-shimmer"
           : stock.data_verified
             ? "bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400"
             : "bg-slate-500/10 hover:bg-slate-500/15 text-slate-500 dark:text-slate-400"
@@ -114,7 +99,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
           shortWarning ? "bg-red-500" : overheatWarning ? "bg-amber-500" : "bg-indigo-500"
         )} />
       )}
-      <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-foreground/10 text-[9px] sm:text-[10px] font-bold leading-none shrink-0">
+      <span className="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-foreground/10 text-[10px] sm:text-[10px] font-bold leading-none shrink-0">
         {stock.priority}
       </span>
       {metDots.length > 0 && (
@@ -137,7 +122,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
         <ExternalLink className="w-3 h-3 opacity-50 shrink-0" />
       </a>
       {!stock.data_verified && (
-        <span className="text-[8px] text-amber-500 shrink-0" title="전일 데이터 미확인">추정</span>
+        <span className="text-[10px] text-amber-500 shrink-0" title="전일 데이터 미확인">추정</span>
       )}
       {showPopup && criteria && (
         <CriteriaPopup stockName={stock.name} criteria={criteria} onClose={() => setShowPopup(false)} />

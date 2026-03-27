@@ -3,6 +3,7 @@ import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Spar
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
+import { IconButton } from "@/components/IconButton"
 
 type PageType = "home" | "ai-analysis" | "paper-trading" | "theme-forecast" | "portfolio"
 
@@ -32,10 +33,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const { signOut } = useAuth()
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
-  const [toggleRipple, setToggleRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
-  const [historyRipple, setHistoryRipple] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false })
-  const [toggleFocusRing, setToggleFocusRing] = useState(false)
-  const [historyFocusRing, setHistoryFocusRing] = useState(false)
   const [moreMenuOpen, setMoreMenuOpen] = useState(false)
   const [logoLoading, setLogoLoading] = useState(false)
   const logoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -94,20 +91,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     }
   }
 
-  // Toggle 버튼 클릭 효과 (Ripple + 임시 Focus Ring)
-  const handleToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    setToggleRipple({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      show: true,
-    })
-    setTimeout(() => setToggleRipple(prev => ({ ...prev, show: false })), 500)
-
-    // 임시 focus ring
-    setToggleFocusRing(true)
-    setTimeout(() => setToggleFocusRing(false), 400)
-
+  const handleToggleClick = () => {
     onToggleCompact?.()
   }
 
@@ -120,20 +104,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
     onRefresh?.()
   }
 
-  // History 버튼 클릭 효과
-  const handleHistoryClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    setHistoryRipple({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      show: true,
-    })
-    setTimeout(() => setHistoryRipple(prev => ({ ...prev, show: false })), 500)
-
-    // 임시 focus ring
-    setHistoryFocusRing(true)
-    setTimeout(() => setHistoryFocusRing(false), 400)
-
+  const handleHistoryClick = () => {
     onHistoryClick?.()
   }
 
@@ -192,7 +163,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const relativeTime = timestamp ? getRelativeTime(timestamp) : null
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full border-b bg-card shadow-sm", headerHidden ? "-translate-y-full" : "translate-y-0")}>
+    <header className={cn("sticky top-0 z-50 w-full border-b bg-card shadow-sm transition-transform duration-300 ease-out", headerHidden ? "-translate-y-full" : "translate-y-0")}>
       <div className="flex h-14 sm:h-16 items-center justify-between px-3 sm:px-4 max-w-[100vw]">
         {/* Logo & Title */}
         <button
@@ -211,7 +182,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             <EyeChartLogo className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg" />
           </div>
           <div className="text-left">
-            <h1 className="font-bold text-sm sm:text-lg tracking-tight">ThemeAnalyzer</h1>
+            <h1 className="text-sm sm:text-lg tracking-tight"><span className="font-normal">Theme</span><span className="font-extrabold">Analyzer</span></h1>
             <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">오늘의 테마 분석</p>
           </div>
         </button>
@@ -264,219 +235,95 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
           {/* Search Button */}
           {onSearchClick && (
-            <button
-              onClick={onSearchClick}
-              className={cn(
-                "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none",
-                searchOpen && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
-              )}
-              title="종목 검색"
-            >
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <IconButton onClick={onSearchClick} active={searchOpen} aria-label="종목 검색" title="종목 검색">
               <Search className={cn("relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", searchOpen && "text-primary")} />
-            </button>
+            </IconButton>
           )}
 
           {/* Schedule Button */}
           {onScheduleClick && (
-            <button
-              onClick={onScheduleClick}
-              className={cn(
-                "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none",
-                scheduleOpen && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
-              )}
-              title="수집 스케줄"
-            >
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <IconButton onClick={onScheduleClick} active={scheduleOpen} aria-label="수집 스케줄" title="수집 스케줄">
               <CalendarClock className={cn("relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", scheduleOpen && "text-primary")} />
-            </button>
+            </IconButton>
           )}
 
           {/* Page Navigation Buttons (desktop only) */}
           {onPageChange && (
             <>
-              {isAdmin && <button
+              {isAdmin && <IconButton
                 onClick={() => onPageChange(currentPage === "theme-forecast" ? "home" : "theme-forecast")}
-                className={cn(
-                  "relative overflow-hidden group",
-                  "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                  "rounded-lg",
-                  "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                  "border border-border/50",
-                  "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                  "transition-all duration-300 ease-out",
-                  "hover:scale-110 active:scale-95",
-                  "hover:border-primary/30",
-                  "focus:outline-none",
-                  currentPage === "theme-forecast" && "ring-2 ring-amber-500/50 border-amber-500/30 bg-amber-500/5"
-                )}
+                className="hidden sm:flex"
+                active={currentPage === "theme-forecast"}
+                activeClassName="ring-2 ring-amber-500/50 border-amber-500/30 bg-amber-500/5"
+                aria-label="테마 예측"
                 title="테마 예측"
               >
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Sparkles className={cn(
                   "relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
                   currentPage === "theme-forecast" && "text-amber-500"
                 )} />
-              </button>}
+              </IconButton>}
 
-              <button
+              <IconButton
                 onClick={() => onPageChange(currentPage === "paper-trading" ? "home" : "paper-trading")}
-                className={cn(
-                  "relative overflow-hidden group",
-                  "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                  "rounded-lg",
-                  "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                  "border border-border/50",
-                  "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                  "transition-all duration-300 ease-out",
-                  "hover:scale-110 active:scale-95",
-                  "hover:border-primary/30",
-                  "focus:outline-none",
-                  currentPage === "paper-trading" && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
-                )}
+                className="hidden sm:flex"
+                active={currentPage === "paper-trading"}
+                aria-label="모의투자"
                 title="모의투자"
               >
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <LineChart className={cn(
                   "relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
                   currentPage === "paper-trading" && "text-primary"
                 )} />
-              </button>
+              </IconButton>
 
-              <button
+              <IconButton
                 onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
-                className={cn(
-                  "relative overflow-hidden group",
-                  "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                  "rounded-lg",
-                  "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                  "border border-border/50",
-                  "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                  "transition-all duration-300 ease-out",
-                  "hover:scale-110 active:scale-95",
-                  "hover:border-primary/30",
-                  "focus:outline-none",
-                  currentPage === "portfolio" && "ring-2 ring-violet-500/50 border-violet-500/30 bg-violet-500/5"
-                )}
+                className="hidden sm:flex"
+                active={currentPage === "portfolio"}
+                activeClassName="ring-2 ring-violet-500/50 border-violet-500/30 bg-violet-500/5"
+                aria-label="포트폴리오"
                 title="포트폴리오"
               >
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Briefcase className={cn(
                   "relative z-10 w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110",
                   currentPage === "portfolio" && "text-violet-500"
                 )} />
-              </button>
+              </IconButton>
             </>
           )}
 
           {/* History Button (desktop only) */}
           {onHistoryClick && (
-            <button
+            <IconButton
               onClick={handleHistoryClick}
-              className={cn(
-                "relative overflow-hidden group",
-                "hidden sm:flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none",
-                isViewingHistory && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
-              )}
+              className="hidden sm:flex"
+              active={isViewingHistory}
+              aria-label="히스토리"
               title="히스토리"
             >
-              <div
-                className={cn(
-                  "absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background",
-                  "transition-opacity duration-300",
-                  historyFocusRing ? "opacity-100" : "opacity-0"
-                )}
-              />
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               <div className={cn("relative z-10 transition-all duration-300", "group-hover:rotate-12 group-active:rotate-0")}>
                 <History className={cn("w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110", isViewingHistory && "text-primary")} />
               </div>
-              {historyRipple.show && (
-                <span className="absolute rounded-full bg-primary/30 animate-ripple" style={{ left: historyRipple.x, top: historyRipple.y, width: '4px', height: '4px', transform: 'translate(-50%, -50%)' }} />
-              )}
-            </button>
+            </IconButton>
           )}
 
           {/* Theme Toggle */}
           {onToggleTheme && (
-            <button
-              onClick={onToggleTheme}
-              className={cn(
-                "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none"
-              )}
-              title={isDark ? "라이트 모드" : "다크 모드"}
-            >
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <IconButton onClick={onToggleTheme} aria-label={isDark ? "라이트 모드" : "다크 모드"} title={isDark ? "라이트 모드" : "다크 모드"}>
               <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
                 {isDark ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />}
               </div>
-            </button>
+            </IconButton>
           )}
 
           {/* Compact Mode Toggle */}
           {onToggleCompact && (
-            <button
-              onClick={handleToggleClick}
-              className={cn(
-                "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none"
-              )}
-              title={compactMode ? "상세 보기" : "간단 보기"}
-            >
-              <div className={cn("absolute inset-0 rounded-lg ring-2 ring-primary/40 ring-offset-1 ring-offset-background", "transition-opacity duration-300", toggleFocusRing ? "opacity-100" : "opacity-0")} />
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            <IconButton onClick={handleToggleClick} aria-label={compactMode ? "상세 보기" : "간단 보기"} title={compactMode ? "상세 보기" : "간단 보기"}>
               <div className={cn("relative z-10 transition-all duration-300", "group-hover:rotate-12 group-active:rotate-0")}>
                 {compactMode ? <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" /> : <List className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:scale-110" />}
               </div>
-              {toggleRipple.show && (
-                <span className="absolute rounded-full bg-primary/30 animate-ripple" style={{ left: toggleRipple.x, top: toggleRipple.y, width: '4px', height: '4px', transform: 'translate(-50%, -50%)' }} />
-              )}
-            </button>
+            </IconButton>
           )}
 
           {/* Refresh Elapsed Time (admin only) */}
@@ -488,26 +335,9 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
 
           {/* More Menu (refresh + logout) */}
           <div className="relative" ref={moreMenuRef}>
-            <button
-              onClick={() => setMoreMenuOpen(prev => !prev)}
-              className={cn(
-                "relative overflow-hidden group",
-                "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9",
-                "rounded-lg",
-                "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-                "border border-border/50",
-                "shadow-sm hover:shadow-md hover:shadow-primary/10",
-                "transition-all duration-300 ease-out",
-                "hover:scale-110 active:scale-95",
-                "hover:border-primary/30",
-                "focus:outline-none",
-                moreMenuOpen && "ring-2 ring-primary/50 border-primary/30 bg-primary/5"
-              )}
-              title="더보기"
-            >
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <IconButton onClick={() => setMoreMenuOpen(prev => !prev)} active={moreMenuOpen} aria-label="더보기" title="더보기">
               <MoreVertical className="relative z-10 w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </button>
+            </IconButton>
 
             {moreMenuOpen && (
               <div className="absolute right-0 top-full mt-1.5 w-40 bg-popover border border-border rounded-lg shadow-lg z-50 py-1 animate-in fade-in-0 zoom-in-95 duration-150">
@@ -614,22 +444,6 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
         </div>
       </div>
 
-      {/* Custom styles */}
-      <style>{`
-        @keyframes ripple {
-          0% {
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 1;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(40);
-            opacity: 0;
-          }
-        }
-        .animate-ripple {
-          animation: ripple 0.5s ease-out forwards;
-        }
-      `}</style>
     </header>
   )
 }

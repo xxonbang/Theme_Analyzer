@@ -166,10 +166,10 @@ function BellCurveChart({
           <span className={cn("font-mono font-semibold", getSigmaBandColor(zScore))}>
             {zScore >= 0 ? "+" : ""}{zScore.toFixed(2)}
           </span>
-          <span className={cn("px-1 py-0.5 rounded text-[9px]", getSigmaBandColor(zScore))}>
+          <span className={cn("px-1 py-0.5 rounded text-[10px]", getSigmaBandColor(zScore))}>
             {getSigmaLabel(zScore)}
           </span>
-          <span className={cn("px-1.5 py-0.5 rounded font-semibold text-[9px]", action.color)}>
+          <span className={cn("px-1.5 py-0.5 rounded font-semibold text-[10px]", action.color)}>
             {action.text}
           </span>
         </div>
@@ -256,7 +256,7 @@ function BellCurveChart({
       </svg>
 
       {/* 통계 요약 */}
-      <div className="grid grid-cols-4 gap-1 mt-1 text-[9px] text-muted-foreground">
+      <div className="grid grid-cols-4 gap-1 mt-1 text-[10px] text-muted-foreground">
         <div className="text-center">
           <div className="opacity-60">평균</div>
           <div className="font-mono font-medium text-foreground">{formatVal(mean)}</div>
@@ -275,7 +275,7 @@ function BellCurveChart({
         </div>
       </div>
       {values.length < 10 && (
-        <div className="mt-1.5 text-center text-[9px] text-amber-500 font-medium">
+        <div className="mt-1.5 text-center text-[10px] text-amber-500 font-medium">
           ⚠ 데이터 {values.length}개 — 참고용 (통계적 신뢰도 낮음)
         </div>
       )}
@@ -409,7 +409,7 @@ export default function DistributionPopup({
         className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto overscroll-contain"
       >
         <div ref={handleRef} className="flex items-center justify-center pt-2 pb-1 cursor-grab relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-4 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>
@@ -516,7 +516,7 @@ export default function DistributionPopup({
           </div>
 
           {/* 해석 가이드 */}
-          <div className="mt-3 px-2 py-2 rounded-lg bg-muted/20 text-[9px] text-muted-foreground leading-relaxed space-y-0.5">
+          <div className="mt-3 px-2 py-2 rounded-lg bg-muted/20 text-[10px] text-muted-foreground leading-relaxed space-y-0.5">
             <div>
               <span className="font-medium text-foreground">구간 해석</span>
               {" · "}

@@ -222,7 +222,7 @@ export function IntradayInsights({
                         <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                           {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
                         </span>
-                        <span className="text-[9px] text-red-400">(+{s.delta.toFixed(1)})</span>
+                        <span className="text-[10px] text-red-400">(+{s.delta.toFixed(1)})</span>
                       </div>
                     </div>
                   ))}
@@ -239,7 +239,7 @@ export function IntradayInsights({
                         <span className={cn("font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
                           {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
                         </span>
-                        <span className="text-[9px] text-blue-400">({s.delta.toFixed(1)})</span>
+                        <span className="text-[10px] text-blue-400">({s.delta.toFixed(1)})</span>
                       </div>
                     </div>
                   ))}

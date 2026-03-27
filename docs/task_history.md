@@ -4,7 +4,55 @@
 
 ---
 
+## 2026-03-27
+
+### [개선] UI/디자인 대규모 개선 — 30개 항목 (2026-03-27 13:08 KST)
+- **변경 파일**: `index.css`, `Header.tsx`, `IconButton.tsx`(신규), `useScrollLock.ts`(신규), `StockCard.tsx`, `StockList.tsx`, `TabBar.tsx`, `Sparkline.tsx`, `ExchangeRate.tsx`, `MacroIndicators.tsx`, `DataFreshness.tsx`, `CriteriaLegend.tsx`, `AuthPage.tsx`, `PullToRefreshIndicator.tsx`, `KosdaqIndexAlert.tsx`, `App.tsx`, `AIThemeAnalysis.tsx`, `ThemeForecastPage.tsx` 외 팝업 컴포넌트 다수
+- **내용**:
+  - **시각 계층**: TOP3 순위 뱃지 금/은/동 강조, KOSPI/KOSDAQ 섹션 배경 틴트, 상위 3카드 그루핑, USD 환율 강조, TabBar 하단 활성 바
+  - **색상**: Sparkline 영역 채우기, shimmer oklch+GPU 가속, 차트 색상 CSS 변수화(`--color-chart-*`), IndexAlert 등락률 배경 강도
+  - **타이포그래피**: `text-[8px]`/`text-[9px]` → `text-[10px]` 전체 상향, Header 타이틀 로고감 강화
+  - **모션**: 카드 hover lift, Bottom Sheet slide-in 애니메이션, Header 스크롤 숨김 트랜지션, 뉴스 grid-rows 트랜지션, Pull-to-refresh 개선
+  - **컴포넌트**: DataFreshness 구분점, CriteriaLegend 도트 미리보기, 검색 focus 효과, 스케줄 타임라인 도트 바, 환율 차트 마지막 포인트 강조, Bottom Sheet 핸들바 개선
+  - **접근성**: Header 아이콘 버튼 aria-label, AuthPage sr-only label, 터치 타겟 44px, aria-modal
+  - **코드 정리**: `IconButton` 공통 컴포넌트 추출, `useScrollLock` 훅 추출(15곳), Header inline style → CSS 이동
+
+### [버그픽스] AI 예측 대장주에 카테고리명 출력 방지 + 모의투자 기본 접힘 (2026-03-27 08:59 KST)
+- **변경 파일**: `modules/theme_forecast.py`, `frontend/src/components/PaperTradingPage.tsx`
+- **내용**:
+  - Phase 2 프롬프트에 종목명/코드 형식 강제 (카테고리명, N/A 금지)
+  - 라이프사이클 규칙 표현 완화 ("제외/필수" → "주의/필요")
+  - 실패 테마 피드백 표현 완화 ("제외하세요" → "보수적으로 판단하세요")
+  - 모의투자 날짜별 카드 기본값 접힘으로 변경
+- **원인**: 어제 AI 프롬프트 강화 시 "제외", "필수" 등 강한 표현이 Gemini의 종목 특정을 위축시켜 카테고리명 출력 유발
+
 ## 2026-03-26
+
+### [버그픽스] 모의투자 페이지 흰 화면 + 차트 여백 개선 (2026-03-26 23:18 KST)
+- **변경 파일**: `PaperTradingPage.tsx`, `PriceHistoryPopup.tsx`
+- **내용**: useMemo를 early return 앞으로 이동 (React hooks 규칙 위반 수정), 장중 차트 좌우 여백 축소 (PAD left 36→30, right 40→34)
+- **원인**: useMemo 2개가 loading early return 뒤에 위치하여 hooks 수 불일치 에러 발생
+
+### [개선] AI 예측 정확도 향상 — 피드백 루프 + 프롬프트 강화 (2026-03-26 20:41 KST)
+- **변경 파일**: `modules/theme_forecast.py`, `modules/backtest.py`
+- **내용**:
+  - Phase 1 프롬프트에 테마 라이프사이클 행동 규칙 추가 (출현/가속/정점/쇠퇴)
+  - criteria_data 확장 주입 (고가돌파, 수급동반, 과열, 골든크로스)
+  - 수급 트렌드 요약 (외인/기관 N일 연속 매수/매도)
+  - 테마별 적중률 + priority별 적중률 집계 함수 (calculate_theme_accuracy)
+  - 실패 테마 피드백 (최근 실패 테마를 컨텍스트에 주입)
+  - 동적 신뢰도 보정 (적중률 40% 미만 테마 "높음"→"보통" 다운그레이드)
+
+### [개선] 프론트엔드+백엔드 성능 최적화 (2026-03-26 20:05 KST)
+- **변경 파일**: `App.tsx`, `PaperTradingPage.tsx`, `StockCard.tsx`, `PaperTradingStockCard.tsx`, `useAutoPolling.ts`, `kis_client.py`, `kis_rank.py`, `theme_forecast.py`
+- **내용**:
+  - IIFE 7건 → useMemo/서브컴포넌트 전환 (불필요 re-render 제거)
+  - 3개 페이지 React.lazy + Suspense (초기 번들 축소)
+  - StockCard, PaperTradingStockCard에 React.memo 적용
+  - useAutoPolling 탭 비활성 시 폴링 중단
+  - KIS client requests.Session 도입 (TCP 연결 풀링)
+  - theme_forecast Gemini API Session 풀링 + URL resolve 병렬화
+  - kis_rank ThreadPoolExecutor 4곳 → 클래스 레벨 공유
 
 ### [버그픽스] iOS PWA 백그라운드 복귀 시 무한 로딩 방지 (2026-03-26 17:20 KST)
 - **변경 파일**: `frontend/src/hooks/useAuth.tsx`

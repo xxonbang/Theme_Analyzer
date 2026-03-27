@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { X } from "lucide-react"
 import { cn, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 
@@ -154,22 +155,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
     }
   }, [intradaySnapshots])
 
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
@@ -177,7 +163,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
       <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
         {/* 모바일 드래그 핸들 + 닫기 */}
         <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>
@@ -336,7 +322,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             </svg>
             {/* 일봉 테이블 */}
             <div className="space-y-0">
-              <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+              <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
                 <span className="w-8 shrink-0">일자</span>
                 <span className="flex-1 text-right">외국인</span>
                 <span className="flex-1 text-right">기관</span>
@@ -349,7 +335,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                   <div key={idx} className={`flex items-center py-1 text-[10px] ${isToday ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < allDays.length - 1 ? "border-b border-border/20" : ""}`}>
                     <span className="w-8 shrink-0 text-muted-foreground font-medium">
                       {labels[idx]}
-                      {isToday && dSuffix && <span className="text-[8px] text-amber-500 ml-0.5">{dSuffix}</span>}
+                      {isToday && dSuffix && <span className="text-[10px] text-amber-500 ml-0.5">{dSuffix}</span>}
                     </span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.foreign_net))}>{formatNetBuy(d.foreign_net)}</span>
                     <span className={cn("flex-1 text-right tabular-nums", getNetBuyColor(d.institution_net))}>{formatNetBuy(d.institution_net)}</span>
@@ -432,7 +418,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             )}
             {/* 장중 테이블 */}
             <div className="space-y-0">
-              <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+              <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
                 <span className="w-10 shrink-0">시간</span>
                 <span className="flex-1 text-right">외국인</span>
                 <span className="flex-1 text-right">기관</span>

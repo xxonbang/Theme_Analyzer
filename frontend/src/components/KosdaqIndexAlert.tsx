@@ -141,9 +141,9 @@ function IndexDetailPopup({
     <div className="fixed inset-0 z-[9999]">
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
       <div ref={sheetRef}
-        className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto">
+        className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto animate-slide-in-bottom">
         <div ref={handleRef} className="flex justify-center pt-2 pb-1 cursor-grab">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
         </div>
         <div className="px-4 pb-4">
           {/* 헤더 */}
@@ -244,7 +244,7 @@ function IndexDetailPopup({
               <div className="p-2 rounded-xl bg-muted/30 border border-border/50">
                 <div className="flex items-center gap-2 mb-1 px-1">
                   <p className="text-[10px] text-muted-foreground">이동평균선 비교</p>
-                  <span className={cn("text-[9px] px-1.5 py-0.5 rounded-full font-semibold border", sc.bg, sc.color)}>
+                  <span className={cn("text-[10px] px-1.5 py-0.5 rounded-full font-semibold border", sc.bg, sc.color)}>
                     {maData.status}
                   </span>
                 </div>
@@ -325,11 +325,18 @@ export function IndexAlertSection({ kospi, kosdaq, investorTrend }: IndexAlertSe
     }
     const sc = statusConfig[data.status] || statusConfig["혼합"]
 
+    // 등락률 절대값에 비례한 배경 강도 (0~2% → 낮음, 2%+ → 높음)
+    const intensity = changePct !== null ? Math.min(1, Math.abs(changePct) / 2) : 0
+    const intensityStyle = changePct !== null && changePct !== 0
+      ? { boxShadow: `inset 0 0 0 100px ${changePct > 0 ? `rgba(239,68,68,${intensity * 0.06})` : `rgba(59,130,246,${intensity * 0.06})`}` }
+      : undefined
+
     return (
       <button
         key={market}
         onClick={() => setPopupMarket(market)}
         className={cn("w-full text-left text-foreground border rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-200 hover:opacity-80", sc.bg)}
+        style={intensityStyle}
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">

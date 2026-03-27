@@ -37,6 +37,13 @@ button[data-loading] {
   --color-warning: oklch(75% 0.15 70);
   --color-warning-foreground: oklch(25% 0.02 70);
   --radius: 0.625rem;
+  /* Chart colors */
+  --color-chart-red: oklch(63% 0.25 25);
+  --color-chart-blue: oklch(60% 0.18 250);
+  --color-chart-amber: oklch(75% 0.17 70);
+  --color-chart-green: oklch(60% 0.17 155);
+  --color-chart-violet: oklch(55% 0.2 285);
+  --color-chart-pink: oklch(60% 0.22 350);
 }
 
 /* Dark Theme */
@@ -64,6 +71,14 @@ html.dark {
     --color-success-foreground: oklch(100% 0 0);
     --color-warning: oklch(75% 0.15 70);
     --color-warning-foreground: oklch(92% 0.02 70);
+
+    /* Chart colors (brighter for dark bg) */
+    --color-chart-red: oklch(68% 0.22 25);
+    --color-chart-blue: oklch(68% 0.16 250);
+    --color-chart-amber: oklch(78% 0.15 70);
+    --color-chart-green: oklch(68% 0.15 155);
+    --color-chart-violet: oklch(65% 0.18 285);
+    --color-chart-pink: oklch(68% 0.2 350);
 
     /* ── 다크모드 가독성: 하드코딩 Tailwind 색상 밝기 보정 ── */
     /* 수익(빨강) */
@@ -157,44 +172,40 @@ body {
   display: none;
 }
 
-/* Shimmer animation for all-criteria-met stocks */
-@keyframes shimmer {
-  0%, 100% {
-    box-shadow: 0 0 6px 1px rgba(234, 179, 8, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 20px 4px rgba(234, 179, 8, 0.5);
-  }
+/* Shimmer animation — GPU-accelerated via opacity on pseudo-element */
+@keyframes shimmer-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
-/* Red shimmer animation for short selling warning */
-@keyframes red-shimmer {
-  0%, 100% {
-    box-shadow: 0 0 6px 1px rgba(239, 68, 68, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 20px 4px rgba(239, 68, 68, 0.5);
-  }
+.animate-shimmer,
+.animate-red-shimmer,
+.animate-orange-shimmer,
+.animate-blue-shimmer {
+  position: relative;
 }
-
-/* Orange shimmer animation for overheating warning */
-@keyframes orange-shimmer {
-  0%, 100% {
-    box-shadow: 0 0 6px 1px rgba(234, 88, 12, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 20px 4px rgba(234, 88, 12, 0.5);
-  }
+.animate-shimmer::after,
+.animate-red-shimmer::after,
+.animate-orange-shimmer::after,
+.animate-blue-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: shimmer-pulse 3s ease-in-out infinite;
 }
-
-/* Indigo shimmer animation for reverse alignment warning */
-@keyframes blue-shimmer {
-  0%, 100% {
-    box-shadow: 0 0 6px 1px rgba(99, 102, 241, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.5);
-  }
+.animate-shimmer::after {
+  box-shadow: 0 0 16px 3px oklch(80% 0.18 90 / 0.45);
+}
+.animate-red-shimmer::after {
+  box-shadow: 0 0 16px 3px oklch(60% 0.25 25 / 0.45);
+}
+.animate-orange-shimmer::after {
+  box-shadow: 0 0 16px 3px oklch(65% 0.2 50 / 0.45);
+}
+.animate-blue-shimmer::after {
+  box-shadow: 0 0 16px 3px oklch(55% 0.2 270 / 0.45);
 }
 
 /* Tab content fade-in */
@@ -212,6 +223,36 @@ body {
 
 .animate-tab-fade-in {
   animation: tab-fade-in 0.2s ease-out;
+}
+
+/* Ripple effect for icon buttons */
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(40);
+    opacity: 0;
+  }
+}
+.animate-ripple {
+  animation: ripple 0.5s ease-out forwards;
+}
+
+/* Bottom sheet slide-in animation */
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in-bottom {
+  animation: slide-in-from-bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Container responsive */

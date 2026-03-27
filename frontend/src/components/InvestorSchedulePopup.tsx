@@ -43,7 +43,7 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
       >
         {/* 드래그 핸들 + 닫기 (모바일) */}
         <div ref={handleRef} className="flex items-center justify-center mb-3 sm:hidden cursor-grab active:cursor-grabbing py-1 -mt-2 relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>
@@ -66,7 +66,7 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
 
         {/* 스케줄 테이블 */}
         <div className="space-y-0">
-          <div className="flex items-center text-[9px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+          <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
             <span className="w-9 shrink-0">라운드</span>
             <span className="w-11 shrink-0">시간</span>
             <span className="flex-1">반영 데이터</span>

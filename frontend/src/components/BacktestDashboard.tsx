@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { ChevronDown, ChevronUp, BarChart3, Info, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import type { BacktestStats, StockDetail } from "@/hooks/useBacktestStats"
 
 const CATEGORY_CONFIG: Record<string, { label: string; period: string }> = {
@@ -48,7 +49,7 @@ function StatCell({ label, sub, total, hit, accuracy, onClick }: { label: string
     return (
       <button onClick={onClick} className="text-center space-y-1 rounded-lg py-2 px-1 transition-all border border-border/50 hover:border-indigo-300 hover:bg-indigo-50/50 hover:shadow-sm active:scale-[0.97] cursor-pointer">
         {content}
-        <p className="text-[9px] text-indigo-400 font-medium">상세보기 &rsaquo;</p>
+        <p className="text-[10px] text-indigo-400 font-medium">상세보기 &rsaquo;</p>
       </button>
     )
   }
@@ -56,22 +57,7 @@ function StatCell({ label, sub, total, hit, accuracy, onClick }: { label: string
 }
 
 function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: string; details: StockDetail[]; onClose: () => void }) {
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   // 날짜별 그룹
   const byDate = new Map<string, StockDetail[]>()
@@ -86,7 +72,7 @@ function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: s
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[75vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
         <div className="sm:hidden flex justify-center mb-2">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
         </div>
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-semibold">{confidence} 신뢰도 상세 내역</span>

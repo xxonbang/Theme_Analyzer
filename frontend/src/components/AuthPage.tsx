@@ -106,9 +106,11 @@ export function AuthPage() {
         {!signUpSuccess && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
+              <label htmlFor="auth-email" className="sr-only">이메일</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
+                  id="auth-email"
                   type="email"
                   placeholder="이메일"
                   value={email}
@@ -118,9 +120,11 @@ export function AuthPage() {
                   autoComplete="email"
                 />
               </div>
+              <label htmlFor="auth-password" className="sr-only">비밀번호</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
+                  id="auth-password"
                   type="password"
                   placeholder="비밀번호"
                   value={password}
@@ -132,18 +136,22 @@ export function AuthPage() {
                 />
               </div>
               {tab === "signup" && (
-                <div className="relative">
-                  <Ticket className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    type="text"
-                    placeholder="가입코드"
-                    value={inviteCode}
-                    onChange={(e) => setInviteCode(e.target.value)}
-                    required
-                    className="pl-10 text-base"
-                    autoComplete="off"
-                  />
-                </div>
+                <>
+                  <label htmlFor="auth-invite" className="sr-only">가입코드</label>
+                  <div className="relative">
+                    <Ticket className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      id="auth-invite"
+                      type="text"
+                      placeholder="가입코드"
+                      value={inviteCode}
+                      onChange={(e) => setInviteCode(e.target.value)}
+                      required
+                      className="pl-10 text-base"
+                      autoComplete="off"
+                    />
+                  </div>
+                </>
               )}
             </div>
 

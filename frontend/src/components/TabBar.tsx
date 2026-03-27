@@ -92,6 +92,14 @@ export function TabBar({ activeTab, onTabChange }: Pick<TabBarProps, "activeTab"
                 transform: `translateX(${indicator.left}px)`,
               }}
             />
+            {/* 하단 활성 바 */}
+            <div
+              className="absolute bottom-0 h-0.5 rounded-full bg-primary transition-all duration-200 ease-out"
+              style={{
+                width: indicator.width * 0.6,
+                transform: `translateX(${indicator.left + indicator.width * 0.2}px)`,
+              }}
+            />
             {tabs.map((tab) => (
               <button
                 key={tab.key}

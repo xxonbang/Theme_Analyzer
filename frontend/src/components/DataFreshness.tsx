@@ -82,22 +82,23 @@ export function DataFreshness({ stockData, investorIntraday, intradayHistory, th
   const hasAny = sources.some(s => s.time)
   if (!hasAny) return null
 
+  const visibleSources = sources.filter(s => s.time && formatHHMM(s.time))
+
   return (
-    <div className="flex items-center gap-1.5 flex-wrap px-1">
+    <div className="flex items-center gap-1 flex-wrap px-1">
       <span className="text-[10px] text-muted-foreground/70 shrink-0">갱신:</span>
-      {sources.map(s => {
-        if (!s.time) return null
-        const hhmm = formatHHMM(s.time)
-        if (!hhmm) return null
-        return (
+      {visibleSources.map((s, i) => (
+        <span key={s.label} className="flex items-center gap-1">
           <Badge
-            key={s.label}
-            className={`text-[10px] px-1.5 py-0 font-normal ${getAgeColor(s.time)}`}
+            className={`text-[10px] px-1.5 py-0 font-normal ${getAgeColor(s.time!)}`}
           >
-            {s.label} {hhmm}
+            {s.label} {formatHHMM(s.time!)}
           </Badge>
-        )
-      })}
+          {i < visibleSources.length - 1 && (
+            <span className="text-border text-[10px]" aria-hidden>·</span>
+          )}
+        </span>
+      ))}
     </div>
   )
 }

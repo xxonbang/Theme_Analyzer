@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { X, Clock, Loader2, AlertCircle, ArrowRight, Database } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import type { GroupedHistory, HistoryEntry } from "@/types/history"
 
 interface HistoryModalProps {
@@ -44,16 +45,7 @@ export function HistoryModal({
   }, [isOpen])
 
   // 모달 열릴 때 스크롤 방지
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isOpen])
+  useScrollLock(isOpen)
 
   // 배경 클릭으로 닫기
   const handleBackdropClick = (e: React.MouseEvent) => {

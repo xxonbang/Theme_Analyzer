@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { createPortal } from "react-dom"
 import { Crown, X, ChevronDown } from "lucide-react"
 import { CRITERIA_CONFIG, SPECIAL_CRITERIA_DESCRIPTIONS } from "@/lib/criteria"
 import { cn } from "@/lib/utils"
+import { useScrollLock } from "@/hooks/useScrollLock"
 
 interface PopupInfo {
   label: string
@@ -13,22 +14,7 @@ interface PopupInfo {
 }
 
 function CriteriaInfoPopup({ info, onClose }: { info: PopupInfo; onClose: () => void }) {
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-center justify-center">
@@ -71,7 +57,16 @@ export function CriteriaLegend() {
           onClick={() => setExpanded(v => !v)}
           className="flex items-center justify-between w-full px-3 py-2 hover:text-foreground transition-colors"
         >
-          <span className="font-semibold text-amber-700 dark:text-amber-400">선정 기준</span>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-amber-700 dark:text-amber-400">선정 기준</span>
+            {!expanded && (
+              <div className="flex items-center gap-0.5">
+                {normalCriteria.map(({ dot, label }) => (
+                  <span key={label} className={cn("w-1.5 h-1.5 rounded-full", dot)} />
+                ))}
+              </div>
+            )}
+          </div>
           <ChevronDown className={cn("w-3.5 h-3.5 text-amber-500 transition-transform", expanded && "rotate-180")} />
         </button>
         {expanded && (

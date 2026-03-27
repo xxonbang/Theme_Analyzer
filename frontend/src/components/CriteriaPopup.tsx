@@ -1,6 +1,6 @@
-import { useEffect } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { X, Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CRITERIA_CONFIG, GOLDEN_CROSS_LABELS } from "@/lib/criteria"
@@ -28,23 +28,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
     return typeof c !== "boolean" && !c?.met && !c?.warning
   })
 
-  // 스크롤 잠금
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
@@ -55,7 +39,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
       <div ref={sheetRef} className="relative w-full sm:w-80 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
         {/* 모바일 드래그 핸들 + 닫기 */}
         <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
             <X className="w-4 h-4" />
           </button>
@@ -82,15 +66,15 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
                     <span className={cn("w-2 h-2 rounded-full shrink-0", dot)} />
                     <span className="text-[10px] font-semibold">{label}</span>
                     {is52w && <Crown className="w-3 h-3 text-amber-500" />}
-                    {is52w && <span className="text-[9px] text-amber-600 font-medium">52주 신고가</span>}
+                    {is52w && <span className="text-[10px] text-amber-600 font-medium">52주 신고가</span>}
                   </div>
-                  <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed pl-3.5">{c?.reason || "근거 없음"}</p>
+                  <p className="text-[10px] sm:text-[10px] text-muted-foreground leading-relaxed pl-3.5">{c?.reason || "근거 없음"}</p>
                   {key === "golden_cross" && c?.signals && (
                     <div className="flex flex-wrap gap-1 pl-3.5 mt-1">
                       {Object.entries(GOLDEN_CROSS_LABELS).map(([k, { label }]) => {
                         const active = c.signals?.[k]
                         return (
-                          <span key={k} className={cn("text-[8px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
+                          <span key={k} className={cn("text-[10px] px-1.5 py-0.5 rounded-full", active ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 font-medium" : "bg-muted text-muted-foreground/50")}>
                             {active ? "✓" : "✗"} {label}
                           </span>
                         )
@@ -108,7 +92,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
           <>
             <div className="flex items-center gap-1.5 mt-3 mb-2">
               <div className="flex-1 border-t border-red-300" />
-              <span className="text-[9px] text-red-500 font-medium shrink-0">경고</span>
+              <span className="text-[10px] text-red-500 font-medium shrink-0">경고</span>
               <div className="flex-1 border-t border-red-300" />
             </div>
             <div className="space-y-2">
@@ -122,7 +106,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
                       <span className={cn("w-2 h-2 rounded-full shrink-0", dot)} />
                       <span className="text-[10px] font-semibold text-red-600">{label}{levelSuffix}</span>
                     </div>
-                    <p className="text-[9px] sm:text-[10px] text-red-500/80 leading-relaxed pl-3.5">{c?.reason || "근거 없음"}</p>
+                    <p className="text-[10px] sm:text-[10px] text-red-500/80 leading-relaxed pl-3.5">{c?.reason || "근거 없음"}</p>
                   </div>
                 )
               })}
@@ -135,7 +119,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
           <>
             <div className="flex items-center gap-1.5 mt-3 mb-2">
               <div className="flex-1 border-t border-border/50" />
-              <span className="text-[9px] text-muted-foreground/60 shrink-0">미충족</span>
+              <span className="text-[10px] text-muted-foreground/60 shrink-0">미충족</span>
               <div className="flex-1 border-t border-border/50" />
             </div>
             <div className="space-y-2 opacity-60">
@@ -148,7 +132,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
                       <span className="w-2 h-2 rounded-full shrink-0 bg-gray-300 dark:bg-gray-600" />
                       <span className="text-[10px] font-medium text-muted-foreground">{label}</span>
                     </div>
-                    <p className="text-[9px] sm:text-[10px] text-muted-foreground/70 leading-relaxed pl-3.5">{c?.reason || ""}</p>
+                    <p className="text-[10px] sm:text-[10px] text-muted-foreground/70 leading-relaxed pl-3.5">{c?.reason || ""}</p>
                   </div>
                 )
               })}

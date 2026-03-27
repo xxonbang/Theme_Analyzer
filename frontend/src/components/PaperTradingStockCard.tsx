@@ -120,7 +120,7 @@ export const PaperTradingStockCard = memo(function PaperTradingStockCard({ stock
         <span className="text-border">→</span>
         <span>
           {mode === "high" ? "최고가" : "종가"}
-          {mode === "high" && stock.high_price_adjusted && <span className="text-amber-500 text-[9px] ml-0.5">종가적용</span>}
+          {mode === "high" && stock.high_price_adjusted && <span className="text-amber-500 text-[10px] ml-0.5">종가적용</span>}
           {mode === "high" && <span className="text-muted-foreground/70">({stock.high_time || "종가"})</span>}
           {" "}<span className="font-medium text-foreground">{displaySellPrice.toLocaleString()}</span>
         </span>
