@@ -6,6 +6,11 @@
 
 ## 2026-03-27
 
+### [버그픽스] 헤더 IconButton 스타일 과잉 수정 (2026-03-27 13:21 KST)
+- **변경 파일**: `frontend/src/components/IconButton.tsx`
+- **내용**: UI 개선 작업에서 추가된 배경 그라디언트, 보더, 그림자, min-w/h 44px, hover 오버레이 등 과도한 스타일 제거 → 심플한 아이콘 버튼으로 복원
+- **원인**: 디자인 개선 시 접근성 터치 타겟(44px)과 시각적 크기를 혼동하여 아이콘 버튼이 큰 회색 박스로 표시됨
+
 ### [개선] UI/디자인 대규모 개선 — 30개 항목 (2026-03-27 13:08 KST)
 - **변경 파일**: `index.css`, `Header.tsx`, `IconButton.tsx`(신규), `useScrollLock.ts`(신규), `StockCard.tsx`, `StockList.tsx`, `TabBar.tsx`, `Sparkline.tsx`, `ExchangeRate.tsx`, `MacroIndicators.tsx`, `DataFreshness.tsx`, `CriteriaLegend.tsx`, `AuthPage.tsx`, `PullToRefreshIndicator.tsx`, `KosdaqIndexAlert.tsx`, `App.tsx`, `AIThemeAnalysis.tsx`, `ThemeForecastPage.tsx` 외 팝업 컴포넌트 다수
 - **내용**:

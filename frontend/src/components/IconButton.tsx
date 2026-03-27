@@ -12,21 +12,18 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       ref={ref}
       className={cn(
         "relative overflow-hidden group",
-        "flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 min-w-[44px] min-h-[44px]",
+        "flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9",
         "rounded-lg",
-        "bg-gradient-to-br from-secondary via-secondary to-secondary/80",
-        "border border-border/50",
-        "shadow-sm hover:shadow-md hover:shadow-primary/10",
-        "transition-all duration-300 ease-out",
-        "hover:scale-110 active:scale-95",
-        "hover:border-primary/30",
+        "text-muted-foreground hover:text-foreground",
+        "hover:bg-muted/80",
+        "transition-all duration-200 ease-out",
+        "active:scale-95",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
-        active && (activeClassName || "ring-2 ring-primary/50 border-primary/30 bg-primary/5"),
+        active && (activeClassName || "text-primary bg-primary/5"),
         className
       )}
       {...props}
     >
-      <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       {children}
     </button>
   )
