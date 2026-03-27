@@ -127,24 +127,32 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
   const roundLabel = scheduleInfo ? ("round" in scheduleInfo ? scheduleInfo.label : scheduleInfo.label) : null
   const timeLabel = investorUpdatedAt ? <span className="text-[10px] text-muted-foreground/50 ml-0.5">{roundLabel && <span className="text-amber-500">{roundLabel}</span>} {investorUpdatedAt.slice(11, 16)}</span> : null
   return (
-    <div className="flex items-center py-1.5 text-[10px] sm:text-[10px] text-muted-foreground font-medium border-b border-border/50">
-      <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
-        <span className="w-5 text-center shrink-0">#</span>
-        <span>종목명</span>
-      </div>
-      <div className="flex items-center shrink-0">
-        <span className="text-right w-16 sm:w-20">현재가</span>
-        {showTradingValue && <span className="text-right w-14 sm:w-16">거래대금</span>}
-        <span className="text-right w-12 sm:w-14">거래량</span>
-        <span className="text-center w-14 sm:w-16">거래추이</span>
-        {isAdmin && <span className="text-center w-14 sm:w-16">수급추이</span>}
-        {isAdmin && <span className="text-right min-w-[56px] sm:min-w-[64px] whitespace-nowrap">외국인{estimatedLabel}{timeLabel}</span>}
-        {isAdmin && <span className="text-right min-w-[56px] sm:min-w-[64px] whitespace-nowrap">기관{estimatedLabel}</span>}
-        {isAdmin && <span className="text-right min-w-[56px] sm:min-w-[64px] whitespace-nowrap">개인{investorEstimated && <span className="text-[10px] text-amber-500 ml-0.5">장중</span>}</span>}
-        {isAdmin && <span className="text-right w-14 sm:w-16">프로그램</span>}
-        {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
-        {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}
-        <span className="text-right w-16 ml-2">등락률</span>
+    <div className="border-b border-border/50">
+      {/* 투자자 데이터 부가 정보 (추정/차수/시각) — 컬럼 밖에 별도 표시 */}
+      {isAdmin && (estimatedLabel || timeLabel) && (
+        <div className="flex justify-end px-2 pt-1 text-[10px] text-muted-foreground/60 whitespace-nowrap">
+          {estimatedLabel}{timeLabel}
+        </div>
+      )}
+      <div className="flex items-center py-1.5 text-[10px] sm:text-[10px] text-muted-foreground font-medium">
+        <div className="sticky left-0 z-20 bg-card self-stretch flex items-center gap-2 shrink-0 w-28 sm:w-40 pl-2 pr-1">
+          <span className="w-5 text-center shrink-0">#</span>
+          <span>종목명</span>
+        </div>
+        <div className="flex items-center shrink-0">
+          <span className="text-right w-16 sm:w-20">현재가</span>
+          {showTradingValue && <span className="text-right w-14 sm:w-16">거래대금</span>}
+          <span className="text-right w-12 sm:w-14">거래량</span>
+          <span className="text-center w-14 sm:w-16">거래추이</span>
+          {isAdmin && <span className="text-center w-14 sm:w-16">수급추이</span>}
+          {isAdmin && <span className="text-right w-14 sm:w-16">외국인</span>}
+          {isAdmin && <span className="text-right w-14 sm:w-16">기관</span>}
+          {isAdmin && <span className="text-right w-14 sm:w-16">개인</span>}
+          {isAdmin && <span className="text-right w-14 sm:w-16">프로그램</span>}
+          {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
+          {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}
+          <span className="text-right w-16 ml-2">등락률</span>
+        </div>
       </div>
     </div>
   )
