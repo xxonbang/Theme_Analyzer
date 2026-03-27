@@ -18,6 +18,7 @@ const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200": "K200", 
 const LINE_COLORS = [
   "var(--color-chart-red)", "var(--color-chart-blue)", "var(--color-chart-amber)",
   "var(--color-chart-green)", "var(--color-chart-violet)", "var(--color-chart-pink)",
+  "var(--color-chart-teal)", "var(--color-chart-orange)",
 ]
 
 const INDICATOR_DESC: Record<string, string> = {
@@ -160,7 +161,11 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
               <>
               <MacroChart rows={histRows} dates={histDates} hidden={chartHidden} setHidden={setChartHidden} />
               <hr className="border-border/30 my-3" />
-              <table className="w-full text-[10px] tabular-nums">
+              <table className="w-full text-[10px] tabular-nums table-fixed">
+                <colgroup>
+                  <col className="w-20" />
+                  {histRows.map(row => <col key={row.symbol} />)}
+                </colgroup>
                 <thead>
                   <tr className="text-foreground/80 border-b border-border/30">
                     <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
@@ -175,7 +180,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 <tbody>
                   {histDates.map((date, di) => (
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                      <td className="py-2 pr-2 font-medium">
+                      <td className="py-2 pr-2 font-medium whitespace-nowrap">
                         {date.slice(5).replace("-", "/")}
                         {date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
                       </td>
@@ -348,7 +353,11 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                       <hr className="border-border/30 my-2" />
                     </>
                   )}
-                  <table className="w-full text-[10px] tabular-nums">
+                  <table className="w-full text-[10px] tabular-nums table-fixed">
+                    <colgroup>
+                      <col className="w-20" />
+                      <col /><col /><col /><col />
+                    </colgroup>
                     <thead>
                       <tr className="text-foreground/80 border-b border-border/30">
                         <th className="text-left py-1.5 pr-1 font-semibold">날짜</th>
@@ -363,7 +372,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                         const d = day[market]
                         return (
                           <tr key={day.date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                            <td className="py-1.5 pr-1 font-medium">
+                            <td className="py-1.5 pr-1 font-medium whitespace-nowrap">
                               {day.date.slice(5).replace("-", "/")}
                               {day.date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
                             </td>
@@ -804,7 +813,11 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               <>
               <MacroChart rows={historyRows} dates={dates} hidden={chartHidden} setHidden={setChartHidden} />
               <hr className="border-border/30 my-3" />
-              <table className="w-full text-[10px] tabular-nums">
+              <table className="w-full text-[10px] tabular-nums table-fixed">
+                <colgroup>
+                  <col className="w-20" />
+                  {historyRows.map(row => <col key={row.symbol} />)}
+                </colgroup>
                 <thead>
                   <tr className="text-foreground/80 border-b border-border/30">
                     <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
@@ -819,7 +832,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                 <tbody>
                   {dates.map((date, di) => (
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                      <td className="py-2 pr-2 font-medium">
+                      <td className="py-2 pr-2 font-medium whitespace-nowrap">
                         {date.slice(5).replace("-", "/")}
                         {date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
                       </td>
