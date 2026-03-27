@@ -314,6 +314,9 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                 </button>
                 <span className="text-[11px] font-medium tabular-nums min-w-[130px] text-center">
                   {selectedDay ? formatDate(selectedDay.date) : formatDate(todayKST)}
+                  {(selectedDay ? selectedDay.date : todayKST) === todayKST && (
+                    <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">오늘</span>
+                  )}
                 </span>
                 <button
                   onClick={() => {

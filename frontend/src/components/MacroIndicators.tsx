@@ -31,6 +31,7 @@ const INDICATOR_DESC: Record<string, string> = {
 }
 
 const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "OIL_F": "원유", "GOLD_F": "금" }
+const TODAY_KST = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}` })()
 
 function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: FuturesItem[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
   const [expanded, setExpanded] = useState(false)
@@ -174,7 +175,10 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 <tbody>
                   {histDates.map((date, di) => (
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                      <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
+                      <td className="py-2 pr-2 font-medium">
+                        {date.slice(5).replace("-", "/")}
+                        {date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
+                      </td>
                       {histRows.map((row) => {
                         const active = chartHidden.size > 0 && !chartHidden.has(row.name)
                         const dimmed = chartHidden.size > 0 && chartHidden.has(row.name)
@@ -239,6 +243,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">투자자 수급</span>
           <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">
             {latest.date.slice(5).replace("-", "/")}
+            {latest.date === TODAY_KST && <span className="ml-0.5 font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
             {updatedAt && <span> · {updatedAt.slice(11, 16)}</span>}
           </span>
           <button
@@ -358,7 +363,10 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
                         const d = day[market]
                         return (
                           <tr key={day.date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                            <td className="py-1.5 pr-1 text-foreground/70 font-medium">{day.date.slice(5).replace("-", "/")}</td>
+                            <td className="py-1.5 pr-1 font-medium">
+                              {day.date.slice(5).replace("-", "/")}
+                              {day.date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
+                            </td>
                             <td className={`text-right py-1.5 px-1 ${d.change_pct > 0 ? "text-red-500" : d.change_pct < 0 ? "text-blue-500" : "text-muted-foreground/40"}`}>
                               {d.change_pct > 0 ? "+" : ""}{d.change_pct.toFixed(2)}%
                             </td>
@@ -811,7 +819,10 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                 <tbody>
                   {dates.map((date, di) => (
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                      <td className="py-2 pr-2 text-foreground/70 font-medium">{date.slice(5).replace("-", "/")}</td>
+                      <td className="py-2 pr-2 font-medium">
+                        {date.slice(5).replace("-", "/")}
+                        {date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
+                      </td>
                       {historyRows.map((row) => {
                         const active = chartHidden.size > 0 && !chartHidden.has(row.name)
                         const dimmed = chartHidden.size > 0 && chartHidden.has(row.name)

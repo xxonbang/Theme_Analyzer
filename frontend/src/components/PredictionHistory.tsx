@@ -248,6 +248,9 @@ function DateGroup({ group, categoryFilter }: { group: StockPredictionsByDate; c
       >
         <div className="flex items-center gap-2 text-xs sm:text-sm">
           <span className="font-medium tabular-nums">{group.date}</span>
+          {group.date === new Date().toISOString().slice(0, 10) && (
+            <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">오늘</span>
+          )}
           <span className="text-muted-foreground">{stocks.length}종목</span>
           {hitCount > 0 && <span className="text-emerald-600 text-[10px]">{hitCount}적중</span>}
           {missCount > 0 && <span className="text-red-500 text-[10px]">{missCount}미스</span>}

@@ -132,15 +132,15 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
         <span className="w-5 text-center shrink-0">#</span>
         <span>종목명</span>
       </div>
-      <div className="flex items-center shrink-0 ml-auto">
+      <div className="flex items-center shrink-0">
         <span className="text-right w-16 sm:w-20">현재가</span>
         {showTradingValue && <span className="text-right w-14 sm:w-16">거래대금</span>}
         <span className="text-right w-12 sm:w-14">거래량</span>
         <span className="text-center w-14 sm:w-16">거래추이</span>
         {isAdmin && <span className="text-center w-14 sm:w-16">수급추이</span>}
-        {isAdmin && <span className="text-right w-14 sm:w-16">외국인{estimatedLabel}{timeLabel}</span>}
-        {isAdmin && <span className="text-right w-14 sm:w-16">기관{estimatedLabel}</span>}
-        {isAdmin && <span className="text-right w-14 sm:w-16">개인{investorEstimated && <span className="text-[10px] text-amber-500 ml-0.5">장중</span>}</span>}
+        {isAdmin && <span className="text-right w-14 sm:w-16 whitespace-nowrap">외국인{estimatedLabel}{timeLabel}</span>}
+        {isAdmin && <span className="text-right w-14 sm:w-16 whitespace-nowrap">기관{estimatedLabel}</span>}
+        {isAdmin && <span className="text-right w-14 sm:w-16 whitespace-nowrap">개인{investorEstimated && <span className="text-[10px] text-amber-500 ml-0.5">장중</span>}</span>}
         {isAdmin && <span className="text-right w-14 sm:w-16">프로그램</span>}
         {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매수1위</span>}
         {isAdmin && hasMemberData && <span className="text-right w-16 sm:w-20">매도1위</span>}

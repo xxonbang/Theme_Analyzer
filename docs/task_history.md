@@ -6,6 +6,13 @@
 
 ## 2026-03-27
 
+### [개선] 날짜 오늘 표시 + 컴팩트 테이블 컬럼 정렬 수정 (2026-03-27 13:48 KST)
+- **변경 파일**: `HistoryModal.tsx`, `PriceHistoryPopup.tsx`, `PredictionHistory.tsx`, `MacroIndicators.tsx`, `StockList.tsx`
+- **내용**:
+  - 모든 히스토리 bottom sheet 날짜에 오늘 당일 "오늘" 배지 추가 (4개 컴포넌트)
+  - 컴팩트 모드 테이블 헤더 `ml-auto` 제거로 컬럼 헤더/값 정렬 일치
+  - 투자자 컬럼 헤더(`외국인`, `기관`, `개인`)에 `whitespace-nowrap` 추가로 줄바꿈 방지
+
 ### [버그픽스] 헤더 IconButton 스타일 과잉 수정 (2026-03-27 13:21 KST)
 - **변경 파일**: `frontend/src/components/IconButton.tsx`
 - **내용**: UI 개선 작업에서 추가된 배경 그라디언트, 보더, 그림자, min-w/h 44px, hover 오버레이 등 과도한 스타일 제거 → 심플한 아이콘 버튼으로 복원

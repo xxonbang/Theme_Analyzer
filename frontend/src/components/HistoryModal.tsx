@@ -192,7 +192,9 @@ export function HistoryModal({
                     <span className="font-medium text-xs tabular-nums">
                       {entry.time}
                     </span>
-                    {getRelativeDate(entry.date) && (
+                    {getRelativeDate(entry.date) === "오늘" ? (
+                      <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">오늘</span>
+                    ) : getRelativeDate(entry.date) && (
                       <span className="text-[10px] text-primary/60">
                         {getRelativeDate(entry.date)}
                       </span>
