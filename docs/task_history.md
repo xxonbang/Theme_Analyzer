@@ -6,6 +6,10 @@
 
 ## 2026-03-27
 
+### [개선] 정렬 드롭다운 커스텀 UI 교체 (2026-03-27 14:59 KST)
+- **변경 파일**: `frontend/src/components/StockList.tsx`
+- **내용**: OS 기본 `<select>` → pill 버튼 + 커스텀 드롭다운 메뉴로 교체, 기본 상태 반투명 흰색으로 헤더 그라디언트와 조화
+
 ### [버그픽스] PWA 서비스 워커 캐싱 전략 변경 (2026-03-27 14:54 KST)
 - **변경 파일**: `frontend/public/sw.js`
 - **내용**: `stale-while-revalidate` → `network-first` 전략 변경, CACHE_NAME v1→v2

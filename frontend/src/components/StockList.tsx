@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react"
-import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown } from "lucide-react"
+import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown, ChevronDown } from "lucide-react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { StockCard } from "@/components/StockCard"
@@ -498,6 +498,52 @@ function CompactMarketSection({
 }
 
 type SortOption = "default" | "foreign_net" | "institution_net" | "change_rate"
+const SORT_LABELS: Record<SortOption, string> = { default: "기본 정렬", foreign_net: "외국인순", institution_net: "기관순", change_rate: "등락률순" }
+const SORT_OPTIONS: SortOption[] = ["default", "foreign_net", "institution_net", "change_rate"]
+
+function SortDropdown({ value, onChange, compact }: { value: SortOption; onChange: (v: SortOption) => void; compact?: boolean }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false) }
+    document.addEventListener("click", handler)
+    return () => document.removeEventListener("click", handler)
+  }, [open])
+  return (
+    <div ref={ref} className="relative ml-1">
+      <button
+        onClick={() => setOpen(!open)}
+        className={cn(
+          "flex items-center gap-1 rounded-full border border-border/60 px-2 py-0.5 transition-colors",
+          "hover:bg-muted/80 active:scale-95",
+          compact ? "text-[10px]" : "text-xs",
+          value !== "default" ? "bg-primary/10 border-primary/30 text-primary font-semibold" : "bg-white/60 dark:bg-white/10 border-black/10 dark:border-white/15 text-foreground/70"
+        )}
+      >
+        {SORT_LABELS[value]}
+        <ChevronDown className={cn("w-3 h-3 transition-transform", open && "rotate-180")} />
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full mt-1 z-50 min-w-[120px] bg-popover border border-border rounded-lg shadow-lg py-1 animate-in fade-in-0 zoom-in-95 duration-150">
+          {SORT_OPTIONS.map(opt => (
+            <button
+              key={opt}
+              onClick={() => { onChange(opt); setOpen(false) }}
+              className={cn(
+                "w-full text-left px-3 py-1.5 text-xs transition-colors",
+                value === opt ? "text-primary font-semibold bg-primary/5" : "text-foreground hover:bg-muted/50"
+              )}
+            >
+              {value === opt && <span className="mr-1">✓</span>}
+              {SORT_LABELS[opt]}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 function sortStocks(stocks: Stock[], sortBy: SortOption, investorData?: Record<string, InvestorInfo>): Stock[] {
   if (sortBy === "default") return stocks
@@ -534,16 +580,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
             <Icon className={cn("w-4 h-4", iconColor)} />
             <span className="truncate">{title}</span>
             {isAdmin && investorData && (
-              <select
-                value={sortBy}
-                onChange={e => setSortBy(e.target.value as SortOption)}
-                className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground ml-1"
-              >
-                <option value="default">기본 정렬</option>
-                <option value="foreign_net">외국인순</option>
-                <option value="institution_net">기관순</option>
-                <option value="change_rate">등락률순</option>
-              </select>
+              <SortDropdown value={sortBy} onChange={setSortBy} compact />
             )}
             <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-[10px] shrink-0">
               {kospiStocks.length + kosdaqStocks.length}
@@ -608,16 +645,7 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
           <Icon className={cn("w-4 h-4 sm:w-5 sm:h-5", iconColor)} />
           <span className="truncate">{title}</span>
           {isAdmin && investorData && (
-            <select
-              value={sortBy}
-              onChange={e => setSortBy(e.target.value as SortOption)}
-              className="text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground ml-1"
-            >
-              <option value="default">기본 정렬</option>
-              <option value="foreign_net">외국인순</option>
-              <option value="institution_net">기관순</option>
-              <option value="change_rate">등락률순</option>
-            </select>
+            <SortDropdown value={sortBy} onChange={setSortBy} />
           )}
           <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-xs shrink-0">
             {kospiStocks.length + kosdaqStocks.length} 종목
