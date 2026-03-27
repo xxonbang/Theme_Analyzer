@@ -6,6 +6,11 @@
 
 ## 2026-03-27
 
+### [버그픽스] PWA 서비스 워커 캐싱 전략 변경 (2026-03-27 14:54 KST)
+- **변경 파일**: `frontend/public/sw.js`
+- **내용**: `stale-while-revalidate` → `network-first` 전략 변경, CACHE_NAME v1→v2
+- **원인**: iOS PWA에서 서비스 워커가 캐시된 구 데이터를 즉시 반환하여 새로고침해도 최신 데이터 미반영
+
 ### [개선] 모멘텀 기본 펼침 + 모바일 sticky 섹션 틈 수정 (2026-03-27 14:41 KST)
 - **변경 파일**: `IntradayInsights.tsx`, `Header.tsx`, `App.tsx`
 - **내용**:
