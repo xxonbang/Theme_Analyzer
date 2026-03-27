@@ -1,4 +1,4 @@
-import { useState, Fragment, memo } from "react"
+import { useState, useEffect, Fragment, memo } from "react"
 import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -37,6 +37,8 @@ interface StockCardProps {
 
 export const StockCard = memo(function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, vpUpdatedAt, intradayDays, fundamental }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
+  const [showRankTip, setShowRankTip] = useState(false)
+  useEffect(() => { if (showRankTip) { const t = setTimeout(() => setShowRankTip(false), 2000); return () => clearTimeout(t) } }, [showRankTip])
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
   const [showTradingChart, setShowTradingChart] = useState(false)
@@ -90,17 +92,31 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
         <div className="flex items-start justify-between gap-2">
           {/* Left: Rank + Name */}
           <div className="flex items-center gap-2 min-w-0 flex-1">
-            <div className={cn(
-              "flex items-center justify-center rounded-full font-bold shrink-0",
-              stock.rank <= 3
-                ? "w-7 h-7 sm:w-9 sm:h-9 text-xs sm:text-sm ring-1"
-                : "w-6 h-6 sm:w-8 sm:h-8 text-xs sm:text-sm",
-              stock.rank === 1 && "bg-amber-500/15 text-amber-600 ring-amber-400/40",
-              stock.rank === 2 && "bg-slate-400/15 text-slate-500 ring-slate-400/30",
-              stock.rank === 3 && "bg-orange-400/15 text-orange-600 ring-orange-400/30",
-              stock.rank > 3 && (isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600")
-            )}>
-              {stock.rank}
+            <div className="relative shrink-0">
+              <button
+                onClick={() => setShowRankTip(v => !v)}
+                className={cn(
+                  "flex items-center justify-center rounded-full font-bold",
+                  stock.rank <= 3
+                    ? "w-7 h-7 sm:w-9 sm:h-9 text-xs sm:text-sm ring-1"
+                    : "w-6 h-6 sm:w-8 sm:h-8 text-xs sm:text-sm",
+                  stock.rank === 1 && "bg-amber-500/15 text-amber-600 ring-amber-400/40",
+                  stock.rank === 2 && "bg-slate-400/15 text-slate-500 ring-slate-400/30",
+                  stock.rank === 3 && "bg-orange-400/15 text-orange-600 ring-orange-400/30",
+                  stock.rank > 3 && (isRising ? "bg-red-500/10 text-red-600" : "bg-blue-500/10 text-blue-600")
+                )}>
+                {stock.rank}
+              </button>
+              {showRankTip && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 z-50 px-2.5 py-1.5 bg-popover text-popover-foreground text-[10px] font-medium rounded-md shadow-lg border border-border whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-150">
+                  {stock.rank <= 3 ? (
+                    <span>{stock.rank === 1 ? "🥇 금" : stock.rank === 2 ? "🥈 은" : "🥉 동"} · TOP3</span>
+                  ) : (
+                    <span>{stock.rank}위 · {isRising ? "상승" : "하락"}</span>
+                  )}
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45" />
+                </div>
+              )}
             </div>
             <div className="min-w-0 flex-1">
               <a
@@ -109,7 +125,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 rel="noopener noreferrer"
                 className="font-semibold text-sm sm:text-base text-foreground hover:text-primary transition-colors flex items-center gap-1"
               >
-                <span className="truncate">{stock.name}</span>
+                <span>{stock.name}</span>
                 <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 hidden sm:block" />
               </a>
               <p className="text-[10px] sm:text-xs text-muted-foreground font-mono">{stock.code}</p>

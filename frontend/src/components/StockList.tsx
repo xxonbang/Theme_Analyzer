@@ -186,6 +186,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
           ? "border-l-[3px] border-l-yellow-400 bg-amber-50 dark:bg-amber-950 pl-[5px] group-hover:bg-amber-100 dark:group-hover:bg-amber-900"
           : "bg-card pl-2 group-hover:bg-muted"
       )}>
+        {/* 순위 뱃지 색상: neutral=amber, 상승=red, 하락=blue */}
         <span className={cn(
           "w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-full shrink-0 relative",
           type === "neutral"
@@ -209,7 +210,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             rel="noopener noreferrer"
             className="flex items-center gap-1"
           >
-            <span className="font-medium text-xs truncate">{stock.name}</span>
+            <span className="font-medium text-xs">{stock.name}</span>
             <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-50 transition-opacity shrink-0 hidden sm:block" />
           </a>
           {metCriteria.length > 0 && (
@@ -511,11 +512,11 @@ function SortDropdown({ value, onChange, compact }: { value: SortOption; onChang
     return () => document.removeEventListener("click", handler)
   }, [open])
   return (
-    <div ref={ref} className="relative ml-1">
+    <div ref={ref} className="relative ml-1 shrink-0">
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex items-center gap-1 rounded-full border border-border/60 px-2 py-0.5 transition-colors",
+          "flex items-center gap-1 rounded-full border border-border/60 px-2 py-0.5 transition-colors whitespace-nowrap",
           "hover:bg-muted/80 active:scale-95",
           compact ? "text-[10px]" : "text-xs",
           value !== "default" ? "bg-primary/10 border-primary/30 text-primary font-semibold" : "bg-white/60 dark:bg-white/10 border-black/10 dark:border-white/15 text-foreground/70"
@@ -576,15 +577,19 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
     return (
       <Card className="overflow-hidden shadow-sm">
         <CardHeader className={cn("py-2 sm:py-3", `bg-gradient-to-r ${gradientFrom}`)}>
-          <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
-            <Icon className={cn("w-4 h-4", iconColor)} />
-            <span className="truncate">{title}</span>
-            {isAdmin && investorData && (
-              <SortDropdown value={sortBy} onChange={setSortBy} compact />
-            )}
-            <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-[10px] shrink-0">
-              {kospiStocks.length + kosdaqStocks.length}
-            </Badge>
+          <CardTitle className="flex items-center justify-between gap-2 text-sm sm:text-base">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <Icon className={cn("w-4 h-4 shrink-0", iconColor)} />
+              <span className="whitespace-nowrap">{title}</span>
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              {isAdmin && investorData && (
+                <SortDropdown value={sortBy} onChange={setSortBy} compact />
+              )}
+              <Badge variant={badgeVariant as any} className="text-[10px] sm:text-[10px]">
+                {kospiStocks.length + kosdaqStocks.length}
+              </Badge>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-2 sm:p-3 space-y-3">
@@ -641,15 +646,19 @@ export function StockList({ title, kospiStocks, kosdaqStocks, history, news, typ
   return (
     <Card className="overflow-hidden shadow-sm">
       <CardHeader className={cn("py-3 sm:py-4", `bg-gradient-to-r ${gradientFrom}`)}>
-        <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
-          <Icon className={cn("w-4 h-4 sm:w-5 sm:h-5", iconColor)} />
-          <span className="truncate">{title}</span>
-          {isAdmin && investorData && (
-            <SortDropdown value={sortBy} onChange={setSortBy} />
-          )}
-          <Badge variant={badgeVariant as any} className="ml-auto text-[10px] sm:text-xs shrink-0">
-            {kospiStocks.length + kosdaqStocks.length} 종목
-          </Badge>
+        <CardTitle className="flex items-center justify-between gap-2 text-base sm:text-lg md:text-xl">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <Icon className={cn("w-4 h-4 sm:w-5 sm:h-5 shrink-0", iconColor)} />
+            <span className="whitespace-nowrap">{title}</span>
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {isAdmin && investorData && (
+              <SortDropdown value={sortBy} onChange={setSortBy} />
+            )}
+            <Badge variant={badgeVariant as any} className="text-[10px] sm:text-xs">
+              {kospiStocks.length + kosdaqStocks.length} 종목
+            </Badge>
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-4 space-y-4 sm:space-y-6">
