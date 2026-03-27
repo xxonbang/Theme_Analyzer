@@ -408,14 +408,14 @@ export default function DistributionPopup({
         ref={sheetRef}
         className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto overscroll-contain"
       >
-        <div ref={handleRef} className="flex items-center justify-center pt-2 pb-1 cursor-grab relative">
+        <div ref={handleRef} className="flex items-center justify-center pt-6 pb-4 cursor-grab relative">
           <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
           <button onClick={onClose} className="absolute right-4 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="px-4 pb-4">
+        <div className="px-4 pb-4 pt-1">
           {/* 헤더 */}
           <div className="flex items-center justify-between mb-3">
             <div>

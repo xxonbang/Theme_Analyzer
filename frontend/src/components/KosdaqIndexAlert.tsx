@@ -142,7 +142,7 @@ function IndexDetailPopup({
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
       <div ref={sheetRef}
         className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto animate-slide-in-bottom">
-        <div ref={handleRef} className="flex justify-center pt-2 pb-1 cursor-grab">
+        <div ref={handleRef} className="flex justify-center pt-3 pb-2.5 cursor-grab">
           <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
         </div>
         <div className="px-4 pb-4">
