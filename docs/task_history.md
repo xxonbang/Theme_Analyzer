@@ -6,6 +6,14 @@
 
 ## 2026-03-27
 
+### [개선] 모멘텀 기본 펼침 + 모바일 sticky 섹션 틈 수정 (2026-03-27 14:41 KST)
+- **변경 파일**: `IntradayInsights.tsx`, `Header.tsx`, `App.tsx`
+- **내용**:
+  - 장중 모멘텀 급변 TOP5 기본값 펼침으로 변경
+  - 모바일 2단 탭바 배경 `bg-muted/30` → `bg-card` (투명→불투명, 콘텐츠 비침 방지)
+  - 모바일 2단 탭바 하단 `pb-2` 추가 — sticky 섹션 간 여백 확보
+  - TabControls sticky에 `border-b shadow-sm` 추가
+
 ### [개선] 차트 색상 8색 확장 + 테이블 균등 배분 + 환율 오늘 표시 + USD 레이아웃 (2026-03-27 14:09 KST)
 - **변경 파일**: `MacroIndicators.tsx`, `ExchangeRate.tsx`, `index.css`
 - **내용**:

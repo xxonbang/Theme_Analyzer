@@ -29,7 +29,7 @@ export function IntradayInsights({
   onNavigateToForecast,
   onScrollToStock,
 }: IntradayInsightsProps) {
-  const [showMovers, setShowMovers] = useState(false)
+  const [showMovers, setShowMovers] = useState(true)
   const [actionPopup, setActionPopup] = useState<{ code: string; name: string; x: number; y: number } | null>(null)
   const [themePopup, setThemePopup] = useState<{ name: string; stocks: { code: string; name: string; rate: number }[]; x: number; y: number } | null>(null)
   const [signalHelpPopup, setSignalHelpPopup] = useState<{ x: number; y: number } | null>(null)

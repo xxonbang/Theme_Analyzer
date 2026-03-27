@@ -926,7 +926,7 @@ function App() {
       {activeTab !== "home" && (
       <div
         ref={stickyBarRef}
-        className={cn("sticky z-40 bg-background", headerHidden ? "top-0" : "top-[5.75rem] sm:top-16")}
+        className={cn("sticky z-40 bg-background border-b border-border/30 shadow-sm", headerHidden ? "top-0" : "top-[5.75rem] sm:top-16")}
       >
         <div style={{ display: headerHidden ? "none" : "block" }}>
         <div

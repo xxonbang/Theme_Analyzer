@@ -367,7 +367,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
       </div>
 
       {/* Mobile 2단 툴바 - 페이지 네비게이션 (sm:hidden) */}
-      <div className="flex sm:hidden items-center px-2 py-1 border-t border-border/30 bg-muted/30 overflow-x-auto scrollbar-none">
+      <div className="flex sm:hidden items-center px-2 py-1 pb-2 border-t border-border/30 bg-card overflow-x-auto scrollbar-none">
         <div className="flex items-center gap-0.5 mx-auto">
           {onPageChange && (
             <button
