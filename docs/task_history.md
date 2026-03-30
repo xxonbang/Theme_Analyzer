@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-03-30
+
+### [개선] 대장주 분석 성능 향상 — 수급 기반 Priority + 종목 성과 피드백 (2026-03-30 21:52 KST)
+- **변경 파일**: `modules/theme_forecast.py`, `forecast_main.py`
+- **내용**:
+  - (1) `_fix_leader_priorities()`: 기관(+2)/외국인(+1) 수급 점수 기반 대장주 자동 정렬로 교체 (하위호환 유지 — investor_data 없으면 기존 순서 할당)
+  - (2) `build_forecast_context()`: paper-trading 최근 5일 2회 이상 선정 종목의 종가/최고가 평균 실적을 프롬프트에 피드백 (안정/보통/부진 태그)
+  - (3) `forecast_main.py`: paper-trading 데이터 로드 → stock_performance 파라미터 전달 (실패 시 기존 동작 유지)
+- **근거**: 기관 순매수 +4.69%p 차이, 반복 선정 종목 +2.97%p 차이 (10일 111종목 데이터 분석)
+
 ## 2026-03-27
 
 ### [개선] Bottom Sheet 드래그 핸들 여백 확대 (2026-03-27 15:46 KST)

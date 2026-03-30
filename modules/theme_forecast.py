@@ -684,6 +684,7 @@ def build_forecast_context(
     intraday_investor: Optional[Dict] = None,
     intraday_history: Optional[Dict] = None,
     prediction_accuracy: Optional[List[Dict]] = None,
+    stock_performance: Optional[List[Dict]] = None,
 ) -> str:
     """Gemini 입력용 예측 컨텍스트 구성
 
@@ -698,6 +699,7 @@ def build_forecast_context(
         intraday_investor: 장중 수급 데이터 (investor-intraday.json)
         intraday_history: 장중 분봉 데이터 (intraday-history.json)
         prediction_accuracy: 카테고리별 적중률 통계 (자동 조회 가능)
+        stock_performance: 최근 대장주 실적 피드백 [{code, name, count, avg_close, avg_high}]
     """
     lines = []
 
@@ -877,6 +879,17 @@ def build_forecast_context(
                     parts.append(" ".join(signals))
 
                 lines.append(f"- {' | '.join(parts)}")
+
+    # 5-1. 최근 대장주 실적 피드백 (모의투자 기준)
+    if stock_performance:
+        lines.append("\n## 최근 대장주 실적 피드백 (모의투자 기준)")
+        lines.append("※ 종가 평균이 마이너스인 종목은 재선정 시 신중히 판단할 것")
+        for sp in stock_performance:
+            tag = "안정" if sp["avg_close"] > 1 else "보통" if sp["avg_close"] > -1 else "부진"
+            lines.append(
+                f"- {sp['name']}({sp['code']}): {sp['count']}회 선정, "
+                f"종가 평균 {sp['avg_close']:+.1f}%, 최고가 평균 {sp['avg_high']:+.1f}% → {tag}"
+            )
 
     # 6. 장중 실시간 수급 (--intraday 모드)
     if intraday_investor and intraday_investor.get("snapshots"):
@@ -1161,16 +1174,32 @@ def load_theme_history(history_dir: Path, days: int = 7) -> List[Dict[str, Any]]
     return result
 
 
-def _fix_leader_priorities(forecast: Dict[str, Any]) -> None:
-    """대장주 priority를 순서대로 1, 2, 3으로 강제 재할당
+def _fix_leader_priorities(forecast: Dict[str, Any], investor_data: Optional[Dict[str, Any]] = None) -> None:
+    """대장주 priority를 수급 데이터 기반으로 재할당
 
-    Gemini가 모두 1로 반환하는 경우가 빈번하므로 후처리로 보정한다.
+    investor_data가 있으면 기관(+2)/외국인(+1) 순매수 점수 기준 정렬.
+    없으면 기존 순서대로 1, 2, 3 할당 (하위호환).
     """
     for category in ("today", "short_term", "long_term"):
         for theme in forecast.get(category, []):
             stocks = theme.get("leader_stocks", [])
-            for idx, stock in enumerate(stocks):
-                stock["priority"] = idx + 1
+            if investor_data:
+                for stock in stocks:
+                    code = stock.get("code", "")
+                    inv = investor_data.get(code, {})
+                    score = 0
+                    if inv.get("institution_net", 0) > 0:
+                        score += 2
+                    if inv.get("foreign_net", 0) > 0:
+                        score += 1
+                    stock["_supply_score"] = score
+                stocks.sort(key=lambda s: -s.get("_supply_score", 0))
+                for idx, stock in enumerate(stocks):
+                    stock["priority"] = idx + 1
+                    stock.pop("_supply_score", None)
+            else:
+                for idx, stock in enumerate(stocks):
+                    stock["priority"] = idx + 1
 
 
 def generate_forecast(
@@ -1184,6 +1213,7 @@ def generate_forecast(
     intraday: bool = False,
     intraday_investor: Optional[Dict] = None,
     intraday_history: Optional[Dict] = None,
+    stock_performance: Optional[List[Dict]] = None,
 ) -> Optional[Dict]:
     """유망 테마 예측 실행
 
@@ -1198,6 +1228,7 @@ def generate_forecast(
         intraday: 장중 재예측 모드 (경량 파이프라인: Phase1 1회 + Phase2 1회 = 2회)
         intraday_investor: 장중 수급 데이터 (investor-intraday.json)
         intraday_history: 장중 분봉 데이터 (intraday-history.json)
+        stock_performance: 최근 대장주 실적 피드백 (paper-trading 기반)
 
     Returns:
         예측 결과 dict 또는 실패 시 None
@@ -1216,6 +1247,7 @@ def generate_forecast(
         global_news=global_news,
         intraday_investor=intraday_investor,
         intraday_history=intraday_history,
+        stock_performance=stock_performance,
     )
     if not context.strip():
         logger.warning("예측 컨텍스트가 비어있습니다")
@@ -1266,7 +1298,7 @@ def generate_forecast(
         "short_term": result.get("short_term", []),
         "long_term": result.get("long_term", []),
     }
-    _fix_leader_priorities(forecast)
+    _fix_leader_priorities(forecast, investor_data=latest_data.get("investor_data"))
     _calibrate_confidence(forecast)
     return forecast
 

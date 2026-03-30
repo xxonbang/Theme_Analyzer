@@ -147,6 +147,42 @@ def main():
         else:
             print("  ⚠ intraday-history.json 없음 (건너뜀)")
 
+    # Step 4.7: 최근 대장주 실적 피드백 (paper-trading)
+    stock_performance = None
+    try:
+        pt_dir = DATA_DIR / "paper-trading"
+        if pt_dir.exists():
+            from collections import defaultdict
+            stock_history = defaultdict(list)
+            pt_files = sorted(pt_dir.glob("*.json"), reverse=True)[:5]
+            for pt_file in pt_files:
+                with open(pt_file, "r", encoding="utf-8") as f:
+                    pt_data = json.load(f)
+                for s in pt_data.get("stocks", []):
+                    stock_history[s["code"]].append({
+                        "name": s["name"],
+                        "profit_rate": s["profit_rate"],
+                        "high_profit_rate": s.get("high_profit_rate", s["profit_rate"]),
+                    })
+            # 2회 이상 선정된 종목만 피드백
+            stock_performance = []
+            for code, days in stock_history.items():
+                if len(days) >= 2:
+                    stock_performance.append({
+                        "code": code,
+                        "name": days[0]["name"],
+                        "count": len(days),
+                        "avg_close": round(sum(d["profit_rate"] for d in days) / len(days), 2),
+                        "avg_high": round(sum(d["high_profit_rate"] for d in days) / len(days), 2),
+                    })
+            stock_performance.sort(key=lambda x: x["avg_close"])
+            if stock_performance:
+                print(f"\n  ✓ 대장주 실적 피드백: {len(stock_performance)}종목 (2회 이상 선정)")
+                for sp in stock_performance[:3]:
+                    print(f"    - {sp['name']}({sp['code']}): {sp['count']}회, 종가 {sp['avg_close']:+.1f}%")
+    except Exception as e:
+        print(f"  ⚠ 대장주 실적 피드백 로드 실패 (무시): {e}")
+
     # Step 5: Gemini 유망 테마 예측
     print("\n[5/6] Gemini 유망 테마 예측...")
     forecast = generate_forecast(
@@ -159,6 +195,7 @@ def main():
         intraday=intraday_mode,
         intraday_investor=intraday_investor,
         intraday_history=intraday_history,
+        stock_performance=stock_performance,
     )
 
     if not forecast:
