@@ -1,0 +1,534 @@
+{
+  "trade_date": "2026-03-30",
+  "morning_timestamp": "2026-03-30 09:14:28",
+  "collected_at": "2026-03-30 15:41:13",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-30 09:14:28",
+      "prices": {
+        "003280": 3365,
+        "038110": 4595,
+        "037230": 3410,
+        "425040": 11290,
+        "046970": 9300,
+        "024060": 21700,
+        "009460": 780,
+        "452300": 3965
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "038110",
+          "name": "에코플라스틱",
+          "theme": "자동차 부품/경량화"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "반도체 특수가스/부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 09:32:06",
+      "prices": {
+        "003280": 3365,
+        "038110": 4595,
+        "037230": 3410,
+        "425040": 11290,
+        "046970": 9300,
+        "024060": 21600,
+        "009460": 780,
+        "452300": 4585
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "038110",
+          "name": "에코플라스틱",
+          "theme": "자동차 부품/경량화"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "반도체 특수가스/부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 09:38:21",
+      "prices": {
+        "003280": 3325,
+        "038110": 4550,
+        "037230": 3355,
+        "425040": 11960,
+        "046970": 9250,
+        "024060": 21350,
+        "009460": 717,
+        "452300": 4605
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유전"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "009460",
+          "name": "한창제지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "452300",
+          "name": "캡스톤파트너스",
+          "theme": "벤처투자/신기술투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 10:02:08",
+      "prices": {
+        "003280": 3325,
+        "038110": 4550,
+        "037230": 3355,
+        "425040": 11960,
+        "046970": 9250,
+        "024060": 21100,
+        "009460": 717,
+        "452300": 4605
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유전"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "009460",
+          "name": "한창제지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "452300",
+          "name": "캡스톤파트너스",
+          "theme": "벤처투자/신기술투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 12:01:33",
+      "prices": {
+        "003280": 3325,
+        "038110": 4550,
+        "037230": 3355,
+        "425040": 11960,
+        "046970": 9250,
+        "024060": 20900,
+        "009460": 717,
+        "452300": 4605
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유전"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "009460",
+          "name": "한창제지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "452300",
+          "name": "캡스톤파트너스",
+          "theme": "벤처투자/신기술투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 12:37:06",
+      "prices": {
+        "003280": 3175,
+        "038110": 4145,
+        "037230": 3410,
+        "425040": 12970,
+        "046970": 8610,
+        "009460": 635,
+        "452300": 4780
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유전"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "009460",
+          "name": "한창제지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "452300",
+          "name": "캡스톤파트너스",
+          "theme": "벤처투자/신기술투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 13:26:12",
+      "prices": {
+        "003280": 3175,
+        "038110": 4115,
+        "037230": 3410,
+        "425040": 12970,
+        "046970": 8610,
+        "009460": 639,
+        "452300": 4780
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유전"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "009460",
+          "name": "한창제지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "452300",
+          "name": "캡스톤파트너스",
+          "theme": "벤처투자/신기술투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-30 14:36:23",
+      "prices": {
+        "003280": 3175,
+        "038110": 4260,
+        "037230": 3410,
+        "425040": 12970,
+        "046970": 8610,
+        "009460": 654,
+        "452300": 4780
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "IT 부품 및 통신장비"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유전"
+        },
+        {
+          "code": "037230",
+          "name": "한국팩키지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "009460",
+          "name": "한창제지",
+          "theme": "포장재/제지"
+        },
+        {
+          "code": "452300",
+          "name": "캡스톤파트너스",
+          "theme": "벤처투자/신기술투자"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 3365,
+      "close_price": 3065,
+      "profit_rate": -8.92,
+      "profit_amount": -300,
+      "high_price": 3490,
+      "high_time": "09:17",
+      "high_profit_rate": 3.71,
+      "high_profit_amount": 125,
+      "low_price": 3065,
+      "low_profit_rate": -8.92,
+      "low_profit_amount": -300,
+      "low_time": "15:30"
+    },
+    {
+      "code": "038110",
+      "name": "에코플라스틱",
+      "theme": "자동차 부품/경량화",
+      "market": "KOSPI",
+      "buy_price": 4595,
+      "close_price": 4300,
+      "profit_rate": -6.42,
+      "profit_amount": -295,
+      "high_price": 4725,
+      "high_time": "09:17",
+      "high_profit_rate": 2.83,
+      "high_profit_amount": 130,
+      "low_price": 4075,
+      "low_profit_rate": -11.32,
+      "low_profit_amount": -520,
+      "low_time": "13:34"
+    },
+    {
+      "code": "037230",
+      "name": "한국팩키지",
+      "theme": "포장재",
+      "market": "KOSPI",
+      "buy_price": 3410,
+      "close_price": 3410,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 3410,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2775,
+      "low_profit_rate": -18.62,
+      "low_profit_amount": -635,
+      "low_time": "09:00"
+    },
+    {
+      "code": "425040",
+      "name": "티이엠씨",
+      "theme": "반도체 특수가스/부품",
+      "market": "KOSDAQ",
+      "buy_price": 11290,
+      "close_price": 12970,
+      "profit_rate": 14.88,
+      "profit_amount": 1680,
+      "high_price": 12970,
+      "high_time": "15:30",
+      "high_profit_rate": 14.88,
+      "high_profit_amount": 1680,
+      "low_price": 10750,
+      "low_profit_rate": -4.78,
+      "low_profit_amount": -540,
+      "low_time": "09:00"
+    },
+    {
+      "code": "046970",
+      "name": "우리로",
+      "theme": "IT 부품 및 통신장비",
+      "market": "KOSPI",
+      "buy_price": 9300,
+      "close_price": 8350,
+      "profit_rate": -10.22,
+      "profit_amount": -950,
+      "high_price": 10030,
+      "high_time": "09:57",
+      "high_profit_rate": 7.85,
+      "high_profit_amount": 730,
+      "low_price": 7880,
+      "low_profit_rate": -15.27,
+      "low_profit_amount": -1420,
+      "low_time": "13:11"
+    },
+    {
+      "code": "024060",
+      "name": "흥구석유",
+      "theme": "에너지/유전",
+      "market": "KOSPI",
+      "buy_price": 21700,
+      "close_price": 20550,
+      "profit_rate": -5.3,
+      "profit_amount": -1150,
+      "high_price": 21500,
+      "high_time": "09:51",
+      "high_profit_rate": -0.92,
+      "high_profit_amount": -200,
+      "low_price": 20400,
+      "low_profit_rate": -5.99,
+      "low_profit_amount": -1300,
+      "low_time": "12:23"
+    },
+    {
+      "code": "009460",
+      "name": "한창제지",
+      "theme": "포장재/제지",
+      "market": "KOSPI",
+      "buy_price": 780,
+      "close_price": 660,
+      "profit_rate": -15.38,
+      "profit_amount": -120,
+      "high_price": 775,
+      "high_time": "09:16",
+      "high_profit_rate": -0.64,
+      "high_profit_amount": -5,
+      "low_price": 631,
+      "low_profit_rate": -19.1,
+      "low_profit_amount": -149,
+      "low_time": "12:44"
+    },
+    {
+      "code": "452300",
+      "name": "캡스톤파트너스",
+      "theme": "벤처투자/신기술투자",
+      "market": "KOSDAQ",
+      "buy_price": 3965,
+      "close_price": 4385,
+      "profit_rate": 10.59,
+      "profit_amount": 420,
+      "high_price": 4935,
+      "high_time": "12:25",
+      "high_profit_rate": 24.46,
+      "high_profit_amount": 970,
+      "low_price": 3810,
+      "low_profit_rate": -3.91,
+      "low_profit_amount": -155,
+      "low_time": "09:15"
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 2,
+    "loss_stocks": 5,
+    "total_invested": 58405,
+    "total_value": 57690,
+    "total_profit": -715,
+    "total_profit_rate": -1.22,
+    "high_total_value": 61835,
+    "high_total_profit": 3430,
+    "high_total_profit_rate": 5.87,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 2
+  }
+}
