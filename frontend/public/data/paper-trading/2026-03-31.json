@@ -1,0 +1,513 @@
+{
+  "trade_date": "2026-03-31",
+  "morning_timestamp": "2026-03-31 09:13:40",
+  "collected_at": "2026-03-31 15:41:00",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-03-31 09:13:40",
+      "prices": {
+        "394420": 35300,
+        "126600": 5880,
+        "161000": 17970,
+        "425040": 13880,
+        "049080": 1684,
+        "008350": 1521,
+        "340930": 965,
+        "003280": 3135,
+        "321260": 1971
+      },
+      "leader_stocks": [
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "신규 상장 및 혁신 의료기기"
+        },
+        {
+          "code": "126600",
+          "name": "BGF에코머티리얼즈",
+          "theme": "첨단 소재 국산화 및 공급망 강화"
+        },
+        {
+          "code": "161000",
+          "name": "애경케미칼",
+          "theme": "첨단 소재 국산화 및 공급망 강화"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "반도체 업황 회복 및 차세대 통신 인프라"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "반도체 업황 회복 및 차세대 통신 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 09:32:11",
+      "prices": {
+        "394420": 35300,
+        "126600": 5880,
+        "161000": 17130,
+        "425040": 13880,
+        "049080": 1684,
+        "008350": 1521,
+        "340930": 965,
+        "003280": 3350,
+        "321260": 1971
+      },
+      "leader_stocks": [
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "신규 상장 및 혁신 의료기기"
+        },
+        {
+          "code": "126600",
+          "name": "BGF에코머티리얼즈",
+          "theme": "첨단 소재 국산화 및 공급망 강화"
+        },
+        {
+          "code": "161000",
+          "name": "애경케미칼",
+          "theme": "첨단 소재 국산화 및 공급망 강화"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "반도체 업황 회복 및 차세대 통신 인프라"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "반도체 업황 회복 및 차세대 통신 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 09:36:17",
+      "prices": {
+        "394420": 33000,
+        "126600": 5500,
+        "161000": 17080,
+        "425040": 13730,
+        "049080": 1631,
+        "008350": 1800,
+        "340930": 952,
+        "003280": 3325,
+        "321260": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/비철금속"
+        },
+        {
+          "code": "340930",
+          "name": "유일에너테크",
+          "theme": "리튬/2차전지 소재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "바이오/의료"
+        },
+        {
+          "code": "321260",
+          "name": "프로이천",
+          "theme": "AI/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 10:02:13",
+      "prices": {
+        "394420": 33000,
+        "126600": 5500,
+        "161000": 17060,
+        "425040": 13730,
+        "049080": 1631,
+        "008350": 1800,
+        "340930": 952,
+        "003280": 3325,
+        "321260": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/비철금속"
+        },
+        {
+          "code": "340930",
+          "name": "유일에너테크",
+          "theme": "리튬/2차전지 소재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "바이오/의료"
+        },
+        {
+          "code": "321260",
+          "name": "프로이천",
+          "theme": "AI/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 12:01:29",
+      "prices": {
+        "394420": 33000,
+        "126600": 5500,
+        "161000": 15580,
+        "425040": 13730,
+        "049080": 1631,
+        "008350": 1800,
+        "340930": 952,
+        "003280": 3325,
+        "321260": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/비철금속"
+        },
+        {
+          "code": "340930",
+          "name": "유일에너테크",
+          "theme": "리튬/2차전지 소재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "바이오/의료"
+        },
+        {
+          "code": "321260",
+          "name": "프로이천",
+          "theme": "AI/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 12:37:32",
+      "prices": {
+        "394420": 29800,
+        "126600": 4695,
+        "161000": 15390,
+        "425040": 13060,
+        "049080": 1508,
+        "008350": 1800,
+        "340930": 830,
+        "003280": 3275,
+        "321260": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/비철금속"
+        },
+        {
+          "code": "340930",
+          "name": "유일에너테크",
+          "theme": "리튬/2차전지 소재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "바이오/의료"
+        },
+        {
+          "code": "321260",
+          "name": "프로이천",
+          "theme": "AI/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 13:26:12",
+      "prices": {
+        "394420": 29800,
+        "126600": 4620,
+        "161000": 14250,
+        "425040": 13060,
+        "049080": 1590,
+        "008350": 1800,
+        "340930": 830,
+        "003280": 3470,
+        "321260": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/비철금속"
+        },
+        {
+          "code": "340930",
+          "name": "유일에너테크",
+          "theme": "리튬/2차전지 소재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "바이오/의료"
+        },
+        {
+          "code": "321260",
+          "name": "프로이천",
+          "theme": "AI/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-31 14:36:27",
+      "prices": {
+        "394420": 29800,
+        "126600": 4665,
+        "161000": 13890,
+        "425040": 13060,
+        "049080": 1531,
+        "008350": 1800,
+        "340930": 830,
+        "003280": 3855,
+        "321260": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/비철금속"
+        },
+        {
+          "code": "340930",
+          "name": "유일에너테크",
+          "theme": "리튬/2차전지 소재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "394420",
+          "name": "리센스메디컬",
+          "theme": "바이오/의료"
+        },
+        {
+          "code": "321260",
+          "name": "프로이천",
+          "theme": "AI/IT 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "394420",
+      "name": "리센스메디컬",
+      "theme": "신규 상장 및 혁신 의료기기",
+      "market": "KOSDAQ",
+      "buy_price": 35300,
+      "close_price": 18450,
+      "profit_rate": -47.73,
+      "profit_amount": -16850,
+      "high_price": 35350,
+      "high_time": "09:14",
+      "high_profit_rate": 0.14,
+      "high_profit_amount": 50,
+      "low_price": 18450,
+      "low_profit_rate": -47.73,
+      "low_profit_amount": -16850,
+      "low_time": "15:30"
+    },
+    {
+      "code": "126600",
+      "name": "BGF에코머티리얼즈",
+      "theme": "첨단 소재 국산화 및 공급망 강화",
+      "market": "KOSPI",
+      "buy_price": 5880,
+      "close_price": 4700,
+      "profit_rate": -20.07,
+      "profit_amount": -1180,
+      "high_price": 6520,
+      "high_time": "09:15",
+      "high_profit_rate": 10.88,
+      "high_profit_amount": 640,
+      "low_price": 4485,
+      "low_profit_rate": -23.72,
+      "low_profit_amount": -1395,
+      "low_time": "13:19"
+    },
+    {
+      "code": "161000",
+      "name": "애경케미칼",
+      "theme": "첨단 소재 국산화 및 공급망 강화",
+      "market": "KOSPI",
+      "buy_price": 17970,
+      "close_price": 13740,
+      "profit_rate": -23.54,
+      "profit_amount": -4230,
+      "high_price": 18050,
+      "high_time": "09:15",
+      "high_profit_rate": 0.45,
+      "high_profit_amount": 80,
+      "low_price": 13740,
+      "low_profit_rate": -23.54,
+      "low_profit_amount": -4230,
+      "low_time": "15:30"
+    },
+    {
+      "code": "425040",
+      "name": "티이엠씨",
+      "theme": "반도체 업황 회복 및 차세대 통신 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 13880,
+      "close_price": 13200,
+      "profit_rate": -4.9,
+      "profit_amount": -680,
+      "high_price": 14210,
+      "high_time": "09:57",
+      "high_profit_rate": 2.38,
+      "high_profit_amount": 330,
+      "low_price": 12890,
+      "low_profit_rate": -7.13,
+      "low_profit_amount": -990,
+      "low_time": "13:01"
+    },
+    {
+      "code": "049080",
+      "name": "기가레인",
+      "theme": "반도체 업황 회복 및 차세대 통신 인프라",
+      "market": "KOSPI",
+      "buy_price": 1684,
+      "close_price": 1211,
+      "profit_rate": -28.09,
+      "profit_amount": -473,
+      "high_price": 1739,
+      "high_time": "09:14",
+      "high_profit_rate": 3.27,
+      "high_profit_amount": 55,
+      "low_price": 1144,
+      "low_profit_rate": -32.07,
+      "low_profit_amount": -540,
+      "low_time": "15:19"
+    },
+    {
+      "code": "008350",
+      "name": "남선알미늄",
+      "theme": "알루미늄/비철금속",
+      "market": "KOSPI",
+      "buy_price": 1521,
+      "close_price": 1800,
+      "profit_rate": 18.34,
+      "profit_amount": 279,
+      "high_price": 1800,
+      "high_time": "15:30",
+      "high_profit_rate": 18.34,
+      "high_profit_amount": 279,
+      "low_price": 1446,
+      "low_profit_rate": -4.93,
+      "low_profit_amount": -75,
+      "low_time": "09:04"
+    },
+    {
+      "code": "340930",
+      "name": "유일에너테크",
+      "theme": "리튬/2차전지 소재",
+      "market": "KOSDAQ",
+      "buy_price": 965,
+      "close_price": 806,
+      "profit_rate": -16.48,
+      "profit_amount": -159,
+      "high_price": 1019,
+      "high_time": "09:17",
+      "high_profit_rate": 5.6,
+      "high_profit_amount": 54,
+      "low_price": 805,
+      "low_profit_rate": -16.58,
+      "low_profit_amount": -160,
+      "low_time": "15:19"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 3135,
+      "close_price": 3980,
+      "profit_rate": 26.95,
+      "profit_amount": 845,
+      "high_price": 3980,
+      "high_time": "15:30",
+      "high_profit_rate": 26.95,
+      "high_profit_amount": 845,
+      "low_price": 3105,
+      "low_profit_rate": -0.96,
+      "low_profit_amount": -30,
+      "low_time": "09:04"
+    },
+    {
+      "code": "321260",
+      "name": "프로이천",
+      "theme": "AI/IT 부품",
+      "market": "KOSDAQ",
+      "buy_price": 1971,
+      "close_price": 2055,
+      "profit_rate": 4.26,
+      "profit_amount": 84,
+      "high_price": 2055,
+      "high_time": "15:30",
+      "high_profit_rate": 4.26,
+      "high_profit_amount": 84,
+      "low_price": 1645,
+      "low_profit_rate": -16.54,
+      "low_profit_amount": -326,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 3,
+    "loss_stocks": 6,
+    "total_invested": 82306,
+    "total_value": 59942,
+    "total_profit": -22364,
+    "total_profit_rate": -27.17,
+    "high_total_value": 84723,
+    "high_total_profit": 2417,
+    "high_total_profit_rate": 2.94,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 0
+  }
+}
