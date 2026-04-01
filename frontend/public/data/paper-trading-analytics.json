@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-03-31 15:42:28",
+  "generated_at": "2026-04-01 15:43:13",
   "period": {
     "start": "2026-03-02",
-    "end": "2026-03-31",
-    "trading_days": 20
+    "end": "2026-04-01",
+    "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -43.88,
-    "cumulative_high_return": 107.43,
-    "avg_daily_return": -2.46,
-    "volatility": 8.45,
-    "sharpe_ratio": -0.29,
+    "cumulative_return": -41.86,
+    "cumulative_high_return": 117.74,
+    "avg_daily_return": -2.17,
+    "volatility": 8.34,
+    "sharpe_ratio": -0.26,
     "max_drawdown": 46.94,
-    "win_rate": 35.0,
-    "win_days": 7,
+    "win_rate": 38.1,
+    "win_days": 8,
     "loss_days": 12,
     "flat_days": 1,
-    "avg_win": 4.58,
+    "avg_win": 4.46,
     "avg_loss": -6.77,
-    "profit_loss_ratio": 0.68,
+    "profit_loss_ratio": 0.66,
     "max_win_streak": 1,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -6.41,
+    "avg_return": -6.66,
     "win_rate": 20.0
   },
   "theme_performance": [
@@ -43,11 +43,18 @@
       "total_return": 26.75
     },
     {
+      "theme": "IT 및 통신 인프라",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 7.73,
+      "total_return": 23.18
+    },
+    {
       "theme": "해운/물류",
-      "count": 6,
-      "win_rate": 83.3,
-      "avg_return": 8.9,
-      "total_return": 53.43
+      "count": 7,
+      "win_rate": 71.4,
+      "avg_return": 7.41,
+      "total_return": 51.84
     },
     {
       "theme": "반도체 및 AI 관련주",
@@ -78,11 +85,25 @@
       "total_return": 12.17
     },
     {
+      "theme": "반도체 및 첨단 전자부품",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 4.05,
+      "total_return": 12.14
+    },
+    {
       "theme": "건설/인프라",
       "count": 3,
       "win_rate": 66.7,
       "avg_return": 3.67,
       "total_return": 11.02
+    },
+    {
+      "theme": "건설 및 인프라 투자",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 3.28,
+      "total_return": 9.85
     },
     {
       "theme": "에너지/유가 관련주",
@@ -165,15 +186,15 @@
   "market_performance": [
     {
       "market": "KOSDAQ",
-      "count": 59,
-      "win_rate": 54.2,
-      "avg_return": 0.03
+      "count": 63,
+      "win_rate": 54.0,
+      "avg_return": 0.25
     },
     {
       "market": "KOSPI",
-      "count": 146,
-      "win_rate": 43.2,
-      "avg_return": -1.71
+      "count": 155,
+      "win_rate": 45.2,
+      "avg_return": -1.39
     }
   ],
   "cumulative_series": [
@@ -256,6 +277,10 @@
     {
       "date": "2026-03-31",
       "cumulative_return": -43.88
+    },
+    {
+      "date": "2026-04-01",
+      "cumulative_return": -41.86
     }
   ]
 }
