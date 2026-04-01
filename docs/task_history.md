@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-04-01
+
+### [기능] 포트폴리오 물타기 계산기 추가 (2026-04-01 22:26 KST)
+- **변경 파일**: `frontend/src/components/AveragingDownCalc.tsx` (신규), `frontend/src/components/AveragingDownSheet.tsx` (신규), `frontend/src/components/PortfolioPage.tsx`
+- **내용**:
+  - 인라인 계산기: 개별 종목 카드 확장 영역에서 물타기 빠른 계산
+  - Bottom Sheet 종합 시뮬레이션: 체크된 전체 종목 대상 종합 물타기 계산
+  - 3가지 모드: 기본 물타기, 목표 평균단가 역산, 다단계 분할매수 시뮬레이션
+  - 현재가 자동 입력, 종목별 제외(X 버튼), 총 수익률 변화 표시
+  - 세그먼트 컨트롤 탭, 보더/그래디언트 카드 등 폴리시 적용
+
 ## 2026-03-30
 
 ### [개선] 대장주 분석 성능 향상 — 수급 기반 Priority + 종목 성과 피드백 (2026-03-30 21:52 KST)

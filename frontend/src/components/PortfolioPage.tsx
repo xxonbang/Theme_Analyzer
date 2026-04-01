@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import {
   Plus, Trash2, Edit3, Check, X, TrendingUp, TrendingDown,
   AlertTriangle, Briefcase, ExternalLink, ChevronDown, ChevronUp,
-  RefreshCw, Search, Loader2,
+  RefreshCw, Search, Loader2, Calculator,
 } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
@@ -13,6 +13,8 @@ import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
   ThemeForecast, Stock,
 } from "@/types/stock"
+import { AveragingDownCalc } from "./AveragingDownCalc"
+import { AveragingDownSheet } from "./AveragingDownSheet"
 
 // --- Types ---
 
@@ -112,6 +114,8 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const [editingId, setEditingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set())
+  const [calcOpenId, setCalcOpenId] = useState<string | null>(null)
+  const [showAvgSheet, setShowAvgSheet] = useState(false)
 
   // Add form state
   const [searchQuery, setSearchQuery] = useState("")
@@ -658,6 +662,14 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                 </div>
               </div>
             </div>
+            {/* 물타기 시뮬레이션 버튼 */}
+            <button
+              onClick={() => setShowAvgSheet(true)}
+              className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-lg bg-primary/10 text-primary text-xs font-medium hover:bg-primary/20 transition-colors"
+            >
+              <Calculator className="w-3.5 h-3.5" />
+              물타기 시뮬레이션
+            </button>
           </CardContent>
         </Card>
       )}
@@ -890,16 +902,41 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                       )}
                     </DetailRow>
 
-                    {/* Naver link */}
-                    <a
-                      href={`https://m.stock.naver.com/domestic/stock/${h.code}/total`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                      네이버 증권에서 보기
-                    </a>
+                    {/* Naver link + 물타기 버튼 */}
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={`https://m.stock.naver.com/domestic/stock/${h.code}/total`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        네이버 증권
+                      </a>
+                      <button
+                        onClick={() => setCalcOpenId(calcOpenId === h.id ? null : h.id)}
+                        className={cn(
+                          "inline-flex items-center gap-1 text-[11px] font-medium transition-colors",
+                          calcOpenId === h.id ? "text-primary" : "text-muted-foreground hover:text-primary"
+                        )}
+                      >
+                        <Calculator className="w-3 h-3" />
+                        물타기 계산
+                      </button>
+                    </div>
+
+                    {/* 인라인 물타기 계산기 */}
+                    {calcOpenId === h.id && (
+                      <AveragingDownCalc
+                        holding={{
+                          code: h.code,
+                          name: h.name,
+                          avgPrice: h.avgPrice,
+                          quantity: h.quantity,
+                          currentPrice: h.currentPrice,
+                        }}
+                      />
+                    )}
                   </div>
                 )}
               </CardContent>
@@ -907,6 +944,19 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
           )
         })}
       </div>
+      {/* 물타기 시뮬레이션 Bottom Sheet */}
+      {showAvgSheet && (
+        <AveragingDownSheet
+          holdings={enrichedHoldings.filter(h => checkedIds.has(h.id)).map(h => ({
+            code: h.code,
+            name: h.name,
+            avgPrice: h.avgPrice,
+            quantity: h.quantity,
+            currentPrice: h.currentPrice,
+          }))}
+          onClose={() => setShowAvgSheet(false)}
+        />
+      )}
     </div>
   )
 }
