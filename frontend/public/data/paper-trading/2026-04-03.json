@@ -1,0 +1,858 @@
+{
+  "trade_date": "2026-04-03",
+  "morning_timestamp": "2026-04-03 09:13:22",
+  "collected_at": "2026-04-03 15:41:04",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-03 09:13:22",
+      "prices": {
+        "010170": 11940,
+        "050890": 16580,
+        "412350": 8180,
+        "011930": 3095,
+        "375500": 73000,
+        "010820": 8140,
+        "451760": 18330,
+        "008350": 1965,
+        "018470": 1522,
+        "005930": 186700,
+        "000660": 875000,
+        "009150": 446500,
+        "322000": 149400,
+        "062970": 3575,
+        "092790": 14020
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품 및 통신장비"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "반도체/IT 부품 및 통신장비"
+        },
+        {
+          "code": "412350",
+          "name": "레이저쎌",
+          "theme": "반도체/IT 부품 및 통신장비"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "건설 및 재건/스마트 팩토리"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 재건/스마트 팩토리"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방위산업 및 우주항공"
+        },
+        {
+          "code": "451760",
+          "name": "컨텍",
+          "theme": "방위산업 및 우주항공"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 (알루미늄)"
+        },
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "비철금속 (알루미늄)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 09:32:14",
+      "prices": {
+        "010170": 11940,
+        "050890": 16580,
+        "412350": 8180,
+        "011930": 3095,
+        "375500": 78800,
+        "010820": 8150,
+        "008350": 1965,
+        "018470": 1522,
+        "005930": 184700,
+        "000660": 874000,
+        "009150": 451000,
+        "322000": 178600,
+        "062970": 3575,
+        "100840": 52500,
+        "092790": 13810
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품 및 통신장비"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "반도체/IT 부품 및 통신장비"
+        },
+        {
+          "code": "412350",
+          "name": "레이저쎌",
+          "theme": "반도체/IT 부품 및 통신장비"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "건설 및 재건/스마트 팩토리"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 재건/스마트 팩토리"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방위산업 및 우주항공"
+        },
+        {
+          "code": "451760",
+          "name": "컨텍",
+          "theme": "방위산업 및 우주항공"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 (알루미늄)"
+        },
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "비철금속 (알루미늄)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 09:38:53",
+      "prices": {
+        "010170": 12200,
+        "050890": 16530,
+        "412350": 9150,
+        "011930": 3235,
+        "375500": 77700,
+        "010820": 8290,
+        "008350": 1890,
+        "018470": 1465,
+        "005930": 185700,
+        "000660": 879500,
+        "009150": 454500,
+        "322000": 177300,
+        "062970": 3575,
+        "100840": 52500,
+        "092790": 13800
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "062970",
+          "name": "한국첨단소재",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "092790",
+          "name": "넥스틸",
+          "theme": "건설/플랜트/에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 10:02:14",
+      "prices": {
+        "010170": 12200,
+        "050890": 16530,
+        "412350": 9150,
+        "011930": 3235,
+        "375500": 77700,
+        "010820": 8320,
+        "008350": 1874,
+        "018470": 1464,
+        "005930": 185800,
+        "000660": 882000,
+        "009150": 456500,
+        "322000": 177300,
+        "062970": 3575,
+        "100840": 54900,
+        "092790": 13780
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "062970",
+          "name": "한국첨단소재",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "092790",
+          "name": "넥스틸",
+          "theme": "건설/플랜트/에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 12:01:30",
+      "prices": {
+        "010170": 12200,
+        "050890": 16530,
+        "412350": 9150,
+        "011930": 3235,
+        "375500": 77700,
+        "010820": 8570,
+        "008350": 1841,
+        "018470": 1435,
+        "005930": 184400,
+        "000660": 868500,
+        "009150": 455000,
+        "322000": 177300,
+        "062970": 3575,
+        "100840": 52000,
+        "092790": 13710
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "062970",
+          "name": "한국첨단소재",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "092790",
+          "name": "넥스틸",
+          "theme": "건설/플랜트/에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 12:37:47",
+      "prices": {
+        "010170": 12410,
+        "050890": 16270,
+        "412350": 8700,
+        "011930": 3460,
+        "375500": 77600,
+        "010820": 8690,
+        "008350": 1832,
+        "018470": 1430,
+        "005930": 184700,
+        "000660": 873000,
+        "009150": 455000,
+        "322000": 191100,
+        "062970": 3575,
+        "100840": 52300,
+        "092790": 13870
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "062970",
+          "name": "한국첨단소재",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "092790",
+          "name": "넥스틸",
+          "theme": "건설/플랜트/에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 13:26:06",
+      "prices": {
+        "010170": 12410,
+        "050890": 16290,
+        "412350": 8700,
+        "011930": 3460,
+        "375500": 77600,
+        "010820": 9105,
+        "008350": 1818,
+        "018470": 1427,
+        "005930": 185300,
+        "000660": 878000,
+        "009150": 457000,
+        "322000": 191100,
+        "062970": 3575,
+        "100840": 52600,
+        "092790": 13840
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "062970",
+          "name": "한국첨단소재",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "092790",
+          "name": "넥스틸",
+          "theme": "건설/플랜트/에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-03 14:36:19",
+      "prices": {
+        "010170": 12410,
+        "050890": 16480,
+        "412350": 8700,
+        "011930": 3460,
+        "375500": 77600,
+        "010820": 9170,
+        "008350": 1820,
+        "018470": 1428,
+        "005930": 186200,
+        "000660": 880500,
+        "009150": 456000,
+        "322000": 191100,
+        "062970": 3575,
+        "100840": 52700,
+        "092790": 14430
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "신재생에너지/태양광"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "062970",
+          "name": "한국첨단소재",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "100840",
+          "name": "SNT에너지",
+          "theme": "건설/플랜트/에너지 인프라"
+        },
+        {
+          "code": "092790",
+          "name": "넥스틸",
+          "theme": "건설/플랜트/에너지 인프라"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "반도체/IT 부품 및 통신장비",
+      "market": "KOSPI",
+      "buy_price": 11940,
+      "close_price": 12740,
+      "profit_rate": 6.7,
+      "profit_amount": 800,
+      "high_price": 13100,
+      "high_time": "15:06",
+      "high_profit_rate": 9.72,
+      "high_profit_amount": 1160,
+      "low_price": 11030,
+      "low_profit_rate": -7.62,
+      "low_profit_amount": -910,
+      "low_time": "09:02"
+    },
+    {
+      "code": "050890",
+      "name": "쏠리드",
+      "theme": "반도체/IT 부품 및 통신장비",
+      "market": "KOSPI",
+      "buy_price": 16580,
+      "close_price": 16300,
+      "profit_rate": -1.69,
+      "profit_amount": -280,
+      "high_price": 17420,
+      "high_time": "09:15",
+      "high_profit_rate": 5.07,
+      "high_profit_amount": 840,
+      "low_price": 15480,
+      "low_profit_rate": -6.63,
+      "low_profit_amount": -1100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "412350",
+      "name": "레이저쎌",
+      "theme": "반도체/IT 부품 및 통신장비",
+      "market": "KOSDAQ",
+      "buy_price": 8180,
+      "close_price": 9020,
+      "profit_rate": 10.27,
+      "profit_amount": 840,
+      "high_price": 9500,
+      "high_time": "09:22",
+      "high_profit_rate": 16.14,
+      "high_profit_amount": 1320,
+      "low_price": 7620,
+      "low_profit_rate": -6.85,
+      "low_profit_amount": -560,
+      "low_time": "09:01"
+    },
+    {
+      "code": "011930",
+      "name": "신성이엔지",
+      "theme": "건설 및 재건/스마트 팩토리",
+      "market": "KOSPI",
+      "buy_price": 3095,
+      "close_price": 3445,
+      "profit_rate": 11.31,
+      "profit_amount": 350,
+      "high_price": 3575,
+      "high_time": "10:39",
+      "high_profit_rate": 15.51,
+      "high_profit_amount": 480,
+      "low_price": 2855,
+      "low_profit_rate": -7.75,
+      "low_profit_amount": -240,
+      "low_time": "09:01"
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "건설 및 재건/스마트 팩토리",
+      "market": "KOSDAQ",
+      "buy_price": 73000,
+      "close_price": 75000,
+      "profit_rate": 2.74,
+      "profit_amount": 2000,
+      "high_price": 80300,
+      "high_time": "10:16",
+      "high_profit_rate": 10.0,
+      "high_profit_amount": 7300,
+      "low_price": 71000,
+      "low_profit_rate": -2.74,
+      "low_profit_amount": -2000,
+      "low_time": "09:01"
+    },
+    {
+      "code": "010820",
+      "name": "퍼스텍",
+      "theme": "방위산업 및 우주항공",
+      "market": "KOSPI",
+      "buy_price": 8140,
+      "close_price": 9130,
+      "profit_rate": 12.16,
+      "profit_amount": 990,
+      "high_price": 9300,
+      "high_time": "13:14",
+      "high_profit_rate": 14.25,
+      "high_profit_amount": 1160,
+      "low_price": 7470,
+      "low_profit_rate": -8.23,
+      "low_profit_amount": -670,
+      "low_time": "09:01"
+    },
+    {
+      "code": "451760",
+      "name": "컨텍",
+      "theme": "방위산업 및 우주항공",
+      "market": "KOSDAQ",
+      "buy_price": 18330,
+      "close_price": 18090,
+      "profit_rate": -1.31,
+      "profit_amount": -240,
+      "high_price": 18780,
+      "high_time": "13:49",
+      "high_profit_rate": 2.45,
+      "high_profit_amount": 450,
+      "low_price": 17190,
+      "low_profit_rate": -6.22,
+      "low_profit_amount": -1140,
+      "low_time": "09:45"
+    },
+    {
+      "code": "008350",
+      "name": "남선알미늄",
+      "theme": "비철금속 (알루미늄)",
+      "market": "KOSPI",
+      "buy_price": 1965,
+      "close_price": 1805,
+      "profit_rate": -8.14,
+      "profit_amount": -160,
+      "high_price": 1939,
+      "high_time": "09:20",
+      "high_profit_rate": -1.32,
+      "high_profit_amount": -26,
+      "low_price": 1796,
+      "low_profit_rate": -8.6,
+      "low_profit_amount": -169,
+      "low_time": "13:52"
+    },
+    {
+      "code": "018470",
+      "name": "조일알미늄",
+      "theme": "비철금속 (알루미늄)",
+      "market": "KOSPI",
+      "buy_price": 1522,
+      "close_price": 1424,
+      "profit_rate": -6.44,
+      "profit_amount": -98,
+      "high_price": 1497,
+      "high_time": "09:19",
+      "high_profit_rate": -1.64,
+      "high_profit_amount": -25,
+      "low_price": 1415,
+      "low_profit_rate": -7.03,
+      "low_profit_amount": -107,
+      "low_time": "14:59"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 186700,
+      "close_price": 186200,
+      "profit_rate": -0.27,
+      "profit_amount": -500,
+      "high_price": 187100,
+      "high_time": "09:18",
+      "high_profit_rate": 0.21,
+      "high_profit_amount": 400,
+      "low_price": 182700,
+      "low_profit_rate": -2.14,
+      "low_profit_amount": -4000,
+      "low_time": "11:47"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 875000,
+      "close_price": 876000,
+      "profit_rate": 0.11,
+      "profit_amount": 1000,
+      "high_price": 886000,
+      "high_time": "14:06",
+      "high_profit_rate": 1.26,
+      "high_profit_amount": 11000,
+      "low_price": 860000,
+      "low_profit_rate": -1.71,
+      "low_profit_amount": -15000,
+      "low_time": "11:47"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 446500,
+      "close_price": 456000,
+      "profit_rate": 2.13,
+      "profit_amount": 9500,
+      "high_price": 462500,
+      "high_time": "09:59",
+      "high_profit_rate": 3.58,
+      "high_profit_amount": 16000,
+      "low_price": 432500,
+      "low_profit_rate": -3.14,
+      "low_profit_amount": -14000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지/태양광",
+      "market": "KOSDAQ",
+      "buy_price": 149400,
+      "close_price": 191100,
+      "profit_rate": 27.91,
+      "profit_amount": 41700,
+      "high_price": 191100,
+      "high_time": "15:30",
+      "high_profit_rate": 27.91,
+      "high_profit_amount": 41700,
+      "low_price": 143000,
+      "low_profit_rate": -4.28,
+      "low_profit_amount": -6400
+    },
+    {
+      "code": "062970",
+      "name": "한국첨단소재",
+      "theme": "통신장비/광통신",
+      "market": "KOSPI",
+      "buy_price": 3575,
+      "close_price": 3575,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 3575,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3410,
+      "low_profit_rate": -4.62,
+      "low_profit_amount": -165,
+      "low_time": "09:02"
+    },
+    {
+      "code": "092790",
+      "name": "넥스틸",
+      "theme": "건설/플랜트/에너지 인프라",
+      "market": "KOSPI",
+      "buy_price": 14020,
+      "close_price": 14920,
+      "profit_rate": 6.42,
+      "profit_amount": 900,
+      "high_price": 15400,
+      "high_time": "14:52",
+      "high_profit_rate": 9.84,
+      "high_profit_amount": 1380,
+      "low_price": 13530,
+      "low_profit_rate": -3.5,
+      "low_profit_amount": -490,
+      "low_time": "09:21"
+    }
+  ],
+  "summary": {
+    "total_stocks": 15,
+    "profit_stocks": 9,
+    "loss_stocks": 5,
+    "total_invested": 1817947,
+    "total_value": 1874749,
+    "total_profit": 56802,
+    "total_profit_rate": 3.12,
+    "high_total_value": 1901086,
+    "high_total_profit": 83139,
+    "high_total_profit_rate": 4.57,
+    "high_profit_stocks": 12,
+    "high_loss_stocks": 2
+  }
+}
