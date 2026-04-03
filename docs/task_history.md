@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-04-03
+
+### [개선] 포트폴리오 탭 진입 시 최신 데이터 자동 갱신 (2026-04-03 09:40 KST)
+- **변경 파일**: `frontend/src/App.tsx`
+- **내용**: 포트폴리오 페이지 진입 시 `latest.json`, `volume-profile.json`, `theme-forecast.json` 3개 데이터 소스를 동시 refetch
+
+## 2026-04-02
+
+### [기능] 외국인 저가 매집 신호 등급 분리 + 백테스트 (2026-04-02 22:42 KST)
+- **변경 파일**: `frontend/src/components/IntradayInsights.tsx`, `backtest_investor_signal.py` (신규), `docs/research/2026-04-02-foreign-accumulation.md`
+- **내용**:
+  - KIS API `investor_trade_by_stock_daily`로 140종목 × 510거래일(2년) 투자자 매매동향 수집
+  - 외국인 저가 매집 신호 백테스트: 527건 분석, 최적 조건 도출
+  - 핵심 결과: 50만주+ & -5%이하 → D+1 승률 67.7%, 초과승률 75.5%
+  - 프론트엔드 신호 2등급 분리: "외국인 대량 저가 매집" (강한 신호, amber 강조) vs "외국인 저가 매집" (일반)
+  - 수집 스크립트 `backtest_investor_signal.py` (collect/analyze 명령)
+  - 리서치 문서 최종 업데이트
+
 ## 2026-04-01
 
 ### [기능] 포트폴리오 물타기 계산기 추가 (2026-04-01 22:26 KST)

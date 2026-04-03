@@ -274,12 +274,12 @@ const COMPOSITE_MODE_KEY = "stock-dashboard-composite-mode"
 function App() {
   const { user, loading: authLoading, isAdmin } = useAuth()
   const { toggle: toggleTheme, isDark } = useThemeMode()
-  const { data: vpData } = useVolumeProfile()
+  const { data: vpData, refetch: refetchVP } = useVolumeProfile()
   const { data: intradayHistoryData } = useIntradayHistory()
   const { data: macroData } = useMacroIndicators()
   const { data: indicatorHistory, loading: indicatorHistoryLoading, fetchHistory: fetchIndicatorHistory } = useIndicatorHistory()
   const { data: investorIntradayData } = useInvestorIntraday()
-  const { data: themeForecastData } = useThemeForecast()
+  const { data: themeForecastData, refetch: refetchForecast } = useThemeForecast()
   const [currentPage, setCurrentPage] = useState<PageType>("home")
 
   const apiAlerts = useApiAlerts(isAdmin)
@@ -844,7 +844,11 @@ function App() {
         isViewingHistory={isViewingHistory}
         refreshElapsed={refreshElapsed}
         currentPage={currentPage}
-        onPageChange={(page) => { setCurrentPage(page); if (page === "home") setActiveTab("home") }}
+        onPageChange={(page) => {
+          setCurrentPage(page)
+          if (page === "home") setActiveTab("home")
+          if (page === "portfolio") { refetch(); refetchVP(); refetchForecast() }
+        }}
         isAdmin={isAdmin}
         headerHidden={headerHidden}
         isDark={isDark}

@@ -106,7 +106,7 @@ export function IntradayInsights({
   const supplyDemandSignals = useMemo(() => {
     if (!investorIntraday?.snapshots?.length) return []
     const lastSnap = investorIntraday.snapshots[investorIntraday.snapshots.length - 1]
-    const signals: { code: string; name: string; label: string; rate: number; foreignNet: number; institutionNet: number; programNet: number }[] = []
+    const signals: { code: string; name: string; label: string; rate: number; foreignNet: number; institutionNet: number; programNet: number; strength: "strong" | "normal" }[] = []
 
     for (const [code, entry] of Object.entries(lastSnap.data)) {
       const name = stockNameMap[code]
@@ -130,11 +130,13 @@ export function IntradayInsights({
       const pg = entry.pg ?? 0
 
       if (f > 300000 && rate < 0) {
-        signals.push({ code, name, label: "외국인 저가 매집", rate, foreignNet: f, institutionNet: i, programNet: pg })
+        // 강한 신호: 50만주+ & -5%이하 (백테스트 D+1 승률 67.7%, 초과승률 75.5%)
+        const isStrong = f >= 500000 && rate <= -5
+        signals.push({ code, name, label: isStrong ? "외국인 대량 저가 매집" : "외국인 저가 매집", rate, foreignNet: f, institutionNet: i, programNet: pg, strength: isStrong ? "strong" : "normal" })
       } else if (f < -300000 && rate > 0) {
-        signals.push({ code, name, label: "외국인 차익 실현", rate, foreignNet: f, institutionNet: i, programNet: pg })
+        signals.push({ code, name, label: "외국인 차익 실현", rate, foreignNet: f, institutionNet: i, programNet: pg, strength: "normal" })
       } else if (i > 200000 && rate < -1) {
-        signals.push({ code, name, label: "기관 저가 매집", rate, foreignNet: f, institutionNet: i, programNet: pg })
+        signals.push({ code, name, label: "기관 저가 매집", rate, foreignNet: f, institutionNet: i, programNet: pg, strength: "normal" })
       }
     }
 
@@ -264,11 +266,21 @@ export function IntradayInsights({
                 <div
                   key={s.code}
                   onClick={(e) => setActionPopup({ code: s.code, name: s.name, x: e.clientX, y: e.clientY })}
-                  className="bg-orange-500/5 rounded-md px-2.5 py-1.5 hover:bg-orange-500/10 transition-colors cursor-pointer"
+                  className={cn(
+                    "rounded-md px-2.5 py-1.5 transition-colors cursor-pointer",
+                    s.strength === "strong"
+                      ? "bg-amber-500/10 hover:bg-amber-500/15 ring-1 ring-amber-500/20"
+                      : "bg-orange-500/5 hover:bg-orange-500/10"
+                  )}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <span className="text-[10px] font-medium text-orange-600 dark:text-orange-400 shrink-0">{s.label}</span>
+                      <span className={cn(
+                        "text-[10px] font-medium shrink-0",
+                        s.strength === "strong"
+                          ? "text-amber-600 dark:text-amber-400"
+                          : "text-orange-600 dark:text-orange-400"
+                      )}>{s.label}</span>
                       <span className="text-xs truncate">{s.name}</span>
                     </div>
                     <span className={cn("text-xs font-bold tabular-nums shrink-0 ml-2", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
@@ -343,8 +355,13 @@ export function IntradayInsights({
               </div>
               <div className="space-y-2 text-[11px] text-muted-foreground">
                 <div>
+                  <span className="font-medium text-amber-600 dark:text-amber-400">외국인 대량 저가 매집</span>
+                  <span className="ml-1 text-[9px] text-amber-500 font-bold">강한 신호</span>
+                  <p className="mt-0.5">주가 5%+ 하락 중 외국인 순매수 50만주 이상. 백테스트 D+1 초과승률 75.5%.</p>
+                </div>
+                <div>
                   <span className="font-medium text-orange-600 dark:text-orange-400">외국인 저가 매집</span>
-                  <p className="mt-0.5">주가 하락 중 외국인 순매수 30만주 이상. 저점 매수 가능성.</p>
+                  <p className="mt-0.5">주가 하락 중 외국인 순매수 30만주 이상. 단독 지표로는 신뢰도 낮음.</p>
                 </div>
                 <div>
                   <span className="font-medium text-orange-600 dark:text-orange-400">외국인 차익 실현</span>
