@@ -1,0 +1,68 @@
+name: Update Stock Master
+
+on:
+  # 매주 월요일 KST 06:30 (장전) 자동 실행
+  schedule:
+    - cron: '30 21 * * 0'  # UTC 일요일 21:30 = KST 월요일 06:30
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -q requests
+
+      - name: Restore KIS token cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-
+
+      - name: Generate stock master
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python scripts/generate_stock_master.py
+
+      - name: Save KIS token cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .kis_token_cache.json
+          key: kis-token-${{ github.run_id }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet frontend/public/data/stock-master.json; then
+            echo "변경 없음 — 커밋 생략"
+            exit 0
+          fi
+
+          COUNT=$(python3 -c "import json; print(json.load(open('frontend/public/data/stock-master.json'))['count'])")
+          git add frontend/public/data/stock-master.json
+          git commit -m "chore: 종목 마스터 주간 업데이트 (${COUNT}종목)"
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 2
+          done
+          echo "push 실패" && exit 1
