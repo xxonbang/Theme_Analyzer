@@ -1,0 +1,785 @@
+{
+  "trade_date": "2026-04-06",
+  "morning_timestamp": "2026-04-06 09:13:15",
+  "collected_at": "2026-04-06 15:41:04",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-06 09:13:15",
+      "prices": {
+        "005930": 192900,
+        "000660": 890000,
+        "330860": 30950,
+        "103140": 116800,
+        "028050": 43400,
+        "375500": 78900,
+        "093370": 10400,
+        "402490": 14990,
+        "027360": 9630,
+        "010170": 13580,
+        "065770": 1872,
+        "215790": 1574,
+        "373220": 403000
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 및 IT 부품 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 및 IT 부품 강세"
+        },
+        {
+          "code": "330860",
+          "name": "네패스아크",
+          "theme": "반도체 및 IT 부품 강세"
+        },
+        {
+          "code": "103140",
+          "name": "풍산",
+          "theme": "방산 및 산업재 (플랜트/건설)"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "방산 및 산업재 (플랜트/건설)"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "방산 및 산업재 (플랜트/건설)"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지 및 신소재"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "2차전지 및 신소재"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 09:32:05",
+      "prices": {
+        "005930": 192900,
+        "000660": 884000,
+        "330860": 30950,
+        "103140": 112800,
+        "028050": 43400,
+        "375500": 78900,
+        "093370": 10400,
+        "402490": 14990,
+        "027360": 9630,
+        "010170": 13580,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1678,
+        "373220": 410000,
+        "020150": 44800
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 및 IT 부품 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 및 IT 부품 강세"
+        },
+        {
+          "code": "330860",
+          "name": "네패스아크",
+          "theme": "반도체 및 IT 부품 강세"
+        },
+        {
+          "code": "103140",
+          "name": "풍산",
+          "theme": "방산 및 산업재 (플랜트/건설)"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "방산 및 산업재 (플랜트/건설)"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "방산 및 산업재 (플랜트/건설)"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지 및 신소재"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "2차전지 및 신소재"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 09:36:49",
+      "prices": {
+        "005930": 191500,
+        "000660": 883000,
+        "330860": 29650,
+        "103140": 111700,
+        "028050": 46400,
+        "375500": 78200,
+        "093370": 9940,
+        "402490": 14820,
+        "027360": 9010,
+        "010170": 14010,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1728,
+        "373220": 408500,
+        "020150": 44750
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "065770",
+          "name": "CS",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "020150",
+          "name": "롯데에너지머티리얼즈",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 10:02:11",
+      "prices": {
+        "005930": 192700,
+        "000660": 883000,
+        "330860": 29650,
+        "103140": 111700,
+        "028050": 47000,
+        "375500": 78200,
+        "093370": 9950,
+        "402490": 14820,
+        "027360": 8990,
+        "010170": 14010,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1597,
+        "373220": 408500,
+        "020150": 47100
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "065770",
+          "name": "CS",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "020150",
+          "name": "롯데에너지머티리얼즈",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 12:01:30",
+      "prices": {
+        "005930": 192600,
+        "000660": 887000,
+        "330860": 29650,
+        "103140": 108500,
+        "028050": 45050,
+        "375500": 78200,
+        "093370": 9880,
+        "402490": 14820,
+        "010170": 14010,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1517,
+        "373220": 411500,
+        "020150": 45250
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "065770",
+          "name": "CS",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "020150",
+          "name": "롯데에너지머티리얼즈",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 12:36:33",
+      "prices": {
+        "005930": 192700,
+        "000660": 883000,
+        "330860": 28300,
+        "103140": 108800,
+        "028050": 45200,
+        "375500": 76700,
+        "093370": 9850,
+        "402490": 14630,
+        "010170": 13390,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1509,
+        "373220": 411000,
+        "020150": 45000
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "065770",
+          "name": "CS",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "020150",
+          "name": "롯데에너지머티리얼즈",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 13:26:11",
+      "prices": {
+        "005930": 191800,
+        "000660": 872500,
+        "330860": 28350,
+        "103140": 106900,
+        "028050": 44400,
+        "375500": 76700,
+        "402490": 14630,
+        "010170": 12880,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1480,
+        "373220": 411000,
+        "020150": 44900
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "065770",
+          "name": "CS",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "020150",
+          "name": "롯데에너지머티리얼즈",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-06 14:36:17",
+      "prices": {
+        "005930": 192300,
+        "000660": 880000,
+        "330860": 28650,
+        "103140": 110000,
+        "028050": 45850,
+        "375500": 76700,
+        "402490": 14630,
+        "010170": 13230,
+        "065770": 1872,
+        "215790": 1574,
+        "039980": 1495,
+        "373220": 411500,
+        "020150": 45150
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "402490",
+          "name": "그린리소스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "028050",
+          "name": "삼성E&A",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/플랜트"
+        },
+        {
+          "code": "065770",
+          "name": "CS",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "theme": "AI/통신 인프라"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "020150",
+          "name": "롯데에너지머티리얼즈",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체 및 IT 부품 강세",
+      "market": "KOSPI",
+      "buy_price": 192900,
+      "close_price": 193100,
+      "profit_rate": 0.1,
+      "profit_amount": 200,
+      "high_price": 194600,
+      "high_time": "11:30",
+      "high_profit_rate": 0.88,
+      "high_profit_amount": 1700,
+      "low_price": 190100,
+      "low_profit_rate": -1.45,
+      "low_profit_amount": -2800,
+      "low_time": "09:39"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체 및 IT 부품 강세",
+      "market": "KOSPI",
+      "buy_price": 890000,
+      "close_price": 886000,
+      "profit_rate": -0.45,
+      "profit_amount": -4000,
+      "high_price": 901500,
+      "high_time": "11:32",
+      "high_profit_rate": 1.29,
+      "high_profit_amount": 11500,
+      "low_price": 869000,
+      "low_profit_rate": -2.36,
+      "low_profit_amount": -21000,
+      "low_time": "13:25"
+    },
+    {
+      "code": "330860",
+      "name": "네패스아크",
+      "theme": "반도체 및 IT 부품 강세",
+      "market": "KOSDAQ",
+      "buy_price": 30950,
+      "close_price": 29100,
+      "profit_rate": -5.98,
+      "profit_amount": -1850,
+      "high_price": 31100,
+      "high_time": "09:14",
+      "high_profit_rate": 0.48,
+      "high_profit_amount": 150,
+      "low_price": 27950,
+      "low_profit_rate": -9.69,
+      "low_profit_amount": -3000,
+      "low_time": "14:13"
+    },
+    {
+      "code": "103140",
+      "name": "풍산",
+      "theme": "방산 및 산업재 (플랜트/건설)",
+      "market": "KOSPI",
+      "buy_price": 116800,
+      "close_price": 109300,
+      "profit_rate": -6.42,
+      "profit_amount": -7500,
+      "high_price": 112600,
+      "high_time": "11:23",
+      "high_profit_rate": -3.6,
+      "high_profit_amount": -4200,
+      "low_price": 104500,
+      "low_profit_rate": -10.53,
+      "low_profit_amount": -12300,
+      "low_time": "13:42"
+    },
+    {
+      "code": "028050",
+      "name": "삼성E&A",
+      "theme": "방산 및 산업재 (플랜트/건설)",
+      "market": "KOSPI",
+      "buy_price": 43400,
+      "close_price": 45650,
+      "profit_rate": 5.18,
+      "profit_amount": 2250,
+      "high_price": 47700,
+      "high_time": "10:07",
+      "high_profit_rate": 9.91,
+      "high_profit_amount": 4300,
+      "low_price": 42550,
+      "low_profit_rate": -1.96,
+      "low_profit_amount": -850,
+      "low_time": "09:00"
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "방산 및 산업재 (플랜트/건설)",
+      "market": "KOSDAQ",
+      "buy_price": 78900,
+      "close_price": 77200,
+      "profit_rate": -2.15,
+      "profit_amount": -1700,
+      "high_price": 80200,
+      "high_time": "10:01",
+      "high_profit_rate": 1.65,
+      "high_profit_amount": 1300,
+      "low_price": 76100,
+      "low_profit_rate": -3.55,
+      "low_profit_amount": -2800,
+      "low_time": "13:36"
+    },
+    {
+      "code": "093370",
+      "name": "후성",
+      "theme": "2차전지 및 신소재",
+      "market": "KOSPI",
+      "buy_price": 10400,
+      "close_price": 9900,
+      "profit_rate": -4.81,
+      "profit_amount": -500,
+      "high_price": 10250,
+      "high_time": "09:21",
+      "high_profit_rate": -1.44,
+      "high_profit_amount": -150,
+      "low_price": 9440,
+      "low_profit_rate": -9.23,
+      "low_profit_amount": -960,
+      "low_time": "13:20"
+    },
+    {
+      "code": "402490",
+      "name": "그린리소스",
+      "theme": "2차전지 및 신소재",
+      "market": "KOSDAQ",
+      "buy_price": 14990,
+      "close_price": 14900,
+      "profit_rate": -0.6,
+      "profit_amount": -90,
+      "high_price": 15840,
+      "high_time": "11:34",
+      "high_profit_rate": 5.67,
+      "high_profit_amount": 850,
+      "low_price": 14190,
+      "low_profit_rate": -5.34,
+      "low_profit_amount": -800,
+      "low_time": "11:06"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "벤처투자/신기술 투자",
+      "market": "KOSPI",
+      "buy_price": 9630,
+      "close_price": 9030,
+      "profit_rate": -6.23,
+      "profit_amount": -600,
+      "high_price": 9030,
+      "high_time": "15:30",
+      "high_profit_rate": -6.23,
+      "high_profit_amount": -600,
+      "low_price": 8880,
+      "low_profit_rate": -7.79,
+      "low_profit_amount": -750,
+      "low_time": "14:49"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 13580,
+      "close_price": 13590,
+      "profit_rate": 0.07,
+      "profit_amount": 10,
+      "high_price": 14870,
+      "high_time": "09:16",
+      "high_profit_rate": 9.5,
+      "high_profit_amount": 1290,
+      "low_price": 12460,
+      "low_profit_rate": -8.25,
+      "low_profit_amount": -1120,
+      "low_time": "13:16"
+    },
+    {
+      "code": "065770",
+      "name": "CS",
+      "theme": "AI/통신 인프라",
+      "market": "KOSPI",
+      "buy_price": 1872,
+      "close_price": 1872,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1872,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1800,
+      "low_profit_rate": -3.85,
+      "low_profit_amount": -72,
+      "low_time": "09:26"
+    },
+    {
+      "code": "215790",
+      "name": "이노인스트루먼트",
+      "theme": "AI/통신 인프라",
+      "market": "KOSPI",
+      "buy_price": 1574,
+      "close_price": 1574,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1574,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1352,
+      "low_profit_rate": -14.1,
+      "low_profit_amount": -222,
+      "low_time": "09:02"
+    },
+    {
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "theme": "2차전지/친환경 소재",
+      "market": "KOSDAQ",
+      "buy_price": 403000,
+      "close_price": 412500,
+      "profit_rate": 2.36,
+      "profit_amount": 9500,
+      "high_price": 418000,
+      "high_time": "10:31",
+      "high_profit_rate": 3.72,
+      "high_profit_amount": 15000,
+      "low_price": 399500,
+      "low_profit_rate": -0.87,
+      "low_profit_amount": -3500,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 13,
+    "profit_stocks": 4,
+    "loss_stocks": 7,
+    "total_invested": 1807996,
+    "total_value": 1803716,
+    "total_profit": -4280,
+    "total_profit_rate": -0.24,
+    "high_total_value": 1839136,
+    "high_total_profit": 31140,
+    "high_total_profit_rate": 1.72,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 3
+  }
+}
