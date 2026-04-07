@@ -74,8 +74,8 @@ def main():
         all_stocks = all_stocks[:3]
         print(f"  테스트 모드: {len(all_stocks)}종목만 수집")
 
-    # 2. 기존 데이터 로드 (장중 모드: 장기 데이터 보존)
-    existing = load_json(OUTPUT_PATH) if intraday_mode else {}
+    # 2. 기존 데이터 로드 (full/intraday 공통: API 실패 시 기존 데이터 보존)
+    existing = load_json(OUTPUT_PATH)
 
     # 3. 병렬 수집
     client = KISClient()
@@ -96,6 +96,7 @@ def main():
         else:
             return code, collect_full(client, code), []
 
+    failed_stocks = []
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {executor.submit(_collect, s): s for s in all_stocks}
         done = 0
@@ -108,21 +109,42 @@ def main():
                     profiles[code] = vp
                 if candles:
                     raw_candles[code] = candles
-                    if done % 20 == 0 or done == len(all_stocks):
-                        print(f"  진행: {done}/{len(all_stocks)} ({time.time() - start_time:.1f}초)")
+                if done % 20 == 0 or done == len(all_stocks):
+                    print(f"  진행: {done}/{len(all_stocks)} ({time.time() - start_time:.1f}초)")
             except Exception as e:
                 print(f"  [오류] {stock['name']}({stock['code']}): {e}")
+                failed_stocks.append(stock)
+
+    # 3-1. 실패 종목 1회 재시도
+    if failed_stocks:
+        print(f"  재시도: {len(failed_stocks)}종목")
+        time.sleep(1)
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = {executor.submit(_collect, s): s for s in failed_stocks}
+            for future in as_completed(futures):
+                stock = futures[future]
+                try:
+                    code, vp, candles = future.result()
+                    if vp:
+                        profiles[code] = vp
+                        print(f"  [재시도 성공] {stock['name']}({stock['code']})")
+                    if candles:
+                        raw_candles[code] = candles
+                except Exception as e:
+                    print(f"  [재시도 실패] {stock['name']}({stock['code']}): {e}")
 
     elapsed = time.time() - start_time
     print(f"  수집 완료: {len(profiles)}/{len(all_stocks)}종목 ({elapsed:.1f}초)")
 
-    # 4. 장중 모드: 기존 장기 데이터 보존, today만 덮어쓰기
-    if intraday_mode and existing.get("profiles"):
+    # 4. 기존 데이터와 병합 (수집 성공 종목만 덮어쓰기, 실패 종목은 기존 유지)
+    if existing.get("profiles"):
         merged = existing["profiles"]
         for code, vp in profiles.items():
-            if code in merged:
+            if intraday_mode and code in merged:
+                # 장중: 장기 데이터 보존, today만 갱신
                 merged[code]["today"] = vp.get("today")
             else:
+                # full: 새 데이터로 교체
                 merged[code] = vp
         profiles = merged
 
