@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-04-06 15:43:05",
+  "generated_at": "2026-04-07 15:42:27",
   "period": {
     "start": "2026-03-09",
-    "end": "2026-04-06",
-    "trading_days": 19
+    "end": "2026-04-07",
+    "trading_days": 20
   },
   "overall": {
-    "cumulative_return": -31.06,
-    "cumulative_high_return": 137.96,
+    "cumulative_return": -32.11,
+    "cumulative_high_return": 142.87,
     "avg_daily_return": -1.63,
-    "volatility": 7.54,
+    "volatility": 7.33,
     "sharpe_ratio": -0.22,
     "max_drawdown": 35.35,
-    "win_rate": 36.8,
+    "win_rate": 35.0,
     "win_days": 7,
-    "loss_days": 12,
+    "loss_days": 13,
     "flat_days": 0,
     "avg_win": 4.4,
-    "avg_loss": -5.15,
-    "profit_loss_ratio": 0.85,
+    "avg_loss": -4.87,
+    "profit_loss_ratio": 0.9,
     "max_win_streak": 1,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -4.49,
+    "avg_return": 0.64,
     "win_rate": 40.0
   },
   "theme_performance": [
@@ -114,10 +114,17 @@
     },
     {
       "theme": "반도체/IT 부품",
+      "count": 6,
+      "win_rate": 66.7,
+      "avg_return": 0.08,
+      "total_return": 0.51
+    },
+    {
+      "theme": "AI/통신 인프라",
       "count": 4,
-      "win_rate": 75.0,
-      "avg_return": 0.51,
-      "total_return": 2.04
+      "win_rate": 0.0,
+      "avg_return": 0.0,
+      "total_return": 0.0
     },
     {
       "theme": "방산 및 산업재 (플랜트/건설)",
@@ -200,15 +207,15 @@
   "market_performance": [
     {
       "market": "KOSDAQ",
-      "count": 59,
-      "win_rate": 54.2,
-      "avg_return": 0.36
+      "count": 62,
+      "win_rate": 53.2,
+      "avg_return": 0.33
     },
     {
       "market": "KOSPI",
-      "count": 146,
-      "win_rate": 42.5,
-      "avg_return": -1.51
+      "count": 150,
+      "win_rate": 41.3,
+      "avg_return": -1.53
     }
   ],
   "cumulative_series": [
@@ -287,6 +294,10 @@
     {
       "date": "2026-04-06",
       "cumulative_return": -31.06
+    },
+    {
+      "date": "2026-04-07",
+      "cumulative_return": -32.11
     }
   ]
 }
