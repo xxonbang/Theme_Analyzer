@@ -6,6 +6,11 @@
 
 ## 2026-04-08
 
+### [버그픽스] intraday-history prev_close=0 수정 (2026-04-08 23:14 KST)
+- **변경 파일**: `modules/intraday_history.py`
+- **내용**: output[1] 의존 → output[0]의 stck_clpr - prdy_vrss로 prev_close 계산하여 항목 1개만 반환 시에도 정상 동작
+- **원인**: get_stock_daily_ohlcv() API가 output 1개만 반환하면 prev_close가 0으로 유지 (6.3% 영향)
+
 ### [버그픽스] bottom sheet 열림 시 레이아웃 시프트 수정 (2026-04-08 22:51 KST)
 - **변경 파일**: `frontend/src/hooks/useScrollLock.ts`
 - **내용**: overflow:hidden → overflow-y:scroll로 변경하여 스크롤바 유지, 레이아웃 시프트 방지

@@ -107,11 +107,14 @@ def collect_stock_intraday_from_cache(
         daily = client.get_stock_daily_ohlcv(code)
         if daily.get("rt_cd") == "0":
             output = daily.get("output", [])
-            if output and len(output) >= 2:
-                close_price = int(output[0].get("stck_clpr", 0))
-                prev_close = int(output[1].get("stck_clpr", 0))
-            elif output:
-                close_price = int(output[0].get("stck_clpr", 0))
+            if output:
+                today_data = output[0]
+                close_price = int(today_data.get("stck_clpr", 0))
+                prdy_vrss = int(today_data.get("prdy_vrss", 0))
+                if close_price and prdy_vrss != 0:
+                    prev_close = close_price - prdy_vrss
+                elif len(output) >= 2:
+                    prev_close = int(output[1].get("stck_clpr", 0))
     except Exception as e:
         print(f"  ⚠ {code} 전일종가/확정종가 조회 실패 (시가 기준 등락률로 대체): {e}")
 
@@ -168,11 +171,14 @@ def collect_stock_intraday(
         daily = client.get_stock_daily_ohlcv(code)
         if daily.get("rt_cd") == "0":
             output = daily.get("output", [])
-            if output and len(output) >= 2:
-                close_price = int(output[0].get("stck_clpr", 0))
-                prev_close = int(output[1].get("stck_clpr", 0))
-            elif output:
-                close_price = int(output[0].get("stck_clpr", 0))
+            if output:
+                today_data = output[0]
+                close_price = int(today_data.get("stck_clpr", 0))
+                prdy_vrss = int(today_data.get("prdy_vrss", 0))
+                if close_price and prdy_vrss != 0:
+                    prev_close = close_price - prdy_vrss
+                elif len(output) >= 2:
+                    prev_close = int(output[1].get("stck_clpr", 0))
     except Exception as e:
         print(f"  ⚠ {code} 전일종가/확정종가 조회 실패 (시가 기준 등락률로 대체): {e}")
 
