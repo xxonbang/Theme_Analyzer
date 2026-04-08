@@ -6,6 +6,10 @@
 
 ## 2026-04-08
 
+### [개선] 포트폴리오/정규분포 admin 전용 표시 (2026-04-08 22:24 KST)
+- **변경 파일**: `frontend/src/components/Header.tsx`, `frontend/src/components/StockCard.tsx`
+- **내용**: 헤더 포트폴리오 메뉴(PC/모바일) + 종목카드 정규분포 버튼을 admin 계정에서만 표시
+
 ### [개선] 환율 히스토리 오늘 행 실시간 데이터 오버레이 (2026-04-08 22:21 KST)
 - **변경 파일**: `frontend/src/components/ExchangeRate.tsx`
 - **내용**: 환율 히스토리 테이블/차트의 "오늘" 항목에 KIS 실시간 데이터 반영

@@ -277,6 +277,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                 )} />
               </IconButton>
 
+              {isAdmin && (
               <IconButton
                 onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
                 className="hidden sm:flex"
@@ -290,6 +291,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                   currentPage === "portfolio" && "text-violet-500"
                 )} />
               </IconButton>
+              )}
             </>
           )}
 
@@ -405,7 +407,7 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
               모의투자
             </button>
           )}
-          {onPageChange && (
+          {onPageChange && isAdmin && (
             <button
               onClick={() => onPageChange(currentPage === "portfolio" ? "home" : "portfolio")}
               className={cn(

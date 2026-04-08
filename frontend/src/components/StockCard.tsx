@@ -190,7 +190,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
           {/* Right: Price + Change */}
           <div className="text-right shrink-0">
             <div className="flex items-center justify-end gap-1">
-              {history?.raw_daily_prices && history.raw_daily_prices.length > 20 && (
+              {isAdmin && history?.raw_daily_prices && history.raw_daily_prices.length > 20 && (
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDistribution(true) }}
                   className="text-[10px] px-1 py-0.5 rounded bg-violet-500/10 text-violet-500 hover:bg-violet-500/20 transition-colors font-medium"
