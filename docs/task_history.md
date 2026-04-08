@@ -6,6 +6,10 @@
 
 ## 2026-04-08
 
+### [개선] 포트폴리오 랭킹 미포함 종목 자동 시세 조회 (2026-04-08 21:49 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
+- **내용**: 포트폴리오 종목 중 latest.json 랭킹에 없는 종목은 페이지 진입 시 KIS API로 자동 시세 조회
+
 ### [개선] 가격변동 차트 등락률 점선 추가 + 범례/그리드 수정 (2026-04-08 21:38 KST)
 - **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx`
 - **내용**:

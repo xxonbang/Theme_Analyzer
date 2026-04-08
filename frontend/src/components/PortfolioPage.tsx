@@ -248,6 +248,16 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     }
   }, [refreshing, holdings])
 
+  // 포트폴리오 종목 중 stockMap에 없는 종목 자동 시세 조회
+  useEffect(() => {
+    if (holdings.length === 0) return
+    const missing = holdings.filter(h => !stockMap.has(h.code) && !livePrices[h.code]).map(h => h.code)
+    if (missing.length === 0) return
+    fetchKisPrices(missing).then(({ prices }) => {
+      setLivePrices(prev => ({ ...prev, ...prices }))
+    }).catch(() => {})
+  }, [holdings, stockMap]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // --- CRUD (Supabase) ---
   const addHolding = useCallback(async () => {
     if (!selectedStock || !formAvgPrice || !formQuantity || !user) return
