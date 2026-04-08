@@ -141,16 +141,40 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
 
   const searchInputRef = useRef<HTMLInputElement>(null)
 
+  // 체크 상태 localStorage 키
+  const checkedStorageKey = user ? `portfolio-checked-${user.id}` : null
+
   // Supabase에서 holdings 로드
   useEffect(() => {
     if (!user) { setDbLoading(false); return }
     setDbLoading(true)
     fetchHoldingsFromDB(user.id).then(data => {
       setHoldings(data)
-      setCheckedIds(new Set(data.map(h => h.id)))
+      // localStorage에서 체크 상태 복원, 없으면 전체 선택
+      const saved = checkedStorageKey ? localStorage.getItem(checkedStorageKey) : null
+      if (saved) {
+        try {
+          const ids = new Set<string>(JSON.parse(saved))
+          // DB에 존재하는 ID만 유지 (삭제된 종목 제거)
+          const valid = new Set(data.map(h => h.id).filter(id => ids.has(id)))
+          // 신규 추가 종목은 기본 체크
+          for (const h of data) {
+            if (!ids.has(h.id)) valid.add(h.id)
+          }
+          setCheckedIds(valid)
+        } catch { setCheckedIds(new Set(data.map(h => h.id))) }
+      } else {
+        setCheckedIds(new Set(data.map(h => h.id)))
+      }
       setDbLoading(false)
     })
-  }, [user])
+  }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // 체크 상태 변경 시 localStorage 저장
+  useEffect(() => {
+    if (!checkedStorageKey || checkedIds.size === 0) return
+    localStorage.setItem(checkedStorageKey, JSON.stringify([...checkedIds]))
+  }, [checkedIds, checkedStorageKey])
 
   // 종목 마스터 로드
   useEffect(() => {
