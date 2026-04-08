@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-04-07 15:42:27",
+  "generated_at": "2026-04-08 15:42:52",
   "period": {
     "start": "2026-03-09",
-    "end": "2026-04-07",
-    "trading_days": 20
+    "end": "2026-04-08",
+    "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -32.11,
-    "cumulative_high_return": 142.87,
-    "avg_daily_return": -1.63,
-    "volatility": 7.33,
-    "sharpe_ratio": -0.22,
+    "cumulative_return": -29.01,
+    "cumulative_high_return": 157.32,
+    "avg_daily_return": -1.33,
+    "volatility": 7.28,
+    "sharpe_ratio": -0.18,
     "max_drawdown": 35.35,
-    "win_rate": 35.0,
-    "win_days": 7,
+    "win_rate": 38.1,
+    "win_days": 8,
     "loss_days": 13,
     "flat_days": 0,
-    "avg_win": 4.4,
+    "avg_win": 4.42,
     "avg_loss": -4.87,
-    "profit_loss_ratio": 0.9,
+    "profit_loss_ratio": 0.91,
     "max_win_streak": 1,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": 0.64,
+    "avg_return": 0.84,
     "win_rate": 40.0
   },
   "theme_performance": [
@@ -148,6 +148,13 @@
       "total_return": -15.2
     },
     {
+      "theme": "반도체 및 IT 하드웨어 업황 회복 및 AI 모멘텀",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": -4.18,
+      "total_return": -12.55
+    },
+    {
       "theme": "반도체 및 IT 솔루션",
       "count": 3,
       "win_rate": 0.0,
@@ -207,15 +214,15 @@
   "market_performance": [
     {
       "market": "KOSDAQ",
-      "count": 62,
-      "win_rate": 53.2,
-      "avg_return": 0.33
+      "count": 64,
+      "win_rate": 54.7,
+      "avg_return": 0.44
     },
     {
       "market": "KOSPI",
-      "count": 150,
-      "win_rate": 41.3,
-      "avg_return": -1.53
+      "count": 159,
+      "win_rate": 42.8,
+      "avg_return": -1.31
     }
   ],
   "cumulative_series": [
@@ -298,6 +305,10 @@
     {
       "date": "2026-04-07",
       "cumulative_return": -32.11
+    },
+    {
+      "date": "2026-04-08",
+      "cumulative_return": -29.01
     }
   ]
 }
