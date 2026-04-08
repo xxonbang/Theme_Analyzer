@@ -6,6 +6,10 @@
 
 ## 2026-04-08
 
+### [개선] 환율 히스토리 오늘 행 실시간 데이터 오버레이 (2026-04-08 22:21 KST)
+- **변경 파일**: `frontend/src/components/ExchangeRate.tsx`
+- **내용**: 환율 히스토리 테이블/차트의 "오늘" 항목에 KIS 실시간 데이터 반영
+
 ### [기능] 환율 KIS API 실시간 조회 (2026-04-08 22:14 KST)
 - **변경 파일**: `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`, `frontend/src/components/ExchangeRate.tsx`
 - **내용**:

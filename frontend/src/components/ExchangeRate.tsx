@@ -131,15 +131,22 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
     setShowHistory(!showHistory)
   }
 
-  // 히스토리 테이블 데이터: 최근 10일
+  // 히스토리 테이블 데이터: 최근 10일 + 실시간 오버레이
   const currencies = exchange.rates.map(r => r.currency)
-  const historyRows = history?.exchange
-    ? currencies.map((cur) => {
-        const info = currencyInfo[cur] || { flag: "💵", label: cur }
-        const entries = (history.exchange[cur] || []).slice(-10)
-        return { currency: cur, label: info.label, entries }
+  const historyRows = useMemo(() => {
+    if (!history?.exchange) return []
+    return currencies.map((cur) => {
+      const info = currencyInfo[cur] || { flag: "💵", label: cur }
+      const entries = (history.exchange[cur] || []).slice(-10).map(e => {
+        // 오늘 날짜 항목에 실시간 데이터 오버레이
+        if (e.date === TODAY_KST && liveRates[cur]) {
+          return { ...e, rate: liveRates[cur].rate, change: liveRates[cur].change, change_rate: liveRates[cur].changeRate }
+        }
+        return e
       })
-    : []
+      return { currency: cur, label: info.label, entries }
+    })
+  }, [history, liveRates]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const dates = historyRows.length > 0
     ? historyRows.reduce((longest, row) => row.entries.length > longest.length ? row.entries : longest, [] as { date: string }[]).map(e => e.date).slice().reverse()
