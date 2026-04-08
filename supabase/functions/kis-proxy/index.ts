@@ -91,6 +91,8 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
   }
 }
 
+function round2(v: number): number { return Math.round(v * 100) / 100 }
+
 Deno.serve(async (req) => {
   // CORS preflight
   if (req.method === "OPTIONS") {
@@ -158,6 +160,59 @@ Deno.serve(async (req) => {
         })
       }
       result = { stock: price }
+
+    } else if (action === "exchange") {
+      // 환율 조회: FX@KRW(USD/KRW), FX@JPY, FX@EUR, FX@CNY
+      const fxCodes = [
+        { code: "FX@KRW", key: "USDKRW" },
+        { code: "FX@JPY", key: "JPYUSD" },
+        { code: "FX@EUR", key: "EURUSD" },
+        { code: "FX@CNY", key: "CNYUSD" },
+      ]
+      const fxResult: Record<string, { price: number; prev: number; change: number; changeRate: number }> = {}
+
+      for (const fx of fxCodes) {
+        const today = new Date().toISOString().slice(0, 10).replace(/-/g, "")
+        const url = `${KIS_BASE_URL}/uapi/overseas-price/v1/quotations/inquire-daily-chartprice?FID_COND_MRKT_DIV_CODE=X&FID_INPUT_ISCD=${fx.code}&FID_INPUT_DATE_1=${today}&FID_INPUT_DATE_2=${today}&FID_PERIOD_DIV_CODE=D`
+        try {
+          const res = await fetch(url, { headers: kisHeaders(creds, "FHKST03030100") })
+          const data = await res.json()
+          if (data.rt_cd === "0" && data.output1) {
+            const o = data.output1
+            const price = parseFloat(o.ovrs_nmix_prpr) || 0
+            const prev = parseFloat(o.ovrs_nmix_prdy_clpr) || 0
+            const change = parseFloat(o.ovrs_nmix_prdy_vrss) || 0
+            const changeRate = parseFloat(o.prdy_ctrt) || 0
+            if (price > 0) {
+              fxResult[fx.key] = { price, prev, change, changeRate }
+            }
+          }
+        } catch { /* skip */ }
+        await new Promise(r => setTimeout(r, 60))
+      }
+
+      // 교차환산: JPY(100)/KRW, EUR/KRW, CNY/KRW
+      const usdkrw = fxResult.USDKRW?.price || 0
+      const rates: Record<string, { rate: number; change: number; changeRate: number }> = {}
+      if (usdkrw > 0) {
+        rates.USD = { rate: round2(usdkrw), change: round2(fxResult.USDKRW?.change || 0), changeRate: round2(fxResult.USDKRW?.changeRate || 0) }
+        if (fxResult.JPYUSD?.price) {
+          const jpykrw = usdkrw / fxResult.JPYUSD.price * 100
+          const prevJpykrw = (fxResult.USDKRW?.prev || usdkrw) / (fxResult.JPYUSD?.prev || fxResult.JPYUSD.price) * 100
+          rates.JPY = { rate: round2(jpykrw), change: round2(jpykrw - prevJpykrw), changeRate: round2((jpykrw - prevJpykrw) / prevJpykrw * 100) }
+        }
+        if (fxResult.EURUSD?.price) {
+          const eurkrw = usdkrw * fxResult.EURUSD.price
+          const prevEurkrw = (fxResult.USDKRW?.prev || usdkrw) * (fxResult.EURUSD?.prev || fxResult.EURUSD.price)
+          rates.EUR = { rate: round2(eurkrw), change: round2(eurkrw - prevEurkrw), changeRate: round2((eurkrw - prevEurkrw) / prevEurkrw * 100) }
+        }
+        if (fxResult.CNYUSD?.price) {
+          const cnykrw = usdkrw / fxResult.CNYUSD.price
+          const prevCnykrw = (fxResult.USDKRW?.prev || usdkrw) / (fxResult.CNYUSD?.prev || fxResult.CNYUSD.price)
+          rates.CNY = { rate: round2(cnykrw), change: round2(cnykrw - prevCnykrw), changeRate: round2((cnykrw - prevCnykrw) / prevCnykrw * 100) }
+        }
+      }
+      result = { rates }
 
     } else {
       return new Response(JSON.stringify({ error: "Invalid action" }), {

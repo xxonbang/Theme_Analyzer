@@ -39,6 +39,20 @@ export async function fetchKisPrices(codes: string[]): Promise<{ prices: Record<
   }
 }
 
+export interface KisExchangeRate {
+  rate: number
+  change: number
+  changeRate: number
+}
+
+/**
+ * KIS API를 통해 실시간 환율을 조회합니다. (USD, JPY, EUR, CNY)
+ */
+export async function fetchKisExchangeRates(): Promise<Record<string, KisExchangeRate>> {
+  const data = await callKisProxy({ action: "exchange" })
+  return (data.rates as Record<string, KisExchangeRate>) ?? {}
+}
+
 /**
  * KIS API를 통해 단일 종목을 코드로 검색합니다.
  */

@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { ChevronDown, ChevronUp, ArrowLeftRight, History, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { useScrollLock } from "@/hooks/useScrollLock"
+import { fetchKisExchangeRates, type KisExchangeRate } from "@/lib/kis-api"
 import type { ExchangeData } from "@/types/stock"
 import type { IndicatorHistoryData, ExchangeHistoryEntry } from "@/hooks/useIndicatorHistory"
 
@@ -93,14 +94,36 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [chartCurrency, setChartCurrency] = useState("USD")
+  const [liveRates, setLiveRates] = useState<Record<string, KisExchangeRate>>({})
+  const [liveFetching, setLiveFetching] = useState(false)
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
   useScrollLock(showHistory)
+
+  // KIS API 실시간 환율 자동 조회
+  useEffect(() => {
+    setLiveFetching(true)
+    fetchKisExchangeRates()
+      .then(rates => { if (Object.keys(rates).length > 0) setLiveRates(rates) })
+      .catch(() => {})
+      .finally(() => setLiveFetching(false))
+  }, [])
+
+  // 정적 데이터에 실시간 데이터 오버레이
+  const mergedRates = useMemo(() => {
+    if (!exchange?.rates?.length) return []
+    if (Object.keys(liveRates).length === 0) return exchange.rates
+    return exchange.rates.map(r => {
+      const live = liveRates[r.currency]
+      if (!live) return r
+      return { ...r, rate: live.rate, change: live.change, change_rate: live.changeRate }
+    })
+  }, [exchange, liveRates])
 
   if (!exchange?.rates?.length) {
     return null
   }
 
-  const usd = exchange.rates.find((r) => r.currency === "USD")
+  const usd = mergedRates.find((r) => r.currency === "USD")
 
   const handleHistoryClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -133,7 +156,11 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
           <ArrowLeftRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">환율</span>
           {exchange.timestamp && (
-            <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">{exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}</span>
+            <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">
+              {exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}
+              {Object.keys(liveRates).length > 0 && <span className="ml-1 text-emerald-500">실시간</span>}
+              {liveFetching && <span className="ml-1 animate-pulse">조회 중</span>}
+            </span>
           )}
           {/* History 버튼 */}
           <span
@@ -175,7 +202,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
       {/* 펼친 상태 */}
       {expanded && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1.5 px-1">
-          {exchange.rates.map((rate) => {
+          {mergedRates.map((rate) => {
             const info = currencyInfo[rate.currency] || { flag: "💵", label: rate.currency }
             const change = rate.change
             const isUp = change != null && change > 0

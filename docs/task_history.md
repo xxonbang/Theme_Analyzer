@@ -6,6 +6,13 @@
 
 ## 2026-04-08
 
+### [기능] 환율 KIS API 실시간 조회 (2026-04-08 22:14 KST)
+- **변경 파일**: `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`, `frontend/src/components/ExchangeRate.tsx`
+- **내용**:
+  - Edge Function에 exchange 액션 추가 (FX@KRW, FX@JPY, FX@EUR, FX@CNY → 교차환산)
+  - 프론트엔드에서 페이지 진입 시 KIS API로 실시간 환율 자동 조회
+  - 정적 데이터(한국수출입은행)에 실시간 데이터 오버레이, "실시간" 배지 표시
+
 ### [개선] 포트폴리오 진입 시 전 종목 KIS 실시간 시세 자동 조회 (2026-04-08 21:55 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **내용**: 랭킹 미포함 종목만이 아닌 전 종목을 페이지 진입 시 KIS API로 실시간 조회하도록 변경
