@@ -272,19 +272,19 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     }
   }, [refreshing, holdings])
 
-  // 포트폴리오 종목 중 stockMap에 없는 종목 자동 시세 조회
+  // 포트폴리오 전 종목 진입 시 KIS 실시간 시세 자동 조회
   const [autoFetchingCodes, setAutoFetchingCodes] = useState<Set<string>>(new Set())
   useEffect(() => {
     if (holdings.length === 0) return
-    const missing = holdings.filter(h => !stockMap.has(h.code) && !livePrices[h.code]).map(h => h.code)
-    if (missing.length === 0) return
-    setAutoFetchingCodes(new Set(missing))
-    fetchKisPrices(missing).then(({ prices }) => {
+    const codes = holdings.map(h => h.code)
+    setAutoFetchingCodes(new Set(codes))
+    fetchKisPrices(codes).then(({ prices }) => {
       setLivePrices(prev => ({ ...prev, ...prices }))
+      setLastRefreshed(new Date())
     }).catch(() => {}).finally(() => {
       setAutoFetchingCodes(new Set())
     })
-  }, [holdings, stockMap]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [holdings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- CRUD (Supabase) ---
   const addHolding = useCallback(async () => {

@@ -6,6 +6,10 @@
 
 ## 2026-04-08
 
+### [개선] 포트폴리오 진입 시 전 종목 KIS 실시간 시세 자동 조회 (2026-04-08 21:55 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
+- **내용**: 랭킹 미포함 종목만이 아닌 전 종목을 페이지 진입 시 KIS API로 실시간 조회하도록 변경
+
 ### [개선] 포트폴리오 체크박스 상태 유지 (2026-04-08 21:54 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **내용**: 종목 체크/해제 상태를 localStorage에 저장하여 페이지 재진입 시 복원 (사용자별 분리, 신규 종목 자동 체크)
