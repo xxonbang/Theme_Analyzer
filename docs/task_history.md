@@ -6,6 +6,10 @@
 
 ## 2026-04-08
 
+### [개선] 포트폴리오 자동 시세 조회 시 로딩 표시 (2026-04-08 21:51 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
+- **내용**: 랭킹 미포함 종목 자동 시세 조회 중 "조회 중..." 펄스 애니메이션 표시
+
 ### [개선] 포트폴리오 랭킹 미포함 종목 자동 시세 조회 (2026-04-08 21:49 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **내용**: 포트폴리오 종목 중 latest.json 랭킹에 없는 종목은 페이지 진입 시 KIS API로 자동 시세 조회

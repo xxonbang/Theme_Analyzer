@@ -249,13 +249,17 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   }, [refreshing, holdings])
 
   // 포트폴리오 종목 중 stockMap에 없는 종목 자동 시세 조회
+  const [autoFetchingCodes, setAutoFetchingCodes] = useState<Set<string>>(new Set())
   useEffect(() => {
     if (holdings.length === 0) return
     const missing = holdings.filter(h => !stockMap.has(h.code) && !livePrices[h.code]).map(h => h.code)
     if (missing.length === 0) return
+    setAutoFetchingCodes(new Set(missing))
     fetchKisPrices(missing).then(({ prices }) => {
       setLivePrices(prev => ({ ...prev, ...prices }))
-    }).catch(() => {})
+    }).catch(() => {}).finally(() => {
+      setAutoFetchingCodes(new Set())
+    })
   }, [holdings, stockMap]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- CRUD (Supabase) ---
@@ -761,6 +765,8 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                             {h.profitRate !== null ? `${h.profitRate >= 0 ? "+" : ""}${h.profitRate.toFixed(2)}%` : "-"}
                           </div>
                         </>
+                      ) : autoFetchingCodes.has(h.code) ? (
+                        <span className="text-xs text-muted-foreground animate-pulse">조회 중...</span>
                       ) : (
                         <span className="text-xs text-muted-foreground">가격 없음</span>
                       )}
