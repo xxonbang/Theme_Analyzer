@@ -6,6 +6,11 @@
 
 ## 2026-04-08
 
+### [버그픽스] bottom sheet 열림 시 레이아웃 시프트 수정 (2026-04-08 22:51 KST)
+- **변경 파일**: `frontend/src/hooks/useScrollLock.ts`
+- **내용**: overflow:hidden → overflow-y:scroll로 변경하여 스크롤바 유지, 레이아웃 시프트 방지
+- **원인**: overflow:hidden이 스크롤바를 제거하면서 body 너비가 변동
+
 ### [개선] 포트폴리오/정규분포 admin 전용 표시 (2026-04-08 22:24 KST)
 - **변경 파일**: `frontend/src/components/Header.tsx`, `frontend/src/components/StockCard.tsx`
 - **내용**: 헤더 포트폴리오 메뉴(PC/모바일) + 종목카드 정규분포 버튼을 admin 계정에서만 표시
