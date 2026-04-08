@@ -163,13 +163,25 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               })).filter(d => d.close > 0)
               if (data.length < 2) return null
               const closes = data.map(d => d.close)
+              const rates = data.map(d => d.rate)
               const volumes = data.map(d => d.volume)
-              const minV = Math.min(...closes)
-              const maxV = Math.max(...closes)
-              const pts = pointCoords(closes, minV, maxV)
               const up = closes[closes.length - 1] >= closes[0]
               const lineColor = up ? "#ef4444" : "#3b82f6"
               const baseClose = closes[0]
+
+              // Y축 범위: 종가 범위와 등락률 환산 가격 범위를 모두 포함
+              const ratePrices = rates.map(r => baseClose * (1 + r / 100))
+              const minV = Math.min(...closes, ...ratePrices)
+              const maxV = Math.max(...closes, ...ratePrices)
+              const pts = pointCoords(closes, minV, maxV)
+
+              // 등락률 포인트: 좌측 Y축(D-10 기준 %)과 동일 스케일
+              const priceRange = (maxV - minV) || 1
+              const ratePoints = ratePrices.map((rp, i) => {
+                const x = PAD.left + (i / Math.max(ratePrices.length - 1, 1)) * PW
+                const y = PAD.top + PH - ((rp - minV) / priceRange) * PH
+                return `${x},${y}`
+              }).join(" ")
 
               // 거래량 스케일 (차트 하단 40% 영역 사용)
               const volMax = Math.max(...volumes, 1)
@@ -179,7 +191,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               // Y축: 5단계 균등 분할
               const ySteps = 4
               const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (maxV - minV) * (i / ySteps))
-              return (
+              return (<>
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
                   {yTicks.map((v, i) => {
@@ -198,14 +210,6 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                       </g>
                     )
                   })}
-                  {/* 세로 그리드라인 */}
-                  {data.map((_, i) => {
-                    const x = PAD.left + (i / Math.max(data.length - 1, 1)) * PW
-                    return (
-                      <line key={`xg-${i}`} x1={x} y1={PAD.top} x2={x} y2={CH - PAD.bottom}
-                        stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.15} />
-                    )
-                  })}
                   {/* 거래량 막대 (하단 정렬, 등락 방향 색상, 양 끝 인셋) */}
                   {data.map((d, i) => {
                     const barInset = barW * 0.7
@@ -219,6 +223,16 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                         fill={barColor} opacity={0.2} rx={1} />
                     )
                   })}
+                  {/* 세로 그리드라인 (거래량 막대 위에 렌더링) */}
+                  {data.map((_, i) => {
+                    const x = Math.round(PAD.left + (i / Math.max(data.length - 1, 1)) * PW) + 0.5
+                    return (
+                      <line key={`xg-${i}`} x1={x} y1={PAD.top} x2={x} y2={CH - PAD.bottom}
+                        stroke="currentColor" strokeWidth={1} strokeDasharray="3,3" opacity={0.12} shapeRendering="crispEdges" />
+                    )
+                  })}
+                  {/* 등락률 점선 */}
+                  <polyline points={ratePoints} fill="none" stroke="#f59e0b" strokeWidth={1.2} strokeDasharray="4,3" strokeLinecap="round" strokeLinejoin="round" opacity={0.45} />
                   {/* 종가 선 */}
                   <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={lineColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                   {/* 포인트 */}
@@ -232,15 +246,16 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                     </text>
                   ))}
                 </svg>
-              )
-            })()}
 
-            {/* 범례 */}
-            <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
-              <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-blue-500 rounded inline-block" />종가</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 bg-red-500/20 rounded-sm inline-block" />거래량(상승)</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 bg-blue-500/20 rounded-sm inline-block" />거래량(하락)</span>
-            </div>
+                {/* 범례 */}
+                <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
+                  <span className="flex items-center gap-1"><span className="w-3 h-0.5 rounded inline-block" style={{ backgroundColor: lineColor }} />종가</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-0.5 rounded inline-block border-t-[1.5px] border-dashed border-amber-500/50" />등락률</span>
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 bg-red-500/20 rounded-sm inline-block" />거래량(상승)</span>
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 bg-blue-500/20 rounded-sm inline-block" />거래량(하락)</span>
+                </div>
+              </>)
+            })()}
 
             {/* 테이블 헤더 */}
             <div className="flex items-center gap-x-2 text-[10px] text-muted-foreground font-medium pb-1 border-b border-border/50">
