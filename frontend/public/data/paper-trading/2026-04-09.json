@@ -1,0 +1,538 @@
+{
+  "trade_date": "2026-04-09",
+  "morning_timestamp": "2026-04-09 09:12:40",
+  "collected_at": "2026-04-09 15:41:08",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-09 09:12:40",
+      "prices": {
+        "003280": 3350,
+        "065440": 4665,
+        "017900": 9620,
+        "322000": 175600,
+        "475150": 60800,
+        "304840": 1271,
+        "380550": 23600
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 09:32:09",
+      "prices": {
+        "003280": 3350,
+        "065440": 4665,
+        "017900": 9620,
+        "322000": 175600,
+        "475150": 60800,
+        "304840": 1271,
+        "380550": 23600
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 09:35:29",
+      "prices": {
+        "003280": 3205,
+        "065440": 5080,
+        "017900": 9030,
+        "322000": 169300,
+        "475150": 59600,
+        "304840": 1271,
+        "380550": 22450
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 10:02:40",
+      "prices": {
+        "003280": 3205,
+        "065440": 5080,
+        "017900": 9030,
+        "322000": 169300,
+        "475150": 59600,
+        "304840": 1271,
+        "380550": 22450
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 12:02:00",
+      "prices": {
+        "003280": 3205,
+        "065440": 5080,
+        "017900": 9030,
+        "322000": 169300,
+        "475150": 59600,
+        "304840": 1271,
+        "380550": 22450
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 12:36:32",
+      "prices": {
+        "003280": 3160,
+        "065440": 4770,
+        "017900": 9260,
+        "322000": 164900,
+        "475150": 58650,
+        "380550": 20450
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 13:26:31",
+      "prices": {
+        "003280": 3170,
+        "065440": 4770,
+        "017900": 9260,
+        "322000": 164900,
+        "475150": 59050,
+        "380550": 20450
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-09 14:36:46",
+      "prices": {
+        "003280": 3090,
+        "065440": 4770,
+        "017900": 9260,
+        "322000": 164900,
+        "475150": 58600,
+        "380550": 20450
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "065440",
+          "name": "이루온",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "통신 장비/솔루션"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "304840",
+          "name": "피플바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "380550",
+          "name": "뉴로핏",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 3350,
+      "close_price": 3130,
+      "profit_rate": -6.57,
+      "profit_amount": -220,
+      "high_price": 3350,
+      "high_time": "10:25",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3075,
+      "low_profit_rate": -8.21,
+      "low_profit_amount": -275,
+      "low_time": "14:33"
+    },
+    {
+      "code": "065440",
+      "name": "이루온",
+      "theme": "통신 장비/솔루션",
+      "market": "KOSPI",
+      "buy_price": 4665,
+      "close_price": 4475,
+      "profit_rate": -4.07,
+      "profit_amount": -190,
+      "high_price": 5080,
+      "high_time": "10:11",
+      "high_profit_rate": 8.9,
+      "high_profit_amount": 415,
+      "low_price": 4245,
+      "low_profit_rate": -9.0,
+      "low_profit_amount": -420,
+      "low_time": "09:00"
+    },
+    {
+      "code": "017900",
+      "name": "광전자",
+      "theme": "통신 장비/솔루션",
+      "market": "KOSPI",
+      "buy_price": 9620,
+      "close_price": 10530,
+      "profit_rate": 9.46,
+      "profit_amount": 910,
+      "high_price": 10530,
+      "high_time": "15:30",
+      "high_profit_rate": 9.46,
+      "high_profit_amount": 910,
+      "low_price": 8650,
+      "low_profit_rate": -10.08,
+      "low_profit_amount": -970,
+      "low_time": "09:00"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 175600,
+      "close_price": 164200,
+      "profit_rate": -6.49,
+      "profit_amount": -11400,
+      "high_price": 178000,
+      "high_time": "09:13",
+      "high_profit_rate": 1.37,
+      "high_profit_amount": 2400,
+      "low_price": 163400,
+      "low_profit_rate": -6.95,
+      "low_profit_amount": -12200,
+      "low_time": "11:54"
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 60800,
+      "close_price": 58900,
+      "profit_rate": -3.12,
+      "profit_amount": -1900,
+      "high_price": 61500,
+      "high_time": "09:14",
+      "high_profit_rate": 1.15,
+      "high_profit_amount": 700,
+      "low_price": 58500,
+      "low_profit_rate": -3.78,
+      "low_profit_amount": -2300,
+      "low_time": "12:31"
+    },
+    {
+      "code": "304840",
+      "name": "피플바이오",
+      "theme": "바이오/헬스케어",
+      "market": "KOSDAQ",
+      "buy_price": 1271,
+      "close_price": 1271,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1271,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1200,
+      "low_profit_rate": -5.59,
+      "low_profit_amount": -71,
+      "low_time": "09:03"
+    },
+    {
+      "code": "380550",
+      "name": "뉴로핏",
+      "theme": "바이오/헬스케어",
+      "market": "KOSDAQ",
+      "buy_price": 23600,
+      "close_price": 20800,
+      "profit_rate": -11.86,
+      "profit_amount": -2800,
+      "high_price": 24100,
+      "high_time": "09:13",
+      "high_profit_rate": 2.12,
+      "high_profit_amount": 500,
+      "low_price": 20300,
+      "low_profit_rate": -13.98,
+      "low_profit_amount": -3300,
+      "low_time": "12:13"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 1,
+    "loss_stocks": 5,
+    "total_invested": 278906,
+    "total_value": 263306,
+    "total_profit": -15600,
+    "total_profit_rate": -5.59,
+    "high_total_value": 283831,
+    "high_total_profit": 4925,
+    "high_total_profit_rate": 1.77,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 0
+  }
+}
