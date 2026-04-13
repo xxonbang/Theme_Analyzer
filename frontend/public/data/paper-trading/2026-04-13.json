@@ -1,0 +1,589 @@
+{
+  "trade_date": "2026-04-13",
+  "morning_timestamp": "2026-04-13 09:11:45",
+  "collected_at": "2026-04-13 15:41:08",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-13 09:11:45",
+      "prices": {
+        "010170": 20200,
+        "388790": 6650,
+        "079550": 953000,
+        "008350": 2435,
+        "018470": 1623,
+        "003280": 3560,
+        "490470": 32750,
+        "035460": 4900,
+        "017900": 12610,
+        "010120": 176900
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "388790",
+          "name": "라이콤",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방위산업/우주항공"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/포장재"
+        },
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "알루미늄/포장재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "반도체/AI 신기술"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 09:32:38",
+      "prices": {
+        "010170": 20200,
+        "388790": 6650,
+        "079550": 953000,
+        "008350": 2435,
+        "018470": 1623,
+        "003280": 3560,
+        "490470": 32750,
+        "035460": 4900,
+        "017900": 12610,
+        "010120": 176900
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "388790",
+          "name": "라이콤",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방위산업/우주항공"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "알루미늄/포장재"
+        },
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "알루미늄/포장재"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "반도체/AI 신기술"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 09:36:37",
+      "prices": {
+        "010170": 20000,
+        "388790": 7520,
+        "079550": 924000,
+        "008350": 2535,
+        "018470": 1638,
+        "003280": 3410,
+        "490470": 34400,
+        "035460": 5520,
+        "017900": 13680,
+        "010120": 175500
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "035460",
+          "name": "기산텔레콤",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 및 친환경 소재"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "스마트 에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 10:02:55",
+      "prices": {
+        "010170": 20000,
+        "388790": 7520,
+        "079550": 924000,
+        "008350": 2535,
+        "018470": 1759,
+        "003280": 3425,
+        "490470": 34400,
+        "035460": 5520,
+        "017900": 13680,
+        "010120": 175500
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "035460",
+          "name": "기산텔레콤",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 및 친환경 소재"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "스마트 에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 12:02:03",
+      "prices": {
+        "010170": 20000,
+        "388790": 7520,
+        "079550": 938000,
+        "008350": 2535,
+        "018470": 1816,
+        "003280": 3400,
+        "490470": 34400,
+        "035460": 5520,
+        "017900": 13680,
+        "010120": 178600
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "035460",
+          "name": "기산텔레콤",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 및 친환경 소재"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "스마트 에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 12:36:53",
+      "prices": {
+        "010170": 19620,
+        "388790": 7520,
+        "079550": 942000,
+        "008350": 2765,
+        "018470": 1837,
+        "003280": 3440,
+        "490470": 35750,
+        "035460": 6030,
+        "017900": 13680,
+        "010120": 178300
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "035460",
+          "name": "기산텔레콤",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 및 친환경 소재"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "스마트 에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 13:26:39",
+      "prices": {
+        "010170": 19240,
+        "388790": 7520,
+        "079550": 937000,
+        "008350": 2765,
+        "018470": 1837,
+        "003280": 3400,
+        "490470": 35750,
+        "035460": 6030,
+        "017900": 13680,
+        "010120": 178300
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "035460",
+          "name": "기산텔레콤",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 및 친환경 소재"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "스마트 에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-13 14:36:43",
+      "prices": {
+        "010170": 19450,
+        "388790": 7520,
+        "079550": 935000,
+        "008350": 2765,
+        "018470": 1837,
+        "003280": 3405,
+        "490470": 35750,
+        "035460": 6030,
+        "017900": 13680,
+        "010120": 177400
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "035460",
+          "name": "기산텔레콤",
+          "theme": "차세대 통신 인프라"
+        },
+        {
+          "code": "008350",
+          "name": "남선알미늄",
+          "theme": "비철금속 및 친환경 소재"
+        },
+        {
+          "code": "490470",
+          "name": "세미파이브",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체 및 첨단 센서"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "스마트 에너지 인프라"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "통신장비/광통신",
+      "market": "KOSPI",
+      "buy_price": 20200,
+      "close_price": 19870,
+      "profit_rate": -1.63,
+      "profit_amount": -330,
+      "high_price": 20900,
+      "high_time": "09:13",
+      "high_profit_rate": 3.47,
+      "high_profit_amount": 700,
+      "low_price": 18720,
+      "low_profit_rate": -7.33,
+      "low_profit_amount": -1480,
+      "low_time": "10:45"
+    },
+    {
+      "code": "388790",
+      "name": "라이콤",
+      "theme": "통신장비/광통신",
+      "market": "KOSDAQ",
+      "buy_price": 6650,
+      "close_price": 7520,
+      "profit_rate": 13.08,
+      "profit_amount": 870,
+      "high_price": 7520,
+      "high_time": "15:30",
+      "high_profit_rate": 13.08,
+      "high_profit_amount": 870,
+      "low_price": 5950,
+      "low_profit_rate": -10.53,
+      "low_profit_amount": -700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "079550",
+      "name": "LIG넥스원",
+      "theme": "방위산업/우주항공",
+      "market": "KOSPI",
+      "buy_price": 953000,
+      "close_price": 939000,
+      "profit_rate": -1.47,
+      "profit_amount": -14000,
+      "high_price": 947000,
+      "high_time": "10:35",
+      "high_profit_rate": -0.63,
+      "high_profit_amount": -6000,
+      "low_price": 915000,
+      "low_profit_rate": -3.99,
+      "low_profit_amount": -38000,
+      "low_time": "09:28"
+    },
+    {
+      "code": "008350",
+      "name": "남선알미늄",
+      "theme": "알루미늄/포장재",
+      "market": "KOSPI",
+      "buy_price": 2435,
+      "close_price": 2865,
+      "profit_rate": 17.66,
+      "profit_amount": 430,
+      "high_price": 2865,
+      "high_time": "15:30",
+      "high_profit_rate": 17.66,
+      "high_profit_amount": 430,
+      "low_price": 2305,
+      "low_profit_rate": -5.34,
+      "low_profit_amount": -130,
+      "low_time": "09:03"
+    },
+    {
+      "code": "018470",
+      "name": "조일알미늄",
+      "theme": "알루미늄/포장재",
+      "market": "KOSPI",
+      "buy_price": 1623,
+      "close_price": 1917,
+      "profit_rate": 18.11,
+      "profit_amount": 294,
+      "high_price": 1950,
+      "high_time": "15:06",
+      "high_profit_rate": 20.15,
+      "high_profit_amount": 327,
+      "low_price": 1568,
+      "low_profit_rate": -3.39,
+      "low_profit_amount": -55,
+      "low_time": "09:13"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 3560,
+      "close_price": 3430,
+      "profit_rate": -3.65,
+      "profit_amount": -130,
+      "high_price": 3510,
+      "high_time": "09:17",
+      "high_profit_rate": -1.4,
+      "high_profit_amount": -50,
+      "low_price": 3380,
+      "low_profit_rate": -5.06,
+      "low_profit_amount": -180,
+      "low_time": "15:02"
+    },
+    {
+      "code": "490470",
+      "name": "세미파이브",
+      "theme": "반도체/AI 신기술",
+      "market": "KOSDAQ",
+      "buy_price": 32750,
+      "close_price": 36500,
+      "profit_rate": 11.45,
+      "profit_amount": 3750,
+      "high_price": 38000,
+      "high_time": "10:44",
+      "high_profit_rate": 16.03,
+      "high_profit_amount": 5250,
+      "low_price": 31000,
+      "low_profit_rate": -5.34,
+      "low_profit_amount": -1750,
+      "low_time": "09:00"
+    },
+    {
+      "code": "035460",
+      "name": "기산텔레콤",
+      "theme": "차세대 통신 인프라",
+      "market": "KOSPI",
+      "buy_price": 4900,
+      "close_price": 6030,
+      "profit_rate": 23.06,
+      "profit_amount": 1130,
+      "high_price": 6030,
+      "high_time": "15:30",
+      "high_profit_rate": 23.06,
+      "high_profit_amount": 1130,
+      "low_price": 4700,
+      "low_profit_rate": -4.08,
+      "low_profit_amount": -200,
+      "low_time": "09:08"
+    },
+    {
+      "code": "017900",
+      "name": "광전자",
+      "theme": "AI 반도체 및 첨단 센서",
+      "market": "KOSPI",
+      "buy_price": 12610,
+      "close_price": 13680,
+      "profit_rate": 8.49,
+      "profit_amount": 1070,
+      "high_price": 13680,
+      "high_time": "15:30",
+      "high_profit_rate": 8.49,
+      "high_profit_amount": 1070,
+      "low_price": 12400,
+      "low_profit_rate": -1.67,
+      "low_profit_amount": -210,
+      "low_time": "09:02"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "스마트 에너지 인프라",
+      "market": "KOSPI",
+      "buy_price": 176900,
+      "close_price": 179200,
+      "profit_rate": 1.3,
+      "profit_amount": 2300,
+      "high_price": 184200,
+      "high_time": "09:57",
+      "high_profit_rate": 4.13,
+      "high_profit_amount": 7300,
+      "low_price": 175000,
+      "low_profit_rate": -1.07,
+      "low_profit_amount": -1900,
+      "low_time": "09:23"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 7,
+    "loss_stocks": 3,
+    "total_invested": 1214628,
+    "total_value": 1210012,
+    "total_profit": -4616,
+    "total_profit_rate": -0.38,
+    "high_total_value": 1225655,
+    "high_total_profit": 11027,
+    "high_total_profit_rate": 0.91,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 2
+  }
+}
