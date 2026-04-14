@@ -10,6 +10,11 @@
 - **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/ui/input.tsx`
 - **내용**: 모바일 input font-size를 text-base(16px)로 설정하여 iOS Safari 자동 줌 방지
 
+### [버그픽스] 확정 API 수급 수집도 rate limit 재시도 추가 (2026-04-14 23:37 KST)
+- **변경 파일**: `modules/kis_rank.py`
+- **내용**: `get_investor_data()` (확정 API, FHKST01010900)에도 실패 종목 1회 순차 재시도 추가
+- **원인**: 장후 확정 라운드(18:06)에서 161종목 병렬 호출 시 rate limit로 대우건설 등 30종목(18%) 누락
+
 ### [버그픽스] 수급 수집 rate limit 대응 — 실패 종목 재시도 (2026-04-14 14:41 KST)
 - **변경 파일**: `modules/kis_rank.py`
 - **내용**:

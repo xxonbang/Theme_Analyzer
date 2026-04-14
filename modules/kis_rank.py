@@ -718,6 +718,7 @@ class KISRankAPI:
 
             return code, investor_entry
 
+        failed_stocks = []
         futures = {self._executor.submit(_fetch_investor, s): s for s in stocks}
         done = 0
         for future in as_completed(futures):
@@ -729,8 +730,23 @@ class KISRankAPI:
             except Exception as e:
                 stock = futures[future]
                 print(f"  ⚠ {stock.get('name', '')}({stock.get('code', '')}) 투자자 데이터 조회 실패: {e}")
+                failed_stocks.append(stock)
             if done % 20 == 0 or done == total:
                 print(f"  진행: {done}/{total}")
+
+        # 실패 종목 1회 재시도 (rate limit 대응)
+        if failed_stocks:
+            import time
+            print(f"  재시도: {len(failed_stocks)}종목")
+            time.sleep(1)
+            for stock in failed_stocks:
+                try:
+                    code, entry = _fetch_investor(stock)
+                    if code and entry:
+                        result[code] = entry
+                except Exception:
+                    pass
+                time.sleep(0.1)
 
         return result
 
