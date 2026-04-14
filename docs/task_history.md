@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-04-14
+
+### [버그픽스] 수급 수집 rate limit 대응 — 실패 종목 재시도 (2026-04-14 14:41 KST)
+- **변경 파일**: `modules/kis_rank.py`
+- **내용**:
+  - 추정 API/가집계 API의 병렬 수집에서 rate limit 실패 종목을 1회 순차 재시도
+  - 원인: 가집계 API(FHKST01010700) 전면 장애 시 추정 API fallback에서 10 워커 병렬 호출 → rate limit 초과로 17% 종목 누락 (SK하이닉스 등)
+
 ## 2026-04-08
 
 ### [버그픽스] intraday-history prev_close=0 수정 (2026-04-08 23:14 KST)
