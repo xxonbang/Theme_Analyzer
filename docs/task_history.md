@@ -6,6 +6,10 @@
 
 ## 2026-04-14
 
+### [버그픽스] iOS input focus 시 화면 자동 확대 방지 (2026-04-14 14:51 KST)
+- **변경 파일**: `frontend/src/App.tsx`, `frontend/src/components/ui/input.tsx`
+- **내용**: 모바일 input font-size를 text-base(16px)로 설정하여 iOS Safari 자동 줌 방지
+
 ### [버그픽스] 수급 수집 rate limit 대응 — 실패 종목 재시도 (2026-04-14 14:41 KST)
 - **변경 파일**: `modules/kis_rank.py`
 - **내용**:

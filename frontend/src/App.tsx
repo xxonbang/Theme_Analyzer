@@ -85,7 +85,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="종목명 또는 코드 검색..."
-            className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/50"
+            className="flex-1 bg-transparent text-base sm:text-sm outline-none placeholder:text-muted-foreground/50"
             autoComplete="off"
           />
           {query && (
