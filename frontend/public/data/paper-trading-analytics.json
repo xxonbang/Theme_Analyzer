@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-04-14 15:42:27",
+  "generated_at": "2026-04-15 15:42:09",
   "period": {
     "start": "2026-03-16",
-    "end": "2026-04-14",
-    "trading_days": 22
+    "end": "2026-04-15",
+    "trading_days": 23
   },
   "overall": {
-    "cumulative_return": -30.1,
-    "cumulative_high_return": 140.85,
-    "avg_daily_return": -1.36,
-    "volatility": 6.71,
-    "sharpe_ratio": -0.2,
+    "cumulative_return": -30.76,
+    "cumulative_high_return": 145.91,
+    "avg_daily_return": -1.35,
+    "volatility": 6.56,
+    "sharpe_ratio": -0.21,
     "max_drawdown": 34.06,
-    "win_rate": 36.4,
+    "win_rate": 34.8,
     "win_days": 8,
-    "loss_days": 14,
+    "loss_days": 15,
     "flat_days": 0,
     "avg_win": 3.52,
-    "avg_loss": -4.16,
-    "profit_loss_ratio": 0.85,
+    "avg_loss": -3.95,
+    "profit_loss_ratio": 0.89,
     "max_win_streak": 1,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -0.35,
-    "win_rate": 40.0
+    "avg_return": -1.46,
+    "win_rate": 20.0
   },
   "theme_performance": [
     {
@@ -69,6 +69,13 @@
       "win_rate": 100.0,
       "avg_return": 4.95,
       "total_return": 14.85
+    },
+    {
+      "theme": "반도체 슈퍼사이클 및 첨단 패키징",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 4.79,
+      "total_return": 14.37
     },
     {
       "theme": "제약/바이오 신약 개발",
@@ -256,15 +263,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 163,
-      "win_rate": 49.1,
-      "avg_return": 0.1
+      "count": 172,
+      "win_rate": 50.6,
+      "avg_return": 0.23
     },
     {
       "market": "KOSDAQ",
-      "count": 66,
-      "win_rate": 51.5,
-      "avg_return": -0.15
+      "count": 69,
+      "win_rate": 50.7,
+      "avg_return": 0.06
     }
   ],
   "cumulative_series": [
@@ -355,6 +362,10 @@
     {
       "date": "2026-04-14",
       "cumulative_return": -30.1
+    },
+    {
+      "date": "2026-04-15",
+      "cumulative_return": -30.76
     }
   ]
 }
