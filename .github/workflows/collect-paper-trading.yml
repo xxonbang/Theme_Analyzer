@@ -141,6 +141,17 @@ jobs:
           echo "Push failed after 3 attempts"
           exit 1
 
+      - name: Send market close summary to Telegram
+        if: steps.analysis.outcome == 'success'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          # 최신 latest.json 확보 (투자자 데이터 워크플로우가 push한 장 마감 데이터 반영)
+          git fetch origin main
+          git checkout origin/main -- frontend/public/data/latest.json || true
+          python send_market_close_summary.py 2>&1 | tee -a /tmp/task.log
+
       - name: Notify completion via Telegram
         if: always()
         env:

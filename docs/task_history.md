@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-04-15
+
+### [기능] 장 마감 후 거래대금/거래량 상승·하락 TOP10 텔레그램 알림 (2026-04-15 17:40 KST)
+- **변경 파일**: `modules/telegram.py`, `send_market_close_summary.py` (신규), `.github/workflows/collect-paper-trading.yml`
+- **내용**:
+  - KOSPI/KOSDAQ 각 거래대금 상승/하락 TOP10, 거래량 상승/하락 TOP10을 4개 메시지로 전송
+  - 네이버 증권 링크 + 한국식 단위(조/억) + 색상 이모지로 가독성 최적화
+  - paper-trading 워크플로우에 전송 step 추가, 최신 latest.json fetch 후 실행
+
 ## 2026-04-14
 
 ### [버그픽스] iOS input focus 시 화면 자동 확대 방지 (2026-04-14 14:51 KST)

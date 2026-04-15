@@ -142,6 +142,73 @@ class TelegramSender:
         from modules.utils import KST
         return datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
+    def _format_korean_amount(self, amount: int) -> str:
+        """금액을 한국식 단위로 축약 (조/억/만)"""
+        if amount >= 1_0000_0000_0000:  # 1조
+            return f"{amount / 1_0000_0000_0000:.1f}조"
+        elif amount >= 1_0000_0000:  # 1억
+            val = amount / 1_0000_0000
+            return f"{val:,.0f}억" if val >= 100 else f"{val:,.1f}억"
+        elif amount >= 1_0000:  # 1만
+            return f"{amount / 1_0000:,.0f}만"
+        else:
+            return f"{amount:,}"
+
+    def format_market_close_top(
+        self,
+        kospi: List[Dict[str, Any]],
+        kosdaq: List[Dict[str, Any]],
+        title: str,
+        metric_key: str,  # "trading_value" or "volume"
+        metric_label: str,  # "거래대금" or "거래량"
+        date_str: str,
+    ) -> str:
+        """장 마감 거래대금/거래량 상승/하락 TOP 메시지 포맷
+
+        Args:
+            kospi: KOSPI 종목 리스트 (rank 포함)
+            kosdaq: KOSDAQ 종목 리스트
+            title: 메시지 제목 (예: "📈 [장 마감] 거래대금 상승 TOP10")
+            metric_key: 정렬 기준 필드명
+            metric_label: 표시용 라벨
+            date_str: 날짜 표기 (예: "2026-04-15 (화)")
+        """
+        def _format_section(market_emoji: str, market_name: str, stocks: List[Dict[str, Any]]) -> List[str]:
+            lines = [f"{market_emoji} <b>{market_name}</b>", ""]
+            if not stocks:
+                lines.append("   해당 종목 없음")
+                lines.append("")
+                return lines
+            for i, stock in enumerate(stocks, 1):
+                name = stock.get("name", "")
+                code = stock.get("code", "")
+                price = stock.get("current_price", 0)
+                rate = stock.get("change_rate", 0)
+                metric_val = stock.get(metric_key, 0) or 0
+                rate_sign = "+" if rate > 0 else ""
+                rate_emoji = "🔴" if rate > 0 else ("🔵" if rate < 0 else "⚪")
+                naver_url = self._get_naver_finance_url(code)
+                lines.append(
+                    f"{i:>2}. <a href=\"{naver_url}\">{name}</a> "
+                    f"{rate_emoji} {rate_sign}{rate:.2f}%"
+                )
+                lines.append(
+                    f"    💰 {self._format_price(price)}원 · "
+                    f"{metric_label} {self._format_korean_amount(metric_val)}"
+                )
+            lines.append("")
+            return lines
+
+        lines = [
+            f"<b>{title}</b>",
+            f"📅 {date_str}",
+            "",
+        ]
+        lines.extend(_format_section("🔵", "KOSPI", kospi))
+        lines.extend(_format_section("🟢", "KOSDAQ", kosdaq))
+        lines.append(f"⏰ {self._get_timestamp()}")
+        return "\n".join(lines)
+
     def format_start_barricade(self, exchange_data: Optional[Dict[str, Any]] = None) -> str:
         """시작 바리케이트 메시지 (환율 정보 포함)"""
         lines = ["🚀🚀🚀 START 🚀🚀🚀"]
