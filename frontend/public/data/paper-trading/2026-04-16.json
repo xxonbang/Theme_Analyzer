@@ -1,0 +1,539 @@
+{
+  "trade_date": "2026-04-16",
+  "morning_timestamp": "2026-04-16 09:12:50",
+  "collected_at": "2026-04-16 15:41:03",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-16 09:12:50",
+      "prices": {
+        "042510": 15410,
+        "456010": 28400,
+        "005380": 540000,
+        "319400": 32000,
+        "017900": 22050,
+        "011930": 4615,
+        "034020": 108400,
+        "184230": 904,
+        "005880": 2745,
+        "294630": 6310
+      },
+      "leader_stocks": [
+        {
+          "code": "042510",
+          "name": "라온시큐어",
+          "theme": "사이버 보안/핀테크"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "사이버 보안/핀테크"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티/자동차"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/스마트 물류 자동화"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체/광반도체"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 09:33:06",
+      "prices": {
+        "042510": 15410,
+        "456010": 28400,
+        "005380": 540000,
+        "319400": 32000,
+        "017900": 19170,
+        "011930": 4615,
+        "034020": 109600,
+        "184230": 904,
+        "005880": 3005,
+        "294630": 6310
+      },
+      "leader_stocks": [
+        {
+          "code": "042510",
+          "name": "라온시큐어",
+          "theme": "사이버 보안/핀테크"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "사이버 보안/핀테크"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티/자동차"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/스마트 물류 자동화"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "AI 반도체/광반도체"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 09:38:21",
+      "prices": {
+        "042510": 15410,
+        "456010": 27850,
+        "005380": 537000,
+        "319400": 31250,
+        "017900": 18890,
+        "011930": 4785,
+        "034020": 109900,
+        "184230": 913,
+        "005880": 2925,
+        "294630": 6500
+      },
+      "leader_stocks": [
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "184230",
+          "name": "SGA솔루션즈",
+          "theme": "사이버 보안 및 핀테크"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "294630",
+          "name": "서남",
+          "theme": "차세대 기술 및 신소재 (초전도체)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 10:02:48",
+      "prices": {
+        "042510": 15410,
+        "456010": 27850,
+        "005380": 536000,
+        "319400": 31000,
+        "017900": 19690,
+        "011930": 4785,
+        "034020": 110600,
+        "184230": 913,
+        "005880": 3005,
+        "294630": 6500
+      },
+      "leader_stocks": [
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "184230",
+          "name": "SGA솔루션즈",
+          "theme": "사이버 보안 및 핀테크"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "294630",
+          "name": "서남",
+          "theme": "차세대 기술 및 신소재 (초전도체)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 12:02:04",
+      "prices": {
+        "042510": 15410,
+        "456010": 27850,
+        "005380": 539000,
+        "319400": 30900,
+        "017900": 19420,
+        "011930": 4785,
+        "034020": 111950,
+        "184230": 913,
+        "005880": 2845,
+        "294630": 6500
+      },
+      "leader_stocks": [
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "184230",
+          "name": "SGA솔루션즈",
+          "theme": "사이버 보안 및 핀테크"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "294630",
+          "name": "서남",
+          "theme": "차세대 기술 및 신소재 (초전도체)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 12:38:11",
+      "prices": {
+        "042510": 15410,
+        "456010": 26800,
+        "005380": 537000,
+        "319400": 30900,
+        "017900": 18650,
+        "011930": 4430,
+        "034020": 111900,
+        "184230": 913,
+        "005880": 2865,
+        "294630": 5710
+      },
+      "leader_stocks": [
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "184230",
+          "name": "SGA솔루션즈",
+          "theme": "사이버 보안 및 핀테크"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "294630",
+          "name": "서남",
+          "theme": "차세대 기술 및 신소재 (초전도체)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 13:26:46",
+      "prices": {
+        "042510": 15410,
+        "456010": 26800,
+        "005380": 537000,
+        "319400": 30700,
+        "017900": 15450,
+        "011930": 4360,
+        "034020": 111900,
+        "184230": 913,
+        "005880": 2865,
+        "294630": 5580
+      },
+      "leader_stocks": [
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "184230",
+          "name": "SGA솔루션즈",
+          "theme": "사이버 보안 및 핀테크"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "294630",
+          "name": "서남",
+          "theme": "차세대 기술 및 신소재 (초전도체)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-16 14:36:41",
+      "prices": {
+        "042510": 15410,
+        "456010": 26800,
+        "005380": 533000,
+        "319400": 30800,
+        "017900": 13480,
+        "011930": 4265,
+        "034020": 111100,
+        "184230": 913,
+        "005880": 2830,
+        "294630": 5500
+      },
+      "leader_stocks": [
+        {
+          "code": "011930",
+          "name": "신성이엔지",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "원전 및 클린룸/재생에너지"
+        },
+        {
+          "code": "184230",
+          "name": "SGA솔루션즈",
+          "theme": "사이버 보안 및 핀테크"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "294630",
+          "name": "서남",
+          "theme": "차세대 기술 및 신소재 (초전도체)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "042510",
+      "name": "라온시큐어",
+      "theme": "사이버 보안/핀테크",
+      "market": "KOSPI",
+      "buy_price": 15410,
+      "close_price": 15410,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 15410,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 13300,
+      "low_profit_rate": -13.69,
+      "low_profit_amount": -2110,
+      "low_time": "14:02"
+    },
+    {
+      "code": "456010",
+      "name": "아이씨티케이",
+      "theme": "사이버 보안/핀테크",
+      "market": "KOSDAQ",
+      "buy_price": 28400,
+      "close_price": 21350,
+      "profit_rate": -24.82,
+      "profit_amount": -7050,
+      "high_price": 28650,
+      "high_time": "09:13",
+      "high_profit_rate": 0.88,
+      "high_profit_amount": 250,
+      "low_price": 21350,
+      "low_profit_rate": -24.82,
+      "low_profit_amount": -7050,
+      "low_time": "15:30"
+    },
+    {
+      "code": "005380",
+      "name": "현대차",
+      "theme": "모빌리티/자동차",
+      "market": "KOSPI",
+      "buy_price": 540000,
+      "close_price": 534000,
+      "profit_rate": -1.11,
+      "profit_amount": -6000,
+      "high_price": 544000,
+      "high_time": "09:17",
+      "high_profit_rate": 0.74,
+      "high_profit_amount": 4000,
+      "low_price": 527000,
+      "low_profit_rate": -2.41,
+      "low_profit_amount": -13000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/스마트 물류 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 32000,
+      "close_price": 30950,
+      "profit_rate": -3.28,
+      "profit_amount": -1050,
+      "high_price": 31800,
+      "high_time": "09:16",
+      "high_profit_rate": -0.62,
+      "high_profit_amount": -200,
+      "low_price": 30550,
+      "low_profit_rate": -4.53,
+      "low_profit_amount": -1450,
+      "low_time": "13:40"
+    },
+    {
+      "code": "017900",
+      "name": "광전자",
+      "theme": "AI 반도체/광반도체",
+      "market": "KOSPI",
+      "buy_price": 22050,
+      "close_price": 12900,
+      "profit_rate": -41.5,
+      "profit_amount": -9150,
+      "high_price": 20950,
+      "high_time": "09:20",
+      "high_profit_rate": -4.99,
+      "high_profit_amount": -1100,
+      "low_price": 12450,
+      "low_profit_rate": -43.54,
+      "low_profit_amount": -9600,
+      "low_time": "14:27"
+    },
+    {
+      "code": "011930",
+      "name": "신성이엔지",
+      "theme": "원전 및 클린룸/재생에너지",
+      "market": "KOSPI",
+      "buy_price": 4615,
+      "close_price": 4295,
+      "profit_rate": -6.93,
+      "profit_amount": -320,
+      "high_price": 4970,
+      "high_time": "09:27",
+      "high_profit_rate": 7.69,
+      "high_profit_amount": 355,
+      "low_price": 4195,
+      "low_profit_rate": -9.1,
+      "low_profit_amount": -420,
+      "low_time": "09:00"
+    },
+    {
+      "code": "034020",
+      "name": "두산에너빌리티",
+      "theme": "원전 및 클린룸/재생에너지",
+      "market": "KOSPI",
+      "buy_price": 108400,
+      "close_price": 110800,
+      "profit_rate": 2.21,
+      "profit_amount": 2400,
+      "high_price": 112000,
+      "high_time": "12:48",
+      "high_profit_rate": 3.32,
+      "high_profit_amount": 3600,
+      "low_price": 106500,
+      "low_profit_rate": -1.75,
+      "low_profit_amount": -1900,
+      "low_time": "09:00"
+    },
+    {
+      "code": "184230",
+      "name": "SGA솔루션즈",
+      "theme": "사이버 보안 및 핀테크",
+      "market": "KOSPI",
+      "buy_price": 904,
+      "close_price": 913,
+      "profit_rate": 1.0,
+      "profit_amount": 9,
+      "high_price": 913,
+      "high_time": "15:30",
+      "high_profit_rate": 1.0,
+      "high_profit_amount": 9,
+      "low_price": 822,
+      "low_profit_rate": -9.07,
+      "low_profit_amount": -82,
+      "low_time": "09:04"
+    },
+    {
+      "code": "005880",
+      "name": "대한해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 2745,
+      "close_price": 2865,
+      "profit_rate": 4.37,
+      "profit_amount": 120,
+      "high_price": 3180,
+      "high_time": "09:51",
+      "high_profit_rate": 15.85,
+      "high_profit_amount": 435,
+      "low_price": 2665,
+      "low_profit_rate": -2.91,
+      "low_profit_amount": -80,
+      "low_time": "09:00"
+    },
+    {
+      "code": "294630",
+      "name": "서남",
+      "theme": "차세대 기술 및 신소재 (초전도체)",
+      "market": "KOSPI",
+      "buy_price": 6310,
+      "close_price": 5670,
+      "profit_rate": -10.14,
+      "profit_amount": -640,
+      "high_price": 7150,
+      "high_time": "09:19",
+      "high_profit_rate": 13.31,
+      "high_profit_amount": 840,
+      "low_price": 5230,
+      "low_profit_rate": -17.12,
+      "low_profit_amount": -1080,
+      "low_time": "14:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 3,
+    "loss_stocks": 6,
+    "total_invested": 760834,
+    "total_value": 739153,
+    "total_profit": -21681,
+    "total_profit_rate": -2.85,
+    "high_total_value": 769023,
+    "high_total_profit": 8189,
+    "high_total_profit_rate": 1.08,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 2
+  }
+}
