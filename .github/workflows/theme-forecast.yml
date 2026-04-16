@@ -20,6 +20,7 @@ jobs:
 
     steps:
       - name: Notify start via Telegram
+        if: vars.TELEGRAM_NOTIFY == 'true'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
@@ -114,7 +115,7 @@ jobs:
           fi
 
       - name: Notify completion via Telegram
-        if: always()
+        if: always() && (failure() || vars.TELEGRAM_NOTIFY == 'true')
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}

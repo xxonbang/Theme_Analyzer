@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical, BrainCircuit } from "lucide-react"
+import { useState, useEffect, useRef, useCallback } from "react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical, BrainCircuit, Bell, BellOff } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
+import { getNotifyEnabled, setNotifyEnabled } from "@/lib/kis-api"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
 import { IconButton } from "@/components/IconButton"
 
@@ -34,6 +35,21 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [moreMenuOpen, setMoreMenuOpen] = useState(false)
+  const [notifyEnabled, setNotifyState] = useState<boolean | null>(null)
+  const [notifyLoading, setNotifyLoading] = useState(false)
+
+  useEffect(() => {
+    if (isAdmin) getNotifyEnabled().then(setNotifyState)
+  }, [isAdmin])
+
+  const handleToggleNotify = useCallback(async () => {
+    if (notifyLoading || notifyEnabled === null) return
+    setNotifyLoading(true)
+    const next = !notifyEnabled
+    const ok = await setNotifyEnabled(next)
+    if (ok) setNotifyState(next)
+    setNotifyLoading(false)
+  }, [notifyEnabled, notifyLoading])
   const [logoLoading, setLogoLoading] = useState(false)
   const logoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const moreMenuRef = useRef<HTMLDivElement>(null)
@@ -353,6 +369,18 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                   >
                     <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
                     {loading ? "수집 취소" : "데이터 새로고침"}
+                  </button>
+                )}
+                {isAdmin && notifyEnabled !== null && (
+                  <button
+                    onClick={() => { handleToggleNotify() }}
+                    className={cn(
+                      "flex items-center gap-2 w-full px-3 py-2 text-sm transition-colors",
+                      notifyLoading ? "opacity-50 pointer-events-none" : "hover:bg-muted"
+                    )}
+                  >
+                    {notifyEnabled ? <Bell className="w-4 h-4 text-emerald-500" /> : <BellOff className="w-4 h-4 text-muted-foreground" />}
+                    텔레그램 알림 {notifyEnabled ? "ON" : "OFF"}
                   </button>
                 )}
                 <button

@@ -119,15 +119,42 @@ Deno.serve(async (req) => {
     const action = body.action as string
     const codes = (body.codes as string[]) || []
 
-    // Service client for reading KIS credentials
+    // Service client for reading credentials
     const serviceClient = createClient(supabaseUrl, supabaseServiceKey)
-    const creds = await getKisCredentials(serviceClient)
 
     let result: Record<string, unknown> = {}
 
-    if (action === "prices" && codes.length > 0) {
-      // Bulk price lookup (max 20 codes per request)
-      const limited = codes.slice(0, 20)
+    // --- GitHub 알림 토글 (KIS credentials 불필요) ---
+    if (action === "get-notify") {
+      const GITHUB_REPO = "xxonbang/theme-analyzer"
+      const { data: ghCreds } = await serviceClient.table("api_credentials").select("credential_value").eq("service_name", "github").eq("credential_type", "pat").eq("is_active", true).single()
+      if (!ghCreds) throw new Error("GitHub PAT not found in DB")
+      const ghRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/variables/TELEGRAM_NOTIFY`, {
+        headers: { Authorization: `Bearer ${ghCreds.credential_value}`, Accept: "application/vnd.github+json" },
+      })
+      if (ghRes.ok) {
+        const d = await ghRes.json()
+        result = { enabled: d.value === "true" }
+      } else {
+        result = { enabled: false }
+      }
+
+    } else if (action === "set-notify") {
+      const enabled = body.enabled === true
+      const GITHUB_REPO = "xxonbang/theme-analyzer"
+      const { data: ghCreds } = await serviceClient.table("api_credentials").select("credential_value").eq("service_name", "github").eq("credential_type", "pat").eq("is_active", true).single()
+      if (!ghCreds) throw new Error("GitHub PAT not found in DB")
+      const ghRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/variables/TELEGRAM_NOTIFY`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${ghCreds.credential_value}`, Accept: "application/vnd.github+json" },
+        body: JSON.stringify({ value: enabled ? "true" : "false" }),
+      })
+      result = { ok: ghRes.status === 204, enabled }
+
+    } else if (action === "prices" && codes.length > 0) {
+      const creds = await getKisCredentials(serviceClient)
+      // Bulk price lookup (max 50 codes per request)
+      const limited = codes.slice(0, 50)
       const prices: Record<string, unknown> = {}
       let lastError: string | null = null
 
@@ -135,12 +162,22 @@ Deno.serve(async (req) => {
         const { price, errorMsg } = await fetchStockPrice(creds, code)
         if (price) prices[code] = price
         else if (errorMsg) lastError = errorMsg
-        // Rate limit: 50ms between requests
+        // Rate limit: 150ms between requests (KIS 모의투자 초당 제한 대응)
         if (limited.indexOf(code) < limited.length - 1) {
-          await new Promise(r => setTimeout(r, 60))
+          await new Promise(r => setTimeout(r, 150))
         }
       }
 
+      // 실패 종목 1회 재시도
+      const failedCodes = limited.filter(c => !prices[c])
+      if (failedCodes.length > 0 && failedCodes.length < limited.length) {
+        for (const code of failedCodes) {
+          await new Promise(r => setTimeout(r, 200))
+          const { price, errorMsg } = await fetchStockPrice(creds, code)
+          if (price) prices[code] = price
+          else if (errorMsg) lastError = errorMsg
+        }
+      }
       // 전체 조회 실패 시 에러 반환 (토큰 만료 등)
       if (Object.keys(prices).length === 0 && limited.length > 0) {
         return new Response(JSON.stringify({ error: lastError || "모든 종목 조회 실패" }), {
@@ -152,6 +189,7 @@ Deno.serve(async (req) => {
 
     } else if (action === "search" && body.code) {
       // Single stock search by code
+      const creds = await getKisCredentials(serviceClient)
       const { price, errorMsg } = await fetchStockPrice(creds, body.code)
       if (!price && errorMsg) {
         return new Response(JSON.stringify({ error: errorMsg }), {
@@ -163,6 +201,7 @@ Deno.serve(async (req) => {
 
     } else if (action === "exchange") {
       // 환율 조회: FX@KRW(USD/KRW), FX@JPY, FX@EUR, FX@CNY
+      const creds = await getKisCredentials(serviceClient)
       const fxCodes = [
         { code: "FX@KRW", key: "USDKRW" },
         { code: "FX@JPY", key: "JPYUSD" },

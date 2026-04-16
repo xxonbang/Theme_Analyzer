@@ -54,6 +54,26 @@ export async function fetchKisExchangeRates(): Promise<Record<string, KisExchang
 }
 
 /**
+ * 텔레그램 알림 설정 조회
+ */
+export async function getNotifyEnabled(): Promise<boolean> {
+  try {
+    const data = await callKisProxy({ action: "get-notify" })
+    return data.enabled === true
+  } catch { return false }
+}
+
+/**
+ * 텔레그램 알림 설정 변경
+ */
+export async function setNotifyEnabled(enabled: boolean): Promise<boolean> {
+  try {
+    const data = await callKisProxy({ action: "set-notify", enabled })
+    return data.ok === true
+  } catch { return false }
+}
+
+/**
  * KIS API를 통해 단일 종목을 코드로 검색합니다.
  */
 export async function searchKisStock(code: string): Promise<KisStockPrice | null> {

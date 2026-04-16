@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-04-16
+
+### [기능] 텔레그램 알림 토글 + 실패 전용 알림 (2026-04-16 11:18 KST)
+- **변경 파일**: `.github/workflows/*.yml` (10개), `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`, `frontend/src/components/Header.tsx`
+- **내용**:
+  - 모든 워크플로우 시작/성공 알림에 `vars.TELEGRAM_NOTIFY == 'true'` 조건 추가 (기본 비활성)
+  - 실패 알림은 토글 무관하게 항상 전송 (`failure()` 조건)
+  - Edge Function에 get-notify/set-notify 액션 추가 (GitHub Variables API 연동)
+  - Header 더보기 메뉴에 admin 전용 텔레그램 알림 ON/OFF 토글 추가
+
 ## 2026-04-15
 
 ### [기능] 장 마감 후 거래대금/거래량 상승·하락 TOP10 텔레그램 알림 (2026-04-15 17:40 KST)
