@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-04-20
+
+### [버그픽스] MacroIndicators/VolumeProfilePopup merge conflict 복원 (2026-04-20 11:17 KST)
+- **변경 파일**: `frontend/src/components/MacroIndicators.tsx`, `frontend/src/components/VolumeProfilePopup.tsx`
+- **내용**: 4/16 merge conflict 해결 시 --theirs로 잘못 덮어쓴 파일 복원 (867줄→92줄 축소된 것 원복)
+- **원인**: git checkout --theirs로 원격의 이전 버전을 선택하여 선물 섹션 등 대부분의 코드 소실
+
 ## 2026-04-16
 
 ### [기능] 텔레그램 알림 토글 + 실패 전용 알림 (2026-04-16 11:18 KST)

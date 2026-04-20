@@ -1,12 +1,16 @@
 import { useState, useEffect, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
+import { useScrollLock } from "@/hooks/useScrollLock"
 import { X } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
+import { supabase } from "@/lib/supabase"
+import { useAuth } from "@/hooks/useAuth"
 import type { StockVolumeProfile, VolumeProfilePeriod, VolumeProfileBin } from "@/types/stock"
 
 interface VolumeProfilePopupProps {
   stockName: string
+  stockCode: string
   stockPrice: number
   volumeProfile: StockVolumeProfile
   onClose: () => void
@@ -55,8 +59,8 @@ function mergeBins(originalBins: VolumeProfileBin[], targetCount: number): { bin
   return { bins: merged, pocPrice: poc.price }
 }
 
-function VolumeChart({ bins, pocPrice, currentPrice, selectedIdx, onSelect }: {
-  bins: VolumeProfileBin[]; pocPrice: number; currentPrice: number
+function VolumeChart({ bins, pocPrice, currentPrice, avgPrice, selectedIdx, onSelect }: {
+  bins: VolumeProfileBin[]; pocPrice: number; currentPrice: number; avgPrice?: number | null
   selectedIdx: number | null; onSelect: (idx: number | null) => void
 }) {
   const sorted = [...bins].reverse()
@@ -82,6 +86,20 @@ function VolumeChart({ bins, pocPrice, currentPrice, selectedIdx, onSelect }: {
     const y = Math.max(PAD.top - 2, Math.min(PAD.top + plotH + 2, rawY))
     return { y, isAbove: currentPrice > highPrice, isBelow: currentPrice < lowPrice }
   }, [sorted, currentPrice, barCount, barH, gap, plotH])
+
+  // 평단가 Y 좌표
+  const avgPriceInfo = useMemo(() => {
+    if (!avgPrice || barCount < 2) return null
+    const topY = PAD.top + barH / 2
+    const bottomY = PAD.top + (barCount - 1) * (barH + gap) + barH / 2
+    const highPrice = sorted[0].price
+    const lowPrice = sorted[barCount - 1].price
+    if (highPrice <= lowPrice) return null
+    const ratio = (highPrice - avgPrice) / (highPrice - lowPrice)
+    const rawY = topY + ratio * (bottomY - topY)
+    const y = Math.max(PAD.top - 2, Math.min(PAD.top + plotH + 2, rawY))
+    return { y, isAbove: avgPrice > highPrice, isBelow: avgPrice < lowPrice }
+  }, [sorted, avgPrice, barCount, barH, gap, plotH])
 
   return (
     <svg viewBox={`0 0 ${CHART_W} ${chartH}`} className="w-full h-auto">
@@ -186,12 +204,44 @@ function VolumeChart({ bins, pocPrice, currentPrice, selectedIdx, onSelect }: {
           </text>
         </>
       )}
+      {/* 평단가 마커 (포트폴리오 보유 종목만) */}
+      {avgPriceInfo !== null && (
+        <>
+          <line
+            x1={PAD.left} y1={avgPriceInfo.y}
+            x2={PAD.left + PLOT_W} y2={avgPriceInfo.y}
+            stroke="#ef4444" strokeWidth={1.5} strokeDasharray="4,3" strokeOpacity={0.8}
+          />
+          <text
+            x={CHART_W - PAD.right + 4} y={avgPriceInfo.y + 3}
+            fontSize={8} fontWeight="600" fill="#ef4444" opacity={0.9}
+          >
+            {avgPriceInfo.isAbove ? "▲ 평단" : avgPriceInfo.isBelow ? "▼ 평단" : "평단"}
+          </text>
+        </>
+      )}
     </svg>
   )
 }
 
-export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClose }: VolumeProfilePopupProps) {
+export function VolumeProfilePopup({ stockName, stockCode, stockPrice, volumeProfile, onClose }: VolumeProfilePopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
+  const { user } = useAuth()
+
+  // 포트폴리오 보유 종목이면 평단가 조회
+  const [holdingAvgPrice, setHoldingAvgPrice] = useState<number | null>(null)
+  useEffect(() => {
+    if (!user || !stockCode) return
+    supabase
+      .from("portfolio_holdings")
+      .select("avg_price")
+      .eq("user_id", user.id)
+      .eq("code", stockCode)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.avg_price) setHoldingAvgPrice(data.avg_price)
+      })
+  }, [user, stockCode])
 
   const availablePeriods = useMemo(
     () => PERIODS.filter(p => volumeProfile[p.key]),
@@ -229,30 +279,18 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
     return ((selectedBin.price - stockPrice) / stockPrice) * 100
   }, [selectedBin, stockPrice])
 
-  useEffect(() => {
-    const scrollY = window.scrollY
-    document.body.style.overflow = "hidden"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    return () => {
-      document.body.style.overflow = ""
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.left = ""
-      document.body.style.right = ""
-      window.scrollTo(0, scrollY)
-    }
-  }, [])
+  useScrollLock(true)
 
   return createPortal(
     <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[85vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
-        {/* 모바일 드래그 핸들 */}
-        <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
-          <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+        {/* 모바일 드래그 핸들 + 닫기 */}
+        <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative sticky top-0 bg-popover z-10">
+          <div className="w-10 h-1.5 rounded-full bg-muted-foreground/25 hover:bg-muted-foreground/40 transition-colors" />
+          <button onClick={onClose} className="absolute right-0 text-muted-foreground hover:text-foreground p-1" aria-label="닫기">
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* 헤더 + 구간 수 */}
@@ -284,7 +322,7 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
                 ))}
               </div>
             </div>
-            <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1 -m-1">
+            <button onClick={onClose} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -316,6 +354,7 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
                 bins={displayBins}
                 pocPrice={displayPocPrice}
                 currentPrice={stockPrice}
+                avgPrice={holdingAvgPrice}
                 selectedIdx={selectedIdx}
                 onSelect={setSelectedIdx}
               />
@@ -343,7 +382,7 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
             )}
 
             {/* 범례 */}
-            <div className="flex items-center gap-4 mt-2 text-[11px] text-muted-foreground">
+            <div className="flex items-center gap-4 mt-2 text-[11px] text-muted-foreground flex-wrap">
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-2.5 rounded-sm bg-amber-500/60" />
                 <span>POC {formatPrice(displayPocPrice)}원</span>
@@ -352,6 +391,12 @@ export function VolumeProfilePopup({ stockName, stockPrice, volumeProfile, onClo
                 <span className="w-4 border-t-[1.5px] border-dashed border-blue-500" />
                 <span>현재가 {formatPrice(stockPrice)}원</span>
               </div>
+              {holdingAvgPrice && (
+                <div className="flex items-center gap-1.5">
+                  <span className="w-4 border-t-[1.5px] border-dashed border-red-500" />
+                  <span>평단가 {formatPrice(holdingAvgPrice)}원</span>
+                </div>
+              )}
             </div>
           </>
         ) : (
