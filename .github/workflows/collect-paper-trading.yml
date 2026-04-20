@@ -143,7 +143,7 @@ jobs:
           exit 1
 
       - name: Send market close summary to Telegram
-        if: vars.TELEGRAM_NOTIFY == 'true' && steps.analysis.outcome == 'success'
+        if: steps.analysis.outcome == 'success'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
