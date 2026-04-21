@@ -186,7 +186,8 @@ ESIGNAL_ITEMS = [
     {"file": "sparkline_day", "key": "day", "name": "코스피200 주간선물", "symbol": "K200F_DAY"},
     {"file": "sparkline_ngt", "key": "ngt", "name": "코스피200 야간선물", "symbol": "K200F_NGT"},
     {"file": "sparkline_spx", "key": "spx", "name": "S&P500 선물", "symbol": "SPX_F"},
-    {"file": "sparkline_nasdaq", "key": "nasdaq", "name": "나스닥 선물", "symbol": "NQ_F"},
+    # 나스닥 선물은 yfinance(NQ=F)에서 수집 — 중복 제거
+    # {"file": "sparkline_nasdaq", "key": "nasdaq", "name": "나스닥 선물", "symbol": "NQ_F"},
     {"file": "sparkline_oil", "key": "oil", "name": "원유 선물", "symbol": "OIL_F"},
     {"file": "sparkline_gold", "key": "gold", "name": "금 선물", "symbol": "GOLD_F"},
 ]
