@@ -126,9 +126,9 @@ function IndexDetailPopup({
     { label: "MA120", value: maData.ma120 },
   ].filter(({ value }) => value > 0)
 
-  // MA 차트: 현재가 + MA값들을 하나의 차트에
-  const maChartValues = [maData.current, ...maValues.map((m) => m.value)]
-  const maChartLabels = ["현재", ...maValues.map((m) => m.label)]
+  // MA 차트: MA120→...→MA5→현재 순서 (과거→현재, 좌→우)
+  const maChartValues = [...maValues.map((m) => m.value).reverse(), maData.current]
+  const maChartLabels = [...maValues.map((m) => m.label).reverse(), "현재"]
 
   const statusConfig: Record<string, { color: string; bg: string }> = {
     "정배열": { color: "text-emerald-600", bg: "bg-emerald-500/15 border-emerald-500/30" },
@@ -319,9 +319,9 @@ export function IndexAlertSection({ kospi, kosdaq, investorTrend }: IndexAlertSe
     const changePct = trend?.change_pct ?? null
 
     const statusConfig: Record<string, { bg: string; badge: string }> = {
-      "정배열": { bg: "bg-emerald-500/10 border-emerald-500/30", badge: "bg-emerald-500/15 text-emerald-700 border-emerald-500/30" },
-      "역배열": { bg: "bg-red-500/10 border-red-500/30", badge: "bg-red-500/15 text-red-700 border-red-500/30" },
-      "혼합": { bg: "bg-muted border-border", badge: "bg-muted text-muted-foreground border-border" },
+      "정배열": { bg: "bg-white dark:bg-emerald-500/10 border border-border/30 dark:border-emerald-500/15", badge: "bg-emerald-500 text-white dark:bg-emerald-500/80 dark:text-emerald-50 border-transparent" },
+      "역배열": { bg: "bg-white dark:bg-red-500/10 border border-border/30 dark:border-red-500/15", badge: "bg-red-500 text-white dark:bg-red-500/80 dark:text-red-50 border-transparent" },
+      "혼합": { bg: "bg-white dark:bg-muted/40 border border-border/30 dark:border-border/50", badge: "bg-slate-500 text-white dark:bg-slate-500/70 dark:text-slate-100 border-transparent" },
     }
     const sc = statusConfig[data.status] || statusConfig["혼합"]
 

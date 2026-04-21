@@ -6,11 +6,22 @@ import { useScrollLock } from "@/hooks/useScrollLock"
 import type { MacroIndicatorsData, InvestorTrendDay, FuturesItem } from "@/hooks/useMacroIndicators"
 import type { IndicatorHistoryData } from "@/hooks/useIndicatorHistory"
 
+interface IndexInfo {
+  current: number
+  ma5?: number
+  ma10?: number
+  ma20?: number
+  status?: string
+}
+
 interface MacroIndicatorsProps {
   data: MacroIndicatorsData
   history?: IndicatorHistoryData | null
   historyLoading?: boolean
   onRequestHistory?: () => void
+  kospiIndex?: IndexInfo
+  kosdaqIndex?: IndexInfo
+  investorTrend?: { kospi?: { change_pct?: number }; kosdaq?: { change_pct?: number } }[]
 }
 
 const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200", "EWY", "KORU", "^VIX", "FNG"]
@@ -26,9 +37,12 @@ const INDICATOR_DESC: Record<string, string> = {
   "KOSPI200": "코스피200 지수. 한국거래소 대표 대형주 200종목으로 구성된 시가총액 가중 지수. 한국 시장 전반의 방향성을 나타내는 핵심 벤치마크.",
   "EWY": "iShares MSCI South Korea ETF. 미국에 상장된 한국 대표 ETF. 외국인 투자자의 한국 시장 투자 심리를 반영.",
   "KORU": "Direxion Daily South Korea Bull 3X. 한국 시장 3배 레버리지 ETF. 외국인의 한국 시장 공격적 매수/매도 심리 반영.",
+  "069500": "KODEX 200 ETF. 코스피200 지수를 추종하는 국내 최대 규모 상장지수펀드. 기관·외국인의 대표적 지수 추종 매매 수단.",
   "SOXX": "iShares Semiconductor ETF. 미국 반도체 섹터 ETF. 삼성전자·SK하이닉스 등 한국 반도체주와 높은 상관관계.",
   "^VIX": "CBOE 변동성지수 (공포지수). S&P500 옵션의 내재 변동성 측정. 20 이하 안정, 30 이상 공포 구간.",
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
+  "KOSPI": "코스피 종합지수. 한국거래소 유가증권시장 전 종목 시가총액 가중 지수. 한국 주식시장의 대표 벤치마크.",
+  "KOSDAQ": "코스닥 종합지수. 코스닥시장 전 종목 시가총액 가중 지수. 중소·벤처·기술주 중심의 성장 시장.",
   "^DJI": "다우존스 산업평균지수. 미국 대표 30개 대형 우량주로 구성. 전통 산업·금융주 비중이 높아 미국 경제 전반의 체감 지표.",
   "^GSPC": "S&P500 지수. 미국 500대 기업 시가총액 가중 지수. 글로벌 투자의 최대 벤치마크.",
   "^IXIC": "나스닥 종합지수. 나스닥 상장 전 종목 포함. 기술·성장주 비중이 높아 혁신 섹터 방향성 반영.",
@@ -40,14 +54,14 @@ const INDICATOR_DESC: Record<string, string> = {
 const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "OIL_F": "원유", "GOLD_F": "금" }
 const TODAY_KST = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}` })()
 
-function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: FuturesItem[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {
+function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory, extraFutures }: { data: FuturesItem[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void; extraFutures?: FuturesItem[] }) {
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [chartHidden, setChartHidden] = useState<Set<string>>(new Set())
   const { handleRef, sheetRef } = useSwipeToDismiss(() => setShowHistory(false), 80, showHistory)
   useScrollLock(showHistory)
 
-  const filtered = data.filter(item => item.symbol !== "NQ_F")
+  const filtered = [...(extraFutures || []), ...data.filter(item => item.symbol !== "NQ_F")]
   if (!filtered || filtered.length === 0) return null
 
   const handleHistoryClick = (e: React.MouseEvent) => {
@@ -121,21 +135,30 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
 
       {/* 펼친 상태 */}
       {expanded && (
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-0.5 px-1">
+        <div className="grid grid-cols-2 gap-1.5 mt-1 px-1">
           {filtered.map((item) => {
             const isUp = item.change > 0
             const isDown = item.change < 0
-            const accent = isUp ? "border-l-red-500/60" : isDown ? "border-l-blue-500/60" : "border-l-border"
+            const prev = item.price - item.change
             const priceStr = item.price >= 10000
               ? item.price.toLocaleString(undefined, { maximumFractionDigits: 2 })
               : item.price.toFixed(2)
             return (
-              <div key={item.symbol} className={`rounded-md border border-border/50 border-l-2 ${accent} bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1`}>
-                <span className="text-[10px] text-muted-foreground/60 font-medium truncate leading-none">{item.name}</span>
-                <span className="text-[13px] font-bold tabular-nums tracking-tight leading-none text-foreground">{priceStr}</span>
-                <span className={`text-[10px] font-medium tabular-nums leading-none ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
-                  {isUp ? "+" : ""}{item.change_pct.toFixed(2)}%
-                </span>
+              <div
+                key={item.symbol}
+                className={`relative rounded-lg px-3 py-2 overflow-hidden transition-all duration-200 hover:scale-[1.01] ${
+                  isUp ? "bg-red-500/[0.04] dark:bg-red-500/[0.06]" : isDown ? "bg-blue-500/[0.04] dark:bg-blue-500/[0.06]" : "bg-muted/30"
+                }`}
+              >
+                <div className={`absolute left-0 top-2 bottom-2 w-[2px] rounded-full ${isUp ? "bg-red-400/60" : isDown ? "bg-blue-400/60" : "bg-border/40"}`} />
+                <span className="text-[10px] text-muted-foreground/60 font-medium truncate block">{item.name}</span>
+                <span className="text-[14px] font-bold tabular-nums tracking-tight text-foreground leading-snug">{priceStr}</span>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className={`text-[10px] font-semibold tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/35"}`}>
+                    {isUp ? "▲" : isDown ? "▼" : ""}{Math.abs(item.change_pct).toFixed(2)}%
+                  </span>
+                  {prev > 0 && <span className="text-[9px] text-muted-foreground/30 tabular-nums">전일 {prev.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>}
+                </div>
               </div>
             )
           })}
@@ -625,7 +648,7 @@ function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; 
   )
 }
 
-export function MacroIndicators({ data, history, historyLoading, onRequestHistory }: MacroIndicatorsProps) {
+export function MacroIndicators({ data, history, historyLoading, onRequestHistory, kospiIndex, kosdaqIndex, investorTrend }: MacroIndicatorsProps) {
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null)
@@ -733,10 +756,29 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
       {expanded && (() => {
         const fng = indicatorMap.get("FNG")
         const vix = indicatorMap.get("^VIX")
+        // KOSPI/KOSDAQ를 indicator 형태로 변환 (등락률은 investorTrend에서)
+        const latestTrend = investorTrend && investorTrend.length > 0 ? investorTrend[investorTrend.length - 1] : null
+        const domesticIndices: typeof data.indicators = []
+        if (kospiIndex?.current) {
+          const pct = latestTrend?.kospi?.change_pct ?? 0
+          const change = kospiIndex.current * pct / 100
+          domesticIndices.push({ symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis" })
+        }
+        if (kosdaqIndex?.current) {
+          const pct = latestTrend?.kosdaq?.change_pct ?? 0
+          const change = kosdaqIndex.current * pct / 100
+          domesticIndices.push({ symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis" })
+        }
+
         const GLOBAL_INDEX_SYMBOLS = ["^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225"]
-        const globalIndices = GLOBAL_INDEX_SYMBOLS.map(s => indicatorMap.get(s)).filter(Boolean)
-        const SKIP = new Set(["FNG", "^VIX", ...GLOBAL_INDEX_SYMBOLS])
-        const otherMacro = data.indicators.filter(i => !SKIP.has(i.symbol))
+        const globalIndices = [
+          ...domesticIndices,
+          ...GLOBAL_INDEX_SYMBOLS.map(s => indicatorMap.get(s)).filter(Boolean),
+        ]
+        const SKIP = new Set(["FNG", "^VIX", "KOSPI", "KOSDAQ", "NQ=F", ...GLOBAL_INDEX_SYMBOLS])
+        const otherMacro = data.indicators.filter(i => !SKIP.has(i.symbol)).map(i =>
+          i.symbol === "069500" ? { ...i, name: "KODEX 200" } : i
+        )
 
         const fmtPrice = (item: { price: number; source: string }) =>
           item.source === "kis_futures" ? item.price.toFixed(2)
@@ -749,49 +791,78 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           const isDown = item.change_pct < 0
           const prev = item.price - item.change
           return (
-            <div onClick={onClick} className="rounded-lg border border-border/40 bg-card/60 px-3 py-2.5 flex flex-col gap-1 cursor-pointer hover:bg-card transition-colors">
-              <span className="text-[10px] text-muted-foreground/70 font-medium truncate">{item.name}</span>
-              <span className="text-[15px] font-bold tabular-nums tracking-tight text-foreground">{fmtPrice(item)}</span>
-              <div className="flex items-center gap-1.5">
-                <span className={`text-[10px] font-semibold tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
-                  {isUp ? "+" : ""}{item.change_pct.toFixed(2)}%
+            <div
+              onClick={onClick}
+              className={`relative rounded-lg px-3 py-2 cursor-pointer transition-all duration-200 hover:scale-[1.01] overflow-hidden ${
+                isUp ? "bg-red-500/[0.04] dark:bg-red-500/[0.06]" : isDown ? "bg-blue-500/[0.04] dark:bg-blue-500/[0.06]" : "bg-muted/30"
+              }`}
+            >
+              <div className={`absolute left-0 top-2 bottom-2 w-[2px] rounded-full ${isUp ? "bg-red-400/60" : isDown ? "bg-blue-400/60" : "bg-border/40"}`} />
+              <span className="text-[10px] text-muted-foreground/60 font-medium truncate block">{item.name}</span>
+              <span className="text-[14px] font-bold tabular-nums tracking-tight text-foreground leading-snug">{fmtPrice(item)}</span>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className={`text-[10px] font-semibold tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/35"}`}>
+                  {isUp ? "▲" : isDown ? "▼" : ""}{Math.abs(item.change_pct).toFixed(2)}%
                 </span>
-                {prev > 0 && <span className="text-[9px] text-muted-foreground/40 tabular-nums">전일 {prev.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>}
+                {prev > 0 && <span className="text-[9px] text-muted-foreground/30 tabular-nums">전일 {prev.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>}
               </div>
             </div>
           )
         }
 
+        const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-widest">{children}</span>
+            <div className="flex-1 h-px bg-border/30" />
+          </div>
+        )
+
         return (
-          <div className="mt-2 px-1 space-y-4">
+          <div className="mt-2 px-1 space-y-3">
             {/* 1. F&G + VIX */}
             {(fng || vix) && (
               <div className="grid grid-cols-2 gap-2">
                 {fng && (
-                  <div onClick={() => setSelectedIndicator("FNG")} className="rounded-lg border border-border/40 bg-card/60 px-3 py-2.5 cursor-pointer hover:bg-card transition-colors">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-muted-foreground/70 font-medium">공포·탐욕 지수</span>
-                      <span className="text-[15px] font-bold tabular-nums">{fng.price.toFixed(1)}</span>
+                  <div
+                    onClick={() => setSelectedIndicator("FNG")}
+                    className="rounded-lg px-3 py-2.5 cursor-pointer transition-all hover:scale-[1.01] bg-gradient-to-br from-amber-50/60 to-orange-50/30 dark:from-amber-500/[0.06] dark:to-orange-500/[0.03] border border-amber-200/30 dark:border-amber-500/10"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-muted-foreground/60 font-medium">공포·탐욕</span>
+                      <span className="text-lg font-black tabular-nums text-foreground">{fng.price.toFixed(1)}</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-gradient-to-r from-blue-500 via-yellow-400 to-red-500 relative">
-                      <div className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white border-2 border-foreground/70 shadow" style={{ left: `${Math.min(100, Math.max(0, fng.price))}%`, transform: "translate(-50%, -50%)" }} />
+                    <div className="w-full h-1.5 rounded-full bg-gradient-to-r from-blue-500 via-emerald-400 via-amber-400 to-red-500 relative mt-1.5 opacity-80">
+                      <div
+                        className="absolute top-1/2 w-3 h-3 rounded-full bg-white shadow-md border-2 border-foreground/50"
+                        style={{ left: `${Math.min(96, Math.max(4, fng.price))}%`, transform: "translate(-50%, -50%)" }}
+                      />
                     </div>
-                    <span className={`text-[10px] font-medium mt-1 block ${fng.price >= 75 ? "text-red-500" : fng.price >= 50 ? "text-amber-500" : fng.price >= 25 ? "text-amber-600" : "text-blue-500"}`}>
-                      {fng.price >= 75 ? "극단적 탐욕" : fng.price >= 55 ? "탐욕" : fng.price >= 45 ? "중립" : fng.price >= 25 ? "공포" : "극단적 공포"}
+                    <span className={`text-[10px] font-semibold mt-1 block ${fng.price >= 75 ? "text-red-500" : fng.price >= 55 ? "text-amber-500" : fng.price >= 45 ? "text-muted-foreground/50" : fng.price >= 25 ? "text-blue-400" : "text-blue-500"}`}>
+                      {fng.price >= 75 ? "극단적 탐욕" : fng.price >= 55 ? "탐욕 구간" : fng.price >= 45 ? "중립" : fng.price >= 25 ? "공포 구간" : "극단적 공포"}
                     </span>
                   </div>
                 )}
                 {vix && (
-                  <div onClick={() => setSelectedIndicator("^VIX")} className="rounded-lg border border-border/40 bg-card/60 px-3 py-2.5 cursor-pointer hover:bg-card transition-colors">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] text-muted-foreground/70 font-medium">VIX 변동성</span>
-                      <span className="text-[15px] font-bold tabular-nums">{vix.price.toFixed(2)}</span>
+                  <div
+                    onClick={() => setSelectedIndicator("^VIX")}
+                    className={`rounded-lg px-3 py-2.5 cursor-pointer transition-all hover:scale-[1.01] border ${
+                      vix.price >= 30 ? "bg-gradient-to-br from-red-50/60 to-rose-50/30 dark:from-red-500/[0.06] dark:to-rose-500/[0.03] border-red-200/30 dark:border-red-500/10"
+                      : vix.price >= 20 ? "bg-gradient-to-br from-amber-50/40 to-yellow-50/20 dark:from-amber-500/[0.04] dark:to-yellow-500/[0.02] border-amber-200/20 dark:border-amber-500/8"
+                      : "bg-gradient-to-br from-emerald-50/40 to-green-50/20 dark:from-emerald-500/[0.04] dark:to-green-500/[0.02] border-emerald-200/20 dark:border-emerald-500/8"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-muted-foreground/60 font-medium">VIX</span>
+                      <span className="text-lg font-black tabular-nums text-foreground">{vix.price.toFixed(2)}</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-gradient-to-r from-emerald-500 via-yellow-400 to-red-500 relative">
-                      <div className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white border-2 border-foreground/70 shadow" style={{ left: `${Math.min(100, Math.max(0, vix.price / 40 * 100))}%`, transform: "translate(-50%, -50%)" }} />
+                    <div className="w-full h-1.5 rounded-full bg-gradient-to-r from-emerald-400 via-amber-400 to-red-500 relative mt-1.5 opacity-80">
+                      <div
+                        className="absolute top-1/2 w-3 h-3 rounded-full bg-white shadow-md border-2 border-foreground/50"
+                        style={{ left: `${Math.min(96, Math.max(4, vix.price / 40 * 100))}%`, transform: "translate(-50%, -50%)" }}
+                      />
                     </div>
-                    <span className={`text-[10px] font-medium mt-1 block ${vix.price >= 30 ? "text-red-500" : vix.price >= 20 ? "text-amber-500" : "text-emerald-500"}`}>
-                      {vix.price >= 30 ? "공포" : vix.price >= 20 ? "보통" : "안정"}
+                    <span className={`text-[10px] font-semibold mt-1 block ${vix.price >= 30 ? "text-red-500" : vix.price >= 20 ? "text-amber-500" : "text-emerald-500"}`}>
+                      {vix.price >= 30 ? "공포 구간" : vix.price >= 20 ? "보통" : "안정 구간"}
                     </span>
                   </div>
                 )}
@@ -801,8 +872,8 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             {/* 2. 글로벌 지수 */}
             {globalIndices.length > 0 && (
               <div>
-                <span className="text-[11px] font-semibold text-foreground/70 mb-1.5 block">글로벌 지수</span>
-                <div className="grid grid-cols-2 gap-2">
+                <SectionLabel>글로벌 지수</SectionLabel>
+                <div className="grid grid-cols-2 gap-1.5">
                   {globalIndices.map(item => item && (
                     <MacroCard key={item.symbol} item={item} onClick={() => setSelectedIndicator(item.symbol)} />
                   ))}
@@ -813,8 +884,8 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             {/* 3. 글로벌 매크로 */}
             {otherMacro.length > 0 && (
               <div>
-                <span className="text-[11px] font-semibold text-foreground/70 mb-1.5 block">글로벌 매크로</span>
-                <div className="grid grid-cols-2 gap-2">
+                <SectionLabel>글로벌 매크로</SectionLabel>
+                <div className="grid grid-cols-2 gap-1.5">
                   {otherMacro.map(item => (
                     <MacroCard key={item.symbol} item={item} onClick={() => setSelectedIndicator(item.symbol)} />
                   ))}
@@ -848,7 +919,9 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
       {/* 주요 선물 */}
       {data.futures && data.futures.length > 0 && (
-        <FuturesBar data={data.futures} updatedAt={data.updated_at} history={history} historyLoading={historyLoading} onRequestHistory={onRequestHistory} />
+        <FuturesBar data={data.futures} updatedAt={data.updated_at} history={history} historyLoading={historyLoading} onRequestHistory={onRequestHistory}
+          extraFutures={data.indicators.filter(i => i.symbol === "NQ=F").map(i => ({ symbol: i.symbol, name: i.name, price: i.price, change: i.change, change_pct: i.change_pct, status: i.change_pct > 0 ? "up" : i.change_pct < 0 ? "down" : "flat", source: i.source }))}
+        />
       )}
 
       {/* 투자자 수급 */}
