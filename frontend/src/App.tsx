@@ -413,6 +413,17 @@ function App() {
   const displayData = historyData || currentData
   const isViewingHistory = !!historyData
 
+  // 전체 데이터 소스 중 가장 최근 타임스탬프
+  const latestTimestamp = useMemo(() => {
+    const candidates = [
+      displayData?.timestamp,
+      macroData?.updated_at,
+      vpData?.updated_at,
+    ].filter(Boolean) as string[]
+    if (candidates.length === 0) return undefined
+    return candidates.sort().pop()
+  }, [displayData?.timestamp, macroData?.updated_at, vpData?.updated_at])
+
   // 종목별 등락률 이력: 별도 파일 우선, fallback은 latest.json 내장 history
   const mergedHistory = stockHistoryData || displayData?.history || {}
 
@@ -832,10 +843,11 @@ function App() {
   }
 
   // 요일 계산
+
   return (
     <div ref={containerRef} className="min-h-screen bg-background">
       <Header
-        timestamp={displayData?.timestamp}
+        timestamp={latestTimestamp}
         onRefresh={handleRefresh}
         loading={loading}
         compactMode={compactMode}
