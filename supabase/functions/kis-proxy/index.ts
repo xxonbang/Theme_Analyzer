@@ -125,19 +125,49 @@ Deno.serve(async (req) => {
     let result: Record<string, unknown> = {}
 
     // --- GitHub 알림 토글 (KIS credentials 불필요) ---
-    if (action === "get-notify") {
+    if (action === "get-notify-settings") {
+      const GITHUB_REPO = "xxonbang/theme-analyzer"
+      const { data: ghCreds } = await serviceClient.table("api_credentials").select("credential_value").eq("service_name", "github").eq("credential_type", "pat").eq("is_active", true).single()
+      if (!ghCreds) throw new Error("GitHub PAT not found in DB")
+      const vars = ["TELEGRAM_NOTIFY", "TELEGRAM_MARKET_CLOSE", "TELEGRAM_FAILURE"]
+      const settings: Record<string, boolean> = {}
+      for (const v of vars) {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/variables/${v}`, {
+          headers: { Authorization: `Bearer ${ghCreds.credential_value}`, Accept: "application/vnd.github+json" },
+        })
+        if (res.ok) {
+          const d = await res.json()
+          settings[v] = d.value !== "false"
+        } else {
+          settings[v] = true
+        }
+      }
+      result = { settings }
+
+    } else if (action === "set-notify-setting") {
+      const key = body.key as string
+      const enabled = body.enabled === true
+      const ALLOWED = ["TELEGRAM_NOTIFY", "TELEGRAM_MARKET_CLOSE", "TELEGRAM_FAILURE"]
+      if (!ALLOWED.includes(key)) throw new Error("Invalid setting key")
+      const GITHUB_REPO = "xxonbang/theme-analyzer"
+      const { data: ghCreds } = await serviceClient.table("api_credentials").select("credential_value").eq("service_name", "github").eq("credential_type", "pat").eq("is_active", true).single()
+      if (!ghCreds) throw new Error("GitHub PAT not found in DB")
+      const ghRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/variables/${key}`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${ghCreds.credential_value}`, Accept: "application/vnd.github+json" },
+        body: JSON.stringify({ value: enabled ? "true" : "false" }),
+      })
+      result = { ok: ghRes.status === 204, key, enabled }
+
+    // 하위 호환: 기존 get-notify / set-notify
+    } else if (action === "get-notify") {
       const GITHUB_REPO = "xxonbang/theme-analyzer"
       const { data: ghCreds } = await serviceClient.table("api_credentials").select("credential_value").eq("service_name", "github").eq("credential_type", "pat").eq("is_active", true).single()
       if (!ghCreds) throw new Error("GitHub PAT not found in DB")
       const ghRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/variables/TELEGRAM_NOTIFY`, {
         headers: { Authorization: `Bearer ${ghCreds.credential_value}`, Accept: "application/vnd.github+json" },
       })
-      if (ghRes.ok) {
-        const d = await ghRes.json()
-        result = { enabled: d.value === "true" }
-      } else {
-        result = { enabled: false }
-      }
+      result = { enabled: ghRes.ok ? (await ghRes.json()).value === "true" : false }
 
     } else if (action === "set-notify") {
       const enabled = body.enabled === true

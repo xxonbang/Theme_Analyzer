@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-04-21
+
+### [기능] 텔레그램 알림 설정 메뉴 (개별 토글) (2026-04-21 10:30 KST)
+- **변경 파일**: `.github/workflows/*.yml` (10개), `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`, `frontend/src/components/Header.tsx`
+- **내용**:
+  - 3개 독립 토글: 워크플로우 시작/완료, 장 마감 TOP10, 워크플로우 실패
+  - GitHub Variables: TELEGRAM_NOTIFY, TELEGRAM_MARKET_CLOSE, TELEGRAM_FAILURE
+  - Header 더보기 > 설정 메뉴에 토글 스위치 UI 구현
+  - Edge Function: get-notify-settings / set-notify-setting 액션 추가
+
 ## 2026-04-20
 
 ### [버그픽스] MacroIndicators/VolumeProfilePopup merge conflict 복원 (2026-04-20 11:17 KST)

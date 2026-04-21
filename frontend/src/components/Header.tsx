@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react"
-import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical, BrainCircuit, Bell, BellOff } from "lucide-react"
+import { RefreshCw, LayoutGrid, List, Calendar, History, LineChart, LogOut, Sparkles, Sun, Moon, Search, CalendarClock, Briefcase, MoreVertical, BrainCircuit, Settings } from "lucide-react"
 import { cn, getWeekday } from "@/lib/utils"
 import { useAuth } from "@/hooks/useAuth"
-import { getNotifyEnabled, setNotifyEnabled } from "@/lib/kis-api"
+import { getNotifySettings, setNotifySetting, type NotifySettingsKey } from "@/lib/kis-api"
 import { EyeChartLogo } from "@/components/EyeChartLogo"
 import { IconButton } from "@/components/IconButton"
 
@@ -35,21 +35,34 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipFading, setTooltipFading] = useState(false)
   const [moreMenuOpen, setMoreMenuOpen] = useState(false)
-  const [notifyEnabled, setNotifyState] = useState<boolean | null>(null)
-  const [notifyLoading, setNotifyLoading] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [notifySettings, setNotifySettings] = useState<Record<NotifySettingsKey, boolean> | null>(null)
+  const [settingsLoading, setSettingsLoading] = useState<NotifySettingsKey | null>(null)
+  const settingsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (isAdmin) getNotifyEnabled().then(setNotifyState)
-  }, [isAdmin])
+    if (isAdmin && settingsOpen && !notifySettings) {
+      getNotifySettings().then(setNotifySettings)
+    }
+  }, [isAdmin, settingsOpen, notifySettings])
 
-  const handleToggleNotify = useCallback(async () => {
-    if (notifyLoading || notifyEnabled === null) return
-    setNotifyLoading(true)
-    const next = !notifyEnabled
-    const ok = await setNotifyEnabled(next)
-    if (ok) setNotifyState(next)
-    setNotifyLoading(false)
-  }, [notifyEnabled, notifyLoading])
+  useEffect(() => {
+    if (!settingsOpen) return
+    const handleClick = (e: MouseEvent) => {
+      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) setSettingsOpen(false)
+    }
+    document.addEventListener("mousedown", handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
+  }, [settingsOpen])
+
+  const handleToggleSetting = useCallback(async (key: NotifySettingsKey) => {
+    if (settingsLoading || !notifySettings) return
+    setSettingsLoading(key)
+    const next = !notifySettings[key]
+    const ok = await setNotifySetting(key, next)
+    if (ok) setNotifySettings(prev => prev ? { ...prev, [key]: next } : prev)
+    setSettingsLoading(null)
+  }, [notifySettings, settingsLoading])
   const [logoLoading, setLogoLoading] = useState(false)
   const logoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const moreMenuRef = useRef<HTMLDivElement>(null)
@@ -344,6 +357,51 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
             </IconButton>
           )}
 
+          {/* Settings Panel */}
+          {settingsOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/25" onClick={() => setSettingsOpen(false)} />
+              <div ref={settingsRef} className="relative bg-popover border border-border rounded-xl shadow-xl w-72 p-4 animate-in fade-in-0 zoom-in-95 duration-150">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-semibold">텔레그램 알림 설정</span>
+                  <button onClick={() => setSettingsOpen(false)} className="text-muted-foreground hover:text-foreground p-0.5">✕</button>
+                </div>
+                {!notifySettings ? (
+                  <p className="text-xs text-muted-foreground animate-pulse py-4 text-center">로딩 중...</p>
+                ) : (
+                  <div className="space-y-3">
+                    {([
+                      { key: "TELEGRAM_NOTIFY" as NotifySettingsKey, label: "워크플로우 시작/완료", desc: "수집 작업 시작·완료 시 알림" },
+                      { key: "TELEGRAM_MARKET_CLOSE" as NotifySettingsKey, label: "장 마감 TOP10", desc: "거래대금/거래량 상승·하락 TOP10" },
+                      { key: "TELEGRAM_FAILURE" as NotifySettingsKey, label: "워크플로우 실패", desc: "수집 작업 실패 시 오류 알림" },
+                    ]).map(({ key, label, desc }) => (
+                      <div key={key} className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs font-medium">{label}</p>
+                          <p className="text-[10px] text-muted-foreground">{desc}</p>
+                        </div>
+                        <button
+                          onClick={() => handleToggleSetting(key)}
+                          disabled={settingsLoading === key}
+                          className={cn(
+                            "relative w-10 h-5 rounded-full transition-colors shrink-0 ml-3",
+                            notifySettings[key] ? "bg-emerald-500" : "bg-muted-foreground/30",
+                            settingsLoading === key && "opacity-50"
+                          )}
+                        >
+                          <div className={cn(
+                            "absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform",
+                            notifySettings[key] ? "translate-x-5" : "translate-x-0.5"
+                          )} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Refresh Elapsed Time (admin only) */}
           {isAdmin && loading && refreshElapsed != null && refreshElapsed > 0 && (
             <span className="text-xs text-muted-foreground tabular-nums animate-pulse">
@@ -371,16 +429,13 @@ export function Header({ timestamp, onRefresh, loading, compactMode, onToggleCom
                     {loading ? "수집 취소" : "데이터 새로고침"}
                   </button>
                 )}
-                {isAdmin && notifyEnabled !== null && (
+                {isAdmin && (
                   <button
-                    onClick={() => { handleToggleNotify() }}
-                    className={cn(
-                      "flex items-center gap-2 w-full px-3 py-2 text-sm transition-colors",
-                      notifyLoading ? "opacity-50 pointer-events-none" : "hover:bg-muted"
-                    )}
+                    onClick={() => { setMoreMenuOpen(false); setSettingsOpen(true) }}
+                    className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-muted transition-colors"
                   >
-                    {notifyEnabled ? <Bell className="w-4 h-4 text-emerald-500" /> : <BellOff className="w-4 h-4 text-muted-foreground" />}
-                    텔레그램 알림 {notifyEnabled ? "ON" : "OFF"}
+                    <Settings className="w-4 h-4" />
+                    설정
                   </button>
                 )}
                 <button

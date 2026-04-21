@@ -54,7 +54,7 @@ export async function fetchKisExchangeRates(): Promise<Record<string, KisExchang
 }
 
 /**
- * 텔레그램 알림 설정 조회
+ * 텔레그램 알림 설정 조회 (하위 호환)
  */
 export async function getNotifyEnabled(): Promise<boolean> {
   try {
@@ -64,11 +64,35 @@ export async function getNotifyEnabled(): Promise<boolean> {
 }
 
 /**
- * 텔레그램 알림 설정 변경
+ * 텔레그램 알림 설정 변경 (하위 호환)
  */
 export async function setNotifyEnabled(enabled: boolean): Promise<boolean> {
   try {
     const data = await callKisProxy({ action: "set-notify", enabled })
+    return data.ok === true
+  } catch { return false }
+}
+
+export type NotifySettingsKey = "TELEGRAM_NOTIFY" | "TELEGRAM_MARKET_CLOSE" | "TELEGRAM_FAILURE"
+
+/**
+ * 텔레그램 알림 전체 설정 조회
+ */
+export async function getNotifySettings(): Promise<Record<NotifySettingsKey, boolean>> {
+  try {
+    const data = await callKisProxy({ action: "get-notify-settings" })
+    return (data.settings as Record<NotifySettingsKey, boolean>) ?? { TELEGRAM_NOTIFY: false, TELEGRAM_MARKET_CLOSE: true, TELEGRAM_FAILURE: true }
+  } catch {
+    return { TELEGRAM_NOTIFY: false, TELEGRAM_MARKET_CLOSE: true, TELEGRAM_FAILURE: true }
+  }
+}
+
+/**
+ * 텔레그램 알림 개별 설정 변경
+ */
+export async function setNotifySetting(key: NotifySettingsKey, enabled: boolean): Promise<boolean> {
+  try {
+    const data = await callKisProxy({ action: "set-notify-setting", key, enabled })
     return data.ok === true
   } catch { return false }
 }
