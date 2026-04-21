@@ -1,0 +1,342 @@
+{
+  "trade_date": "2026-04-21",
+  "morning_timestamp": "2026-04-21 09:11:38",
+  "collected_at": "2026-04-21 15:41:08",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-21 09:11:38",
+      "prices": {
+        "047040": 31450,
+        "000660": 1209000,
+        "036930": 104500,
+        "006400": 566000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 09:32:26",
+      "prices": {
+        "047040": 32050,
+        "036930": 107900,
+        "006400": 584000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 09:32:43",
+      "prices": {
+        "047040": 31450,
+        "000660": 1209000,
+        "036930": 104500,
+        "006400": 581000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 10:02:49",
+      "prices": {
+        "047040": 31450,
+        "000660": 1209000,
+        "036930": 104500,
+        "006400": 581000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 12:01:53",
+      "prices": {
+        "047040": 31450,
+        "000660": 1209000,
+        "036930": 104500,
+        "006400": 581000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 12:34:49",
+      "prices": {
+        "047040": 33800,
+        "000660": 1215000,
+        "036930": 118900,
+        "006400": 626000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 13:26:43",
+      "prices": {
+        "047040": 33800,
+        "000660": 1221000,
+        "036930": 118900,
+        "006400": 628000
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-21 14:36:47",
+      "prices": {
+        "047040": 33800,
+        "000660": 1220000,
+        "036930": 118900,
+        "006400": 641500
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 및 차세대 IT 하드웨어"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/전기차 및 ESS"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설/인프라 투자 확대",
+      "market": "KOSPI",
+      "buy_price": 31450,
+      "close_price": 32850,
+      "profit_rate": 4.45,
+      "profit_amount": 1400,
+      "high_price": 34650,
+      "high_time": "11:52",
+      "high_profit_rate": 10.17,
+      "high_profit_amount": 3200,
+      "low_price": 28850,
+      "low_profit_rate": -8.27,
+      "low_profit_amount": -2600,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI 반도체 및 차세대 IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 1209000,
+      "close_price": 1224000,
+      "profit_rate": 1.24,
+      "profit_amount": 15000,
+      "high_price": 1228000,
+      "high_time": "15:14",
+      "high_profit_rate": 1.57,
+      "high_profit_amount": 19000,
+      "low_price": 1193000,
+      "low_profit_rate": -1.32,
+      "low_profit_amount": -16000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "AI 반도체 및 차세대 IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 104500,
+      "close_price": 118900,
+      "profit_rate": 13.78,
+      "profit_amount": 14400,
+      "high_price": 118900,
+      "high_time": "15:30",
+      "high_profit_rate": 13.78,
+      "high_profit_amount": 14400,
+      "low_price": 93400,
+      "low_profit_rate": -10.62,
+      "low_profit_amount": -11100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "2차전지/전기차 및 ESS",
+      "market": "KOSPI",
+      "buy_price": 566000,
+      "close_price": 645000,
+      "profit_rate": 13.96,
+      "profit_amount": 79000,
+      "high_price": 648000,
+      "high_time": "14:27",
+      "high_profit_rate": 14.49,
+      "high_profit_amount": 82000,
+      "low_price": 557000,
+      "low_profit_rate": -1.59,
+      "low_profit_amount": -9000,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 4,
+    "profit_stocks": 4,
+    "loss_stocks": 0,
+    "total_invested": 1910950,
+    "total_value": 2020750,
+    "total_profit": 109800,
+    "total_profit_rate": 5.75,
+    "high_total_value": 2029550,
+    "high_total_profit": 118600,
+    "high_total_profit_rate": 6.21,
+    "high_profit_stocks": 4,
+    "high_loss_stocks": 0
+  }
+}
