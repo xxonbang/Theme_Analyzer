@@ -124,6 +124,47 @@ def collect_fear_greed() -> dict | None:
         return None
 
 
+GLOBAL_INDICES = [
+    ("^DJI", "다우존스"),
+    ("^GSPC", "S&P500"),
+    ("^IXIC", "나스닥종합"),
+    ("^STOXX50E", "유로스톡스50"),
+    ("000001.SS", "상하이종합"),
+    ("^N225", "니케이225"),
+]
+
+
+def collect_global_indices() -> list[dict]:
+    """yfinance로 글로벌 주요 지수 수집."""
+    results = []
+    try:
+        import yfinance as yf
+        for symbol, name in GLOBAL_INDICES:
+            try:
+                ticker = yf.Ticker(symbol)
+                info = ticker.fast_info
+                price = info.last_price
+                prev = info.previous_close
+                if price is None or prev is None:
+                    continue
+                change = round(price - prev, 2)
+                change_pct = round(change / prev * 100, 2) if prev else 0
+                results.append({
+                    "symbol": symbol,
+                    "name": name,
+                    "price": round(price, 2),
+                    "change": change,
+                    "change_pct": change_pct,
+                    "source": "yfinance",
+                    "category": "global_index",
+                })
+            except Exception as e:
+                print(f"    [오류] {name}({symbol}): {e}")
+    except ImportError:
+        print("    [오류] yfinance 미설치")
+    return results
+
+
 def collect_kospi200_index() -> dict | None:
     """yfinance로 KOSPI200 지수 현재가/등락 수집."""
     try:
@@ -362,7 +403,17 @@ def main():
         indicators.append(fng)
         print(f"    → {fng['price']} ({fng['name']})")
 
-    # 7. 환율 (다중 소스)
+    # 7. 글로벌 지수 (yfinance)
+    print("  글로벌 지수...")
+    global_indices = collect_global_indices()
+    if global_indices:
+        indicators.extend(global_indices)
+        for gi in global_indices:
+            print(f"    → {gi['name']}: {gi['price']} ({gi['change']:+.2f}, {gi['change_pct']:+.2f}%)")
+    else:
+        print("    → 글로벌 지수 수집 실패")
+
+    # 8. 환율 (다중 소스)
     print("  환율 수집...")
     exchange = get_quick_exchange_rates()
     if exchange:
@@ -370,7 +421,7 @@ def main():
     else:
         print("    → 환율 수집 실패")
 
-    # 8. 주요 선물 (esignal.co.kr)
+    # 9. 주요 선물 (esignal.co.kr)
     print("  주요 선물 (esignal)...")
     esignal_futures = collect_esignal_futures()
     if esignal_futures:
@@ -380,7 +431,7 @@ def main():
     else:
         print("    → 선물 수집 실패")
 
-    # 9. 시장별 투자자 수급 (KIS)
+    # 10. 시장별 투자자 수급 (KIS)
     print("  시장별 투자자 수급...")
     investor_trend = collect_market_investor_trend(client)
     if investor_trend:

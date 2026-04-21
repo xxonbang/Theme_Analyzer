@@ -29,6 +29,12 @@ const INDICATOR_DESC: Record<string, string> = {
   "SOXX": "iShares Semiconductor ETF. 미국 반도체 섹터 ETF. 삼성전자·SK하이닉스 등 한국 반도체주와 높은 상관관계.",
   "^VIX": "CBOE 변동성지수 (공포지수). S&P500 옵션의 내재 변동성 측정. 20 이하 안정, 30 이상 공포 구간.",
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
+  "^DJI": "다우존스 산업평균지수. 미국 대표 30개 대형 우량주로 구성. 전통 산업·금융주 비중이 높아 미국 경제 전반의 체감 지표.",
+  "^GSPC": "S&P500 지수. 미국 500대 기업 시가총액 가중 지수. 글로벌 투자의 최대 벤치마크.",
+  "^IXIC": "나스닥 종합지수. 나스닥 상장 전 종목 포함. 기술·성장주 비중이 높아 혁신 섹터 방향성 반영.",
+  "^STOXX50E": "유로스톡스50 지수. 유로존 12개국 대표 50개 대형주. 유럽 경제 방향성 반영.",
+  "000001.SS": "상하이종합지수. 중국 상하이증권거래소 전 종목. 중국 경기·정책 민감도 반영.",
+  "^N225": "닛케이225 지수. 일본 대표 225개 기업. 엔화 약세·강세에 민감, 아시아 시장 선행 지표.",
 }
 
 const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "OIL_F": "원유", "GOLD_F": "금" }
@@ -724,38 +730,100 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
       </button>
 
       {/* 펼친 상태 */}
-      {expanded && (
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-1.5 px-1">
-          {data.indicators.map((item) => {
-            const isUp = item.change_pct > 0
-            const isDown = item.change_pct < 0
-            const priceStr = item.source === "kis_futures"
-              ? item.price.toFixed(2)
-              : item.source === "kis_overseas" || item.source === "yfinance"
-                ? item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                : item.price.toLocaleString()
-            const accent = isUp ? "border-l-red-500/60" : isDown ? "border-l-blue-500/60" : "border-l-border"
+      {expanded && (() => {
+        const fng = indicatorMap.get("FNG")
+        const vix = indicatorMap.get("^VIX")
+        const GLOBAL_INDEX_SYMBOLS = ["^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225"]
+        const globalIndices = GLOBAL_INDEX_SYMBOLS.map(s => indicatorMap.get(s)).filter(Boolean)
+        const SKIP = new Set(["FNG", "^VIX", ...GLOBAL_INDEX_SYMBOLS])
+        const otherMacro = data.indicators.filter(i => !SKIP.has(i.symbol))
 
-            return (
-              <div
-                key={item.symbol}
-                onClick={() => setSelectedIndicator(item.symbol)}
-                className={`rounded-md border border-border/50 border-l-2 ${accent} bg-card/60 backdrop-blur-sm px-2.5 py-2 flex flex-col gap-1 transition-colors hover:bg-card cursor-pointer`}
-              >
-                <span className="text-[10px] text-muted-foreground/60 font-medium truncate leading-none">
-                  {item.name}
-                </span>
-                <span className="text-[13px] font-bold tabular-nums tracking-tight leading-none text-foreground">
-                  {priceStr}
-                </span>
-                <span className={`text-[10px] font-medium tabular-nums leading-none ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
+        const fmtPrice = (item: { price: number; source: string }) =>
+          item.source === "kis_futures" ? item.price.toFixed(2)
+          : item.source === "kis_overseas" || item.source === "yfinance"
+            ? item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            : item.price.toLocaleString()
+
+        const MacroCard = ({ item, onClick }: { item: { symbol: string; name: string; price: number; change: number; change_pct: number; source: string }; onClick?: () => void }) => {
+          const isUp = item.change_pct > 0
+          const isDown = item.change_pct < 0
+          const prev = item.price - item.change
+          return (
+            <div onClick={onClick} className="rounded-lg border border-border/40 bg-card/60 px-3 py-2.5 flex flex-col gap-1 cursor-pointer hover:bg-card transition-colors">
+              <span className="text-[10px] text-muted-foreground/70 font-medium truncate">{item.name}</span>
+              <span className="text-[15px] font-bold tabular-nums tracking-tight text-foreground">{fmtPrice(item)}</span>
+              <div className="flex items-center gap-1.5">
+                <span className={`text-[10px] font-semibold tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}>
                   {isUp ? "+" : ""}{item.change_pct.toFixed(2)}%
                 </span>
+                {prev > 0 && <span className="text-[9px] text-muted-foreground/40 tabular-nums">전일 {prev.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>}
               </div>
-            )
-          })}
-        </div>
-      )}
+            </div>
+          )
+        }
+
+        return (
+          <div className="mt-2 px-1 space-y-4">
+            {/* 1. F&G + VIX */}
+            {(fng || vix) && (
+              <div className="grid grid-cols-2 gap-2">
+                {fng && (
+                  <div onClick={() => setSelectedIndicator("FNG")} className="rounded-lg border border-border/40 bg-card/60 px-3 py-2.5 cursor-pointer hover:bg-card transition-colors">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] text-muted-foreground/70 font-medium">공포·탐욕 지수</span>
+                      <span className="text-[15px] font-bold tabular-nums">{fng.price.toFixed(1)}</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-gradient-to-r from-blue-500 via-yellow-400 to-red-500 relative">
+                      <div className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white border-2 border-foreground/70 shadow" style={{ left: `${Math.min(100, Math.max(0, fng.price))}%`, transform: "translate(-50%, -50%)" }} />
+                    </div>
+                    <span className={`text-[10px] font-medium mt-1 block ${fng.price >= 75 ? "text-red-500" : fng.price >= 50 ? "text-amber-500" : fng.price >= 25 ? "text-amber-600" : "text-blue-500"}`}>
+                      {fng.price >= 75 ? "극단적 탐욕" : fng.price >= 55 ? "탐욕" : fng.price >= 45 ? "중립" : fng.price >= 25 ? "공포" : "극단적 공포"}
+                    </span>
+                  </div>
+                )}
+                {vix && (
+                  <div onClick={() => setSelectedIndicator("^VIX")} className="rounded-lg border border-border/40 bg-card/60 px-3 py-2.5 cursor-pointer hover:bg-card transition-colors">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] text-muted-foreground/70 font-medium">VIX 변동성</span>
+                      <span className="text-[15px] font-bold tabular-nums">{vix.price.toFixed(2)}</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-gradient-to-r from-emerald-500 via-yellow-400 to-red-500 relative">
+                      <div className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white border-2 border-foreground/70 shadow" style={{ left: `${Math.min(100, Math.max(0, vix.price / 40 * 100))}%`, transform: "translate(-50%, -50%)" }} />
+                    </div>
+                    <span className={`text-[10px] font-medium mt-1 block ${vix.price >= 30 ? "text-red-500" : vix.price >= 20 ? "text-amber-500" : "text-emerald-500"}`}>
+                      {vix.price >= 30 ? "공포" : vix.price >= 20 ? "보통" : "안정"}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 2. 글로벌 지수 */}
+            {globalIndices.length > 0 && (
+              <div>
+                <span className="text-[11px] font-semibold text-foreground/70 mb-1.5 block">글로벌 지수</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {globalIndices.map(item => item && (
+                    <MacroCard key={item.symbol} item={item} onClick={() => setSelectedIndicator(item.symbol)} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 3. 글로벌 매크로 */}
+            {otherMacro.length > 0 && (
+              <div>
+                <span className="text-[11px] font-semibold text-foreground/70 mb-1.5 block">글로벌 매크로</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {otherMacro.map(item => (
+                    <MacroCard key={item.symbol} item={item} onClick={() => setSelectedIndicator(item.symbol)} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      })()}
 
       {/* 지표 설명 팝업 */}
       {selectedIndicator && createPortal(

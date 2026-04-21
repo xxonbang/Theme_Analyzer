@@ -6,6 +6,13 @@
 
 ## 2026-04-21
 
+### [기능] 거시지표 섹션 재설계 + 글로벌 지수 6종 추가 (2026-04-21 22:28 KST)
+- **변경 파일**: `collect_macro_indicators.py`, `frontend/src/components/MacroIndicators.tsx`
+- **내용**:
+  - 백엔드: 다우존스, S&P500, 나스닥종합, 유로스톡스50, 상하이종합, 니케이225 yfinance 수집 추가
+  - 프론트엔드: F&G/VIX 게이지바 → 글로벌 지수 → 글로벌 매크로 → 주요 선물 순서 재배치
+  - esignal 나스닥 선물(NQ_F) 중복 제거 (yfinance NQ=F 유지)
+
 ### [개선] 헤더 타임스탬프를 전체 데이터 소스 최신값으로 표시 (2026-04-21 21:58 KST)
 - **변경 파일**: `frontend/src/App.tsx`
 - **내용**: latest.json 외 macro-indicators.json, volume-profile.json 타임스탬프도 비교하여 가장 최근 값을 헤더에 표시
