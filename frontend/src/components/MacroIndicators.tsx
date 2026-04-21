@@ -24,8 +24,7 @@ interface MacroIndicatorsProps {
   investorTrend?: { kospi?: { change_pct?: number }; kosdaq?: { change_pct?: number } }[]
 }
 
-const SUMMARY_SYMBOLS = ["NQ=F", "KOSPI200", "EWY", "KORU", "^VIX", "FNG"]
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200": "K200", "^VIX": "VIX", "FNG": "F&G" }
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200": "K200", "^VIX": "VIX", "FNG": "F&G", "^GSPC": "S&P", "^IXIC": "NAS", "^DJI": "DOW", "^STOXX50E": "EU50", "000001.SS": "상하이", "^N225": "日経", "KOSPI": "코스피", "KOSDAQ": "코스닥", "069500": "KDX2", "MU": "MU" }
 const LINE_COLORS = [
   "var(--color-chart-red)", "var(--color-chart-blue)", "var(--color-chart-amber)",
   "var(--color-chart-green)", "var(--color-chart-violet)", "var(--color-chart-pink)",
@@ -49,6 +48,12 @@ const INDICATOR_DESC: Record<string, string> = {
   "^STOXX50E": "유로스톡스50 지수. 유로존 12개국 대표 50개 대형주. 유럽 경제 방향성 반영.",
   "000001.SS": "상하이종합지수. 중국 상하이증권거래소 전 종목. 중국 경기·정책 민감도 반영.",
   "^N225": "닛케이225 지수. 일본 대표 225개 기업. 엔화 약세·강세에 민감, 아시아 시장 선행 지표.",
+  "MU": "마이크론 테크놀로지(Micron Technology). 세계 3대 메모리 반도체 기업. DRAM·NAND 가격 사이클의 선행 지표로, 삼성전자·SK하이닉스 실적과 직결.",
+  "K200F_DAY": "코스피200 주간선물. 정규장(09:00~15:45) 거래. 기관·외국인의 당일 시장 방향 베팅을 실시간 반영.",
+  "K200F_NGT": "코스피200 야간선물. 야간장(18:00~05:00) 거래. 미국 시장 변동을 반영하여 다음 날 한국 시장 갭 방향을 예측하는 데 활용.",
+  "SPX_F": "S&P500 E-mini 선물. 미국 대형주 500종목 지수 선물. 글로벌 위험자산 선호도를 가장 직접적으로 반영하는 선물 상품.",
+  "OIL_F": "WTI 원유 선물. 미국 서부텍사스산 중질유 기준. 인플레이션·운송비·정유주에 직접 영향. 지정학적 리스크의 바로미터.",
+  "GOLD_F": "금 선물. 대표적 안전자산. 금리 인하 기대·달러 약세·지정학 불안 시 상승. 시장 위험 회피 심리 반영.",
 }
 
 const FUTURES_SHORT: Record<string, string> = { "K200F_DAY": "K200주", "K200F_NGT": "K200야", "SPX_F": "S&P", "OIL_F": "원유", "GOLD_F": "금" }
@@ -114,6 +119,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
               const bg = isUp ? "bg-rose-100 dark:bg-red-500/8" : isDown ? "bg-sky-100 dark:bg-blue-500/8" : "bg-muted/50"
               // 짧은 라벨
               const shortName: Record<string, string> = {
+                "NQ=F": "NQ",
                 "K200F_DAY": "K200주",
                 "K200F_NGT": "K200야",
                 "SPX_F": "S&P",
@@ -568,10 +574,10 @@ function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; 
   return (
     <div className="mb-2">
       {/* 범례 토글 */}
-      <div className="flex flex-wrap gap-1 px-1 mb-1">
+      <div className="flex items-center gap-1 overflow-x-auto scrollbar-none pb-1 mb-1">
         <button
           onClick={() => setHidden(prev => prev.size === 0 ? new Set(rows.map(r => r.name)) : new Set())}
-          className="text-[10px] px-1.5 py-0.5 rounded border border-border/40 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors"
+          className="text-[9px] px-1.5 py-0.5 rounded border border-border/40 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors shrink-0"
         >
           {hidden.size === 0 ? "전체해제" : "전체선택"}
         </button>
@@ -582,7 +588,7 @@ function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; 
             <button
               key={row.name}
               onClick={() => toggle(row.name)}
-              className={`text-[10px] px-1.5 py-0.5 rounded transition-colors ${active ? "font-semibold" : "opacity-30"}`}
+              className={`text-[9px] px-1.5 py-0.5 rounded transition-colors shrink-0 ${active ? "font-semibold" : "opacity-30"}`}
               style={active ? { backgroundColor: color + "18", color } : undefined}
             >
               {row.name}
@@ -658,8 +664,25 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
   if (!data?.indicators?.length) return null
 
+  // KOSPI/KOSDAQ를 indicatorMap에 주입 (별도 props → 통합)
   const indicatorMap = new Map(data.indicators.map((i) => [i.symbol, i]))
-  const summaryItems = SUMMARY_SYMBOLS.map((sym) => indicatorMap.get(sym) ?? { symbol: sym, name: SHORT_NAMES[sym] || sym, price: 0, change: 0, change_pct: 0, source: "missing" })
+  const latestTrend = investorTrend && investorTrend.length > 0 ? investorTrend[investorTrend.length - 1] : null
+  if (kospiIndex?.current && !indicatorMap.has("KOSPI")) {
+    const pct = latestTrend?.kospi?.change_pct ?? 0
+    indicatorMap.set("KOSPI", { symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(kospiIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis" })
+  }
+  if (kosdaqIndex?.current && !indicatorMap.has("KOSDAQ")) {
+    const pct = latestTrend?.kosdaq?.change_pct ?? 0
+    indicatorMap.set("KOSDAQ", { symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(kosdaqIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis" })
+  }
+
+  // 접힌 상태: 펼친 상태와 동일 순서
+  const SUMMARY_SKIP = new Set(["NQ=F"])
+  const priorityOrder = ["FNG", "^VIX", "KOSPI", "KOSDAQ", "^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225", "KOSPI200", "MU", "SOXX", "EWY", "KORU", "069500"]
+  const summaryItems = [
+    ...priorityOrder.map(sym => indicatorMap.get(sym)).filter(Boolean),
+    ...data.indicators.filter(i => !priorityOrder.includes(i.symbol) && !SUMMARY_SKIP.has(i.symbol)),
+  ].filter(i => !SUMMARY_SKIP.has((i as typeof data.indicators[0]).symbol)) as typeof data.indicators
 
   const handleHistoryClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -708,18 +731,16 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
           </span>
         </div>
 
-        {/* 접힌 상태: 4칸 그리드로 전체 너비 활용 */}
+        {/* 접힌 상태: 전체 항목 가로 스크롤 */}
         {!expanded && (
-          <div className="flex gap-px bg-border/30 rounded-md overflow-hidden mt-1">
+          <div className="grid grid-cols-7 gap-px bg-border/30 rounded-md overflow-hidden mt-1">
             {summaryItems.map((item) => {
-              const isMissing = item.source === "missing"
               const isUp = item.change_pct > 0
               const isDown = item.change_pct < 0
               const name = SHORT_NAMES[item.symbol] || item.name
               const isFng = item.symbol === "FNG"
               const isVix = item.symbol === "^VIX"
-              const bg = isMissing ? "bg-muted/30"
-                : isFng
+              const bg = isFng
                   ? (item.price >= 75 ? "bg-rose-100 dark:bg-red-500/8" : item.price >= 50 ? "bg-orange-50 dark:bg-orange-500/8" : item.price >= 25 ? "bg-amber-50 dark:bg-amber-500/8" : "bg-sky-100 dark:bg-blue-500/8")
                   : isVix
                     ? (isUp ? "bg-amber-50 dark:bg-amber-500/8" : isDown ? "bg-emerald-50 dark:bg-emerald-500/8" : "bg-muted/50")
@@ -727,12 +748,10 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               return (
                 <div
                   key={item.symbol}
-                  className={`flex-1 flex flex-col items-center py-1 ${bg}`}
+                  className={`flex flex-col items-center py-1 ${bg}`}
                 >
                   <span className="text-[10px] text-foreground/65 font-medium leading-none">{name}</span>
-                  {isMissing ? (
-                    <span className="text-[11px] tabular-nums font-bold leading-tight text-muted-foreground/30">-</span>
-                  ) : isFng ? (
+                  {isFng ? (
                     <span className={`text-[11px] tabular-nums font-bold leading-tight ${item.price >= 50 ? "text-red-500" : "text-blue-500"}`}>
                       {item.price.toFixed(0)}
                     </span>
@@ -954,18 +973,15 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               <>
               <MacroChart rows={historyRows} dates={dates} hidden={chartHidden} setHidden={setChartHidden} />
               <hr className="border-border/30 my-3" />
-              <table className="w-full text-[10px] tabular-nums table-fixed">
-                <colgroup>
-                  <col className="w-20" />
-                  {historyRows.map(row => <col key={row.symbol} />)}
-                </colgroup>
+              <div className="overflow-x-auto -mx-3 px-3">
+              <table className="text-[10px] tabular-nums" style={{ minWidth: Math.max(320, 52 + historyRows.length * 44) }}>
                 <thead>
                   <tr className="text-foreground/80 border-b border-border/30">
-                    <th className="text-left py-1.5 pr-2 font-semibold">날짜</th>
+                    <th className="text-left py-1.5 pr-2 font-semibold sticky left-0 bg-popover z-10 whitespace-nowrap">날짜</th>
                     {historyRows.map((row) => {
                       const active = chartHidden.size > 0 && !chartHidden.has(row.name)
                       return (
-                        <th key={row.symbol} className={`text-right py-1.5 px-0.5 font-semibold ${active ? "bg-primary/8" : chartHidden.size > 0 ? "opacity-30" : ""}`}>{row.name}</th>
+                        <th key={row.symbol} className={`text-right py-1.5 px-1 font-semibold whitespace-nowrap ${active ? "bg-primary/8" : chartHidden.size > 0 ? "opacity-30" : ""}`}>{row.name}</th>
                       )
                     })}
                   </tr>
@@ -973,21 +989,21 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                 <tbody>
                   {dates.map((date, di) => (
                     <tr key={date} className={`border-t border-border/15 ${di % 2 === 1 ? "bg-muted/30" : ""}`}>
-                      <td className="py-2 pr-2 font-medium whitespace-nowrap">
+                      <td className="py-1.5 pr-2 font-medium whitespace-nowrap sticky left-0 bg-popover z-10">
                         {date.slice(5).replace("-", "/")}
-                        {date === TODAY_KST && <span className="ml-1 text-[10px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
+                        {date === TODAY_KST && <span className="ml-1 text-[9px] font-semibold text-primary bg-primary/10 px-1 py-0.5 rounded-full">오늘</span>}
                       </td>
                       {historyRows.map((row) => {
                         const active = chartHidden.size > 0 && !chartHidden.has(row.name)
                         const dimmed = chartHidden.size > 0 && chartHidden.has(row.name)
                         const entry = row.entries.find(e => e.date === date)
-                        if (!entry) return <td key={row.symbol} className={`text-right py-2 px-0.5 text-muted-foreground/30 ${active ? "bg-primary/8" : ""}`}>—</td>
+                        if (!entry) return <td key={row.symbol} className={`text-right py-1.5 px-1 text-muted-foreground/20 ${active ? "bg-primary/8" : ""}`}>—</td>
                         const isUp = entry.change_pct > 0
                         const isDown = entry.change_pct < 0
                         return (
                           <td
                             key={row.symbol}
-                            className={`text-right py-2 px-0.5 font-semibold ${active ? "bg-primary/8" : ""} ${dimmed ? "opacity-30" : ""} ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
+                            className={`text-right py-1.5 px-1 font-semibold whitespace-nowrap ${active ? "bg-primary/8" : ""} ${dimmed ? "opacity-30" : ""} ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/40"}`}
                           >
                             {isUp ? "+" : ""}{entry.change_pct.toFixed(1)}
                           </td>
@@ -997,6 +1013,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
                   ))}
                 </tbody>
               </table>
+              </div>
               </>
             )}
           </div>

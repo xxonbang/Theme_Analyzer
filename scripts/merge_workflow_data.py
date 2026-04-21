@@ -31,6 +31,25 @@ def save_fields(keys, cache_path):
             json.dump(preserved, f, ensure_ascii=False)
 
 
+def _preserve_program_net(local_inv, merged_inv):
+    """로컬 investor_data의 program_net / history[].program_net을 병합 결과에 보존."""
+    if not local_inv or not merged_inv:
+        return
+    for code, local in local_inv.items():
+        if code not in merged_inv:
+            continue
+        target = merged_inv[code]
+        # program_net 보존
+        if "program_net" in local and "program_net" not in target:
+            target["program_net"] = local["program_net"]
+        # history[].program_net 보존
+        local_hist = local.get("history", [])
+        target_hist = target.get("history", [])
+        for i, lh in enumerate(local_hist):
+            if "program_net" in lh and i < len(target_hist) and "program_net" not in target_hist[i]:
+                target_hist[i]["program_net"] = lh["program_net"]
+
+
 def merge_investor():
     if not os.path.exists(INVESTOR_CACHE):
         return
@@ -41,13 +60,15 @@ def merge_investor():
 
     changed = False
 
-    # investor_data: 원격이 더 최신이면 사용
+    # investor_data: 원격이 더 최신이면 사용 (program_net 보존)
     ru = remote.get("investor_updated_at", "")
     lu = data.get("investor_updated_at", "")
     if ru and ru >= lu:
+        local_inv = data.get("investor_data", {})
         for key in ["investor_data", "investor_estimated", "investor_updated_at"]:
             if key in remote:
                 data[key] = remote[key]
+        _preserve_program_net(local_inv, data.get("investor_data", {}))
         changed = True
 
     if changed:
@@ -66,9 +87,12 @@ def merge_main():
     rt = remote.get("timestamp", "")
     lt = data.get("timestamp", "")
     if rt and rt >= lt:
+        local_inv = data.get("investor_data", {})
         for key in MAIN_KEYS:
             if key in remote:
                 data[key] = remote[key]
+        # investor_data가 덮어쓰인 경우 program_net 보존
+        _preserve_program_net(local_inv, data.get("investor_data", {}))
         with open(LATEST_PATH, "w") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
