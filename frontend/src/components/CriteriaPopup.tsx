@@ -31,7 +31,7 @@ export function CriteriaPopup({ stockName, criteria, onClose }: CriteriaPopupPro
   useScrollLock(true)
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
       {/* 백드롭 */}
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
 

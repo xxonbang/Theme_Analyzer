@@ -35,7 +35,7 @@ export function InvestorSchedulePopup({ currentRound, updatedAt, onClose }: Prop
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div
         ref={sheetRef}

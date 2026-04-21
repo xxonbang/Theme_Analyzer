@@ -17,7 +17,7 @@ function CriteriaInfoPopup({ info, onClose }: { info: PopupInfo; onClose: () => 
   useScrollLock(true)
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-center justify-center">
+    <div className="fixed inset-0 z-[55] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div className="relative w-72 max-w-[90vw] bg-popover text-popover-foreground rounded-xl shadow-xl border border-border p-4">
         <div className="flex items-center justify-between mb-2">

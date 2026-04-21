@@ -68,7 +68,7 @@ function ConfidenceDetailPopup({ confidence, details, onClose }: { confidence: s
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[75vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
         <div className="sm:hidden flex justify-center mb-2">

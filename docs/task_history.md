@@ -6,6 +6,10 @@
 
 ## 2026-04-21
 
+### [버그픽스] bottom sheet가 헤더 뒤에 가려지는 문제 수정 (2026-04-21 18:14 KST)
+- **변경 파일**: `frontend/src/components/` 12개 컴포넌트
+- **내용**: 모든 bottom sheet z-index를 z-[45] → z-[55]로 변경하여 헤더(z-50) 위에 표시되도록 수정
+
 ### [기능] 텔레그램 알림 설정 메뉴 (개별 토글) (2026-04-21 10:30 KST)
 - **변경 파일**: `.github/workflows/*.yml` (10개), `supabase/functions/kis-proxy/index.ts`, `frontend/src/lib/kis-api.ts`, `frontend/src/components/Header.tsx`
 - **내용**:

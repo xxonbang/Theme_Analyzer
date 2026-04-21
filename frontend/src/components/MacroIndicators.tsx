@@ -138,7 +138,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
 
       {/* 선물 히스토리 Bottom Sheet */}
       {showHistory && createPortal(
-        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+        <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
             <div ref={handleRef} className="sticky top-0 z-10 bg-popover pt-3 px-3 sm:px-0 sm:pt-0">
@@ -286,7 +286,7 @@ function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestH
       </div>
 
       {showDetail && createPortal(
-        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+        <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowDetail(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-[28rem] sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
             <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">
@@ -790,7 +790,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
       {/* 히스토리 Bottom Sheet */}
       {showHistory && createPortal(
-        <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+        <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[95vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4">
             <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">

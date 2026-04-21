@@ -47,7 +47,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
   useScrollLock(true)
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-5">
         {/* 모바일 드래그 핸들 + 닫기 */}

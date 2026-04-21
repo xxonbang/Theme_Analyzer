@@ -245,7 +245,7 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
 
       {/* 히스토리 Bottom Sheet */}
       {showHistory && createPortal(
-        <div role="dialog" aria-modal="true" className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+        <div role="dialog" aria-modal="true" className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
           <div className="absolute inset-0 bg-black/25" onClick={() => setShowHistory(false)} />
           <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4 animate-slide-in-bottom">
             <div ref={handleRef} className="sm:hidden flex items-center justify-center mb-2 py-3 cursor-grab relative">

@@ -101,7 +101,7 @@ function ThemeListPopup({ stockName, stockCode, themes, onClose }: {
   useScrollLock(true)
 
   return createPortal(
-    <div className="fixed inset-0 z-[45] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-[55] flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/25" onClick={onClose} />
       <div ref={sheetRef} className="relative w-full sm:w-96 sm:max-w-[90vw] max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground rounded-t-xl sm:rounded-xl shadow-xl border border-border p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-4">
         <div ref={handleRef} className="sm:hidden flex justify-center mb-2 py-3 cursor-grab">
