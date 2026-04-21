@@ -21,6 +21,7 @@ from modules.volume_profile import collect_full, collect_intraday, fetch_minute_
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "volume-profile.json"
+INTRADAY_HISTORY_PATH = ROOT_DIR / "frontend" / "public" / "data" / "intraday-history.json"
 CANDLE_CACHE_PATH = ROOT_DIR / ".candle_cache.json"
 
 
@@ -77,6 +78,14 @@ def main():
     # 2. 기존 데이터 로드 (full/intraday 공통: API 실패 시 기존 데이터 보존)
     existing = load_json(OUTPUT_PATH)
 
+    # 2-1. intraday-history 로드 (1w/1m 매물대 정밀도 향상용)
+    intraday_history: dict[str, list] = {}
+    if not intraday_mode:
+        ih = load_json(INTRADAY_HISTORY_PATH)
+        if ih.get("stocks"):
+            intraday_history = ih["stocks"]
+            print(f"  intraday-history: {len(intraday_history)}종목 로드")
+
     # 3. 병렬 수집
     client = KISClient()
     profiles = {}
@@ -94,7 +103,7 @@ def main():
                 return code, {}, minute
             return code, {"today": vp}, minute
         else:
-            return code, collect_full(client, code), []
+            return code, collect_full(client, code, intraday_days=intraday_history.get(code)), []
 
     failed_stocks = []
     with ThreadPoolExecutor(max_workers=10) as executor:

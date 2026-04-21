@@ -214,10 +214,12 @@ def _filter_candles_by_date(
 def collect_full(
     client: KISClient,
     code: str,
+    intraday_days: List[Dict[str, Any]] | None = None,
 ) -> Dict[str, Any]:
     """전 기간(1y/6m/3m/1m/1w) 일봉 + 당일 분봉 → 6기간 매물대 계산.
 
     1년치 일봉을 1회 수집 후 기간별 필터링.
+    1w/1m 기간은 intraday_days(30분봉)가 있으면 우선 사용하여 정밀도 향상.
     """
     now = datetime.now(KST)
     end_date = now.strftime("%Y%m%d")
@@ -225,6 +227,20 @@ def collect_full(
 
     # 일봉 1회 수집
     daily = fetch_daily_candles(client, code, start_1y, end_date)
+
+    # intraday 30분봉을 캔들 형태로 변환
+    intraday_candles: List[Dict[str, Any]] = []
+    if intraday_days:
+        for day in intraday_days:
+            for iv in day.get("intervals_30m", []):
+                if iv.get("volume", 0) > 0 and iv.get("high", 0) > 0:
+                    intraday_candles.append({
+                        "date": day["date"].replace("-", ""),
+                        "high": iv["high"],
+                        "low": iv["low"],
+                        "close": iv["close"],
+                        "volume": iv["volume"],
+                    })
 
     # 기간별 필터
     periods = {
@@ -237,6 +253,15 @@ def collect_full(
 
     result = {}
     for period, start in periods.items():
+        # 1w/1m: 30분봉 데이터가 충분하면 우선 사용
+        if period in ("1w", "1m") and intraday_candles:
+            intraday_filtered = [c for c in intraday_candles if c["date"] >= start]
+            if len(intraday_filtered) >= 10:  # 최소 10봉 이상이면 사용
+                vp = calc_volume_profile(intraday_filtered)
+                if vp:
+                    result[period] = vp
+                    continue
+        # fallback: 일봉
         filtered = _filter_candles_by_date(daily, start)
         vp = calc_volume_profile(filtered)
         if vp:
