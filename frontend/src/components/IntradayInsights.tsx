@@ -35,6 +35,13 @@ export function IntradayInsights({
   const [signalHelpPopup, setSignalHelpPopup] = useState<{ x: number; y: number } | null>(null)
   const todayKST = useMemo(getTodayKST, [])
 
+  // 자정 초기화: 데이터가 오늘 날짜가 아니면 섹션 숨김
+  const isDataFresh = useMemo(() => {
+    const ihDate = intradayHistory?.updated_at?.slice(0, 10)
+    const iiDate = investorIntraday?.date
+    return ihDate === todayKST || iiDate === todayKST
+  }, [intradayHistory, investorIntraday, todayKST])
+
   // B-1: Forecast freshness
   const forecastInfo = useMemo(() => {
     if (!themeForecast?.generated_at) return null
@@ -148,6 +155,7 @@ export function IntradayInsights({
   const hasThemeMomentum = themeMomentum.length > 0
   const hasMovers = momentumShifts.gainers.length > 0
   const hasSupplyDemand = supplyDemandSignals.length > 0
+  if (!isDataFresh) return null
   if (!hasThemeMomentum && !hasMovers && !hasSupplyDemand && !forecastInfo?.isNewer) return null
 
   return (

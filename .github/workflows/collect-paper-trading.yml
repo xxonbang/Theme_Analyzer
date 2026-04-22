@@ -89,6 +89,10 @@ jobs:
           path: .kis_token_cache.json
           key: kis-token-${{ steps.cache-date.outputs.date }}
 
+      - name: Save intraday insights snapshot
+        if: steps.analysis.outcome == 'success'
+        run: python save_intraday_insights.py 2>&1 | tee -a /tmp/task.log
+
       - name: Commit data to repository
         run: |
           git config user.name "github-actions[bot]"
@@ -101,6 +105,7 @@ jobs:
           [ -f frontend/public/data/paper-trading-analytics.json ] && cp frontend/public/data/paper-trading-analytics.json /tmp/data_backup/
           [ -f frontend/public/data/volume-profile.json ] && cp frontend/public/data/volume-profile.json /tmp/data_backup/
           [ -f frontend/public/data/intraday-history.json ] && cp frontend/public/data/intraday-history.json /tmp/data_backup/
+          [ -f frontend/public/data/intraday-insights-history.json ] && cp frontend/public/data/intraday-insights-history.json /tmp/data_backup/
 
           # push 경합 시 최대 3회 재시도
           for attempt in 1 2 3; do
@@ -115,12 +120,14 @@ jobs:
             [ -f /tmp/data_backup/paper-trading-analytics.json ] && cp /tmp/data_backup/paper-trading-analytics.json frontend/public/data/
             [ -f /tmp/data_backup/volume-profile.json ] && cp /tmp/data_backup/volume-profile.json frontend/public/data/
             [ -f /tmp/data_backup/intraday-history.json ] && cp /tmp/data_backup/intraday-history.json frontend/public/data/
+            [ -f /tmp/data_backup/intraday-insights-history.json ] && cp /tmp/data_backup/intraday-insights-history.json frontend/public/data/
 
             git add frontend/public/data/paper-trading/*.json 2>/dev/null || true
             [ -f frontend/public/data/paper-trading-index.json ] && git add frontend/public/data/paper-trading-index.json
             [ -f frontend/public/data/paper-trading-analytics.json ] && git add frontend/public/data/paper-trading-analytics.json
             [ -f frontend/public/data/volume-profile.json ] && git add frontend/public/data/volume-profile.json
             [ -f frontend/public/data/intraday-history.json ] && git add frontend/public/data/intraday-history.json
+            [ -f frontend/public/data/intraday-insights-history.json ] && git add frontend/public/data/intraday-insights-history.json
 
             if git diff --staged --quiet; then
               echo "No changes to commit"
