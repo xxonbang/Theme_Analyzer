@@ -6,6 +6,11 @@
 
 ## 2026-04-22
 
+### [버그픽스] program_net 히스토리 주입 실패 근본 수정 (2026-04-22 21:34 KST)
+- **변경 파일**: `collect_investor_data.py`
+- **내용**: is_day_transition 날짜 비교 방식 제거 → history[0]에 program_net 존재 여부로 주입 판단
+- **원인**: main.py(09:05)가 investor_updated_at를 당일로 갱신 → 09:31 수집 시 is_day_transition=False → 주입 불발
+
 ### [개선] 매물대 1w/1m 정밀도 향상 — 30분봉 데이터 활용 (2026-04-22 00:06 KST)
 - **변경 파일**: `modules/volume_profile.py`, `collect_volume_profile.py`
 - **내용**: 1w/1m 매물대 계산 시 intraday-history.json의 30분봉 데이터를 우선 사용 (일봉 대비 13배 정밀)

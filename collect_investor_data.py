@@ -362,9 +362,6 @@ def main():
     if not test_mode:
         # 기존 investor_data의 program_net, history 보존 (장중 API는 이 필드를 반환하지 않으므로)
         old_investor = latest.get("investor_data", {})
-        old_date = latest.get("investor_updated_at", "")[:10]
-        today_date = now.strftime("%Y-%m-%d")
-        is_day_transition = bool(old_date) and old_date != today_date
 
         for code, new_inv in investor_data.items():
             old = old_investor.get(code, {})
@@ -377,22 +374,23 @@ def main():
                 if hist:
                     new_inv["history"] = hist
 
-            # 프로그램 매매 히스토리 관리: 일 전환 시 전일 program_net을 history에 주입
+            # 프로그램 매매 히스토리 관리
             old_hist = old.get("history", [])
-            if is_day_transition and old.get("program_net") is not None:
-                # 전일 program_net → history[0] (D-1), 기존 history[i].program_net → history[i+1]
-                new_hist = new_inv.get("history", [])
-                if new_hist:
+            new_hist = new_inv.get("history", [])
+            if new_hist and old.get("program_net") is not None:
+                # history[0]에 program_net이 아직 없으면 → 전일 program_net 주입 필요
+                if "program_net" not in new_hist[0]:
                     new_hist[0]["program_net"] = old.get("program_net")
+                    # 기존 history의 program_net을 한 칸씩 이월
                     for i, oh in enumerate(old_hist):
-                        if "program_net" in oh and i + 1 < len(new_hist):
+                        if "program_net" in oh and i + 1 < len(new_hist) and "program_net" not in new_hist[i + 1]:
                             new_hist[i + 1]["program_net"] = oh["program_net"]
-            elif not is_day_transition and old_hist:
-                # 같은 날 재실행: 기존 history의 program_net 보존
+            # 같은 날 재실행 또는 가집계: 기존 history의 program_net 보존
+            if not new_hist and old_hist:
                 new_hist = new_inv.get("history", [])
-                for i, oh in enumerate(old_hist):
-                    if "program_net" in oh and i < len(new_hist):
-                        new_hist[i]["program_net"] = oh["program_net"]
+            for i, oh in enumerate(old_hist):
+                if "program_net" in oh and i < len(new_hist) and "program_net" not in new_hist[i]:
+                    new_hist[i]["program_net"] = oh["program_net"]
 
         latest["investor_data"] = investor_data
         latest["investor_estimated"] = is_estimated
