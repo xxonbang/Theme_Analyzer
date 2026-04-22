@@ -481,6 +481,20 @@ def main():
             new_symbols = {i["symbol"] for i in indicators}
             for old in existing.get("indicators", []):
                 if old["symbol"] not in new_symbols:
+                    # collected_at이 없거나 7일 이상 지난 항목은 보존하지 않음
+                    old_at = old.get("collected_at", "")
+                    if old_at:
+                        from datetime import datetime as _dt
+                        try:
+                            age = (datetime.now(KST) - _dt.strptime(old_at, "%Y-%m-%d %H:%M").replace(tzinfo=KST)).days
+                            if age > 7:
+                                print(f"  [만료] {old['symbol']} ({age}일 경과 → 삭제)")
+                                continue
+                        except ValueError:
+                            pass
+                    elif not old_at:
+                        print(f"  [만료] {old['symbol']} (collected_at 없음 → 삭제)")
+                        continue
                     indicators.append(old)
                     print(f"  [보존] {old['symbol']} (신규 수집 실패 → 기존값 유지)")
             output["indicators"] = indicators

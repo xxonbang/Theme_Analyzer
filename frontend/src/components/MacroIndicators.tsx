@@ -670,13 +670,14 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
   // KOSPI/KOSDAQ를 indicatorMap에 주입 (별도 props → 통합)
   const indicatorMap = new Map(data.indicators.map((i) => [i.symbol, i]))
   const latestTrend = investorTrend && investorTrend.length > 0 ? investorTrend[investorTrend.length - 1] : null
+  const macroCollectedAt = data.updated_at?.slice(0, 16)
   if (kospiIndex?.current && !indicatorMap.has("KOSPI")) {
     const pct = latestTrend?.kospi?.change_pct ?? 0
-    indicatorMap.set("KOSPI", { symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(kospiIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis" })
+    indicatorMap.set("KOSPI", { symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(kospiIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
   }
   if (kosdaqIndex?.current && !indicatorMap.has("KOSDAQ")) {
     const pct = latestTrend?.kosdaq?.change_pct ?? 0
-    indicatorMap.set("KOSDAQ", { symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(kosdaqIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis" })
+    indicatorMap.set("KOSDAQ", { symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(kosdaqIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
   }
 
   // 접힌 상태: 펼친 상태와 동일 순서
@@ -784,12 +785,12 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
         if (kospiIndex?.current) {
           const pct = latestTrend?.kospi?.change_pct ?? 0
           const change = kospiIndex.current * pct / 100
-          domesticIndices.push({ symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis" })
+          domesticIndices.push({ symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
         }
         if (kosdaqIndex?.current) {
           const pct = latestTrend?.kosdaq?.change_pct ?? 0
           const change = kosdaqIndex.current * pct / 100
-          domesticIndices.push({ symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis" })
+          domesticIndices.push({ symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
         }
 
         const GLOBAL_INDEX_SYMBOLS = ["^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225"]
@@ -945,7 +946,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
       {/* 주요 선물 */}
       {data.futures && data.futures.length > 0 && (
         <FuturesBar data={data.futures} updatedAt={data.updated_at} history={history} historyLoading={historyLoading} onRequestHistory={onRequestHistory}
-          extraFutures={data.indicators.filter(i => i.symbol === "NQ=F").map(i => ({ symbol: i.symbol, name: i.name, price: i.price, change: i.change, change_pct: i.change_pct, status: i.change_pct > 0 ? "up" : i.change_pct < 0 ? "down" : "flat", source: i.source }))}
+          extraFutures={data.indicators.filter(i => i.symbol === "NQ=F").map(i => ({ symbol: i.symbol, name: i.name, price: i.price, change: i.change, change_pct: i.change_pct, status: i.change_pct > 0 ? "up" : i.change_pct < 0 ? "down" : "flat", source: i.source, collected_at: i.collected_at }))}
         />
       )}
 
