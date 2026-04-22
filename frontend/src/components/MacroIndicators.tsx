@@ -157,7 +157,10 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 }`}
               >
                 <div className={`absolute left-0 top-2 bottom-2 w-[2px] rounded-full ${isUp ? "bg-red-400/60" : isDown ? "bg-blue-400/60" : "bg-border/40"}`} />
-                <span className="text-[10px] text-muted-foreground/60 font-medium truncate block">{item.name}</span>
+                <div className="flex items-center gap-1">
+                  <span className="text-[10px] text-muted-foreground/60 font-medium truncate">{item.name}</span>
+                  {item.collected_at && <span className="text-[8px] text-muted-foreground/30 tabular-nums shrink-0">{item.collected_at.slice(0, 10) === TODAY_KST ? item.collected_at.slice(11) : item.collected_at.slice(5).replace(" ", " ")}</span>}
+                </div>
                 <span className="text-[14px] font-bold tabular-nums tracking-tight text-foreground leading-snug">{priceStr}</span>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <span className={`text-[10px] font-semibold tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/35"}`}>
@@ -805,7 +808,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             ? item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
             : item.price.toLocaleString()
 
-        const MacroCard = ({ item, onClick }: { item: { symbol: string; name: string; price: number; change: number; change_pct: number; source: string }; onClick?: () => void }) => {
+        const MacroCard = ({ item, onClick }: { item: { symbol: string; name: string; price: number; change: number; change_pct: number; source: string; collected_at?: string }; onClick?: () => void }) => {
           const isUp = item.change_pct > 0
           const isDown = item.change_pct < 0
           const prev = item.price - item.change
@@ -817,7 +820,10 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               }`}
             >
               <div className={`absolute left-0 top-2 bottom-2 w-[2px] rounded-full ${isUp ? "bg-red-400/60" : isDown ? "bg-blue-400/60" : "bg-border/40"}`} />
-              <span className="text-[10px] text-muted-foreground/60 font-medium truncate block">{item.name}</span>
+              <div className="flex items-center gap-1">
+                <span className="text-[10px] text-muted-foreground/60 font-medium truncate">{item.name}</span>
+                {item.collected_at && <span className="text-[8px] text-muted-foreground/30 tabular-nums shrink-0">{item.collected_at.slice(0, 10) === TODAY_KST ? item.collected_at.slice(11) : item.collected_at.slice(5).replace(" ", " ")}</span>}
+              </div>
               <span className="text-[14px] font-bold tabular-nums tracking-tight text-foreground leading-snug">{fmtPrice(item)}</span>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className={`text-[10px] font-semibold tabular-nums ${isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-muted-foreground/35"}`}>

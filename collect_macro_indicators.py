@@ -403,6 +403,22 @@ def main():
         indicators.append(fng)
         print(f"    → {fng['price']} ({fng['name']})")
 
+    # 6-1. KODEX200 ETF (KIS 국내)
+    print("  069500 (KODEX200)...")
+    try:
+        resp = client.get_stock_price("069500")
+        if resp.get("rt_cd") == "0":
+            out = resp.get("output", {})
+            price = int(out.get("stck_prpr", 0))
+            change = int(out.get("prdy_vrss", 0))
+            prev = price - change
+            pct = round(change / prev * 100, 2) if prev else 0
+            kodex = {"symbol": "069500", "name": "KODEX 200", "price": price, "change": change, "change_pct": pct, "source": "kis_domestic"}
+            indicators.append(kodex)
+            print(f"    → {price} ({change:+}, {pct:+.2f}%)")
+    except Exception as e:
+        print(f"    [오류] KODEX200: {e}")
+
     # 7. 글로벌 지수 (yfinance)
     print("  글로벌 지수...")
     global_indices = collect_global_indices()
@@ -440,6 +456,14 @@ def main():
         print("    → 수급 수집 실패")
 
     print(f"  수집 완료: {len(indicators)}/8")
+
+    # 개별 지표 수집 시각 기록
+    now_str = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
+    for item in indicators:
+        item["collected_at"] = now_str
+    if esignal_futures:
+        for item in esignal_futures:
+            item["collected_at"] = now_str
 
     output = {
         "updated_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),

@@ -10,6 +10,7 @@ export interface MacroIndicator {
   change: number
   change_pct: number
   source: string
+  collected_at?: string
 }
 
 export interface MarketInvestorEntry {
@@ -34,6 +35,7 @@ export interface FuturesItem {
   change_pct: number
   status: string
   source: string
+  collected_at?: string
 }
 
 export interface MacroIndicatorsData {
