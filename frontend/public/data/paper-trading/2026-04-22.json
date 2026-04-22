@@ -1,0 +1,702 @@
+{
+  "trade_date": "2026-04-22",
+  "morning_timestamp": "2026-04-22 09:12:48",
+  "collected_at": "2026-04-22 15:41:07",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-22 09:12:48",
+      "prices": {
+        "079550": 991000,
+        "100790": 54900,
+        "027360": 13350,
+        "323280": 79200,
+        "348370": 52800,
+        "018470": 1791,
+        "073570": 982,
+        "312610": 1633,
+        "010820": 15230,
+        "007660": 136900,
+        "092220": 1579,
+        "011070": 450500
+      },
+      "leader_stocks": [
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자/신기술 투자"
+        },
+        {
+          "code": "323280",
+          "name": "태성",
+          "theme": "2차전지 장비/소재 (복합동박/전해액)"
+        },
+        {
+          "code": "348370",
+          "name": "엔켐",
+          "theme": "2차전지 장비/소재 (복합동박/전해액)"
+        },
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "알루미늄/비철금속"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-22 09:34:19",
+      "prices": {
+        "079550": 991000,
+        "100790": 54900,
+        "027360": 13350,
+        "323280": 79200,
+        "348370": 52800,
+        "018470": 1791,
+        "073570": 982,
+        "312610": 1633,
+        "010820": 15230,
+        "007660": 136900,
+        "092220": 1579,
+        "011070": 450500
+      },
+      "leader_stocks": [
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "312610",
+          "name": "에이에프더블류",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-22 10:02:42",
+      "prices": {
+        "079550": 1081000,
+        "100790": 59700,
+        "027360": 13350,
+        "323280": 72200,
+        "348370": 50400,
+        "018470": 1791,
+        "073570": 923,
+        "312610": 1633,
+        "010820": 17980,
+        "007660": 148250,
+        "092220": 1579,
+        "011070": 482000
+      },
+      "leader_stocks": [
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "312610",
+          "name": "에이에프더블류",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-22 12:01:55",
+      "prices": {
+        "079550": 1003000,
+        "100790": 58500,
+        "027360": 13350,
+        "323280": 73400,
+        "348370": 51300,
+        "018470": 1791,
+        "073570": 888,
+        "312610": 1633,
+        "010820": 16240,
+        "007660": 153550,
+        "092220": 1579,
+        "011070": 492000
+      },
+      "leader_stocks": [
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "312610",
+          "name": "에이에프더블류",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-22 12:35:01",
+      "prices": {
+        "079550": 1013000,
+        "100790": 58500,
+        "027360": 14350,
+        "323280": 73200,
+        "348370": 52000,
+        "018470": 1943,
+        "073570": 898,
+        "312610": 1851,
+        "010820": 16650,
+        "007660": 153900,
+        "092220": 1843,
+        "011070": 494500
+      },
+      "leader_stocks": [
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "312610",
+          "name": "에이에프더블류",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-22 13:26:41",
+      "prices": {
+        "079550": 1025000,
+        "100790": 59300,
+        "027360": 14350,
+        "323280": 72800,
+        "348370": 52900,
+        "018470": 1943,
+        "073570": 898,
+        "312610": 1851,
+        "010820": 16650,
+        "007660": 156300,
+        "092220": 1843,
+        "011070": 495500
+      },
+      "leader_stocks": [
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "312610",
+          "name": "에이에프더블류",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-22 14:36:37",
+      "prices": {
+        "079550": 1025000,
+        "100790": 59200,
+        "027360": 14350,
+        "323280": 72800,
+        "348370": 52900,
+        "018470": 1943,
+        "073570": 898,
+        "312610": 1851,
+        "010820": 16650,
+        "007660": 156300,
+        "092220": 1843,
+        "011070": 495500
+      },
+      "leader_stocks": [
+        {
+          "code": "018470",
+          "name": "조일알미늄",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "312610",
+          "name": "에이에프더블류",
+          "theme": "2차전지 소재 및 관련 금속"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처투자"
+        },
+        {
+          "code": "079550",
+          "name": "LIG넥스원",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "010820",
+          "name": "퍼스텍",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "079550",
+      "name": "LIG디펜스앤에어로스페이스",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 991000,
+      "close_price": 1020000,
+      "profit_rate": 2.93,
+      "profit_amount": 29000,
+      "high_price": 1118000,
+      "high_time": "09:58",
+      "high_profit_rate": 12.82,
+      "high_profit_amount": 127000,
+      "low_price": 962000,
+      "low_profit_rate": -2.93,
+      "low_profit_amount": -29000,
+      "low_time": "09:13"
+    },
+    {
+      "code": "100790",
+      "name": "미래에셋벤처투자",
+      "theme": "벤처투자/신기술 투자",
+      "market": "KOSPI",
+      "buy_price": 54900,
+      "close_price": 57700,
+      "profit_rate": 5.1,
+      "profit_amount": 2800,
+      "high_price": 61500,
+      "high_time": "09:31",
+      "high_profit_rate": 12.02,
+      "high_profit_amount": 6600,
+      "low_price": 47000,
+      "low_profit_rate": -14.39,
+      "low_profit_amount": -7900,
+      "low_time": "09:00"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "벤처투자/신기술 투자",
+      "market": "KOSPI",
+      "buy_price": 13350,
+      "close_price": 14150,
+      "profit_rate": 5.99,
+      "profit_amount": 800,
+      "high_price": 15420,
+      "high_time": "09:31",
+      "high_profit_rate": 15.51,
+      "high_profit_amount": 2070,
+      "low_price": 12150,
+      "low_profit_rate": -8.99,
+      "low_profit_amount": -1200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "323280",
+      "name": "태성",
+      "theme": "2차전지 장비/소재 (복합동박/전해액)",
+      "market": "KOSDAQ",
+      "buy_price": 79200,
+      "close_price": 74200,
+      "profit_rate": -6.31,
+      "profit_amount": -5000,
+      "high_price": 76400,
+      "high_time": "09:13",
+      "high_profit_rate": -3.54,
+      "high_profit_amount": -2800,
+      "low_price": 70200,
+      "low_profit_rate": -11.36,
+      "low_profit_amount": -9000,
+      "low_time": "10:29"
+    },
+    {
+      "code": "348370",
+      "name": "엔켐",
+      "theme": "2차전지 장비/소재 (복합동박/전해액)",
+      "market": "KOSDAQ",
+      "buy_price": 52800,
+      "close_price": 53300,
+      "profit_rate": 0.95,
+      "profit_amount": 500,
+      "high_price": 54300,
+      "high_time": "09:19",
+      "high_profit_rate": 2.84,
+      "high_profit_amount": 1500,
+      "low_price": 49350,
+      "low_profit_rate": -6.53,
+      "low_profit_amount": -3450,
+      "low_time": "10:24"
+    },
+    {
+      "code": "018470",
+      "name": "조일알미늄",
+      "theme": "알루미늄/비철금속",
+      "market": "KOSPI",
+      "buy_price": 1791,
+      "close_price": 1874,
+      "profit_rate": 4.63,
+      "profit_amount": 83,
+      "high_price": 2065,
+      "high_time": "10:41",
+      "high_profit_rate": 15.3,
+      "high_profit_amount": 274,
+      "low_price": 1694,
+      "low_profit_rate": -5.42,
+      "low_profit_amount": -97,
+      "low_time": "09:01"
+    },
+    {
+      "code": "073570",
+      "name": "리튬포어스",
+      "theme": "2차전지 소재 및 관련 금속",
+      "market": "KOSPI",
+      "buy_price": 982,
+      "close_price": 850,
+      "profit_rate": -13.44,
+      "profit_amount": -132,
+      "high_price": 982,
+      "high_time": "09:37",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 821,
+      "low_profit_rate": -16.4,
+      "low_profit_amount": -161,
+      "low_time": "13:52"
+    },
+    {
+      "code": "312610",
+      "name": "에이에프더블류",
+      "theme": "2차전지 소재 및 관련 금속",
+      "market": "KOSDAQ",
+      "buy_price": 1633,
+      "close_price": 1851,
+      "profit_rate": 13.35,
+      "profit_amount": 218,
+      "high_price": 1851,
+      "high_time": "15:30",
+      "high_profit_rate": 13.35,
+      "high_profit_amount": 218,
+      "low_price": 1470,
+      "low_profit_rate": -9.98,
+      "low_profit_amount": -163,
+      "low_time": "09:05"
+    },
+    {
+      "code": "010820",
+      "name": "퍼스텍",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 15230,
+      "close_price": 16360,
+      "profit_rate": 7.42,
+      "profit_amount": 1130,
+      "high_price": 18730,
+      "high_time": "09:52",
+      "high_profit_rate": 22.98,
+      "high_profit_amount": 3500,
+      "low_price": 14680,
+      "low_profit_rate": -3.61,
+      "low_profit_amount": -550,
+      "low_time": "09:00"
+    },
+    {
+      "code": "007660",
+      "name": "이수페타시스",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 136900,
+      "close_price": 161400,
+      "profit_rate": 17.9,
+      "profit_amount": 24500,
+      "high_price": 164400,
+      "high_time": "14:45",
+      "high_profit_rate": 20.09,
+      "high_profit_amount": 27500,
+      "low_price": 134900,
+      "low_profit_rate": -1.46,
+      "low_profit_amount": -2000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "092220",
+      "name": "KEC",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1579,
+      "close_price": 1843,
+      "profit_rate": 16.72,
+      "profit_amount": 264,
+      "high_price": 1843,
+      "high_time": "15:30",
+      "high_profit_rate": 16.72,
+      "high_profit_amount": 264,
+      "low_price": 1438,
+      "low_profit_rate": -8.93,
+      "low_profit_amount": -141,
+      "low_time": "09:00"
+    },
+    {
+      "code": "011070",
+      "name": "LG이노텍",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 450500,
+      "close_price": 500000,
+      "profit_rate": 10.99,
+      "profit_amount": 49500,
+      "high_price": 505000,
+      "high_time": "13:19",
+      "high_profit_rate": 12.1,
+      "high_profit_amount": 54500,
+      "low_price": 446500,
+      "low_profit_rate": -0.89,
+      "low_profit_amount": -4000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 10,
+    "loss_stocks": 2,
+    "total_invested": 1799865,
+    "total_value": 1903528,
+    "total_profit": 103663,
+    "total_profit_rate": 5.76,
+    "high_total_value": 2020491,
+    "high_total_profit": 220626,
+    "high_total_profit_rate": 12.26,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 1
+  }
+}
