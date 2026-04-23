@@ -1,8 +1,21 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, useEffect, useCallback } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp, ShieldAlert, ExternalLink, Send } from "lucide-react"
+import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp, ShieldAlert, ExternalLink, Send, History, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { ThemeAnalysis, IntradayHistoryData, InvestorIntraday, ThemeForecast } from "@/types/stock"
+
+interface InsightsSnapshot {
+  date: string
+  updated_at: string
+  theme_momentum: { name: string; avg_rate: number; stocks: { code: string; name: string; rate: number }[] }[]
+  movers: { gainers: { code: string; name: string; rate: number; delta: number }[]; losers: { code: string; name: string; rate: number; delta: number }[] }
+  signals: { code: string; name: string; label: string; rate: number; f: number; i: number; pg: number }[]
+}
+
+interface InsightsHistory {
+  updated_at: string
+  snapshots: InsightsSnapshot[]
+}
 
 interface IntradayInsightsProps {
   themeAnalysis?: ThemeAnalysis
@@ -33,14 +46,54 @@ export function IntradayInsights({
   const [actionPopup, setActionPopup] = useState<{ code: string; name: string; x: number; y: number } | null>(null)
   const [themePopup, setThemePopup] = useState<{ name: string; stocks: { code: string; name: string; rate: number }[]; x: number; y: number } | null>(null)
   const [signalHelpPopup, setSignalHelpPopup] = useState<{ x: number; y: number } | null>(null)
-  const todayKST = useMemo(getTodayKST, [])
+  // todayKST를 매 분 갱신 (자정 전후 페이지 유지 시에도 정확한 날짜 사용)
+  const [todayKST, setTodayKST] = useState(getTodayKST)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = getTodayKST()
+      setTodayKST(prev => prev !== now ? now : prev)
+    }, 60_000) // 1분마다 체크
+    return () => clearInterval(timer)
+  }, [])
 
-  // 자정 초기화: 데이터가 오늘 날짜가 아니면 섹션 숨김
+  // 자정 초기화: 데이터가 오늘 날짜가 아니면 라이브 데이터 숨김
   const isDataFresh = useMemo(() => {
     const ihDate = intradayHistory?.updated_at?.slice(0, 10)
     const iiDate = investorIntraday?.date
     return ihDate === todayKST || iiDate === todayKST
   }, [intradayHistory, investorIntraday, todayKST])
+
+  // 히스토리 로드
+  const [insightsHistory, setInsightsHistory] = useState<InsightsHistory | null>(null)
+  const [historyIdx, setHistoryIdx] = useState(-1) // -1 = 라이브/최신
+  const [showHistoryMode, setShowHistoryMode] = useState(false)
+
+  const fetchHistory = useCallback(async () => {
+    try {
+      const res = await fetch(import.meta.env.BASE_URL + "data/intraday-insights-history.json?t=" + Date.now())
+      if (res.ok) {
+        const data: InsightsHistory = await res.json()
+        setInsightsHistory(data)
+        return data
+      }
+    } catch { /* ignore */ }
+    return null
+  }, [])
+
+  // 히스토리 로드 (라이브 모드에서도 이력 버튼 표시를 위해 항상 로드)
+  useEffect(() => {
+    fetchHistory()
+  }, [fetchHistory])
+
+  const historySnapshots = insightsHistory?.snapshots ?? []
+  const selectedSnapshot = historyIdx >= 0 && historyIdx < historySnapshots.length ? historySnapshots[historyIdx] : null
+
+  // 자정 후 자동으로 히스토리 모드 전환 + 최신 스냅샷 선택
+  useEffect(() => {
+    if (!isDataFresh && historySnapshots.length > 0 && historyIdx === -1) {
+      setHistoryIdx(historySnapshots.length - 1)
+    }
+  }, [isDataFresh, historySnapshots.length, historyIdx])
 
   // B-1: Forecast freshness
   const forecastInfo = useMemo(() => {
@@ -155,8 +208,15 @@ export function IntradayInsights({
   const hasThemeMomentum = themeMomentum.length > 0
   const hasMovers = momentumShifts.gainers.length > 0
   const hasSupplyDemand = supplyDemandSignals.length > 0
-  if (!isDataFresh) return null
-  if (!hasThemeMomentum && !hasMovers && !hasSupplyDemand && !forecastInfo?.isNewer) return null
+  const hasLiveData = isDataFresh && (hasThemeMomentum || hasMovers || hasSupplyDemand || forecastInfo?.isNewer)
+  const hasHistoryData = historySnapshots.length > 0
+
+  // 라이브도 히스토리도 없으면 숨김
+  if (!hasLiveData && !hasHistoryData) return null
+
+  // 히스토리 모드이거나 라이브 데이터 없으면 히스토리 표시
+  const viewingHistory = showHistoryMode || !isDataFresh
+  const snap = viewingHistory ? selectedSnapshot : null
 
   return (
     <Card className="mb-4 sm:mb-6 shadow-sm border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.03] to-transparent">
@@ -165,13 +225,147 @@ export function IntradayInsights({
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
           <span className="font-semibold text-sm sm:text-base">장중 시장 동향</span>
-          {intradayHistory?.updated_at && (
+          {!viewingHistory && intradayHistory?.updated_at && (
             <span className="text-[10px] text-muted-foreground">
               {intradayHistory.updated_at.split(" ")[1]?.slice(0, 5)} 기준
             </span>
           )}
+          {viewingHistory && snap && (
+            <span className="text-[10px] text-muted-foreground">{snap.date} {snap.updated_at.slice(11)} 기준</span>
+          )}
+          <div className="ml-auto flex items-center gap-1">
+            {hasHistoryData && (
+              <button
+                onClick={() => {
+                  if (!showHistoryMode) {
+                    fetchHistory().then(() => {
+                      setShowHistoryMode(true)
+                      setHistoryIdx(historySnapshots.length - 1)
+                    })
+                  } else {
+                    setShowHistoryMode(false)
+                    setHistoryIdx(-1)
+                  }
+                }}
+                className={cn(
+                  "text-[10px] px-1.5 py-0.5 rounded transition-colors",
+                  viewingHistory ? "bg-emerald-500/15 text-emerald-600" : "text-muted-foreground/60 hover:text-muted-foreground"
+                )}
+              >
+                <History className="w-3 h-3 inline mr-0.5" />
+                {viewingHistory ? "라이브" : "이력"}
+              </button>
+            )}
+            {viewingHistory && historySnapshots.length > 1 && (
+              <>
+                <button
+                  onClick={() => setHistoryIdx(i => Math.max(0, i - 1))}
+                  disabled={historyIdx <= 0}
+                  className="p-0.5 text-muted-foreground disabled:opacity-20"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-[10px] tabular-nums text-muted-foreground">{historyIdx + 1}/{historySnapshots.length}</span>
+                <button
+                  onClick={() => setHistoryIdx(i => Math.min(historySnapshots.length - 1, i + 1))}
+                  disabled={historyIdx >= historySnapshots.length - 1}
+                  className="p-0.5 text-muted-foreground disabled:opacity-20"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
+        {/* 히스토리 모드 렌더링 */}
+        {viewingHistory && snap && (
+          <>
+            {snap.theme_momentum.length > 0 && (
+              <div>
+                <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 장중 등락률 (대장주 평균)</div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {snap.theme_momentum.map(t => (
+                    <div key={t.name} className="flex items-center justify-between bg-muted/50 rounded-md px-2.5 py-1.5">
+                      <span className="text-xs font-medium truncate mr-2">{t.name}</span>
+                      <span className={cn("text-xs font-bold tabular-nums shrink-0", t.avg_rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                        {t.avg_rate > 0 ? "+" : ""}{t.avg_rate.toFixed(2)}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {(snap.movers.gainers.length > 0 || snap.movers.losers.length > 0) && (
+              <div>
+                <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">장중 모멘텀 급변 TOP5 (최근 30분 변동폭)</div>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-0">
+                  <div>
+                    <div className="text-[10px] text-red-500 font-medium mb-1 flex items-center gap-0.5"><TrendingUp className="w-3 h-3" />급등 전환</div>
+                    {snap.movers.gainers.map(s => (
+                      <div key={s.code} className="flex items-center justify-between py-0.5">
+                        <span className="text-[11px] truncate mr-1">{s.name}</span>
+                        <span className="flex items-center gap-1">
+                          <span className={cn("text-[11px] font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>{s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%</span>
+                          <span className="text-[10px] text-red-400">({s.delta > 0 ? "+" : ""}{s.delta.toFixed(1)})</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-blue-500 font-medium mb-1 flex items-center gap-0.5"><TrendingDown className="w-3 h-3" />급락 전환</div>
+                    {snap.movers.losers.map(s => (
+                      <div key={s.code} className="flex items-center justify-between py-0.5">
+                        <span className="text-[11px] truncate mr-1">{s.name}</span>
+                        <span className="flex items-center gap-1">
+                          <span className={cn("text-[11px] font-bold tabular-nums", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>{s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%</span>
+                          <span className="text-[10px] text-blue-400">({s.delta.toFixed(1)})</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {snap.signals.length > 0 && (
+              <div>
+                <div className="text-[10px] text-muted-foreground font-medium mb-1.5 flex items-center gap-1">
+                  <ShieldAlert className="w-3 h-3 text-orange-500" />수급 특이 신호
+                </div>
+                <div className="space-y-1">
+                  {snap.signals.map(s => (
+                    <div key={s.code} className="rounded-md px-2.5 py-1.5 bg-orange-500/5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-[10px] font-medium text-orange-600 dark:text-orange-400 shrink-0">{s.label}</span>
+                          <span className="text-xs truncate">{s.name}</span>
+                        </div>
+                        <span className={cn("text-xs font-bold tabular-nums shrink-0 ml-2", s.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                          {s.rate > 0 ? "+" : ""}{s.rate.toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className="flex justify-end mt-0.5">
+                        <span className={cn("text-[10px] tabular-nums w-[66px] text-right", s.f > 0 ? "text-red-400" : "text-blue-400")}>외 {s.f > 0 ? "+" : ""}{(s.f / 1000).toFixed(0)}k</span>
+                        <span className={cn("text-[10px] tabular-nums w-[52px] text-right", s.i > 0 ? "text-red-400" : "text-blue-400")}>기 {s.i > 0 ? "+" : ""}{(s.i / 1000).toFixed(0)}k</span>
+                        <span className={cn("text-[10px] tabular-nums w-[60px] text-right", s.pg > 0 ? "text-red-400" : "text-blue-400")}>프 {s.pg > 0 ? "+" : ""}{(s.pg / 1000).toFixed(0)}k</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {!snap.theme_momentum.length && !snap.movers.gainers.length && !snap.signals.length && (
+              <p className="text-xs text-muted-foreground text-center py-4">해당 날짜의 데이터가 없습니다</p>
+            )}
+          </>
+        )}
+
+        {/* 라이브 모드 */}
+        {!viewingHistory && !isDataFresh && !hasHistoryData && (
+          <p className="text-xs text-muted-foreground text-center py-4">장 시작 후 데이터가 수집됩니다</p>
+        )}
+
+        {!viewingHistory && isDataFresh && (<>
         {/* B-1: Forecast freshness banner */}
         {forecastInfo?.isNewer && (
           <button
@@ -311,6 +505,8 @@ export function IntradayInsights({
             </div>
           </div>
         )}
+
+        </>)}
 
         {/* 종목 클릭 액션 팝업 */}
         {actionPopup && (
