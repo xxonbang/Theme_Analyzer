@@ -196,7 +196,32 @@ def main():
         sys.exit(1)
 
     all_stocks = extract_all_codes(latest)
-    print(f"  전체 종목: {len(all_stocks)}개")
+    static_count = len(all_stocks)
+
+    # 1-1. KIS API 실시간 랭킹으로 종목 보강 (장중 진입 종목 누락 방지)
+    try:
+        rank_api_tmp = KISRankAPI()
+        existing_codes = {s["code"] for s in all_stocks}
+        added = 0
+        for rank_fn in [rank_api_tmp.get_volume_rank, rank_api_tmp.get_trading_value_rank]:
+            for market in ["KOSPI", "KOSDAQ"]:
+                try:
+                    ranked = rank_fn(market=market, limit=30, exclude_etf=False, extended=False)
+                    for s in ranked:
+                        code = s.get("code", "")
+                        if code and code not in existing_codes:
+                            all_stocks.append({"code": code, "name": s.get("name", code)})
+                            existing_codes.add(code)
+                            added += 1
+                except Exception:
+                    pass
+                time.sleep(0.3)
+        if added > 0:
+            print(f"  실시간 랭킹 보강: +{added}종목")
+    except Exception as e:
+        print(f"  실시간 랭킹 보강 실패 (무시): {e}")
+
+    print(f"  전체 종목: {len(all_stocks)}개 (정적 {static_count} + 실시간 {len(all_stocks) - static_count})")
 
     # 2. 대장주 추출 (theme_analysis 우선, theme-forecast fallback)
     forecast = load_json(FORECAST_PATH)
