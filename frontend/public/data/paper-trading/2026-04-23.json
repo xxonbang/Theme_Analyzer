@@ -1,0 +1,530 @@
+{
+  "trade_date": "2026-04-23",
+  "morning_timestamp": "2026-04-23 09:11:14",
+  "collected_at": "2026-04-23 15:41:08",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-23 09:11:14",
+      "prices": {
+        "006340": 7030,
+        "006910": 11540,
+        "105840": 29750,
+        "033160": 29950,
+        "355150": 33150,
+        "047040": 35600,
+        "336370": 15770
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 09:32:40",
+      "prices": {
+        "006340": 7030,
+        "006910": 11540,
+        "105840": 31050,
+        "355150": 33150,
+        "047040": 35600,
+        "336370": 15770
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 09:34:09",
+      "prices": {
+        "006340": 8200,
+        "006910": 11950,
+        "105840": 30600,
+        "355150": 32750,
+        "047040": 34350,
+        "336370": 15410
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 10:02:42",
+      "prices": {
+        "006340": 8200,
+        "006910": 11950,
+        "105840": 29375,
+        "355150": 32750,
+        "047040": 34350,
+        "336370": 15410
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 12:02:01",
+      "prices": {
+        "006340": 8200,
+        "006910": 11950,
+        "355150": 32750,
+        "047040": 33000,
+        "336370": 15410
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 12:35:02",
+      "prices": {
+        "006340": 7990,
+        "006910": 11630,
+        "355150": 33150,
+        "047040": 32700,
+        "336370": 15690
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 13:26:41",
+      "prices": {
+        "006340": 7990,
+        "006910": 11630,
+        "355150": 33150,
+        "047040": 33050,
+        "336370": 15690
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-23 14:36:47",
+      "prices": {
+        "006340": 7990,
+        "006910": 11630,
+        "355150": 33150,
+        "047040": 33400,
+        "336370": 15690
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "105840",
+          "name": "우진",
+          "theme": "전력 인프라 및 원전 관련주"
+        },
+        {
+          "code": "033160",
+          "name": "엠케이전자",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "355150",
+          "name": "코스텍시스",
+          "theme": "반도체 및 IT 부품/소재"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 재건"
+        },
+        {
+          "code": "336370",
+          "name": "솔루스첨단소재",
+          "theme": "2차전지 소재"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전력 인프라 및 원전 관련주",
+      "market": "KOSPI",
+      "buy_price": 7030,
+      "close_price": 8140,
+      "profit_rate": 15.79,
+      "profit_amount": 1110,
+      "high_price": 8370,
+      "high_time": "10:35",
+      "high_profit_rate": 19.06,
+      "high_profit_amount": 1340,
+      "low_price": 6720,
+      "low_profit_rate": -4.41,
+      "low_profit_amount": -310,
+      "low_time": "09:01"
+    },
+    {
+      "code": "006910",
+      "name": "보성파워텍",
+      "theme": "전력 인프라 및 원전 관련주",
+      "market": "KOSPI",
+      "buy_price": 11540,
+      "close_price": 11870,
+      "profit_rate": 2.86,
+      "profit_amount": 330,
+      "high_price": 12650,
+      "high_time": "09:53",
+      "high_profit_rate": 9.62,
+      "high_profit_amount": 1110,
+      "low_price": 10450,
+      "low_profit_rate": -9.45,
+      "low_profit_amount": -1090,
+      "low_time": "09:00"
+    },
+    {
+      "code": "105840",
+      "name": "우진",
+      "theme": "전력 인프라 및 원전 관련주",
+      "market": "KOSPI",
+      "buy_price": 29750,
+      "close_price": 28800,
+      "profit_rate": -3.19,
+      "profit_amount": -950,
+      "high_price": 31300,
+      "high_time": "09:32",
+      "high_profit_rate": 5.21,
+      "high_profit_amount": 1550,
+      "low_price": 27700,
+      "low_profit_rate": -6.89,
+      "low_profit_amount": -2050,
+      "low_time": "09:01"
+    },
+    {
+      "code": "033160",
+      "name": "엠케이전자",
+      "theme": "반도체 및 IT 부품/소재",
+      "market": "KOSPI",
+      "buy_price": 29950,
+      "close_price": 28350,
+      "profit_rate": -5.34,
+      "profit_amount": -1600,
+      "high_price": 29050,
+      "high_time": "09:12",
+      "high_profit_rate": -3.01,
+      "high_profit_amount": -900,
+      "low_price": 26800,
+      "low_profit_rate": -10.52,
+      "low_profit_amount": -3150,
+      "low_time": "12:43"
+    },
+    {
+      "code": "355150",
+      "name": "코스텍시스",
+      "theme": "반도체 및 IT 부품/소재",
+      "market": "KOSDAQ",
+      "buy_price": 33150,
+      "close_price": 33150,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 33150,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 27550,
+      "low_profit_rate": -16.89,
+      "low_profit_amount": -5600,
+      "low_time": "09:02"
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설 및 재건",
+      "market": "KOSPI",
+      "buy_price": 35600,
+      "close_price": 33250,
+      "profit_rate": -6.6,
+      "profit_amount": -2350,
+      "high_price": 35750,
+      "high_time": "09:12",
+      "high_profit_rate": 0.42,
+      "high_profit_amount": 150,
+      "low_price": 32250,
+      "low_profit_rate": -9.41,
+      "low_profit_amount": -3350,
+      "low_time": "12:40"
+    },
+    {
+      "code": "336370",
+      "name": "솔루스첨단소재",
+      "theme": "2차전지 소재",
+      "market": "KOSDAQ",
+      "buy_price": 15770,
+      "close_price": 15500,
+      "profit_rate": -1.71,
+      "profit_amount": -270,
+      "high_price": 16900,
+      "high_time": "11:34",
+      "high_profit_rate": 7.17,
+      "high_profit_amount": 1130,
+      "low_price": 14430,
+      "low_profit_rate": -8.5,
+      "low_profit_amount": -1340,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 2,
+    "loss_stocks": 4,
+    "total_invested": 162790,
+    "total_value": 159060,
+    "total_profit": -3730,
+    "total_profit_rate": -2.29,
+    "high_total_value": 167170,
+    "high_total_profit": 4380,
+    "high_total_profit_rate": 2.69,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 1
+  }
+}
