@@ -125,6 +125,8 @@ def collect_fear_greed() -> dict | None:
 
 
 GLOBAL_INDICES = [
+    ("^KS11", "코스피"),
+    ("^KQ11", "코스닥"),
     ("^DJI", "다우존스"),
     ("^GSPC", "S&P500"),
     ("^IXIC", "나스닥종합"),

@@ -24,7 +24,7 @@ interface MacroIndicatorsProps {
   investorTrend?: { kospi?: { change_pct?: number }; kosdaq?: { change_pct?: number } }[]
 }
 
-const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200": "K200", "^VIX": "VIX", "FNG": "F&G", "^GSPC": "S&P", "^IXIC": "NAS", "^DJI": "DOW", "^STOXX50E": "EU50", "000001.SS": "상하이", "^N225": "日経", "KOSPI": "코스피", "KOSDAQ": "코스닥", "069500": "KDX2", "MU": "MU" }
+const SHORT_NAMES: Record<string, string> = { "NQ=F": "NQ", "KOSPI200": "K200", "^VIX": "VIX", "FNG": "F&G", "^GSPC": "S&P", "^IXIC": "NAS", "^DJI": "DOW", "^STOXX50E": "EU50", "000001.SS": "상하이", "^N225": "日経", "^KS11": "코스피", "^KQ11": "코스닥", "KOSPI": "코스피", "KOSDAQ": "코스닥", "069500": "KDX2", "MU": "MU" }
 const LINE_COLORS = [
   "var(--color-chart-red)", "var(--color-chart-blue)", "var(--color-chart-amber)",
   "var(--color-chart-green)", "var(--color-chart-violet)", "var(--color-chart-pink)",
@@ -42,6 +42,8 @@ const INDICATOR_DESC: Record<string, string> = {
   "FNG": "CNN Fear & Greed Index. 시장 심리를 0(극단적 공포)~100(극단적 탐욕) 수치로 표현. 25 이하 공포, 75 이상 탐욕.",
   "KOSPI": "코스피 종합지수. 한국거래소 유가증권시장 전 종목 시가총액 가중 지수. 한국 주식시장의 대표 벤치마크.",
   "KOSDAQ": "코스닥 종합지수. 코스닥시장 전 종목 시가총액 가중 지수. 중소·벤처·기술주 중심의 성장 시장.",
+  "^KS11": "코스피 종합지수. 한국거래소 유가증권시장 전 종목 시가총액 가중 지수. 한국 주식시장의 대표 벤치마크.",
+  "^KQ11": "코스닥 종합지수. 코스닥시장 전 종목 시가총액 가중 지수. 중소·벤처·기술주 중심의 성장 시장.",
   "^DJI": "다우존스 산업평균지수. 미국 대표 30개 대형 우량주로 구성. 전통 산업·금융주 비중이 높아 미국 경제 전반의 체감 지표.",
   "^GSPC": "S&P500 지수. 미국 500대 기업 시가총액 가중 지수. 글로벌 투자의 최대 벤치마크.",
   "^IXIC": "나스닥 종합지수. 나스닥 상장 전 종목 포함. 기술·성장주 비중이 높아 혁신 섹터 방향성 반영.",
@@ -657,7 +659,7 @@ function MacroChart({ rows, dates, hidden, setHidden }: { rows: { name: string; 
   )
 }
 
-export function MacroIndicators({ data, history, historyLoading, onRequestHistory, kospiIndex, kosdaqIndex, investorTrend }: MacroIndicatorsProps) {
+export function MacroIndicators({ data, history, historyLoading, onRequestHistory, kospiIndex, kosdaqIndex }: MacroIndicatorsProps) {
   const [expanded, setExpanded] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null)
@@ -669,20 +671,19 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
 
   // KOSPI/KOSDAQ를 indicatorMap에 주입 (별도 props → 통합)
   const indicatorMap = new Map(data.indicators.map((i) => [i.symbol, i]))
-  const latestTrend = investorTrend && investorTrend.length > 0 ? investorTrend[investorTrend.length - 1] : null
+  // investorTrend는 IndexAlertSection에서 사용, 여기서는 미사용
   const macroCollectedAt = data.updated_at?.slice(0, 16)
-  if (kospiIndex?.current && !indicatorMap.has("KOSPI")) {
-    const pct = latestTrend?.kospi?.change_pct ?? 0
-    indicatorMap.set("KOSPI", { symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(kospiIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
+  // 코스피/코스닥: yfinance ^KS11/^KQ11 우선, 없으면 kospiIndex props fallback
+  if (!indicatorMap.has("^KS11") && kospiIndex?.current) {
+    indicatorMap.set("^KS11", { symbol: "^KS11", name: "코스피", price: kospiIndex.current, change: 0, change_pct: 0, source: "kis", collected_at: macroCollectedAt })
   }
-  if (kosdaqIndex?.current && !indicatorMap.has("KOSDAQ")) {
-    const pct = latestTrend?.kosdaq?.change_pct ?? 0
-    indicatorMap.set("KOSDAQ", { symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(kosdaqIndex.current * pct / 100 * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
+  if (!indicatorMap.has("^KQ11") && kosdaqIndex?.current) {
+    indicatorMap.set("^KQ11", { symbol: "^KQ11", name: "코스닥", price: kosdaqIndex.current, change: 0, change_pct: 0, source: "kis", collected_at: macroCollectedAt })
   }
 
   // 접힌 상태: 펼친 상태와 동일 순서
   const SUMMARY_SKIP = new Set(["NQ=F"])
-  const priorityOrder = ["FNG", "^VIX", "KOSPI", "KOSDAQ", "^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225", "KOSPI200", "MU", "SOXX", "EWY", "KORU", "069500"]
+  const priorityOrder = ["FNG", "^VIX", "^KS11", "^KQ11", "^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225", "KOSPI200", "MU", "SOXX", "EWY", "KORU", "069500"]
   const summaryItems = [
     ...priorityOrder.map(sym => indicatorMap.get(sym)).filter(Boolean),
     ...data.indicators.filter(i => !priorityOrder.includes(i.symbol) && !SUMMARY_SKIP.has(i.symbol)),
@@ -779,26 +780,9 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
       {expanded && (() => {
         const fng = indicatorMap.get("FNG")
         const vix = indicatorMap.get("^VIX")
-        // KOSPI/KOSDAQ를 indicator 형태로 변환 (등락률은 investorTrend에서)
-        const latestTrend = investorTrend && investorTrend.length > 0 ? investorTrend[investorTrend.length - 1] : null
-        const domesticIndices: typeof data.indicators = []
-        if (kospiIndex?.current) {
-          const pct = latestTrend?.kospi?.change_pct ?? 0
-          const change = kospiIndex.current * pct / 100
-          domesticIndices.push({ symbol: "KOSPI", name: "코스피", price: kospiIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
-        }
-        if (kosdaqIndex?.current) {
-          const pct = latestTrend?.kosdaq?.change_pct ?? 0
-          const change = kosdaqIndex.current * pct / 100
-          domesticIndices.push({ symbol: "KOSDAQ", name: "코스닥", price: kosdaqIndex.current, change: Math.round(change * 100) / 100, change_pct: pct, source: "kis", collected_at: macroCollectedAt })
-        }
-
-        const GLOBAL_INDEX_SYMBOLS = ["^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225"]
-        const globalIndices = [
-          ...domesticIndices,
-          ...GLOBAL_INDEX_SYMBOLS.map(s => indicatorMap.get(s)).filter(Boolean),
-        ]
-        const SKIP = new Set(["FNG", "^VIX", "KOSPI", "KOSDAQ", "NQ=F", ...GLOBAL_INDEX_SYMBOLS])
+        const GLOBAL_INDEX_SYMBOLS = ["^KS11", "^KQ11", "^DJI", "^GSPC", "^IXIC", "^STOXX50E", "000001.SS", "^N225"]
+        const globalIndices = GLOBAL_INDEX_SYMBOLS.map(s => indicatorMap.get(s)).filter(Boolean)
+        const SKIP = new Set(["FNG", "^VIX", "NQ=F", ...GLOBAL_INDEX_SYMBOLS])
         const otherMacro = data.indicators.filter(i => !SKIP.has(i.symbol)).map(i =>
           i.symbol === "069500" ? { ...i, name: "KODEX 200" } : i
         )

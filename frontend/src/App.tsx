@@ -1061,7 +1061,7 @@ function App() {
         {/* 홈 탭 전용 콘텐츠 */}
         {activeTab === "home" && <>
           {/* Macro Indicators - Admin only */}
-          {isAdmin && macroData && <div id="section-macro"><MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} kospiIndex={displayData?.kospi_index} kosdaqIndex={displayData?.kosdaq_index} investorTrend={macroData?.investor_trend} /></div>}
+          {isAdmin && macroData && <div id="section-macro"><MacroIndicators data={macroData} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} kospiIndex={displayData?.kospi_index} kosdaqIndex={displayData?.kosdaq_index} /></div>}
 
           {/* Exchange Rate */}
           {displayData?.exchange && <div id="section-exchange"><ExchangeRate exchange={displayData.exchange} history={indicatorHistory} historyLoading={indicatorHistoryLoading} onRequestHistory={fetchIndicatorHistory} /></div>}
