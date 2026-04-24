@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-04-23 15:41:51",
+  "generated_at": "2026-04-24 15:42:20",
   "period": {
-    "start": "2026-03-24",
-    "end": "2026-04-23",
+    "start": "2026-03-25",
+    "end": "2026-04-24",
     "trading_days": 23
   },
   "overall": {
-    "cumulative_return": -28.48,
-    "cumulative_high_return": 140.33,
-    "avg_daily_return": -1.21,
-    "volatility": 6.52,
-    "sharpe_ratio": -0.19,
+    "cumulative_return": -20.06,
+    "cumulative_high_return": 168.92,
+    "avg_daily_return": -0.71,
+    "volatility": 6.92,
+    "sharpe_ratio": -0.1,
     "max_drawdown": 36.66,
-    "win_rate": 34.8,
-    "win_days": 8,
-    "loss_days": 15,
+    "win_rate": 39.1,
+    "win_days": 9,
+    "loss_days": 14,
     "flat_days": 0,
-    "avg_win": 3.6,
-    "avg_loss": -3.78,
-    "profit_loss_ratio": 0.95,
+    "avg_win": 4.31,
+    "avg_loss": -3.93,
+    "profit_loss_ratio": 1.1,
     "max_win_streak": 3,
     "max_loss_streak": 5,
     "best_day": {
-      "date": "2026-04-22",
-      "return": 5.76
+      "date": "2026-04-24",
+      "return": 9.95
     },
     "worst_day": {
       "date": "2026-03-31",
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": 1.63,
-    "win_rate": 60.0
+    "avg_return": 3.86,
+    "win_rate": 80.0
   },
   "theme_performance": [
     {
@@ -64,18 +64,18 @@
       "total_return": 17.66
     },
     {
+      "theme": "반도체/IT 부품",
+      "count": 11,
+      "win_rate": 81.8,
+      "avg_return": 5.34,
+      "total_return": 58.71
+    },
+    {
       "theme": "전력 인프라 및 원전 관련주",
       "count": 3,
       "win_rate": 66.7,
       "avg_return": 5.15,
       "total_return": 15.46
-    },
-    {
-      "theme": "반도체/IT 부품",
-      "count": 9,
-      "win_rate": 77.8,
-      "avg_return": 5.12,
-      "total_return": 46.12
     },
     {
       "theme": "반도체/IT 부품 및 통신장비",
@@ -132,13 +132,6 @@
       "win_rate": 50.0,
       "avg_return": 3.24,
       "total_return": 12.95
-    },
-    {
-      "theme": "2차전지/전기차 부품",
-      "count": 3,
-      "win_rate": 66.7,
-      "avg_return": 3.06,
-      "total_return": 9.17
     },
     {
       "theme": "방산/우주항공",
@@ -247,10 +240,10 @@
     },
     {
       "theme": "바이오/제약",
-      "count": 6,
+      "count": 3,
       "win_rate": 0.0,
-      "avg_return": -7.98,
-      "total_return": -47.89
+      "avg_return": -8.51,
+      "total_return": -25.53
     },
     {
       "theme": "통신장비/네트워크",
@@ -270,109 +263,109 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 172,
-      "win_rate": 48.3,
-      "avg_return": 0.19
+      "count": 169,
+      "win_rate": 49.7,
+      "avg_return": 0.51
     },
     {
       "market": "KOSDAQ",
-      "count": 62,
-      "win_rate": 48.4,
-      "avg_return": -0.57
+      "count": 63,
+      "win_rate": 47.6,
+      "avg_return": -0.58
     }
   ],
   "cumulative_series": [
     {
-      "date": "2026-03-24",
-      "cumulative_return": -1.62
-    },
-    {
       "date": "2026-03-25",
-      "cumulative_return": 3.18
+      "cumulative_return": 4.88
     },
     {
       "date": "2026-03-26",
-      "cumulative_return": -1.16
+      "cumulative_return": 0.46
     },
     {
       "date": "2026-03-27",
-      "cumulative_return": -5.43
+      "cumulative_return": -3.88
     },
     {
       "date": "2026-03-30",
-      "cumulative_return": -6.59
+      "cumulative_return": -5.05
     },
     {
       "date": "2026-03-31",
-      "cumulative_return": -31.97
+      "cumulative_return": -30.85
     },
     {
       "date": "2026-04-01",
-      "cumulative_return": -29.51
+      "cumulative_return": -28.35
     },
     {
       "date": "2026-04-02",
-      "cumulative_return": -30.74
+      "cumulative_return": -29.6
     },
     {
       "date": "2026-04-03",
-      "cumulative_return": -28.58
+      "cumulative_return": -27.41
     },
     {
       "date": "2026-04-06",
-      "cumulative_return": -28.76
+      "cumulative_return": -27.58
     },
     {
       "date": "2026-04-07",
-      "cumulative_return": -29.84
+      "cumulative_return": -28.68
     },
     {
       "date": "2026-04-08",
-      "cumulative_return": -26.63
+      "cumulative_return": -25.42
     },
     {
       "date": "2026-04-09",
-      "cumulative_return": -30.73
+      "cumulative_return": -29.59
     },
     {
       "date": "2026-04-10",
-      "cumulative_return": -30.04
+      "cumulative_return": -28.89
     },
     {
       "date": "2026-04-13",
-      "cumulative_return": -30.31
+      "cumulative_return": -29.16
     },
     {
       "date": "2026-04-14",
-      "cumulative_return": -31.25
+      "cumulative_return": -30.12
     },
     {
       "date": "2026-04-15",
-      "cumulative_return": -31.91
-    },
-    {
-      "date": "2026-04-16",
-      "cumulative_return": -33.85
-    },
-    {
-      "date": "2026-04-17",
-      "cumulative_return": -34.64
-    },
-    {
-      "date": "2026-04-20",
-      "cumulative_return": -34.55
-    },
-    {
-      "date": "2026-04-21",
       "cumulative_return": -30.79
     },
     {
+      "date": "2026-04-16",
+      "cumulative_return": -32.76
+    },
+    {
+      "date": "2026-04-17",
+      "cumulative_return": -33.57
+    },
+    {
+      "date": "2026-04-20",
+      "cumulative_return": -33.47
+    },
+    {
+      "date": "2026-04-21",
+      "cumulative_return": -29.65
+    },
+    {
       "date": "2026-04-22",
-      "cumulative_return": -26.8
+      "cumulative_return": -25.59
     },
     {
       "date": "2026-04-23",
-      "cumulative_return": -28.48
+      "cumulative_return": -27.3
+    },
+    {
+      "date": "2026-04-24",
+      "cumulative_return": -20.06
     }
   ]
 }

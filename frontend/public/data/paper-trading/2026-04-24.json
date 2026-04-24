@@ -1,0 +1,714 @@
+{
+  "trade_date": "2026-04-24",
+  "morning_timestamp": "2026-04-24 09:11:34",
+  "collected_at": "2026-04-24 15:41:11",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-24 09:11:34",
+      "prices": {
+        "900300": 244,
+        "439090": 16380,
+        "092220": 1778,
+        "080220": 50300,
+        "258790": 2195,
+        "317120": 3345,
+        "382800": 7850,
+        "448280": 12880,
+        "098460": 36050,
+        "036540": 8330,
+        "406820": 2600,
+        "010060": 346000
+      },
+      "leader_stocks": [
+        {
+          "code": "900300",
+          "name": "오가닉티코스메틱",
+          "theme": "화장품/뷰티"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "258790",
+          "name": "소프트캠프",
+          "theme": "AI/자율주행/SW"
+        },
+        {
+          "code": "317120",
+          "name": "라닉스",
+          "theme": "AI/자율주행/SW"
+        },
+        {
+          "code": "382800",
+          "name": "지앤비에스 에코",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "448280",
+          "name": "에코아이",
+          "theme": "친환경/신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 09:32:41",
+      "prices": {
+        "900300": 244,
+        "439090": 16380,
+        "092220": 1778,
+        "080220": 50300,
+        "258790": 2020,
+        "317120": 3345,
+        "382800": 7850,
+        "448280": 12350,
+        "098460": 36050,
+        "036540": 8590,
+        "406820": 2600,
+        "012450": 1498000,
+        "010060": 359500,
+        "267260": 1256000
+      },
+      "leader_stocks": [
+        {
+          "code": "900300",
+          "name": "오가닉티코스메틱",
+          "theme": "화장품/뷰티"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티"
+        },
+        {
+          "code": "092220",
+          "name": "KEC",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "258790",
+          "name": "소프트캠프",
+          "theme": "AI/자율주행/SW"
+        },
+        {
+          "code": "317120",
+          "name": "라닉스",
+          "theme": "AI/자율주행/SW"
+        },
+        {
+          "code": "382800",
+          "name": "지앤비에스 에코",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "448280",
+          "name": "에코아이",
+          "theme": "친환경/신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 09:35:29",
+      "prices": {
+        "900300": 244,
+        "439090": 15820,
+        "092220": 1801,
+        "080220": 53000,
+        "317120": 3070,
+        "382800": 8390,
+        "448280": 12100,
+        "098460": 40250,
+        "036540": 8640,
+        "406820": 2600,
+        "012450": 1492000,
+        "010060": 355000,
+        "267260": 1235000
+      },
+      "leader_stocks": [
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공 (K-방산 수출 확대)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        },
+        {
+          "code": "267260",
+          "name": "HD현대일렉트릭",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 10:01:59",
+      "prices": {
+        "900300": 244,
+        "439090": 15820,
+        "092220": 1801,
+        "080220": 53000,
+        "317120": 3070,
+        "382800": 8390,
+        "098460": 40250,
+        "036540": 8640,
+        "406820": 2600,
+        "012450": 1492000,
+        "010060": 355000,
+        "267260": 1235000
+      },
+      "leader_stocks": [
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공 (K-방산 수출 확대)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        },
+        {
+          "code": "267260",
+          "name": "HD현대일렉트릭",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 12:01:51",
+      "prices": {
+        "900300": 244,
+        "439090": 15820,
+        "092220": 1801,
+        "080220": 53000,
+        "317120": 3070,
+        "382800": 8390,
+        "098460": 40250,
+        "036540": 8640,
+        "406820": 2600,
+        "012450": 1492000,
+        "010060": 355000,
+        "267260": 1235000
+      },
+      "leader_stocks": [
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공 (K-방산 수출 확대)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        },
+        {
+          "code": "267260",
+          "name": "HD현대일렉트릭",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 12:34:53",
+      "prices": {
+        "900300": 244,
+        "439090": 15680,
+        "092220": 1734,
+        "080220": 55700,
+        "317120": 3015,
+        "382800": 8100,
+        "098460": 42300,
+        "036540": 9960,
+        "406820": 2600,
+        "012450": 1451000,
+        "010060": 378500,
+        "267260": 1254000
+      },
+      "leader_stocks": [
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공 (K-방산 수출 확대)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        },
+        {
+          "code": "267260",
+          "name": "HD현대일렉트릭",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 13:26:39",
+      "prices": {
+        "900300": 244,
+        "439090": 15530,
+        "092220": 1817,
+        "080220": 55700,
+        "317120": 3015,
+        "382800": 8100,
+        "098460": 42300,
+        "036540": 9960,
+        "406820": 2600,
+        "012450": 1468000,
+        "010060": 386500,
+        "267260": 1241000
+      },
+      "leader_stocks": [
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공 (K-방산 수출 확대)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        },
+        {
+          "code": "267260",
+          "name": "HD현대일렉트릭",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-24 14:36:57",
+      "prices": {
+        "900300": 244,
+        "439090": 15780,
+        "092220": 1830,
+        "080220": 55700,
+        "317120": 3015,
+        "382800": 8100,
+        "098460": 42300,
+        "036540": 9960,
+        "406820": 2600,
+        "012450": 1471000,
+        "010060": 386000,
+        "267260": 1263000
+      },
+      "leader_stocks": [
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 (AI 인프라 및 후공정)"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "439090",
+          "name": "마녀공장",
+          "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공 (K-방산 수출 확대)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        },
+        {
+          "code": "267260",
+          "name": "HD현대일렉트릭",
+          "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "900300",
+      "name": "오가닉티코스메틱",
+      "theme": "화장품/뷰티",
+      "market": "KOSPI",
+      "buy_price": 244,
+      "close_price": 244,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 244,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 226,
+      "low_profit_rate": -7.38,
+      "low_profit_amount": -18,
+      "low_time": "09:03"
+    },
+    {
+      "code": "439090",
+      "name": "마녀공장",
+      "theme": "화장품/뷰티",
+      "market": "KOSDAQ",
+      "buy_price": 16380,
+      "close_price": 16390,
+      "profit_rate": 0.06,
+      "profit_amount": 10,
+      "high_price": 16520,
+      "high_time": "15:19",
+      "high_profit_rate": 0.85,
+      "high_profit_amount": 140,
+      "low_price": 15200,
+      "low_profit_rate": -7.2,
+      "low_profit_amount": -1180,
+      "low_time": "10:10"
+    },
+    {
+      "code": "092220",
+      "name": "KEC",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1778,
+      "close_price": 1871,
+      "profit_rate": 5.23,
+      "profit_amount": 93,
+      "high_price": 1944,
+      "high_time": "14:04",
+      "high_profit_rate": 9.34,
+      "high_profit_amount": 166,
+      "low_price": 1660,
+      "low_profit_rate": -6.64,
+      "low_profit_amount": -118,
+      "low_time": "09:00"
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 50300,
+      "close_price": 54000,
+      "profit_rate": 7.36,
+      "profit_amount": 3700,
+      "high_price": 56500,
+      "high_time": "12:22",
+      "high_profit_rate": 12.33,
+      "high_profit_amount": 6200,
+      "low_price": 45800,
+      "low_profit_rate": -8.95,
+      "low_profit_amount": -4500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "258790",
+      "name": "소프트캠프",
+      "theme": "AI/자율주행/SW",
+      "market": "KOSPI",
+      "buy_price": 2195,
+      "close_price": 1993,
+      "profit_rate": -9.2,
+      "profit_amount": -202,
+      "high_price": 2180,
+      "high_time": "09:17",
+      "high_profit_rate": -0.68,
+      "high_profit_amount": -15,
+      "low_price": 1950,
+      "low_profit_rate": -11.16,
+      "low_profit_amount": -245,
+      "low_time": "10:33"
+    },
+    {
+      "code": "317120",
+      "name": "라닉스",
+      "theme": "AI/자율주행/SW",
+      "market": "KOSDAQ",
+      "buy_price": 3345,
+      "close_price": 2670,
+      "profit_rate": -20.18,
+      "profit_amount": -675,
+      "high_price": 3195,
+      "high_time": "09:24",
+      "high_profit_rate": -4.48,
+      "high_profit_amount": -150,
+      "low_price": 2670,
+      "low_profit_rate": -20.18,
+      "low_profit_amount": -675,
+      "low_time": "15:30"
+    },
+    {
+      "code": "382800",
+      "name": "지앤비에스 에코",
+      "theme": "친환경/신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 7850,
+      "close_price": 8450,
+      "profit_rate": 7.64,
+      "profit_amount": 600,
+      "high_price": 8700,
+      "high_time": "14:49",
+      "high_profit_rate": 10.83,
+      "high_profit_amount": 850,
+      "low_price": 7580,
+      "low_profit_rate": -3.44,
+      "low_profit_amount": -270,
+      "low_time": "09:01"
+    },
+    {
+      "code": "448280",
+      "name": "에코아이",
+      "theme": "친환경/신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 12880,
+      "close_price": 12330,
+      "profit_rate": -4.27,
+      "profit_amount": -550,
+      "high_price": 12880,
+      "high_time": "09:12",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 11900,
+      "low_profit_rate": -7.61,
+      "low_profit_amount": -980,
+      "low_time": "13:30"
+    },
+    {
+      "code": "098460",
+      "name": "고영",
+      "theme": "반도체 (AI 인프라 및 후공정)",
+      "market": "KOSPI",
+      "buy_price": 36050,
+      "close_price": 42300,
+      "profit_rate": 17.34,
+      "profit_amount": 6250,
+      "high_price": 42300,
+      "high_time": "15:30",
+      "high_profit_rate": 17.34,
+      "high_profit_amount": 6250,
+      "low_price": 34450,
+      "low_profit_rate": -4.44,
+      "low_profit_amount": -1600,
+      "low_time": "09:00"
+    },
+    {
+      "code": "036540",
+      "name": "SFA반도체",
+      "theme": "반도체 (AI 인프라 및 후공정)",
+      "market": "KOSPI",
+      "buy_price": 8330,
+      "close_price": 9640,
+      "profit_rate": 15.73,
+      "profit_amount": 1310,
+      "high_price": 10150,
+      "high_time": "11:42",
+      "high_profit_rate": 21.85,
+      "high_profit_amount": 1820,
+      "low_price": 7890,
+      "low_profit_rate": -5.28,
+      "low_profit_amount": -440,
+      "low_time": "09:00"
+    },
+    {
+      "code": "406820",
+      "name": "뷰티스킨",
+      "theme": "화장품/뷰티 (K-뷰티 글로벌 확장)",
+      "market": "KOSDAQ",
+      "buy_price": 2600,
+      "close_price": 2600,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2600,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2060,
+      "low_profit_rate": -20.77,
+      "low_profit_amount": -540,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010060",
+      "name": "OCI홀딩스",
+      "theme": "전력기기/에너지 (AI 데이터센터 및 전력망 현대화)",
+      "market": "KOSPI",
+      "buy_price": 346000,
+      "close_price": 384000,
+      "profit_rate": 10.98,
+      "profit_amount": 38000,
+      "high_price": 399000,
+      "high_time": "11:28",
+      "high_profit_rate": 15.32,
+      "high_profit_amount": 53000,
+      "low_price": 322000,
+      "low_profit_rate": -6.94,
+      "low_profit_amount": -24000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 7,
+    "loss_stocks": 3,
+    "total_invested": 487952,
+    "total_value": 536488,
+    "total_profit": 48536,
+    "total_profit_rate": 9.95,
+    "high_total_value": 556213,
+    "high_total_profit": 68261,
+    "high_total_profit_rate": 13.99,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 2
+  }
+}
