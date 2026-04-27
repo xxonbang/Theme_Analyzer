@@ -1,0 +1,532 @@
+{
+  "trade_date": "2026-04-27",
+  "morning_timestamp": "2026-04-27 09:10:26",
+  "collected_at": "2026-04-27 15:41:10",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-27 09:10:26",
+      "prices": {
+        "006340": 9870,
+        "010170": 14770,
+        "000660": 1263000,
+        "042700": 313000,
+        "406820": 3355,
+        "083660": 430,
+        "403870": 54800,
+        "138360": 3230,
+        "443060": 274500
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 전력 설비"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선 및 전력 설비"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티"
+        },
+        {
+          "code": "083660",
+          "name": "CSA 코스믹",
+          "theme": "화장품/뷰티"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27 09:32:40",
+      "prices": {
+        "006340": 9870,
+        "010170": 14770,
+        "000660": 1279000,
+        "042700": 334000,
+        "406820": 3355,
+        "083660": 430,
+        "403870": 54800,
+        "138360": 3230,
+        "443060": 285000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 전력 설비"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선 및 전력 설비"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "화장품/뷰티"
+        },
+        {
+          "code": "083660",
+          "name": "CSA 코스믹",
+          "theme": "화장품/뷰티"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27 09:34:44",
+      "prices": {
+        "006340": 10570,
+        "010170": 16120,
+        "000660": 1281000,
+        "042700": 326000,
+        "406820": 3060,
+        "083660": 430,
+        "403870": 55000,
+        "138360": 3185,
+        "443060": 284500
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "138360",
+          "name": "앤로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "443060",
+          "name": "HD현대마린솔루션",
+          "theme": "조선 기자재/해양 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27 10:02:36",
+      "prices": {
+        "006340": 10570,
+        "010170": 16120,
+        "000660": 1289000,
+        "042700": 333000,
+        "406820": 3060,
+        "083660": 430,
+        "403870": 55000,
+        "138360": 3185,
+        "443060": 277000
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "138360",
+          "name": "앤로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "443060",
+          "name": "HD현대마린솔루션",
+          "theme": "조선 기자재/해양 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27 12:02:00",
+      "prices": {
+        "006340": 10570,
+        "010170": 16120,
+        "000660": 1299000,
+        "042700": 365500,
+        "406820": 3060,
+        "083660": 430,
+        "403870": 55000,
+        "138360": 3185,
+        "443060": 279000
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "138360",
+          "name": "앤로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "443060",
+          "name": "HD현대마린솔루션",
+          "theme": "조선 기자재/해양 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27 13:26:40",
+      "prices": {
+        "006340": 10570,
+        "010170": 16120,
+        "000660": 1314000,
+        "042700": 376000,
+        "406820": 3060,
+        "083660": 430,
+        "403870": 55000,
+        "138360": 3185,
+        "443060": 275500
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "138360",
+          "name": "앤로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "443060",
+          "name": "HD현대마린솔루션",
+          "theme": "조선 기자재/해양 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-27 14:36:40",
+      "prices": {
+        "006340": 10570,
+        "010170": 16120,
+        "000660": 1293500,
+        "042700": 373250,
+        "406820": 3060,
+        "083660": 430,
+        "403870": 55000,
+        "138360": 3185,
+        "443060": 279000
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/전선/변압기"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 핵심 부품"
+        },
+        {
+          "code": "138360",
+          "name": "앤로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "443060",
+          "name": "HD현대마린솔루션",
+          "theme": "조선 기자재/해양 솔루션"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전선 및 전력 설비",
+      "market": "KOSPI",
+      "buy_price": 9870,
+      "close_price": 10170,
+      "profit_rate": 3.04,
+      "profit_amount": 300,
+      "high_price": 10660,
+      "high_time": "09:27",
+      "high_profit_rate": 8.0,
+      "high_profit_amount": 790,
+      "low_price": 9300,
+      "low_profit_rate": -5.78,
+      "low_profit_amount": -570,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "전선 및 전력 설비",
+      "market": "KOSPI",
+      "buy_price": 14770,
+      "close_price": 16020,
+      "profit_rate": 8.46,
+      "profit_amount": 1250,
+      "high_price": 16580,
+      "high_time": "09:36",
+      "high_profit_rate": 12.25,
+      "high_profit_amount": 1810,
+      "low_price": 13420,
+      "low_profit_rate": -9.14,
+      "low_profit_amount": -1350,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 1263000,
+      "close_price": 1292000,
+      "profit_rate": 2.3,
+      "profit_amount": 29000,
+      "high_price": 1317000,
+      "high_time": "13:11",
+      "high_profit_rate": 4.28,
+      "high_profit_amount": 54000,
+      "low_price": 1249000,
+      "low_profit_rate": -1.11,
+      "low_profit_amount": -14000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 313000,
+      "close_price": 373500,
+      "profit_rate": 19.33,
+      "profit_amount": 60500,
+      "high_price": 379500,
+      "high_time": "14:24",
+      "high_profit_rate": 21.25,
+      "high_profit_amount": 66500,
+      "low_price": 302000,
+      "low_profit_rate": -3.51,
+      "low_profit_amount": -11000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "406820",
+      "name": "뷰티스킨",
+      "theme": "화장품/뷰티",
+      "market": "KOSDAQ",
+      "buy_price": 3355,
+      "close_price": 2910,
+      "profit_rate": -13.26,
+      "profit_amount": -445,
+      "high_price": 3330,
+      "high_time": "10:09",
+      "high_profit_rate": -0.75,
+      "high_profit_amount": -25,
+      "low_price": 2885,
+      "low_profit_rate": -14.01,
+      "low_profit_amount": -470,
+      "low_time": "15:15"
+    },
+    {
+      "code": "083660",
+      "name": "CSA 코스믹",
+      "theme": "화장품/뷰티",
+      "market": "KOSPI",
+      "buy_price": 430,
+      "close_price": 430,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 430,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 430,
+      "low_profit_rate": 0.0,
+      "low_profit_amount": 0,
+      "low_time": "15:30"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체/AI 핵심 부품",
+      "market": "KOSDAQ",
+      "buy_price": 54800,
+      "close_price": 54800,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 56200,
+      "high_time": "09:18",
+      "high_profit_rate": 2.55,
+      "high_profit_amount": 1400,
+      "low_price": 54100,
+      "low_profit_rate": -1.28,
+      "low_profit_amount": -700,
+      "low_time": "11:16"
+    },
+    {
+      "code": "138360",
+      "name": "앤로보틱스",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 3230,
+      "close_price": 3585,
+      "profit_rate": 10.99,
+      "profit_amount": 355,
+      "high_price": 3585,
+      "high_time": "15:30",
+      "high_profit_rate": 10.99,
+      "high_profit_amount": 355,
+      "low_price": 2900,
+      "low_profit_rate": -10.22,
+      "low_profit_amount": -330,
+      "low_time": "09:00"
+    },
+    {
+      "code": "443060",
+      "name": "HD현대마린솔루션",
+      "theme": "조선 기자재/해양 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 274500,
+      "close_price": 280500,
+      "profit_rate": 2.19,
+      "profit_amount": 6000,
+      "high_price": 287000,
+      "high_time": "09:41",
+      "high_profit_rate": 4.55,
+      "high_profit_amount": 12500,
+      "low_price": 266500,
+      "low_profit_rate": -2.91,
+      "low_profit_amount": -8000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 6,
+    "loss_stocks": 1,
+    "total_invested": 1936955,
+    "total_value": 2033915,
+    "total_profit": 96960,
+    "total_profit_rate": 5.01,
+    "high_total_value": 2074285,
+    "high_total_profit": 137330,
+    "high_total_profit_rate": 7.09,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 1
+  }
+}
