@@ -1,0 +1,625 @@
+{
+  "trade_date": "2026-04-28",
+  "morning_timestamp": "2026-04-28 09:12:26",
+  "collected_at": "2026-04-28 15:41:16",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-28 09:12:26",
+      "prices": {
+        "005490": 469500,
+        "001780": 3130,
+        "002780": 1539,
+        "000660": 1309000,
+        "001510": 5520,
+        "047040": 33550,
+        "375500": 100600,
+        "058430": 8680,
+        "073570": 860,
+        "101670": 2185,
+        "322000": 207000
+      },
+      "leader_stocks": [
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/2차전지 소재"
+        },
+        {
+          "code": "001780",
+          "name": "알루코",
+          "theme": "철강/2차전지 소재"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "금융"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 09:32:49",
+      "prices": {
+        "005490": 475000,
+        "001780": 3130,
+        "002780": 1539,
+        "000660": 1314000,
+        "001510": 5520,
+        "047040": 38950,
+        "375500": 104100,
+        "058430": 8680,
+        "073570": 860,
+        "101670": 2185,
+        "322000": 207000
+      },
+      "leader_stocks": [
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/2차전지 소재"
+        },
+        {
+          "code": "001780",
+          "name": "알루코",
+          "theme": "철강/2차전지 소재"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "금융"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 09:34:46",
+      "prices": {
+        "005490": 467500,
+        "001780": 3180,
+        "002780": 1576,
+        "000660": 1308000,
+        "001510": 5860,
+        "047040": 39100,
+        "375500": 106000,
+        "058430": 8910,
+        "073570": 883,
+        "101670": 2255,
+        "322000": 208500
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "058430",
+          "name": "포스코스틸리온",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "101670",
+          "name": "하이드로리튬",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생 에너지/전력 인프라 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 10:02:39",
+      "prices": {
+        "005490": 472750,
+        "001780": 3180,
+        "002780": 1576,
+        "000660": 1321000,
+        "001510": 5860,
+        "047040": 39100,
+        "375500": 106000,
+        "058430": 8910,
+        "073570": 883,
+        "101670": 2255,
+        "322000": 208500
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "058430",
+          "name": "포스코스틸리온",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "101670",
+          "name": "하이드로리튬",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생 에너지/전력 인프라 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 12:01:54",
+      "prices": {
+        "005490": 461500,
+        "001780": 3180,
+        "002780": 1576,
+        "000660": 1301500,
+        "001510": 5860,
+        "047040": 39100,
+        "375500": 106000,
+        "058430": 8910,
+        "073570": 883,
+        "101670": 2255,
+        "322000": 208500
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "058430",
+          "name": "포스코스틸리온",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "101670",
+          "name": "하이드로리튬",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생 에너지/전력 인프라 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 12:35:05",
+      "prices": {
+        "005490": 464500,
+        "001780": 3445,
+        "002780": 1479,
+        "000660": 1311500,
+        "001510": 5920,
+        "047040": 38600,
+        "375500": 100700,
+        "058430": 9130,
+        "073570": 822,
+        "101670": 2170,
+        "322000": 207500
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "058430",
+          "name": "포스코스틸리온",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "101670",
+          "name": "하이드로리튬",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생 에너지/전력 인프라 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 13:26:42",
+      "prices": {
+        "005490": 466500,
+        "001780": 3445,
+        "002780": 1439,
+        "000660": 1315000,
+        "001510": 5920,
+        "047040": 38600,
+        "375500": 101000,
+        "058430": 9130,
+        "073570": 822,
+        "101670": 2150,
+        "322000": 208500
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "058430",
+          "name": "포스코스틸리온",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "101670",
+          "name": "하이드로리튬",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생 에너지/전력 인프라 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28 14:36:38",
+      "prices": {
+        "005490": 461000,
+        "001780": 3445,
+        "002780": 1388,
+        "000660": 1303000,
+        "001510": 5920,
+        "047040": 38600,
+        "375500": 100000,
+        "058430": 9130,
+        "073570": 822,
+        "101670": 2135,
+        "322000": 197300
+      },
+      "leader_stocks": [
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "058430",
+          "name": "포스코스틸리온",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "005490",
+          "name": "POSCO홀딩스",
+          "theme": "철강/금속 테마"
+        },
+        {
+          "code": "073570",
+          "name": "리튬포어스",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "101670",
+          "name": "하이드로리튬",
+          "theme": "리튬/2차전지 소재 테마"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생 에너지/전력 인프라 테마"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "005490",
+      "name": "POSCO홀딩스",
+      "theme": "철강/2차전지 소재",
+      "market": "KOSPI",
+      "buy_price": 469500,
+      "close_price": 466500,
+      "profit_rate": -0.64,
+      "profit_amount": -3000,
+      "high_price": 482000,
+      "high_time": "09:40",
+      "high_profit_rate": 2.66,
+      "high_profit_amount": 12500,
+      "low_price": 441000,
+      "low_profit_rate": -6.07,
+      "low_profit_amount": -28500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "001780",
+      "name": "알루코",
+      "theme": "철강/2차전지 소재",
+      "market": "KOSPI",
+      "buy_price": 3130,
+      "close_price": 3445,
+      "profit_rate": 10.06,
+      "profit_amount": 315,
+      "high_price": 3445,
+      "high_time": "15:30",
+      "high_profit_rate": 10.06,
+      "high_profit_amount": 315,
+      "low_price": 2760,
+      "low_profit_rate": -11.82,
+      "low_profit_amount": -370,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002780",
+      "name": "진흥기업",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 1539,
+      "close_price": 1355,
+      "profit_rate": -11.96,
+      "profit_amount": -184,
+      "high_price": 1645,
+      "high_time": "09:41",
+      "high_profit_rate": 6.89,
+      "high_profit_amount": 106,
+      "low_price": 1327,
+      "low_profit_rate": -13.78,
+      "low_profit_amount": -212,
+      "low_time": "09:01"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI/반도체",
+      "market": "KOSPI",
+      "buy_price": 1309000,
+      "close_price": 1300000,
+      "profit_rate": -0.69,
+      "profit_amount": -9000,
+      "high_price": 1328000,
+      "high_time": "10:30",
+      "high_profit_rate": 1.45,
+      "high_profit_amount": 19000,
+      "low_price": 1296000,
+      "low_profit_rate": -0.99,
+      "low_profit_amount": -13000,
+      "low_time": "09:05"
+    },
+    {
+      "code": "001510",
+      "name": "SK증권",
+      "theme": "금융",
+      "market": "KOSPI",
+      "buy_price": 5520,
+      "close_price": 5510,
+      "profit_rate": -0.18,
+      "profit_amount": -10,
+      "high_price": 6190,
+      "high_time": "12:04",
+      "high_profit_rate": 12.14,
+      "high_profit_amount": 670,
+      "low_price": 4965,
+      "low_profit_rate": -10.05,
+      "low_profit_amount": -555,
+      "low_time": "09:01"
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설/재건 테마",
+      "market": "KOSPI",
+      "buy_price": 33550,
+      "close_price": 37150,
+      "profit_rate": 10.73,
+      "profit_amount": 3600,
+      "high_price": 40350,
+      "high_time": "09:47",
+      "high_profit_rate": 20.27,
+      "high_profit_amount": 6800,
+      "low_price": 32300,
+      "low_profit_rate": -3.73,
+      "low_profit_amount": -1250,
+      "low_time": "09:02"
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "건설/재건 테마",
+      "market": "KOSDAQ",
+      "buy_price": 100600,
+      "close_price": 99900,
+      "profit_rate": -0.7,
+      "profit_amount": -700,
+      "high_price": 106350,
+      "high_time": "09:57",
+      "high_profit_rate": 5.72,
+      "high_profit_amount": 5750,
+      "low_price": 97800,
+      "low_profit_rate": -2.78,
+      "low_profit_amount": -2800,
+      "low_time": "09:00"
+    },
+    {
+      "code": "058430",
+      "name": "포스코스틸리온",
+      "theme": "철강/금속 테마",
+      "market": "KOSPI",
+      "buy_price": 8680,
+      "close_price": 9130,
+      "profit_rate": 5.18,
+      "profit_amount": 450,
+      "high_price": 9130,
+      "high_time": "15:30",
+      "high_profit_rate": 5.18,
+      "high_profit_amount": 450,
+      "low_price": 7320,
+      "low_profit_rate": -15.67,
+      "low_profit_amount": -1360,
+      "low_time": "09:00"
+    },
+    {
+      "code": "073570",
+      "name": "리튬포어스",
+      "theme": "리튬/2차전지 소재 테마",
+      "market": "KOSPI",
+      "buy_price": 860,
+      "close_price": 821,
+      "profit_rate": -4.53,
+      "profit_amount": -39,
+      "high_price": 925,
+      "high_time": "09:26",
+      "high_profit_rate": 7.56,
+      "high_profit_amount": 65,
+      "low_price": 750,
+      "low_profit_rate": -12.79,
+      "low_profit_amount": -110,
+      "low_time": "09:00"
+    },
+    {
+      "code": "101670",
+      "name": "하이드로리튬",
+      "theme": "리튬/2차전지 소재 테마",
+      "market": "KOSPI",
+      "buy_price": 2185,
+      "close_price": 2130,
+      "profit_rate": -2.52,
+      "profit_amount": -55,
+      "high_price": 2370,
+      "high_time": "09:26",
+      "high_profit_rate": 8.47,
+      "high_profit_amount": 185,
+      "low_price": 2050,
+      "low_profit_rate": -6.18,
+      "low_profit_amount": -135,
+      "low_time": "09:00"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생 에너지/전력 인프라 테마",
+      "market": "KOSDAQ",
+      "buy_price": 207000,
+      "close_price": 197500,
+      "profit_rate": -4.59,
+      "profit_amount": -9500,
+      "high_price": 224000,
+      "high_time": "09:19",
+      "high_profit_rate": 8.21,
+      "high_profit_amount": 17000,
+      "low_price": 188700,
+      "low_profit_rate": -8.84,
+      "low_profit_amount": -18300,
+      "low_time": "09:01"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 3,
+    "loss_stocks": 8,
+    "total_invested": 2141564,
+    "total_value": 2123441,
+    "total_profit": -18123,
+    "total_profit_rate": -0.85,
+    "high_total_value": 2204405,
+    "high_total_profit": 62841,
+    "high_total_profit_rate": 2.93,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 0
+  }
+}
