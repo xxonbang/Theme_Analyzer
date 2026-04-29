@@ -1,0 +1,683 @@
+{
+  "trade_date": "2026-04-29",
+  "morning_timestamp": "2026-04-29 09:10:59",
+  "collected_at": "2026-04-29 15:41:18",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-29 09:10:59",
+      "prices": {
+        "006340": 11070,
+        "001440": 47350,
+        "460860": 17190,
+        "024840": 3800,
+        "006400": 695500,
+        "096770": 140800,
+        "064350": 259000,
+        "336260": 54800,
+        "098460": 40550,
+        "178320": 56500
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "460860",
+          "name": "동국제강",
+          "theme": "철강/금속"
+        },
+        {
+          "code": "024840",
+          "name": "KBI메탈",
+          "theme": "철강/금속"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/신소재"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/신소재"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/철도"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 09:31:54",
+      "prices": {
+        "006340": 11070,
+        "001440": 48350,
+        "460860": 17190,
+        "024840": 3800,
+        "006400": 695500,
+        "096770": 140800,
+        "064350": 259000,
+        "229640": 82100,
+        "336260": 56600,
+        "098460": 43850,
+        "178320": 56900
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "460860",
+          "name": "동국제강",
+          "theme": "철강/금속"
+        },
+        {
+          "code": "024840",
+          "name": "KBI메탈",
+          "theme": "철강/금속"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/신소재"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/신소재"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/철도"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 09:34:29",
+      "prices": {
+        "006340": 11970,
+        "001440": 48350,
+        "460860": 16480,
+        "024840": 3925,
+        "006400": 700000,
+        "096770": 141900,
+        "064350": 269000,
+        "229640": 80700,
+        "336260": 56200,
+        "098460": 42800,
+        "178320": 55800
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 10:02:47",
+      "prices": {
+        "006340": 11970,
+        "001440": 47950,
+        "460860": 16480,
+        "024840": 3925,
+        "006400": 700000,
+        "096770": 141900,
+        "064350": 269000,
+        "229640": 83800,
+        "336260": 56600,
+        "098460": 42800,
+        "178320": 55900
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 12:01:52",
+      "prices": {
+        "006340": 11970,
+        "001440": 51900,
+        "460860": 16480,
+        "024840": 3925,
+        "006400": 704000,
+        "096770": 142500,
+        "064350": 264000,
+        "229640": 89200,
+        "336260": 56600,
+        "098460": 42800,
+        "178320": 56700
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 12:34:39",
+      "prices": {
+        "006340": 12430,
+        "001440": 51600,
+        "460860": 16380,
+        "024840": 3925,
+        "229640": 89200,
+        "336260": 56900,
+        "098460": 41500,
+        "178320": 55900
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 13:27:06",
+      "prices": {
+        "006340": 12430,
+        "001440": 51600,
+        "460860": 16340,
+        "024840": 3925,
+        "006400": 708000,
+        "096770": 142400,
+        "064350": 263500,
+        "229640": 89000,
+        "336260": 58600,
+        "098460": 42000,
+        "178320": 56200
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-29 14:36:39",
+      "prices": {
+        "006340": 12430,
+        "001440": 51600,
+        "460860": 16110,
+        "024840": 3925,
+        "006400": 712000,
+        "096770": 145900,
+        "064350": 264000,
+        "229640": 90200,
+        "336260": 58600,
+        "098460": 42000,
+        "178320": 56000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 11070,
+      "close_price": 13090,
+      "profit_rate": 18.25,
+      "profit_amount": 2020,
+      "high_price": 13090,
+      "high_time": "15:30",
+      "high_profit_rate": 18.25,
+      "high_profit_amount": 2020,
+      "low_price": 9830,
+      "low_profit_rate": -11.2,
+      "low_profit_amount": -1240,
+      "low_time": "09:01"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 47350,
+      "close_price": 51200,
+      "profit_rate": 8.13,
+      "profit_amount": 3850,
+      "high_price": 52900,
+      "high_time": "12:14",
+      "high_profit_rate": 11.72,
+      "high_profit_amount": 5550,
+      "low_price": 45400,
+      "low_profit_rate": -4.12,
+      "low_profit_amount": -1950,
+      "low_time": "09:00"
+    },
+    {
+      "code": "460860",
+      "name": "동국제강",
+      "theme": "철강/금속",
+      "market": "KOSDAQ",
+      "buy_price": 17190,
+      "close_price": 16310,
+      "profit_rate": -5.12,
+      "profit_amount": -880,
+      "high_price": 17450,
+      "high_time": "09:12",
+      "high_profit_rate": 1.51,
+      "high_profit_amount": 260,
+      "low_price": 16000,
+      "low_profit_rate": -6.92,
+      "low_profit_amount": -1190,
+      "low_time": "10:23"
+    },
+    {
+      "code": "024840",
+      "name": "KBI메탈",
+      "theme": "철강/금속",
+      "market": "KOSPI",
+      "buy_price": 3800,
+      "close_price": 3925,
+      "profit_rate": 3.29,
+      "profit_amount": 125,
+      "high_price": 3925,
+      "high_time": "15:30",
+      "high_profit_rate": 3.29,
+      "high_profit_amount": 125,
+      "low_price": 3120,
+      "low_profit_rate": -17.89,
+      "low_profit_amount": -680,
+      "low_time": "09:00"
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "2차전지/신소재",
+      "market": "KOSPI",
+      "buy_price": 695500,
+      "close_price": 712000,
+      "profit_rate": 2.37,
+      "profit_amount": 16500,
+      "high_price": 714000,
+      "high_time": "15:13",
+      "high_profit_rate": 2.66,
+      "high_profit_amount": 18500,
+      "low_price": 685000,
+      "low_profit_rate": -1.51,
+      "low_profit_amount": -10500,
+      "low_time": "09:18"
+    },
+    {
+      "code": "096770",
+      "name": "SK이노베이션",
+      "theme": "2차전지/신소재",
+      "market": "KOSPI",
+      "buy_price": 140800,
+      "close_price": 149800,
+      "profit_rate": 6.39,
+      "profit_amount": 9000,
+      "high_price": 149900,
+      "high_time": "15:19",
+      "high_profit_rate": 6.46,
+      "high_profit_amount": 9100,
+      "low_price": 135300,
+      "low_profit_rate": -3.91,
+      "low_profit_amount": -5500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "064350",
+      "name": "현대로템",
+      "theme": "방산/철도",
+      "market": "KOSPI",
+      "buy_price": 259000,
+      "close_price": 264000,
+      "profit_rate": 1.93,
+      "profit_amount": 5000,
+      "high_price": 270500,
+      "high_time": "09:17",
+      "high_profit_rate": 4.44,
+      "high_profit_amount": 11500,
+      "low_price": 250500,
+      "low_profit_rate": -3.28,
+      "low_profit_amount": -8500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "336260",
+      "name": "두산퓨얼셀",
+      "theme": "방산/수소",
+      "market": "KOSDAQ",
+      "buy_price": 54800,
+      "close_price": 58600,
+      "profit_rate": 6.93,
+      "profit_amount": 3800,
+      "high_price": 60500,
+      "high_time": "12:47",
+      "high_profit_rate": 10.4,
+      "high_profit_amount": 5700,
+      "low_price": 52400,
+      "low_profit_rate": -4.38,
+      "low_profit_amount": -2400,
+      "low_time": "09:09"
+    },
+    {
+      "code": "098460",
+      "name": "고영",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 40550,
+      "close_price": 41950,
+      "profit_rate": 3.45,
+      "profit_amount": 1400,
+      "high_price": 45000,
+      "high_time": "09:39",
+      "high_profit_rate": 10.97,
+      "high_profit_amount": 4450,
+      "low_price": 39200,
+      "low_profit_rate": -3.33,
+      "low_profit_amount": -1350,
+      "low_time": "09:02"
+    },
+    {
+      "code": "178320",
+      "name": "서진시스템",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 56500,
+      "close_price": 56700,
+      "profit_rate": 0.35,
+      "profit_amount": 200,
+      "high_price": 58200,
+      "high_time": "09:37",
+      "high_profit_rate": 3.01,
+      "high_profit_amount": 1700,
+      "low_price": 55500,
+      "low_profit_rate": -1.77,
+      "low_profit_amount": -1000,
+      "low_time": "09:28"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 9,
+    "loss_stocks": 1,
+    "total_invested": 1326560,
+    "total_value": 1367575,
+    "total_profit": 41015,
+    "total_profit_rate": 3.09,
+    "high_total_value": 1385465,
+    "high_total_profit": 58905,
+    "high_total_profit_rate": 4.44,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
