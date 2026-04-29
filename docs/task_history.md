@@ -4,6 +4,23 @@
 
 ---
 
+## 2026-04-29
+
+### [설정] theme_analysis 하네스 보강 — 5 agent + 4 hook + 3 skill + 1 command + 도메인 메모리 3 (2026-04-29 17:52 KST)
+- **변경 파일**: `.gitignore`, `.claude/settings.json`(신규), `.claude/hooks/{block-destructive,ruff-after-edit,tsc-after-edit,session-start-brief}.sh`(신규 4), `.claude/agents/{python-backend-impl,frontend-impl,workflow-ops,spec-reviewer,code-reviewer}.md`(신규 5), `.claude/skills/{deploy-pages,refresh-stock-master,run-collector-locally}/SKILL.md`(신규 3), `.claude/commands/pr-checklist.md`(신규), `~/.claude/projects/.../memory/{kis_api_quirks,workflow_dependencies,gemini_integration,MEMORY}.md`(자동메모리 3 신규 + 인덱스 갱신)
+- **내용**:
+  - **gitignore 정책 변경**: `.claude/` 전체 ignore → `settings.local.json` + `agent-memory/` + `CLAUDE.local.md` 만 ignore. agents/hooks/skills/commands/settings.json 은 git 포함 (`*.md` 룰 우회 위해 `!.claude/agents/**/*.md` 등 negative pattern 추가)
+  - **P0 위험 차단**: settings.json 신설(deny 룰 — `gh workflow disable/delete`, `gh secret delete`, `git push --force`, `rm -rf`, `Read(.env)` 등) + block-destructive.sh PreToolUse 훅으로 13개 cron · prod secret · git 이력 보호 (6/6 테스트 통과)
+  - **P1 효율**: ruff/tsc PostToolUse 훅(async lint), session-start-brief SessionStart 훅(HEAD·status·task_history 5건·workflows 13개), 특화 agent 3개(python-backend-impl/frontend-impl/workflow-ops) — 도메인 지식(KIS tr_id, acml_vol 폴백, 한국 증시 색상, concurrency `pages` 그룹 이슈) 내장
+  - **P2 구조화**: spec-reviewer + code-reviewer agent (2-stage review), Skills 3종(deploy-pages·refresh-stock-master·run-collector-locally), 자동 메모리 도메인 토픽 3종(kis_api_quirks·workflow_dependencies·gemini_integration)
+  - **참고**: theme_lab 하네스 패턴 적용. MCP 서버는 글로벌 `~/.claude.json`에 이미 등록되어 있어 `.mcp.json` 추가 불필요
+- **검증**:
+  - block-destructive 6/6 테스트 (rm -rf, gh workflow disable, gh secret delete, 정상 명령 통과, gh workflow run 통과, SERVICE_KEY notice)
+  - settings.json JSON 유효
+  - 5 hook chmod +x 확인
+  - SessionStart brief 출력 정상 (HEAD·branch·behind/ahead·uncommitted·history 5건·workflows 13)
+  - 신규 3 Skill (deploy-pages, refresh-stock-master, run-collector-locally) Skill 시스템에 자동 인식
+
 ## 2026-04-23
 
 ### [기능] 장중 시장 동향 자정 초기화 수정 + 히스토리 조회 UI (2026-04-23 22:10 KST)

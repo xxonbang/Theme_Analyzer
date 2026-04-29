@@ -1,0 +1,89 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/session-start-brief.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-destructive.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/ruff-after-edit.sh",
+            "async": true,
+            "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/tsc-after-edit.sh",
+            "async": true,
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/check-task-history.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Bash(git push --force-with-lease*)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -f*)",
+      "Bash(git branch -D *)",
+      "Bash(git filter-branch*)",
+      "Bash(gh workflow disable*)",
+      "Bash(gh workflow delete*)",
+      "Bash(gh secret delete*)",
+      "Bash(gh repo delete*)",
+      "Bash(supabase functions delete*)",
+      "Bash(supabase projects delete*)",
+      "Bash(sudo *)",
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(.kis_token_cache.json)",
+      "Read(.claude/settings.local.json)",
+      "Read(.claude/agent-memory/**)",
+      "Edit(.env*)",
+      "Edit(.kis_token_cache.json)",
+      "Edit(.claude/settings.local.json)",
+      "Write(.env*)",
+      "Write(.kis_token_cache.json)",
+      "Write(.claude/settings.local.json)"
+    ]
+  }
+}
