@@ -1,0 +1,583 @@
+{
+  "trade_date": "2026-04-30",
+  "morning_timestamp": "2026-04-30 09:09:47",
+  "collected_at": "2026-04-30 15:41:19",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-04-30 09:09:47",
+      "prices": {
+        "006340": 14810,
+        "001440": 51100,
+        "229640": 85800,
+        "064350": 268500,
+        "336260": 60500,
+        "006400": 708000,
+        "017510": 14850,
+        "454910": 115800,
+        "396300": 5980,
+        "009830": 51500,
+        "475150": 60600
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-30 09:32:43",
+      "prices": {
+        "006340": 14810,
+        "001440": 51100,
+        "064350": 268500,
+        "336260": 60500,
+        "006400": 708000,
+        "017510": 14850,
+        "454910": 115800,
+        "396300": 5980,
+        "009830": 51500,
+        "475150": 60600
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "229640",
+          "name": "LS에코에너지",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "064350",
+          "name": "현대로템",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "방산/수소"
+        },
+        {
+          "code": "098460",
+          "name": "고영",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지/친환경"
+        },
+        {
+          "code": "096770",
+          "name": "SK이노베이션",
+          "theme": "2차전지/친환경"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-30 09:34:51",
+      "prices": {
+        "006340": 15720,
+        "001440": 51400,
+        "064350": 265500,
+        "336260": 61500,
+        "006400": 701500,
+        "017510": 15300,
+        "454910": 114100,
+        "396300": 6510,
+        "009830": 55000,
+        "475150": 63200
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "017510",
+          "name": "세명전기",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "396300",
+          "name": "세아메카닉스",
+          "theme": "로봇"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-30 10:02:40",
+      "prices": {
+        "006340": 15720,
+        "001440": 51400,
+        "064350": 265500,
+        "336260": 61500,
+        "006400": 701500,
+        "017510": 15300,
+        "454910": 114100,
+        "396300": 6510,
+        "009830": 55000,
+        "475150": 63200
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "017510",
+          "name": "세명전기",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "396300",
+          "name": "세아메카닉스",
+          "theme": "로봇"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-30 12:01:59",
+      "prices": {
+        "006340": 15720,
+        "001440": 58000,
+        "064350": 265500,
+        "336260": 61500,
+        "006400": 701500,
+        "017510": 15300,
+        "454910": 109100,
+        "396300": 6510,
+        "009830": 55000,
+        "475150": 63200
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "017510",
+          "name": "세명전기",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "396300",
+          "name": "세아메카닉스",
+          "theme": "로봇"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-30 13:26:48",
+      "prices": {
+        "006340": 15720,
+        "001440": 57400,
+        "064350": 269000,
+        "336260": 60400,
+        "178320": 59800,
+        "006400": 702000,
+        "017510": 15300,
+        "454910": 106900,
+        "396300": 6510,
+        "009830": 55000,
+        "475150": 63200
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "017510",
+          "name": "세명전기",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "396300",
+          "name": "세아메카닉스",
+          "theme": "로봇"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-30 14:36:44",
+      "prices": {
+        "006340": 15720,
+        "001440": 57300,
+        "064350": 269000,
+        "336260": 60400,
+        "178320": 59800,
+        "006400": 702000,
+        "017510": 14680,
+        "454910": 108700,
+        "396300": 6510,
+        "009830": 55000,
+        "475150": 63200
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "017510",
+          "name": "세명전기",
+          "theme": "전력설비 및 전선"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "396300",
+          "name": "세아메카닉스",
+          "theme": "로봇"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "신재생에너지"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 14810,
+      "close_price": 15050,
+      "profit_rate": 1.62,
+      "profit_amount": 240,
+      "high_price": 16580,
+      "high_time": "10:44",
+      "high_profit_rate": 11.95,
+      "high_profit_amount": 1770,
+      "low_price": 12830,
+      "low_profit_rate": -13.37,
+      "low_profit_amount": -1980,
+      "low_time": "09:00"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 51100,
+      "close_price": 56300,
+      "profit_rate": 10.18,
+      "profit_amount": 5200,
+      "high_price": 59400,
+      "high_time": "12:51",
+      "high_profit_rate": 16.24,
+      "high_profit_amount": 8300,
+      "low_price": 49600,
+      "low_profit_rate": -2.94,
+      "low_profit_amount": -1500,
+      "low_time": "09:02"
+    },
+    {
+      "code": "229640",
+      "name": "LS에코에너지",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 85800,
+      "close_price": 87100,
+      "profit_rate": 1.52,
+      "profit_amount": 1300,
+      "high_price": 90200,
+      "high_time": "09:44",
+      "high_profit_rate": 5.13,
+      "high_profit_amount": 4400,
+      "low_price": 85000,
+      "low_profit_rate": -0.93,
+      "low_profit_amount": -800,
+      "low_time": "09:04"
+    },
+    {
+      "code": "064350",
+      "name": "현대로템",
+      "theme": "방산/수소",
+      "market": "KOSPI",
+      "buy_price": 268500,
+      "close_price": 268500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 282000,
+      "high_time": "11:08",
+      "high_profit_rate": 5.03,
+      "high_profit_amount": 13500,
+      "low_price": 261000,
+      "low_profit_rate": -2.79,
+      "low_profit_amount": -7500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "336260",
+      "name": "두산퓨얼셀",
+      "theme": "방산/수소",
+      "market": "KOSDAQ",
+      "buy_price": 60500,
+      "close_price": 60800,
+      "profit_rate": 0.5,
+      "profit_amount": 300,
+      "high_price": 62700,
+      "high_time": "09:24",
+      "high_profit_rate": 3.64,
+      "high_profit_amount": 2200,
+      "low_price": 59600,
+      "low_profit_rate": -1.49,
+      "low_profit_amount": -900,
+      "low_time": "13:35"
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "2차전지/친환경",
+      "market": "KOSPI",
+      "buy_price": 708000,
+      "close_price": 695000,
+      "profit_rate": -1.84,
+      "profit_amount": -13000,
+      "high_price": 719000,
+      "high_time": "09:15",
+      "high_profit_rate": 1.55,
+      "high_profit_amount": 11000,
+      "low_price": 692000,
+      "low_profit_rate": -2.26,
+      "low_profit_amount": -16000,
+      "low_time": "14:00"
+    },
+    {
+      "code": "017510",
+      "name": "세명전기",
+      "theme": "전력설비 및 전선",
+      "market": "KOSPI",
+      "buy_price": 14850,
+      "close_price": 14500,
+      "profit_rate": -2.36,
+      "profit_amount": -350,
+      "high_price": 15950,
+      "high_time": "09:33",
+      "high_profit_rate": 7.41,
+      "high_profit_amount": 1100,
+      "low_price": 14150,
+      "low_profit_rate": -4.71,
+      "low_profit_amount": -700,
+      "low_time": "09:01"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇",
+      "market": "KOSDAQ",
+      "buy_price": 115800,
+      "close_price": 110200,
+      "profit_rate": -4.84,
+      "profit_amount": -5600,
+      "high_price": 118000,
+      "high_time": "09:23",
+      "high_profit_rate": 1.9,
+      "high_profit_amount": 2200,
+      "low_price": 106400,
+      "low_profit_rate": -8.12,
+      "low_profit_amount": -9400,
+      "low_time": "13:22"
+    },
+    {
+      "code": "396300",
+      "name": "세아메카닉스",
+      "theme": "로봇",
+      "market": "KOSDAQ",
+      "buy_price": 5980,
+      "close_price": 5900,
+      "profit_rate": -1.34,
+      "profit_amount": -80,
+      "high_price": 6620,
+      "high_time": "09:31",
+      "high_profit_rate": 10.7,
+      "high_profit_amount": 640,
+      "low_price": 5630,
+      "low_profit_rate": -5.85,
+      "low_profit_amount": -350,
+      "low_time": "13:37"
+    },
+    {
+      "code": "009830",
+      "name": "한화솔루션",
+      "theme": "신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 51500,
+      "close_price": 50700,
+      "profit_rate": -1.55,
+      "profit_amount": -800,
+      "high_price": 55400,
+      "high_time": "09:28",
+      "high_profit_rate": 7.57,
+      "high_profit_amount": 3900,
+      "low_price": 48950,
+      "low_profit_rate": -4.95,
+      "low_profit_amount": -2550,
+      "low_time": "09:00"
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 60600,
+      "close_price": 58000,
+      "profit_rate": -4.29,
+      "profit_amount": -2600,
+      "high_price": 64200,
+      "high_time": "09:26",
+      "high_profit_rate": 5.94,
+      "high_profit_amount": 3600,
+      "low_price": 57300,
+      "low_profit_rate": -5.45,
+      "low_profit_amount": -3300,
+      "low_time": "13:57"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 4,
+    "loss_stocks": 6,
+    "total_invested": 1437440,
+    "total_value": 1422050,
+    "total_profit": -15390,
+    "total_profit_rate": -1.07,
+    "high_total_value": 1490050,
+    "high_total_profit": 52610,
+    "high_total_profit_rate": 3.66,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 0
+  }
+}
