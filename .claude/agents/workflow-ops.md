@@ -2,7 +2,7 @@
 name: workflow-ops
 description: theme_analysis GitHub Actions 워크플로(.github/workflows/*.yml) 변경 전담. cron 스케줄 변경, step 추가, secret 사용, concurrency 그룹 조정 시 PROACTIVELY 호출. 13개 cron 운영 중 — disable/delete 절대 금지. concurrency 그룹·secret 의존성·deploy 트리거 흐름을 분석하여 영향 평가.
 tools: Read, Write, Edit, Grep, Glob, Bash, WebFetch
-model: sonnet
+model: claude-sonnet-4-6
 color: yellow
 memory: project
 ---

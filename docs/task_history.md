@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-05-03
+
+### [개선] 하네스 점검 후 4건 보강 — ruff 설치 + context7 MCP + agent model 정확명 + requirements-dev (2026-05-03 14:48 KST)
+- **변경 파일**: `.mcp.json`(context7 추가, gitignored), `.claude/agents/{python-backend-impl,code-reviewer,frontend-impl,spec-reviewer,workflow-ops}.md`(model: sonnet → claude-sonnet-4-6), `requirements-dev.txt`(신규: ruff·pytest·pytest-asyncio·freezegun)
+- **점검 결과**: 정적 100% PASS, block-destructive 14/14 동적 PASS, brief·check-task-history 정상. **실효성 이슈 2건 발견**:
+  1. ruff 미설치 → ruff-after-edit hook silent skip (lint 0% 작동)
+  2. context7 MCP 누락 → 라이브러리 문서 조회 불가
+- **보강**:
+  - `~/.pyenv/versions/3.11.10/bin/pip install ruff==0.7.0` 설치 → hook이 `kis_client.py`에서 F541 2건 즉시 노출 확인 (실효성 회복)
+  - `.mcp.json`에 context7 항목 추가 (kis-code-assistant 유지)
+  - 신규 5개 agent의 model 단축명 → 정확명(`claude-sonnet-4-6`) 변경. 기존 2개(doc-sync, test-runner-analyzer)는 surgical changes 원칙 유지
+  - `requirements-dev.txt` 신규 생성 (개발 의존성 명시화, 다른 환경 재현 가능)
+- **검증**: ruff 호출·차단 회귀 14/14 PASS, .mcp.json JSON 유효, agent model 표기 일관
+
 ## 2026-04-29
 
 ### [설정] theme_analysis 하네스 보강 — 5 agent + 4 hook + 3 skill + 1 command + 도메인 메모리 3 (2026-04-29 17:52 KST)

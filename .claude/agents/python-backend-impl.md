@@ -2,7 +2,7 @@
 name: python-backend-impl
 description: theme_analysis Python 백엔드(modules/, scripts/, collect_*.py, main.py) 작업 전담. 기능 추가, 버그 수정, KIS API 통합, 데이터 수집/분석 로직 변경 시 PROACTIVELY 호출. TDD 우선. 도메인 지식(KIS tr_id, 폴백 패턴, _safe_int)을 내장하고 있어 같은 함정 반복 방지.
 tools: Read, Write, Edit, Grep, Glob, Bash, Agent(test-runner-analyzer), Agent(doc-sync)
-model: sonnet
+model: claude-sonnet-4-6
 color: blue
 memory: project
 ---

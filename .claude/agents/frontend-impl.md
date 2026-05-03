@@ -2,7 +2,7 @@
 name: frontend-impl
 description: theme_analysis 프론트엔드(frontend/src/) 작업 전담. React 컴포넌트 추가/수정, 상태/훅 변경, Tailwind 스타일링, Vite 설정 변경 시 PROACTIVELY 호출. shadcn/ui + Tailwind dark-first 패턴 + 한국 증시 색상 관습(빨강=상승, 파랑=하락) 내장.
 tools: Read, Write, Edit, Grep, Glob, Bash, Agent(doc-sync)
-model: sonnet
+model: claude-sonnet-4-6
 color: green
 memory: project
 ---

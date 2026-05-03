@@ -2,7 +2,7 @@
 name: code-reviewer
 description: theme_analysis 코드 품질 검토 전담. spec-reviewer의 ✅ 판정 후 호출. CLAUDE.md 4원칙(Think/Simplicity/Surgical/Goal-Driven) + theme_analysis 컨벤션 + 보안 + 테스트 품질 체크. 비차단 NIT과 차단 REQUEST_CHANGES 분리.
 tools: Read, Grep, Glob, Bash
-model: sonnet
+model: claude-sonnet-4-6
 color: orange
 memory: project
 ---

@@ -2,7 +2,7 @@
 name: spec-reviewer
 description: theme_analysis 변경의 의도-구현 정합성 검증 전담. 구현 task 완료 직후 PROACTIVELY 호출. 커밋 메시지·task_history 기재 의도와 실제 git diff가 일치하는지 verbatim 대조. spec 문서가 있으면 그것도 비교.
 tools: Read, Grep, Glob, Bash
-model: sonnet
+model: claude-sonnet-4-6
 color: purple
 memory: project
 ---
