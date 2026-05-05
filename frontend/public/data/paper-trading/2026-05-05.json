@@ -1,0 +1,791 @@
+{
+  "trade_date": "2026-05-05",
+  "morning_timestamp": "2026-05-05 09:11:14",
+  "collected_at": "2026-05-05 15:41:16",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-05 09:11:14",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/변압기/전선"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "전력 인프라/변압기/전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라/변압기/전선"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 메모리"
+        },
+        {
+          "code": "332570",
+          "name": "PS일렉트로닉스",
+          "theme": "반도체/AI 메모리"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "반도체/AI 메모리"
+        },
+        {
+          "code": "016360",
+          "name": "삼성증권",
+          "theme": "증권"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "증권"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 09:32:37",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라/변압기/전선"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "전력 인프라/변압기/전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라/변압기/전선"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 메모리"
+        },
+        {
+          "code": "332570",
+          "name": "PS일렉트로닉스",
+          "theme": "반도체/AI 메모리"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "반도체/AI 메모리"
+        },
+        {
+          "code": "016360",
+          "name": "삼성증권",
+          "theme": "증권"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "증권"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 09:34:41",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "059120",
+          "name": "아진엑스텍",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "432720",
+          "name": "퀄리타스반도체",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "033100",
+          "name": "제룡전기",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "003470",
+          "name": "유안타증권",
+          "theme": "증권업"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비 및 부품"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 10:02:42",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "059120",
+          "name": "아진엑스텍",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "432720",
+          "name": "퀄리타스반도체",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "033100",
+          "name": "제룡전기",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "003470",
+          "name": "유안타증권",
+          "theme": "증권업"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비 및 부품"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 12:02:01",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "059120",
+          "name": "아진엑스텍",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "432720",
+          "name": "퀄리타스반도체",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "033100",
+          "name": "제룡전기",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "003470",
+          "name": "유안타증권",
+          "theme": "증권업"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비 및 부품"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 12:34:57",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "059120",
+          "name": "아진엑스텍",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "432720",
+          "name": "퀄리타스반도체",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "033100",
+          "name": "제룡전기",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "003470",
+          "name": "유안타증권",
+          "theme": "증권업"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비 및 부품"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 13:26:51",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "059120",
+          "name": "아진엑스텍",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "432720",
+          "name": "퀄리타스반도체",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "033100",
+          "name": "제룡전기",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "003470",
+          "name": "유안타증권",
+          "theme": "증권업"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비 및 부품"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-05 14:36:49",
+      "prices": {
+        "010170": 17700,
+        "062040": 333500,
+        "006910": 14350,
+        "000660": 1447000,
+        "332570": 10470,
+        "322310": 44850,
+        "016360": 137900,
+        "006800": 70300,
+        "059120": 11580,
+        "432720": 29500,
+        "033100": 91500,
+        "003470": 6030,
+        "050890": 18640,
+        "230240": 36600
+      },
+      "leader_stocks": [
+        {
+          "code": "059120",
+          "name": "아진엑스텍",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "432720",
+          "name": "퀄리타스반도체",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "322310",
+          "name": "오로스테크놀로지",
+          "theme": "AI 반도체 및 첨단 패키징"
+        },
+        {
+          "code": "033100",
+          "name": "제룡전기",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "006910",
+          "name": "보성파워텍",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "003470",
+          "name": "유안타증권",
+          "theme": "증권업"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비 및 부품"
+        },
+        {
+          "code": "230240",
+          "name": "에치에프알",
+          "theme": "통신장비 및 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "전력 인프라/변압기/전선",
+      "market": "KOSPI",
+      "buy_price": 17700,
+      "close_price": 17700,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 18200,
+      "high_time": "09:40",
+      "high_profit_rate": 2.82,
+      "high_profit_amount": 500,
+      "low_price": 15490,
+      "low_profit_rate": -12.49,
+      "low_profit_amount": -2210,
+      "low_time": "09:00"
+    },
+    {
+      "code": "062040",
+      "name": "산일전기",
+      "theme": "전력 인프라/변압기/전선",
+      "market": "KOSPI",
+      "buy_price": 333500,
+      "close_price": 333500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 341000,
+      "high_time": "14:31",
+      "high_profit_rate": 2.25,
+      "high_profit_amount": 7500,
+      "low_price": 277000,
+      "low_profit_rate": -16.94,
+      "low_profit_amount": -56500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "006910",
+      "name": "보성파워텍",
+      "theme": "전력 인프라/변압기/전선",
+      "market": "KOSPI",
+      "buy_price": 14350,
+      "close_price": 14350,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 15280,
+      "high_time": "11:02",
+      "high_profit_rate": 6.48,
+      "high_profit_amount": 930,
+      "low_price": 12200,
+      "low_profit_rate": -14.98,
+      "low_profit_amount": -2150,
+      "low_time": "09:10"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/AI 메모리",
+      "market": "KOSPI",
+      "buy_price": 1447000,
+      "close_price": 1447000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1450000,
+      "high_time": "15:19",
+      "high_profit_rate": 0.21,
+      "high_profit_amount": 3000,
+      "low_price": 1333000,
+      "low_profit_rate": -7.88,
+      "low_profit_amount": -114000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "332570",
+      "name": "PS일렉트로닉스",
+      "theme": "반도체/AI 메모리",
+      "market": "KOSDAQ",
+      "buy_price": 10470,
+      "close_price": 10470,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 10470,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 9800,
+      "low_profit_rate": -6.4,
+      "low_profit_amount": -670,
+      "low_time": "09:02"
+    },
+    {
+      "code": "322310",
+      "name": "오로스테크놀로지",
+      "theme": "반도체/AI 메모리",
+      "market": "KOSDAQ",
+      "buy_price": 44850,
+      "close_price": 44850,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 44850,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 36950,
+      "low_profit_rate": -17.61,
+      "low_profit_amount": -7900,
+      "low_time": "09:00"
+    },
+    {
+      "code": "016360",
+      "name": "삼성증권",
+      "theme": "증권",
+      "market": "KOSPI",
+      "buy_price": 137900,
+      "close_price": 137900,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 139700,
+      "high_time": "13:39",
+      "high_profit_rate": 1.31,
+      "high_profit_amount": 1800,
+      "low_price": 109600,
+      "low_profit_rate": -20.52,
+      "low_profit_amount": -28300,
+      "low_time": "09:04"
+    },
+    {
+      "code": "006800",
+      "name": "미래에셋증권",
+      "theme": "증권",
+      "market": "KOSPI",
+      "buy_price": 70300,
+      "close_price": 70300,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 71700,
+      "high_time": "13:40",
+      "high_profit_rate": 1.99,
+      "high_profit_amount": 1400,
+      "low_price": 65900,
+      "low_profit_rate": -6.26,
+      "low_profit_amount": -4400,
+      "low_time": "09:03"
+    },
+    {
+      "code": "059120",
+      "name": "아진엑스텍",
+      "theme": "AI 반도체 및 첨단 패키징",
+      "market": "KOSPI",
+      "buy_price": 11580,
+      "close_price": 11580,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 11580,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 9280,
+      "low_profit_rate": -19.86,
+      "low_profit_amount": -2300,
+      "low_time": "09:00"
+    },
+    {
+      "code": "432720",
+      "name": "퀄리타스반도체",
+      "theme": "AI 반도체 및 첨단 패키징",
+      "market": "KOSDAQ",
+      "buy_price": 29500,
+      "close_price": 29500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 31350,
+      "high_time": "13:45",
+      "high_profit_rate": 6.27,
+      "high_profit_amount": 1850,
+      "low_price": 26050,
+      "low_profit_rate": -11.69,
+      "low_profit_amount": -3450,
+      "low_time": "09:00"
+    },
+    {
+      "code": "033100",
+      "name": "제룡전기",
+      "theme": "전력 인프라 및 전선",
+      "market": "KOSPI",
+      "buy_price": 91500,
+      "close_price": 91500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 91500,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 79000,
+      "low_profit_rate": -13.66,
+      "low_profit_amount": -12500,
+      "low_time": "09:02"
+    },
+    {
+      "code": "003470",
+      "name": "유안타증권",
+      "theme": "증권업",
+      "market": "KOSPI",
+      "buy_price": 6030,
+      "close_price": 6030,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 6440,
+      "high_time": "13:29",
+      "high_profit_rate": 6.8,
+      "high_profit_amount": 410,
+      "low_price": 5350,
+      "low_profit_rate": -11.28,
+      "low_profit_amount": -680,
+      "low_time": "09:00"
+    },
+    {
+      "code": "050890",
+      "name": "쏠리드",
+      "theme": "통신장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 18640,
+      "close_price": 18640,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 19450,
+      "high_time": "09:39",
+      "high_profit_rate": 4.35,
+      "high_profit_amount": 810,
+      "low_price": 17550,
+      "low_profit_rate": -5.85,
+      "low_profit_amount": -1090,
+      "low_time": "09:00"
+    },
+    {
+      "code": "230240",
+      "name": "에치에프알",
+      "theme": "통신장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 36600,
+      "close_price": 36600,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 38350,
+      "high_time": "10:45",
+      "high_profit_rate": 4.78,
+      "high_profit_amount": 1750,
+      "low_price": 31250,
+      "low_profit_rate": -14.62,
+      "low_profit_amount": -5350,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 14,
+    "profit_stocks": 0,
+    "loss_stocks": 0,
+    "total_invested": 2269920,
+    "total_value": 2269920,
+    "total_profit": 0,
+    "total_profit_rate": 0.0,
+    "high_total_value": 2289870,
+    "high_total_profit": 19950,
+    "high_total_profit_rate": 0.88,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
