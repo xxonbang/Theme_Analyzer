@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-05-04 12:35:23",
+  "updated_at": "2026-05-05 09:11:14",
   "entries": [
+    {
+      "filename": "2026-05-05_0911.json",
+      "date": "2026-05-05",
+      "time": "09:11",
+      "path": "data/history/2026-05-05_0911.json"
+    },
     {
       "filename": "2026-05-04_1235.json",
       "date": "2026-05-04",
@@ -24,18 +30,6 @@
       "date": "2026-05-01",
       "time": "09:35",
       "path": "data/history/2026-05-01_0935.json"
-    },
-    {
-      "filename": "2026-04-30_0934.json",
-      "date": "2026-04-30",
-      "time": "09:34",
-      "path": "data/history/2026-04-30_0934.json"
-    },
-    {
-      "filename": "2026-04-30_0909.json",
-      "date": "2026-04-30",
-      "time": "09:09",
-      "path": "data/history/2026-04-30_0909.json"
     }
   ]
 }
