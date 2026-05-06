@@ -387,14 +387,16 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const closeMin = Math.min(...closes, basePrice)
               const closeMax = Math.max(...closes, basePrice)
               const closeSpread = closeMax - closeMin
-              const padding = Math.max(closeSpread * 0.4, basePrice * 0.005)
-              const upPad = Math.max(closeMax - basePrice, padding)
-              const downPad = Math.max(basePrice - closeMin, padding)
-              const symPad = Math.max(upPad, downPad)
-              const minV = basePrice - symPad
-              const maxV = basePrice + symPad
+              // close 변동 자연 스케일 — close 변동이 한쪽으로 크게 치우친 날(예: 모두 +10~+15%)도
+              // 차트 전체 영역에 펼쳐지도록. 0% basePrice는 항상 [minV, maxV] 안에 포함됨 (closeMin/Max 산정 시 basePrice 포함).
+              // 변동 작은 날도 적정 펼침 (최소 basePrice의 1% 보장)
+              const effectiveSpread = Math.max(closeSpread, basePrice * 0.01)
+              const padding = effectiveSpread * 0.2
+              const minV = closeMin - padding
+              const maxV = closeMax + padding
               const range = (maxV - minV) || 1
               const yOf = (v: number) => PAD.top + PH - ((v - minV) / range) * PH
+              const zeroY = yOf(basePrice)
 
               const pts = pointCoords(closes, minV, maxV)
               const lastUp = closes[closes.length - 1] >= basePrice
@@ -406,32 +408,27 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                 if (i === 0 || i === times.length - 1 || t.endsWith(":00")) xLabelIdxs.push(i)
               })
 
-              // 0% anchor 균등 분할 (위 2 + 0 + 아래 2)
-              const upStep = (maxV - basePrice) / 2
-              const downStep = (basePrice - minV) / 2
-              const yTicks = [
-                basePrice - downStep * 2,
-                basePrice - downStep,
-                basePrice,
-                basePrice + upStep,
-                basePrice + upStep * 2,
-              ]
+              // yTicks 자연 균등 5단계 분할 (0% anchor 강제 X)
+              const ySteps = 4
+              const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (range / ySteps) * i)
+              // 별도 0% line과 너무 가까운 yTick은 라벨 숨김 (1단계 폭의 35% 미만)
+              const stepPx = PH / ySteps
+              const tooCloseToZero = (y: number) => Math.abs(y - zeroY) < stepPx * 0.35
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
                   {yTicks.map((v, i) => {
                     const y = yOf(v)
+                    if (tooCloseToZero(y)) return null
                     const rate = basePrice ? ((v - basePrice) / basePrice) * 100 : 0
-                    const isZero = Math.abs(rate) < 0.001
                     return (
                       <g key={`yg-${i}`}>
                         <line x1={PAD.left} y1={y} x2={CW - PAD.right} y2={y}
-                          stroke="currentColor" strokeWidth={isZero ? 0.7 : 0.5}
-                          strokeDasharray={isZero ? "4,3" : "3,3"} opacity={isZero ? 0.45 : 0.12} />
+                          stroke="currentColor" strokeWidth={0.5}
+                          strokeDasharray="3,3" opacity={0.12} />
                         <text x={PAD.left - 4} y={y + 3} textAnchor="end" fill="currentColor"
-                          opacity={isZero ? 0.65 : 0.55} fontSize={9}
-                          fontWeight={isZero ? 600 : 400}>
-                          {isZero ? "0%" : `${rate > 0 ? "+" : ""}${rate.toFixed(1)}%`}
+                          opacity={0.55} fontSize={9}>
+                          {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
                         </text>
                         <text x={CW - PAD.right + 4} y={y + 3} textAnchor="start" fill="currentColor" opacity={0.4} fontSize={8}>
                           {formatPrice(Math.round(v))}
@@ -439,6 +436,14 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                       </g>
                     )
                   })}
+                  {/* 0% 기준선 (basePrice) — yTicks와 별개로 강조 */}
+                  <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
+                    stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
+                  <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor"
+                    opacity={0.65} fontSize={9} fontWeight={600}>0%</text>
+                  <text x={CW - PAD.right + 4} y={zeroY + 3} textAnchor="start" fill="currentColor" opacity={0.5} fontSize={8}>
+                    {formatPrice(basePrice)}
+                  </text>
                   {/* 세로 그리드라인 */}
                   {closes.map((_, i) => {
                     const x = PAD.left + (i / Math.max(closes.length - 1, 1)) * PW
@@ -491,13 +496,27 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                       {formatPrice(item.close)}
                       <span className="text-muted-foreground/50 text-[10px] ml-0.5">원</span>
                     </span>
-                    {(item.high !== item.low) && (
-                      <span className="block text-[10px] text-muted-foreground/80 tabular-nums leading-tight mt-0.5">
-                        <span className="text-rose-500/80 font-semibold">H</span> {formatPrice(item.high)}
-                        <span className="mx-1 opacity-50">·</span>
-                        <span className="text-blue-500/80 font-semibold">L</span> {formatPrice(item.low)}
-                      </span>
-                    )}
+                    {(item.high !== item.low) && (() => {
+                      const base = selectedDay && selectedDay.prev_close > 0 ? selectedDay.prev_close : (selectedDay?.open ?? 0)
+                      const highRate = base ? ((item.high - base) / base) * 100 : 0
+                      const lowRate = base ? ((item.low - base) / base) * 100 : 0
+                      const fmt = (r: number) => `${r > 0 ? "+" : ""}${r.toFixed(2)}%`
+                      const rateCls = (r: number) => r > 0 ? "text-rose-500/70" : r < 0 ? "text-blue-500/70" : "text-muted-foreground/60"
+                      return (
+                        <span className="block tabular-nums leading-tight mt-0.5">
+                          <span className="block text-[10px]">
+                            <span className="text-rose-500/80 font-semibold">H</span>{" "}
+                            <span className="text-muted-foreground/80">{formatPrice(item.high)}</span>{" "}
+                            <span className={cn("text-[9px]", rateCls(highRate))}>{fmt(highRate)}</span>
+                          </span>
+                          <span className="block text-[10px]">
+                            <span className="text-blue-500/80 font-semibold">L</span>{" "}
+                            <span className="text-muted-foreground/80">{formatPrice(item.low)}</span>{" "}
+                            <span className={cn("text-[9px]", rateCls(lowRate))}>{fmt(lowRate)}</span>
+                          </span>
+                        </span>
+                      )
+                    })()}
                   </span>
                   <span className="flex-[3] text-right">
                     <span className={cn(

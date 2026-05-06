@@ -27,6 +27,7 @@ from modules.utils import KST
 
 ROOT_DIR = Path(__file__).parent
 LATEST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "latest.json"
+STOCK_HISTORY_PATH = ROOT_DIR / "frontend" / "public" / "data" / "stock-history.json"
 INTRADAY_PATH = ROOT_DIR / "frontend" / "public" / "data" / "investor-intraday.json"
 FORECAST_PATH = ROOT_DIR / "frontend" / "public" / "data" / "theme-forecast.json"
 
@@ -742,6 +743,15 @@ def main():
                 print(f"  ✓ {len(new_member)}개 종목 거래원 갱신 완료")
         except Exception as e:
             print(f"  ⚠ 거래원 수집 실패 (기존 데이터로 계속): {e}")
+
+        # history는 stock-history.json에 분리 저장 (data_exporter.py와 동일 정책)
+        # — 이전 버그: latest.json에만 저장 시 신규 진입 종목의 history가 stock-history.json에 반영되지 않아
+        #   StockCard에서 "거래 이력 부족"으로 표시되던 이슈 수정
+        history_data = latest.pop("history", {})
+        if history_data:
+            with open(STOCK_HISTORY_PATH, "w", encoding="utf-8") as f:
+                json.dump(history_data, f, ensure_ascii=False)
+            print(f"  stock-history.json 갱신 완료 ({len(history_data)}개 종목)")
 
         with open(LATEST_PATH, "w", encoding="utf-8") as f:
             json.dump(latest, f, ensure_ascii=False, indent=2)

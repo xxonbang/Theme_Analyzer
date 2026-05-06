@@ -6,6 +6,39 @@
 
 ## 2026-05-06
 
+### [버그픽스+개선] stock-history.json 갱신 누락 수정 + 장중 차트 자연 비대칭 스케일 (2026-05-06 22:52 KST)
+- **변경 파일**: `collect_investor_data.py` (+10), `frontend/src/components/PriceHistoryPopup.tsx` (+48/-29)
+- **버그픽스 1: 보성파워텍 등 9개 종목 "거래 이력 부족" 표시 근본 원인**
+  - 진단: `stock-history.json` 006910 changes=0 vs `latest.json/history.006910` changes=60 — 두 파일 분기. 같은 패턴 9개 종목(203650, 079190, 053080, 300120, 475430, 036540, 006340, 006910, 064260) 모두 신규 랭킹 진입 종목
+  - 원인: `data_exporter.py:221`에서 `data.pop("history")`로 history를 latest에서 빼서 stock-history.json에 분리 저장. 그러나 `collect_investor_data.py`가 신규 종목 history를 fetch한 후 latest.json에만 저장하고 stock-history.json은 갱신 안 함 → 분리 정책 위배
+  - 수정: `collect_investor_data.py:746` 직전에 `latest.pop("history")` + `stock-history.json` 별도 저장 추가 (data_exporter와 동일 정책)
+  - 상수 추가: `STOCK_HISTORY_PATH` (라인 30)
+- **개선 2: 장중 차트 직관성 — 0% anchor 대칭 → 자연 비대칭 스케일**
+  - 진단: 0% anchor 대칭이 close가 한쪽으로 치우친 날(예: 삼성전자 +10.75%~+15.38% 모두 양수)에 차트 절반을 비우고 close 변동을 1/6 영역에 압축 → "+10과 +14 차이가 직관적으로 안 보임"
+  - 변경:
+    - Y축 산정: `closeMin/closeMax + padding(effectiveSpread*0.2)`. 0% basePrice는 항상 차트 안 (closeMin/Max 산정 시 basePrice 포함하므로 보장)
+    - 변동 작은 날도 적정 펼침: `effectiveSpread = max(closeSpread, basePrice*0.01)` (최소 1% 보장)
+    - yTicks: 0% anchor 균등 분할 → **자연 균등 5단계 분할**
+    - 0% line: yTicks와 별개로 dashed line + 라벨로 강조 (가운데 아닐 수 있음)
+    - 충돌 방지: `tooCloseToZero` 헬퍼로 0% line과 1단계 폭 35% 미만 가까운 yTick 라벨 숨김
+- **검증**: Python AST PASS · `npx tsc --noEmit` PASS · `npm run build` PASS (3.76s, 1688 modules)
+- **참고**: 워크플로 변경 없음 — `collect-investor-data.yml`이 14:38·15:53·18:09 KST 등에 collect_investor_data.py 실행 시 자동으로 stock-history.json도 동기화됨
+
+### [개선] 장중 표 H/L 보조줄에 등락률 병기 + 두 줄 분리 (2026-05-06 22:48 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+22/-5)
+- **배경**: 사용자 요청 — H/L 가격만으로는 변동 의미 직관 부족. 등락률 함께 표시
+- **디자인 결정**:
+  - 한 줄 인라인 (`H 32,000 +0.47% · L 29,450 -8.39%`) 검토 → 모바일 폭 ~180px에서 줄바꿈 위험
+  - **두 줄 분리** 채택 (H 줄 / L 줄 각각). 셀 높이 +1줄 늘지만 모든 슬롯이 일관된 높이
+- **변경 내용**:
+  - close 가격 아래 H 줄, L 줄 각각 분리 — leading-tight + mt-0.5
+  - **시각 위계**: H/L 라벨(10px font-semibold rose/blue 80%) > 가격(10px muted/80) > 등락률(9px)
+  - **등락률 색상**: 양수 rose-500/70, 음수 blue-500/70, 0 muted-foreground/60 (한국 증시 색상 관습 정확 적용)
+  - basePrice는 selectedDay.prev_close 또는 fallback selectedDay.open
+  - basePrice가 0인 edge case도 안전하게 처리 (`base ? ... : 0`)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.96s, 1688 modules)
+- **미커밋** — 보성파워텍 진단·그래프 직관성 개선 등 후속 작업 묶을 예정
+
 ### [리팩토링] 장중 차트에서 wick 제거 — close 흐름 가독성 우선 (2026-05-06 22:30 KST)
 - **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+12/-89)
 - **배경**: 직전 P0 클리핑 시도(commit fca4c65) 후 사용자 피드백 — "오히려 가독성 떨어짐". 근본 진단: 한국 30분봉의 high/low가 시가 직후 spike로 close보다 4~5배 넓어, **차트에 wick 자체가 부적합**. Y축 좁게(클리핑) → 마커 노이즈 폭증 / 넓게 → close 평탄
