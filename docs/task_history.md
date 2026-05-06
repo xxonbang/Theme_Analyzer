@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-05-06
+
+### [개선] 장중 30분봉 차트·표에 high/low 변동폭 시각화 (2026-05-06 22:13 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+29/-6)
+- **배경**: 사용자가 대우건설(047040) 2026-05-06 장중 차트에서 ① 13:00·14:30 데이터 누락 의심 ② 09:00~09:30 사이 큰 변동(저점 -8.39%)이 30분봉 close 라인에서 보이지 않는다고 지적
+- **진단 결과**:
+  1. 13:00·14:30은 **수집 정상** — close가 우연히 전일종가(32,150)와 동일해 0.00%로 보였을 뿐 (high·volume 모두 정상)
+  2. 09:30 슬롯에 `high=32,000`, `low=29,450`(-8.39%)이 이미 저장되어 있음. `aggregate_minute_candles`가 1분봉 그룹의 max(high)/min(low)를 보존. 차트가 close polyline만 그려서 변동성 손실
+- **변경 내용**:
+  - **차트(SVG)**: Y축 스케일에 `highs`, `lows` 포함하도록 `allVals` 확장. 각 슬롯 포인트에 close 색상의 high-low 수직선(wick, opacity 0.35) 추가. `yOf()` 헬퍼 추출. `high===low`인 보합 슬롯은 wick 생략
+  - **표(테이블)**: 현재가 셀에 close 메인 + 그 아래 `H 32,000 · L 29,450` 보조 텍스트(9px, leading-tight). H는 rose-500/70, L은 blue-500/70 (한국 증시 색상 관습). `high===low`면 보조 줄 자체 숨김
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.82s, 1688 modules)
+- **데이터/백엔드 변경 없음** — 기존 JSON 구조와 `IntradayInterval` 타입 그대로 활용
+
 ## 2026-05-03
 
 ### [개선] 하네스 점검 후 4건 보강 — ruff 설치 + context7 MCP + agent model 정확명 + requirements-dev (2026-05-03 14:48 KST)

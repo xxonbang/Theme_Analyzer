@@ -376,17 +376,21 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               </div>
             )}
 
-            {/* 장중 종가 꺾은선 그래프 */}
+            {/* 장중 종가 꺾은선 그래프 + 30분봉 high-low wick */}
             {(() => {
               if (!selectedDay || intervals.length < 2) return null
               const closes = intervals.map(item => item.close)
+              const highs = intervals.map(item => item.high)
+              const lows = intervals.map(item => item.low)
               const times = intervals.map(item => item.time)
               const basePrice = selectedDay.prev_close > 0 ? selectedDay.prev_close : selectedDay.open
-              const allVals = [...closes, basePrice]
+              const allVals = [...closes, ...highs, ...lows, basePrice]
               const minV = Math.min(...allVals)
               const maxV = Math.max(...allVals)
               const pts = pointCoords(closes, minV, maxV)
-              const zeroY = PAD.top + PH - ((basePrice - minV) / ((maxV - minV) || 1)) * PH
+              const range = (maxV - minV) || 1
+              const yOf = (v: number) => PAD.top + PH - ((v - minV) / range) * PH
+              const zeroY = yOf(basePrice)
               const lastUp = closes[closes.length - 1] >= basePrice
               const color = lastUp ? "#ef4444" : "#3b82f6"
               // X축: 정시(":00") 라벨만 표시 + 첫/끝 항상 표시
@@ -428,6 +432,16 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
                     stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
                   <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={7}>0%</text>
+                  {/* high-low wick (각 슬롯의 변동 범위) */}
+                  {pts.map((p, i) => {
+                    const yH = yOf(highs[i])
+                    const yL = yOf(lows[i])
+                    if (yH === yL) return null
+                    return (
+                      <line key={`wick-${i}`} x1={p.x} y1={yH} x2={p.x} y2={yL}
+                        stroke={color} strokeWidth={1} strokeLinecap="round" opacity={0.35} />
+                    )
+                  })}
                   {/* 선 */}
                   <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                   {/* 포인트 */}
@@ -467,9 +481,18 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   )}
                 >
                   <span className="w-10 shrink-0 text-muted-foreground font-semibold tabular-nums">{item.time}</span>
-                  <span className="flex-[4] text-right font-bold tabular-nums">
-                    {formatPrice(item.close)}
-                    <span className="text-muted-foreground/50 text-[10px] ml-0.5">원</span>
+                  <span className="flex-[4] text-right">
+                    <span className="block font-bold tabular-nums">
+                      {formatPrice(item.close)}
+                      <span className="text-muted-foreground/50 text-[10px] ml-0.5">원</span>
+                    </span>
+                    {(item.high !== item.low) && (
+                      <span className="block text-[9px] text-muted-foreground/70 tabular-nums leading-tight">
+                        <span className="text-rose-500/70">H</span> {formatPrice(item.high)}
+                        <span className="mx-1 opacity-50">·</span>
+                        <span className="text-blue-500/70">L</span> {formatPrice(item.low)}
+                      </span>
+                    )}
                   </span>
                   <span className="flex-[3] text-right">
                     <span className={cn(
