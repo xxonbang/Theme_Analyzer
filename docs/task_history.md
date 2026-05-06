@@ -6,6 +6,21 @@
 
 ## 2026-05-06
 
+### [개선] 장중 차트 UX 폴리시 — outlier 클리핑·0% anchor·범례·H/L 가독성 (2026-05-06 22:23 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+95/-32)
+- **배경**: 직전 변경(high/low wick) 후 frontend-design 검토 결과 P0/P1/P2 이슈 발견
+  - P0: 09:30 spike(-8.39%) 한 봉이 Y축을 -8.4%까지 끌어내려 close 라인이 0% 부근에 압축됨 → 일반 흐름 시각화 불가
+  - P1: Y축 라벨이 4단계 균등 + 0% dashed 별도라 5번째 라벨처럼 보이는 시각 노이즈 / wick 가시성 부족
+  - P2: 범례 부재로 wick 의미 학습 비용 / H/L 텍스트 9px·/70 가독성 / 강조 박스 농도
+- **변경 내용**:
+  - **P0 outlier 클리핑**: Y축을 close 기반 0% anchor 대칭(`±max(closeMax-base, base-closeMin) + padding`)으로 산정. high/low가 Y축 밖이면 차트 상·하단으로 클리핑 + 위쪽 ▲/아래쪽 ▼ 화살표 + 정확한 % 라벨(예: `-8.39%`) 표시. 데이터 정직성 보존하면서 일반 흐름 가시성 회복
+  - **P1 Y축**: yTicks 5단계를 0% anchor 균등 분할(위 2 + 0 + 아래 2)로 변경. 0% 라인은 yTicks 내 isZero 분기로 dashed 처리(별도 라인 제거). zeroY 미사용 변수 정리
+  - **P1 wick**: stroke-width 1→1.2, opacity 0.35→0.4, min 2px 길이 클램프(미세 변동 슬롯도 가시화)
+  - **P2 범례**: 시가/전일종가 줄 우측에 SVG 미니 라인 + "종가 / H~L" 표기 추가
+  - **P2 표 H/L**: 9px→10px, opacity /70→/80, font-semibold + mt-0.5 추가
+  - **P2 강조 박스**: bg-muted/40 → bg-muted/30 (옅게)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.72s, 1688 modules)
+
 ### [개선] 장중 30분봉 차트·표에 high/low 변동폭 시각화 (2026-05-06 22:13 KST)
 - **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+29/-6)
 - **배경**: 사용자가 대우건설(047040) 2026-05-06 장중 차트에서 ① 13:00·14:30 데이터 누락 의심 ② 09:00~09:30 사이 큰 변동(저점 -8.39%)이 30분봉 close 라인에서 보이지 않는다고 지적

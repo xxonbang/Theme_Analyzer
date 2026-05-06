@@ -366,17 +366,36 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               </div>
             </div>
 
-            {/* 시가/전일종가 표시 */}
-            {selectedDay && (
-              <div className="text-[10px] text-muted-foreground mb-1 flex gap-3">
-                <span>시가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.open)}</span>원</span>
-                {selectedDay.prev_close > 0 && (
-                  <span>전일종가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.prev_close)}</span>원</span>
-                )}
-              </div>
-            )}
+            {/* 시가/전일종가 + 범례 */}
+            {selectedDay && (() => {
+              const lastUp = (() => {
+                if (intervals.length === 0) return true
+                const last = intervals[intervals.length - 1].close
+                const base = selectedDay.prev_close > 0 ? selectedDay.prev_close : selectedDay.open
+                return last >= base
+              })()
+              const legendColor = lastUp ? "#ef4444" : "#3b82f6"
+              return (
+                <div className="text-[10px] text-muted-foreground mb-1 flex flex-wrap gap-x-3 gap-y-0.5 items-center">
+                  <span>시가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.open)}</span>원</span>
+                  {selectedDay.prev_close > 0 && (
+                    <span>전일종가: <span className="font-semibold text-foreground">{formatPrice(selectedDay.prev_close)}</span>원</span>
+                  )}
+                  <span className="ml-auto inline-flex items-center gap-2 text-[9px] opacity-70">
+                    <span className="inline-flex items-center gap-1">
+                      <svg width="14" height="6"><line x1="0" y1="3" x2="14" y2="3" stroke={legendColor} strokeWidth={2} strokeLinecap="round" /></svg>
+                      종가
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <svg width="6" height="10"><line x1="3" y1="0" x2="3" y2="10" stroke={legendColor} strokeWidth={1.2} strokeLinecap="round" opacity={0.45} /></svg>
+                      H~L
+                    </span>
+                  </span>
+                </div>
+              )
+            })()}
 
-            {/* 장중 종가 꺾은선 그래프 + 30분봉 high-low wick */}
+            {/* 장중 종가 꺾은선 + 30분봉 high-low wick (outlier 클리핑) */}
             {(() => {
               if (!selectedDay || intervals.length < 2) return null
               const closes = intervals.map(item => item.close)
@@ -384,35 +403,73 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const lows = intervals.map(item => item.low)
               const times = intervals.map(item => item.time)
               const basePrice = selectedDay.prev_close > 0 ? selectedDay.prev_close : selectedDay.open
-              const allVals = [...closes, ...highs, ...lows, basePrice]
-              const minV = Math.min(...allVals)
-              const maxV = Math.max(...allVals)
-              const pts = pointCoords(closes, minV, maxV)
+
+              // P0: close 기준 Y축 + outlier 클리핑
+              // 일반 흐름(close)이 차트 중앙에 보이도록 Y축은 close 기반으로 산정
+              const closeMin = Math.min(...closes, basePrice)
+              const closeMax = Math.max(...closes, basePrice)
+              const closeSpread = closeMax - closeMin
+              // 패딩: close 변동폭의 40% (최소 basePrice의 0.5%, 폭이 0이면 1%)
+              const padding = Math.max(closeSpread * 0.4, basePrice * 0.005)
+              // P1: 0% anchor 대칭 — 위/아래 패딩 균등
+              const upPad = Math.max(closeMax - basePrice, padding)
+              const downPad = Math.max(basePrice - closeMin, padding)
+              const symPad = Math.max(upPad, downPad)
+              const minV = basePrice - symPad
+              const maxV = basePrice + symPad
               const range = (maxV - minV) || 1
+
               const yOf = (v: number) => PAD.top + PH - ((v - minV) / range) * PH
-              const zeroY = yOf(basePrice)
+              const yClampTop = PAD.top
+              const yClampBot = PAD.top + PH
+              const yOfClipped = (v: number) => {
+                if (v > maxV) return yClampTop
+                if (v < minV) return yClampBot
+                return yOf(v)
+              }
+              const isClippedHigh = (v: number) => v > maxV
+              const isClippedLow = (v: number) => v < minV
+
+              const pts = pointCoords(closes, minV, maxV)
               const lastUp = closes[closes.length - 1] >= basePrice
               const color = lastUp ? "#ef4444" : "#3b82f6"
+              const fmtPct = (v: number) => {
+                const r = basePrice ? ((v - basePrice) / basePrice) * 100 : 0
+                return `${r > 0 ? "+" : ""}${r.toFixed(2)}%`
+              }
+
               // X축: 정시(":00") 라벨만 표시 + 첫/끝 항상 표시
               const xLabelIdxs: number[] = []
               times.forEach((t, i) => {
                 if (i === 0 || i === times.length - 1 || t.endsWith(":00")) xLabelIdxs.push(i)
               })
-              // Y축: 5단계 균등 분할
-              const ySteps = 4
-              const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (maxV - minV) * (i / ySteps))
+
+              // P1: 0% anchor 균등 분할 (위 2 + 0 + 아래 2)
+              const upStep = (maxV - basePrice) / 2
+              const downStep = (basePrice - minV) / 2
+              const yTicks = [
+                basePrice - downStep * 2,
+                basePrice - downStep,
+                basePrice,
+                basePrice + upStep,
+                basePrice + upStep * 2,
+              ]
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
                   {yTicks.map((v, i) => {
-                    const y = PAD.top + PH - ((v - minV) / ((maxV - minV) || 1)) * PH
+                    const y = yOf(v)
                     const rate = basePrice ? ((v - basePrice) / basePrice) * 100 : 0
+                    const isZero = Math.abs(rate) < 0.001
                     return (
                       <g key={`yg-${i}`}>
                         <line x1={PAD.left} y1={y} x2={CW - PAD.right} y2={y}
-                          stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.12} />
-                        <text x={PAD.left - 4} y={y + 3} textAnchor="end" fill="currentColor" opacity={0.55} fontSize={9}>
-                          {rate > 0 ? "+" : ""}{rate.toFixed(1)}%
+                          stroke="currentColor" strokeWidth={isZero ? 0.7 : 0.5}
+                          strokeDasharray={isZero ? "4,3" : "3,3"} opacity={isZero ? 0.45 : 0.12} />
+                        <text x={PAD.left - 4} y={y + 3} textAnchor="end" fill="currentColor"
+                          opacity={isZero ? 0.65 : 0.55} fontSize={9}
+                          fontWeight={isZero ? 600 : 400}>
+                          {isZero ? "0%" : `${rate > 0 ? "+" : ""}${rate.toFixed(1)}%`}
                         </text>
                         <text x={CW - PAD.right + 4} y={y + 3} textAnchor="start" fill="currentColor" opacity={0.4} fontSize={8}>
                           {formatPrice(Math.round(v))}
@@ -428,23 +485,48 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                         stroke="currentColor" strokeWidth={0.5} strokeDasharray="3,3" opacity={0.08} />
                     )
                   })}
-                  {/* 0선 (전일종가 기준) */}
-                  <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
-                    stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
-                  <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor" opacity={0.5} fontSize={7}>0%</text>
-                  {/* high-low wick (각 슬롯의 변동 범위) */}
+                  {/* high-low wick (각 슬롯의 변동 범위, P1 가시성 강화 + outlier 마커) */}
                   {pts.map((p, i) => {
-                    const yH = yOf(highs[i])
-                    const yL = yOf(lows[i])
-                    if (yH === yL) return null
+                    if (highs[i] === lows[i]) return null
+                    let yH = yOfClipped(highs[i])
+                    let yL = yOfClipped(lows[i])
+                    // min 2px 길이 보장
+                    if (yL - yH < 2) {
+                      const mid = (yH + yL) / 2
+                      yH = mid - 1
+                      yL = mid + 1
+                    }
+                    const clippedTop = isClippedHigh(highs[i])
+                    const clippedBot = isClippedLow(lows[i])
                     return (
-                      <line key={`wick-${i}`} x1={p.x} y1={yH} x2={p.x} y2={yL}
-                        stroke={color} strokeWidth={1} strokeLinecap="round" opacity={0.35} />
+                      <g key={`wick-${i}`}>
+                        <line x1={p.x} y1={yH} x2={p.x} y2={yL}
+                          stroke={color} strokeWidth={1.2} strokeLinecap="round" opacity={0.4} />
+                        {/* outlier 끝 마커 (▲/▼) + % 라벨 */}
+                        {clippedTop && (
+                          <g>
+                            <polygon points={`${p.x},${yClampTop - 1} ${p.x - 3},${yClampTop + 3} ${p.x + 3},${yClampTop + 3}`}
+                              fill={color} opacity={0.85} />
+                            <text x={p.x} y={yClampTop - 4} textAnchor="middle" fill={color} fontSize={7.5} fontWeight={600} opacity={0.9}>
+                              {fmtPct(highs[i])}
+                            </text>
+                          </g>
+                        )}
+                        {clippedBot && (
+                          <g>
+                            <polygon points={`${p.x},${yClampBot + 1} ${p.x - 3},${yClampBot - 3} ${p.x + 3},${yClampBot - 3}`}
+                              fill={color} opacity={0.85} />
+                            <text x={p.x} y={yClampBot + 9} textAnchor="middle" fill={color} fontSize={7.5} fontWeight={600} opacity={0.9}>
+                              {fmtPct(lows[i])}
+                            </text>
+                          </g>
+                        )}
+                      </g>
                     )
                   })}
-                  {/* 선 */}
+                  {/* close 라인 */}
                   <polyline points={buildPoints(closes, minV, maxV)} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                  {/* 포인트 */}
+                  {/* close 포인트 */}
                   {pts.map((p, i) => (
                     <circle key={i} cx={p.x} cy={p.y} r={2} fill={color} />
                   ))}
@@ -476,7 +558,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                   key={item.time}
                   className={cn(
                     "flex items-center gap-x-2 py-1.5 text-[10px]",
-                    idx === 0 && "bg-muted/40 -mx-1 px-1 rounded font-medium",
+                    idx === 0 && "bg-muted/30 -mx-1 px-1 rounded font-medium",
                     idx > 0 && "border-b border-border/20"
                   )}
                 >
@@ -487,10 +569,10 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                       <span className="text-muted-foreground/50 text-[10px] ml-0.5">원</span>
                     </span>
                     {(item.high !== item.low) && (
-                      <span className="block text-[9px] text-muted-foreground/70 tabular-nums leading-tight">
-                        <span className="text-rose-500/70">H</span> {formatPrice(item.high)}
+                      <span className="block text-[10px] text-muted-foreground/80 tabular-nums leading-tight mt-0.5">
+                        <span className="text-rose-500/80 font-semibold">H</span> {formatPrice(item.high)}
                         <span className="mx-1 opacity-50">·</span>
-                        <span className="text-blue-500/70">L</span> {formatPrice(item.low)}
+                        <span className="text-blue-500/80 font-semibold">L</span> {formatPrice(item.low)}
                       </span>
                     )}
                   </span>
