@@ -6,6 +6,19 @@
 
 ## 2026-05-06
 
+### [리팩토링] 장중 차트에서 wick 제거 — close 흐름 가독성 우선 (2026-05-06 22:30 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+12/-89)
+- **배경**: 직전 P0 클리핑 시도(commit fca4c65) 후 사용자 피드백 — "오히려 가독성 떨어짐". 근본 진단: 한국 30분봉의 high/low가 시가 직후 spike로 close보다 4~5배 넓어, **차트에 wick 자체가 부적합**. Y축 좁게(클리핑) → 마커 노이즈 폭증 / 넓게 → close 평탄
+- **결정**: 사용자 옵션 A 선택 — 차트는 close 흐름만, 변동폭 정보는 표 H/L 보조 텍스트로
+- **변경 내용**:
+  - **wick 완전 제거**: SVG line·▲/▼ 화살표·% 라벨·outlier 클리핑 로직 모두 삭제
+  - **미사용 변수 정리**: `highs`, `lows`, `yClampTop`, `yClampBot`, `yOfClipped`, `isClippedHigh`, `isClippedLow`, `fmtPct`
+  - **범례 제거**: H~L 항목과 종가 항목 모두 제거 (차트가 단순해져 범례 불필요), 시가/전일종가만 헤더에 유지
+  - **유지**: close 기반 0% anchor 대칭 Y축 + yTicks 0% anchor 균등 분할 + 0% 라인 강조 (P0/P1 효과 중 wick 무관 부분)
+  - **유지**: 표의 H/L 보조 텍스트 (정확한 변동 폭 정보의 주역)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.03s, 1688 modules)
+- **교훈**: 첫 시도에서 "데이터 보존 = 시각화 보강"으로 잘못 등치. 30분봉의 high/low는 차트보다 표가 적합한 정보. Simplicity First 원칙 재확인
+
 ### [개선] 장중 차트 UX 폴리시 — outlier 클리핑·0% anchor·범례·H/L 가독성 (2026-05-06 22:23 KST)
 - **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+95/-32)
 - **배경**: 직전 변경(high/low wick) 후 frontend-design 검토 결과 P0/P1/P2 이슈 발견
