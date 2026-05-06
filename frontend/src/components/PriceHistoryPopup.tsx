@@ -383,20 +383,20 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const times = intervals.map(item => item.time)
               const basePrice = selectedDay.prev_close > 0 ? selectedDay.prev_close : selectedDay.open
 
-              // close 기준 0% anchor 대칭 Y축 — 0% 라인이 항상 차트 가운데
-              const closeMin = Math.min(...closes, basePrice)
-              const closeMax = Math.max(...closes, basePrice)
-              const closeSpread = closeMax - closeMin
-              // close 변동 자연 스케일 — close 변동이 한쪽으로 크게 치우친 날(예: 모두 +10~+15%)도
-              // 차트 전체 영역에 펼쳐지도록. 0% basePrice는 항상 [minV, maxV] 안에 포함됨 (closeMin/Max 산정 시 basePrice 포함).
-              // 변동 작은 날도 적정 펼침 (최소 basePrice의 1% 보장)
-              const effectiveSpread = Math.max(closeSpread, basePrice * 0.01)
+              // close 변동만으로 Y축 산정 — close 변동이 차트 약 70% 영역에 펼쳐짐
+              // (basePrice를 강제 포함하면 한쪽으로 치우친 날 차트 절반이 비고 변동 압축됨)
+              const closeOnlyMin = Math.min(...closes)
+              const closeOnlyMax = Math.max(...closes)
+              const closeSpread = closeOnlyMax - closeOnlyMin
+              // 변동 작은 날(±0.5% 미만)도 적정 펼침: 최소 basePrice의 0.5% 보장
+              const effectiveSpread = Math.max(closeSpread, basePrice * 0.005)
               const padding = effectiveSpread * 0.2
-              const minV = closeMin - padding
-              const maxV = closeMax + padding
+              const minV = closeOnlyMin - padding
+              const maxV = closeOnlyMax + padding
               const range = (maxV - minV) || 1
               const yOf = (v: number) => PAD.top + PH - ((v - minV) / range) * PH
               const zeroY = yOf(basePrice)
+              const baseInChart = basePrice >= minV && basePrice <= maxV
 
               const pts = pointCoords(closes, minV, maxV)
               const lastUp = closes[closes.length - 1] >= basePrice
@@ -412,8 +412,9 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               const ySteps = 4
               const yTicks = Array.from({ length: ySteps + 1 }, (_, i) => minV + (range / ySteps) * i)
               // 별도 0% line과 너무 가까운 yTick은 라벨 숨김 (1단계 폭의 35% 미만)
+              // basePrice가 차트 밖이면 0% line 없으니 충돌 없음
               const stepPx = PH / ySteps
-              const tooCloseToZero = (y: number) => Math.abs(y - zeroY) < stepPx * 0.35
+              const tooCloseToZero = (y: number) => baseInChart && Math.abs(y - zeroY) < stepPx * 0.35
               return (
                 <svg viewBox={`0 0 ${CW} ${CH}`} className="w-full mb-2" style={{ height: 140 }}>
                   {/* 가로 그리드라인 + 왼쪽 Y축(등락률) + 오른쪽 Y축(가격) */}
@@ -436,14 +437,26 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
                       </g>
                     )
                   })}
-                  {/* 0% 기준선 (basePrice) — yTicks와 별개로 강조 */}
-                  <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
-                    stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
-                  <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor"
-                    opacity={0.65} fontSize={9} fontWeight={600}>0%</text>
-                  <text x={CW - PAD.right + 4} y={zeroY + 3} textAnchor="start" fill="currentColor" opacity={0.5} fontSize={8}>
-                    {formatPrice(basePrice)}
-                  </text>
+                  {/* 0% 기준선 (basePrice) — 차트 안이면 dashed line, 밖이면 가장자리 인디케이터 */}
+                  {baseInChart ? (
+                    <>
+                      <line x1={PAD.left} y1={zeroY} x2={CW - PAD.right} y2={zeroY}
+                        stroke="currentColor" strokeWidth={0.7} strokeDasharray="4,3" opacity={0.45} />
+                      <text x={PAD.left - 4} y={zeroY + 3} textAnchor="end" fill="currentColor"
+                        opacity={0.65} fontSize={9} fontWeight={600}>0%</text>
+                      <text x={CW - PAD.right + 4} y={zeroY + 3} textAnchor="start" fill="currentColor" opacity={0.5} fontSize={8}>
+                        {formatPrice(basePrice)}
+                      </text>
+                    </>
+                  ) : (
+                    <text
+                      x={PAD.left + 4}
+                      y={basePrice < minV ? CH - PAD.bottom - 3 : PAD.top + 9}
+                      fill="currentColor" opacity={0.55} fontSize={8} fontWeight={500}
+                    >
+                      {basePrice < minV ? "↓" : "↑"} 전일종가 0% ({formatPrice(basePrice)}원)
+                    </text>
+                  )}
                   {/* 세로 그리드라인 */}
                   {closes.map((_, i) => {
                     const x = PAD.left + (i / Math.max(closes.length - 1, 1)) * PW

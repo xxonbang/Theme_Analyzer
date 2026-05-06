@@ -6,6 +6,20 @@
 
 ## 2026-05-06
 
+### [개선] 장중 차트 Y축 close 변동만으로 산정 — 차트 압축 근본 수정 (2026-05-06 22:59 KST)
+- **변경 파일**: `frontend/src/components/PriceHistoryPopup.tsx` (+27/-9)
+- **배경**: 직전 22:52 변경(자연 비대칭 스케일)이 의도한 만큼 효과 없었음. 사용자 피드백 — "그래프 직관성 개선 안됐는데?". 삼성전자 close +10.75%~+15.38%인데 close 변동이 차트 21%만 차지
+- **근본 원인**: `Math.min(...closes, basePrice)`로 basePrice를 강제 포함 → 모두 양수 변동이면 closeMin=basePrice가 되어 Y축이 0%까지 늘어남 → close 변동이 차트 상단 1/5에 압축
+- **변경**:
+  - **closeMin/Max 산정에서 basePrice 제거**: `Math.min(...closes)`만 사용. close 변동만으로 Y축 결정 → 변동이 차트 ~70% 영역에 펼쳐짐
+  - **basePrice 처리 분기**: `baseInChart` 헬퍼로 차트 안/밖 판정
+    - 안: 기존처럼 dashed line + 좌측 "0%" + 우측 가격 라벨
+    - 밖: 차트 가장자리(상단 또는 하단)에 작은 인디케이터 — `↓ 전일종가 0% (232,500원)` 또는 `↑ ...` 화살표 + 정확한 가격
+  - **tooCloseToZero**: `baseInChart`일 때만 적용 (차트 밖이면 0% line 없으니 충돌 없음)
+  - **effectiveSpread 최소값**: `basePrice * 0.01` → `0.005` 완화 (너무 큰 padding 방지)
+- **시뮬레이션 검증**: 삼성전자 close 변동 영역 21% → **71.4%** (3.4배 개선)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.37s, 1688 modules)
+
 ### [버그픽스+개선] stock-history.json 갱신 누락 수정 + 장중 차트 자연 비대칭 스케일 (2026-05-06 22:52 KST)
 - **변경 파일**: `collect_investor_data.py` (+10), `frontend/src/components/PriceHistoryPopup.tsx` (+48/-29)
 - **버그픽스 1: 보성파워텍 등 9개 종목 "거래 이력 부족" 표시 근본 원인**
