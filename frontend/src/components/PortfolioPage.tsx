@@ -1103,6 +1103,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
             currentPrice: h.currentPrice,
           }))}
           onClose={() => setShowAvgSheet(false)}
+          onApply={applyTransactions}
         />
       )}
     </div>
