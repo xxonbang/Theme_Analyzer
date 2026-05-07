@@ -6,6 +6,11 @@
 
 ## 2026-05-07
 
+### [기능] PortfolioPage 카드 확장 영역 매수 이력 섹션 UI 추가 (2026-05-07 22:20 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (+32/-1)
+- **내용**: lucide-react import에 `History` 추가. AI 분석 신호 DetailRow 직후에 매수 이력 DetailRow 삽입. `transactionsByHolding[h.id]`가 undefined이면 "불러오는 중...", 빈 배열이면 "추가 매수 이력 없음", 레코드 있으면 날짜(2자리)+가격×수량+note 리스트 표시. fetch 트리거는 d3e1db7에서 expand onClick에 연결됨.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.52s, PortfolioPage 56.44 kB)
+
 ### [기능] AveragingDownSheet 종목별 반영 버튼 + onApply prop (2026-05-07 22:15 KST)
 - **변경 파일**: `frontend/src/components/AveragingDownSheet.tsx` (+38/-0)
 - **내용**: import에 NewTransaction 추가. StockEntry에 id 필드 추가(spread로 자동 채워짐). AveragingDownSheetProps에 onApply?(holdingId, txs) 추가. basic/multi 모드 결과에 종목별 반영 버튼 삽입. 시트 단위 일괄 버튼은 YAGNI로 제외.
