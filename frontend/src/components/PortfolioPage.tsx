@@ -445,11 +445,11 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       .eq("holding_id", holdingId)
       .order("executed_at", { ascending: false })
 
-    if (error || !data) {
-      setTransactionsByHolding(prev => ({ ...prev, [holdingId]: [] }))
+    if (error) {
+      console.warn("transactions fetch error:", error.message)
       return
     }
-    const records: Transaction[] = data.map(r => ({
+    const records: Transaction[] = (data ?? []).map(r => ({
       id: r.id,
       holdingId: r.holding_id,
       code: r.code,
