@@ -47,7 +47,7 @@ function PctText({ value, className }: { value: number; className?: string }) {
 
 // --- Component ---
 
-export function AveragingDownCalc({ holding, onApply: _onApply }: {
+export function AveragingDownCalc({ holding, onApply }: {
   holding: HoldingInput
   onApply?: (txs: NewTransaction[]) => Promise<void>
 }) {
@@ -220,6 +220,19 @@ export function AveragingDownCalc({ holding, onApply: _onApply }: {
                 <span className="text-[11px] text-muted-foreground/70">총 수량</span>
                 <span className="text-xs font-semibold tabular-nums">{basicResult.totalQty}주</span>
               </div>
+              {onApply && (
+                <button
+                  onClick={async () => {
+                    const p = parseInt(addPrice.replace(/,/g, ""))
+                    const q = parseInt(addQty.replace(/,/g, ""))
+                    if (!p || !q || p <= 0 || q <= 0) return
+                    await onApply([{ price: p, quantity: q, note: "basic" }])
+                  }}
+                  className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  포트폴리오에 반영
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -386,6 +399,31 @@ export function AveragingDownCalc({ holding, onApply: _onApply }: {
                   </div>
                 )
               })}
+              {onApply && (() => {
+                const validSteps = steps
+                  .map(s => ({
+                    price: parseInt(s.price.replace(/,/g, "")),
+                    quantity: parseInt(s.quantity.replace(/,/g, "")),
+                  }))
+                  .filter(s => s.price > 0 && s.quantity > 0)
+                if (validSteps.length === 0) return null
+                const total = validSteps.length
+                return (
+                  <button
+                    onClick={async () => {
+                      const txs: NewTransaction[] = validSteps.map((s, i) => ({
+                        price: s.price,
+                        quantity: s.quantity,
+                        note: `multi step ${i + 1}/${total}`,
+                      }))
+                      await onApply(txs)
+                    }}
+                    className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    전체 단계 반영 ({total}건)
+                  </button>
+                )
+              })()}
             </div>
           )}
         </div>
