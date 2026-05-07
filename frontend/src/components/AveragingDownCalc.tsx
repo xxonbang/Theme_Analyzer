@@ -47,7 +47,10 @@ function PctText({ value, className }: { value: number; className?: string }) {
 
 // --- Component ---
 
-export function AveragingDownCalc({ holding }: { holding: HoldingInput }) {
+export function AveragingDownCalc({ holding, onApply: _onApply }: {
+  holding: HoldingInput
+  onApply?: (txs: NewTransaction[]) => Promise<void>
+}) {
   const [mode, setMode] = useState<Mode>("basic")
 
   const [addPrice, setAddPrice] = useState(holding.currentPrice?.toString() ?? "")

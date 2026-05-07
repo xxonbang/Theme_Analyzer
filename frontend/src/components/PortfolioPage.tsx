@@ -13,7 +13,7 @@ import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
   ThemeForecast, Stock,
 } from "@/types/stock"
-import { AveragingDownCalc } from "./AveragingDownCalc"
+import { AveragingDownCalc, type NewTransaction, type Transaction } from "./AveragingDownCalc"
 import { AveragingDownSheet } from "./AveragingDownSheet"
 
 // --- Types ---
@@ -114,6 +114,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const [editingId, setEditingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set())
+  const [transactionsByHolding, setTransactionsByHolding] = useState<Record<string, Transaction[]>>({})
   const [calcOpenId, setCalcOpenId] = useState<string | null>(null)
   const [showAvgSheet, setShowAvgSheet] = useState(false)
 
@@ -360,6 +361,79 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     ))
     setEditingId(null)
   }, [editAvgPrice, editQuantity])
+
+  const applyTransactions = useCallback(async (holdingId: string, newTxs: NewTransaction[]) => {
+    if (!user) return
+    const holding = holdings.find(h => h.id === holdingId)
+    if (!holding) return
+    if (newTxs.length === 0) return
+
+    const addCost = newTxs.reduce((sum, t) => sum + t.price * t.quantity, 0)
+    const addQty = newTxs.reduce((sum, t) => sum + t.quantity, 0)
+    const totalCost = holding.avgPrice * holding.quantity + addCost
+    const totalQty = holding.quantity + addQty
+    const newAvg = Math.round(totalCost / totalQty)
+
+    const ok = window.confirm(
+      `평균단가 ${formatPrice(holding.avgPrice)}원 → ${formatPrice(newAvg)}원\n` +
+      `수량 ${holding.quantity.toLocaleString()}주 → ${totalQty.toLocaleString()}주\n\n` +
+      `매수 이력에 추가하고 포트폴리오를 갱신합니다. 계속할까요?`
+    )
+    if (!ok) return
+
+    const rows = newTxs.map(t => ({
+      user_id: user.id,
+      holding_id: holdingId,
+      code: holding.code,
+      name: holding.name,
+      price: t.price,
+      quantity: t.quantity,
+      note: t.note,
+    }))
+    const { data: inserted, error: insertErr } = await supabase
+      .from("portfolio_transactions")
+      .insert(rows)
+      .select()
+    if (insertErr || !inserted) {
+      alert(`이력 기록 실패: ${insertErr?.message ?? "unknown"}`)
+      return
+    }
+
+    const { error: updateErr } = await supabase
+      .from("portfolio_holdings")
+      .update({ avg_price: newAvg, quantity: totalQty, updated_at: new Date().toISOString() })
+      .eq("id", holdingId)
+
+    if (updateErr) {
+      const ids = inserted.map((r: { id: string }) => r.id)
+      await supabase.from("portfolio_transactions").delete().in("id", ids)
+      alert(`포트폴리오 갱신 실패: ${updateErr.message}`)
+      return
+    }
+
+    setHoldings(prev => prev.map(h =>
+      h.id === holdingId ? { ...h, avgPrice: newAvg, quantity: totalQty } : h
+    ))
+    const newTxRecords: Transaction[] = inserted.map((r: {
+      id: string; holding_id: string; code: string; name: string;
+      price: number; quantity: number; executed_at: string; note: string | null
+    }) => ({
+      id: r.id,
+      holdingId: r.holding_id,
+      code: r.code,
+      name: r.name,
+      price: r.price,
+      quantity: r.quantity,
+      executedAt: r.executed_at,
+      note: r.note,
+    }))
+    setTransactionsByHolding(prev => ({
+      ...prev,
+      [holdingId]: [...newTxRecords, ...(transactionsByHolding[holdingId] ?? [])].sort((a, b) =>
+        b.executedAt.localeCompare(a.executedAt)
+      ),
+    }))
+  }, [user, holdings, transactionsByHolding])
 
   // --- Calculations ---
 
@@ -976,6 +1050,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                           quantity: h.quantity,
                           currentPrice: h.currentPrice,
                         }}
+                        onApply={(txs) => applyTransactions(h.id, txs)}
                       />
                     )}
                   </div>
