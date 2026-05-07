@@ -5,11 +5,29 @@ import { cn, formatPrice } from "@/lib/utils"
 // --- Types ---
 
 export interface HoldingInput {
+  id: string
   code: string
   name: string
   avgPrice: number
   quantity: number
   currentPrice: number | null
+}
+
+export interface Transaction {
+  id: string
+  holdingId: string
+  code: string
+  name: string
+  price: number
+  quantity: number
+  executedAt: string
+  note: string | null
+}
+
+export interface NewTransaction {
+  price: number
+  quantity: number
+  note: string
 }
 
 type Mode = "basic" | "target" | "multi"

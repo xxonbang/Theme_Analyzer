@@ -969,6 +969,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                     {calcOpenId === h.id && (
                       <AveragingDownCalc
                         holding={{
+                          id: h.id,
                           code: h.code,
                           name: h.name,
                           avgPrice: h.avgPrice,
@@ -988,6 +989,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       {showAvgSheet && (
         <AveragingDownSheet
           holdings={enrichedHoldings.filter(h => checkedIds.has(h.id)).map(h => ({
+            id: h.id,
             code: h.code,
             name: h.name,
             avgPrice: h.avgPrice,
