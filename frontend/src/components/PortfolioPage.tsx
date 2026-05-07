@@ -429,11 +429,38 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
     }))
     setTransactionsByHolding(prev => ({
       ...prev,
-      [holdingId]: [...newTxRecords, ...(transactionsByHolding[holdingId] ?? [])].sort((a, b) =>
+      [holdingId]: [...newTxRecords, ...(prev[holdingId] ?? [])].sort((a, b) =>
         b.executedAt.localeCompare(a.executedAt)
       ),
     }))
-  }, [user, holdings, transactionsByHolding])
+  }, [user, holdings])
+
+  const fetchTransactionsForHolding = useCallback(async (holdingId: string) => {
+    if (!user) return
+    if (transactionsByHolding[holdingId] !== undefined) return
+
+    const { data, error } = await supabase
+      .from("portfolio_transactions")
+      .select("*")
+      .eq("holding_id", holdingId)
+      .order("executed_at", { ascending: false })
+
+    if (error || !data) {
+      setTransactionsByHolding(prev => ({ ...prev, [holdingId]: [] }))
+      return
+    }
+    const records: Transaction[] = data.map(r => ({
+      id: r.id,
+      holdingId: r.holding_id,
+      code: r.code,
+      name: r.name,
+      price: r.price,
+      quantity: r.quantity,
+      executedAt: r.executed_at,
+      note: r.note,
+    }))
+    setTransactionsByHolding(prev => ({ ...prev, [holdingId]: records }))
+  }, [user, transactionsByHolding])
 
   // --- Calculations ---
 
@@ -839,7 +866,11 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                     </span>
                   </button>
                   <button
-                    onClick={() => setExpandedId(isExpanded ? null : h.id)}
+                    onClick={() => {
+                      const newExpanded = isExpanded ? null : h.id
+                      setExpandedId(newExpanded)
+                      if (newExpanded) fetchTransactionsForHolding(newExpanded)
+                    }}
                     className="flex-1 min-w-0 text-left"
                   >
                     <div className="flex items-center gap-2">
