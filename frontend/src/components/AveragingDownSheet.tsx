@@ -3,11 +3,12 @@ import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { X, Plus, Trash2, Calculator, Target, Layers, TrendingDown, ArrowRight } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
-import type { HoldingInput } from "./AveragingDownCalc"
+import type { HoldingInput, NewTransaction } from "./AveragingDownCalc"
 
 type Mode = "basic" | "target" | "multi"
 
 interface StockEntry {
+  id: string
   code: string
   name: string
   avgPrice: number
@@ -25,6 +26,7 @@ interface StockEntry {
 interface AveragingDownSheetProps {
   holdings: HoldingInput[]
   onClose: () => void
+  onApply?: (holdingId: string, txs: NewTransaction[]) => Promise<void>
 }
 
 function calcBasic(entry: StockEntry) {
@@ -61,7 +63,7 @@ function PctText({ value, className }: { value: number; className?: string }) {
   )
 }
 
-export function AveragingDownSheet({ holdings, onClose }: AveragingDownSheetProps) {
+export function AveragingDownSheet({ holdings, onClose, onApply }: AveragingDownSheetProps) {
   const [mode, setMode] = useState<Mode>("basic")
   const { sheetRef, handleRef } = useSwipeToDismiss(onClose)
 
@@ -308,6 +310,23 @@ export function AveragingDownSheet({ holdings, onClose }: AveragingDownSheetProp
                           <span className="text-muted-foreground/60 tabular-nums">총 {formatPrice(basicR.totalCost)}원 · {basicR.totalQty}주</span>
                         </div>
                       )}
+                      {onApply && mode === "basic" && (() => {
+                        const r = calcBasic(entry)
+                        if (!r) return null
+                        const p = parseInt(entry.addPrice.replace(/,/g, ""))
+                        const q = parseInt(entry.addQty.replace(/,/g, ""))
+                        if (!p || !q || p <= 0 || q <= 0) return null
+                        return (
+                          <button
+                            onClick={async () => {
+                              await onApply(entry.id, [{ price: p, quantity: q, note: "basic" }])
+                            }}
+                            className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                          >
+                            반영
+                          </button>
+                        )
+                      })()}
                     </>
                   )}
 
@@ -408,6 +427,31 @@ export function AveragingDownSheet({ holdings, onClose }: AveragingDownSheetProp
                           })}
                         </div>
                       )}
+                      {onApply && mode === "multi" && (() => {
+                        const validSteps = entry.steps
+                          .map(s => ({
+                            price: parseInt(s.price.replace(/,/g, "")),
+                            quantity: parseInt(s.quantity.replace(/,/g, "")),
+                          }))
+                          .filter(s => s.price > 0 && s.quantity > 0)
+                        if (validSteps.length === 0) return null
+                        const total = validSteps.length
+                        return (
+                          <button
+                            onClick={async () => {
+                              const txs: NewTransaction[] = validSteps.map((s, i) => ({
+                                price: s.price,
+                                quantity: s.quantity,
+                                note: `multi step ${i + 1}/${total}`,
+                              }))
+                              await onApply(entry.id, txs)
+                            }}
+                            className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                          >
+                            반영 ({total}건)
+                          </button>
+                        )
+                      })()}
                     </div>
                   )}
                 </div>

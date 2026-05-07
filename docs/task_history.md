@@ -4,6 +4,35 @@
 
 ---
 
+## 2026-05-07
+
+### [기능] AveragingDownSheet 종목별 반영 버튼 + onApply prop (2026-05-07 22:15 KST)
+- **변경 파일**: `frontend/src/components/AveragingDownSheet.tsx` (+38/-0)
+- **내용**: import에 NewTransaction 추가. StockEntry에 id 필드 추가(spread로 자동 채워짐). AveragingDownSheetProps에 onApply?(holdingId, txs) 추가. basic/multi 모드 결과에 종목별 반영 버튼 삽입. 시트 단위 일괄 버튼은 YAGNI로 제외.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.93s, 1688 modules)
+
+### [기능] AveragingDownCalc basic/multi 반영 버튼 + onApply 정상화 (2026-05-07 22:11 KST)
+- **변경 파일**: `frontend/src/components/AveragingDownCalc.tsx` (+39/-1)
+- **내용**: `_onApply` → `onApply` 정상화. basic 결과 카드 마지막에 "포트폴리오에 반영" 버튼 추가 (note: "basic"). multi 결과 테이블 마지막에 "전체 단계 반영 (N건)" 버튼 추가 (note: "multi step N/M"). target 모드는 반영 버튼 없음 (역산 시뮬 도구 유지).
+- **커밋**: `6048e63`
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.80s, 1688 modules)
+
+### [버그픽스] fetch error 시 캐시 미생성으로 재시도 가능하게 (2026-05-07 22:09 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (+3/-3)
+- **내용**: code-reviewer 0de9fb7 ❌ REQUEST_CHANGES 대응. `fetchTransactionsForHolding` error 분기에서 `setTransactionsByHolding` 호출 제거 → error 시 캐시 미생성, 다음 expand 시 재fetch 가능. 정상 응답 시 `data ?? []`로 안전 캐시.
+- **커밋**: `d3e1db7`
+- **검증**: `npx tsc --noEmit` PASS
+
+### [버그픽스] stale closure 수정 + fetchTransactionsForHolding 추가 (2026-05-07 22:07 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (+34/-3)
+- **내용**: code-reviewer 1cf1a79 ❌ REQUEST_CHANGES 대응. applyTransactions setter 내 `transactionsByHolding[holdingId]` → `prev[holdingId]` 수정(stale closure 방지), useCallback deps에서 `transactionsByHolding` 제거. fetchTransactionsForHolding callback 추가(lazy fetch + 캐시), 카드 expand onClick에 fetch 호출 연결.
+- **커밋**: `0de9fb7`
+- **검증**: `npx tsc --noEmit` PASS
+
+### [기능] applyTransactions callback + 인라인 calc onApply 연결 (2026-05-07 22:03 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`, `frontend/src/components/AveragingDownCalc.tsx`
+- **내용**: Task 3(applyTransactions 정의) + Task 5 Step 1(인라인 AveragingDownCalc에 onApply prop 연결) 한 커밋에 묶음. `noUnusedLocals: true` 제약으로 fetchTransactionsForHolding(미리 작성된 미사용 함수) 삭제. transactionsByHolding을 applyTransactions 내부에서 직접 참조하도록 수정(tsc 통과용).
+
 ## 2026-05-06
 
 ### [버그픽스] 기존 JSON 데이터 즉시 후처리 — 15:30 H/L 보정 (2026-05-06 23:09 KST)
