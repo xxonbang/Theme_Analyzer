@@ -1,0 +1,573 @@
+{
+  "trade_date": "2026-05-07",
+  "morning_timestamp": "2026-05-07 09:10:06",
+  "collected_at": "2026-05-07 15:41:22",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-07 09:10:06",
+      "prices": {
+        "005930": 270500,
+        "000660": 1616000,
+        "425040": 21900,
+        "001440": 63000,
+        "007610": 10930,
+        "006800": 78700,
+        "018880": 5110,
+        "010170": 20500,
+        "229000": 3835,
+        "078150": 4425,
+        "038060": 1868
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (AI 인프라 투자 및 메모리 가격 상승 수혜)"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (AI 인프라 투자 및 메모리 가격 상승 수혜)"
+        },
+        {
+          "code": "425040",
+          "name": "티이엠씨",
+          "theme": "반도체 (AI 인프라 투자 및 메모리 가격 상승 수혜)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 설비 및 전선 (글로벌 전력 인프라 투자 확대)"
+        },
+        {
+          "code": "007610",
+          "name": "선도전기",
+          "theme": "전력 설비 및 전선 (글로벌 전력 인프라 투자 확대)"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "증권 (증시 활황 및 투자 성과 기대)"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 (전동화 및 열관리 솔루션 기술력 부각)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-07 09:33:32",
+      "prices": {
+        "005930": 266000,
+        "000660": 1592000,
+        "425040": 21900,
+        "001440": 63000,
+        "007610": 10380,
+        "006800": 76500,
+        "018880": 5110,
+        "010170": 20500,
+        "050890": 19560,
+        "229000": 3835,
+        "223250": 6250,
+        "078150": 4425,
+        "038060": 1868
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-07 10:02:49",
+      "prices": {
+        "005930": 262000,
+        "000660": 1576000,
+        "425040": 21900,
+        "001440": 63000,
+        "007610": 10520,
+        "006800": 75900,
+        "018880": 5110,
+        "010170": 20500,
+        "050890": 19030,
+        "229000": 3835,
+        "223250": 6250,
+        "078150": 4425,
+        "038060": 1868
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-07 12:01:58",
+      "prices": {
+        "005930": 265000,
+        "000660": 1603000,
+        "425040": 21900,
+        "001440": 63000,
+        "007610": 11260,
+        "006800": 78000,
+        "018880": 5110,
+        "010170": 20500,
+        "050890": 18920,
+        "229000": 3835,
+        "223250": 6250,
+        "078150": 4425,
+        "038060": 1868
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-07 12:35:51",
+      "prices": {
+        "005930": 266750,
+        "000660": 1614000,
+        "425040": 22200,
+        "001440": 63900,
+        "007610": 11060,
+        "006800": 78400,
+        "018880": 4970,
+        "010170": 21200,
+        "050890": 18940,
+        "229000": 3835,
+        "223250": 6250,
+        "078150": 4190,
+        "038060": 1645
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-07 13:26:39",
+      "prices": {
+        "005930": 266750,
+        "000660": 1612000,
+        "425040": 22200,
+        "001440": 63900,
+        "007610": 10930,
+        "006800": 78900,
+        "018880": 4970,
+        "010170": 21200,
+        "050890": 18940,
+        "229000": 3835,
+        "223250": 6250,
+        "078150": 4190,
+        "038060": 1645
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-07 14:36:40",
+      "prices": {
+        "005930": 271500,
+        "000660": 1654000,
+        "425040": 22200,
+        "001440": 63900,
+        "007610": 10860,
+        "006800": 79300,
+        "018880": 4970,
+        "010170": 21200,
+        "050890": 18990,
+        "223250": 6250,
+        "078150": 4600,
+        "038060": 1715
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체 (AI 인프라 투자 및 메모리 가격 상승 수혜)",
+      "market": "KOSPI",
+      "buy_price": 270500,
+      "close_price": 271500,
+      "profit_rate": 0.37,
+      "profit_amount": 1000,
+      "high_price": 274000,
+      "high_time": "14:48",
+      "high_profit_rate": 1.29,
+      "high_profit_amount": 3500,
+      "low_price": 260000,
+      "low_profit_rate": -3.88,
+      "low_profit_amount": -10500,
+      "low_time": "10:35"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체 (AI 인프라 투자 및 메모리 가격 상승 수혜)",
+      "market": "KOSPI",
+      "buy_price": 1616000,
+      "close_price": 1654000,
+      "profit_rate": 2.35,
+      "profit_amount": 38000,
+      "high_price": 1665000,
+      "high_time": "14:48",
+      "high_profit_rate": 3.03,
+      "high_profit_amount": 49000,
+      "low_price": 1567000,
+      "low_profit_rate": -3.03,
+      "low_profit_amount": -49000,
+      "low_time": "10:36"
+    },
+    {
+      "code": "425040",
+      "name": "티이엠씨",
+      "theme": "반도체 (AI 인프라 투자 및 메모리 가격 상승 수혜)",
+      "market": "KOSDAQ",
+      "buy_price": 21900,
+      "close_price": 22350,
+      "profit_rate": 2.05,
+      "profit_amount": 450,
+      "high_price": 23150,
+      "high_time": "09:19",
+      "high_profit_rate": 5.71,
+      "high_profit_amount": 1250,
+      "low_price": 21500,
+      "low_profit_rate": -1.83,
+      "low_profit_amount": -400,
+      "low_time": "09:50"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "theme": "전력 설비 및 전선 (글로벌 전력 인프라 투자 확대)",
+      "market": "KOSPI",
+      "buy_price": 63000,
+      "close_price": 64100,
+      "profit_rate": 1.75,
+      "profit_amount": 1100,
+      "high_price": 65400,
+      "high_time": "11:03",
+      "high_profit_rate": 3.81,
+      "high_profit_amount": 2400,
+      "low_price": 60900,
+      "low_profit_rate": -3.33,
+      "low_profit_amount": -2100,
+      "low_time": "09:31"
+    },
+    {
+      "code": "007610",
+      "name": "선도전기",
+      "theme": "전력 설비 및 전선 (글로벌 전력 인프라 투자 확대)",
+      "market": "KOSPI",
+      "buy_price": 10930,
+      "close_price": 10520,
+      "profit_rate": -3.75,
+      "profit_amount": -410,
+      "high_price": 11680,
+      "high_time": "11:17",
+      "high_profit_rate": 6.86,
+      "high_profit_amount": 750,
+      "low_price": 10010,
+      "low_profit_rate": -8.42,
+      "low_profit_amount": -920,
+      "low_time": "09:31"
+    },
+    {
+      "code": "006800",
+      "name": "미래에셋증권",
+      "theme": "증권 (증시 활황 및 투자 성과 기대)",
+      "market": "KOSPI",
+      "buy_price": 78700,
+      "close_price": 79000,
+      "profit_rate": 0.38,
+      "profit_amount": 300,
+      "high_price": 80000,
+      "high_time": "14:48",
+      "high_profit_rate": 1.65,
+      "high_profit_amount": 1300,
+      "low_price": 75700,
+      "low_profit_rate": -3.81,
+      "low_profit_amount": -3000,
+      "low_time": "09:31"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "theme": "자동차 부품 (전동화 및 열관리 솔루션 기술력 부각)",
+      "market": "KOSPI",
+      "buy_price": 5110,
+      "close_price": 4900,
+      "profit_rate": -4.11,
+      "profit_amount": -210,
+      "high_price": 5150,
+      "high_time": "09:21",
+      "high_profit_rate": 0.78,
+      "high_profit_amount": 40,
+      "low_price": 4860,
+      "low_profit_rate": -4.89,
+      "low_profit_amount": -250,
+      "low_time": "10:13"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "통신장비/광통신",
+      "market": "KOSPI",
+      "buy_price": 20500,
+      "close_price": 21800,
+      "profit_rate": 6.34,
+      "profit_amount": 1300,
+      "high_price": 22000,
+      "high_time": "09:29",
+      "high_profit_rate": 7.32,
+      "high_profit_amount": 1500,
+      "low_price": 18770,
+      "low_profit_rate": -8.44,
+      "low_profit_amount": -1730,
+      "low_time": "09:01"
+    },
+    {
+      "code": "229000",
+      "name": "젠큐릭스",
+      "theme": "바이오/헬스케어",
+      "market": "KOSPI",
+      "buy_price": 3835,
+      "close_price": 3835,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 3835,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3400,
+      "low_profit_rate": -11.34,
+      "low_profit_amount": -435,
+      "low_time": "09:02"
+    },
+    {
+      "code": "078150",
+      "name": "HB테크놀러지",
+      "theme": "반도체/디스플레이 장비",
+      "market": "KOSPI",
+      "buy_price": 4425,
+      "close_price": 4530,
+      "profit_rate": 2.37,
+      "profit_amount": 105,
+      "high_price": 4980,
+      "high_time": "09:15",
+      "high_profit_rate": 12.54,
+      "high_profit_amount": 555,
+      "low_price": 4150,
+      "low_profit_rate": -6.21,
+      "low_profit_amount": -275,
+      "low_time": "12:25"
+    },
+    {
+      "code": "038060",
+      "name": "루멘스",
+      "theme": "반도체/디스플레이 장비",
+      "market": "KOSPI",
+      "buy_price": 1868,
+      "close_price": 1710,
+      "profit_rate": -8.46,
+      "profit_amount": -158,
+      "high_price": 2025,
+      "high_time": "09:12",
+      "high_profit_rate": 8.4,
+      "high_profit_amount": 157,
+      "low_price": 1608,
+      "low_profit_rate": -13.92,
+      "low_profit_amount": -260,
+      "low_time": "12:03"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 7,
+    "loss_stocks": 3,
+    "total_invested": 2096768,
+    "total_value": 2138245,
+    "total_profit": 41477,
+    "total_profit_rate": 1.98,
+    "high_total_value": 2157220,
+    "high_total_profit": 60452,
+    "high_total_profit_rate": 2.88,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
