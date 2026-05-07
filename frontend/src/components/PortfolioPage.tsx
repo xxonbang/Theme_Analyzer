@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import {
   Plus, Trash2, Edit3, Check, X, TrendingUp, TrendingDown,
   AlertTriangle, Briefcase, ExternalLink, ChevronDown, ChevronUp,
-  RefreshCw, Search, Loader2, Calculator,
+  RefreshCw, Search, Loader2, Calculator, History,
 } from "lucide-react"
 import { cn, formatPrice } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
@@ -1045,6 +1045,35 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                       ) : (
                         <span className="text-muted-foreground">현재 AI 분석에 미포함</span>
                       )}
+                    </DetailRow>
+
+                    {/* 매수 이력 */}
+                    <DetailRow label="매수 이력" icon={<History className="w-3 h-3" />}>
+                      {(() => {
+                        const txs = transactionsByHolding[h.id]
+                        if (txs === undefined) return <span className="text-muted-foreground text-xs">불러오는 중...</span>
+                        if (txs.length === 0) return <span className="text-muted-foreground text-xs">추가 매수 이력 없음</span>
+                        return (
+                          <ul className="space-y-1 w-full">
+                            {txs.map(tx => (
+                              <li key={tx.id} className="flex justify-between items-baseline text-xs">
+                                <span className="text-muted-foreground tabular-nums">
+                                  {new Date(tx.executedAt).toLocaleDateString("ko-KR", {
+                                    year: "2-digit", month: "2-digit", day: "2-digit"
+                                  })}
+                                </span>
+                                <span className="tabular-nums text-right">
+                                  <span className="font-medium">{formatPrice(tx.price)}</span>원 ×{" "}
+                                  <span className="font-medium">{tx.quantity.toLocaleString()}</span>주
+                                  {tx.note && (
+                                    <span className="text-muted-foreground/60 ml-1.5 text-[10px]">{tx.note}</span>
+                                  )}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      })()}
                     </DetailRow>
 
                     {/* Naver link + 물타기 버튼 */}
