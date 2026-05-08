@@ -139,7 +139,7 @@ export function AveragingDownCalc({ holding, onApply }: {
     setSteps(prev => prev.map((s, i) => i === idx ? { ...s, [field]: value.replace(/[^0-9]/g, "") } : s))
   }, [])
 
-  const numInput = "w-full px-3 py-2 rounded-xl border border-border/60 bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 tabular-nums transition-shadow placeholder:text-muted-foreground/40"
+  const numInput = "w-full px-3 py-2 rounded-xl border border-border/60 bg-background text-base sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 tabular-nums transition-shadow placeholder:text-muted-foreground/40"
 
   return (
     <div className="mt-3 pt-3 border-t border-border/40">

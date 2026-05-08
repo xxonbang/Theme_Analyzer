@@ -304,7 +304,7 @@ export function PaperTradingPage() {
                     <select
                       value={currentSnapIdx}
                       onChange={(e) => selectBuyTimestamp(date, Number(e.target.value))}
-                      className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground"
+                      className="text-base sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground"
                     >
                       {snapshots.map((snap, idx) => {
                         const time = snap.timestamp.split(" ")[1]?.slice(0, 5) ?? snap.timestamp

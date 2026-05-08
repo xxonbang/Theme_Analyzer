@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-05-08
+
+### [개선] iOS Safari/PWA input focus 시 자동 zoom 방지 — 모바일 16px 적용 (2026-05-08 13:32 KST)
+- **변경 파일**: `frontend/src/components/AveragingDownCalc.tsx` (numInput 변수), `frontend/src/components/AveragingDownSheet.tsx` (numInput 변수), `frontend/src/components/PaperTradingPage.tsx` (select)
+- **배경**: iOS Safari/PWA가 font-size 16px 미만 input/textarea/select에 focus 시 자동 zoom-in. 사용자 화면 확대 현상 발생.
+- **전수 조사** (24개 input/textarea/select 위치):
+  - 이미 모바일 16px 적용된 곳 (조치 불필요): `App.tsx` 검색 input(`text-base sm:text-sm`), `PortfolioPage.tsx` 검색 + 4개 numeric input(`text-base`), `ui/input.tsx` shadcn 컴포넌트
+  - type="range" (zoom 영향 없음): `TakeProfitSlider.tsx` 2곳
+  - **조치 필요**: `numInput` 공유 변수(`text-sm` 14px) 사용 14곳 + `PaperTradingPage.tsx` select(`text-[10px] sm:text-xs`) 1곳
+- **변경 내용**:
+  - `numInput` 공유 변수 2곳: `text-sm` → `text-base sm:text-sm` (모바일 16px, 데스크탑 14px). 한 변수 변경으로 14곳 일괄 적용.
+  - `PaperTradingPage.tsx` select: `text-[10px] sm:text-xs` → `text-base sm:text-xs` (모바일 16px, 데스크탑 12px)
+- **패턴**: shadcn/ui `input.tsx`의 `text-base sm:text-sm` 정합. sm breakpoint(640px) 이상에선 기존 디자인 유지.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.87s)
+
 ## 2026-05-07
 
 ### [기능] PortfolioPage 카드 확장 영역 매수 이력 섹션 UI 추가 (2026-05-07 22:20 KST)

@@ -165,7 +165,7 @@ export function AveragingDownSheet({ holdings, onClose, onApply }: AveragingDown
     { key: "multi", label: "다단계", icon: <Layers className="w-3.5 h-3.5" /> },
   ]
 
-  const numInput = "w-full px-3 py-2 rounded-xl border border-border/60 bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 tabular-nums transition-shadow placeholder:text-muted-foreground/40"
+  const numInput = "w-full px-3 py-2 rounded-xl border border-border/60 bg-background text-base sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 tabular-nums transition-shadow placeholder:text-muted-foreground/40"
 
   return createPortal(
     <div className="fixed inset-0 z-[9999]">
