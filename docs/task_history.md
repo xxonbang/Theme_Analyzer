@@ -6,6 +6,29 @@
 
 ## 2026-05-08
 
+### [버그픽스/보안] portfolio_holdings RLS 미적용 보안 취약점 패치 (2026-05-08 14:46 KST)
+- **변경 파일**: `docs/sql/portfolio_holdings_rls.sql` (신규)
+- **배경**: 사용자 요청 — "포트폴리오 기능 및 내역이 로그인한 계정에 귀속되어 표시·관리되는 구조인지 진단"
+- **진단 결과**:
+  - **인증·frontend 가드**: 정상 (`useAuth` + 1시간 비활성 자동 로그아웃 + ExpireStorage 8시간 만료)
+  - `PortfolioPage` 모든 INSERT는 `user_id: user.id` 명시 ✅
+  - `fetchHoldingsFromDB(user.id)`로 `.eq("user_id", userId)` 명시 ✅
+  - 그러나 `saveEdit/deleteHolding`은 `.eq("id", id)`만 사용 — RLS에 100% 의존
+  - `portfolio_transactions`: RLS 정상 (select/insert/delete `auth.uid() = user_id`)
+  - **`portfolio_holdings`: RLS 비활성 상태 발견** ⚠️ — 다른 사용자가 holding.id를 알면 직접 API 호출로 update/delete 가능한 취약점
+- **조치**: 사용자가 Supabase SQL Editor에서 직접 실행 — `ALTER TABLE ... ENABLE ROW LEVEL SECURITY` + 4개 정책(select/insert/update/delete, `auth.uid() = user_id`). "Success. No rows returned" 확인.
+- **재현성 보존**: `docs/sql/portfolio_holdings_rls.sql` 신규 작성. 향후 다른 환경 적용 또는 감사 추적용.
+- **결론**: 사용자 격리 4개 레이어(인증·frontend·portfolio_transactions·portfolio_holdings) 모두 정상화.
+
+### [진단] 매수 이력 누적 동작 확인 (2026-05-08 14:38 KST)
+- **질의**: 사용자 — "물타기 이력도 누적되는거 맞아?"
+- **검증 결과**: 누적 정상 동작
+  - DB: `portfolio_transactions`는 INSERT only (UPDATE 정책 없음, 불변 audit log). 같은 holding에 N번 반영 시 N행 누적. 삭제는 holding cascade만.
+  - 코드: `applyTransactions`가 매번 새 rows insert + holdings 누적 합산 (`holding.avgPrice * holding.quantity + addCost`). 기존 행 삭제 X.
+  - State: `setTransactionsByHolding(prev => ...[...newTxRecords, ...(prev[holdingId] ?? [])]...)` — 신규 prepend, 기존 보존.
+  - Fetch: `.eq("holding_id", holdingId).order("executed_at", { ascending: false })` — holding의 모든 매수 이력 시간 역순.
+- 코드 변경 없음 (분석 답변만). check-task-history hook이 세션 누적 변경을 감지하여 기록 요청 → 본 항목으로 추가.
+
 ### [개선] iOS Safari/PWA input focus 시 자동 zoom 방지 — 모바일 16px 적용 (2026-05-08 13:32 KST)
 - **변경 파일**: `frontend/src/components/AveragingDownCalc.tsx` (numInput 변수), `frontend/src/components/AveragingDownSheet.tsx` (numInput 변수), `frontend/src/components/PaperTradingPage.tsx` (select)
 - **배경**: iOS Safari/PWA가 font-size 16px 미만 input/textarea/select에 focus 시 자동 zoom-in. 사용자 화면 확대 현상 발생.
