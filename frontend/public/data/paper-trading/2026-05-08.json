@@ -1,0 +1,593 @@
+{
+  "trade_date": "2026-05-08",
+  "morning_timestamp": "2026-05-08 09:32:35",
+  "collected_at": "2026-05-08 15:41:22",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-08 09:32:35",
+      "prices": {
+        "010170": 21200,
+        "050890": 19320,
+        "229000": 4390,
+        "223250": 5790,
+        "078150": 4985,
+        "090710": 13570,
+        "319400": 37450,
+        "001440": 63900,
+        "086960": 3440,
+        "054450": 17590,
+        "036170": 9820
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "통신장비/광통신"
+        },
+        {
+          "code": "229000",
+          "name": "젠큐릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "223250",
+          "name": "드림씨아이에스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "078150",
+          "name": "HB테크놀러지",
+          "theme": "반도체/디스플레이 장비"
+        },
+        {
+          "code": "038060",
+          "name": "루멘스",
+          "theme": "반도체/디스플레이 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-08 09:34:50",
+      "prices": {
+        "010170": 23600,
+        "050890": 19780,
+        "229000": 4330,
+        "223250": 5810,
+        "078150": 4875,
+        "038060": 1640,
+        "090710": 13320,
+        "319400": 36800,
+        "001440": 69900,
+        "086960": 3392,
+        "054450": 17180,
+        "036170": 9735
+      },
+      "leader_stocks": [
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "086960",
+          "name": "MDS테크",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "054450",
+          "name": "텔레칩스",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "036170",
+          "name": "에이치엠넥스",
+          "theme": "반도체 소부장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-08 10:02:35",
+      "prices": {
+        "010170": 23600,
+        "050890": 18840,
+        "229000": 4330,
+        "223250": 5810,
+        "078150": 5010,
+        "038060": 1615,
+        "090710": 13320,
+        "319400": 36800,
+        "001440": 69900,
+        "086960": 3392,
+        "054450": 17080,
+        "036170": 9735
+      },
+      "leader_stocks": [
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "086960",
+          "name": "MDS테크",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "054450",
+          "name": "텔레칩스",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "036170",
+          "name": "에이치엠넥스",
+          "theme": "반도체 소부장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-08 12:01:55",
+      "prices": {
+        "010170": 23600,
+        "050890": 18100,
+        "229000": 4330,
+        "223250": 5810,
+        "078150": 4740,
+        "038060": 1551,
+        "090710": 13320,
+        "319400": 36800,
+        "001440": 69900,
+        "086960": 3392,
+        "054450": 17100,
+        "036170": 9735
+      },
+      "leader_stocks": [
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "086960",
+          "name": "MDS테크",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "054450",
+          "name": "텔레칩스",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "036170",
+          "name": "에이치엠넥스",
+          "theme": "반도체 소부장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-08 12:36:09",
+      "prices": {
+        "010170": 21650,
+        "050890": 18180,
+        "229000": 3890,
+        "223250": 5610,
+        "078150": 4785,
+        "038060": 1541,
+        "090710": 13130,
+        "319400": 39100,
+        "001440": 69000,
+        "086960": 3520,
+        "054450": 16780,
+        "036170": 8530
+      },
+      "leader_stocks": [
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "086960",
+          "name": "MDS테크",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "054450",
+          "name": "텔레칩스",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "036170",
+          "name": "에이치엠넥스",
+          "theme": "반도체 소부장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-08 13:26:53",
+      "prices": {
+        "010170": 21700,
+        "050890": 18080,
+        "229000": 4180,
+        "223250": 5540,
+        "078150": 4715,
+        "038060": 1538,
+        "090710": 13005,
+        "319400": 39100,
+        "001440": 69700,
+        "086960": 3520,
+        "054450": 16700,
+        "036170": 8300
+      },
+      "leader_stocks": [
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "086960",
+          "name": "MDS테크",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "054450",
+          "name": "텔레칩스",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "036170",
+          "name": "에이치엠넥스",
+          "theme": "반도체 소부장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-08 14:36:41",
+      "prices": {
+        "010170": 22450,
+        "050890": 18260,
+        "229000": 3890,
+        "223250": 7540,
+        "078150": 4865,
+        "038060": 1499,
+        "090710": 12750,
+        "319400": 39100,
+        "001440": 72000,
+        "086960": 3520,
+        "054450": 16800,
+        "036170": 8540
+      },
+      "leader_stocks": [
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력 인프라"
+        },
+        {
+          "code": "086960",
+          "name": "MDS테크",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "054450",
+          "name": "텔레칩스",
+          "theme": "AI 반도체 및 임베디드 솔루션"
+        },
+        {
+          "code": "036170",
+          "name": "에이치엠넥스",
+          "theme": "반도체 소부장"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "통신장비/광통신",
+      "market": "KOSPI",
+      "buy_price": 21200,
+      "close_price": 22350,
+      "profit_rate": 5.42,
+      "profit_amount": 1150,
+      "high_price": 23500,
+      "high_time": "09:38",
+      "high_profit_rate": 10.85,
+      "high_profit_amount": 2300,
+      "low_price": 20850,
+      "low_profit_rate": -1.65,
+      "low_profit_amount": -350,
+      "low_time": "11:11"
+    },
+    {
+      "code": "050890",
+      "name": "쏠리드",
+      "theme": "통신장비/광통신",
+      "market": "KOSPI",
+      "buy_price": 19320,
+      "close_price": 18200,
+      "profit_rate": -5.8,
+      "profit_amount": -1120,
+      "high_price": 19490,
+      "high_time": "09:33",
+      "high_profit_rate": 0.88,
+      "high_profit_amount": 170,
+      "low_price": 18000,
+      "low_profit_rate": -6.83,
+      "low_profit_amount": -1320,
+      "low_time": "11:00"
+    },
+    {
+      "code": "229000",
+      "name": "젠큐릭스",
+      "theme": "바이오/헬스케어",
+      "market": "KOSPI",
+      "buy_price": 4390,
+      "close_price": 3675,
+      "profit_rate": -16.29,
+      "profit_amount": -715,
+      "high_price": 4740,
+      "high_time": "10:03",
+      "high_profit_rate": 7.97,
+      "high_profit_amount": 350,
+      "low_price": 3675,
+      "low_profit_rate": -16.29,
+      "low_profit_amount": -715,
+      "low_time": "15:30"
+    },
+    {
+      "code": "223250",
+      "name": "드림씨아이에스",
+      "theme": "바이오/헬스케어",
+      "market": "KOSPI",
+      "buy_price": 5790,
+      "close_price": 7120,
+      "profit_rate": 22.97,
+      "profit_amount": 1330,
+      "high_price": 8070,
+      "high_time": "14:56",
+      "high_profit_rate": 39.38,
+      "high_profit_amount": 2280,
+      "low_price": 5480,
+      "low_profit_rate": -5.35,
+      "low_profit_amount": -310,
+      "low_time": "11:15"
+    },
+    {
+      "code": "078150",
+      "name": "HB테크놀러지",
+      "theme": "반도체/디스플레이 장비",
+      "market": "KOSPI",
+      "buy_price": 4985,
+      "close_price": 4830,
+      "profit_rate": -3.11,
+      "profit_amount": -155,
+      "high_price": 5290,
+      "high_time": "10:13",
+      "high_profit_rate": 6.12,
+      "high_profit_amount": 305,
+      "low_price": 4175,
+      "low_profit_rate": -16.25,
+      "low_profit_amount": -810,
+      "low_time": "09:00"
+    },
+    {
+      "code": "090710",
+      "name": "휴림로봇",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 13570,
+      "close_price": 12790,
+      "profit_rate": -5.75,
+      "profit_amount": -780,
+      "high_price": 13680,
+      "high_time": "09:34",
+      "high_profit_rate": 0.81,
+      "high_profit_amount": 110,
+      "low_price": 12340,
+      "low_profit_rate": -9.06,
+      "low_profit_amount": -1230,
+      "low_time": "09:00"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 37450,
+      "close_price": 37950,
+      "profit_rate": 1.34,
+      "profit_amount": 500,
+      "high_price": 39600,
+      "high_time": "11:14",
+      "high_profit_rate": 5.74,
+      "high_profit_amount": 2150,
+      "low_price": 33450,
+      "low_profit_rate": -10.68,
+      "low_profit_amount": -4000,
+      "low_time": "09:03"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "theme": "전선/전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 63900,
+      "close_price": 72300,
+      "profit_rate": 13.15,
+      "profit_amount": 8400,
+      "high_price": 74800,
+      "high_time": "14:49",
+      "high_profit_rate": 17.06,
+      "high_profit_amount": 10900,
+      "low_price": 62700,
+      "low_profit_rate": -1.88,
+      "low_profit_amount": -1200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "086960",
+      "name": "MDS테크",
+      "theme": "AI 반도체 및 임베디드 솔루션",
+      "market": "KOSPI",
+      "buy_price": 3440,
+      "close_price": 3160,
+      "profit_rate": -8.14,
+      "profit_amount": -280,
+      "high_price": 3625,
+      "high_time": "10:01",
+      "high_profit_rate": 5.38,
+      "high_profit_amount": 185,
+      "low_price": 3000,
+      "low_profit_rate": -12.79,
+      "low_profit_amount": -440,
+      "low_time": "09:04"
+    },
+    {
+      "code": "054450",
+      "name": "텔레칩스",
+      "theme": "AI 반도체 및 임베디드 솔루션",
+      "market": "KOSPI",
+      "buy_price": 17590,
+      "close_price": 16680,
+      "profit_rate": -5.17,
+      "profit_amount": -910,
+      "high_price": 17860,
+      "high_time": "09:38",
+      "high_profit_rate": 1.53,
+      "high_profit_amount": 270,
+      "low_price": 15150,
+      "low_profit_rate": -13.87,
+      "low_profit_amount": -2440,
+      "low_time": "09:01"
+    },
+    {
+      "code": "036170",
+      "name": "에이치엠넥스",
+      "theme": "반도체 소부장",
+      "market": "KOSPI",
+      "buy_price": 9820,
+      "close_price": 8770,
+      "profit_rate": -10.69,
+      "profit_amount": -1050,
+      "high_price": 9940,
+      "high_time": "09:36",
+      "high_profit_rate": 1.22,
+      "high_profit_amount": 120,
+      "low_price": 8240,
+      "low_profit_rate": -16.09,
+      "low_profit_amount": -1580,
+      "low_time": "13:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 4,
+    "loss_stocks": 7,
+    "total_invested": 201455,
+    "total_value": 207825,
+    "total_profit": 6370,
+    "total_profit_rate": 3.16,
+    "high_total_value": 220595,
+    "high_total_profit": 19140,
+    "high_total_profit_rate": 9.5,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 0
+  }
+}
