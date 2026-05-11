@@ -1,0 +1,588 @@
+{
+  "trade_date": "2026-05-11",
+  "morning_timestamp": "2026-05-11 09:11:52",
+  "collected_at": "2026-05-11 15:41:15",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-11 09:11:52",
+      "prices": {
+        "000660": 1854000,
+        "036930": 157900,
+        "439960": 22500,
+        "042660": 134400,
+        "010140": 34000,
+        "329180": 687000,
+        "010170": 24400,
+        "000990": 179100,
+        "018880": 5150,
+        "012330": 526000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 관련주"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI 관련주"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해양플랜트"
+        },
+        {
+          "code": "010140",
+          "name": "삼성중공업",
+          "theme": "조선/해양플랜트"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/해양플랜트"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "광통신/네트워크 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 09:32:45",
+      "prices": {
+        "000660": 1855000,
+        "036930": 172400,
+        "439960": 22500,
+        "042660": 132200,
+        "010140": 34550,
+        "329180": 682000,
+        "010170": 24400,
+        "000990": 192600,
+        "018880": 5390,
+        "012330": 560000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 관련주"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체/AI 관련주"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해양플랜트"
+        },
+        {
+          "code": "010140",
+          "name": "삼성중공업",
+          "theme": "조선/해양플랜트"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/해양플랜트"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "광통신/네트워크 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 09:35:04",
+      "prices": {
+        "000660": 1846000,
+        "036930": 173400,
+        "439960": 21200,
+        "042660": 133200,
+        "010140": 34600,
+        "329180": 686000,
+        "010170": 26400,
+        "000990": 196300,
+        "018880": 5460,
+        "012330": 563000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 신규 상장"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI 데이터센터 인프라 및 통신망"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 10:02:34",
+      "prices": {
+        "000660": 1846000,
+        "036930": 173400,
+        "439960": 21200,
+        "042660": 133200,
+        "010140": 34600,
+        "329180": 686000,
+        "010170": 26400,
+        "000990": 196300,
+        "018880": 5460,
+        "012330": 563000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 신규 상장"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI 데이터센터 인프라 및 통신망"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 12:02:01",
+      "prices": {
+        "000660": 1875000,
+        "036930": 168600,
+        "439960": 21200,
+        "042660": 130000,
+        "010140": 33600,
+        "329180": 679000,
+        "010170": 26400,
+        "000990": 183000,
+        "018880": 5460,
+        "012330": 545000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 신규 상장"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI 데이터센터 인프라 및 통신망"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 12:35:57",
+      "prices": {
+        "000660": 1885000,
+        "036930": 168700,
+        "439960": 22350,
+        "042660": 130700,
+        "010140": 33650,
+        "329180": 682000,
+        "010170": 28300,
+        "000990": 183300,
+        "018880": 5690,
+        "012330": 546000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 신규 상장"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI 데이터센터 인프라 및 통신망"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 13:26:46",
+      "prices": {
+        "000660": 1916000,
+        "036930": 166600,
+        "439960": 22350,
+        "042660": 129700,
+        "010140": 33800,
+        "329180": 688000,
+        "010170": 28300,
+        "000990": 182800,
+        "018880": 5690,
+        "012330": 557000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 신규 상장"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI 데이터센터 인프라 및 통신망"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-11 14:36:45",
+      "prices": {
+        "000660": 1932000,
+        "036930": 163800,
+        "439960": 22350,
+        "042660": 129900,
+        "010140": 33650,
+        "329180": 684000,
+        "010170": 28300,
+        "018880": 5690,
+        "012330": 552000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "theme": "AI 반도체 및 파운드리"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 신규 상장"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI 데이터센터 인프라 및 통신망"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "전기차 및 미래 모빌리티 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/AI 관련주",
+      "market": "KOSPI",
+      "buy_price": 1854000,
+      "close_price": 1880000,
+      "profit_rate": 1.4,
+      "profit_amount": 26000,
+      "high_price": 1949000,
+      "high_time": "14:34",
+      "high_profit_rate": 5.12,
+      "high_profit_amount": 95000,
+      "low_price": 1826000,
+      "low_profit_rate": -1.51,
+      "low_profit_amount": -28000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체/AI 관련주",
+      "market": "KOSPI",
+      "buy_price": 157900,
+      "close_price": 163800,
+      "profit_rate": 3.74,
+      "profit_amount": 5900,
+      "high_price": 176800,
+      "high_time": "09:17",
+      "high_profit_rate": 11.97,
+      "high_profit_amount": 18900,
+      "low_price": 144200,
+      "low_profit_rate": -8.68,
+      "low_profit_amount": -13700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 22500,
+      "close_price": 24000,
+      "profit_rate": 6.67,
+      "profit_amount": 1500,
+      "high_price": 24000,
+      "high_time": "15:30",
+      "high_profit_rate": 6.67,
+      "high_profit_amount": 1500,
+      "low_price": 20100,
+      "low_profit_rate": -10.67,
+      "low_profit_amount": -2400,
+      "low_time": "09:49"
+    },
+    {
+      "code": "042660",
+      "name": "한화오션",
+      "theme": "조선/해양플랜트",
+      "market": "KOSPI",
+      "buy_price": 134400,
+      "close_price": 130500,
+      "profit_rate": -2.9,
+      "profit_amount": -3900,
+      "high_price": 135000,
+      "high_time": "09:21",
+      "high_profit_rate": 0.45,
+      "high_profit_amount": 600,
+      "low_price": 129200,
+      "low_profit_rate": -3.87,
+      "low_profit_amount": -5200,
+      "low_time": "14:45"
+    },
+    {
+      "code": "010140",
+      "name": "삼성중공업",
+      "theme": "조선/해양플랜트",
+      "market": "KOSPI",
+      "buy_price": 34000,
+      "close_price": 33950,
+      "profit_rate": -0.15,
+      "profit_amount": -50,
+      "high_price": 35350,
+      "high_time": "09:28",
+      "high_profit_rate": 3.97,
+      "high_profit_amount": 1350,
+      "low_price": 32500,
+      "low_profit_rate": -4.41,
+      "low_profit_amount": -1500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "329180",
+      "name": "HD현대중공업",
+      "theme": "조선/해양플랜트",
+      "market": "KOSDAQ",
+      "buy_price": 687000,
+      "close_price": 685000,
+      "profit_rate": -0.29,
+      "profit_amount": -2000,
+      "high_price": 691000,
+      "high_time": "14:05",
+      "high_profit_rate": 0.58,
+      "high_profit_amount": 4000,
+      "low_price": 670000,
+      "low_profit_rate": -2.47,
+      "low_profit_amount": -17000,
+      "low_time": "09:22"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "광통신/네트워크 장비",
+      "market": "KOSPI",
+      "buy_price": 24400,
+      "close_price": 27950,
+      "profit_rate": 14.55,
+      "profit_amount": 3550,
+      "high_price": 28600,
+      "high_time": "12:39",
+      "high_profit_rate": 17.21,
+      "high_profit_amount": 4200,
+      "low_price": 23050,
+      "low_profit_rate": -5.53,
+      "low_profit_amount": -1350,
+      "low_time": "09:02"
+    },
+    {
+      "code": "000990",
+      "name": "DB하이텍",
+      "theme": "AI 반도체 및 파운드리",
+      "market": "KOSPI",
+      "buy_price": 179100,
+      "close_price": 186700,
+      "profit_rate": 4.24,
+      "profit_amount": 7600,
+      "high_price": 199600,
+      "high_time": "09:29",
+      "high_profit_rate": 11.45,
+      "high_profit_amount": 20500,
+      "low_price": 167100,
+      "low_profit_rate": -6.7,
+      "low_profit_amount": -12000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "theme": "전기차 및 미래 모빌리티 부품",
+      "market": "KOSPI",
+      "buy_price": 5150,
+      "close_price": 5730,
+      "profit_rate": 11.26,
+      "profit_amount": 580,
+      "high_price": 5860,
+      "high_time": "14:25",
+      "high_profit_rate": 13.79,
+      "high_profit_amount": 710,
+      "low_price": 4850,
+      "low_profit_rate": -5.83,
+      "low_profit_amount": -300,
+      "low_time": "09:00"
+    },
+    {
+      "code": "012330",
+      "name": "현대모비스",
+      "theme": "전기차 및 미래 모빌리티 부품",
+      "market": "KOSPI",
+      "buy_price": 526000,
+      "close_price": 553000,
+      "profit_rate": 5.13,
+      "profit_amount": 27000,
+      "high_price": 588000,
+      "high_time": "09:28",
+      "high_profit_rate": 11.79,
+      "high_profit_amount": 62000,
+      "low_price": 520000,
+      "low_profit_rate": -1.14,
+      "low_profit_amount": -6000,
+      "low_time": "09:05"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 7,
+    "loss_stocks": 3,
+    "total_invested": 3624450,
+    "total_value": 3690630,
+    "total_profit": 66180,
+    "total_profit_rate": 1.83,
+    "high_total_value": 3833210,
+    "high_total_profit": 208760,
+    "high_total_profit_rate": 5.76,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
