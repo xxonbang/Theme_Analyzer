@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-05-11
+
+### [진단/개선] kis-proxy 500 오류 진단 + callKisProxy 에러 메시지 노출 패치 (2026-05-11 14:37 KST)
+- **변경 파일**: `frontend/src/lib/kis-api.ts` (+15/-2)
+- **증상**: 포트폴리오 refresh 버튼 클릭 시 "Edge Function returned a non-2xx status code" 오류
+- **진단 과정**:
+  1. Supabase logs 확인 — booted/shutdown만 표시, 에러 메시지 안 보임
+  2. anon key 확보(`supabase projects api-keys`) 후 curl로 edge function 직접 invoke
+  3. 응답: `{"error":"KIS app_key or app_secret missing"}` HTTP 500 — `index.ts:42` throw 확정
+  4. `api_credentials` 테이블의 KIS row 점검: access_token만 존재, app_key/app_secret 누락
+- **근본 원인**: 사용자가 다른 프로젝트에서 자격증명 키 정리 작업 중 본 프로젝트의 app_key/app_secret까지 실수로 삭제
+- **복구**: 사용자가 직접 Supabase에 자격증명 재등록. 다중 종목 invoke로 검증 — 005930/000660/035720 모두 정상 응답 (failed=0)
+- **노출되지 않은 이유**: Supabase JS SDK가 non-2xx 응답의 표준 메시지(`"Edge Function returned a non-2xx status code"`)만 노출, 실제 body의 `{ error: "..." }` 버림
+- **패치 (재발 방지)**: `callKisProxy`가 `FunctionsHttpError.context.json()`로 응답 body의 `error` 필드 추출. 향후 같은 종류 장애 발생 시 frontend에서 정확한 메시지 즉시 노출.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.69s)
+
 ## 2026-05-08
 
 ### [버그픽스/보안] portfolio_holdings RLS 미적용 보안 취약점 패치 (2026-05-08 14:46 KST)

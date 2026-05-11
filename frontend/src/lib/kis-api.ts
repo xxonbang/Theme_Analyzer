@@ -1,3 +1,4 @@
+import { FunctionsHttpError } from "@supabase/supabase-js"
 import { supabase } from "./supabase"
 
 export interface KisStockPrice {
@@ -18,6 +19,18 @@ async function callKisProxy(body: Record<string, unknown>): Promise<Record<strin
   const { data, error } = await supabase.functions.invoke("kis-proxy", { body })
 
   if (error) {
+    if (error instanceof FunctionsHttpError) {
+      let extracted: string | null = null
+      try {
+        const errBody = await error.context.json()
+        if (errBody && typeof errBody.error === "string") {
+          extracted = errBody.error
+        }
+      } catch {
+        // 응답 body JSON 파싱 실패 시 SDK 표준 메시지로 폴백
+      }
+      if (extracted) throw new Error(extracted)
+    }
     throw new Error(error.message || "Edge Function 호출 실패")
   }
   if (data?.error) {
