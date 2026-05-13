@@ -256,21 +256,19 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
               return (
                 <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-5">
                   <defs>
-                    {/* 막대(거래량): 같은 rose hue, 옅은 opacity로 배경화 */}
                     <linearGradient id={barGradId} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor={volColor} stopOpacity={0.32} />
-                      <stop offset="100%" stopColor={volColor} stopOpacity={0.14} />
+                      <stop offset="0%" stopColor={volColor} stopOpacity={0.92} />
+                      <stop offset="100%" stopColor={volColor} stopOpacity={0.5} />
                     </linearGradient>
-                    {/* 라인(거래대금) area: 매우 옅음 — 막대와 시각 충돌 회피 */}
                     <linearGradient id={areaGradId} x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor={tvColor} stopOpacity={0.1} />
                       <stop offset="100%" stopColor={tvColor} stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  {/* axisLabel: 단일 hue, 위계는 opacity로 (강조=진한, 보조=옅음) */}
+                  {/* axisLabel: 각자 색상, 동일 강도 */}
                   <text x={4} y={14} fontSize={11} fill={tvColor} fontWeight={600} opacity={0.9} style={{ letterSpacing: "0.02em" }}>거래대금</text>
-                  <text x={W - BPAD.right + 4} y={14} textAnchor="start" fontSize={11} fill={tvColor} fontWeight={500} opacity={0.5} style={{ letterSpacing: "0.02em" }}>거래량</text>
-                  {/* 가로 그리드 + 이중 Y라벨: 같은 색조, 명도 차로 위계 */}
+                  <text x={W - BPAD.right + 4} y={14} textAnchor="start" fontSize={11} fill={volColor} fontWeight={600} opacity={0.9} style={{ letterSpacing: "0.02em" }}>거래량</text>
+                  {/* 가로 그리드 + 이중 Y라벨 (각자 색상, 동일 강도) */}
                   {[0.25, 0.5, 0.75, 1].map(r => {
                     const y = BPAD.top + (1 - r) * BPH
                     const vTv = tvMin + tvRange * r
@@ -279,7 +277,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                       <g key={r}>
                         <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.5} opacity={0.14} strokeDasharray="2 3" />
                         <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill={tvColor} opacity={0.75}>{formatTradingValue(vTv)}</text>
-                        <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={tvColor} opacity={0.4}>{formatVolume(vVol)}</text>
+                        <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={volColor} opacity={0.75}>{formatVolume(vVol)}</text>
                       </g>
                     )
                   })}
@@ -298,11 +296,11 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                     const y = BPAD.top + BPH - h
                     return v > 0 ? <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={`url(#${barGradId})`} rx={2.5} /> : null
                   })}
-                  {/* 거래대금 area + 꺾은선 (투명효과 적용) */}
+                  {/* 거래대금 area + 꺾은선 (투명효과) */}
                   {areaPath && <path d={areaPath} fill={`url(#${areaGradId})`} />}
-                  {linePath && <path d={linePath} fill="none" stroke={tvColor} strokeWidth={2} opacity={0.6} strokeLinecap="round" strokeLinejoin="round" />}
+                  {linePath && <path d={linePath} fill="none" stroke={tvColor} strokeWidth={1.8} opacity={0.4} strokeLinecap="round" strokeLinejoin="round" />}
                   {linePts.map((p, i) => (
-                    <circle key={`p-${i}`} cx={p.x} cy={p.y} r={2.5} fill={tvColor} opacity={0.65} />
+                    <circle key={`p-${i}`} cx={p.x} cy={p.y} r={2} fill={tvColor} opacity={0.45} />
                   ))}
                   {/* X축 라벨 */}
                   {xLabelIdxs.map(i => (

@@ -6,6 +6,21 @@
 
 ## 2026-05-13
 
+### [UI] 일별 탭 거래량 막대·Y라벨 투명효과 제거 + 거래대금 라인 추가 투명 (2026-05-13 23:46 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+8/-9)
+- **사용자 보고 2건**:
+  1. 거래량 막대그래프 + 우측 Y라벨 투명효과 제거 (직전 단일 hue 디자인에서 거래량 옅게 처리한 게 남아있음)
+  2. 거래대금 라인 투명효과 더 강화 (이전 0.6은 약했음)
+- **수정**:
+  - 거래량 막대 그라데이션 stopOpacity 0.32→**0.92**, 0.14→**0.5** (정상 강도로 복원)
+  - 우측 Y라벨 opacity 0.4 → **0.75** (좌측과 동일 강도)
+  - 우측 Y라벨 색상 tvColor → **volColor** (indigo, 막대 색과 매칭)
+  - 우측 axisLabel '거래량' opacity 0.5 → **0.9**, fontWeight 500 → **600** (좌측과 동일)
+  - 우측 axisLabel 색상 → **volColor** (indigo)
+  - 거래대금 라인 strokeWidth 2 → **1.8**, opacity 0.6 → **0.4** (더 투명)
+  - 거래대금 점 r 2.5 → **2**, opacity 0.65 → **0.45**
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.13s)
+
 ### [UI] 일별 탭 색상 미세조정 — 거래량 indigo + 거래대금 라인 투명효과 (2026-05-13 23:44 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+4/-6)
 - **사용자 보고**: (1) 색상 알록달록 → (2) 무지성 무채색 X, 깊게 고민 → (3) 거래량 indigo 복원 + 거래대금 라인 투명
