@@ -190,7 +190,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
         {activeTab === "intraday" && todayEntry && (
           <>
             {/* 30m / 1h 토글 */}
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-xs text-muted-foreground">{todayKST.replace(/-/g, ".")} 장중</span>
               <div className="flex gap-1">
                 <button
@@ -221,12 +221,12 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const tvMax = Math.max(...tvVals, 1)
                   const volMax = Math.max(...volVals, 1)
                   const W = CHART_W
-                  const BH = 96
-                  const BPAD = { top: 16, right: 4, bottom: 24, left: 32 }
+                  const BH = 116
+                  const BPAD = { top: 30, right: 2, bottom: 30, left: 24 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
-                  const barW = Math.min((BPW / Math.max(n, 1)) * 0.7, 16)
+                  const barW = Math.min((BPW / Math.max(n, 1)) * 0.7, 18)
                   // 정시(":00") 라벨만 → 균등 간격
                   const xLabelIdxs: number[] = []
                   intradaySlots.forEach((s, i) => {
@@ -246,43 +246,44 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                     }).join(" ")
 
                     return (
-                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-2" style={{ height: BH + 4 }}>
+                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-4" style={{ height: BH + 6 }}>
+                        {/* axisLabel — 차트 영역 위 충분히 떨어진 위치 (Y라벨과 분리) */}
+                        <text x={0} y={12} fontSize={10} fill={color} fontWeight={600}>
+                          {axisLabel}
+                          <tspan fontSize={9} fontWeight={400} dx={6} opacity={0.75}>누적 {fmt(cumMax)}</tspan>
+                        </text>
+                        {/* 그리드 + Y라벨 */}
                         {[0, 0.5, 1].map(r => {
                           const y = BPAD.top + r * BPH
                           const v = maxV * (1 - r)
                           return (
                             <g key={r}>
                               <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.12} />
-                              <text x={BPAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.55}>{fmt(v)}</text>
+                              <text x={BPAD.left - 2} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.55}>{fmt(v)}</text>
                             </g>
                           )
                         })}
-                        {/* axisLabel — 차트 좌측 외부 (Y라벨 영역 침범 X) */}
-                        <text x={2} y={10} fontSize={9} fill={color} fontWeight={600}>
-                          {axisLabel}
-                          <tspan fontSize={8} fontWeight={400} dx={4} opacity={0.75}>누적 {fmt(cumMax)}</tspan>
-                        </text>
                         {/* 막대 */}
                         {vals.map((v, i) => {
                           const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
                           const h = maxV > 0 ? (v / maxV) * BPH : 0
                           const y = BPAD.top + BPH - h
                           return v > 0 ? (
-                            <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={color} opacity={0.85} rx={1} />
+                            <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={color} opacity={0.8} rx={1} />
                           ) : null
                         })}
-                        {/* 누적 라인 (반투명 오버레이) */}
-                        <polyline points={cumPoints} fill="none" stroke={color} strokeWidth={1.5} opacity={0.45} strokeLinecap="round" strokeLinejoin="round" />
+                        {/* 누적 라인 (두께 2배, 반투명 오버레이) */}
+                        <polyline points={cumPoints} fill="none" stroke={color} strokeWidth={3} opacity={0.5} strokeLinecap="round" strokeLinejoin="round" />
                         {cum.map((v, i) => {
                           const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
                           const cy = BPAD.top + BPH - (v / cumMax) * BPH
-                          return <circle key={`c-${i}`} cx={cx} cy={cy} r={1.5} fill={color} opacity={0.7} />
+                          return <circle key={`c-${i}`} cx={cx} cy={cy} r={2.5} fill={color} opacity={0.65} />
                         })}
                         {/* X축 라벨 */}
                         {xLabelIdxs.map(i => {
                           const x = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
                           return (
-                            <text key={i} x={x} y={BH - 6} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.55}>
+                            <text key={i} x={x} y={BH - 8} textAnchor="middle" fontSize={9} fill="currentColor" opacity={0.6}>
                               {intradaySlots[i].time}
                             </text>
                           )
@@ -300,15 +301,15 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                 })()}
 
                 {/* 표 */}
-                <div className="space-y-0">
-                  <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+                <div className="space-y-0 mt-2">
+                  <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-2 border-b border-border/50">
                     <span className="w-10 shrink-0">시간</span>
                     <span className="flex-1 text-right">거래대금</span>
                     <span className="flex-1 text-right">거래량</span>
                   </div>
                   {intradaySlots.map((s, idx) => (
                     <div key={s.time} className={cn(
-                      "flex items-center py-1 text-[10px]",
+                      "flex items-center py-1.5 text-[10px]",
                       idx === 0 && "bg-muted/40 -mx-1 px-1 rounded font-medium",
                       idx > 0 && "border-b border-border/20"
                     )}>

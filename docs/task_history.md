@@ -6,6 +6,15 @@
 
 ## 2026-05-13
 
+### [UI] 누적 라인 두께·간격·여백 종합 보강 (2026-05-13 22:43 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+20/-15)
+- **사용자 보고 4건 (재요청 — 이전 부분 적용)**:
+  1. **꺾은선 두께 2배 + 반투명**: strokeWidth 1.5→3, 점 마커 r 1.5→2.5, opacity 0.45→0.5 (반투명 유지하며 강조)
+  2. **그래프-라벨 겹침**: BPAD.top 16→**30** 대폭 확장 (axisLabel y=12 vs Y max y=33, 21px 분리). BH 96→116 전체 차트 확대.
+  3. **컨텐츠 간격 보강**: 두 차트 사이 mb-2→**mb-4**, "30분/1시간" 토글-차트 mb-2→**mb-3**, 표 mt-2 + 헤더 pb-1.5→**pb-2**, 행 py-1→**py-1.5**. axisLabel fontSize 9→10, dx 4→6. x라벨 fontSize 8→9.
+  4. **좌우 여백 추가 축소**: BPAD.left 32→**24**, right 4→**2** (이전 32/4 → 24/2). BPW 274→**290** (+16px 그래프 영역). barW max 16→18.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (5.17s)
+
 ### [UI] 누적 라인 오버레이 + 라벨 겹침 재수정 + X축 균등 + 여백 축소 (2026-05-13 22:29 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+30/-15)
 - **사용자 보고 4건 수정**:
