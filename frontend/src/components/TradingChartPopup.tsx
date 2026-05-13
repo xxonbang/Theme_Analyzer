@@ -222,11 +222,15 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const volMax = Math.max(...volVals, 1)
                   const W = CHART_W
                   const BH = 116
-                  const BPAD = { top: 30, right: 2, bottom: 30, left: 24 }
+                  const BPAD = { top: 30, right: 2, bottom: 30, left: 18 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
                   const barW = Math.min((BPW / Math.max(n, 1)) * 0.7, 18)
+                  // 첫·마지막 막대가 BPAD 안쪽으로 inset(barW/2) — Y라벨 영역 침범 방지
+                  const innerLeft = BPAD.left + barW / 2
+                  const innerW = BPW - barW
+                  const slotX = (i: number) => innerLeft + (n > 1 ? (i / (n - 1)) * innerW : innerW / 2)
                   // 정시(":00") 라벨만 → 균등 간격
                   const xLabelIdxs: number[] = []
                   intradaySlots.forEach((s, i) => {
@@ -240,7 +244,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                     for (const v of vals) { acc += v; cum.push(acc) }
                     const cumMax = acc || 1
                     const cumPoints = cum.map((v, i) => {
-                      const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                      const cx = slotX(i)
                       const cy = BPAD.top + BPH - (v / cumMax) * BPH
                       return `${cx},${cy}`
                     }).join(" ")
@@ -265,7 +269,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                         })}
                         {/* 막대 */}
                         {vals.map((v, i) => {
-                          const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                          const cx = slotX(i)
                           const h = maxV > 0 ? (v / maxV) * BPH : 0
                           const y = BPAD.top + BPH - h
                           return v > 0 ? (
@@ -273,21 +277,18 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                           ) : null
                         })}
                         {/* 누적 라인 (두께 2배, 반투명 오버레이) */}
-                        <polyline points={cumPoints} fill="none" stroke={color} strokeWidth={3} opacity={0.5} strokeLinecap="round" strokeLinejoin="round" />
+                        <polyline points={cumPoints} fill="none" stroke={color} strokeWidth={3} opacity={0.25} strokeLinecap="round" strokeLinejoin="round" />
                         {cum.map((v, i) => {
-                          const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                          const cx = slotX(i)
                           const cy = BPAD.top + BPH - (v / cumMax) * BPH
-                          return <circle key={`c-${i}`} cx={cx} cy={cy} r={2.5} fill={color} opacity={0.65} />
+                          return <circle key={`c-${i}`} cx={cx} cy={cy} r={2.5} fill={color} opacity={0.35} />
                         })}
                         {/* X축 라벨 */}
-                        {xLabelIdxs.map(i => {
-                          const x = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
-                          return (
-                            <text key={i} x={x} y={BH - 8} textAnchor="middle" fontSize={9} fill="currentColor" opacity={0.6}>
-                              {intradaySlots[i].time}
-                            </text>
-                          )
-                        })}
+                        {xLabelIdxs.map(i => (
+                          <text key={i} x={slotX(i)} y={BH - 8} textAnchor="middle" fontSize={9} fill="currentColor" opacity={0.6}>
+                            {intradaySlots[i].time}
+                          </text>
+                        ))}
                       </svg>
                     )
                   }

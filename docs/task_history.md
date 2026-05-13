@@ -6,6 +6,25 @@
 
 ## 2026-05-13
 
+### [버그픽스/UI] 막대-Y라벨 겹침 근본 수정 + 누적 라인 추가 반투명 (2026-05-13 22:47 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+9/-8)
+- **사용자 보고 3건**:
+  1. 누적 라인 반투명 부족
+  2. **그래프-라벨 겹침 미해결** (이전 보강에도 사용자 화면 그대로)
+  3. 좌우 여백 추가 축소
+- **겹침 근본 진단 (직접 좌표 계산)**:
+  - barW=18, BPAD.left=24 → 첫 막대 좌측 = 24-9 = **15**
+  - Y라벨(textAnchor end) 우측 = BPAD.left - 2 = **22**
+  - 라벨 우측(22)이 막대 좌측(15)보다 **7px 오른쪽** → 라벨이 막대 영역 위에 그려짐 (CSS·padding 보강만으로 해결 불가)
+- **근본 수정**:
+  - **막대 cx 산정을 `BPAD` 안쪽으로 inset (barW/2)**: 새 헬퍼 `slotX(i) = innerLeft + (i/(n-1)) * innerW`. innerLeft = BPAD.left + barW/2, innerW = BPW - barW. 첫·마지막 슬롯이 절대 BPAD를 침범하지 않음.
+  - 누적 라인·점·X라벨도 동일 `slotX` 사용
+  - **좌표 검증**: 첫 막대 좌측=18, Y라벨 우측=16 → **2px 분리 ✅**. 마지막 막대 우측=308, W=310 → 2px 여유 ✅
+- **추가**:
+  - **BPAD.left 24→18** (-6px 좌측 여백 추가 축소)
+  - **누적 라인 opacity 0.5→0.25, 점 0.65→0.35** (더 반투명 — 막대 정보 가독성 ↑)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.06s) · 좌표 수학 검증 PASS
+
 ### [UI] 누적 라인 두께·간격·여백 종합 보강 (2026-05-13 22:43 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+20/-15)
 - **사용자 보고 4건 (재요청 — 이전 부분 적용)**:
