@@ -222,8 +222,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const volMax = Math.max(...volVals, 1)
                   const W = 340
                   const BH = 150
-                  // Y라벨을 차트 외부 좌측에 배치 — 막대와 절대 겹치지 않음
-                  const BPAD = { top: 28, right: 10, bottom: 26, left: 32 }
+                  // 이중 Y축: 좌측 막대 스케일(slot max), 우측 누적 스케일(cumMax)
+                  const BPAD = { top: 28, right: 36, bottom: 26, left: 32 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
@@ -279,20 +279,26 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                           {axisLabel}
                           <tspan fontSize={9} fontWeight={400} dx={8} opacity={0.7}>누적 {fmt(cumMax)}</tspan>
                         </text>
-                        {/* 그리드 + Y라벨 (그리드 라인과 정확히 가운데 정렬) */}
+                        {/* 가로 그리드 + 좌측(slot max) Y라벨 + 우측(누적) Y라벨 */}
                         {[0.25, 0.5, 0.75, 1].map(r => {
                           const y = BPAD.top + (1 - r) * BPH
-                          const v = maxV * r
+                          const vSlot = maxV * r
+                          const vCum = cumMax * r
                           return (
                             <g key={r}>
                               <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.5} opacity={0.16} strokeDasharray="2 3" />
-                              <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill="currentColor" opacity={0.7} fontWeight={600}>{fmt(v)}</text>
+                              <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill="currentColor" opacity={0.7} fontWeight={600}>{fmt(vSlot)}</text>
+                              <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={color} opacity={0.55} fontWeight={500}>{fmt(vCum)}</text>
                             </g>
                           )
                         })}
-                        {/* Y축 좌측 경계선 (solid, 가독성 해치지 않는 opacity) */}
+                        {/* 세로 그리드 (정시 X 위치) */}
+                        {xLabelIdxs.map(i => (
+                          <line key={`vg-${i}`} x1={slotX(i)} y1={BPAD.top} x2={slotX(i)} y2={BPAD.top + BPH} stroke="currentColor" strokeWidth={0.5} opacity={0.16} strokeDasharray="2 3" />
+                        ))}
+                        {/* Y축 좌측·우측 경계선 + X축 baseline */}
                         <line x1={BPAD.left} y1={BPAD.top} x2={BPAD.left} y2={BPAD.top + BPH} stroke="currentColor" strokeWidth={0.6} opacity={0.22} />
-                        {/* X축 하단 baseline (solid) */}
+                        <line x1={W - BPAD.right} y1={BPAD.top} x2={W - BPAD.right} y2={BPAD.top + BPH} stroke="currentColor" strokeWidth={0.6} opacity={0.22} />
                         <line x1={BPAD.left} y1={BPAD.top + BPH} x2={W - BPAD.right} y2={BPAD.top + BPH} stroke="currentColor" strokeWidth={0.6} opacity={0.22} />
                         {/* 막대 (그라데이션, 둥근 모서리) */}
                         {vals.map((v, i) => {

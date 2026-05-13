@@ -6,6 +6,20 @@
 
 ## 2026-05-13
 
+### [기능] 이중 Y축 (막대/누적) + 세로 그리드 (2026-05-13 23:18 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+11/-5)
+- **사용자 보고**: 누적 라인 시작점이 막대와 다른 위치로 보임 — 막대(slot max)와 누적(cumMax) 스케일이 달라 발생. 옵션 C(이중 Y축) 채택.
+- **수정**:
+  - **이중 Y축**:
+    - **좌측 (textAnchor end)**: 막대 스케일 (slot max=maxV 기준). 회색.
+    - **우측 (textAnchor start)**: 누적 스케일 (cumMax 기준). color tint, opacity 0.55.
+    - 두 스케일을 동시에 표시 → 막대·라인 각자 정확한 비율 인지
+  - **BPAD.right 10 → 36** (우측 라벨 공간 확보)
+  - **세로 그리드 추가**: 정시(":00") X 위치마다 vertical dashed line (가로 그리드와 동일 스타일: opacity 0.16, dasharray "2 3")
+  - **우측 경계선 추가**: 좌·우 Y축 vertical line 둘 다
+- **좌표 검증**: 좌측 Y라벨↔첫 막대 4px ✅, 우측 Y라벨↔마지막 막대 4px ✅. BPW 272px.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (5.13s)
+
 ### [검증/UI] 막대 값 정확도 검증 + Y라벨 가운데 정렬 + 그리드 명확화 (2026-05-13 23:14 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+2/-2)
 - **사용자 의심**: 09:30 거래대금 1.6조인데 막대 높이가 "1.1조 라벨 부근"으로 보임 — 코드 버그?
