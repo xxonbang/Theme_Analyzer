@@ -1,0 +1,372 @@
+{
+  "trade_date": "2026-05-13",
+  "morning_timestamp": "2026-05-13 09:11:29",
+  "collected_at": "2026-05-13 15:41:21",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-13 09:11:29",
+      "prices": {
+        "439960": 39000,
+        "319400": 45150,
+        "003280": 2990,
+        "034220": 13450,
+        "476060": 23700
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13 09:32:35",
+      "prices": {
+        "439960": 39000,
+        "319400": 45150,
+        "003280": 2990,
+        "034220": 13450,
+        "476060": 23700
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13 10:02:52",
+      "prices": {
+        "439960": 39000,
+        "319400": 45150,
+        "003280": 2990,
+        "034220": 13450,
+        "476060": 23700
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13 12:01:54",
+      "prices": {
+        "439960": 39000,
+        "319400": 45150,
+        "003280": 2990,
+        "034220": 13450,
+        "476060": 23700
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13 12:36:04",
+      "prices": {
+        "439960": 40550,
+        "319400": 43100,
+        "003280": 2850,
+        "034220": 14300,
+        "476060": 22200
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13 13:26:50",
+      "prices": {
+        "439960": 40550,
+        "319400": 42900,
+        "003280": 2840,
+        "034220": 14300,
+        "476060": 22150
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13 14:36:46",
+      "prices": {
+        "439960": 40550,
+        "319400": 43425,
+        "003280": 2850,
+        "034220": 14300,
+        "476060": 22150
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이"
+        },
+        {
+          "code": "476060",
+          "name": "온코닉테라퓨틱스",
+          "theme": "바이오/제약"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 39000,
+      "close_price": 40550,
+      "profit_rate": 3.97,
+      "profit_amount": 1550,
+      "high_price": 40550,
+      "high_time": "15:30",
+      "high_profit_rate": 3.97,
+      "high_profit_amount": 1550,
+      "low_price": 35000,
+      "low_profit_rate": -10.26,
+      "low_profit_amount": -4000,
+      "low_time": "09:02"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 45150,
+      "close_price": 43650,
+      "profit_rate": -3.32,
+      "profit_amount": -1500,
+      "high_price": 45450,
+      "high_time": "09:27",
+      "high_profit_rate": 0.66,
+      "high_profit_amount": 300,
+      "low_price": 42100,
+      "low_profit_rate": -6.76,
+      "low_profit_amount": -3050,
+      "low_time": "10:21"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 2990,
+      "close_price": 2835,
+      "profit_rate": -5.18,
+      "profit_amount": -155,
+      "high_price": 3190,
+      "high_time": "09:15",
+      "high_profit_rate": 6.69,
+      "high_profit_amount": 200,
+      "low_price": 2810,
+      "low_profit_rate": -6.02,
+      "low_profit_amount": -180,
+      "low_time": "10:43"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "디스플레이",
+      "market": "KOSPI",
+      "buy_price": 13450,
+      "close_price": 14170,
+      "profit_rate": 5.35,
+      "profit_amount": 720,
+      "high_price": 14850,
+      "high_time": "10:52",
+      "high_profit_rate": 10.41,
+      "high_profit_amount": 1400,
+      "low_price": 12890,
+      "low_profit_rate": -4.16,
+      "low_profit_amount": -560,
+      "low_time": "09:00"
+    },
+    {
+      "code": "476060",
+      "name": "온코닉테라퓨틱스",
+      "theme": "바이오/제약",
+      "market": "KOSDAQ",
+      "buy_price": 23700,
+      "close_price": 22350,
+      "profit_rate": -5.7,
+      "profit_amount": -1350,
+      "high_price": 23800,
+      "high_time": "09:23",
+      "high_profit_rate": 0.42,
+      "high_profit_amount": 100,
+      "low_price": 22000,
+      "low_profit_rate": -7.17,
+      "low_profit_amount": -1700,
+      "low_time": "12:48"
+    }
+  ],
+  "summary": {
+    "total_stocks": 5,
+    "profit_stocks": 2,
+    "loss_stocks": 3,
+    "total_invested": 124290,
+    "total_value": 123555,
+    "total_profit": -735,
+    "total_profit_rate": -0.59,
+    "high_total_value": 127840,
+    "high_total_profit": 3550,
+    "high_total_profit_rate": 2.86,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 0
+  }
+}
