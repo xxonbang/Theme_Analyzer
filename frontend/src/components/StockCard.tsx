@@ -58,7 +58,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
-  const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
+  const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
   const hasNews = news && news.news && news.news.length > 0
   const allMet = criteria?.all_met ?? false
   const shortWarning = isAdmin && criteria?.short_selling?.met
@@ -120,7 +120,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
             </div>
             <div className="min-w-0 flex-1">
               <a
-                href={naverUrl}
+                href={tossUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-sm sm:text-base text-foreground hover:text-primary transition-colors flex items-center gap-1"

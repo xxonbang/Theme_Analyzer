@@ -520,7 +520,7 @@ export function IntradayInsights({
               onClick={e => e.stopPropagation()}
             >
               <a
-                href={`https://m.stock.naver.com/domestic/stock/${actionPopup.code}/total`}
+                href={`https://www.tossinvest.com/stocks/A${actionPopup.code}/order`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-muted transition-colors"

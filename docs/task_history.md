@@ -6,6 +6,18 @@
 
 ## 2026-05-13
 
+### [기능/UI] 종목명 링크 네이버 → 토스 이동 + 일별 표 좌우 여백 (2026-05-13 23:52 KST)
+- **변경 파일**: `frontend/src/components/{StockCard,StockList,PortfolioPage,ThemeForecastPage,AIThemeAnalysis,PredictionHistory,PaperTradingStockCard,IntradayInsights,TradingChartPopup}.tsx` (9 파일)
+- **사용자 보고**:
+  1. 일별 탭 하단 표 좌우 여백 추가
+  2. 종목명 클릭 → 네이버 링크 제거, 토스 (`tossinvest.com/stocks/A{code}/order`)로 변경
+- **수정**:
+  - 일별 탭 표: `space-y-0` → `space-y-0 mt-2 px-3`, pb-1.5 → pb-2 (장중 탭과 동일)
+  - 네이버 URL `https://m.stock.naver.com/domestic/stock/${code}/total` → 토스 `https://www.tossinvest.com/stocks/A${code}/order` (sed 일괄)
+  - 변수명 `naverUrl` → `tossUrl` 통일
+  - 적용 컴포넌트 8개: StockCard, StockList, PortfolioPage(카드 안), ThemeForecastPage, AIThemeAnalysis, PredictionHistory, PaperTradingStockCard, IntradayInsights
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.42s)
+
 ### [UI] 일별 탭 거래량 막대·Y라벨 투명효과 제거 + 거래대금 라인 추가 투명 (2026-05-13 23:46 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+8/-9)
 - **사용자 보고 2건**:

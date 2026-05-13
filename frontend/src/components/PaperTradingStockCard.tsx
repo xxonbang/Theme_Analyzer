@@ -59,7 +59,7 @@ export const PaperTradingStockCard = memo(function PaperTradingStockCard({ stock
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 mb-1">
             <a
-              href={`https://m.stock.naver.com/domestic/stock/${stock.code}/total`}
+              href={`https://www.tossinvest.com/stocks/A${stock.code}/order`}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-sm sm:text-base hover:text-primary transition-colors inline-flex items-center gap-1"

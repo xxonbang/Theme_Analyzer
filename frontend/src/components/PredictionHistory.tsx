@@ -137,7 +137,7 @@ function StockRow({ stock, categoryFilter }: { stock: StockPrediction; categoryF
       <div className="flex items-center gap-1.5 py-1.5 text-xs sm:text-sm">
         <span className={cn("font-bold w-4 text-center shrink-0", hitColor)}>{hitIcon}</span>
         <a
-          href={`https://m.stock.naver.com/domestic/stock/${stock.code}/total`}
+          href={`https://www.tossinvest.com/stocks/A${stock.code}/order`}
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium truncate hover:underline inline-flex items-center gap-0.5"

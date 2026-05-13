@@ -1079,7 +1079,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                     {/* Naver link + 물타기 버튼 */}
                     <div className="flex items-center gap-3">
                       <a
-                        href={`https://m.stock.naver.com/domestic/stock/${h.code}/total`}
+                        href={`https://www.tossinvest.com/stocks/A${h.code}/order`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"

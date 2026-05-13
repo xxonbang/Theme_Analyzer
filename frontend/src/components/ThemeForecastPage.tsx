@@ -68,7 +68,7 @@ function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose
 
 function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastStock; criteria?: StockCriteria; showCriteria?: boolean }) {
   const [showPopup, setShowPopup] = useState(false)
-  const naverUrl = `https://m.stock.naver.com/domestic/stock/${stock.code}/total`
+  const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
 
   const metDots = showCriteria && criteria ? CRITERIA_CONFIG.filter(({ key }) => {
     const c = criteria[key as keyof StockCriteria]
@@ -113,7 +113,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
         </button>
       )}
       <a
-        href={naverUrl}
+        href={tossUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1 hover:underline"

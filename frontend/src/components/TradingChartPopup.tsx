@@ -310,8 +310,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
               )
             })()}
 
-            <div className="space-y-0">
-              <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+            <div className="space-y-0 mt-2 px-3">
+              <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-2 border-b border-border/50">
                 <span className="w-8 shrink-0">일자</span>
                 <span className="flex-1 text-right">거래대금</span>
                 <span className="flex-1 text-right">거래량</span>
