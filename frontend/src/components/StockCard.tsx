@@ -330,6 +330,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 currentTradingValue={stock.trading_value}
                 currentVolume={stock.volume}
                 changes={history.changes}
+                intradayDays={intradayDays}
                 onClose={() => setShowTradingChart(false)}
               />
             )}

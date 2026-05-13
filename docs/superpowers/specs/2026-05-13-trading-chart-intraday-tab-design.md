@@ -43,13 +43,16 @@ interface IntradayInterval {
 
 **문제**: `IntradayInterval`에는 `volume`만 있고 `trading_value`(거래대금)는 없다.
 
-**해결**: 거래대금을 슬롯별로 표시하려면 두 가지 옵션:
-- (a) **`close × volume`로 근사**: 슬롯 평균가는 close에 가깝다고 가정. 가장 단순. 단 정확도는 KIS의 실제 거래대금과 5~10% 오차 가능.
-- (b) **데이터 모델 확장**: `intraday_history.py`의 `aggregate_minute_candles`에 `trading_value` 추가 + 백엔드 재수집. 큰 변경.
+**채택 (사용자 요청 — 정확값)**: 백엔드 데이터 모델 확장.
 
-**채택**: **(a) `close × volume` 근사**. 본 화면이 정확한 거래대금을 비교하려는 게 아니라 **시간대별 거래 강도 변화 추이**가 목적이므로 근사값으로 충분. 정확한 일자별 거래대금은 일별 탭에서 KIS 확정값으로 표시됨.
+KIS `inquire-time-itemchartprice`(FHKST03010200) output2에 **`acml_tr_pbmn`(누적 거래대금)** 필드 존재. **분봉별 거래대금 = 현재 분봉의 acml_tr_pbmn - 직전 분봉의 acml_tr_pbmn** 차분으로 정확값 계산.
 
-> 향후 정확한 거래대금이 필요해지면 (b)로 확장 가능. 현재는 YAGNI.
+구현:
+- `volume_profile.py:fetch_minute_candles`: 각 candle에 `acml_tr_pbmn` 필드 추가
+- `intraday_history.py:aggregate_minute_candles`: 시간순 정렬 후 차분으로 분봉별 trading_value 산정, 30분 그룹 sum
+- 첫 분봉 (acml=N이지만 이전 분봉이 없는 케이스): acml 자체를 분봉 거래대금으로 사용 (장 시작 0부터의 누적)
+- `IntradayInterval`에 `trading_value` 필드 추가
+- 재수집 필요: 워크플로(`collect-intraday-history.yml`) 다음 실행 시 자동 적용. 또는 로컬 `python collect_intraday_history.py` 즉시 실행.
 
 ## 2. UI 변경
 

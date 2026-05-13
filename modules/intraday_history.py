@@ -37,6 +37,14 @@ def aggregate_minute_candles(
     # 시간순 정렬 (오래된 것 먼저)
     sorted_candles = sorted(candles, key=lambda c: c["time"])
 
+    # 분봉별 거래대금 산정: acml_tr_pbmn(누적 거래대금) 차분
+    # 첫 분봉은 acml 자체가 그 분봉의 거래대금 (09:00 이전 0부터의 누적)
+    prev_acml = 0
+    for c in sorted_candles:
+        cur_acml = c.get("acml_tr_pbmn", 0)
+        c["trading_value"] = max(0, cur_acml - prev_acml) if prev_acml > 0 else cur_acml
+        prev_acml = cur_acml
+
     # 구간 경계 생성 (09:00 ~ 15:00, 시간외 거래 제외)
     boundaries = []
     hour, minute = 9, 0
@@ -73,6 +81,7 @@ def aggregate_minute_candles(
         high = max(c["high"] for c in group)
         low = min(c["low"] for c in group)
         volume = sum(c["volume"] for c in group)
+        trading_value = sum(c.get("trading_value", 0) for c in group)
         change_rate = round((close - base_price) / base_price * 100, 2) if base_price else 0
 
         results.append({
@@ -82,6 +91,7 @@ def aggregate_minute_candles(
             "low": low,
             "change_rate": change_rate,
             "volume": volume,
+            "trading_value": trading_value,
         })
 
         prev_boundary = boundary

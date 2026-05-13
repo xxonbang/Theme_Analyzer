@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-05-13
+
+### [기능] 거래량 그래프 장중 탭 추가 + 정확한 거래대금 데이터 수집 (2026-05-13 21:33 KST)
+- **변경 파일**: `modules/volume_profile.py` (+1), `modules/intraday_history.py` (+10), `frontend/src/types/stock.ts` (+1), `frontend/src/components/TradingChartPopup.tsx` (+232/-78), `frontend/src/components/StockCard.tsx` (+1), spec 문서
+- **배경**: 사용자 요청 — InvestorChartPopup(수급)처럼 TradingChartPopup(거래량/거래대금)에도 장중 탭 추가하여 장중 시간대별 변화 추이 확인
+- **브레인스토밍 결정**: 옵션 B (슬롯별 막대) + 거래대금·거래량 둘 다 + 30m/1h 토글 + 일자 오늘만. 거래대금은 사용자 결정으로 **근사값 대신 정확값 수집**
+- **백엔드 변경 (정확한 거래대금 수집)**:
+  - `fetch_minute_candles`: 분봉 응답에 `acml_tr_pbmn`(누적 거래대금) 추가
+  - `aggregate_minute_candles`: 시간순 정렬 후 acml 차분으로 분봉별 trading_value 산정 → 30m/60m 그룹 sum → `IntradayInterval.trading_value` 필드 신규
+  - 첫 분봉은 acml 자체가 거래대금 (09:00 시작점)
+- **프론트엔드 변경**:
+  - `IntradayInterval` TypeScript 타입에 `trading_value: number` 추가
+  - `TradingChartPopup`: 일별/장중 탭 분기. 장중 탭은 30m/60m 토글, 거래대금·거래량 vertical mini bar chart × 2 (mini chart stack 패턴, 이중 Y축 회피). 현재 시각 이후 슬롯 자동 필터. 0거래량 슬롯 막대 미표시.
+  - 기본 탭: 장중 시간대(09:00~15:30 KST)에는 intraday, 그 외 daily
+  - 장중 데이터 없으면 탭 비활성 ("(수집 전)" 표시, PriceHistoryPopup 패턴)
+  - `StockCard`: `intradayDays` prop 전달
+- **데이터 갱신**: 다음 `collect-intraday-history.yml` 워크플로 실행 시 자동 적용. 또는 즉시 로컬 `python collect_intraday_history.py` 실행.
+- **검증**: Python AST PASS · `npx tsc --noEmit` PASS · `npm run build` PASS (4.11s)
+
+---
+
 ## 2026-05-11
 
 ### [진단/개선] kis-proxy 500 오류 진단 + callKisProxy 에러 메시지 노출 패치 (2026-05-11 14:37 KST)
@@ -19,6 +40,7 @@
 - **노출되지 않은 이유**: Supabase JS SDK가 non-2xx 응답의 표준 메시지(`"Edge Function returned a non-2xx status code"`)만 노출, 실제 body의 `{ error: "..." }` 버림
 - **패치 (재발 방지)**: `callKisProxy`가 `FunctionsHttpError.context.json()`로 응답 body의 `error` 필드 추출. 향후 같은 종류 장애 발생 시 frontend에서 정확한 메시지 즉시 노출.
 - **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.69s)
+- **푸시**: `28ba0cb` → `cf24c0a..28ba0cb` rebase 후 origin/main 동기화 완료. GitHub Pages 자동 재배포 트리거됨.
 
 ## 2026-05-08
 

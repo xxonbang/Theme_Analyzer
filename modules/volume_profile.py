@@ -191,6 +191,7 @@ def fetch_minute_candles(
                 "low": int(item.get("stck_lwpr", 0)),
                 "close": int(item.get("stck_prpr", 0)),
                 "volume": int(item.get("cntg_vol", 0)),
+                "acml_tr_pbmn": int(item.get("acml_tr_pbmn", 0)),
             })
 
         last_time = output2[-1].get("stck_cntg_hour", "")

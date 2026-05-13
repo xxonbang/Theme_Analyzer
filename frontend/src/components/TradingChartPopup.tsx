@@ -1,15 +1,17 @@
+import { useState, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { useScrollLock } from "@/hooks/useScrollLock"
 import { X } from "lucide-react"
-import { formatTradingValue, formatVolume } from "@/lib/utils"
-import type { HistoryChange } from "@/types/stock"
+import { cn, formatTradingValue, formatVolume } from "@/lib/utils"
+import type { HistoryChange, IntradayDay } from "@/types/stock"
 
 interface TradingChartPopupProps {
   stockName: string
   currentTradingValue?: number
   currentVolume: number
   changes: HistoryChange[]
+  intradayDays?: IntradayDay[]
   onClose: () => void
 }
 
@@ -30,7 +32,7 @@ function buildLine(values: number[], plotW: number, plotH: number, padLeft: numb
   }).join(" ")
 }
 
-export function TradingChartPopup({ stockName, currentTradingValue, currentVolume, changes, onClose }: TradingChartPopupProps) {
+export function TradingChartPopup({ stockName, currentTradingValue, currentVolume, changes, intradayDays, onClose }: TradingChartPopupProps) {
   const { handleRef, sheetRef } = useSwipeToDismiss(onClose)
 
   // 시간순 정렬, 최근 11일(D ~ D-10)만 표시
@@ -43,6 +45,36 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
   const volumes = reversed.map((c, i) =>
     i === reversed.length - 1 ? currentVolume : (c.volume ?? 0)
   )
+
+  // === 장중 데이터: 오늘자 entry만 ===
+  const todayKST = useMemo(() => {
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+  }, [])
+  const todayEntry = useMemo(() => {
+    if (!intradayDays) return null
+    return intradayDays.find(e => e.date === todayKST) ?? null
+  }, [intradayDays, todayKST])
+  const hasIntraday = !!todayEntry && (todayEntry.intervals_30m?.length ?? 0) > 0
+
+  const [activeTab, setActiveTab] = useState<"daily" | "intraday">(() => {
+    if (!hasIntraday) return "daily"
+    const now = new Date()
+    const kstMin = now.getHours() * 60 + now.getMinutes()
+    return kstMin >= 540 && kstMin <= 930 ? "intraday" : "daily"
+  })
+  const [interval, setInterval] = useState<"30m" | "60m">("30m")
+
+  // 장중 슬롯: 현재 시각 이후 슬롯 제외
+  const intradaySlots = useMemo(() => {
+    if (!todayEntry) return []
+    const raw = interval === "30m" ? todayEntry.intervals_30m : todayEntry.intervals_60m
+    if (!raw) return []
+    if (todayEntry.date !== todayKST) return raw
+    const now = new Date()
+    const nowHHMM = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`
+    return raw.filter(s => s.time <= nowHHMM)
+  }, [todayEntry, interval, todayKST])
 
   useScrollLock(true)
 
@@ -59,86 +91,214 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
         </div>
 
         {/* 헤더 */}
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <span className="text-sm font-semibold">{stockName}</span>
-            <span className="text-xs text-muted-foreground ml-2">거래 추이 ({reversed.length}일)</span>
-          </div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-semibold">{stockName}</span>
           <button onClick={onClose} className="hidden sm:block text-muted-foreground hover:text-foreground p-1 -m-1">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* SVG 차트 */}
-        <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
-          {/* 그리드 + 좌측 Y축 (거래대금) + 우측 Y축 (거래량) */}
-          {[0, 0.25, 0.5, 0.75, 1].map(r => {
-            const y = PAD.top + r * PLOT_H
-            const tvMax = Math.max(...tradingValues)
-            const tvMin = Math.min(...tradingValues)
-            const tvVal = tvMax - r * (tvMax - tvMin)
-            const volMax = Math.max(...volumes)
-            const volMin = Math.min(...volumes)
-            const volVal = volMax - r * (volMax - volMin)
-            return (
-              <g key={r}>
-                <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
-                <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="#e11d48" opacity={0.7}>{formatTradingValue(tvVal)}</text>
-                <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#6366f1" opacity={0.6}>{formatVolume(volVal)}</text>
-              </g>
-            )
-          })}
-
-          {/* X축 라벨 */}
-          {labels.map((label, i) => {
-            const x = PAD.left + (i / (labels.length - 1)) * PLOT_W
-            return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
-          })}
-
-          {/* 좌측/우측 세로선 */}
-          <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
-          <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
-
-          {/* 거래대금 라인 */}
-          <polyline
-            points={buildLine(tradingValues, PLOT_W, PLOT_H, PAD.left, PAD.top)}
-            fill="none" stroke="#e11d48" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-          />
-          {/* 거래량 라인 */}
-          <polyline
-            points={buildLine(volumes, PLOT_W, PLOT_H, PAD.left, PAD.top)}
-            fill="none" stroke="#6366f1" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-          />
-        </svg>
-
-        {/* 범례 */}
-        <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
-          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-rose-600 rounded inline-block" />거래대금</span>
-          <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-indigo-500 rounded inline-block" />거래량</span>
+        {/* 탭 */}
+        <div className="flex gap-1 mb-2">
+          <button
+            onClick={() => setActiveTab("daily")}
+            className={cn(
+              "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+              activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            일별
+          </button>
+          <button
+            onClick={() => hasIntraday ? setActiveTab("intraday") : undefined}
+            className={cn(
+              "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+              !hasIntraday ? "text-muted-foreground/40 cursor-not-allowed" :
+              activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            장중{!hasIntraday && <span className="text-[10px] ml-1">(수집 전)</span>}
+          </button>
         </div>
 
-        {/* 테이블 */}
-        <div className="space-y-0">
-          <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
-            <span className="w-8 shrink-0">일자</span>
-            <span className="flex-1 text-right">거래대금</span>
-            <span className="flex-1 text-right">거래량</span>
-          </div>
-          {reversed.map((c, idx) => {
-            const isToday = idx === reversed.length - 1
-            return (
-              <div key={idx} className={`flex items-center py-1 text-[10px] ${isToday ? "bg-muted/40 -mx-1 px-1 rounded font-medium" : ""} ${idx < reversed.length - 1 ? "border-b border-border/20" : ""}`}>
-                <span className="w-8 shrink-0 text-muted-foreground font-medium">{labels[idx]}</span>
-                <span className="flex-1 text-right tabular-nums text-rose-600">
-                  {isToday ? formatTradingValue(currentTradingValue ?? 0) : formatTradingValue(c.trading_value ?? 0)}
-                </span>
-                <span className="flex-1 text-right tabular-nums text-indigo-600">
-                  {isToday ? formatVolume(currentVolume) : formatVolume(c.volume ?? 0)}
-                </span>
+        {/* === 일별 탭 === */}
+        {activeTab === "daily" && (
+          <>
+            <div className="text-xs text-muted-foreground mb-2">거래 추이 ({reversed.length}일)</div>
+            {/* SVG 차트 */}
+            <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-auto mb-2">
+              {[0, 0.25, 0.5, 0.75, 1].map(r => {
+                const y = PAD.top + r * PLOT_H
+                const tvMax = Math.max(...tradingValues)
+                const tvMin = Math.min(...tradingValues)
+                const tvVal = tvMax - r * (tvMax - tvMin)
+                const volMax = Math.max(...volumes)
+                const volMin = Math.min(...volumes)
+                const volVal = volMax - r * (volMax - volMin)
+                return (
+                  <g key={r}>
+                    <line x1={PAD.left} y1={y} x2={CHART_W - PAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.15} />
+                    <text x={PAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="#e11d48" opacity={0.7}>{formatTradingValue(tvVal)}</text>
+                    <text x={CHART_W - PAD.right + 3} y={y + 3} textAnchor="start" fontSize={8} fill="#6366f1" opacity={0.6}>{formatVolume(volVal)}</text>
+                  </g>
+                )
+              })}
+              {labels.map((label, i) => {
+                const x = PAD.left + (i / (labels.length - 1)) * PLOT_W
+                return <text key={i} x={x} y={CHART_H - 2} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.5}>{label}</text>
+              })}
+              <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+              <line x1={CHART_W - PAD.right} y1={PAD.top} x2={CHART_W - PAD.right} y2={PAD.top + PLOT_H} stroke="currentColor" strokeWidth={0.5} opacity={0.25} />
+              <polyline points={buildLine(tradingValues, PLOT_W, PLOT_H, PAD.left, PAD.top)} fill="none" stroke="#e11d48" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+              <polyline points={buildLine(volumes, PLOT_W, PLOT_H, PAD.left, PAD.top)} fill="none" stroke="#6366f1" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+
+            <div className="flex items-center gap-3 text-[10px] text-muted-foreground mb-2">
+              <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-rose-600 rounded inline-block" />거래대금</span>
+              <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-indigo-500 rounded inline-block" />거래량</span>
+            </div>
+
+            <div className="space-y-0">
+              <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+                <span className="w-8 shrink-0">일자</span>
+                <span className="flex-1 text-right">거래대금</span>
+                <span className="flex-1 text-right">거래량</span>
               </div>
-            )
-          })}
-        </div>
+              {reversed.map((c, idx) => {
+                const isToday = idx === reversed.length - 1
+                return (
+                  <div key={idx} className={cn(
+                    "flex items-center py-1 text-[10px]",
+                    isToday && "bg-muted/40 -mx-1 px-1 rounded font-medium",
+                    idx < reversed.length - 1 && "border-b border-border/20"
+                  )}>
+                    <span className="w-8 shrink-0 text-muted-foreground font-medium">{labels[idx]}</span>
+                    <span className="flex-1 text-right tabular-nums text-rose-600">
+                      {isToday ? formatTradingValue(currentTradingValue ?? 0) : formatTradingValue(c.trading_value ?? 0)}
+                    </span>
+                    <span className="flex-1 text-right tabular-nums text-indigo-600">
+                      {isToday ? formatVolume(currentVolume) : formatVolume(c.volume ?? 0)}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </>
+        )}
+
+        {/* === 장중 탭 === */}
+        {activeTab === "intraday" && todayEntry && (
+          <>
+            {/* 30m / 1h 토글 */}
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs text-muted-foreground">{todayKST.replace(/-/g, ".")} 장중</span>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setInterval("30m")}
+                  className={cn(
+                    "px-2 py-0.5 text-[10px] font-medium rounded transition-colors",
+                    interval === "30m" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted/50"
+                  )}
+                >30분</button>
+                <button
+                  onClick={() => setInterval("60m")}
+                  className={cn(
+                    "px-2 py-0.5 text-[10px] font-medium rounded transition-colors",
+                    interval === "60m" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted/50"
+                  )}
+                >1시간</button>
+              </div>
+            </div>
+
+            {intradaySlots.length === 0 ? (
+              <div className="text-center text-xs text-muted-foreground py-6">데이터 없음</div>
+            ) : (
+              <>
+                {/* mini bar chart × 2 (거래대금, 거래량) */}
+                {(() => {
+                  const tvVals = intradaySlots.map(s => s.trading_value ?? 0)
+                  const volVals = intradaySlots.map(s => s.volume ?? 0)
+                  const tvMax = Math.max(...tvVals, 1)
+                  const volMax = Math.max(...volVals, 1)
+                  const W = CHART_W
+                  const BH = 80
+                  const BPAD = { top: 14, right: 8, bottom: 18, left: 36 }
+                  const BPW = W - BPAD.left - BPAD.right
+                  const BPH = BH - BPAD.top - BPAD.bottom
+                  const n = intradaySlots.length
+                  const barW = Math.min((BPW / Math.max(n, 1)) * 0.65, 14)
+                  const xLabelIdxs: number[] = []
+                  intradaySlots.forEach((s, i) => {
+                    if (i === 0 || i === n - 1 || s.time.endsWith(":00")) xLabelIdxs.push(i)
+                  })
+
+                  const renderMini = (vals: number[], maxV: number, color: string, axisLabel: string, fmt: (v: number) => string) => (
+                    <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-2" style={{ height: BH + 4 }}>
+                      {[0, 0.5, 1].map(r => {
+                        const y = BPAD.top + r * BPH
+                        const v = maxV * (1 - r)
+                        return (
+                          <g key={r}>
+                            <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.12} />
+                            <text x={BPAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.55}>{fmt(v)}</text>
+                          </g>
+                        )
+                      })}
+                      <text x={BPAD.left} y={9} fontSize={9} fill={color} fontWeight={600}>{axisLabel}</text>
+                      {vals.map((v, i) => {
+                        const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                        const h = maxV > 0 ? (v / maxV) * BPH : 0
+                        const y = BPAD.top + BPH - h
+                        return v > 0 ? (
+                          <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={color} opacity={0.85} rx={1} />
+                        ) : null
+                      })}
+                      {xLabelIdxs.map(i => {
+                        const x = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                        return (
+                          <text key={i} x={x} y={BH - 4} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.55}>
+                            {intradaySlots[i].time}
+                          </text>
+                        )
+                      })}
+                    </svg>
+                  )
+
+                  return (
+                    <>
+                      {renderMini(tvVals, tvMax, "#e11d48", "거래대금", formatTradingValue)}
+                      {renderMini(volVals, volMax, "#6366f1", "거래량", formatVolume)}
+                    </>
+                  )
+                })()}
+
+                {/* 표 */}
+                <div className="space-y-0">
+                  <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-1.5 border-b border-border/50">
+                    <span className="w-10 shrink-0">시간</span>
+                    <span className="flex-1 text-right">거래대금</span>
+                    <span className="flex-1 text-right">거래량</span>
+                  </div>
+                  {[...intradaySlots].reverse().map((s, idx) => (
+                    <div key={s.time} className={cn(
+                      "flex items-center py-1 text-[10px]",
+                      idx === 0 && "bg-muted/40 -mx-1 px-1 rounded font-medium",
+                      idx > 0 && "border-b border-border/20"
+                    )}>
+                      <span className="w-10 shrink-0 text-muted-foreground font-semibold tabular-nums">{s.time}</span>
+                      <span className="flex-1 text-right tabular-nums text-rose-600">
+                        {formatTradingValue(s.trading_value ?? 0)}
+                      </span>
+                      <span className="flex-1 text-right tabular-nums text-indigo-600">
+                        {formatVolume(s.volume ?? 0)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>,
     document.body

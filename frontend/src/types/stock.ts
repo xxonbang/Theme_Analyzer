@@ -320,6 +320,7 @@ export interface IntradayInterval {
   low: number
   change_rate: number   // 전일종가 대비 %
   volume: number
+  trading_value: number // 분봉 합산 거래대금 (acml_tr_pbmn 차분 기반)
 }
 
 export interface IntradayDay {
