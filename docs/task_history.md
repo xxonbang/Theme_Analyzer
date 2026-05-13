@@ -6,6 +6,24 @@
 
 ## 2026-05-13
 
+### [UI] 장중 차트 디자인 우아하게 재정비 — popup padding 외부 확장 (2026-05-13 22:53 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+30/-23)
+- **사용자 보고 (4번째 같은 요청 — "좌우 여백 줄임" 진짜 해결 + 우아한 디자인)**:
+  - 그래프 디자인 조잡 → 세련·모던하게
+  - 좌우 여백 진짜 줄여 (이전 3번 시도에도 화면상 ~12% 여백 유지)
+- **근본 진단**: 화면 ~12% 좌측 여백의 정체 = **popup 컨테이너의 `p-4 (sm:p-5)` padding**. SVG 내부 BPAD만 줄여도 popup padding 밖으로 못 나감.
+- **근본 수정**:
+  - **SVG에 `-mx-4 sm:-mx-5` 음수 마진** + `style.width = "calc(100% + 2rem)"`: popup padding을 외부로 확장. 차트가 sheet 가장자리까지 확장.
+  - **viewBox W 310 → 360** (더 넓은 캔버스)
+  - **Y라벨을 그리드 라인 위 inline** (textAnchor start, x=BPAD.left+2, y=line_y-3): 좌측 별도 Y라벨 공간 불필요 → **BPAD.left 18→8** (-10px)
+- **우아한 디자인 (frontend-design 가이드)**:
+  - **막대**: solid fill → **linearGradient** (위 색상 95% → 아래 55%, 부드러운 그라데이션). rx 1→**2** (둥근 모서리 강화). barW 비율 0.7→0.55 슬림.
+  - **누적 라인**: solid → **점선 (dasharray "3 3")**. strokeWidth 3→2, opacity 0.25→**0.55**. 점 마커 제거 (라인만).
+  - **그리드**: opacity 0.12→**0.08** 미세. 0% 라인만 solid, 나머지 dashed.
+  - **타이포**: axisLabel fontSize 10→11 letterSpacing 0.02em. Y라벨 fontWeight 500. X라벨 letterSpacing 0.04em.
+  - **간격**: 두 차트 mb-4→**mb-5**.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.82s)
+
 ### [버그픽스/UI] 막대-Y라벨 겹침 근본 수정 + 누적 라인 추가 반투명 (2026-05-13 22:47 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+9/-8)
 - **사용자 보고 3건**:
