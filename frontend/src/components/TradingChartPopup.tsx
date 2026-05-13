@@ -288,7 +288,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                             <g key={r}>
                               <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.5} opacity={0.16} strokeDasharray="2 3" />
                               <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill="currentColor" opacity={0.7} fontWeight={600}>{fmt(vSlot)}</text>
-                              <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={color} opacity={0.55} fontWeight={500}>{fmt(vCum)}</text>
+                              <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={color} opacity={0.7} fontWeight={600}>{fmt(vCum)}</text>
                             </g>
                           )
                         })}

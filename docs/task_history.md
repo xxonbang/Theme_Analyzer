@@ -6,6 +6,13 @@
 
 ## 2026-05-13
 
+### [UI] 좌·우 Y라벨 폰트 weight·opacity 통일 (2026-05-13 23:21 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+1/-1)
+- **사용자 질문**: 좌·우 Y라벨 폰트가 달라 보임
+- **답변·진단**: 폰트 자체는 동일 Pretendard (index.css:145). 차이는 fontWeight 600 vs 500 + opacity 0.7 vs 0.55. 두 차이가 결합되어 다른 폰트로 인식됨.
+- **수정**: 우측 라벨 fontWeight 500 → 600, opacity 0.55 → 0.7 (좌측과 통일). 색상만 차이로 좌=막대(회색)·우=누적(rose/indigo) 구분.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.52s)
+
 ### [기능] 이중 Y축 (막대/누적) + 세로 그리드 (2026-05-13 23:18 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+11/-5)
 - **사용자 보고**: 누적 라인 시작점이 막대와 다른 위치로 보임 — 막대(slot max)와 누적(cumMax) 스케일이 달라 발생. 옵션 C(이중 Y축) 채택.
