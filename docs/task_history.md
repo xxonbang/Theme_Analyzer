@@ -6,6 +6,16 @@
 
 ## 2026-05-13
 
+### [UI] 일별 탭 디자인 — 단일 차트 (거래량 막대 + 거래대금 꺾은선) (2026-05-13 23:37 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+108/-44, legacy IIFE 제거 + 헬퍼 + 일별 차트 재작성)
+- **사용자 요청**: 일별 탭 꺾은선 그래프를 장중 탭과 동일 디자인 → 그 후 정정: "누적 필요 X, 단일 차트, 거래량=막대, 거래대금=꺾은선"
+- **수정**:
+  - **renderMiniBarChart 헬퍼 함수 추출** (장중 탭 막대+누적 디자인 재사용 가능, 컴포넌트 내부 정의)
+  - **장중 탭**: legacy IIFE/renderMini 제거 → `renderMiniBarChart(tvVals, ...)` + `renderMiniBarChart(volVals, ...)` 두 번 호출
+  - **일별 탭**: 단일 차트 인라인. 거래량 막대(우측 Y축 indigo) + 거래대금 smooth bezier 꺾은선·area fill(좌측 Y축 rose). 가로/세로 그리드, 경계선 동일.
+  - **unused 상수 정리**: `CHART_W`, `CHART_H`, `PAD`, `PLOT_W`, `PLOT_H`, `buildLine` 함수 제거 (legacy 일별 SVG 의존)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.76s)
+
 ### [UI] '누적' 텍스트 우측 상단 이동 + 수치 제거 (2026-05-13 23:28 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+5/-2)
 - **사용자 요청**: '누적' text를 우측 Y축 라벨 위로 이동 + 수치 제거 (그래프에서 직접 확인)
