@@ -221,8 +221,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const tvMax = Math.max(...tvVals, 1)
                   const volMax = Math.max(...volVals, 1)
                   const W = CHART_W
-                  const BH = 80
-                  const BPAD = { top: 14, right: 8, bottom: 18, left: 36 }
+                  const BH = 96
+                  const BPAD = { top: 18, right: 8, bottom: 26, left: 40 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
@@ -244,7 +244,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                           </g>
                         )
                       })}
-                      <text x={BPAD.left} y={9} fontSize={9} fill={color} fontWeight={600}>{axisLabel}</text>
+                      <text x={BPAD.left} y={11} fontSize={9} fill={color} fontWeight={600}>{axisLabel}</text>
                       {vals.map((v, i) => {
                         const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
                         const h = maxV > 0 ? (v / maxV) * BPH : 0
@@ -256,7 +256,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                       {xLabelIdxs.map(i => {
                         const x = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
                         return (
-                          <text key={i} x={x} y={BH - 4} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.55}>
+                          <text key={i} x={x} y={BH - 6} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.55}>
                             {intradaySlots[i].time}
                           </text>
                         )
@@ -279,7 +279,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                     <span className="flex-1 text-right">거래대금</span>
                     <span className="flex-1 text-right">거래량</span>
                   </div>
-                  {[...intradaySlots].reverse().map((s, idx) => (
+                  {intradaySlots.map((s, idx) => (
                     <div key={s.time} className={cn(
                       "flex items-center py-1 text-[10px]",
                       idx === 0 && "bg-muted/40 -mx-1 px-1 rounded font-medium",

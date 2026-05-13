@@ -6,6 +6,21 @@
 
 ## 2026-05-13
 
+### [버그픽스/UI] 15:30 trading_value 비정상 폴백 + 라벨 겹침 + 표 정렬 (2026-05-13 22:23 KST)
+- **변경 파일**: `modules/intraday_history.py` (+2/-1), `frontend/src/components/TradingChartPopup.tsx` (+4/-4), `frontend/public/data/intraday-history.json` (304 슬롯 후처리)
+- **사용자 보고**:
+  1. 차트에 15:30 슬롯 거래대금이 64조로 비정상적으로 큼 (SK하이닉스 정상 일 거래대금의 14배)
+  2. 시간/Y축 라벨이 차트와 겹침
+  3. 표 정렬을 반대로 (09:30 → 15:30)
+- **15:30 trading_value 진단**: ratio(trading_value / (close × volume))이 정상 슬롯 0.95~0.99인데 15:30만 14.33. **acml_tr_pbmn이 동시호가/시간외 시간대에 노이즈** (이전에 high/low도 같은 문제로 close 폴백 처리한 슬롯).
+- **수정**:
+  - **백엔드**: `intraday_history.py`의 15:30 보정 코드에 `trading_value = close × volume` 폴백 추가 (H/L과 동일 패턴)
+  - **데이터 즉시 후처리**: 모든 종목의 15:30 슬롯 trading_value 점검 → close×volume의 5배 초과 시 폴백. 30m 152건 + 60m 152건 = 304 슬롯 보정.
+  - **UI 라벨 겹침**: BH 80→96, BPAD top 14→18 / bottom 18→26 / left 36→40. x축 라벨 y 위치 BH-4→BH-6. 축 라벨 y 9→11.
+  - **표 정렬**: `[...intradaySlots].reverse()` 제거 → 09:30이 맨 위 (PriceHistoryPopup 일관)
+- **검증**: 000660 15:30 trading_value 64.1조 → 4.47조 (정상). tsc PASS, vite build PASS (3.63s)
+- **누적 vs 슬롯별 명확화 (사용자 오해)**: 본 구현은 **각 30분 슬롯별 거래대금/거래량** (누적 X). 시간대별로 커졌다 작아지는 것은 정상 — 시간대별 거래 강도 변화 추이를 보여주는 게 목적. brainstorming에서 옵션 B(슬롯별)로 결정됨.
+
 ### [버그픽스/개선] KIS rate limit 회피 + 100% 수집 성공 + 운영 견고성 (2026-05-13 22:13 KST)
 - **변경 파일**: `modules/kis_client.py` (+19/-1), `modules/volume_profile.py` (+13/-3), `collect_intraday_history.py` (+1/-1)
 - **배경**: collect_intraday_history.py 로컬 실행 시 KIS "초당 거래건수 초과" 에러로 26/157 → 29/157만 성공. trading_value 신규 필드 검증 못함. 운영 cron은 캐시 활용 + 분산 호출로 평소 안 터지나, 본질적 견고성 부족.

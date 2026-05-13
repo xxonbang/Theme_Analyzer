@@ -141,12 +141,12 @@ def collect_stock_intraday_from_cache(
                 intervals[-1]["change_rate"] = round(
                     (close_price - prev_close) / prev_close * 100, 2
                 )
-                # 동시호가(15:20~15:30) 단일가매매 시간대의 stck_lwpr/stck_hgpr는
-                # 호가창 노이즈를 포함(특히 상한가 부근 종목에서 stck_lwpr가
-                # 전일종가 근처 비정상값 반환). close로 통일하여 표에서 H/L 보조줄
-                # 자동 숨김 처리(high===low 분기) — 정직한 정보 손실 < 잘못된 정보.
+                # 동시호가(15:20~15:30) 단일가매매 시간대의 stck_lwpr/stck_hgpr/acml_tr_pbmn은
+                # 호가창 노이즈를 포함(특히 상한가 부근에서 stck_lwpr가 전일종가 근처 비정상값,
+                # acml_tr_pbmn은 정상의 10배 이상 폭증 케이스 다수). close × volume로 통일.
                 intervals[-1]["high"] = close_price
                 intervals[-1]["low"] = close_price
+                intervals[-1]["trading_value"] = close_price * intervals[-1].get("volume", 0)
 
     from datetime import datetime
     from modules.utils import KST
@@ -212,12 +212,12 @@ def collect_stock_intraday(
                 intervals[-1]["change_rate"] = round(
                     (close_price - prev_close) / prev_close * 100, 2
                 )
-                # 동시호가(15:20~15:30) 단일가매매 시간대의 stck_lwpr/stck_hgpr는
-                # 호가창 노이즈를 포함(특히 상한가 부근 종목에서 stck_lwpr가
-                # 전일종가 근처 비정상값 반환). close로 통일하여 표에서 H/L 보조줄
-                # 자동 숨김 처리(high===low 분기) — 정직한 정보 손실 < 잘못된 정보.
+                # 동시호가(15:20~15:30) 단일가매매 시간대의 stck_lwpr/stck_hgpr/acml_tr_pbmn은
+                # 호가창 노이즈를 포함(특히 상한가 부근에서 stck_lwpr가 전일종가 근처 비정상값,
+                # acml_tr_pbmn은 정상의 10배 이상 폭증 케이스 다수). close × volume로 통일.
                 intervals[-1]["high"] = close_price
                 intervals[-1]["low"] = close_price
+                intervals[-1]["trading_value"] = close_price * intervals[-1].get("volume", 0)
 
     from datetime import datetime
     from modules.utils import KST
