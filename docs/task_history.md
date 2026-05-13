@@ -6,6 +6,15 @@
 
 ## 2026-05-13
 
+### [UI] 누적 라인 오버레이 + 라벨 겹침 재수정 + X축 균등 + 여백 축소 (2026-05-13 22:29 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+30/-15)
+- **사용자 보고 4건 수정**:
+  1. **누적치 표시**: 막대 위에 반투명 꺾은선(opacity 0.45) + 점 마커(opacity 0.7) 오버레이. 별도 스케일(누적 max 기준 정규화)로 항상 우상향. 누적 총합은 axisLabel에 작은 글씨로 병기 ("거래대금  누적 X.X조")
+  2. **Y축 라벨 겹침**: `axisLabel` 위치를 차트 좌측 외부(x=2, y=10)로 분리. Y max 라벨(x=BPAD.left-3, textAnchor end)과 x·y 모두 겹치지 않음
+  3. **X축 간격 불일정**: 기존 `i === 0 || i === n - 1 || ":00"` → **`:00`만**으로 변경. 첫(09:30)·마지막(15:30) 강제 표시 제거 → 라벨 균등 간격 (10:00, 11:00, 12:00, 13:00, 14:00, 15:00 6개)
+  4. **좌우 여백 축소**: `BPAD.left 40→32`, `BPAD.right 8→4`. 그래프 영역 +12px 확보. barW max 14→16, 비율 0.65→0.7
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.32s)
+
 ### [버그픽스/UI] 15:30 trading_value 비정상 폴백 + 라벨 겹침 + 표 정렬 (2026-05-13 22:23 KST)
 - **변경 파일**: `modules/intraday_history.py` (+2/-1), `frontend/src/components/TradingChartPopup.tsx` (+4/-4), `frontend/public/data/intraday-history.json` (304 슬롯 후처리)
 - **사용자 보고**:

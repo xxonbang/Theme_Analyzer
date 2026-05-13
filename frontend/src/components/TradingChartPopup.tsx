@@ -214,7 +214,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
               <div className="text-center text-xs text-muted-foreground py-6">데이터 없음</div>
             ) : (
               <>
-                {/* mini bar chart × 2 (거래대금, 거래량) */}
+                {/* mini bar chart × 2 (거래대금, 거래량) + 누적 라인 오버레이 */}
                 {(() => {
                   const tvVals = intradaySlots.map(s => s.trading_value ?? 0)
                   const volVals = intradaySlots.map(s => s.volume ?? 0)
@@ -222,47 +222,74 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const volMax = Math.max(...volVals, 1)
                   const W = CHART_W
                   const BH = 96
-                  const BPAD = { top: 18, right: 8, bottom: 26, left: 40 }
+                  const BPAD = { top: 16, right: 4, bottom: 24, left: 32 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
-                  const barW = Math.min((BPW / Math.max(n, 1)) * 0.65, 14)
+                  const barW = Math.min((BPW / Math.max(n, 1)) * 0.7, 16)
+                  // 정시(":00") 라벨만 → 균등 간격
                   const xLabelIdxs: number[] = []
                   intradaySlots.forEach((s, i) => {
-                    if (i === 0 || i === n - 1 || s.time.endsWith(":00")) xLabelIdxs.push(i)
+                    if (s.time.endsWith(":00")) xLabelIdxs.push(i)
                   })
 
-                  const renderMini = (vals: number[], maxV: number, color: string, axisLabel: string, fmt: (v: number) => string) => (
-                    <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-2" style={{ height: BH + 4 }}>
-                      {[0, 0.5, 1].map(r => {
-                        const y = BPAD.top + r * BPH
-                        const v = maxV * (1 - r)
-                        return (
-                          <g key={r}>
-                            <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.12} />
-                            <text x={BPAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.55}>{fmt(v)}</text>
-                          </g>
-                        )
-                      })}
-                      <text x={BPAD.left} y={11} fontSize={9} fill={color} fontWeight={600}>{axisLabel}</text>
-                      {vals.map((v, i) => {
-                        const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
-                        const h = maxV > 0 ? (v / maxV) * BPH : 0
-                        const y = BPAD.top + BPH - h
-                        return v > 0 ? (
-                          <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={color} opacity={0.85} rx={1} />
-                        ) : null
-                      })}
-                      {xLabelIdxs.map(i => {
-                        const x = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
-                        return (
-                          <text key={i} x={x} y={BH - 6} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.55}>
-                            {intradaySlots[i].time}
-                          </text>
-                        )
-                      })}
-                    </svg>
-                  )
+                  const renderMini = (vals: number[], maxV: number, color: string, axisLabel: string, fmt: (v: number) => string) => {
+                    // 누적치 산정 (단조 증가)
+                    const cum: number[] = []
+                    let acc = 0
+                    for (const v of vals) { acc += v; cum.push(acc) }
+                    const cumMax = acc || 1
+                    const cumPoints = cum.map((v, i) => {
+                      const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                      const cy = BPAD.top + BPH - (v / cumMax) * BPH
+                      return `${cx},${cy}`
+                    }).join(" ")
+
+                    return (
+                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-2" style={{ height: BH + 4 }}>
+                        {[0, 0.5, 1].map(r => {
+                          const y = BPAD.top + r * BPH
+                          const v = maxV * (1 - r)
+                          return (
+                            <g key={r}>
+                              <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.3} opacity={0.12} />
+                              <text x={BPAD.left - 3} y={y + 3} textAnchor="end" fontSize={8} fill="currentColor" opacity={0.55}>{fmt(v)}</text>
+                            </g>
+                          )
+                        })}
+                        {/* axisLabel — 차트 좌측 외부 (Y라벨 영역 침범 X) */}
+                        <text x={2} y={10} fontSize={9} fill={color} fontWeight={600}>
+                          {axisLabel}
+                          <tspan fontSize={8} fontWeight={400} dx={4} opacity={0.75}>누적 {fmt(cumMax)}</tspan>
+                        </text>
+                        {/* 막대 */}
+                        {vals.map((v, i) => {
+                          const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                          const h = maxV > 0 ? (v / maxV) * BPH : 0
+                          const y = BPAD.top + BPH - h
+                          return v > 0 ? (
+                            <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={color} opacity={0.85} rx={1} />
+                          ) : null
+                        })}
+                        {/* 누적 라인 (반투명 오버레이) */}
+                        <polyline points={cumPoints} fill="none" stroke={color} strokeWidth={1.5} opacity={0.45} strokeLinecap="round" strokeLinejoin="round" />
+                        {cum.map((v, i) => {
+                          const cx = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                          const cy = BPAD.top + BPH - (v / cumMax) * BPH
+                          return <circle key={`c-${i}`} cx={cx} cy={cy} r={1.5} fill={color} opacity={0.7} />
+                        })}
+                        {/* X축 라벨 */}
+                        {xLabelIdxs.map(i => {
+                          const x = BPAD.left + (n > 1 ? (i / (n - 1)) * BPW : BPW / 2)
+                          return (
+                            <text key={i} x={x} y={BH - 6} textAnchor="middle" fontSize={8} fill="currentColor" opacity={0.55}>
+                              {intradaySlots[i].time}
+                            </text>
+                          )
+                        })}
+                      </svg>
+                    )
+                  }
 
                   return (
                     <>
