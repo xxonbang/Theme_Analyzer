@@ -279,14 +279,14 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                           {axisLabel}
                           <tspan fontSize={9} fontWeight={400} dx={8} opacity={0.7}>누적 {fmt(cumMax)}</tspan>
                         </text>
-                        {/* 그리드 + Y라벨 (외부 좌측 정렬, 막대와 겹침 X) */}
+                        {/* 그리드 + Y라벨 (그리드 라인과 정확히 가운데 정렬) */}
                         {[0.25, 0.5, 0.75, 1].map(r => {
                           const y = BPAD.top + (1 - r) * BPH
                           const v = maxV * r
                           return (
                             <g key={r}>
-                              <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.4} opacity={0.08} strokeDasharray="2 3" />
-                              <text x={BPAD.left - 4} y={y + 3} textAnchor="end" fontSize={9} fill="currentColor" opacity={0.65} fontWeight={600}>{fmt(v)}</text>
+                              <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.5} opacity={0.16} strokeDasharray="2 3" />
+                              <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill="currentColor" opacity={0.7} fontWeight={600}>{fmt(v)}</text>
                             </g>
                           )
                         })}
