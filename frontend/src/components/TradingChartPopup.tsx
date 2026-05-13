@@ -222,7 +222,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const volMax = Math.max(...volVals, 1)
                   const W = 340
                   const BH = 150
-                  const BPAD = { top: 28, right: 14, bottom: 26, left: 14 }
+                  // Y라벨을 차트 외부 좌측에 배치 — 막대와 절대 겹치지 않음
+                  const BPAD = { top: 28, right: 10, bottom: 26, left: 32 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
@@ -273,19 +274,19 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                             <stop offset="100%" stopColor={color} stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        {/* axisLabel */}
-                        <text x={BPAD.left} y={14} fontSize={11} fill={color} fontWeight={600} style={{ letterSpacing: "0.02em" }}>
+                        {/* axisLabel (차트 좌측 끝에서 시작) */}
+                        <text x={4} y={14} fontSize={11} fill={color} fontWeight={600} style={{ letterSpacing: "0.02em" }}>
                           {axisLabel}
                           <tspan fontSize={9} fontWeight={400} dx={8} opacity={0.7}>누적 {fmt(cumMax)}</tspan>
                         </text>
-                        {/* 그리드 (Y라벨 4단계, 0은 baseline만 표시) */}
+                        {/* 그리드 + Y라벨 (외부 좌측 정렬, 막대와 겹침 X) */}
                         {[0.25, 0.5, 0.75, 1].map(r => {
                           const y = BPAD.top + (1 - r) * BPH
                           const v = maxV * r
                           return (
                             <g key={r}>
                               <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.4} opacity={0.08} strokeDasharray="2 3" />
-                              <text x={BPAD.left + 2} y={y - 3} textAnchor="start" fontSize={8.5} fill="currentColor" opacity={0.55} fontWeight={500}>{fmt(v)}</text>
+                              <text x={BPAD.left - 4} y={y + 3} textAnchor="end" fontSize={9} fill="currentColor" opacity={0.65} fontWeight={600}>{fmt(v)}</text>
                             </g>
                           )
                         })}

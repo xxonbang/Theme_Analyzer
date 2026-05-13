@@ -6,6 +6,19 @@
 
 ## 2026-05-13
 
+### [UI] Y라벨 외부 좌측 정렬 — 막대 겹침 완전 해소 (2026-05-13 23:09 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+5/-5)
+- **사용자 보고**: Y라벨 위치·가독성 문제 ("trash 같다") — 첫 막대(09:30) 위에 라벨이 인라인되어 막대 색·그라데이션과 겹쳐 읽히지 않음
+- **근본 원인**: Y라벨 textAnchor=start, x=BPAD.left+2 → 라벨이 차트 영역 안쪽 (막대 위)에 그려짐
+- **수정**:
+  - Y라벨 **textAnchor end** (외부 좌측 정렬), x=BPAD.left-4
+  - 그리드 라인 가운데 정렬: y → y+3
+  - BPAD.left 14 → **32** (Y라벨 외부 공간 확보)
+  - axisLabel x = BPAD.left → **4** (차트 좌측 끝 시작, 라벨 영역 침범 X)
+  - fontSize 8.5 → 9, opacity 0.55 → 0.65, fontWeight 500 → 600 (가독성 ↑)
+- **좌표 검증**: Y라벨 우측 28, 첫 막대 좌측 32 → **4px 분리 ✅**. 라벨 좌측 6 (잘림 없음 ✅).
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.22s)
+
 ### [UI] 표 여백 + 0 라벨 제거 + 막대 높이↑ + Y라벨 4단계 + X·Y축 경계선 (2026-05-13 23:03 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+13/-4)
 - **사용자 보고 4건**:
