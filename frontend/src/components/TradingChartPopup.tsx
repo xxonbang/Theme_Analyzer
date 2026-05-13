@@ -245,10 +245,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                 }
                 return d
               }
-              // 단일 색조(rose) 내 명도 차로 두 시리즈·위계 표현 (analogous palette).
-              // 거래대금(라인)은 진하게 강조, 거래량(막대)은 같은 hue 옅게 — 알록달록 회피.
               const tvColor = "#e11d48"
-              const volColor = "#e11d48"
+              const volColor = "#6366f1"
               const linePath = buildSmoothPath(linePts)
               const areaPath = linePts.length >= 2
                 ? `${linePath} L ${linePts[linePts.length - 1].x.toFixed(2)},${(BPAD.top + BPH).toFixed(2)} L ${linePts[0].x.toFixed(2)},${(BPAD.top + BPH).toFixed(2)} Z`
@@ -300,11 +298,11 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                     const y = BPAD.top + BPH - h
                     return v > 0 ? <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={`url(#${barGradId})`} rx={2.5} /> : null
                   })}
-                  {/* 거래대금 area + 꺾은선 (강조 — 진한 opacity) */}
+                  {/* 거래대금 area + 꺾은선 (투명효과 적용) */}
                   {areaPath && <path d={areaPath} fill={`url(#${areaGradId})`} />}
-                  {linePath && <path d={linePath} fill="none" stroke={tvColor} strokeWidth={2} opacity={0.95} strokeLinecap="round" strokeLinejoin="round" />}
+                  {linePath && <path d={linePath} fill="none" stroke={tvColor} strokeWidth={2} opacity={0.6} strokeLinecap="round" strokeLinejoin="round" />}
                   {linePts.map((p, i) => (
-                    <circle key={`p-${i}`} cx={p.x} cy={p.y} r={2.5} fill={tvColor} opacity={0.95} />
+                    <circle key={`p-${i}`} cx={p.x} cy={p.y} r={2.5} fill={tvColor} opacity={0.65} />
                   ))}
                   {/* X축 라벨 */}
                   {xLabelIdxs.map(i => (
