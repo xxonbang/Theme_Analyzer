@@ -6,6 +6,16 @@
 
 ## 2026-05-13
 
+### [UI] preserveAspectRatio 제거 (텍스트 stretched 해소) + Y라벨 bold 제거 (2026-05-13 23:26 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+2/-3)
+- **사용자 보고**: 텍스트가 위아래 눌린 것처럼 납작해 보임 + Y라벨 bold 제거 요청
+- **원인 진단**: SVG에 `preserveAspectRatio="none"` 명시 → viewBox(340×150) 비율 무시하고 부모 폭에 가로 stretch → 폭이 viewBox 비율보다 늘어나 텍스트가 가로로 stretch (= 위아래 눌린 것처럼 보임)
+- **수정**:
+  - `preserveAspectRatio="none"` **제거** (디폴트 `xMidYMid meet` 사용 → viewBox 비율 유지)
+  - `style={{ height: BH + 4 }}` 제거 (className `h-auto`에 맡김)
+  - Y라벨 좌·우 모두 `fontWeight={600}` **제거** (디폴트 normal weight)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.35s)
+
 ### [UI] 좌·우 Y라벨 폰트 weight·opacity 통일 (2026-05-13 23:21 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+1/-1)
 - **사용자 질문**: 좌·우 Y라벨 폰트가 달라 보임

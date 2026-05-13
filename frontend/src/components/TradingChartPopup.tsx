@@ -263,7 +263,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                     const areaGradId = `ag-${color.replace("#", "")}`
 
                     return (
-                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-5" style={{ height: BH + 4 }} preserveAspectRatio="none">
+                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-5">
                         <defs>
                           <linearGradient id={barGradId} x1="0" y1="0" x2="0" y2="1">
                             <stop offset="0%" stopColor={color} stopOpacity={0.92} />
@@ -287,8 +287,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                           return (
                             <g key={r}>
                               <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.5} opacity={0.16} strokeDasharray="2 3" />
-                              <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill="currentColor" opacity={0.7} fontWeight={600}>{fmt(vSlot)}</text>
-                              <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={color} opacity={0.7} fontWeight={600}>{fmt(vCum)}</text>
+                              <text x={BPAD.left - 4} y={y} textAnchor="end" dominantBaseline="middle" fontSize={9} fill="currentColor" opacity={0.7}>{fmt(vSlot)}</text>
+                              <text x={W - BPAD.right + 4} y={y} textAnchor="start" dominantBaseline="middle" fontSize={9} fill={color} opacity={0.7}>{fmt(vCum)}</text>
                             </g>
                           )
                         })}
