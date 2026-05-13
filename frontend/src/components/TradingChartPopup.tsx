@@ -221,8 +221,7 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   const tvMax = Math.max(...tvVals, 1)
                   const volMax = Math.max(...volVals, 1)
                   const W = 340
-                  const BH = 120
-                  // 적정 좌우 여백 (사용자 요청 — 너무 가장자리 붙지 않게)
+                  const BH = 150
                   const BPAD = { top: 28, right: 14, bottom: 26, left: 14 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
@@ -279,17 +278,21 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                           {axisLabel}
                           <tspan fontSize={9} fontWeight={400} dx={8} opacity={0.7}>누적 {fmt(cumMax)}</tspan>
                         </text>
-                        {/* 그리드 + Y라벨 inline */}
-                        {[0, 0.5, 1].map(r => {
-                          const y = BPAD.top + r * BPH
-                          const v = maxV * (1 - r)
+                        {/* 그리드 (Y라벨 4단계, 0은 baseline만 표시) */}
+                        {[0.25, 0.5, 0.75, 1].map(r => {
+                          const y = BPAD.top + (1 - r) * BPH
+                          const v = maxV * r
                           return (
                             <g key={r}>
-                              <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.4} opacity={0.08} strokeDasharray={r === 1 ? "0" : "2 3"} />
-                              <text x={BPAD.left + 2} y={y - 3} textAnchor="start" fontSize={8.5} fill="currentColor" opacity={0.5} fontWeight={500}>{fmt(v)}</text>
+                              <line x1={BPAD.left} y1={y} x2={W - BPAD.right} y2={y} stroke="currentColor" strokeWidth={0.4} opacity={0.08} strokeDasharray="2 3" />
+                              <text x={BPAD.left + 2} y={y - 3} textAnchor="start" fontSize={8.5} fill="currentColor" opacity={0.55} fontWeight={500}>{fmt(v)}</text>
                             </g>
                           )
                         })}
+                        {/* Y축 좌측 경계선 (solid, 가독성 해치지 않는 opacity) */}
+                        <line x1={BPAD.left} y1={BPAD.top} x2={BPAD.left} y2={BPAD.top + BPH} stroke="currentColor" strokeWidth={0.6} opacity={0.22} />
+                        {/* X축 하단 baseline (solid) */}
+                        <line x1={BPAD.left} y1={BPAD.top + BPH} x2={W - BPAD.right} y2={BPAD.top + BPH} stroke="currentColor" strokeWidth={0.6} opacity={0.22} />
                         {/* 막대 (그라데이션, 둥근 모서리) */}
                         {vals.map((v, i) => {
                           const cx = slotX(i)
@@ -326,8 +329,8 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   )
                 })()}
 
-                {/* 표 */}
-                <div className="space-y-0 mt-2">
+                {/* 표 (좌우 여백 추가) */}
+                <div className="space-y-0 mt-2 px-3">
                   <div className="flex items-center text-[10px] text-muted-foreground font-medium pb-2 border-b border-border/50">
                     <span className="w-10 shrink-0">시간</span>
                     <span className="flex-1 text-right">거래대금</span>

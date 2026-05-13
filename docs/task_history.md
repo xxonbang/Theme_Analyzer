@@ -6,6 +6,22 @@
 
 ## 2026-05-13
 
+### [UI] 표 여백 + 0 라벨 제거 + 막대 높이↑ + Y라벨 4단계 + X·Y축 경계선 (2026-05-13 23:03 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+13/-4)
+- **사용자 보고 4건**:
+  1. 표 좌/우 여백 추가
+  2. 꺾은선 시작점 0 표시 제거
+  3. 막대 높이 ↑ + Y라벨 추가
+  4. X·Y축 경계선 (가독성 해치지 않는 수준)
+- **수정**:
+  1. 표 컨테이너에 `px-3` 추가 — 좌우 여백 12px씩 추가
+  2. Y라벨 [0, 0.5, 1] → **[0.25, 0.5, 0.75, 1]** (0 제외) — 시작점 0 텍스트 사라짐
+  3. **BH 120 → 150** (+30px), Y라벨 3단계 → **4단계** (25/50/75/100%)
+  4. **Y축 좌측 vertical line solid** (x=BPAD.left, opacity 0.22)
+     **X축 하단 baseline solid** (y=BPAD.top+BPH, opacity 0.22)
+     stroke 0.6px — 가독성 안 해치는 부드러운 경계
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.78s)
+
 ### [UI] 적정 여백 회복 + smooth bezier 라인 + area fill (2026-05-13 22:56 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+45/-25)
 - **사용자 보고 2건**:
