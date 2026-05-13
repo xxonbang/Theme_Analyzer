@@ -6,6 +6,23 @@
 
 ## 2026-05-13
 
+### [UI] 적정 여백 회복 + smooth bezier 라인 + area fill (2026-05-13 22:56 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+45/-25)
+- **사용자 보고 2건**:
+  1. 좌우 여백 너무 없앴어 (가장자리 붙음 — 직전 변경의 음수 마진이 과함)
+  2. 꺾은선 그래프 디자인 조악·촌스러움 (점선 dashed 별로)
+- **여백 회복**:
+  - SVG의 `-mx-4 sm:-mx-5` 음수 마진 + `calc(100% + 2rem)` 제거 → 일반 `w-full`
+  - viewBox W 360 → **340** (살짝 축소)
+  - BPAD.left 8 → **14** + right 8 → 14 (적정 인셋)
+- **누적 라인 우아하게 재정비**:
+  - **dasharray "3 3" → smooth cubic bezier path** (`M ... C cpX,p0Y cpX,p1Y p1X,p1Y`로 부드러운 S 곡선)
+  - solid 1.5px, opacity 0.7
+  - **area fill 추가**: 라인 아래 옅은 그라데이션 (top opacity 0.18 → bottom 0). 정보 양감 ↑
+  - **마지막 점만 강조** (r=2.5, opacity 0.85) — 끝값 시각 마커
+- **막대**: rx 2 → **2.5** (둥근 모서리 더 부드럽게)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.17s)
+
 ### [UI] 장중 차트 디자인 우아하게 재정비 — popup padding 외부 확장 (2026-05-13 22:53 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+30/-23)
 - **사용자 보고 (4번째 같은 요청 — "좌우 여백 줄임" 진짜 해결 + 우아한 디자인)**:

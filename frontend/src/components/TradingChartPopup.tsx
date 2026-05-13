@@ -214,17 +214,16 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
               <div className="text-center text-xs text-muted-foreground py-6">데이터 없음</div>
             ) : (
               <>
-                {/* mini bar chart × 2 — 그라데이션 막대 + 점선 누적 라인 (popup padding 외부로 확장) */}
+                {/* mini bar chart × 2 — 그라데이션 막대 + smooth bezier 누적 라인 */}
                 {(() => {
                   const tvVals = intradaySlots.map(s => s.trading_value ?? 0)
                   const volVals = intradaySlots.map(s => s.volume ?? 0)
                   const tvMax = Math.max(...tvVals, 1)
                   const volMax = Math.max(...volVals, 1)
-                  // viewBox 폭 확대 (음수 마진으로 popup padding 외부 확장 — 좌우 여백 본질 해결)
-                  const W = 360
+                  const W = 340
                   const BH = 120
-                  // Y라벨을 그리드 라인 위 inline으로 → BPAD.left 최소화
-                  const BPAD = { top: 28, right: 8, bottom: 26, left: 8 }
+                  // 적정 좌우 여백 (사용자 요청 — 너무 가장자리 붙지 않게)
+                  const BPAD = { top: 28, right: 14, bottom: 26, left: 14 }
                   const BPW = W - BPAD.left - BPAD.right
                   const BPH = BH - BPAD.top - BPAD.bottom
                   const n = intradaySlots.length
@@ -236,33 +235,51 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                   intradaySlots.forEach((s, i) => {
                     if (s.time.endsWith(":00")) xLabelIdxs.push(i)
                   })
+                  // smooth cubic bezier path — 점·점 사이 중간 X를 control point로 사용 (부드러운 S 곡선)
+                  const buildSmoothPath = (pts: { x: number; y: number }[]) => {
+                    if (pts.length < 2) return ""
+                    let d = `M ${pts[0].x.toFixed(2)},${pts[0].y.toFixed(2)}`
+                    for (let i = 1; i < pts.length; i++) {
+                      const p0 = pts[i - 1]
+                      const p1 = pts[i]
+                      const cpX = (p0.x + p1.x) / 2
+                      d += ` C ${cpX.toFixed(2)},${p0.y.toFixed(2)} ${cpX.toFixed(2)},${p1.y.toFixed(2)} ${p1.x.toFixed(2)},${p1.y.toFixed(2)}`
+                    }
+                    return d
+                  }
 
                   const renderMini = (vals: number[], maxV: number, color: string, axisLabel: string, fmt: (v: number) => string) => {
                     const cum: number[] = []
                     let acc = 0
                     for (const v of vals) { acc += v; cum.push(acc) }
                     const cumMax = acc || 1
-                    const cumPoints = cum.map((v, i) => {
-                      const cx = slotX(i)
-                      const cy = BPAD.top + BPH - (v / cumMax) * BPH
-                      return `${cx},${cy}`
-                    }).join(" ")
-                    const gradId = `bar-grad-${color.replace("#", "")}`
+                    const cumPts = cum.map((v, i) => ({ x: slotX(i), y: BPAD.top + BPH - (v / cumMax) * BPH }))
+                    const linePath = buildSmoothPath(cumPts)
+                    // 라인 아래 area fill path (부드러운 그라데이션)
+                    const areaPath = cumPts.length >= 2
+                      ? `${linePath} L ${cumPts[cumPts.length - 1].x.toFixed(2)},${(BPAD.top + BPH).toFixed(2)} L ${cumPts[0].x.toFixed(2)},${(BPAD.top + BPH).toFixed(2)} Z`
+                      : ""
+                    const barGradId = `bg-${color.replace("#", "")}`
+                    const areaGradId = `ag-${color.replace("#", "")}`
 
                     return (
-                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-5 -mx-4 sm:-mx-5" style={{ width: "calc(100% + 2rem)", height: BH + 4 }} preserveAspectRatio="none">
+                      <svg viewBox={`0 0 ${W} ${BH}`} className="w-full h-auto mb-5" style={{ height: BH + 4 }} preserveAspectRatio="none">
                         <defs>
-                          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={color} stopOpacity={0.95} />
-                            <stop offset="100%" stopColor={color} stopOpacity={0.55} />
+                          <linearGradient id={barGradId} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={color} stopOpacity={0.92} />
+                            <stop offset="100%" stopColor={color} stopOpacity={0.5} />
+                          </linearGradient>
+                          <linearGradient id={areaGradId} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={color} stopOpacity={0.18} />
+                            <stop offset="100%" stopColor={color} stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        {/* axisLabel — 좌측 상단 */}
+                        {/* axisLabel */}
                         <text x={BPAD.left} y={14} fontSize={11} fill={color} fontWeight={600} style={{ letterSpacing: "0.02em" }}>
                           {axisLabel}
                           <tspan fontSize={9} fontWeight={400} dx={8} opacity={0.7}>누적 {fmt(cumMax)}</tspan>
                         </text>
-                        {/* 그리드 + Y라벨 (라인 직상단 inline, textAnchor start) */}
+                        {/* 그리드 + Y라벨 inline */}
                         {[0, 0.5, 1].map(r => {
                           const y = BPAD.top + r * BPH
                           const v = maxV * (1 - r)
@@ -273,17 +290,24 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                             </g>
                           )
                         })}
-                        {/* 막대 (그라데이션 fill, 둥근 모서리) */}
+                        {/* 막대 (그라데이션, 둥근 모서리) */}
                         {vals.map((v, i) => {
                           const cx = slotX(i)
                           const h = maxV > 0 ? (v / maxV) * BPH : 0
                           const y = BPAD.top + BPH - h
                           return v > 0 ? (
-                            <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={`url(#${gradId})`} rx={2} />
+                            <rect key={i} x={cx - barW / 2} y={y} width={barW} height={h} fill={`url(#${barGradId})`} rx={2.5} />
                           ) : null
                         })}
-                        {/* 누적 라인 (점선, 부드러운 오버레이) */}
-                        <polyline points={cumPoints} fill="none" stroke={color} strokeWidth={2} strokeDasharray="3 3" opacity={0.55} strokeLinecap="round" strokeLinejoin="round" />
+                        {/* 누적 area fill (라인 아래 옅은 그라데이션) */}
+                        {areaPath && <path d={areaPath} fill={`url(#${areaGradId})`} />}
+                        {/* 누적 라인 (smooth bezier, solid) */}
+                        {linePath && <path d={linePath} fill="none" stroke={color} strokeWidth={1.5} opacity={0.7} strokeLinecap="round" strokeLinejoin="round" />}
+                        {/* 마지막 점 강조 */}
+                        {cumPts.length > 0 && (() => {
+                          const last = cumPts[cumPts.length - 1]
+                          return <circle cx={last.x} cy={last.y} r={2.5} fill={color} opacity={0.85} />
+                        })()}
                         {/* X축 라벨 */}
                         {xLabelIdxs.map(i => (
                           <text key={i} x={slotX(i)} y={BH - 8} textAnchor="middle" fontSize={9} fill="currentColor" opacity={0.5} style={{ letterSpacing: "0.04em" }}>
