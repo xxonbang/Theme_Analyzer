@@ -98,7 +98,7 @@ def main():
             return code, collect_stock_intraday_from_cache(client, code, cached)
         return code, collect_stock_intraday(client, code)
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
+    with ThreadPoolExecutor(max_workers=4) as executor:
         futures = {executor.submit(_collect, s): s for s in all_stocks}
         done = 0
         for future in as_completed(futures):

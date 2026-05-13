@@ -6,6 +6,20 @@
 
 ## 2026-05-13
 
+### [버그픽스/개선] KIS rate limit 회피 + 100% 수집 성공 + 운영 견고성 (2026-05-13 22:13 KST)
+- **변경 파일**: `modules/kis_client.py` (+19/-1), `modules/volume_profile.py` (+13/-3), `collect_intraday_history.py` (+1/-1)
+- **배경**: collect_intraday_history.py 로컬 실행 시 KIS "초당 거래건수 초과" 에러로 26/157 → 29/157만 성공. trading_value 신규 필드 검증 못함. 운영 cron은 캐시 활용 + 분산 호출로 평소 안 터지나, 본질적 견고성 부족.
+- **진단**:
+  - KIS rate limit은 `HTTPError exception` 경로 (`kis_client.py:476` `raise Exception(f"API 요청 실패: ...")`)로 throw. `fetch_minute_candles`의 rt_cd 분기 재시도는 안 들어옴.
+  - ThreadPoolExecutor 10 worker × `_rate_lock` 외부에서 request 실행 → 동시 burst 가능 (lock은 카운터만 직렬화).
+- **패치**:
+  - **`kis_client.py:request()`에 rate limit 검출 + 3회 재시도** (백오프 1~5.5초 + jitter, rate limit 외 에러는 즉시 전파). 모든 collect 스크립트·KIS 호출자 자동 혜택.
+  - **`volume_profile.py:fetch_minute_candles` rt_cd 분기 재시도 추가** (rt_cd != "0" + msg "초당" 검출 시 1~2초 재시도). exception 경로와 별도 백업.
+  - **페이지 sleep 50ms → 100ms** (한도 여유)
+  - **`collect_intraday_history.py` max_workers 10 → 4** (동시성 감소로 burst 방지)
+- **재실행 결과**: **157/157 종목 100% 성공** (208.8초). trading_value 필드 정상 채워짐 (조 단위 정확값).
+- **운영 영향**: 평소 cron은 캐시 활용으로 fetch 수 적음 → 재시도 거의 발동 안 함 → 무영향. burst 발생 시(예: 캐시 미스, KIS hiccup) 자동 회복. 수집 시간 60s → ~200s지만 30분 cron이라 무리 없음.
+
 ### [기능] 거래량 그래프 장중 탭 추가 + 정확한 거래대금 데이터 수집 (2026-05-13 21:33 KST)
 - **변경 파일**: `modules/volume_profile.py` (+1), `modules/intraday_history.py` (+10), `frontend/src/types/stock.ts` (+1), `frontend/src/components/TradingChartPopup.tsx` (+232/-78), `frontend/src/components/StockCard.tsx` (+1), spec 문서
 - **배경**: 사용자 요청 — InvestorChartPopup(수급)처럼 TradingChartPopup(거래량/거래대금)에도 장중 탭 추가하여 장중 시간대별 변화 추이 확인

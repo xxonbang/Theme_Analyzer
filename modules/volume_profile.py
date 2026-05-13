@@ -173,8 +173,19 @@ def fetch_minute_candles(
             "FID_PW_DATA_INCU_YN": "Y",
         }
 
-        result = client.request("GET", path, tr_id, params=params)
-        if result.get("rt_cd") != "0":
+        # rate limit 검출 + 재시도 (최대 2회, 1초/2초 지수 백오프)
+        result = None
+        for attempt in range(3):
+            result = client.request("GET", path, tr_id, params=params)
+            if result.get("rt_cd") == "0":
+                break
+            msg = (result.get("msg1") or "") + " " + str(result.get("error") or "")
+            is_rate_limit = "초당" in msg or "rate" in msg.lower() or "limit" in msg.lower()
+            if not is_rate_limit or attempt == 2:
+                break
+            time.sleep(1.0 * (attempt + 1))  # 1s → 2s
+
+        if not result or result.get("rt_cd") != "0":
             break
 
         output2 = result.get("output2", [])
@@ -199,7 +210,7 @@ def fetch_minute_candles(
             break
         cursor = last_time
 
-        time.sleep(0.05)
+        time.sleep(0.1)
 
     return candles
 

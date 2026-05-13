@@ -469,6 +469,25 @@ class KISClient:
                         print(f"[KIS] 토큰이 무효화되어 강제 재발급을 시도합니다...")
                         self._force_refresh_token()
                         return self.request(method, path, tr_id, params, body, tr_cont, _retry=False)
+
+                # KIS rate limit ("초당 거래건수를 초과하였습니다") 검출 시 백오프 후 재시도
+                # ThreadPoolExecutor 다중 worker 동시 호출 환경에서 _rate_lock(20 req/s)을 넘는 burst 방어용
+                # 재시도 시 jitter로 동시 재시도 burst 방지. 최대 3회 추가 시도.
+                if _retry and ("초당" in error_msg or "거래건수" in error_msg):
+                    import random
+                    last_err = None
+                    for attempt in range(3):
+                        backoff = (1.0 + attempt * 1.5) + random.uniform(0, 1.5)  # 1~2.5s, 2.5~4s, 4~5.5s
+                        time.sleep(backoff)
+                        try:
+                            return self.request(method, path, tr_id, params, body, tr_cont, _retry=False)
+                        except Exception as retry_err:
+                            last_err = retry_err
+                            msg = str(retry_err)
+                            if "초당" not in msg and "거래건수" not in msg:
+                                raise  # rate limit 외 에러는 즉시 전파
+                    # 3회 재시도 모두 실패 — 마지막 에러 전파
+                    raise last_err if last_err else Exception(f"API 요청 실패: {error_msg}")
             except TokenRefreshLimitError:
                 raise  # TokenRefreshLimitError는 그대로 전파
             except json.JSONDecodeError:
