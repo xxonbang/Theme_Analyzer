@@ -245,8 +245,9 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                 }
                 return d
               }
+              // 색상 자제: 거래대금만 강조(rose), 거래량은 무채색(slate) — 알록달록 회피
               const tvColor = "#e11d48"
-              const volColor = "#6366f1"
+              const volColor = "#94a3b8"
               const linePath = buildSmoothPath(linePts)
               const areaPath = linePts.length >= 2
                 ? `${linePath} L ${linePts[linePts.length - 1].x.toFixed(2)},${(BPAD.top + BPH).toFixed(2)} L ${linePts[0].x.toFixed(2)},${(BPAD.top + BPH).toFixed(2)} Z`
