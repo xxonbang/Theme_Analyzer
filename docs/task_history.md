@@ -6,6 +6,15 @@
 
 ## 2026-05-13
 
+### [UI] '누적' 텍스트 우측 상단 이동 + 수치 제거 (2026-05-13 23:28 KST)
+- **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+5/-2)
+- **사용자 요청**: '누적' text를 우측 Y축 라벨 위로 이동 + 수치 제거 (그래프에서 직접 확인)
+- **수정**:
+  - 기존: 좌측 axisLabel에 `"거래대금" + "누적 X.X조"` tspan 병기
+  - 변경: 좌측에 `"거래대금"`만, **우측 상단에 `"누적"`만** 별도 text. 수치 제거 (우측 Y라벨로 직접 확인).
+  - 우측 누적 라벨: x = W - BPAD.right + 4 (우측 Y라벨과 정렬), y = 14, textAnchor start, color tint, fontWeight 600
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.96s)
+
 ### [UI] preserveAspectRatio 제거 (텍스트 stretched 해소) + Y라벨 bold 제거 (2026-05-13 23:26 KST)
 - **변경 파일**: `frontend/src/components/TradingChartPopup.tsx` (+2/-3)
 - **사용자 보고**: 텍스트가 위아래 눌린 것처럼 납작해 보임 + Y라벨 bold 제거 요청

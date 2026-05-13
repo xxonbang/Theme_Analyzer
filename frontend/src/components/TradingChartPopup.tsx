@@ -274,10 +274,13 @@ export function TradingChartPopup({ stockName, currentTradingValue, currentVolum
                             <stop offset="100%" stopColor={color} stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        {/* axisLabel (차트 좌측 끝에서 시작) */}
+                        {/* 좌측 axisLabel (막대 스케일) */}
                         <text x={4} y={14} fontSize={11} fill={color} fontWeight={600} style={{ letterSpacing: "0.02em" }}>
                           {axisLabel}
-                          <tspan fontSize={9} fontWeight={400} dx={8} opacity={0.7}>누적 {fmt(cumMax)}</tspan>
+                        </text>
+                        {/* 우측 axisLabel (누적 스케일) — 우측 Y라벨 위 */}
+                        <text x={W - BPAD.right + 4} y={14} textAnchor="start" fontSize={11} fill={color} fontWeight={600} opacity={0.85} style={{ letterSpacing: "0.02em" }}>
+                          누적
                         </text>
                         {/* 가로 그리드 + 좌측(slot max) Y라벨 + 우측(누적) Y라벨 */}
                         {[0.25, 0.5, 0.75, 1].map(r => {
