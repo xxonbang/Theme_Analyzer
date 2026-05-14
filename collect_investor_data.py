@@ -85,15 +85,20 @@ def extract_leader_codes(forecast: dict, theme_analysis: dict = None) -> set[str
     return codes
 
 
-def extract_top20_stocks(data: dict) -> list[dict]:
-    """latest.json에서 거래대금 TOP20 종목 추출 (KOSPI+KOSDAQ 합산 후 거래대금 순 정렬)"""
+def extract_top_stocks(data: dict, n: int = 20) -> list[dict]:
+    """latest.json에서 거래대금 상위 N 종목 추출 (KOSPI+KOSDAQ 합산 후 거래대금 순 정렬)"""
     stocks = []
     tv_data = data.get("trading_value", {})
     for market in ["kospi", "kosdaq"]:
         for stock in tv_data.get(market, []):
             stocks.append(stock)
     stocks.sort(key=lambda x: x.get("trading_value", 0), reverse=True)
-    return stocks[:20]
+    return stocks[:n]
+
+
+# 하위 호환 alias (이전 시그니처 유지)
+def extract_top20_stocks(data: dict) -> list[dict]:
+    return extract_top_stocks(data, 20)
 
 
 def build_leader_info(forecast: dict, theme_analysis: dict = None) -> dict[str, dict]:
@@ -725,10 +730,11 @@ def main():
             print(f"  ⚠ criteria 부분 재계산 실패 (기존 데이터로 계속): {e}")
 
         # member(거래원) 수집 — 화면에 표시되는 모든 종목 대상, 매 라운드 갱신
+        # 거래원 수집은 거래대금 TOP30 + 대장주 (텔레그램 TOP20 알림과 별도, KOSPI 20위권 밖 종목도 커버)
         try:
             all_codes_map = {s["code"]: s.get("name", s["code"]) for s in all_stocks}
             member_target = set(leader_codes)
-            for s in extract_top20_stocks(latest):
+            for s in extract_top_stocks(latest, 30):
                 c = s.get("code", "")
                 if c:
                     member_target.add(c)
