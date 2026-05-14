@@ -1,0 +1,667 @@
+{
+  "trade_date": "2026-05-14",
+  "morning_timestamp": "2026-05-14 09:11:42",
+  "collected_at": "2026-05-14 15:41:25",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-14 09:11:42",
+      "prices": {
+        "003230": 1472000,
+        "439960": 49150,
+        "454910": 109300,
+        "027360": 17150,
+        "196170": 373500,
+        "322000": 228000,
+        "009830": 46100,
+        "088350": 5450,
+        "100790": 66100,
+        "001440": 68900,
+        "066570": 205500,
+        "034220": 14770
+      },
+      "leader_stocks": [
+        {
+          "code": "003230",
+          "name": "삼양식품",
+          "theme": "K-푸드 글로벌 확장 및 실적 개선"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 및 피지컬 AI"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 피지컬 AI"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 딥테크 투자"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오: 피하주사(SC) 제형 기술 및 면역증강제"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-14 09:34:36",
+      "prices": {
+        "003230": 1408000,
+        "439960": 49150,
+        "454910": 108700,
+        "027360": 17150,
+        "196170": 378500,
+        "322000": 255000,
+        "009830": 48250,
+        "088350": 5450,
+        "100790": 66100,
+        "001440": 68400,
+        "066570": 215000,
+        "034220": 15170
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 (전선)"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-14 10:02:57",
+      "prices": {
+        "003230": 1437000,
+        "439960": 49150,
+        "454910": 106100,
+        "027360": 17150,
+        "196170": 380000,
+        "322000": 246000,
+        "009830": 46150,
+        "088350": 5450,
+        "100790": 66100,
+        "001440": 66900,
+        "066570": 213500,
+        "034220": 14990
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 (전선)"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-14 12:01:54",
+      "prices": {
+        "003230": 1451000,
+        "439960": 49150,
+        "454910": 103500,
+        "027360": 17150,
+        "196170": 383500,
+        "322000": 245500,
+        "009830": 46400,
+        "088350": 5450,
+        "100790": 66100,
+        "001440": 65100,
+        "066570": 210750,
+        "034220": 14900
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 (전선)"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-14 12:35:30",
+      "prices": {
+        "003230": 1429000,
+        "439960": 52700,
+        "454910": 103400,
+        "027360": 16100,
+        "196170": 383000,
+        "322000": 245000,
+        "009830": 46400,
+        "088350": 5580,
+        "100790": 60100,
+        "001440": 64700,
+        "066570": 210000,
+        "034220": 15270
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 (전선)"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-14 13:26:46",
+      "prices": {
+        "003230": 1417000,
+        "439960": 52700,
+        "454910": 103800,
+        "027360": 16160,
+        "196170": 382000,
+        "322000": 245000,
+        "009830": 46250,
+        "088350": 5580,
+        "100790": 60200,
+        "001440": 65500,
+        "066570": 214000,
+        "034220": 15130
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 (전선)"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-14 14:36:48",
+      "prices": {
+        "003230": 1438000,
+        "439960": 52700,
+        "454910": 104300,
+        "027360": 16000,
+        "196170": 384500,
+        "322000": 245000,
+        "009830": 47000,
+        "088350": 5580,
+        "100790": 59900,
+        "001440": 64600,
+        "066570": 214000,
+        "034220": 15300
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 및 로봇"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광 및 친환경 에너지)"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "금융 및 투자 (벤처캐피탈 및 보험)"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "전력 인프라 (전선)"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 및 디스플레이 (OLED & 전장 부품)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "003230",
+      "name": "삼양식품",
+      "theme": "K-푸드 글로벌 확장 및 실적 개선",
+      "market": "KOSPI",
+      "buy_price": 1472000,
+      "close_price": 1439000,
+      "profit_rate": -2.24,
+      "profit_amount": -33000,
+      "high_price": 1478000,
+      "high_time": "11:55",
+      "high_profit_rate": 0.41,
+      "high_profit_amount": 6000,
+      "low_price": 1360000,
+      "low_profit_rate": -7.61,
+      "low_profit_amount": -112000,
+      "low_time": "09:23"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇 및 피지컬 AI",
+      "market": "KOSDAQ",
+      "buy_price": 49150,
+      "close_price": 52700,
+      "profit_rate": 7.22,
+      "profit_amount": 3550,
+      "high_price": 52700,
+      "high_time": "15:30",
+      "high_profit_rate": 7.22,
+      "high_profit_amount": 3550,
+      "low_price": 45500,
+      "low_profit_rate": -7.43,
+      "low_profit_amount": -3650,
+      "low_time": "09:02"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇 및 피지컬 AI",
+      "market": "KOSDAQ",
+      "buy_price": 109300,
+      "close_price": 106800,
+      "profit_rate": -2.29,
+      "profit_amount": -2500,
+      "high_price": 109600,
+      "high_time": "09:32",
+      "high_profit_rate": 0.27,
+      "high_profit_amount": 300,
+      "low_price": 102500,
+      "low_profit_rate": -6.22,
+      "low_profit_amount": -6800,
+      "low_time": "13:05"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "벤처캐피탈 및 딥테크 투자",
+      "market": "KOSPI",
+      "buy_price": 17150,
+      "close_price": 15900,
+      "profit_rate": -7.29,
+      "profit_amount": -1250,
+      "high_price": 18160,
+      "high_time": "09:14",
+      "high_profit_rate": 5.89,
+      "high_profit_amount": 1010,
+      "low_price": 15750,
+      "low_profit_rate": -8.16,
+      "low_profit_amount": -1400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "196170",
+      "name": "알테오젠",
+      "theme": "바이오: 피하주사(SC) 제형 기술 및 면역증강제",
+      "market": "KOSPI",
+      "buy_price": 373500,
+      "close_price": 385000,
+      "profit_rate": 3.08,
+      "profit_amount": 11500,
+      "high_price": 388000,
+      "high_time": "11:49",
+      "high_profit_rate": 3.88,
+      "high_profit_amount": 14500,
+      "low_price": 365000,
+      "low_profit_rate": -2.28,
+      "low_profit_amount": -8500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지 (태양광 및 친환경 에너지)",
+      "market": "KOSDAQ",
+      "buy_price": 228000,
+      "close_price": 244000,
+      "profit_rate": 7.02,
+      "profit_amount": 16000,
+      "high_price": 256000,
+      "high_time": "09:34",
+      "high_profit_rate": 12.28,
+      "high_profit_amount": 28000,
+      "low_price": 213500,
+      "low_profit_rate": -6.36,
+      "low_profit_amount": -14500,
+      "low_time": "09:01"
+    },
+    {
+      "code": "009830",
+      "name": "한화솔루션",
+      "theme": "신재생에너지 (태양광 및 친환경 에너지)",
+      "market": "KOSPI",
+      "buy_price": 46100,
+      "close_price": 47800,
+      "profit_rate": 3.69,
+      "profit_amount": 1700,
+      "high_price": 48350,
+      "high_time": "09:34",
+      "high_profit_rate": 4.88,
+      "high_profit_amount": 2250,
+      "low_price": 43400,
+      "low_profit_rate": -5.86,
+      "low_profit_amount": -2700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "088350",
+      "name": "한화생명",
+      "theme": "금융 및 투자 (벤처캐피탈 및 보험)",
+      "market": "KOSPI",
+      "buy_price": 5450,
+      "close_price": 5490,
+      "profit_rate": 0.73,
+      "profit_amount": 40,
+      "high_price": 5900,
+      "high_time": "10:04",
+      "high_profit_rate": 8.26,
+      "high_profit_amount": 450,
+      "low_price": 4965,
+      "low_profit_rate": -8.9,
+      "low_profit_amount": -485,
+      "low_time": "09:00"
+    },
+    {
+      "code": "100790",
+      "name": "미래에셋벤처투자",
+      "theme": "금융 및 투자 (벤처캐피탈 및 보험)",
+      "market": "KOSPI",
+      "buy_price": 66100,
+      "close_price": 59900,
+      "profit_rate": -9.38,
+      "profit_amount": -6200,
+      "high_price": 70700,
+      "high_time": "09:14",
+      "high_profit_rate": 6.96,
+      "high_profit_amount": 4600,
+      "low_price": 58000,
+      "low_profit_rate": -12.25,
+      "low_profit_amount": -8100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "theme": "전력 인프라 (전선)",
+      "market": "KOSPI",
+      "buy_price": 68900,
+      "close_price": 65500,
+      "profit_rate": -4.93,
+      "profit_amount": -3400,
+      "high_price": 70300,
+      "high_time": "09:13",
+      "high_profit_rate": 2.03,
+      "high_profit_amount": 1400,
+      "low_price": 64000,
+      "low_profit_rate": -7.11,
+      "low_profit_amount": -4900,
+      "low_time": "14:17"
+    },
+    {
+      "code": "066570",
+      "name": "LG전자",
+      "theme": "IT 및 디스플레이 (OLED & 전장 부품)",
+      "market": "KOSPI",
+      "buy_price": 205500,
+      "close_price": 217000,
+      "profit_rate": 5.6,
+      "profit_amount": 11500,
+      "high_price": 224500,
+      "high_time": "09:48",
+      "high_profit_rate": 9.25,
+      "high_profit_amount": 19000,
+      "low_price": 201000,
+      "low_profit_rate": -2.19,
+      "low_profit_amount": -4500,
+      "low_time": "09:11"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "IT 및 디스플레이 (OLED & 전장 부품)",
+      "market": "KOSPI",
+      "buy_price": 14770,
+      "close_price": 15340,
+      "profit_rate": 3.86,
+      "profit_amount": 570,
+      "high_price": 15670,
+      "high_time": "09:41",
+      "high_profit_rate": 6.09,
+      "high_profit_amount": 900,
+      "low_price": 14160,
+      "low_profit_rate": -4.13,
+      "low_profit_amount": -610,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 7,
+    "loss_stocks": 5,
+    "total_invested": 2655920,
+    "total_value": 2654430,
+    "total_profit": -1490,
+    "total_profit_rate": -0.06,
+    "high_total_value": 2737880,
+    "high_total_profit": 81960,
+    "high_total_profit_rate": 3.09,
+    "high_profit_stocks": 12,
+    "high_loss_stocks": 0
+  }
+}
