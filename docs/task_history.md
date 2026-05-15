@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-05-15
+
+### [기능] PortfolioPage 가상 계산기(PaperCalcTab) 탭 추가 (2026-05-15 10:54 KST)
+- **변경 파일**: `frontend/src/components/PaperCalcTab.tsx` (신규), `frontend/src/components/PortfolioPage.tsx`
+- **내용**:
+  - `PaperCalcTab.tsx` 신규 작성: 종목 검색(마스터 기반) → KIS 현재가 자동 fetch → 가정 매수가/수량 입력 → 미리보기 → 누적 리스트 추가
+  - localStorage 저장/복구 (`paper-calc-{userId}` 키)
+  - 종합 수익률 카드(가중평균), 현재가 새로고침, 행 삭제/전체 삭제
+  - `PortfolioPage.tsx`: `activeTab` 상태 + "내 보유" / "가상 계산기" 탭 분기, `masterStocks` prop 전달
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.87s, PortfolioPage 67KB)
+
 ## 2026-05-14
 
 ### [개선] 거래원 데이터 수집 대상 TOP20 → TOP30 확장 (2026-05-14 22:43 KST)

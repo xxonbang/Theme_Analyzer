@@ -15,6 +15,7 @@ import type {
 } from "@/types/stock"
 import { AveragingDownCalc, type NewTransaction, type Transaction } from "./AveragingDownCalc"
 import { AveragingDownSheet } from "./AveragingDownSheet"
+import { PaperCalcTab } from "./PaperCalcTab"
 
 // --- Types ---
 
@@ -117,6 +118,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
   const [transactionsByHolding, setTransactionsByHolding] = useState<Record<string, Transaction[]>>({})
   const [calcOpenId, setCalcOpenId] = useState<string | null>(null)
   const [showAvgSheet, setShowAvgSheet] = useState(false)
+  const [activeTab, setActiveTab] = useState<"holdings" | "calc">("holdings")
 
   // Add form state
   const [searchQuery, setSearchQuery] = useState("")
@@ -632,6 +634,27 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="flex gap-1">
+        <button
+          onClick={() => setActiveTab("holdings")}
+          className={cn(
+            "px-3 py-1.5 text-xs font-medium rounded-md transition-colors",
+            activeTab === "holdings" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          )}
+        >내 보유</button>
+        <button
+          onClick={() => setActiveTab("calc")}
+          className={cn(
+            "px-3 py-1.5 text-xs font-medium rounded-md transition-colors",
+            activeTab === "calc" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          )}
+        >가상 계산기</button>
+      </div>
+
+      {activeTab === "calc" && <PaperCalcTab masterStocks={masterStocks} />}
+
+      {activeTab === "holdings" && <>
       {/* Add Form */}
       {showAddForm && (
         <Card className="border-primary/30">
@@ -1135,6 +1158,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
           onApply={applyTransactions}
         />
       )}
+      </>}
     </div>
   )
 }
