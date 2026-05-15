@@ -1,0 +1,707 @@
+{
+  "trade_date": "2026-05-15",
+  "morning_timestamp": "2026-05-15 09:11:46",
+  "collected_at": "2026-05-15 15:41:18",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-15 09:11:46",
+      "prices": {
+        "066570": 255500,
+        "034220": 16490,
+        "064400": 97100,
+        "454910": 116500,
+        "439960": 67700,
+        "067310": 51300,
+        "036540": 9120,
+        "090710": 13280,
+        "080220": 75700,
+        "003550": 152100,
+        "018880": 5270,
+        "005380": 729000
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "HBM/반도체 후공정"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "HBM/반도체 후공정"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15 09:34:16",
+      "prices": {
+        "066570": 249000,
+        "034220": 16490,
+        "064400": 97100,
+        "454910": 116500,
+        "439960": 67700,
+        "067310": 51300,
+        "036540": 9120,
+        "090710": 13800,
+        "080220": 82800,
+        "003550": 143300,
+        "018880": 5440,
+        "005380": 766000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "003550",
+          "name": "LG",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15 10:02:40",
+      "prices": {
+        "066570": 257000,
+        "034220": 16490,
+        "064400": 97100,
+        "454910": 116500,
+        "439960": 67700,
+        "067310": 51300,
+        "036540": 9120,
+        "090710": 14410,
+        "080220": 82500,
+        "003550": 137600,
+        "018880": 5420,
+        "005380": 767000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "003550",
+          "name": "LG",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15 12:05:02",
+      "prices": {
+        "066570": 241000,
+        "034220": 16490,
+        "064400": 97100,
+        "454910": 116500,
+        "439960": 67700,
+        "067310": 51300,
+        "036540": 9120,
+        "090710": 13370,
+        "080220": 84100,
+        "003550": 127800,
+        "018880": 5310,
+        "005380": 722000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "003550",
+          "name": "LG",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15 12:35:29",
+      "prices": {
+        "066570": 239500,
+        "034220": 14450,
+        "064400": 88400,
+        "454910": 127900,
+        "439960": 54100,
+        "067310": 53950,
+        "036540": 8960,
+        "090710": 13300,
+        "080220": 84800,
+        "003550": 127050,
+        "018880": 5230,
+        "005380": 719000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "003550",
+          "name": "LG",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15 13:26:42",
+      "prices": {
+        "066570": 234000,
+        "034220": 14140,
+        "064400": 86600,
+        "454910": 127900,
+        "439960": 54100,
+        "067310": 53950,
+        "036540": 8960,
+        "090710": 13300,
+        "080220": 84800,
+        "003550": 125000,
+        "018880": 5140,
+        "005380": 700000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "003550",
+          "name": "LG",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15 14:36:37",
+      "prices": {
+        "066570": 238500,
+        "034220": 13930,
+        "064400": 85800,
+        "454910": 127900,
+        "439960": 54100,
+        "067310": 53950,
+        "036540": 8960,
+        "090710": 13300,
+        "080220": 84800,
+        "003550": 125900,
+        "018880": 5080,
+        "005380": 697000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "090710",
+          "name": "휴림로봇",
+          "theme": "로봇 산업 성장 기대감"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 소부장 및 온디바이스 AI 강세"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "003550",
+          "name": "LG",
+          "theme": "LG그룹 전장사업 모멘텀"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "066570",
+      "name": "LG전자",
+      "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)",
+      "market": "KOSPI",
+      "buy_price": 255500,
+      "close_price": 240500,
+      "profit_rate": -5.87,
+      "profit_amount": -15000,
+      "high_price": 258000,
+      "high_time": "10:04",
+      "high_profit_rate": 0.98,
+      "high_profit_amount": 2500,
+      "low_price": 233000,
+      "low_profit_rate": -8.81,
+      "low_profit_amount": -22500,
+      "low_time": "13:27"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)",
+      "market": "KOSPI",
+      "buy_price": 16490,
+      "close_price": 14100,
+      "profit_rate": -14.49,
+      "profit_amount": -2390,
+      "high_price": 16800,
+      "high_time": "09:19",
+      "high_profit_rate": 1.88,
+      "high_profit_amount": 310,
+      "low_price": 13730,
+      "low_profit_rate": -16.74,
+      "low_profit_amount": -2760,
+      "low_time": "15:03"
+    },
+    {
+      "code": "064400",
+      "name": "LG씨엔에스",
+      "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)",
+      "market": "KOSPI",
+      "buy_price": 97100,
+      "close_price": 86600,
+      "profit_rate": -10.81,
+      "profit_amount": -10500,
+      "high_price": 95400,
+      "high_time": "09:13",
+      "high_profit_rate": -1.75,
+      "high_profit_amount": -1700,
+      "low_price": 83500,
+      "low_profit_rate": -14.01,
+      "low_profit_amount": -13600,
+      "low_time": "15:02"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇 산업 성장",
+      "market": "KOSDAQ",
+      "buy_price": 116500,
+      "close_price": 127400,
+      "profit_rate": 9.36,
+      "profit_amount": 10900,
+      "high_price": 138800,
+      "high_time": "09:46",
+      "high_profit_rate": 19.14,
+      "high_profit_amount": 22300,
+      "low_price": 109500,
+      "low_profit_rate": -6.01,
+      "low_profit_amount": -7000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇 산업 성장",
+      "market": "KOSDAQ",
+      "buy_price": 67700,
+      "close_price": 44100,
+      "profit_rate": -34.86,
+      "profit_amount": -23600,
+      "high_price": 64400,
+      "high_time": "09:13",
+      "high_profit_rate": -4.87,
+      "high_profit_amount": -3300,
+      "low_price": 39500,
+      "low_profit_rate": -41.65,
+      "low_profit_amount": -28200,
+      "low_time": "14:47"
+    },
+    {
+      "code": "067310",
+      "name": "하나마이크론",
+      "theme": "HBM/반도체 후공정",
+      "market": "KOSPI",
+      "buy_price": 51300,
+      "close_price": 52900,
+      "profit_rate": 3.12,
+      "profit_amount": 1600,
+      "high_price": 55500,
+      "high_time": "12:50",
+      "high_profit_rate": 8.19,
+      "high_profit_amount": 4200,
+      "low_price": 46300,
+      "low_profit_rate": -9.75,
+      "low_profit_amount": -5000,
+      "low_time": "09:01"
+    },
+    {
+      "code": "036540",
+      "name": "SFA반도체",
+      "theme": "HBM/반도체 후공정",
+      "market": "KOSPI",
+      "buy_price": 9120,
+      "close_price": 8610,
+      "profit_rate": -5.59,
+      "profit_amount": -510,
+      "high_price": 9850,
+      "high_time": "09:16",
+      "high_profit_rate": 8.0,
+      "high_profit_amount": 730,
+      "low_price": 8310,
+      "low_profit_rate": -8.88,
+      "low_profit_amount": -810,
+      "low_time": "09:01"
+    },
+    {
+      "code": "090710",
+      "name": "휴림로봇",
+      "theme": "로봇 산업 성장 기대감",
+      "market": "KOSPI",
+      "buy_price": 13280,
+      "close_price": 13120,
+      "profit_rate": -1.2,
+      "profit_amount": -160,
+      "high_price": 14690,
+      "high_time": "10:00",
+      "high_profit_rate": 10.62,
+      "high_profit_amount": 1410,
+      "low_price": 12630,
+      "low_profit_rate": -4.89,
+      "low_profit_amount": -650,
+      "low_time": "15:02"
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "반도체 소부장 및 온디바이스 AI 강세",
+      "market": "KOSPI",
+      "buy_price": 75700,
+      "close_price": 82300,
+      "profit_rate": 8.72,
+      "profit_amount": 6600,
+      "high_price": 89100,
+      "high_time": "12:55",
+      "high_profit_rate": 17.7,
+      "high_profit_amount": 13400,
+      "low_price": 71100,
+      "low_profit_rate": -6.08,
+      "low_profit_amount": -4600,
+      "low_time": "09:01"
+    },
+    {
+      "code": "003550",
+      "name": "LG",
+      "theme": "LG그룹 전장사업 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 152100,
+      "close_price": 126000,
+      "profit_rate": -17.16,
+      "profit_amount": -26100,
+      "high_price": 148500,
+      "high_time": "09:13",
+      "high_profit_rate": -2.37,
+      "high_profit_amount": -3600,
+      "low_price": 124200,
+      "low_profit_rate": -18.34,
+      "low_profit_amount": -27900,
+      "low_time": "13:23"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜",
+      "market": "KOSPI",
+      "buy_price": 5270,
+      "close_price": 5050,
+      "profit_rate": -4.17,
+      "profit_amount": -220,
+      "high_price": 5590,
+      "high_time": "10:10",
+      "high_profit_rate": 6.07,
+      "high_profit_amount": 320,
+      "low_price": 4950,
+      "low_profit_rate": -6.07,
+      "low_profit_amount": -320,
+      "low_time": "15:04"
+    },
+    {
+      "code": "005380",
+      "name": "현대차",
+      "theme": "자동차 부품 업황 개선 및 전기차 전환 수혜",
+      "market": "KOSPI",
+      "buy_price": 729000,
+      "close_price": 700000,
+      "profit_rate": -3.98,
+      "profit_amount": -29000,
+      "high_price": 774500,
+      "high_time": "09:40",
+      "high_profit_rate": 6.24,
+      "high_profit_amount": 45500,
+      "low_price": 678000,
+      "low_profit_rate": -7.0,
+      "low_profit_amount": -51000,
+      "low_time": "15:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 3,
+    "loss_stocks": 9,
+    "total_invested": 1589060,
+    "total_value": 1500680,
+    "total_profit": -88380,
+    "total_profit_rate": -5.56,
+    "high_total_value": 1671130,
+    "high_total_profit": 82070,
+    "high_total_profit_rate": 5.16,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 3
+  }
+}
