@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { X, RefreshCw, Search } from "lucide-react"
 import { cn, formatPrice, getChangeBgColor } from "@/lib/utils"
 import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
-import { useAuth } from "@/hooks/useAuth"
 
 interface PaperCalcItem {
   id: string
@@ -17,11 +16,17 @@ interface PaperCalcTabProps {
   masterStocks: { code: string; name: string; market: string }[]
 }
 
-export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
-  const { user } = useAuth()
-  const storageKey = `paper-calc-${user?.id ?? "anon"}`
+const STORAGE_KEY = "paper-calc-items"
 
-  const [items, setItems] = useState<PaperCalcItem[]>([])
+export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
+  // 디바이스 단위 영속 (로그인 상태와 무관 — 가상 계산은 사용자 시뮬이라 본인 디바이스에 묶임).
+  // 직접 삭제(✕ 또는 '전체 지우기') 전까지 보존.
+  const [items, setItems] = useState<PaperCalcItem[]>(() => {
+    if (typeof window === "undefined") return []
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (!saved) return []
+    try { return JSON.parse(saved) as PaperCalcItem[] } catch { return [] }
+  })
   const [livePrices, setLivePrices] = useState<Record<string, KisStockPrice>>({})
   const [refreshing, setRefreshing] = useState(false)
 
@@ -31,26 +36,10 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
   const [quantity, setQuantity] = useState("")
   const [kisSearching, setKisSearching] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const loadedRef = useRef(false)
 
   useEffect(() => {
-    loadedRef.current = false
-    const saved = localStorage.getItem(storageKey)
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as PaperCalcItem[]
-        setItems(parsed)
-      } catch { setItems([]) }
-    } else {
-      setItems([])
-    }
-    loadedRef.current = true
-  }, [storageKey])
-
-  useEffect(() => {
-    if (!loadedRef.current) return
-    localStorage.setItem(storageKey, JSON.stringify(items))
-  }, [items, storageKey])
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+  }, [items])
 
   useEffect(() => {
     if (items.length === 0) return
@@ -217,51 +206,47 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
         )}
 
         {selectedStock && (
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <label className="text-[10px] text-muted-foreground font-medium">가정 매수가 (원)</label>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <label className="text-[11px] text-muted-foreground font-medium block">가정 매수가 (원)</label>
               <input
                 type="text"
                 inputMode="numeric"
                 value={assumedPrice}
                 onChange={e => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
                 placeholder={livePrices[selectedStock.code] ? formatPrice(livePrices[selectedStock.code].current_price) : "매수가"}
-                className="w-full px-3 py-2 rounded-lg border bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
               />
             </div>
-            <div>
-              <label className="text-[10px] text-muted-foreground font-medium">수량 (주)</label>
+            <div className="space-y-1.5">
+              <label className="text-[11px] text-muted-foreground font-medium block">수량 (주)</label>
               <input
                 type="text"
                 inputMode="numeric"
                 value={quantity}
                 onChange={e => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
                 placeholder="수량"
-                className="w-full px-3 py-2 rounded-lg border bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
               />
             </div>
           </div>
         )}
 
         {preview && (
-          <div className="mt-2 p-3 bg-muted/30 rounded-md text-xs space-y-1">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">매수금액</span>
-              <span className="font-medium tabular-nums">{formatPrice(preview.invest)}원</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">평가금액</span>
-              <span className="font-medium tabular-nums">{formatPrice(preview.evalAmt)}원</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">손익</span>
-              <span className={cn("font-semibold tabular-nums", preview.profit >= 0 ? "text-red-500" : "text-blue-500")}>
+          <div className="mt-3 p-3.5 bg-muted/40 rounded-lg space-y-2">
+            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[13px]">
+              <span className="text-muted-foreground/80">매수금액</span>
+              <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.invest)}원</span>
+              <span className="text-muted-foreground/80">평가금액</span>
+              <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.evalAmt)}원</span>
+              <span className="text-muted-foreground/80">손익</span>
+              <span className={cn("text-right font-semibold tabular-nums", preview.profit >= 0 ? "text-red-500" : "text-blue-500")}>
                 {preview.profit >= 0 ? "+" : ""}{formatPrice(preview.profit)}원
               </span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">수익률</span>
-              <span className={cn("font-bold tabular-nums px-1.5 py-0.5 rounded text-xs", getChangeBgColor(preview.rate))}>
+            <div className="flex items-center justify-between pt-2 border-t border-border/40">
+              <span className="text-[13px] text-muted-foreground/80">수익률</span>
+              <span className={cn("font-bold tabular-nums px-2.5 py-1 rounded-md text-sm", getChangeBgColor(preview.rate))}>
                 {preview.rate >= 0 ? "+" : ""}{preview.rate.toFixed(2)}%
               </span>
             </div>
@@ -271,7 +256,7 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
         {preview && (
           <button
             onClick={addItem}
-            className="w-full mt-2 px-3 py-2 text-sm font-semibold rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="w-full mt-3 px-3 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm"
           >
             누적 리스트에 추가
           </button>
@@ -279,55 +264,62 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
       </div>
 
       {summary && (
-        <div className="bg-card rounded-lg border border-border p-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground">종합 ({summary.count}종목)</span>
+        <div className="bg-card rounded-xl border border-border p-4">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">종합 · {summary.count}종목</span>
             <button
               onClick={refresh}
               disabled={refreshing}
-              className="text-muted-foreground hover:text-foreground p-1 disabled:opacity-50"
+              className="text-muted-foreground hover:text-foreground p-1 disabled:opacity-50 transition-colors"
               aria-label="현재가 새로고침"
             >
               <RefreshCw className={cn("w-3.5 h-3.5", refreshing && "animate-spin")} />
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-2 text-xs">
+          {/* 메인 KPI: 수익률 + 손익 */}
+          <div className="flex items-baseline justify-between mb-3 pb-3 border-b border-border/40">
             <div>
-              <span className="text-muted-foreground">매수</span>{" "}
-              <span className="font-medium tabular-nums">{formatPrice(summary.totalInvest)}원</span>
+              <div className="text-[11px] text-muted-foreground mb-1">수익률</div>
+              <div className={cn("text-2xl font-bold tabular-nums leading-none", summary.rate >= 0 ? "text-red-500" : "text-blue-500")}>
+                {summary.rate >= 0 ? "+" : ""}{summary.rate.toFixed(2)}<span className="text-base ml-0.5">%</span>
+              </div>
             </div>
-            <div>
-              <span className="text-muted-foreground">평가</span>{" "}
-              <span className="font-medium tabular-nums">{formatPrice(summary.totalEval)}원</span>
-            </div>
-            <div>
-              <span className="text-muted-foreground">손익</span>{" "}
-              <span className={cn("font-semibold tabular-nums", summary.profit >= 0 ? "text-red-500" : "text-blue-500")}>
+            <div className="text-right">
+              <div className="text-[11px] text-muted-foreground mb-1">손익</div>
+              <div className={cn("text-base font-semibold tabular-nums", summary.profit >= 0 ? "text-red-500" : "text-blue-500")}>
                 {summary.profit >= 0 ? "+" : ""}{formatPrice(summary.profit)}원
-              </span>
+              </div>
             </div>
-            <div>
-              <span className="text-muted-foreground">수익률</span>{" "}
-              <span className={cn("font-bold tabular-nums px-1.5 py-0.5 rounded", getChangeBgColor(summary.rate))}>
-                {summary.rate >= 0 ? "+" : ""}{summary.rate.toFixed(2)}%
-              </span>
+          </div>
+          {/* 보조: 매수·평가 */}
+          <div className="grid grid-cols-2 gap-2 text-[12px]">
+            <div className="space-y-0.5">
+              <div className="text-muted-foreground">매수</div>
+              <div className="font-medium tabular-nums text-foreground/85">{formatPrice(summary.totalInvest)}원</div>
+            </div>
+            <div className="space-y-0.5 text-right">
+              <div className="text-muted-foreground">평가</div>
+              <div className="font-medium tabular-nums text-foreground/85">{formatPrice(summary.totalEval)}원</div>
             </div>
           </div>
           {!summary.evalAvailable && (
-            <div className="mt-2 text-[10px] text-muted-foreground">일부 종목 현재가 미수집 — 새로고침</div>
+            <div className="mt-3 text-[11px] text-muted-foreground/70 flex items-center gap-1.5">
+              <span className="inline-block w-1 h-1 rounded-full bg-amber-500" />
+              일부 종목 현재가 미수집 — 새로고침
+            </div>
           )}
         </div>
       )}
 
       {items.length > 0 && (
-        <div className="bg-card rounded-lg border border-border p-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground">누적 리스트</span>
-            <button onClick={clearAll} className="text-[10px] text-muted-foreground hover:text-destructive">
+        <div className="bg-card rounded-xl border border-border p-4">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">누적 리스트</span>
+            <button onClick={clearAll} className="text-[11px] text-muted-foreground hover:text-destructive transition-colors">
               전체 지우기
             </button>
           </div>
-          <ul className="space-y-2">
+          <ul className="divide-y divide-border/40">
             {items.map(it => {
               const cur = livePrices[it.code]?.current_price
               const invest = it.assumedPrice * it.quantity
@@ -335,36 +327,34 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
               const profit = evalAmt - invest
               const rate = cur != null ? ((cur - it.assumedPrice) / it.assumedPrice) * 100 : 0
               return (
-                <li key={it.id} className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-sm truncate">{it.name}</span>
-                      <span className="text-[10px] text-muted-foreground tabular-nums">{it.code}</span>
+                <li key={it.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                  <div className="min-w-0 flex-1 space-y-1">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-semibold text-sm truncate text-foreground">{it.name}</span>
+                      <span className="text-[10px] text-muted-foreground/70 tabular-nums shrink-0">{it.code}</span>
                     </div>
-                    <div className="text-[10px] text-muted-foreground tabular-nums mt-0.5">
-                      {formatPrice(it.assumedPrice)}원 × {it.quantity.toLocaleString()}주
+                    <div className="text-[11px] text-muted-foreground tabular-nums">
+                      <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
                       {cur != null && (
-                        <span className="ml-2">현재가 {formatPrice(cur)}원</span>
+                        <span className="ml-2 text-muted-foreground/60">현재 {formatPrice(cur)}원</span>
                       )}
                     </div>
                   </div>
-                  <div className="text-right shrink-0 flex items-center gap-2">
-                    <div>
-                      <div className={cn("text-xs font-bold tabular-nums", profit >= 0 ? "text-red-500" : "text-blue-500")}>
-                        {profit >= 0 ? "+" : ""}{formatPrice(profit)}원
-                      </div>
-                      <div className={cn("text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded mt-0.5", getChangeBgColor(rate))}>
-                        {rate >= 0 ? "+" : ""}{rate.toFixed(2)}%
-                      </div>
+                  <div className="text-right shrink-0 space-y-1">
+                    <div className={cn("text-[13px] font-bold tabular-nums leading-tight", profit >= 0 ? "text-red-500" : "text-blue-500")}>
+                      {profit >= 0 ? "+" : ""}{formatPrice(profit)}원
                     </div>
-                    <button
-                      onClick={() => removeItem(it.id)}
-                      className="text-muted-foreground/50 hover:text-destructive p-1"
-                      aria-label="삭제"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
+                    <div className={cn("inline-block text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded leading-tight", getChangeBgColor(rate))}>
+                      {rate >= 0 ? "+" : ""}{rate.toFixed(2)}%
+                    </div>
                   </div>
+                  <button
+                    onClick={() => removeItem(it.id)}
+                    className="text-muted-foreground/40 hover:text-destructive p-1.5 shrink-0 transition-colors"
+                    aria-label="삭제"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
                 </li>
               )
             })}

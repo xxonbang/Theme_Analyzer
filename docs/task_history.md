@@ -6,6 +6,22 @@
 
 ## 2026-05-15
 
+### [기능/UI] 가상 계산기 디자인 세련화 + 영속 키 단일화 (2026-05-15 16:56 KST)
+- **변경 파일**: `frontend/src/components/PaperCalcTab.tsx` (+85/-95)
+- **사용자 보고 2건**:
+  1. 디자인 정렬·여백·간격 개선
+  2. 누적 리스트 휘발 — 직접 삭제 전까진 영속되어야
+- **휘발 원인**: `storageKey = paper-calc-${user?.id ?? "anon"}`. user 상태 변경 시 키 변경 → 새 키 빈 배열 → 휘발 보임.
+- **수정**:
+  - storageKey **단일화** (`paper-calc-items`, 디바이스 단위). useAuth 의존 제거.
+  - `useState` lazy initializer (mount 즉시 load)
+- **디자인**:
+  - 미리보기: grid-cols-[auto_1fr] 정렬, 수익률만 border-t 분리 강조, text-[13px]
+  - 종합 카드: 메인 KPI(수익률·손익) 큰 글씨 위쪽 + 보조(매수·평가) 아래
+  - 누적 리스트: divide-y, font-semibold 종목명, 행 padding py-3
+  - 카드 rounded-xl, header uppercase tracking-wider
+- **검증**: tsc PASS · build PASS (3.59s)
+
 ### [버그픽스] PaperCalcTab iOS zoom 방지 + localStorage lazy init (2026-05-15 11:00 KST)
 - **커밋**: `92832edb`
 - **변경 파일**: `frontend/src/components/PaperCalcTab.tsx`
