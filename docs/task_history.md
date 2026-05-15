@@ -6,6 +6,37 @@
 
 ## 2026-05-15
 
+### [기능] 가상 계산기 stock_toolkit 동기화 + 시나리오 탭 UI (2026-05-15 18:00 KST)
+- **변경 파일**:
+  - `frontend/src/lib/paper-calc-history.ts` (신규, +56)
+  - `frontend/src/components/PaperCalcTab.tsx` (+241/-27)
+- **목적**: theme-analysis 가상 계산기를 stock_toolkit과 공유 Supabase 테이블(`paper_calc_history`)로 sync
+- **데이터 모델 통일**:
+  - 단일 `items: PaperCalcItem[]` → `state: { tabs: ScenarioTab[], activeTabId: string }`
+  - stock_toolkit과 100% 동일 스키마 (`tabs[i].items` 첫 탭 매핑 → 전체 탭으로 확장)
+- **API (paper-calc-history.ts)**:
+  - `fetchPaperCalcState()`: `PaperCalcState | null` (null=미로그인, 빈 state=서버 row 없음)
+  - `savePaperCalcState(state)`: upsert (`onConflict: user_id`), `updated_at` ISO 직접 전송
+- **PaperCalcTab 변경**:
+  - state 단일 객체로 변경, 활성 탭 items는 useMemo 파생값 → 기존 UI(입력 폼·종합·누적 리스트) 그대로
+  - `updateActiveTabItems(updater)` 헬퍼로 setItems 호출들 통합
+  - mount 시 fetchPaperCalcState → setState (Supabase가 진실 소스)
+  - state 변경 시 localStorage 즉시 + 500ms debounce upsert
+  - `hasFetchedRef`로 fetch 전 save 차단 (서버 덮어쓰기 방지)
+  - legacy `paper-calc-items` localStorage 자동 마이그레이션 → `paper-calc-state`
+- **시나리오 탭 뱃지 UI** (검색 input 하단):
+  - 활성 뱃지: primary 배경, ✏️ 이름변경 + ✕ 삭제 인라인
+  - 비활성 뱃지: muted, 종목 수 미리보기 (예: `시나리오 2 · 3`)
+  - `+ 새 시나리오` 버튼: 자동명 "시나리오 N" 추가 + 즉시 활성화
+  - 이름변경: 인라인 input (Enter/blur commit, Esc cancel)
+  - 삭제: confirm 모달, 마지막 1개는 삭제 불가
+  - 활성 뱃지의 종목 수는 누적 리스트와 중복이라 표시 제거 (사용자 피드백)
+- **동기화 정책**:
+  - 로그인+서버 데이터 → 서버가 진실 소스, localStorage 덮어쓰기
+  - 미로그인 → localStorage만 동작 (silent fallback)
+  - stock_toolkit이 추가한 다른 탭 보존 (upsert 시 전체 tabs 교체지만 fetch에서 전체를 가져와서 보존됨)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.26s, PortfolioPage 69KB → 73KB)
+
 ### [개선] kis-proxy 시세 시장구분 J → UN (KRX+NXT 통합) (2026-05-15 17:45 KST)
 - **변경 파일**: `supabase/functions/kis-proxy/index.ts` (+1/-1)
 - **사용자 보고**: 포트폴리오·가상 계산기 종목 현재가가 애프터마켓(시간외) 가격을 못 가져옴 → 17:22 KST 시점에 15:30 정규장 종가에서 멈춤

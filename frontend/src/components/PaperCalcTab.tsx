@@ -1,32 +1,52 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react"
-import { X, RefreshCw, Search } from "lucide-react"
+import { X, RefreshCw, Search, Plus, Pencil, Check } from "lucide-react"
 import { cn, formatPrice, getChangeBgColor } from "@/lib/utils"
 import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
-
-interface PaperCalcItem {
-  id: string
-  code: string
-  name: string
-  assumedPrice: number
-  quantity: number
-  addedAt: string
-}
+import {
+  fetchPaperCalcState,
+  savePaperCalcState,
+  type PaperCalcItem,
+  type ScenarioTab,
+  type PaperCalcState,
+} from "@/lib/paper-calc-history"
 
 interface PaperCalcTabProps {
   masterStocks: { code: string; name: string; market: string }[]
 }
 
-const STORAGE_KEY = "paper-calc-items"
+const STORAGE_KEY = "paper-calc-state"
+
+function createDefaultTab(): ScenarioTab {
+  return { id: crypto.randomUUID(), name: "시나리오 1", items: [] }
+}
+
+function loadInitialState(): PaperCalcState {
+  if (typeof window === "undefined") {
+    const t = createDefaultTab()
+    return { tabs: [t], activeTabId: t.id }
+  }
+  const saved = localStorage.getItem(STORAGE_KEY)
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved) as PaperCalcState
+      if (parsed.tabs?.length > 0) return parsed
+    } catch {}
+  }
+  // legacy: 단일 items 배열 — 첫 시나리오로 마이그레이션
+  const legacy = localStorage.getItem("paper-calc-items")
+  if (legacy) {
+    try {
+      const items = JSON.parse(legacy) as PaperCalcItem[]
+      const tab: ScenarioTab = { id: crypto.randomUUID(), name: "시나리오 1", items }
+      return { tabs: [tab], activeTabId: tab.id }
+    } catch {}
+  }
+  const t = createDefaultTab()
+  return { tabs: [t], activeTabId: t.id }
+}
 
 export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
-  // 디바이스 단위 영속 (로그인 상태와 무관 — 가상 계산은 사용자 시뮬이라 본인 디바이스에 묶임).
-  // 직접 삭제(✕ 또는 '전체 지우기') 전까지 보존.
-  const [items, setItems] = useState<PaperCalcItem[]>(() => {
-    if (typeof window === "undefined") return []
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (!saved) return []
-    try { return JSON.parse(saved) as PaperCalcItem[] } catch { return [] }
-  })
+  const [state, setState] = useState<PaperCalcState>(loadInitialState)
   const [livePrices, setLivePrices] = useState<Record<string, KisStockPrice>>({})
   const [refreshing, setRefreshing] = useState(false)
 
@@ -37,10 +57,55 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
   const [kisSearching, setKisSearching] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-  }, [items])
+  const [editingTabId, setEditingTabId] = useState<string | null>(null)
+  const [editingName, setEditingName] = useState("")
 
+  const hasFetchedRef = useRef(false)
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // 활성 탭의 items (파생값)
+  const activeTab = useMemo(
+    () => state.tabs.find(t => t.id === state.activeTabId) ?? state.tabs[0],
+    [state]
+  )
+  const items = activeTab?.items ?? []
+
+  // mount 시 Supabase 동기화 (Supabase가 진실 소스)
+  useEffect(() => {
+    let cancelled = false
+    fetchPaperCalcState().then(server => {
+      if (cancelled) return
+      if (server !== null) {
+        if (server.tabs.length === 0) {
+          // 로그인 + 서버 비어있음 → 기본 탭 생성 (다음 save로 서버에도 반영)
+          const t = createDefaultTab()
+          setState({ tabs: [t], activeTabId: t.id })
+        } else {
+          const activeId = server.activeTabId && server.tabs.some(t => t.id === server.activeTabId)
+            ? server.activeTabId
+            : server.tabs[0].id
+          setState({ tabs: server.tabs, activeTabId: activeId })
+        }
+      }
+      hasFetchedRef.current = true
+    }).catch(() => { hasFetchedRef.current = true })
+    return () => { cancelled = true }
+  }, [])
+
+  // state 변경 시: localStorage 즉시 + Supabase 500ms debounce upsert
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    if (!hasFetchedRef.current) return
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+    saveTimerRef.current = setTimeout(() => {
+      savePaperCalcState(state).catch(() => {})
+    }, 500)
+    return () => {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+    }
+  }, [state])
+
+  // 활성 탭 items의 현재가 보강
   useEffect(() => {
     if (items.length === 0) return
     const codes = items.map(it => it.code).filter(c => !livePrices[c])
@@ -50,6 +115,67 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
     }).catch(() => {})
   }, [items]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ============ 활성 탭 items 변경 헬퍼 ============
+  const updateActiveTabItems = useCallback((updater: (items: PaperCalcItem[]) => PaperCalcItem[]) => {
+    setState(prev => ({
+      ...prev,
+      tabs: prev.tabs.map(t => t.id === prev.activeTabId ? { ...t, items: updater(t.items) } : t),
+    }))
+  }, [])
+
+  // ============ 시나리오 탭 관리 ============
+  const switchTab = useCallback((id: string) => {
+    setState(prev => ({ ...prev, activeTabId: id }))
+    setEditingTabId(null)
+  }, [])
+
+  const addTab = useCallback(() => {
+    setState(prev => {
+      const nextNum = prev.tabs.length + 1
+      const newTab: ScenarioTab = { id: crypto.randomUUID(), name: `시나리오 ${nextNum}`, items: [] }
+      return { tabs: [...prev.tabs, newTab], activeTabId: newTab.id }
+    })
+  }, [])
+
+  const deleteTab = useCallback((id: string) => {
+    setState(prev => {
+      if (prev.tabs.length <= 1) return prev
+      const target = prev.tabs.find(t => t.id === id)
+      if (!target) return prev
+      const itemCount = target.items.length
+      if (itemCount > 0 && !window.confirm(`"${target.name}" 시나리오를 삭제합니다 (${itemCount}개 종목). 계속할까요?`)) {
+        return prev
+      }
+      if (itemCount === 0 && !window.confirm(`"${target.name}" 시나리오를 삭제합니다. 계속할까요?`)) {
+        return prev
+      }
+      const nextTabs = prev.tabs.filter(t => t.id !== id)
+      const nextActive = prev.activeTabId === id ? nextTabs[0].id : prev.activeTabId
+      return { tabs: nextTabs, activeTabId: nextActive }
+    })
+  }, [])
+
+  const startEdit = useCallback((tab: ScenarioTab) => {
+    setEditingTabId(tab.id)
+    setEditingName(tab.name)
+  }, [])
+
+  const commitEdit = useCallback(() => {
+    if (!editingTabId) return
+    const name = editingName.trim()
+    if (!name) { setEditingTabId(null); return }
+    setState(prev => ({
+      ...prev,
+      tabs: prev.tabs.map(t => t.id === editingTabId ? { ...t, name } : t),
+    }))
+    setEditingTabId(null)
+  }, [editingTabId, editingName])
+
+  const cancelEdit = useCallback(() => {
+    setEditingTabId(null)
+  }, [])
+
+  // ============ 종목 입력 폼 ============
   const searchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase()
     if (!q || selectedStock) return []
@@ -106,19 +232,19 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
       quantity: preview.q,
       addedAt: new Date().toISOString(),
     }
-    setItems(prev => [newItem, ...prev])
+    updateActiveTabItems(prev => [newItem, ...prev])
     resetForm()
-  }, [selectedStock, preview, resetForm])
+  }, [selectedStock, preview, resetForm, updateActiveTabItems])
 
   const removeItem = useCallback((id: string) => {
-    setItems(prev => prev.filter(it => it.id !== id))
-  }, [])
+    updateActiveTabItems(prev => prev.filter(it => it.id !== id))
+  }, [updateActiveTabItems])
 
   const clearAll = useCallback(() => {
     if (items.length === 0) return
     if (!window.confirm(`${items.length}개 항목을 모두 지웁니다. 계속할까요?`)) return
-    setItems([])
-  }, [items.length])
+    updateActiveTabItems(() => [])
+  }, [items.length, updateActiveTabItems])
 
   const refresh = useCallback(async () => {
     if (refreshing || items.length === 0) return
@@ -152,6 +278,8 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
     const rate = totalInvest > 0 ? (profit / totalInvest) * 100 : 0
     return { totalInvest, totalEval, profit, rate, evalAvailable, count: items.length }
   }, [items, livePrices])
+
+  const canDelete = state.tabs.length > 1
 
   return (
     <div className="space-y-3">
@@ -204,6 +332,92 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
             </button>
           </div>
         )}
+
+        {/* 시나리오 탭 뱃지 */}
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {state.tabs.map(tab => {
+            const isActive = tab.id === state.activeTabId
+            const isEditing = editingTabId === tab.id
+            if (isEditing) {
+              return (
+                <div key={tab.id} className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/40 pl-2.5 pr-1 py-0.5">
+                  <input
+                    autoFocus
+                    type="text"
+                    value={editingName}
+                    onChange={e => setEditingName(e.target.value)}
+                    onKeyDown={e => {
+                      if (e.key === "Enter") commitEdit()
+                      else if (e.key === "Escape") cancelEdit()
+                    }}
+                    onBlur={commitEdit}
+                    className="w-24 bg-transparent text-xs font-medium focus:outline-none text-foreground"
+                    maxLength={20}
+                  />
+                  <button
+                    onClick={commitEdit}
+                    className="p-0.5 rounded-full hover:bg-primary/20 text-primary"
+                    aria-label="이름 확정"
+                  >
+                    <Check className="w-3 h-3" />
+                  </button>
+                </div>
+              )
+            }
+            return (
+              <div
+                key={tab.id}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-full text-xs transition-colors",
+                  isActive
+                    ? "bg-primary text-primary-foreground pl-2.5 pr-1 py-0.5 font-semibold"
+                    : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground px-2.5 py-1 font-medium",
+                )}
+              >
+                <button
+                  onClick={() => switchTab(tab.id)}
+                  className="truncate max-w-[140px]"
+                  title={`${tab.name} (${tab.items.length}종목)`}
+                >
+                  {tab.name}
+                  {!isActive && tab.items.length > 0 && (
+                    <span className="ml-1 text-[10px] tabular-nums opacity-60">
+                      {tab.items.length}
+                    </span>
+                  )}
+                </button>
+                {isActive && (
+                  <>
+                    <button
+                      onClick={() => startEdit(tab)}
+                      className="p-0.5 rounded-full hover:bg-primary-foreground/20"
+                      aria-label="이름 변경"
+                    >
+                      <Pencil className="w-3 h-3" />
+                    </button>
+                    {canDelete && (
+                      <button
+                        onClick={() => deleteTab(tab.id)}
+                        className="p-0.5 rounded-full hover:bg-primary-foreground/20"
+                        aria-label="시나리오 삭제"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
+            )
+          })}
+          <button
+            onClick={addTab}
+            className="inline-flex items-center gap-0.5 rounded-full bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground px-2 py-1 text-xs font-medium transition-colors"
+            aria-label="새 시나리오 추가"
+          >
+            <Plus className="w-3 h-3" />
+            <span>새 시나리오</span>
+          </button>
+        </div>
 
         {selectedStock && (
           <div className="grid grid-cols-2 gap-3">
