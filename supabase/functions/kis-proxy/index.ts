@@ -64,7 +64,7 @@ function kisHeaders(creds: KisCredentials, trId: string): Record<string, string>
 }
 
 async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {
-  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=J&FID_INPUT_ISCD=${code}`
+  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=UN&FID_INPUT_ISCD=${code}`
   const res = await fetch(url, { headers: kisHeaders(creds, "FHKST01010100") })
   const data = await res.json()
 
