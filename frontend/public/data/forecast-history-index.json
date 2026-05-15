@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-05-15 07:35:17",
+  "updated_at": "2026-05-15 09:34:03",
   "entries": [
+    {
+      "filename": "2026-05-15_0934.json",
+      "date": "2026-05-15",
+      "time": "09:34",
+      "path": "data/forecast-history/2026-05-15_0934.json"
+    },
     {
       "filename": "2026-05-15_0735.json",
       "date": "2026-05-15",
