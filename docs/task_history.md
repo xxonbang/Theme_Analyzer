@@ -6,6 +6,12 @@
 
 ## 2026-05-15
 
+### [버그픽스] PaperCalcTab iOS zoom 방지 + localStorage lazy init (2026-05-15 11:00 KST)
+- **커밋**: `92832edb`
+- **변경 파일**: `frontend/src/components/PaperCalcTab.tsx`
+- **내용**: 3개 input(검색·매수가·수량)에 `sm:text-sm` 추가(iOS Safari 16px 미만 zoom 방지). `loadedRef`로 load 완료 전 save 차단(React 18 Strict Mode 이중 마운트 시 데이터 손실 방지). 10 insertions / 4 deletions.
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.51s)
+
 ### [기능] PortfolioPage 가상 계산기(PaperCalcTab) 탭 추가 (2026-05-15 10:54 KST)
 - **변경 파일**: `frontend/src/components/PaperCalcTab.tsx` (신규), `frontend/src/components/PortfolioPage.tsx`
 - **내용**:
