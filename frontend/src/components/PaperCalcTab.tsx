@@ -31,18 +31,24 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
   const [quantity, setQuantity] = useState("")
   const [kisSearching, setKisSearching] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
+  const loadedRef = useRef(false)
 
   useEffect(() => {
+    loadedRef.current = false
     const saved = localStorage.getItem(storageKey)
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as PaperCalcItem[]
         setItems(parsed)
-      } catch { /* ignore */ }
+      } catch { setItems([]) }
+    } else {
+      setItems([])
     }
+    loadedRef.current = true
   }, [storageKey])
 
   useEffect(() => {
+    if (!loadedRef.current) return
     localStorage.setItem(storageKey, JSON.stringify(items))
   }, [items, storageKey])
 
@@ -173,7 +179,7 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="종목명 또는 코드 검색"
-                className="w-full px-3 py-2 rounded-lg border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-2 rounded-lg border bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </div>
             {searchResults.length > 0 && (
@@ -220,7 +226,7 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
                 value={assumedPrice}
                 onChange={e => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
                 placeholder={livePrices[selectedStock.code] ? formatPrice(livePrices[selectedStock.code].current_price) : "매수가"}
-                className="w-full px-3 py-2 rounded-lg border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-2 rounded-lg border bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </div>
             <div>
@@ -231,7 +237,7 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
                 value={quantity}
                 onChange={e => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
                 placeholder="수량"
-                className="w-full px-3 py-2 rounded-lg border bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-3 py-2 rounded-lg border bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </div>
           </div>
