@@ -224,7 +224,7 @@ export function IntradayInsights({
         {/* Header */}
         <div className="flex items-center gap-2 flex-wrap gap-y-1">
           <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 shrink-0" />
-          <span className="font-semibold text-sm sm:text-base whitespace-nowrap shrink-0">장중 시장 동향</span>
+          <span className="font-semibold text-sm sm:text-base whitespace-nowrap shrink-0">오늘의 시장 동향</span>
           {!viewingHistory && intradayHistory?.updated_at && (
             <span className="text-[10px] text-muted-foreground whitespace-nowrap shrink-0">
               {intradayHistory.updated_at.split(" ")[1]?.slice(0, 5)} 기준
@@ -283,7 +283,7 @@ export function IntradayInsights({
           <>
             {snap.theme_momentum.length > 0 && (
               <div>
-                <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 장중 등락률 (대장주 평균)</div>
+                <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 일간 등락률 (대장주 평균)</div>
                 <div className="grid grid-cols-2 gap-1.5">
                   {snap.theme_momentum.map(t => (
                     <div key={t.name} className="flex items-center justify-between bg-muted/50 rounded-md px-2.5 py-1.5">
@@ -298,7 +298,7 @@ export function IntradayInsights({
             )}
             {(snap.movers.gainers.length > 0 || snap.movers.losers.length > 0) && (
               <div>
-                <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">장중 모멘텀 급변 TOP5 (최근 30분 변동폭)</div>
+                <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">당일 모멘텀 급변 TOP5 (최근 30분 변동폭)</div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-0">
                   <div>
                     <div className="text-[10px] text-red-500 font-medium mb-1 flex items-center gap-0.5"><TrendingUp className="w-3 h-3" />급등 전환</div>
@@ -381,7 +381,7 @@ export function IntradayInsights({
         {/* D-1: Theme momentum */}
         {hasThemeMomentum && (
           <div>
-            <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 장중 등락률 (대장주 평균)</div>
+            <div className="text-[10px] text-muted-foreground mb-1.5 font-medium">테마별 일간 등락률 (대장주 평균)</div>
             <div className="grid grid-cols-2 gap-1.5">
               {themeMomentum.map(t => (
                 <div
@@ -410,7 +410,7 @@ export function IntradayInsights({
               className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium mb-1 hover:text-foreground transition-colors"
             >
               {showMovers ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-              장중 모멘텀 급변 TOP5 (최근 30분 변동폭)
+              당일 모멘텀 급변 TOP5 (최근 30분 변동폭)
             </button>
             {showMovers && (
               <div className="grid grid-cols-2 gap-3">

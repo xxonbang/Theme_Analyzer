@@ -6,6 +6,16 @@
 
 ## 2026-05-17
 
+### [개선] IntradayInsights 섹션 명명 정정 (2026-05-17 22:49 KST)
+- **변경 파일**: `frontend/src/components/IntradayInsights.tsx`
+- **사용자 보고**: "장중 시장 동향" 타이틀인데 데이터는 마감 직후(15:46~15:48)에만 생성됨. 17개 히스토리 모두 영업일별 1회 마감 직후 → "장중"은 명백한 오류
+- **검증**: `intraday-insights-history.json` 17 스냅샷 모두 다른 영업일, 모두 15:46~15:48 → 매 영업일 1회 마감 직후 수집 확정
+- **변경**:
+  - 메인: "장중 시장 동향" → **"오늘의 시장 동향"**
+  - sub: "테마별 장중 등락률" → **"테마별 일간 등락률"** (2곳)
+  - sub: "장중 모멘텀 급변 TOP5" → **"당일 모멘텀 급변 TOP5"** (2곳, 보조 설명 유지)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.94s)
+
 ### [기능/버그픽스] 30일 순위 + 거래 집중 지표 + 줄바꿈 + off-by-one (2026-05-17 22:41 KST)
 - **변경 파일**:
   - `frontend/src/components/PortfolioPage.tsx` (30일 순위·거래 집중·Rank30Help·infoPopup 분기, off-by-one 수정)
