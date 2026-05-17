@@ -634,12 +634,14 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
       // 30일 순위 (어제부터 29영업일 + 오늘 currentVol = 30일 비교, 1=최고)
       // changes[0]이 오늘 데이터인 경우 중복 비교 방지 — slice(1, 30)
       let rank30: number | null = null
+      let rank30Total: number | null = null
       if (currentVol > 0) {
         const historicalVols = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
         if (historicalVols.length >= 9) {  // 최소 10일 비교 데이터
           const allVols = [currentVol, ...historicalVols]
           const sorted = [...allVols].sort((a, b) => b - a)
           rank30 = sorted.indexOf(currentVol) + 1
+          rank30Total = allVols.length
         }
       }
 
@@ -726,6 +728,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
         vwapDiffPct,
         rvol,
         rank30,
+        rank30Total,
         concentration,
         alerts,
         pocPrice,
@@ -1204,7 +1207,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                         </span>
                       </span>
                     )}
-                    {h.rank30 !== null && (
+                    {h.rank30 !== null && h.rank30Total !== null && (
                       <span className="inline-flex items-center gap-0.5">
                         <button
                           onClick={() => setInfoPopup("rank30")}
@@ -1224,6 +1227,11 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                           )}
                         >
                           {h.rank30}위
+                        </span>
+                        <span className="ml-0.5 text-[9px] text-muted-foreground/60 tabular-nums">
+                          {h.rank30 === 1
+                            ? "(최고)"
+                            : `(상위 ${Math.round((h.rank30 / h.rank30Total) * 100)}%)`}
                         </span>
                       </span>
                     )}
