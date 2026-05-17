@@ -9,6 +9,8 @@ import { cn, formatPrice } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/hooks/useAuth"
 import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
+import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
+import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
   ThemeForecast, Stock,
@@ -35,120 +37,7 @@ interface PortfolioPageProps {
   history: Record<string, { changes?: { volume?: number }[] }>
 }
 
-function VwapHelp() {
-  return (
-    <>
-      <p className="leading-relaxed">
-        오늘 하루 그 종목이 <strong className="text-foreground">평균적으로 얼마에 거래됐는지</strong> 보여주는 가격이에요.
-      </p>
-      <div className="bg-muted/50 rounded-lg p-3 space-y-2 text-[13px] leading-relaxed">
-        <div className="font-semibold text-foreground/90">어떻게 보면 좋을까요?</div>
-        <div className="space-y-1.5">
-          <div>
-            <span className="inline-block px-1.5 py-0.5 rounded text-[11px] font-bold text-red-500 bg-red-500/10 mr-1">현재가 &gt; VWAP</span>
-            오늘 평균보다 비싸게 거래 중 — 매수자들이 평균 이상으로 사는 중. <strong className="text-foreground">강세 신호</strong>.
-          </div>
-          <div>
-            <span className="inline-block px-1.5 py-0.5 rounded text-[11px] font-bold text-blue-500 bg-blue-500/10 mr-1">현재가 &lt; VWAP</span>
-            오늘 평균보다 싸게 거래 중 — <strong className="text-foreground">매수 기회</strong>이거나 약세 신호.
-          </div>
-        </div>
-      </div>
-      <div className="text-[12px] text-muted-foreground bg-muted/30 rounded-md px-3 py-2">
-        계산식: <span className="font-mono tabular-nums">누적 거래대금 ÷ 누적 거래량</span>
-      </div>
-    </>
-  )
-}
-
-function Rank30Help() {
-  return (
-    <>
-      <p className="leading-relaxed">
-        <strong className="text-foreground">이 종목 자기 자신</strong>의 지난 30거래일 거래량 중 오늘이 몇 등인지 보여줘요. <span className="text-muted-foreground/80">(다른 종목과 비교 X)</span>
-      </p>
-      <div className="bg-muted/50 rounded-lg p-3 space-y-1.5 text-[13px] leading-relaxed">
-        <div className="font-semibold text-foreground/90 mb-1">등급 기준</div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-red-500 shrink-0 w-20">1위</span>
-          <span>30일 중 거래량 최고 — <strong className="text-foreground">역대급 이슈</strong></span>
-        </div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-red-500 shrink-0 w-20">상위 10%</span>
-          <span>~3등 내 — 매우 활발</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-foreground/85 shrink-0 w-20">상위 50%</span>
-          <span>평소 수준</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-muted-foreground shrink-0 w-20">상위 90%</span>
-          <span>매우 한산</span>
-        </div>
-      </div>
-      <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-[13px] leading-relaxed">
-        <div className="font-semibold text-amber-700 dark:text-amber-400 mb-1">💡 RVOL 함정 검증</div>
-        <p>RVOL이 높은데 30일 순위가 평범하면 → 20일 평균이 우연히 낮았을 뿐(가짜 신호). <strong className="text-foreground">두 지표 모두 상위면 진짜 폭증.</strong></p>
-      </div>
-    </>
-  )
-}
-
-function RvolHelp() {
-  return (
-    <>
-      <p className="leading-relaxed">
-        지금 시각까지의 거래량이 <strong className="text-foreground">평소 대비 몇 배</strong>인지 알려주는 지표예요.
-      </p>
-      <p className="text-[13px] text-muted-foreground leading-relaxed">
-        최근 20일 평균 거래량과 비교하되, 정규장 경과 시간을 반영해서 공정하게 계산합니다.
-      </p>
-      <div className="bg-muted/50 rounded-lg p-3 space-y-1.5 text-[13px] leading-relaxed">
-        <div className="font-semibold text-foreground/90 mb-1">기준값 읽는 법</div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-foreground/85 shrink-0 w-14">1.0x</span>
-          <span>평소 수준</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-amber-500 shrink-0 w-14">1.2~2.0x</span>
-          <span>다소 활발 — 무언가 관심을 끄는 중</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-red-500 shrink-0 w-14">≥ 2.0x</span>
-          <span>매우 활발 — <strong className="text-foreground">뉴스/이슈/추세 변화 가능성</strong></span>
-        </div>
-        <div className="flex gap-2">
-          <span className="font-mono font-bold tabular-nums text-muted-foreground shrink-0 w-14">&lt; 1.0x</span>
-          <span>평소보다 조용</span>
-        </div>
-      </div>
-      <div className="text-[12px] text-muted-foreground bg-muted/30 rounded-md px-3 py-2">
-        계산식: <span className="font-mono tabular-nums">현재 누적 거래량 ÷ (20일 평균 × 정규장 경과 비율)</span>
-      </div>
-    </>
-  )
-}
-
-// 정규장 09:00~15:30 경과 비율 (KST). 장 시작 전이면 null.
-// 휴장일(주말)에는 KIS UN 시세가 직전 영업일 마감 데이터를 반환하므로 elapsed=1로 처리
-// — VWAP·현재가 등 다른 지표와 동일한 정책으로 일관성 유지.
-function getMarketElapsedRatio(): number | null {
-  const now = new Date()
-  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }))
-  const day = kst.getDay()  // 0=일, 6=토
-  if (day === 0 || day === 6) return 1  // 휴장일: 직전 영업일 마감 데이터 기준
-  const minutes = kst.getHours() * 60 + kst.getMinutes()
-  const open = 9 * 60
-  const close = 15 * 60 + 30
-  if (minutes < open) return null
-  if (minutes >= close) return 1
-  return (minutes - open) / (close - open)
-}
-
-// CLEANUP after 2026-05-31: stock-history가 UN으로 완전 마이그레이션되면 분기 제거.
-// 이 cutoff 이전엔 live.krx_volume(KRX 단독) ÷ avgVol(KRX 단독) 사용,
-// 이후엔 live.volume(UN) ÷ avgVol(UN) 사용 — 데이터 출처 일치성 확보.
-const RVOL_HISTORY_UN_CUTOFF_MS = new Date("2026-05-31T15:30:00+09:00").getTime()
+// 시장 지표 헬퍼는 lib/market-metrics.ts에서 import (StockCard와 공유)
 
 // --- Supabase persistence ---
 
@@ -235,15 +124,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
   const [calcOpenId, setCalcOpenId] = useState<string | null>(null)
   const [showAvgSheet, setShowAvgSheet] = useState(false)
   const [activeTab, setActiveTab] = useState<"holdings" | "calc">("holdings")
-  const [infoPopup, setInfoPopup] = useState<"vwap" | "rvol" | "rank30" | null>(null)
-
-  // ESC 키로 정보 팝업 닫기
-  useEffect(() => {
-    if (!infoPopup) return
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setInfoPopup(null) }
-    window.addEventListener("keydown", handler)
-    return () => window.removeEventListener("keydown", handler)
-  }, [infoPopup])
+  const [infoPopup, setInfoPopup] = useState<MetricsPopupType | null>(null)
 
   // Add form state
   const [searchQuery, setSearchQuery] = useState("")
@@ -607,56 +488,21 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
       const evalAmount = currentPrice ? currentPrice * h.quantity : null
       const investAmount = h.avgPrice * h.quantity
 
-      // 2. VWAP / RVOL (실시간)
-      let vwap: number | null = null
-      let vwapDiffPct: number | null = null
-      if (live && live.volume > 0 && live.trading_value > 0) {
-        vwap = live.trading_value / live.volume
-        if (currentPrice) vwapDiffPct = ((currentPrice - vwap) / vwap) * 100
-      }
-      let rvol: number | null = null
+      // 2. VWAP / RVOL / 30일 순위 / 거래 집중 (공통 모듈)
+      const { vwap, vwapDiffPct } = live
+        ? calculateVwap(live.trading_value, live.volume, currentPrice)
+        : { vwap: null, vwapDiffPct: null }
       const hist = history[h.code]
       const changes = hist?.changes ?? []
-      // 어제부터 20영업일 (오늘 분 평균 오염 방지)
-      const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
       // CLEANUP after 2026-05-31: cutoff 이후 항상 live.volume(UN) 사용.
       const currentVol = live
         ? (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS ? (live.krx_volume ?? 0) : live.volume)
         : 0
-      if (recent20.length > 0 && live) {
-        const avgVol = recent20.reduce((a, b) => a + b, 0) / recent20.length
-        const elapsed = getMarketElapsedRatio()
-        if (avgVol > 0 && elapsed !== null && elapsed > 0 && currentVol > 0) {
-          rvol = currentVol / (avgVol * elapsed)
-        }
-      }
-
-      // 30일 순위 (어제부터 29영업일 + 오늘 currentVol = 30일 비교, 1=최고)
-      // changes[0]이 오늘 데이터인 경우 중복 비교 방지 — slice(1, 30)
-      let rank30: number | null = null
-      let rank30Total: number | null = null
-      if (currentVol > 0) {
-        const historicalVols = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
-        if (historicalVols.length >= 9) {  // 최소 10일 비교 데이터
-          const allVols = [currentVol, ...historicalVols]
-          const sorted = [...allVols].sort((a, b) => b - a)
-          rank30 = sorted.indexOf(currentVol) + 1
-          rank30Total = allVols.length
-        }
-      }
-
-      // 당일 거래 집중 (상위 3개 가격대 비중)
-      let concentration: { price: number; pct: number }[] | null = null
-      const todayProfile = volumeProfileData?.profiles?.[h.code]?.today
-      if (todayProfile?.bins && todayProfile.bins.length > 0) {
-        const total = todayProfile.bins.reduce((a, b) => a + (b.volume ?? 0), 0)
-        if (total > 0) {
-          concentration = [...todayProfile.bins]
-            .sort((a, b) => (b.volume ?? 0) - (a.volume ?? 0))
-            .slice(0, 3)
-            .map(b => ({ price: b.price, pct: ((b.volume ?? 0) / total) * 100 }))
-        }
-      }
+      const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
+      const rvol = calculateRvol(currentVol, recent20, getMarketElapsedRatio())
+      const historicalVols30 = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
+      const { rank: rank30, total: rank30Total } = calculateRank30(currentVol, historicalVols30)
+      const concentration = calculateConcentration(volumeProfileData?.profiles?.[h.code]?.today?.bins)
 
       // 3. 손절/익절 알림
       const alerts = profitRate !== null
@@ -1431,38 +1277,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
       )}
       </>}
 
-      {/* VWAP / RVOL 설명 팝업 */}
-      {infoPopup && (
-        <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setInfoPopup(null)}
-        >
-          <div
-            onClick={e => e.stopPropagation()}
-            className="bg-card border border-border rounded-2xl shadow-2xl max-w-md w-full max-h-[85vh] overflow-y-auto"
-          >
-            <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-border/40">
-              <h3 className="text-base font-bold text-foreground">
-                {infoPopup === "vwap" ? "VWAP — 거래량 가중 평균가"
-                  : infoPopup === "rvol" ? "RVOL — 상대 거래량"
-                  : "30일 순위 — 자기 자신 비교"}
-              </h3>
-              <button
-                onClick={() => setInfoPopup(null)}
-                className="text-muted-foreground hover:text-foreground p-1 -mr-1 transition-colors"
-                aria-label="닫기"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="px-5 py-4 text-sm text-foreground/90 space-y-3">
-              {infoPopup === "vwap" ? <VwapHelp />
-                : infoPopup === "rvol" ? <RvolHelp />
-                : <Rank30Help />}
-            </div>
-          </div>
-        </div>
-      )}
+      <MetricsInfoModal popup={infoPopup} onClose={() => setInfoPopup(null)} />
     </div>
   )
 }

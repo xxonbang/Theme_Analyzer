@@ -50,6 +50,11 @@ jobs:
 
           ## 제거 대상
 
+          0. **(별도 작업 필요) main.py / kis_rank.py UN 마이그레이션**
+             - latest.json의 stock.volume이 KRX 단독(J)이라 StockCard RVOL/30일 순위가 stock-history(UN)와 단위 불일치
+             - main.py에서 거래량 순위 등 수집 시 `market_div="UN"` 적용 필요
+             - 적용 후 latest.json 데이터가 UN으로 차오르면 cutoff 후에도 일치
+
           1. **supabase/functions/kis-proxy/index.ts**
              - `RVOL_HISTORY_UN_CUTOFF_MS` 상수
              - `fetchStockPriceMarket` 헬퍼 (또는 J 분기만 제거)

@@ -1,5 +1,7 @@
 import { useState, useEffect, Fragment, memo } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles, HelpCircle } from "lucide-react"
+import { getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
+import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -38,6 +40,7 @@ interface StockCardProps {
 export const StockCard = memo(function StockCard({ stock, history, news, type, investorInfo, investorEstimated, investorUpdatedAt, memberInfo, criteria, investorIntraday, isAdmin, dataTimestamp, volumeProfile, vpUpdatedAt, intradayDays, fundamental }: StockCardProps) {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false)
   const [showRankTip, setShowRankTip] = useState(false)
+  const [metricsPopup, setMetricsPopup] = useState<MetricsPopupType | null>(null)
   useEffect(() => { if (showRankTip) { const t = setTimeout(() => setShowRankTip(false), 2000); return () => clearTimeout(t) } }, [showRankTip])
   const [showCriteriaPopup, setShowCriteriaPopup] = useState(false)
   const [showPriceHistory, setShowPriceHistory] = useState(false)
@@ -59,6 +62,17 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
   const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
+
+  // VWAP / RVOL / 30일 순위 / 거래 집중 — 공통 모듈로 계산.
+  // 데이터 단위: stock.volume = KRX 단독(J). cutoff 5/31 후 stock-history(UN) 단위와 불일치 가능 (main.py UN 마이그레이션 필요 — 별도 작업).
+  const { vwap, vwapDiffPct } = calculateVwap(stock.trading_value ?? 0, stock.volume ?? 0, stock.current_price)
+  const changes = history?.changes ?? []
+  const currentVol = stock.volume ?? 0
+  const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
+  const rvol = calculateRvol(currentVol, recent20, getMarketElapsedRatio())
+  const historicalVols30 = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
+  const { rank: rank30, total: rank30Total } = calculateRank30(currentVol, historicalVols30)
+  const concentration = calculateConcentration(volumeProfile?.today?.bins)
   const hasNews = news && news.news && news.news.length > 0
   const allMet = criteria?.all_met ?? false
   const shortWarning = isAdmin && criteria?.short_selling?.met
@@ -323,6 +337,86 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 )
               })()}
             </div>
+
+            {/* VWAP / RVOL / 30일 순위 / 거래 집중 */}
+            {(vwap !== null || rvol !== null || rank30 !== null) && (
+              <div className="mt-1.5 pt-1.5 border-t border-border/40 space-y-0.5">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] text-muted-foreground">
+                  {vwap !== null && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("vwap") }}
+                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                        aria-label="VWAP 설명 보기"
+                      >
+                        VWAP
+                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                      </button>{" "}
+                      <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(vwap))}원</span>
+                      {vwapDiffPct !== null && (
+                        <span className={cn("ml-1 font-medium tabular-nums", vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500")}>
+                          ({vwapDiffPct >= 0 ? "+" : ""}{vwapDiffPct.toFixed(2)}%)
+                        </span>
+                      )}
+                    </span>
+                  )}
+                  {rvol !== null && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("rvol") }}
+                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                        aria-label="RVOL 설명 보기"
+                      >
+                        RVOL
+                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                      </button>{" "}
+                      <span className={cn("font-medium tabular-nums",
+                        rvol >= 2 ? "text-red-500" : rvol >= 1.2 ? "text-amber-500" : "text-foreground/85")}>
+                        {rvol.toFixed(2)}x
+                      </span>
+                    </span>
+                  )}
+                  {rank30 !== null && rank30Total !== null && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("rank30") }}
+                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                        aria-label="30일 순위 설명 보기"
+                      >
+                        30일 순위
+                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                      </button>{" "}
+                      <span className={cn("font-medium tabular-nums",
+                        rank30 === 1 ? "text-red-500 font-bold"
+                          : rank30 <= 3 ? "text-red-500"
+                          : rank30 <= 15 ? "text-foreground/85"
+                          : "text-muted-foreground")}>
+                        {rank30}위
+                      </span>
+                      <span className="ml-0.5 text-[9px] text-muted-foreground/60 tabular-nums">
+                        {rank30 === 1 ? "(최고)" : `(상위 ${Math.round((rank30 / rank30Total) * 100)}%)`}
+                      </span>
+                    </span>
+                  )}
+                </div>
+                {concentration && concentration.length > 0 && (
+                  <div className="text-[10px] text-muted-foreground/80">
+                    <span className="text-muted-foreground">거래 집중</span>
+                    {" "}
+                    <span className="tabular-nums">
+                      {concentration.map((c, i) => (
+                        <span key={i}>
+                          {i > 0 && <span className="mx-1 text-muted-foreground/40">·</span>}
+                          {formatPrice(c.price)}원
+                          <span className="ml-0.5 text-muted-foreground/60">({c.pct.toFixed(0)}%)</span>
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* 거래 차트 팝업 */}
             {showTradingChart && history?.changes && (
               <TradingChartPopup
@@ -702,6 +796,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
           )}
         </div>
       </CardContent>
+      <MetricsInfoModal popup={metricsPopup} onClose={() => setMetricsPopup(null)} />
     </Card>
   )
 })

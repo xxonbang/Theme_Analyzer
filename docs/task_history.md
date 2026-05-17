@@ -6,6 +6,22 @@
 
 ## 2026-05-17
 
+### [기능/리팩토링] StockCard에 VWAP/RVOL/30일 순위/거래 집중 적용 + 공통 모듈 추출 (2026-05-17 23:16 KST)
+- **변경 파일**:
+  - `frontend/src/lib/market-metrics.ts` (신규, +69) — VWAP/RVOL/Rank30/Concentration 계산 + getMarketElapsedRatio + cutoff 상수
+  - `frontend/src/components/MetricsInfoModal.tsx` (신규, +138) — VwapHelp/RvolHelp/Rank30Help + 통합 모달 컴포넌트
+  - `frontend/src/components/PortfolioPage.tsx` (리팩토링, 인라인 코드 제거 → 공통 모듈 사용)
+  - `frontend/src/components/StockCard.tsx` (+90 — 계산 + UI + 모달)
+  - `.github/workflows/rvol-cleanup-reminder.yml` (cleanup 대상에 main.py UN 마이그레이션 추가)
+- **목적**: VWAP/RVOL/30일 순위/거래 집중 4개 지표를 메인 대시보드 StockCard에도 적용 (사용자 요청, 옵션 a)
+- **공통화**: PortfolioPage·StockCard에서 동일 로직 사용. 향후 Help 텍스트 변경 시 한 곳만 수정
+- **StockCard UI 위치**: 거래 박스 row 다음 + border-t로 구분
+- **데이터 단위 주의**:
+  - StockCard는 latest.json의 stock.volume (KRX 단독 J)
+  - stock-history는 5/17부터 UN 수집 → 5/31 cutoff까지 혼재, 그 후 UN 정착
+  - cutoff 후 stock.volume(J) vs avgVol(UN) 영구 불일치 가능 → main.py UN 마이그레이션이 cleanup reminder에 포함
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.13s, PortfolioPage 73KB → 76KB, index 663KB → 676KB)
+
 ### [UI] 30일 순위 옆 백분위(상위 N%) 표시 (2026-05-17 22:58 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **사용자 보고**: "8위"만 표시되면 상위 몇%인지 직관적 이해 어려움
