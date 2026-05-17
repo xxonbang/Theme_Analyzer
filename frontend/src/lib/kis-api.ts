@@ -9,6 +9,7 @@ export interface KisStockPrice {
   change_amount: number
   volume: number
   trading_value: number
+  krx_volume?: number  // CLEANUP after 2026-05-31: stock-history UN 마이그레이션 완료 후 제거
   market_cap: number
   w52_hgpr: number
   w52_lwpr: number

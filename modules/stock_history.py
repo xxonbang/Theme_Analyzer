@@ -31,7 +31,7 @@ class StockHistoryAPI:
             {"20260227": 40374743, ...} 날짜→거래량 딕셔너리
         """
         try:
-            result = self.client.get_stock_daily_ohlcv(stock_code)
+            result = self.client.get_stock_daily_ohlcv(stock_code, market_div="UN")
             if result.get("rt_cd") != "0":
                 return {}
 
@@ -68,7 +68,7 @@ class StockHistoryAPI:
             }
         """
         try:
-            result = self.client.get_stock_daily_price(stock_code, adj_price=False)
+            result = self.client.get_stock_daily_price(stock_code, adj_price=False, market_div="UN")
 
             if result.get("rt_cd") != "0":
                 return {"code": stock_code, "changes": [], "total_change_rate": 0}
@@ -84,7 +84,7 @@ class StockHistoryAPI:
                         new_end = (oldest_dt - timedelta(days=1)).strftime("%Y%m%d")
                         new_start = (oldest_dt - timedelta(days=180)).strftime("%Y%m%d")
                         result2 = self.client.get_stock_daily_price(
-                            stock_code, start_date=new_start, end_date=new_end, adj_price=False
+                            stock_code, start_date=new_start, end_date=new_end, adj_price=False, market_div="UN"
                         )
                         if result2.get("rt_cd") == "0":
                             extra = result2.get("output2", [])

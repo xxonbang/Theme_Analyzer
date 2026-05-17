@@ -1,0 +1,77 @@
+name: RVOL Cleanup Reminder
+
+# 2026-05-17 RVOL 데이터 출처 일치성 정정 시점에 추가된 임시 워크플로.
+# cutoff 2026-05-31에 1회만 실행되어 Cleanup Issue를 자동 생성한다.
+# Issue 처리 완료 후 이 워크플로 자체도 제거 가능.
+
+on:
+  schedule:
+    # 2026-05-31 00:00 UTC (KST 09:00) — 매년 5월 31일 자정에 실행되지만
+    # 이슈 중복 방지 로직으로 1회만 생성됨.
+    - cron: "0 0 31 5 *"
+  workflow_dispatch: {}
+
+jobs:
+  create-cleanup-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Skip if cutoff not reached
+        id: gate
+        run: |
+          NOW_TS=$(date -u +%s)
+          CUTOFF_TS=$(date -u -d "2026-05-31 06:30:00" +%s)  # KST 15:30 = UTC 06:30
+          if [ "$NOW_TS" -lt "$CUTOFF_TS" ]; then
+            echo "cutoff not reached yet (now=$NOW_TS cutoff=$CUTOFF_TS)"
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Check existing cleanup issue
+        if: steps.gate.outputs.proceed == 'true'
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COUNT=$(gh issue list --repo "${{ github.repository }}" --search "RVOL cleanup in:title" --state all --json number --jq 'length')
+          echo "existing=$COUNT" >> $GITHUB_OUTPUT
+      - name: Create cleanup issue
+        if: steps.gate.outputs.proceed == 'true' && steps.check.outputs.existing == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "RVOL cleanup: 옵션 1 임시 코드 제거 (cutoff 도래)" \
+            --body "$(cat <<'EOF'
+          stock-history.json이 UN(KRX+NXT 통합)으로 충분히 마이그레이션되었습니다.
+          아래 임시 코드를 제거해주세요:
+
+          ## 제거 대상
+
+          1. **supabase/functions/kis-proxy/index.ts**
+             - `RVOL_HISTORY_UN_CUTOFF_MS` 상수
+             - `fetchStockPriceMarket` 헬퍼 (또는 J 분기만 제거)
+             - `fetchStockPrice`의 J 별도 호출 + `krx_volume` 응답 필드
+             - 재배포: `supabase functions deploy kis-proxy`
+
+          2. **frontend/src/lib/kis-api.ts**
+             - `KisStockPrice.krx_volume` 필드
+
+          3. **frontend/src/components/PortfolioPage.tsx**
+             - `RVOL_HISTORY_UN_CUTOFF_MS` 상수
+             - RVOL 계산 분기 (cutoff 분기 제거, 항상 `live.volume` 사용)
+
+          4. **이 워크플로 자체 제거**
+             - `.github/workflows/rvol-cleanup-reminder.yml`
+
+          ## 컨텍스트
+          - 2026-05-17 RVOL 검증에서 stock-history(J) vs kis-proxy(UN) 데이터 출처 불일치 발견
+          - 옵션 2 (stock-history를 UN으로 변경) + 10일 대기 동안 옵션 1 (kis-proxy KRX 별도 호출) 임시 적용
+          - 2026-05-31부터 stock-history의 20일치가 모두 UN 데이터로 차오름 → 옵션 1 불필요
+
+          ## 검증
+          - 정리 PR 머지 후 005930 RVOL이 일관성 있는 값으로 표시되는지 확인
+          EOF
+          )"

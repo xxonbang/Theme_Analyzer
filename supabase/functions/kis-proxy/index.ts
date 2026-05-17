@@ -63,16 +63,33 @@ function kisHeaders(creds: KisCredentials, trId: string): Record<string, string>
   }
 }
 
-async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {
-  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=UN&FID_INPUT_ISCD=${code}`
+// CLEANUP after 2026-05-31: stock-history가 UN으로 전환된 후 KRX 단독 거래량은 불필요.
+// 이 함수 + 호출부 + krx_volume 필드를 제거 가능.
+const RVOL_HISTORY_UN_CUTOFF_MS = new Date("2026-05-31T15:30:00+09:00").getTime()
+
+async function fetchStockPriceMarket(
+  creds: KisCredentials,
+  code: string,
+  marketDiv: "J" | "NX" | "UN",
+): Promise<{ output: Record<string, string> | null; errorMsg: string | null }> {
+  const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=${marketDiv}&FID_INPUT_ISCD=${code}`
   const res = await fetch(url, { headers: kisHeaders(creds, "FHKST01010100") })
   const data = await res.json()
+  if (data.rt_cd !== "0") return { output: null, errorMsg: data.msg1 || `rt_cd=${data.rt_cd}` }
+  return { output: data.output, errorMsg: null }
+}
 
-  if (data.rt_cd !== "0") {
-    return { price: null, errorMsg: data.msg1 || `rt_cd=${data.rt_cd}` }
+async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {
+  const { output: o, errorMsg } = await fetchStockPriceMarket(creds, code, "UN")
+  if (!o) return { price: null, errorMsg }
+
+  // CLEANUP after 2026-05-31: cutoff 도래 후 KRX 별도 호출 자동 stop, krx_volume undefined.
+  let krxVolume: number | undefined
+  if (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS) {
+    const { output: oKrx } = await fetchStockPriceMarket(creds, code, "J")
+    if (oKrx) krxVolume = parseInt(oKrx.acml_vol) || 0
   }
 
-  const o = data.output
   return {
     price: {
       code,
@@ -82,6 +99,7 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
       change_amount: parseInt(o.prdy_vrss) || 0,
       volume: parseInt(o.acml_vol) || 0,
       trading_value: parseInt(o.acml_tr_pbmn) || 0,  // 누적 거래대금 (VWAP 계산용)
+      ...(krxVolume !== undefined ? { krx_volume: krxVolume } : {}),  // CLEANUP after 2026-05-31
       market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
       w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,
       w52_lwpr: parseInt(o.stck_dryy_lwpr) || 0,

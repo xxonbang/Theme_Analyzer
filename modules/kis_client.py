@@ -559,8 +559,13 @@ class KISClient:
         adj_price: bool = True,
         start_date: str = None,
         end_date: str = None,
+        market_div: str = "J",
     ) -> Dict[str, Any]:
-        """국내주식기간별시세 조회 (일봉/주봉/월봉)"""
+        """국내주식기간별시세 조회 (일봉/주봉/월봉)
+
+        market_div: "J"=KRX, "NX"=NXT, "UN"=KRX+NXT 통합 (거래량 합산).
+        stock-history 갱신은 "UN"(통합) 사용 — 현재가/RVOL 일관성.
+        """
         path = "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
         tr_id = "FHKST03010100"
 
@@ -570,7 +575,7 @@ class KISClient:
             start_date = (datetime.now(KST) - timedelta(days=300)).strftime("%Y%m%d")
 
         params = {
-            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_MRKT_DIV_CODE": market_div,
             "FID_INPUT_ISCD": stock_code,
             "FID_INPUT_DATE_1": start_date,
             "FID_INPUT_DATE_2": end_date,
@@ -583,17 +588,20 @@ class KISClient:
         self,
         stock_code: str,
         period: str = "D",
+        market_div: str = "J",
     ) -> Dict[str, Any]:
         """주식현재가 일별 시세 조회 (최근 30일, 거래량 포함)
 
         inquire-daily-itemchartprice(FHKST03010100)와 달리
         거래량(acml_vol)을 정확히 반환합니다.
+
+        market_div: "J"=KRX, "UN"=KRX+NXT 통합. stock-history는 "UN".
         """
         path = "/uapi/domestic-stock/v1/quotations/inquire-daily-price"
         tr_id = "FHKST01010400"
 
         params = {
-            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_COND_MRKT_DIV_CODE": market_div,
             "FID_INPUT_ISCD": stock_code,
             "FID_PERIOD_DIV_CODE": period,
             "FID_ORG_ADJ_PRC": "0000",

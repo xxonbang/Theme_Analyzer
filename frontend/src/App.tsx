@@ -32,7 +32,8 @@ import { useStockHistory } from "@/hooks/useStockHistory"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { useScrollLock } from "@/hooks/useScrollLock"
 import { MacroIndicators } from "@/components/MacroIndicators"
-import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X } from "lucide-react"
+import { Loader2, ArrowLeft, Calendar, Clock, ChevronUp, Search, X, History as HistoryIcon } from "lucide-react"
+import { getRecentSearches, addRecentSearch, removeRecentSearch, clearRecentSearches } from "@/lib/recent-search"
 import { cn, getWeekday } from "@/lib/utils"
 import type { HistoryEntry } from "@/types/history"
 import type { TabType, FluctuationMode, CompositeMode, Stock } from "@/types/stock"
@@ -52,6 +53,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
   onClose: () => void
 }) {
   const [query, setQuery] = useState("")
+  const [recent, setRecent] = useState<string[]>(() => getRecentSearches())
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -65,6 +67,28 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
   }, [onClose])
+
+  const handleSelect = useCallback((code: string) => {
+    setRecent(addRecentSearch(code))
+    onSelect(code)
+  }, [onSelect])
+
+  const handleRemoveRecent = useCallback((code: string) => {
+    setRecent(removeRecentSearch(code))
+  }, [])
+
+  const handleClearRecent = useCallback(() => {
+    clearRecentSearches()
+    setRecent([])
+  }, [])
+
+  // 최근검색 → 종목 매칭 (마스터에 없는 종목은 코드만 표시)
+  const recentStocks = useMemo(() => {
+    return recent.map(code => {
+      const stock = stocks.find(s => s.code === code)
+      return stock ? { ...stock, _matched: true as const } : { code, name: code, change_rate: 0, tabs: [], _matched: false as const }
+    })
+  }, [recent, stocks])
 
   const filtered = useMemo(() => {
     if (!query.trim()) return []
@@ -97,6 +121,58 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
             닫기
           </button>
         </div>
+        {/* 최근검색 (query 비어있을 때만) */}
+        {!query.trim() && recent.length > 0 && (
+          <div className="mt-2 border-t border-border/30 pt-1.5">
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                <HistoryIcon className="w-3 h-3" />
+                최근검색
+              </span>
+              <button
+                onClick={handleClearRecent}
+                className="text-[10px] text-muted-foreground hover:text-destructive transition-colors"
+              >
+                전체 지우기
+              </button>
+            </div>
+            <div className="max-h-64 overflow-y-auto">
+              {recentStocks.map(s => {
+                const isUp = s.change_rate > 0
+                const isDown = s.change_rate < 0
+                return (
+                  <div key={s.code} className="group flex items-center w-full hover:bg-muted/60 rounded-md transition-colors">
+                    <button
+                      onClick={() => handleSelect(s.code)}
+                      className="flex-1 flex items-center justify-between px-2 py-2 text-left min-w-0"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className={cn("text-sm font-medium truncate", !s._matched && "text-muted-foreground")}>{s.name}</span>
+                        <span className="text-[10px] text-muted-foreground/60 tabular-nums shrink-0">{s.code}</span>
+                      </div>
+                      {s._matched && (
+                        <span className={cn(
+                          "text-xs font-semibold tabular-nums shrink-0",
+                          isUp ? "text-red-500" : isDown ? "text-blue-500" : "text-foreground/70"
+                        )}>
+                          {isUp ? "+" : ""}{s.change_rate.toFixed(2)}%
+                        </span>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleRemoveRecent(s.code)}
+                      className="px-2 py-2 text-muted-foreground/40 hover:text-destructive transition-colors"
+                      aria-label="최근검색에서 제거"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {filtered.length > 0 && (
           <div className="mt-2 max-h-64 overflow-y-auto border-t border-border/30 pt-1">
             {filtered.map(s => {
@@ -105,7 +181,7 @@ function StockSearchPanel({ stocks, onSelect, onClose }: {
               return (
                 <button
                   key={s.code}
-                  onClick={() => onSelect(s.code)}
+                  onClick={() => handleSelect(s.code)}
                   className="w-full flex items-center justify-between px-2 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
                 >
                   <div className="flex items-center gap-2 min-w-0">

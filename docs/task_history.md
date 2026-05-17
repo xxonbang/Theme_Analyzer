@@ -6,6 +6,74 @@
 
 ## 2026-05-17
 
+### [기능] 헤더 종목 검색에 최근검색 영역 추가 (2026-05-17 22:21 KST)
+- **변경 파일**:
+  - `frontend/src/lib/recent-search.ts` (신규, +32)
+  - `frontend/src/App.tsx` (StockSearchPanel +60)
+- **목적**: 사용자가 자주 보는 종목 빠른 재접근
+- **저장 정책**:
+  - localStorage 키 `recent-stock-searches` (디바이스별)
+  - 최대 10개, 중복 제거, 최신 우선
+  - 검색 결과에서 선택했을 때만 저장 (타이핑만으론 저장 안 함)
+- **노출 조건**: 검색 input 비어있을 때만 표시 → 자동완성과 자연스럽게 전환
+- **UI**:
+  - 영역 헤더: 🕐 "최근검색" + "전체 지우기" 텍스트 버튼
+  - 각 항목: 종목명 + 코드 + 등락률(한국 색상) + 개별 ✕
+  - 마스터에 없는 종목(상폐 등): 회색 처리, 등락률 미표시
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.66s)
+
+### [버그픽스] RVOL 휴장일 정책 일관성 + Edge Function 캐시 이슈 재배포 (2026-05-17 22:08 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (1줄)
+- **사용자 보고 2건 연속**:
+  1. "RVOL 값 왜 안보여?" — 휴장일(일요일) 차단으로 미표시
+  2. "휴장일이라 안보이는거면 VWAP도 안보여야지" — 일관성 지적
+- **정책 변경**: 휴장일에 `getMarketElapsedRatio()`가 null이 아닌 **1 반환** (= VWAP·현재가와 동일하게 직전 영업일 마감 데이터 기준)
+  - KIS UN 시세가 휴장일에 직전 영업일 누적값을 반환하므로 자연스러움
+  - 다른 지표(VWAP, 현재가, 등락률)와 정책 일치
+- **재배포 이슈**: 사용자 새로고침 후에도 RVOL 미표시 → 진단 결과 Edge Function 응답에 `krx_volume` 누락 (옛 캐시된 응답으로 `volume_krx` 등 다른 키로 응답)
+  - `supabase functions deploy kis-proxy` 재실행 → 즉시 정상화
+  - 재배포 후 실측: 005930 krx_volume=38,075,487 · 000660 krx_volume=7,485,233
+- **예상 표시값**: 005930 RVOL **1.37x** (amber) · 000660 RVOL **1.57x** (amber)
+- **검증**: tsc PASS · build PASS (3.59s)
+
+### [버그픽스/개선] RVOL 데이터 출처 일치성 정정 + 휴장일/off-by-one + 설명 팝업 + cleanup 자동화 (2026-05-17 21:57 KST)
+- **변경 파일**:
+  - `modules/kis_client.py` (+8 — market_div 파라미터 추가, J 기본 유지)
+  - `modules/stock_history.py` (+3 — 3개 호출에 market_div="UN" 명시)
+  - `supabase/functions/kis-proxy/index.ts` (+25 — cutoff 분기 + KRX 별도 호출 + krx_volume 응답)
+  - `frontend/src/lib/kis-api.ts` (+1 — krx_volume?: number)
+  - `frontend/src/components/PortfolioPage.tsx` (+90 — VWAP/RVOL 설명 팝업 + cutoff 분기 + 휴장일 + off-by-one)
+  - `.github/workflows/rvol-cleanup-reminder.yml` (신규)
+- **검증 (이번에 발견된 결정적 오류)**:
+  - VWAP 로직 정상 ✅ (분자/분모 모두 UN, 005930 280,123원 검증)
+  - **🔴 RVOL 데이터 출처 불일치**:
+    - 평균: stock-history.json은 `inquire-daily-itemchartprice` (J=KRX 단독)
+    - 현재: kis-proxy `inquire-price` (UN=KRX+NXT)
+    - 005930 실측 UN/KRX = 1.91배 → RVOL이 약 1.91배 부풀림
+- **정정 방향**: 옵션 2 (stock-history → UN) + 10일 대기 동안 옵션 1 (kis-proxy KRX 별도) + cutoff 자동 전환
+  - **cutoff**: `2026-05-31T15:30:00+09:00` (영업일 +10일 안정 마진)
+  - cutoff 이전: `live.krx_volume / (avgVol_J × elapsed)` (양쪽 모두 J)
+  - cutoff 이후: `live.volume / (avgVol_UN × elapsed)` (양쪽 모두 UN, stock-history는 5/17부터 UN 수집)
+  - kis-proxy도 동일 cutoff 분기 — 이후 J 별도 호출 자동 skip
+- **부가 정정**:
+  - **off-by-one**: `changes.slice(0, 20)` → `slice(1, 21)` (어제부터 20영업일, 오늘 미포함)
+  - **휴장일**: `getMarketElapsedRatio()`에 주말(`getDay()===0||6`) 차단, RVOL 미표시
+- **자동 cleanup**: `.github/workflows/rvol-cleanup-reminder.yml`
+  - cron `0 0 31 5 *` — 2026-05-31 00:00 UTC 실행
+  - cutoff 시각 + 중복 issue 없음 확인 후 cleanup issue 자동 생성
+  - issue 본문: 제거 대상 4곳(kis-proxy 분기/krx_volume·kis-api 필드·PortfolioPage 분기·이 워크플로 자체) 명시
+- **VWAP/RVOL 설명 팝업** (사용자 요청):
+  - 라벨 옆 `(?)` HelpCircle 아이콘 추가
+  - 중앙 모달 (rounded-2xl, max-w-md) — 모바일/데스크탑 동일
+  - VWAP: 활용법(현재가>VWAP=강세, <VWAP=매수기회) + 계산식
+  - RVOL: 기준값(1.0/1.2~2.0/≥2.0/<1.0) + 계산식
+  - backdrop tap / X 버튼 / ESC 닫기
+- **검증**:
+  - `npx tsc --noEmit` PASS · `npm run build` PASS (6.49s)
+  - Python AST PASS
+  - `supabase functions deploy kis-proxy` 성공
+  - 실측: 005930 krx_volume=38.07M (KRX 단독) · 000020 KRX 폴백 정상
+
 ### [기능] 포트폴리오 카드 VWAP / RVOL 실시간 표시 (2026-05-17 21:30 KST)
 - **변경 파일**:
   - `supabase/functions/kis-proxy/index.ts` (+1)
