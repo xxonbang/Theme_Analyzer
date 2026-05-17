@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-05-17
+
+### [기능] 포트폴리오 카드 VWAP / RVOL 실시간 표시 (2026-05-17 21:30 KST)
+- **변경 파일**:
+  - `supabase/functions/kis-proxy/index.ts` (+1)
+  - `frontend/src/lib/kis-api.ts` (+1)
+  - `frontend/src/App.tsx` (+1)
+  - `frontend/src/components/PortfolioPage.tsx` (+49)
+- **VWAP 계산**: `acml_tr_pbmn / acml_vol` (KIS inquire-price 응답, 추가 API 호출 없음)
+  - kis-proxy 응답에 `trading_value` 필드 신규 추가 → 배포 (`supabase functions deploy kis-proxy`)
+  - 배포 후 검증: 005930 VWAP 280,123원 / 현재가 273,500 vs VWAP -2.36% 정상 계산
+- **RVOL 계산 (옵션 B 시간 보정)**:
+  - `getMarketElapsedRatio()`: KST 09:00~15:30 경과 비율 (장 시작 전 null, 마감 후 1)
+  - 20일 평균 거래량: `stock-history.json`의 `changes[0..19].volume` 평균
+  - 공식: `live.volume / (avgVol × elapsed)` — 평균 대비 1.0 = 정상
+- **카드 UI 변경 (Q2=a 두 줄 추가)**:
+  - 기존 Compact info row(매수가/수량/투자금/손익) 아래 신규 행 추가
+  - 형식: `VWAP 280,123원 (-2.36%)   RVOL 1.45x`
+  - VWAP 차이 색상: 양수=red, 음수=blue (한국 증시 관습)
+  - RVOL 색상: ≥2.0x red, ≥1.2x amber, 그 외 무색 (이상치 강조)
+  - VWAP/RVOL 둘 다 없으면 행 자체 숨김 (조건부 렌더링)
+- **App.tsx**: `<PortfolioPage history={mergedHistory} />` prop 추가 (기존 다른 컴포넌트와 동일 패턴)
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (3.47s, PortfolioPage 73KB → 74KB)
+
+---
+
 ## 2026-05-15
 
 ### [기능] 가상 계산기 stock_toolkit 동기화 + 시나리오 탭 UI (2026-05-15 18:00 KST)

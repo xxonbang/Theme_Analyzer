@@ -931,6 +931,7 @@ function App() {
               stockData={currentData ?? null}
               volumeProfileData={vpData ?? null}
               themeForecast={themeForecastData ?? null}
+              history={mergedHistory}
             />
           </main>
         </Suspense>

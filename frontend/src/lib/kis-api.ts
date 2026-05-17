@@ -8,6 +8,7 @@ export interface KisStockPrice {
   change_rate: number
   change_amount: number
   volume: number
+  trading_value: number
   market_cap: number
   w52_hgpr: number
   w52_lwpr: number

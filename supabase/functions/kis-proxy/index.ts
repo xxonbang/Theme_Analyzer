@@ -81,6 +81,7 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
       change_rate: parseFloat(o.prdy_ctrt) || 0,
       change_amount: parseInt(o.prdy_vrss) || 0,
       volume: parseInt(o.acml_vol) || 0,
+      trading_value: parseInt(o.acml_tr_pbmn) || 0,  // 누적 거래대금 (VWAP 계산용)
       market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
       w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,
       w52_lwpr: parseInt(o.stck_dryy_lwpr) || 0,

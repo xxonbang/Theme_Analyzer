@@ -32,6 +32,19 @@ interface PortfolioPageProps {
   stockData: StockData | null
   volumeProfileData: VolumeProfileData | null
   themeForecast: ThemeForecast | null
+  history: Record<string, { changes?: { volume?: number }[] }>
+}
+
+// 정규장 09:00~15:30 경과 비율 (KST). 장 시작 전이면 null.
+function getMarketElapsedRatio(): number | null {
+  const now = new Date()
+  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }))
+  const minutes = kst.getHours() * 60 + kst.getMinutes()
+  const open = 9 * 60
+  const close = 15 * 60 + 30
+  if (minutes < open) return null
+  if (minutes >= close) return 1
+  return (minutes - open) / (close - open)
 }
 
 // --- Supabase persistence ---
@@ -107,7 +120,7 @@ const ALERT_THRESHOLDS = [
 
 // --- Component ---
 
-export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: PortfolioPageProps) {
+export function PortfolioPage({ stockData, volumeProfileData, themeForecast, history }: PortfolioPageProps) {
   const { user } = useAuth()
   const [holdings, setHoldings] = useState<Holding[]>([])
   const [dbLoading, setDbLoading] = useState(true)
@@ -482,6 +495,25 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
       const evalAmount = currentPrice ? currentPrice * h.quantity : null
       const investAmount = h.avgPrice * h.quantity
 
+      // 2. VWAP / RVOL (실시간)
+      let vwap: number | null = null
+      let vwapDiffPct: number | null = null
+      if (live && live.volume > 0 && live.trading_value > 0) {
+        vwap = live.trading_value / live.volume
+        if (currentPrice) vwapDiffPct = ((currentPrice - vwap) / vwap) * 100
+      }
+      let rvol: number | null = null
+      const hist = history[h.code]
+      const changes = hist?.changes ?? []
+      const recent20 = changes.slice(0, 20).map(c => c.volume ?? 0).filter(v => v > 0)
+      if (recent20.length > 0 && live && live.volume > 0) {
+        const avgVol = recent20.reduce((a, b) => a + b, 0) / recent20.length
+        const elapsed = getMarketElapsedRatio()
+        if (avgVol > 0 && elapsed !== null && elapsed > 0) {
+          rvol = live.volume / (avgVol * elapsed)
+        }
+      }
+
       // 3. 손절/익절 알림
       const alerts = profitRate !== null
         ? ALERT_THRESHOLDS.filter(t => t.pct < 0 ? profitRate <= t.pct : profitRate >= t.pct)
@@ -548,6 +580,9 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
         profitAmount,
         evalAmount,
         investAmount,
+        vwap,
+        vwapDiffPct,
+        rvol,
         alerts,
         pocPrice,
         pocPosition,
@@ -560,7 +595,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
         aiForecast,
       }
     })
-  }, [holdings, stockMap, stockData, volumeProfileData, themeForecast, livePrices])
+  }, [holdings, stockMap, stockData, volumeProfileData, themeForecast, livePrices, history])
 
   // 2. 포트폴리오 총 손익 (체크된 종목만)
   const summary = useMemo(() => {
@@ -983,6 +1018,36 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast }: P
                     </span>
                   )}
                 </div>
+
+                {/* Live VWAP / RVOL row */}
+                {(h.vwap !== null || h.rvol !== null) && (
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-[10px] text-muted-foreground">
+                    {h.vwap !== null && (
+                      <span>
+                        VWAP{" "}
+                        <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(h.vwap))}원</span>
+                        {h.vwapDiffPct !== null && (
+                          <span className={cn("ml-1 font-medium tabular-nums", h.vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500")}>
+                            ({h.vwapDiffPct >= 0 ? "+" : ""}{h.vwapDiffPct.toFixed(2)}%)
+                          </span>
+                        )}
+                      </span>
+                    )}
+                    {h.rvol !== null && (
+                      <span>
+                        RVOL{" "}
+                        <span
+                          className={cn(
+                            "font-medium tabular-nums",
+                            h.rvol >= 2 ? "text-red-500" : h.rvol >= 1.2 ? "text-amber-500" : "text-foreground/85",
+                          )}
+                        >
+                          {h.rvol.toFixed(2)}x
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 {/* Alert badges */}
                 {hasAlert && (
