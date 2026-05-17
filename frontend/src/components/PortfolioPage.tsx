@@ -61,6 +61,39 @@ function VwapHelp() {
   )
 }
 
+function Rank30Help() {
+  return (
+    <>
+      <p className="leading-relaxed">
+        <strong className="text-foreground">이 종목 자기 자신</strong>의 지난 30거래일 거래량 중 오늘이 몇 등인지 보여줘요. <span className="text-muted-foreground/80">(다른 종목과 비교 X)</span>
+      </p>
+      <div className="bg-muted/50 rounded-lg p-3 space-y-1.5 text-[13px] leading-relaxed">
+        <div className="font-semibold text-foreground/90 mb-1">등급 기준</div>
+        <div className="flex gap-2">
+          <span className="font-mono font-bold tabular-nums text-red-500 shrink-0 w-20">1위</span>
+          <span>30일 중 거래량 최고 — <strong className="text-foreground">역대급 이슈</strong></span>
+        </div>
+        <div className="flex gap-2">
+          <span className="font-mono font-bold tabular-nums text-red-500 shrink-0 w-20">상위 10%</span>
+          <span>~3등 내 — 매우 활발</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="font-mono font-bold tabular-nums text-foreground/85 shrink-0 w-20">상위 50%</span>
+          <span>평소 수준</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="font-mono font-bold tabular-nums text-muted-foreground shrink-0 w-20">상위 90%</span>
+          <span>매우 한산</span>
+        </div>
+      </div>
+      <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-[13px] leading-relaxed">
+        <div className="font-semibold text-amber-700 dark:text-amber-400 mb-1">💡 RVOL 함정 검증</div>
+        <p>RVOL이 높은데 30일 순위가 평범하면 → 20일 평균이 우연히 낮았을 뿐(가짜 신호). <strong className="text-foreground">두 지표 모두 상위면 진짜 폭증.</strong></p>
+      </div>
+    </>
+  )
+}
+
 function RvolHelp() {
   return (
     <>
@@ -202,7 +235,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
   const [calcOpenId, setCalcOpenId] = useState<string | null>(null)
   const [showAvgSheet, setShowAvgSheet] = useState(false)
   const [activeTab, setActiveTab] = useState<"holdings" | "calc">("holdings")
-  const [infoPopup, setInfoPopup] = useState<"vwap" | "rvol" | null>(null)
+  const [infoPopup, setInfoPopup] = useState<"vwap" | "rvol" | "rank30" | null>(null)
 
   // ESC 키로 정보 팝업 닫기
   useEffect(() => {
@@ -586,15 +619,40 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
       const changes = hist?.changes ?? []
       // 어제부터 20영업일 (오늘 분 평균 오염 방지)
       const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
+      // CLEANUP after 2026-05-31: cutoff 이후 항상 live.volume(UN) 사용.
+      const currentVol = live
+        ? (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS ? (live.krx_volume ?? 0) : live.volume)
+        : 0
       if (recent20.length > 0 && live) {
         const avgVol = recent20.reduce((a, b) => a + b, 0) / recent20.length
         const elapsed = getMarketElapsedRatio()
-        // CLEANUP after 2026-05-31: cutoff 이후 항상 live.volume(UN) 사용.
-        const currentVol = Date.now() < RVOL_HISTORY_UN_CUTOFF_MS
-          ? (live.krx_volume ?? 0)  // 이전: KRX 단독 (UN 평균과 출처 일치)
-          : live.volume              // 이후: UN (UN 평균과 출처 일치)
         if (avgVol > 0 && elapsed !== null && elapsed > 0 && currentVol > 0) {
           rvol = currentVol / (avgVol * elapsed)
+        }
+      }
+
+      // 30일 순위 (어제부터 29영업일 + 오늘 currentVol = 30일 비교, 1=최고)
+      // changes[0]이 오늘 데이터인 경우 중복 비교 방지 — slice(1, 30)
+      let rank30: number | null = null
+      if (currentVol > 0) {
+        const historicalVols = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
+        if (historicalVols.length >= 9) {  // 최소 10일 비교 데이터
+          const allVols = [currentVol, ...historicalVols]
+          const sorted = [...allVols].sort((a, b) => b - a)
+          rank30 = sorted.indexOf(currentVol) + 1
+        }
+      }
+
+      // 당일 거래 집중 (상위 3개 가격대 비중)
+      let concentration: { price: number; pct: number }[] | null = null
+      const todayProfile = volumeProfileData?.profiles?.[h.code]?.today
+      if (todayProfile?.bins && todayProfile.bins.length > 0) {
+        const total = todayProfile.bins.reduce((a, b) => a + (b.volume ?? 0), 0)
+        if (total > 0) {
+          concentration = [...todayProfile.bins]
+            .sort((a, b) => (b.volume ?? 0) - (a.volume ?? 0))
+            .slice(0, 3)
+            .map(b => ({ price: b.price, pct: ((b.volume ?? 0) / total) * 100 }))
         }
       }
 
@@ -667,6 +725,8 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
         vwap,
         vwapDiffPct,
         rvol,
+        rank30,
+        concentration,
         alerts,
         pocPrice,
         pocPosition,
@@ -1103,8 +1163,8 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                   )}
                 </div>
 
-                {/* Live VWAP / RVOL row */}
-                {(h.vwap !== null || h.rvol !== null) && (
+                {/* Live VWAP / RVOL / 30일 순위 row */}
+                {(h.vwap !== null || h.rvol !== null || h.rank30 !== null) && (
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-[10px] text-muted-foreground">
                     {h.vwap !== null && (
                       <span className="inline-flex items-center gap-0.5">
@@ -1144,6 +1204,46 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                         </span>
                       </span>
                     )}
+                    {h.rank30 !== null && (
+                      <span className="inline-flex items-center gap-0.5">
+                        <button
+                          onClick={() => setInfoPopup("rank30")}
+                          className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                          aria-label="30일 순위 설명 보기"
+                        >
+                          30일 순위
+                          <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                        </button>{" "}
+                        <span
+                          className={cn(
+                            "font-medium tabular-nums",
+                            h.rank30 === 1 ? "text-red-500 font-bold"
+                              : h.rank30 <= 3 ? "text-red-500"
+                              : h.rank30 <= 15 ? "text-foreground/85"
+                              : "text-muted-foreground",
+                          )}
+                        >
+                          {h.rank30}위
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* 당일 거래 집중 (상위 3개 가격대) */}
+                {h.concentration && h.concentration.length > 0 && (
+                  <div className="mt-0.5 text-[10px] text-muted-foreground/80">
+                    <span className="text-muted-foreground">거래 집중</span>
+                    {" "}
+                    <span className="tabular-nums">
+                      {h.concentration.map((c, i) => (
+                        <span key={i}>
+                          {i > 0 && <span className="mx-1 text-muted-foreground/40">·</span>}
+                          {formatPrice(c.price)}원
+                          <span className="ml-0.5 text-muted-foreground/60">({c.pct.toFixed(0)}%)</span>
+                        </span>
+                      ))}
+                    </span>
                   </div>
                 )}
 
@@ -1335,7 +1435,9 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
           >
             <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-border/40">
               <h3 className="text-base font-bold text-foreground">
-                {infoPopup === "vwap" ? "VWAP — 거래량 가중 평균가" : "RVOL — 상대 거래량"}
+                {infoPopup === "vwap" ? "VWAP — 거래량 가중 평균가"
+                  : infoPopup === "rvol" ? "RVOL — 상대 거래량"
+                  : "30일 순위 — 자기 자신 비교"}
               </h3>
               <button
                 onClick={() => setInfoPopup(null)}
@@ -1346,7 +1448,9 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
               </button>
             </div>
             <div className="px-5 py-4 text-sm text-foreground/90 space-y-3">
-              {infoPopup === "vwap" ? <VwapHelp /> : <RvolHelp />}
+              {infoPopup === "vwap" ? <VwapHelp />
+                : infoPopup === "rvol" ? <RvolHelp />
+                : <Rank30Help />}
             </div>
           </div>
         </div>

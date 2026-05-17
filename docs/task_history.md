@@ -6,6 +6,29 @@
 
 ## 2026-05-17
 
+### [기능/버그픽스] 30일 순위 + 거래 집중 지표 + 줄바꿈 + off-by-one (2026-05-17 22:41 KST)
+- **변경 파일**:
+  - `frontend/src/components/PortfolioPage.tsx` (30일 순위·거래 집중·Rank30Help·infoPopup 분기, off-by-one 수정)
+  - `frontend/src/components/IntradayInsights.tsx` (헤더 flex-wrap + whitespace-nowrap)
+- **신규 지표**:
+  - **30일 순위**: `changes` 기반 자기 자신 30영업일 거래량 중 순위 (1=최고)
+    - 데이터: 어제부터 29영업일 + 오늘 currentVol = 30 비교
+    - 색상: 1위 진한 red+bold, ≤3위 red, ≤15위 기본, 그 외 muted
+    - (?) 클릭 시 모달 — 등급(1위/상위10%/상위50%/상위90%) + RVOL 함정 검증 안내
+  - **당일 거래 집중**: `volumeProfileData.profiles[code].today.bins` 기반 top 3 가격대 + 비중(%)
+- **줄바꿈 오류 수정** (이미지 [Image #41] 보고):
+  - IntradayInsights 헤더 "장중 시장 동향" / "기준" / "라이브" 등이 모바일 폭에서 글자 깨짐
+  - 컨테이너에 `flex-wrap gap-y-1`, 텍스트·버튼에 `whitespace-nowrap shrink-0` 추가
+- **off-by-one 수정 (검증 후 발견)**:
+  - 30일 순위 계산에서 `changes.slice(0, 29)` → `slice(1, 30)`
+  - 휴장일/마감 후 changes[0](=오늘)과 currentVol(=오늘) 중복 비교 문제 해소
+  - RVOL의 `slice(1, 21)`과 일관성
+- **검증 (재검증 후 결론)**:
+  - 발견 1 (off-by-one) — 정확, 즉시 수정 ✅
+  - 발견 2 (cron 시점 시스템 이슈) — 30종목 cross 분석 결과 시스템 차원 이상 없음, 005930 같은 대장주만 시간외 거래량 비중이 커서 두 KIS endpoint(`inquire-daily-itemchartprice` vs `inquire-price`)의 정의 차이로 두드러짐. **cutoff(2026-05-31) UN 마이그레이션 후 자동 해소**.
+  - 발견 3 (거래 집중 분모) — 분봉 cntg_vol 합산 내 비중 계산, 의도된 동작
+- **검증**: `npx tsc --noEmit` PASS · `npm run build` PASS (4.22s)
+
 ### [기능] 헤더 종목 검색에 최근검색 영역 추가 (2026-05-17 22:21 KST)
 - **변경 파일**:
   - `frontend/src/lib/recent-search.ts` (신규, +32)

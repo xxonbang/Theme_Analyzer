@@ -222,18 +222,18 @@ export function IntradayInsights({
     <Card className="mb-4 sm:mb-6 shadow-sm border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.03] to-transparent">
       <CardContent className="p-3 sm:p-4 space-y-3">
         {/* Header */}
-        <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
-          <span className="font-semibold text-sm sm:text-base">장중 시장 동향</span>
+        <div className="flex items-center gap-2 flex-wrap gap-y-1">
+          <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 shrink-0" />
+          <span className="font-semibold text-sm sm:text-base whitespace-nowrap shrink-0">장중 시장 동향</span>
           {!viewingHistory && intradayHistory?.updated_at && (
-            <span className="text-[10px] text-muted-foreground">
+            <span className="text-[10px] text-muted-foreground whitespace-nowrap shrink-0">
               {intradayHistory.updated_at.split(" ")[1]?.slice(0, 5)} 기준
             </span>
           )}
           {viewingHistory && snap && (
-            <span className="text-[10px] text-muted-foreground">{snap.date} {snap.updated_at.slice(11)} 기준</span>
+            <span className="text-[10px] text-muted-foreground whitespace-nowrap shrink-0">{snap.date} {snap.updated_at.slice(11)} 기준</span>
           )}
-          <div className="ml-auto flex items-center gap-1">
+          <div className="ml-auto flex items-center gap-1 shrink-0">
             {hasHistoryData && (
               <button
                 onClick={() => {
@@ -248,7 +248,7 @@ export function IntradayInsights({
                   }
                 }}
                 className={cn(
-                  "text-[10px] px-1.5 py-0.5 rounded transition-colors",
+                  "text-[10px] px-1.5 py-0.5 rounded transition-colors whitespace-nowrap",
                   viewingHistory ? "bg-emerald-500/15 text-emerald-600" : "text-muted-foreground/60 hover:text-muted-foreground"
                 )}
               >
