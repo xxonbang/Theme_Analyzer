@@ -1165,7 +1165,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
 
                 {/* Live VWAP / RVOL / 30일 순위 row */}
                 {(h.vwap !== null || h.rvol !== null || h.rank30 !== null) && (
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-[10px] text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-2 pt-2 border-t border-border/40 text-[10px] text-muted-foreground">
                     {h.vwap !== null && (
                       <span className="inline-flex items-center gap-0.5">
                         <button

@@ -6,6 +6,13 @@
 
 ## 2026-05-17
 
+### [UI] 포트폴리오 카드 매수정보 vs 시장지표 구분선 (2026-05-17 22:51 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (1줄)
+- **사용자 보고**: VWAP 라인과 그 이전 라인 사이 시각적 구분 없어 가독성 떨어짐
+- **수정**: Live VWAP/RVOL/30일 순위 행에 `mt-2 pt-2 border-t border-border/40` 추가
+  - 매수 정보 그룹(매수가·수량·투자금·손익) ↔ 시장 지표 그룹(VWAP·RVOL·30일 순위·거래 집중) 분리
+- **검증**: tsc PASS · build PASS (3.37s)
+
 ### [개선] IntradayInsights 섹션 명명 정정 (2026-05-17 22:49 KST)
 - **변경 파일**: `frontend/src/components/IntradayInsights.tsx`
 - **사용자 보고**: "장중 시장 동향" 타이틀인데 데이터는 마감 직후(15:46~15:48)에만 생성됨. 17개 히스토리 모두 영업일별 1회 마감 직후 → "장중"은 명백한 오류
