@@ -6,6 +6,30 @@
 
 ## 2026-05-18
 
+### [버그픽스/UI] StockCard VWAP 단위 섞임 수정 + 모달 dim 제거 (2026-05-18 21:45 KST)
+- **변경 파일**:
+  - `frontend/src/components/StockCard.tsx` (VWAP/RVOL volume 변수 분리)
+  - `frontend/src/components/MetricsInfoModal.tsx` (backdrop dim 제거)
+- **사용자 보고 (🔴 Critical)**: SK하이닉스 VWAP 3,014,811원 (현재가 1,840,000원 vs -38.97%) — 비정상치
+- **원인 정확히 파악**:
+  - 역추적: `trading_value(UN) / 3,014,811 = 6,481,608 = krx_volume(KRX)`
+  - 즉 VWAP 계산에 **분자(UN tv) / 분모(KRX vol)** 단위 섞임
+  - StockCard에서 effectiveVol 변수 하나로 VWAP과 RVOL 둘 다 처리 → VWAP은 UN 일관 필요, RVOL은 KRX 우선이라 충돌
+  - PortfolioPage는 이미 분리됨(`live.volume`은 VWAP, `currentVol`은 RVOL) — StockCard만 버그
+  - 직전 검증 누락: 검증 시점엔 stock.volume(J)/trading_value(J)로 단위 통일이라 정상이었음. lazy fetch 후 단위 섞임이 발생하는 코드 경로 미점검
+- **수정**:
+  - **VWAP용**: `vwapVol = livePrice?.volume ?? stock.volume` (UN 일관)
+  - **VWAP용**: `vwapTv = livePrice?.trading_value ?? stock.trading_value` (UN 일관)
+  - **RVOL/30일 순위용**: `rvolVol = livePrice ? (cutoff 분기 + krx_volume/volume fallback) : stock.volume`
+  - RVOL_HISTORY_UN_CUTOFF_MS를 inline 대신 import로 정리
+- **MetricsInfoModal dim 제거** (사용자 요청):
+  - `bg-black/50 backdrop-blur-sm` 제거
+  - `pointer-events-none` + 카드만 `pointer-events-auto`로 변경 → backdrop 시각 효과 제거, 카드는 정상 클릭
+  - ESC 키 닫기 / X 버튼 닫기 유지
+- **검증**:
+  - SK하이닉스 시뮬레이션: 19.54조 / 10.77M = **1,814,144원** (정상치 1,820,000원 근처, +1.43%) ✅
+  - tsc PASS · build PASS (3.41s)
+
 ### [버그픽스/개선] kis-proxy retry + StockCard lazy expand + 시장지표 위치 이동 (2026-05-18 21:37 KST)
 - **변경 파일**:
   - `supabase/functions/kis-proxy/index.ts` (fetchStockPriceMarket retry 1회 + 250ms backoff)

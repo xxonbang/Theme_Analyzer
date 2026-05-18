@@ -115,12 +115,10 @@ export function MetricsInfoModal({ popup, onClose }: MetricsInfoModalProps) {
 
   return (
     <div
-      className={cn("fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4")}
-      onClick={onClose}
+      className={cn("fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none")}
     >
       <div
-        onClick={e => e.stopPropagation()}
-        className="bg-card border border-border rounded-2xl shadow-2xl max-w-md w-full max-h-[85vh] overflow-y-auto"
+        className="bg-card border border-border rounded-2xl shadow-2xl max-w-md w-full max-h-[85vh] overflow-y-auto pointer-events-auto"
       >
         <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-border/40">
           <h3 className="text-base font-bold text-foreground">

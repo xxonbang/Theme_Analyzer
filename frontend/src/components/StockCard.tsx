@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment, memo } from "react"
 import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles, HelpCircle, Loader2, BarChart2 } from "lucide-react"
-import { getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
+import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import { searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import { Card, CardContent } from "@/components/ui/card"
@@ -89,19 +89,26 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   }
 
   // 계산 (live 우선, 없으면 정적 stock 폴백)
-  // cutoff 전엔 krx_volume 우선, 없으면 volume(UN) fallback
-  const liveVol = livePrice ? (livePrice.krx_volume && livePrice.krx_volume > 0 ? livePrice.krx_volume : livePrice.volume) : null
-  const liveTv = livePrice?.trading_value ?? null
+  // ⚠️ VWAP과 RVOL은 다른 volume 변수 사용 — 단위 일관성 필수.
+  //   VWAP: trading_value와 volume이 같은 시장구분(UN)이어야 함.
+  //   RVOL/30일 순위: stock-history 단위(현재 J 우세, 5/31 cutoff 후 UN)와 일치하는 currentVol 사용.
   const liveCur = livePrice?.current_price ?? null
-  const effectiveVol = liveVol ?? stock.volume ?? 0
-  const effectiveTv = liveTv ?? stock.trading_value ?? 0
-  const effectiveCur = liveCur ?? stock.current_price
-  const { vwap, vwapDiffPct } = calculateVwap(effectiveTv, effectiveVol, effectiveCur)
+  // VWAP용: UN 일관 (분자/분모 모두 UN)
+  const vwapVol = livePrice?.volume ?? stock.volume ?? 0
+  const vwapTv = livePrice?.trading_value ?? stock.trading_value ?? 0
+  const vwapCur = liveCur ?? stock.current_price
+  const { vwap, vwapDiffPct } = calculateVwap(vwapTv, vwapVol, vwapCur)
+  // RVOL/30일 순위용: cutoff 전엔 krx_volume(KRX 단독), 없으면 volume(UN) fallback
+  const rvolVol = livePrice
+    ? (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS
+        ? (livePrice.krx_volume && livePrice.krx_volume > 0 ? livePrice.krx_volume : livePrice.volume)
+        : livePrice.volume)
+    : stock.volume ?? 0
   const changes = history?.changes ?? []
   const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
-  const rvol = calculateRvol(effectiveVol, recent20, getMarketElapsedRatio())
+  const rvol = calculateRvol(rvolVol, recent20, getMarketElapsedRatio())
   const historicalVols30 = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
-  const { rank: rank30, total: rank30Total } = calculateRank30(effectiveVol, historicalVols30)
+  const { rank: rank30, total: rank30Total } = calculateRank30(rvolVol, historicalVols30)
   const concentration = calculateConcentration(volumeProfile?.today?.bins)
   const hasNews = news && news.news && news.news.length > 0
   const allMet = criteria?.all_met ?? false
