@@ -4,6 +4,29 @@
 
 ---
 
+## 2026-05-18
+
+### [버그픽스/개선] kis-proxy retry + StockCard lazy expand + 시장지표 위치 이동 (2026-05-18 21:37 KST)
+- **변경 파일**:
+  - `supabase/functions/kis-proxy/index.ts` (fetchStockPriceMarket retry 1회 + 250ms backoff)
+  - `frontend/src/components/PortfolioPage.tsx` (krx_volume 0/null 시 live.volume fallback)
+  - `frontend/src/components/StockCard.tsx` (lazy expand + searchKisStock 호출 + 위치 이동)
+- **사용자 보고 (검증 후 발견)**:
+  - kis-proxy 응답에 krx_volume 누락 재발 → RVOL/30일 순위 null
+  - 메인 대시보드 StockCard가 latest.json (cron 시점, 5/15) 데이터라 PortfolioPage(kis-proxy 실시간)와 다른 값
+- **개선 사항**:
+  - **kis-proxy retry**: J 보조 호출 실패 시 250ms backoff 후 1회 재시도. rate limit/일시 실패 회피
+  - **frontend fallback**: krx_volume 누락이어도 live.volume(UN)으로 fallback → RVOL/30일 순위가 null로 사라지지 않음
+  - **StockCard lazy expand**: 기본 접힘. 펼침 시 그 시점에 `searchKisStock(code)` 1회 호출 → KIS API 호출 폭증 회피 (메인 대시보드 종목 수십~수백 곱하기 호출 폭증 위험 방지)
+  - **위치 이동**: 거래 박스 다음 → 관련 뉴스 바로 위 (사용자 요청)
+- **검증** (배포 후 3회 반복 호출):
+  - 모든 종목·모든 회차에서 krx_volume 정상 반환 ✅
+  - search action도 정상 (StockCard용 단일 호출 검증)
+- **데이터 흐름 변경**:
+  - StockCard live 데이터 = livePrice (kis-proxy fetch) 우선, 없으면 stock(latest.json) fallback
+  - effectiveVol/effectiveTv/effectiveCur 변수로 분리
+- **검증**: tsc PASS · build PASS (4.65s) · kis-proxy 배포 성공
+
 ## 2026-05-17
 
 ### [기능/리팩토링] StockCard에 VWAP/RVOL/30일 순위/거래 집중 적용 + 공통 모듈 추출 (2026-05-17 23:16 KST)

@@ -495,8 +495,11 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
       const hist = history[h.code]
       const changes = hist?.changes ?? []
       // CLEANUP after 2026-05-31: cutoff 이후 항상 live.volume(UN) 사용.
+      // krx_volume이 누락/0이면 live.volume(UN)으로 fallback (cutoff 전 KIS rate limit 회피).
       const currentVol = live
-        ? (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS ? (live.krx_volume ?? 0) : live.volume)
+        ? (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS
+            ? (live.krx_volume && live.krx_volume > 0 ? live.krx_volume : live.volume)
+            : live.volume)
         : 0
       const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
       const rvol = calculateRvol(currentVol, recent20, getMarketElapsedRatio())

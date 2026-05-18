@@ -73,10 +73,28 @@ async function fetchStockPriceMarket(
   marketDiv: "J" | "NX" | "UN",
 ): Promise<{ output: Record<string, string> | null; errorMsg: string | null }> {
   const url = `${KIS_BASE_URL}/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE=${marketDiv}&FID_INPUT_ISCD=${code}`
-  const res = await fetch(url, { headers: kisHeaders(creds, "FHKST01010100") })
-  const data = await res.json()
-  if (data.rt_cd !== "0") return { output: null, errorMsg: data.msg1 || `rt_cd=${data.rt_cd}` }
-  return { output: data.output, errorMsg: null }
+  // 1회 retry — KIS rate limit / 일시 실패에 대응 (bulk 호출에서 J 보조 호출이 누락되는 이슈 방지)
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, { headers: kisHeaders(creds, "FHKST01010100") })
+      const data = await res.json()
+      if (data.rt_cd === "0") return { output: data.output, errorMsg: null }
+      const msg: string = data.msg1 || `rt_cd=${data.rt_cd}`
+      const rateLimited = msg.includes("초당") || msg.includes("거래건수")
+      if (attempt === 0 && rateLimited) {
+        await new Promise(r => setTimeout(r, 250))
+        continue
+      }
+      return { output: null, errorMsg: msg }
+    } catch (e) {
+      if (attempt === 0) {
+        await new Promise(r => setTimeout(r, 250))
+        continue
+      }
+      return { output: null, errorMsg: String(e) }
+    }
+  }
+  return { output: null, errorMsg: "retry exhausted" }
 }
 
 async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {

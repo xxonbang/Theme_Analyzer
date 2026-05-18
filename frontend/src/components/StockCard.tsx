@@ -1,7 +1,8 @@
 import { useState, useEffect, Fragment, memo } from "react"
-import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles, HelpCircle } from "lucide-react"
+import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles, HelpCircle, Loader2, BarChart2 } from "lucide-react"
 import { getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
+import { searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -63,15 +64,44 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   const TrendIcon = isRising ? TrendingUp : TrendingDown
   const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
 
-  // VWAP / RVOL / 30일 순위 / 거래 집중 — 공통 모듈로 계산.
-  // 데이터 단위: stock.volume = KRX 단독(J). cutoff 5/31 후 stock-history(UN) 단위와 불일치 가능 (main.py UN 마이그레이션 필요 — 별도 작업).
-  const { vwap, vwapDiffPct } = calculateVwap(stock.trading_value ?? 0, stock.volume ?? 0, stock.current_price)
+  // 시장 지표 (VWAP/RVOL/30일 순위/거래 집중) — lazy expand 시 fetch.
+  // KIS API 호출 폭증 회피: 사용자가 펼칠 때만 kis-proxy 호출.
+  const [metricsExpanded, setMetricsExpanded] = useState(false)
+  const [livePrice, setLivePrice] = useState<KisStockPrice | null>(null)
+  const [metricsLoading, setMetricsLoading] = useState(false)
+
+  const handleMetricsToggle = async () => {
+    if (metricsExpanded) {
+      setMetricsExpanded(false)
+      return
+    }
+    setMetricsExpanded(true)
+    if (livePrice || metricsLoading) return
+    setMetricsLoading(true)
+    try {
+      const result = await searchKisStock(stock.code)
+      setLivePrice(result)
+    } catch {
+      // silent — 표시는 정적 데이터 폴백
+    } finally {
+      setMetricsLoading(false)
+    }
+  }
+
+  // 계산 (live 우선, 없으면 정적 stock 폴백)
+  // cutoff 전엔 krx_volume 우선, 없으면 volume(UN) fallback
+  const liveVol = livePrice ? (livePrice.krx_volume && livePrice.krx_volume > 0 ? livePrice.krx_volume : livePrice.volume) : null
+  const liveTv = livePrice?.trading_value ?? null
+  const liveCur = livePrice?.current_price ?? null
+  const effectiveVol = liveVol ?? stock.volume ?? 0
+  const effectiveTv = liveTv ?? stock.trading_value ?? 0
+  const effectiveCur = liveCur ?? stock.current_price
+  const { vwap, vwapDiffPct } = calculateVwap(effectiveTv, effectiveVol, effectiveCur)
   const changes = history?.changes ?? []
-  const currentVol = stock.volume ?? 0
   const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
-  const rvol = calculateRvol(currentVol, recent20, getMarketElapsedRatio())
+  const rvol = calculateRvol(effectiveVol, recent20, getMarketElapsedRatio())
   const historicalVols30 = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
-  const { rank: rank30, total: rank30Total } = calculateRank30(currentVol, historicalVols30)
+  const { rank: rank30, total: rank30Total } = calculateRank30(effectiveVol, historicalVols30)
   const concentration = calculateConcentration(volumeProfile?.today?.bins)
   const hasNews = news && news.news && news.news.length > 0
   const allMet = criteria?.all_met ?? false
@@ -337,85 +367,6 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 )
               })()}
             </div>
-
-            {/* VWAP / RVOL / 30일 순위 / 거래 집중 */}
-            {(vwap !== null || rvol !== null || rank30 !== null) && (
-              <div className="mt-1.5 pt-1.5 border-t border-border/40 space-y-0.5">
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] text-muted-foreground">
-                  {vwap !== null && (
-                    <span className="inline-flex items-center gap-0.5">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("vwap") }}
-                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
-                        aria-label="VWAP 설명 보기"
-                      >
-                        VWAP
-                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
-                      </button>{" "}
-                      <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(vwap))}원</span>
-                      {vwapDiffPct !== null && (
-                        <span className={cn("ml-1 font-medium tabular-nums", vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500")}>
-                          ({vwapDiffPct >= 0 ? "+" : ""}{vwapDiffPct.toFixed(2)}%)
-                        </span>
-                      )}
-                    </span>
-                  )}
-                  {rvol !== null && (
-                    <span className="inline-flex items-center gap-0.5">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("rvol") }}
-                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
-                        aria-label="RVOL 설명 보기"
-                      >
-                        RVOL
-                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
-                      </button>{" "}
-                      <span className={cn("font-medium tabular-nums",
-                        rvol >= 2 ? "text-red-500" : rvol >= 1.2 ? "text-amber-500" : "text-foreground/85")}>
-                        {rvol.toFixed(2)}x
-                      </span>
-                    </span>
-                  )}
-                  {rank30 !== null && rank30Total !== null && (
-                    <span className="inline-flex items-center gap-0.5">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("rank30") }}
-                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
-                        aria-label="30일 순위 설명 보기"
-                      >
-                        30일 순위
-                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
-                      </button>{" "}
-                      <span className={cn("font-medium tabular-nums",
-                        rank30 === 1 ? "text-red-500 font-bold"
-                          : rank30 <= 3 ? "text-red-500"
-                          : rank30 <= 15 ? "text-foreground/85"
-                          : "text-muted-foreground")}>
-                        {rank30}위
-                      </span>
-                      <span className="ml-0.5 text-[9px] text-muted-foreground/60 tabular-nums">
-                        {rank30 === 1 ? "(최고)" : `(상위 ${Math.round((rank30 / rank30Total) * 100)}%)`}
-                      </span>
-                    </span>
-                  )}
-                </div>
-                {concentration && concentration.length > 0 && (
-                  <div className="text-[10px] text-muted-foreground/80">
-                    <span className="text-muted-foreground">거래 집중</span>
-                    {" "}
-                    <span className="tabular-nums">
-                      {concentration.map((c, i) => (
-                        <span key={i}>
-                          {i > 0 && <span className="mx-1 text-muted-foreground/40">·</span>}
-                          {formatPrice(c.price)}원
-                          <span className="ml-0.5 text-muted-foreground/60">({c.pct.toFixed(0)}%)</span>
-                        </span>
-                      ))}
-                    </span>
-                  </div>
-                )}
-              </div>
-            )}
 
             {/* 거래 차트 팝업 */}
             {showTradingChart && history?.changes && (
@@ -754,6 +705,107 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
             </div>
           )
         })()}
+
+        {/* 시장 지표 (VWAP/RVOL/30일 순위/거래 집중) — lazy expand */}
+        <div className="mt-2 pt-2 border-t border-border/50">
+          <button
+            onClick={handleMetricsToggle}
+            className="flex items-center justify-between w-full text-left"
+          >
+            <div className="flex items-center gap-1.5">
+              <BarChart2 className="w-3 h-3 text-muted-foreground" />
+              <span className="text-[10px] font-medium text-muted-foreground">시장 지표 (VWAP · RVOL · 30일 순위 · 거래 집중)</span>
+              {metricsLoading && <Loader2 className="w-3 h-3 text-muted-foreground animate-spin" />}
+            </div>
+            {metricsExpanded ? (
+              <ChevronUp className="w-4 h-4 text-muted-foreground" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            )}
+          </button>
+          {metricsExpanded && (
+            <div className="mt-2 space-y-1">
+              {!livePrice && !metricsLoading && (
+                <p className="text-[10px] text-muted-foreground/60">데이터 조회 실패. 정적 데이터로 표시.</p>
+              )}
+              {(vwap !== null || rvol !== null || rank30 !== null) && (
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[10px] text-muted-foreground">
+                  {vwap !== null && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("vwap") }}
+                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                        aria-label="VWAP 설명 보기"
+                      >
+                        VWAP
+                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                      </button>{" "}
+                      <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(vwap))}원</span>
+                      {vwapDiffPct !== null && (
+                        <span className={cn("ml-1 font-medium tabular-nums", vwapDiffPct >= 0 ? "text-red-500" : "text-blue-500")}>
+                          ({vwapDiffPct >= 0 ? "+" : ""}{vwapDiffPct.toFixed(2)}%)
+                        </span>
+                      )}
+                    </span>
+                  )}
+                  {rvol !== null && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("rvol") }}
+                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                        aria-label="RVOL 설명 보기"
+                      >
+                        RVOL
+                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                      </button>{" "}
+                      <span className={cn("font-medium tabular-nums",
+                        rvol >= 2 ? "text-red-500" : rvol >= 1.2 ? "text-amber-500" : "text-foreground/85")}>
+                        {rvol.toFixed(2)}x
+                      </span>
+                    </span>
+                  )}
+                  {rank30 !== null && rank30Total !== null && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setMetricsPopup("rank30") }}
+                        className="inline-flex items-center gap-0.5 hover:text-foreground transition-colors"
+                        aria-label="30일 순위 설명 보기"
+                      >
+                        30일 순위
+                        <HelpCircle className="w-2.5 h-2.5 opacity-60" />
+                      </button>{" "}
+                      <span className={cn("font-medium tabular-nums",
+                        rank30 === 1 ? "text-red-500 font-bold"
+                          : rank30 <= 3 ? "text-red-500"
+                          : rank30 <= 15 ? "text-foreground/85"
+                          : "text-muted-foreground")}>
+                        {rank30}위
+                      </span>
+                      <span className="ml-0.5 text-[9px] text-muted-foreground/60 tabular-nums">
+                        {rank30 === 1 ? "(최고)" : `(상위 ${Math.round((rank30 / rank30Total) * 100)}%)`}
+                      </span>
+                    </span>
+                  )}
+                </div>
+              )}
+              {concentration && concentration.length > 0 && (
+                <div className="text-[10px] text-muted-foreground/80">
+                  <span className="text-muted-foreground">거래 집중</span>
+                  {" "}
+                  <span className="tabular-nums">
+                    {concentration.map((c, i) => (
+                      <span key={i}>
+                        {i > 0 && <span className="mx-1 text-muted-foreground/40">·</span>}
+                        {formatPrice(c.price)}원
+                        <span className="ml-0.5 text-muted-foreground/60">({c.pct.toFixed(0)}%)</span>
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* News Section (3차 정보 — 토글) */}
         <div className="mt-2 pt-2 border-t border-border/50">
