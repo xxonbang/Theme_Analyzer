@@ -1004,10 +1004,13 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                 )}
 
                 {/* Compact info row */}
-                <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-[10px] text-muted-foreground">
                   <span>매수가 {formatPrice(h.avgPrice)}원</span>
                   <span>{h.quantity}주</span>
                   <span>투자금 {formatPrice(h.investAmount)}원</span>
+                  {h.evalAmount !== null && (
+                    <span>평가금 <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(h.evalAmount))}</span>원</span>
+                  )}
                   {h.profitAmount !== null && (
                     <span className={cn("font-medium", h.profitAmount >= 0 ? "text-red-500" : "text-blue-500")}>
                       {h.profitAmount >= 0 ? "+" : ""}{formatPrice(Math.round(h.profitAmount))}원

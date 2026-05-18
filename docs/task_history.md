@@ -6,6 +6,16 @@
 
 ## 2026-05-18
 
+### [UI] 포트폴리오 카드에 평가금 표시 추가 (2026-05-18 21:51 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (compact info row)
+- **사용자 보고**: 평가금 정보 표시 필요
+- **수정**:
+  - 투자금 다음에 평가금 추가: `평가금 {evalAmount}원` (강조 색)
+  - 좁은 화면에서 wrap 가능하도록 `flex flex-wrap gap-x-3 gap-y-0.5` 적용
+- **표시 순서**: 매수가 / 수량 / 투자금 / **평가금** / 손익
+- **데이터**: 기존 enrichedHoldings의 `evalAmount = currentPrice × quantity` 활용 (계산 추가 없음)
+- **검증**: tsc PASS · build PASS (3.53s)
+
 ### [버그픽스/UI] StockCard VWAP 단위 섞임 수정 + 모달 dim 제거 (2026-05-18 21:45 KST)
 - **변경 파일**:
   - `frontend/src/components/StockCard.tsx` (VWAP/RVOL volume 변수 분리)
