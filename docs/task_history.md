@@ -6,6 +6,16 @@
 
 ## 2026-05-18
 
+### [UI] 포트폴리오 카드 매수/평가 정보 2줄 시멘틱 분리 (2026-05-18 21:54 KST)
+- **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
+- **사용자 보고**: compact info row 5개 항목 wrap 어색 (손익만 외톨이로 두 번째 줄)
+- **수정**:
+  - 매수 정보 행: `매수가 · 수량 · 투자금`
+  - 평가 정보 행: `평가금 · +손익원 (+률%)` (손익률 inline 추가)
+  - dot 구분자(`·`)로 항목 시각적 분리
+  - 손익률을 손익 금액 옆 작은 텍스트로 결합 표시
+- **검증**: tsc PASS · build PASS (3.40s)
+
 ### [UI] 포트폴리오 카드에 평가금 표시 추가 (2026-05-18 21:51 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx` (compact info row)
 - **사용자 보고**: 평가금 정보 표시 필요

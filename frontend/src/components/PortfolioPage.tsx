@@ -1003,20 +1003,34 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                   </div>
                 )}
 
-                {/* Compact info row */}
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1.5 text-[10px] text-muted-foreground">
+                {/* 매수 정보 (1행) */}
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1.5 text-[10px] text-muted-foreground">
                   <span>매수가 {formatPrice(h.avgPrice)}원</span>
+                  <span className="text-muted-foreground/40">·</span>
                   <span>{h.quantity}주</span>
+                  <span className="text-muted-foreground/40">·</span>
                   <span>투자금 {formatPrice(h.investAmount)}원</span>
-                  {h.evalAmount !== null && (
-                    <span>평가금 <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(h.evalAmount))}</span>원</span>
-                  )}
-                  {h.profitAmount !== null && (
-                    <span className={cn("font-medium", h.profitAmount >= 0 ? "text-red-500" : "text-blue-500")}>
-                      {h.profitAmount >= 0 ? "+" : ""}{formatPrice(Math.round(h.profitAmount))}원
-                    </span>
-                  )}
                 </div>
+
+                {/* 평가 정보 (2행) */}
+                {(h.evalAmount !== null || h.profitAmount !== null) && (
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-[10px] text-muted-foreground">
+                    {h.evalAmount !== null && (
+                      <span>평가금 <span className="font-medium text-foreground/85 tabular-nums">{formatPrice(Math.round(h.evalAmount))}</span>원</span>
+                    )}
+                    {h.evalAmount !== null && h.profitAmount !== null && (
+                      <span className="text-muted-foreground/40">·</span>
+                    )}
+                    {h.profitAmount !== null && (
+                      <span className={cn("font-medium tabular-nums", h.profitAmount >= 0 ? "text-red-500" : "text-blue-500")}>
+                        {h.profitAmount >= 0 ? "+" : ""}{formatPrice(Math.round(h.profitAmount))}원
+                        {h.profitRate !== null && (
+                          <span className="ml-0.5 text-[9px] opacity-80">({h.profitRate >= 0 ? "+" : ""}{h.profitRate.toFixed(2)}%)</span>
+                        )}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 {/* Live VWAP / RVOL / 30일 순위 row */}
                 {(h.vwap !== null || h.rvol !== null || h.rank30 !== null) && (
