@@ -786,7 +786,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                           : rank30 <= 3 ? "text-red-500"
                           : rank30 <= 15 ? "text-foreground/85"
                           : "text-muted-foreground")}>
-                        {rank30}위
+                        {Number.isInteger(rank30) ? rank30 : rank30.toFixed(1)}위
                       </span>
                       <span className="ml-0.5 text-[9px] text-muted-foreground/60 tabular-nums">
                         {rank30 === 1 ? "(최고)" : `(상위 ${Math.round((rank30 / rank30Total) * 100)}%)`}

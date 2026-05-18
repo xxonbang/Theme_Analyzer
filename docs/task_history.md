@@ -6,6 +6,24 @@
 
 ## 2026-05-18
 
+### [개선] 30일 순위 동률 평균 위치 + 거래 집중 bin 정밀도 ↑ (2026-05-18 22:14 KST)
+- **변경 파일**:
+  - `frontend/src/lib/market-metrics.ts` (calculateRank30)
+  - `frontend/src/components/PortfolioPage.tsx` (rank30 표시)
+  - `frontend/src/components/StockCard.tsx` (rank30 표시)
+  - `modules/volume_profile.py` (today num_bins 20→40)
+- **사용자 요청 두 가지 개선**:
+  1. **30일 순위 동률 처리**: `indexOf` → 평균 위치(fractional rank)
+     - 코드: `(firstIdx + lastIdx) / 2 + 1`
+     - 통계 표준 방식 (average rank). 같은 거래량 그룹의 first/last 평균
+     - UI: 정수면 "N위", 소수면 "N.N위" 표시
+  2. **거래 집중 bin 정밀도 ↑**: 분봉 매물대 num_bins 20→40
+     - `collect_full`의 today + `collect_intraday` 둘 다 적용
+     - 일봉 매물대(1y/6m/3m/1m/1w)는 기존 20 유지
+     - 효과: 다음 cron(매분 30분 간격)부터 더 정밀한 가격대 분포. 대장주(가격 범위 큼)에서 효과 큼
+- **반영 시점**: frontend 즉시. backend는 다음 volume-profile cron(매 30분 간격) 갱신 시 자동 적용
+- **검증**: tsc PASS · build PASS (3.69s) · Python AST PASS
+
 ### [UI] 포트폴리오 카드 매수/평가 정보 2줄 시멘틱 분리 (2026-05-18 21:54 KST)
 - **변경 파일**: `frontend/src/components/PortfolioPage.tsx`
 - **사용자 보고**: compact info row 5개 항목 wrap 어색 (손익만 외톨이로 두 번째 줄)

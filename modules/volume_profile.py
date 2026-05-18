@@ -279,10 +279,10 @@ def collect_full(
         if vp:
             result[period] = vp
 
-    # 당일 분봉
+    # 당일 분봉 — 가격대 정밀도 ↑를 위해 num_bins=40 (일봉은 20으로 유지)
     minute = fetch_minute_candles(client, code)
     if minute:
-        vp = calc_volume_profile(minute)
+        vp = calc_volume_profile(minute, num_bins=40)
         if vp:
             result["today"] = vp
 
@@ -297,7 +297,7 @@ def collect_intraday(
     minute = fetch_minute_candles(client, code)
     if not minute:
         return {}
-    vp = calc_volume_profile(minute)
+    vp = calc_volume_profile(minute, num_bins=40)
     if not vp:
         return {}
     return {"today": vp}

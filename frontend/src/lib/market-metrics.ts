@@ -48,7 +48,12 @@ export function calculateRank30(currentVol: number, historicalVols: number[]): R
   if (currentVol <= 0 || historicalVols.length < 9) return { rank: null, total: null }
   const allVols = [currentVol, ...historicalVols]
   const sorted = [...allVols].sort((a, b) => b - a)
-  return { rank: sorted.indexOf(currentVol) + 1, total: allVols.length }
+  // 동률 시 평균 위치(fractional rank) — 통계 표준 방식.
+  // 같은 거래량이 여럿 있으면 그 그룹의 first/last 위치 평균.
+  const firstIdx = sorted.indexOf(currentVol)
+  const lastIdx = sorted.lastIndexOf(currentVol)
+  const avgRank = (firstIdx + lastIdx) / 2 + 1
+  return { rank: avgRank, total: allVols.length }
 }
 
 export interface ConcentrationItem { price: number; pct: number }

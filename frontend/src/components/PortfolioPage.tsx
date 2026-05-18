@@ -1092,7 +1092,7 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                               : "text-muted-foreground",
                           )}
                         >
-                          {h.rank30}위
+                          {Number.isInteger(h.rank30) ? h.rank30 : h.rank30.toFixed(1)}위
                         </span>
                         <span className="ml-0.5 text-[9px] text-muted-foreground/60 tabular-nums">
                           {h.rank30 === 1
