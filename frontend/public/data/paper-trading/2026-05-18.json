@@ -1,0 +1,457 @@
+{
+  "trade_date": "2026-05-18",
+  "morning_timestamp": "2026-05-18 09:11:50",
+  "collected_at": "2026-05-18 15:41:29",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-18 09:11:50",
+      "prices": {
+        "036930": 165400,
+        "037460": 61000,
+        "178320": 71800,
+        "027360": 15600,
+        "100790": 58000,
+        "001450": 36950,
+        "084670": 76200,
+        "403870": 51700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비 및 부품"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "차세대 반도체 장비 및 부품"
+        },
+        {
+          "code": "178320",
+          "name": "서진시스템",
+          "theme": "차세대 반도체 장비 및 부품"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/신기술 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈/신기술 투자"
+        },
+        {
+          "code": "001450",
+          "name": "현대해상",
+          "theme": "보험업 실적 개선"
+        },
+        {
+          "code": "084670",
+          "name": "동양고속",
+          "theme": "육상 운송업 흑자 전환 및 실적 개선"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-18 09:34:20",
+      "prices": {
+        "036930": 169900,
+        "037460": 61000,
+        "178320": 69800,
+        "027360": 15600,
+        "100790": 58000,
+        "001450": 36300,
+        "084670": 70300,
+        "403870": 51700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "IT/통신 장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-18 10:01:52",
+      "prices": {
+        "036930": 176700,
+        "037460": 61000,
+        "178320": 72900,
+        "027360": 15600,
+        "100790": 58000,
+        "001450": 37550,
+        "084670": 67700,
+        "403870": 51700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "IT/통신 장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-18 12:01:45",
+      "prices": {
+        "036930": 182200,
+        "037460": 61000,
+        "178320": 71900,
+        "027360": 15600,
+        "100790": 58000,
+        "001450": 38250,
+        "084670": 57600,
+        "403870": 51700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "IT/통신 장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-18 12:35:26",
+      "prices": {
+        "036930": 182200,
+        "037460": 62100,
+        "178320": 71200,
+        "027360": 17650,
+        "100790": 62000,
+        "001450": 38700,
+        "084670": 60400,
+        "403870": 53000
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "IT/통신 장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-18 13:26:43",
+      "prices": {
+        "036930": 182200,
+        "037460": 60000,
+        "178320": 72700,
+        "027360": 17650,
+        "100790": 62000,
+        "001450": 39100,
+        "084670": 55900,
+        "403870": 53000
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "IT/통신 장비 및 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-18 14:36:41",
+      "prices": {
+        "036930": 182200,
+        "037460": 58400,
+        "178320": 71900,
+        "027360": 17650,
+        "100790": 62000,
+        "001450": 38400,
+        "084670": 53400,
+        "403870": 53000
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처캐피탈 및 우주 산업 투자"
+        },
+        {
+          "code": "037460",
+          "name": "삼지전자",
+          "theme": "IT/통신 장비 및 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "차세대 반도체 장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 165400,
+      "close_price": 182200,
+      "profit_rate": 10.16,
+      "profit_amount": 16800,
+      "high_price": 182200,
+      "high_time": "15:30",
+      "high_profit_rate": 10.16,
+      "high_profit_amount": 16800,
+      "low_price": 150200,
+      "low_profit_rate": -9.19,
+      "low_profit_amount": -15200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "037460",
+      "name": "삼지전자",
+      "theme": "차세대 반도체 장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 61000,
+      "close_price": 56400,
+      "profit_rate": -7.54,
+      "profit_amount": -4600,
+      "high_price": 64500,
+      "high_time": "12:23",
+      "high_profit_rate": 5.74,
+      "high_profit_amount": 3500,
+      "low_price": 53700,
+      "low_profit_rate": -11.97,
+      "low_profit_amount": -7300,
+      "low_time": "09:04"
+    },
+    {
+      "code": "178320",
+      "name": "서진시스템",
+      "theme": "차세대 반도체 장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 71800,
+      "close_price": 72800,
+      "profit_rate": 1.39,
+      "profit_amount": 1000,
+      "high_price": 75400,
+      "high_time": "11:29",
+      "high_profit_rate": 5.01,
+      "high_profit_amount": 3600,
+      "low_price": 66100,
+      "low_profit_rate": -7.94,
+      "low_profit_amount": -5700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "벤처캐피탈/신기술 투자",
+      "market": "KOSPI",
+      "buy_price": 15600,
+      "close_price": 17010,
+      "profit_rate": 9.04,
+      "profit_amount": 1410,
+      "high_price": 17890,
+      "high_time": "12:21",
+      "high_profit_rate": 14.68,
+      "high_profit_amount": 2290,
+      "low_price": 15300,
+      "low_profit_rate": -1.92,
+      "low_profit_amount": -300,
+      "low_time": "09:06"
+    },
+    {
+      "code": "100790",
+      "name": "미래에셋벤처투자",
+      "theme": "벤처캐피탈/신기술 투자",
+      "market": "KOSPI",
+      "buy_price": 58000,
+      "close_price": 67400,
+      "profit_rate": 16.21,
+      "profit_amount": 9400,
+      "high_price": 67800,
+      "high_time": "15:06",
+      "high_profit_rate": 16.9,
+      "high_profit_amount": 9800,
+      "low_price": 57400,
+      "low_profit_rate": -1.03,
+      "low_profit_amount": -600,
+      "low_time": "09:07"
+    },
+    {
+      "code": "001450",
+      "name": "현대해상",
+      "theme": "보험업 실적 개선",
+      "market": "KOSPI",
+      "buy_price": 36950,
+      "close_price": 38350,
+      "profit_rate": 3.79,
+      "profit_amount": 1400,
+      "high_price": 39500,
+      "high_time": "13:20",
+      "high_profit_rate": 6.9,
+      "high_profit_amount": 2550,
+      "low_price": 34700,
+      "low_profit_rate": -6.09,
+      "low_profit_amount": -2250,
+      "low_time": "09:00"
+    },
+    {
+      "code": "084670",
+      "name": "동양고속",
+      "theme": "육상 운송업 흑자 전환 및 실적 개선",
+      "market": "KOSPI",
+      "buy_price": 76200,
+      "close_price": 50700,
+      "profit_rate": -33.46,
+      "profit_amount": -25500,
+      "high_price": 83000,
+      "high_time": "09:12",
+      "high_profit_rate": 8.92,
+      "high_profit_amount": 6800,
+      "low_price": 49950,
+      "low_profit_rate": -34.45,
+      "low_profit_amount": -26250,
+      "low_time": "15:01"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "차세대 반도체 장비",
+      "market": "KOSDAQ",
+      "buy_price": 51700,
+      "close_price": 52200,
+      "profit_rate": 0.97,
+      "profit_amount": 500,
+      "high_price": 54800,
+      "high_time": "11:29",
+      "high_profit_rate": 6.0,
+      "high_profit_amount": 3100,
+      "low_price": 49550,
+      "low_profit_rate": -4.16,
+      "low_profit_amount": -2150,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 6,
+    "loss_stocks": 2,
+    "total_invested": 536650,
+    "total_value": 537060,
+    "total_profit": 410,
+    "total_profit_rate": 0.08,
+    "high_total_value": 585090,
+    "high_total_profit": 48440,
+    "high_total_profit_rate": 9.03,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 0
+  }
+}
