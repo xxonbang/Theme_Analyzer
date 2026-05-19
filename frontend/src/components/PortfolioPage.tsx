@@ -9,7 +9,7 @@ import { cn, formatPrice } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/hooks/useAuth"
 import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
-import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
+import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration, isHistoryStale } from "@/lib/market-metrics"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
@@ -34,7 +34,7 @@ interface PortfolioPageProps {
   stockData: StockData | null
   volumeProfileData: VolumeProfileData | null
   themeForecast: ThemeForecast | null
-  history: Record<string, { changes?: { volume?: number }[] }>
+  history: Record<string, { changes?: { volume?: number; date?: string }[] }>
 }
 
 // 시장 지표 헬퍼는 lib/market-metrics.ts에서 import (StockCard와 공유)
@@ -494,6 +494,8 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
         : { vwap: null, vwapDiffPct: null }
       const hist = history[h.code]
       const changes = hist?.changes ?? []
+      // stock-history가 stale이면 RVOL/30일 순위는 의미 없는 값 → null로 표시 안 함.
+      const historyStale = isHistoryStale(changes[0]?.date)
       // CLEANUP after 2026-05-31: cutoff 이후 항상 live.volume(UN) 사용.
       // krx_volume이 누락/0이면 live.volume(UN)으로 fallback (cutoff 전 KIS rate limit 회피).
       const currentVol = live
@@ -501,9 +503,9 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
             ? (live.krx_volume && live.krx_volume > 0 ? live.krx_volume : live.volume)
             : live.volume)
         : 0
-      const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
+      const recent20 = historyStale ? [] : changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
       const rvol = calculateRvol(currentVol, recent20, getMarketElapsedRatio())
-      const historicalVols30 = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
+      const historicalVols30 = historyStale ? [] : changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
       const { rank: rank30, total: rank30Total } = calculateRank30(currentVol, historicalVols30)
       const concentration = calculateConcentration(volumeProfileData?.profiles?.[h.code]?.today?.bins)
 

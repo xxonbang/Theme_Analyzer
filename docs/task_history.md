@@ -4,6 +4,37 @@
 
 ---
 
+## 2026-05-19
+
+### [버그픽스/인프라] stock-history stale 감지 + 차트 안내 + 누락 종목 union 수집 (2026-05-19 20:30 KST)
+- **변경 파일**:
+  - `frontend/src/lib/market-metrics.ts` (isHistoryStale 헬퍼)
+  - `frontend/src/components/PriceHistoryPopup.tsx` (stale 배너 + D 등락률 재계산)
+  - `frontend/src/components/PortfolioPage.tsx` (history 타입 + stale 시 RVOL/30일 순위 미표시)
+  - `frontend/src/components/StockCard.tsx` (stale 시 RVOL/30일 순위 미표시)
+  - `main.py` (history 수집 대상에 기존 종목 union)
+- **🔴 Critical 사용자 보고**: 대우건설 차트에서 D-1 7,380원 → D 29,300원인데 등락률 +2.81%로 표시 (정확히 계산하면 +297%)
+- **원인 정확히 파악**:
+  - PriceHistoryPopup이 D-1까지는 `stock-history.json.changes`, D는 `currentPrice/currentChangeRate` (latest.json)를 사용
+  - 두 데이터 소스의 **날짜 검증 없음**
+  - 047040 대우건설: changes[0].date = **2026-02-11** (3개월 stale), D = 5/15 (오늘) → 시점 격차 3개월
+- **광범위 검증**: 152종목 중 stock-history changes[0].date 분포
+  - 2026-05-18 (오늘): **37종목 (24%)만 최신**
+  - 2026-02-11 stale: 16종목
+  - 2025-12-30 stale: 8종목
+  - 9개월 stale 종목까지 존재
+  - **총 76%가 stale** — 광범위한 데이터 누락
+- **근본 원인 (인프라)**: `main.py:405`에서 `all_stocks`(오늘 상위)만 history 수집 → 어제 상위였다가 빠진 종목은 옛 데이터 영구 잔존
+- **수정 (UI 즉각)**:
+  - **isHistoryStale**: changes[0].date와 현재 KST의 차이 > 7일이면 stale
+  - **PriceHistoryPopup**: stale 시 상단 amber 배너 안내 + D 등락률을 `(currentPrice - changes[0].close) / changes[0].close × 100`로 재계산 (정직한 큰 값 표시)
+  - **PortfolioPage/StockCard**: stale 시 recent20/historicalVols30을 빈 배열로 → RVOL/30일 순위 null → 미표시
+- **수정 (인프라 근본)**:
+  - `main.py [8/13]`에서 `all_stocks` + 기존 stock-history.json의 모든 코드를 union하여 수집 대상에 포함
+  - 한 번 들어간 종목은 매 cron마다 갱신 → stale 영구화 방지
+  - 다음 cron부터 자동 backfill
+- **검증**: tsc PASS · build PASS (3.58s) · main.py AST PASS
+
 ## 2026-05-18
 
 ### [개선] 30일 순위 동률 평균 위치 + 거래 집중 bin 정밀도 ↑ (2026-05-18 22:14 KST)

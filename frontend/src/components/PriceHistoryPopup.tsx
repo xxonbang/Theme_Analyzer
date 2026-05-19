@@ -4,6 +4,7 @@ import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { useScrollLock } from "@/hooks/useScrollLock"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn, formatPrice, formatVolume, formatTradingValue, getChangeBgColor } from "@/lib/utils"
+import { isHistoryStale } from "@/lib/market-metrics"
 import type { HistoryChange, IntradayDay } from "@/types/stock"
 
 // 차트 상수
@@ -46,6 +47,15 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
 
   // 시간순 정렬, 최근 11일(D-10 ~ D)만 표시
   const reversed = [...changes].slice(0, 11).reverse()
+
+  // stock-history changes의 최신 날짜가 5영업일 이상 옛날이면 stale.
+  // stale인 경우 D를 합치면 시점 격차로 등락률 표시 오류 발생 → 안내 + D 등락률 재계산.
+  const latestChangeDate = changes[0]?.date
+  const stale = isHistoryStale(latestChangeDate)
+  // stale 시 D 등락률을 stock-history.changes[0]와의 비율로 재계산 (정직한 큰 값 표시)
+  const dRate = stale && changes[0]?.close
+    ? ((currentPrice - changes[0].close) / changes[0].close) * 100
+    : currentChangeRate
 
   // 탭 상태: 거래일 장중(09:00~15:30) + intraday 데이터 있으면 장중 탭 기본
   const hasIntraday = intradayDays && intradayDays.length > 0
@@ -153,11 +163,16 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
         {/* === 일별 탭 === */}
         {activeTab === "daily" && (
           <>
+            {stale && (
+              <div className="mb-2 px-3 py-2 rounded-md border border-amber-500/30 bg-amber-500/5 text-[11px] text-amber-700 dark:text-amber-400 leading-relaxed">
+                ⚠ <strong>이력 데이터가 오래되었습니다 (마지막: {latestChangeDate ?? "?"}).</strong> D 등락률은 마지막 이력일 종가와 비교한 값으로 큰 값이 나올 수 있습니다.
+              </div>
+            )}
             {/* 종가 라인 + 거래량 막대 그래프 */}
             {(() => {
               const data = reversed.map((c, idx) => ({
                 close: idx === reversed.length - 1 ? currentPrice : (c.close || 0),
-                rate: idx === reversed.length - 1 ? currentChangeRate : c.change_rate,
+                rate: idx === reversed.length - 1 ? dRate : c.change_rate,
                 volume: c.volume || 0,
                 label: idx === reversed.length - 1 ? "D" : `D-${reversed.length - 1 - idx}`,
               })).filter(d => d.close > 0)
@@ -272,7 +287,7 @@ export function PriceHistoryPopup({ stockName, currentPrice, currentChangeRate, 
               {reversed.map((c, idx) => {
                 const isToday = idx === reversed.length - 1
                 const label = isToday ? "D" : `D-${reversed.length - 1 - idx}`
-                const rate = isToday ? currentChangeRate : c.change_rate
+                const rate = isToday ? dRate : c.change_rate
                 const close = isToday ? currentPrice : (c.close || 0)
 
                 return (

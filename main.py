@@ -8,6 +8,7 @@ import json
 import os
 import time
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Dict, List, Any
 
 from modules.kis_client import KISClient
@@ -400,9 +401,24 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     print(f"  ✓ 총 {len(all_stocks)}개 종목")
 
     # 8. 3일간 등락률 조회 [선택] — 실패 시 빈 데이터로 진행
+    # 누락 종목 stale 방지: 기존 stock-history.json에 있던 종목도 항상 갱신 대상에 포함
     print("\n[8/13] 3일간 등락률 조회 중...")
     try:
-        history_data = history_api.get_multiple_stocks_history(all_stocks, days=60)
+        history_targets = list(all_stocks)
+        try:
+            existing_path = Path("frontend/public/data/stock-history.json")
+            if existing_path.exists():
+                with open(existing_path, "r", encoding="utf-8") as f:
+                    existing_history = json.load(f)
+                current_codes = {s.get("code") for s in all_stocks if s.get("code")}
+                existing_only = [code for code in existing_history.keys() if code not in current_codes]
+                # 누락 종목은 최소한 code 정보만 채워서 추가 (name은 history_api 내부에서 처리)
+                for code in existing_only:
+                    history_targets.append({"code": code, "name": existing_history[code].get("name", code) if isinstance(existing_history[code], dict) else code})
+                print(f"  ◦ all_stocks {len(all_stocks)} + 기존 누락 {len(existing_only)} = 총 {len(history_targets)}개 대상")
+        except Exception as e:
+            print(f"  ⚠ 기존 history 종목 union 실패 (계속 진행): {e}")
+        history_data = history_api.get_multiple_stocks_history(history_targets, days=60)
         print(f"  ✓ {len(history_data)}개 종목 등락률 조회 완료")
     except Exception as e:
         print(f"  ✗ 등락률 조회 실패: {e}")

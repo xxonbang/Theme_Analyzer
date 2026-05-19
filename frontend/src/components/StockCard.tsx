@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment, memo } from "react"
 import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles, HelpCircle, Loader2, BarChart2 } from "lucide-react"
-import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration } from "@/lib/market-metrics"
+import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration, isHistoryStale } from "@/lib/market-metrics"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import { searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import { Card, CardContent } from "@/components/ui/card"
@@ -105,9 +105,11 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
         : livePrice.volume)
     : stock.volume ?? 0
   const changes = history?.changes ?? []
-  const recent20 = changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
+  // stock-history가 stale(5영업일 이상 옛날)이면 RVOL/30일 순위는 의미 없음 → null로 미표시.
+  const historyStale = isHistoryStale(changes[0]?.date)
+  const recent20 = historyStale ? [] : changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
   const rvol = calculateRvol(rvolVol, recent20, getMarketElapsedRatio())
-  const historicalVols30 = changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
+  const historicalVols30 = historyStale ? [] : changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)
   const { rank: rank30, total: rank30Total } = calculateRank30(rvolVol, historicalVols30)
   const concentration = calculateConcentration(volumeProfile?.today?.bins)
   const hasNews = news && news.news && news.news.length > 0

@@ -1,6 +1,24 @@
 // VWAP / RVOL / 30일 순위 / 거래 집중 계산 공통 헬퍼.
 // PortfolioPage·StockCard 등 종목 카드에서 공유.
 
+const STALE_THRESHOLD_DAYS = 7  // 7캘린더일 (≈ 5영업일) 이상 오래된 데이터를 stale로 간주
+
+/**
+ * stock-history changes의 가장 최근 날짜가 5영업일 이상 옛날이면 stale.
+ * stale인 종목은 RVOL/30일 순위/D 등락률 등 시점 일관성이 필요한 지표 미표시 권장.
+ */
+export function isHistoryStale(latestChangeDate: string | undefined | null): boolean {
+  if (!latestChangeDate) return true
+  const now = new Date()
+  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }))
+  const todayStr = `${kst.getFullYear()}-${String(kst.getMonth() + 1).padStart(2, "0")}-${String(kst.getDate()).padStart(2, "0")}`
+  const todayMs = new Date(todayStr).getTime()
+  const latestMs = new Date(latestChangeDate).getTime()
+  if (isNaN(latestMs)) return true
+  const diffDays = (todayMs - latestMs) / (24 * 60 * 60 * 1000)
+  return diffDays > STALE_THRESHOLD_DAYS
+}
+
 // CLEANUP after 2026-05-31: stock-history가 UN으로 완전 마이그레이션되면 분기 제거.
 export const RVOL_HISTORY_UN_CUTOFF_MS = new Date("2026-05-31T15:30:00+09:00").getTime()
 
