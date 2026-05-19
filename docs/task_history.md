@@ -6,6 +6,18 @@
 
 ## 2026-05-19
 
+### [버그픽스] kis-proxy 배포 누락 → krx_volume 필드명 불일치 해결 (2026-05-19 21:42 KST)
+- **재검증 진단**: 5/18 작업 시 분석한 "rate limit retry 부족"은 부정확 — 모든 시나리오(단일/bulk/5초 대기)에서 일관 누락이라 rate limit 원인 기각
+- **(A) 배포 코드 download + diff 진행**:
+  - 배포된 코드 = 5/18 21:45 이전 옛 버전 (필드명 `volume_krx`, fetchPriceConcentration dead code 포함)
+  - 로컬 코드 = 5/18 22:14 작업 결과 (필드명 `krx_volume`, fetchStockPriceMarket 리팩토링 + retry)
+  - 차이 140줄
+- **근본 원인**: 5/18 22:14 작업 이후 `supabase functions deploy kis-proxy` **누락**. 그 사이 작업들이 frontend만 변경이라 배포 영향 인지 못 함
+- **조치**: 로컬 코드 그대로 재배포 (`fetchPriceConcentration` action은 frontend 사용처 없음 확인 후 안전)
+- **재배포 후 검증**: 5종목 × 5회 반복 = 25회 모두 `krx_volume` 정상 응답 ✅
+  - 005930 krx_volume = 30,767,569 (Python 직접 KIS 호출 결과와 정확히 일치)
+- **자체 분석 평가**: 5/18 진단 시 "retry 강화 권장"이 부정확. 진짜 원인은 더 단순한 배포 누락이었음. 향후엔 supabase 배포 상태 download diff 우선 확인 필요
+
 ### [진단] 4지표 (VWAP/RVOL/30일 순위/거래 집중) 재검증 결과 (2026-05-19 21:30 KST)
 - **검증 범위**: 5종목(005930, 000660, 006800, 047040, 000020) × 4지표 + kis-proxy 응답 안정성 5회 반복
 - **✅ 정상 (5건)**:
