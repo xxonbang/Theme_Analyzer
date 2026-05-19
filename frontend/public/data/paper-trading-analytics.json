@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-05-18 15:42:03",
+  "generated_at": "2026-05-19 15:42:29",
   "period": {
     "start": "2026-04-20",
-    "end": "2026-05-18",
-    "trading_days": 21
+    "end": "2026-05-19",
+    "trading_days": 22
   },
   "overall": {
-    "cumulative_return": 33.45,
-    "cumulative_high_return": 223.9,
-    "avg_daily_return": 1.47,
-    "volatility": 4.38,
-    "sharpe_ratio": 0.33,
-    "max_drawdown": 10.65,
-    "win_rate": 57.1,
+    "cumulative_return": 30.13,
+    "cumulative_high_return": 233.45,
+    "avg_daily_return": 1.29,
+    "volatility": 4.36,
+    "sharpe_ratio": 0.29,
+    "max_drawdown": 12.8,
+    "win_rate": 54.5,
     "win_days": 12,
-    "loss_days": 8,
+    "loss_days": 9,
     "flat_days": 1,
     "avg_win": 4.18,
-    "avg_loss": -2.41,
+    "avg_loss": -2.42,
     "profit_loss_ratio": 1.73,
     "max_win_streak": 4,
     "max_loss_streak": 4,
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.18,
+    "avg_return": -1.72,
     "win_rate": 20.0
   },
   "theme_performance": [
@@ -76,6 +76,13 @@
       "win_rate": 66.7,
       "avg_return": 2.48,
       "total_return": 7.43
+    },
+    {
+      "theme": "방산/우주항공",
+      "count": 4,
+      "win_rate": 50.0,
+      "avg_return": 2.43,
+      "total_return": 9.73
     },
     {
       "theme": "로봇/자동화",
@@ -207,15 +214,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 151,
-      "win_rate": 52.3,
-      "avg_return": 1.87
+      "count": 161,
+      "win_rate": 50.3,
+      "avg_return": 1.67
     },
     {
       "market": "KOSDAQ",
-      "count": 50,
-      "win_rate": 40.0,
-      "avg_return": -1.3
+      "count": 51,
+      "win_rate": 41.2,
+      "avg_return": -1.24
     }
   ],
   "cumulative_series": [
@@ -302,6 +309,10 @@
     {
       "date": "2026-05-18",
       "cumulative_return": 33.45
+    },
+    {
+      "date": "2026-05-19",
+      "cumulative_return": 30.13
     }
   ]
 }

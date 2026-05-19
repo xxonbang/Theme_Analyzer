@@ -1,0 +1,648 @@
+{
+  "trade_date": "2026-05-19",
+  "morning_timestamp": "2026-05-19 09:11:48",
+  "collected_at": "2026-05-19 15:41:23",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-19 09:11:48",
+      "prices": {
+        "288180": 43850,
+        "274090": 30150,
+        "000500": 440000,
+        "036930": 194700,
+        "196170": 378500,
+        "012450": 1291000,
+        "079550": 864000,
+        "080220": 93300,
+        "440110": 105900,
+        "027360": 17630,
+        "011000": 1178
+      },
+      "leader_stocks": [
+        {
+          "code": "288180",
+          "name": "케이피항공산업",
+          "theme": "방위/항공우주"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방위/항공우주"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오시밀러/신약 개발"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 09:31:55",
+      "prices": {
+        "288180": 43850,
+        "274090": 30150,
+        "000500": 413000,
+        "036930": 194700,
+        "196170": 372500,
+        "012450": 1317000,
+        "079550": 893000,
+        "080220": 99400,
+        "440110": 105900,
+        "027360": 18540,
+        "011000": 1178
+      },
+      "leader_stocks": [
+        {
+          "code": "288180",
+          "name": "케이피항공산업",
+          "theme": "방위/항공우주"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방위/항공우주"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "차세대 반도체 장비"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오시밀러/신약 개발"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 09:34:43",
+      "prices": {
+        "288180": 43850,
+        "274090": 29050,
+        "000500": 414500,
+        "036930": 180800,
+        "196170": 374000,
+        "012450": 1313000,
+        "079550": 889000,
+        "080220": 98300,
+        "440110": 106000,
+        "027360": 19260,
+        "011000": 1353
+      },
+      "leader_stocks": [
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력/전선"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "투자/벤처캐피탈"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 10:02:35",
+      "prices": {
+        "288180": 43850,
+        "274090": 29050,
+        "000500": 398500,
+        "036930": 180000,
+        "196170": 362500,
+        "012450": 1312000,
+        "079550": 881000,
+        "080220": 94400,
+        "440110": 103200,
+        "027360": 19260,
+        "011000": 1353
+      },
+      "leader_stocks": [
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력/전선"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "투자/벤처캐피탈"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 12:01:50",
+      "prices": {
+        "274090": 29050,
+        "000500": 398500,
+        "036930": 172400,
+        "196170": 359000,
+        "012450": 1278000,
+        "079550": 871000,
+        "080220": 95000,
+        "440110": 103600,
+        "027360": 19260,
+        "011000": 1353
+      },
+      "leader_stocks": [
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력/전선"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "투자/벤처캐피탈"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 12:35:23",
+      "prices": {
+        "274090": 28050,
+        "036930": 177400,
+        "196170": 358000,
+        "012450": 1295000,
+        "079550": 877000,
+        "080220": 94600,
+        "440110": 106100,
+        "027360": 17530,
+        "011000": 1306
+      },
+      "leader_stocks": [
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력/전선"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "투자/벤처캐피탈"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 13:26:48",
+      "prices": {
+        "274090": 28050,
+        "036930": 170300,
+        "196170": 357000,
+        "012450": 1295000,
+        "079550": 871500,
+        "080220": 93000,
+        "440110": 106100,
+        "027360": 17310,
+        "011000": 1306
+      },
+      "leader_stocks": [
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력/전선"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "투자/벤처캐피탈"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-19 14:36:37",
+      "prices": {
+        "274090": 28050,
+        "036930": 177200,
+        "196170": 369500,
+        "012450": 1299000,
+        "079550": 864000,
+        "080220": 97100,
+        "440110": 106100,
+        "027360": 17640,
+        "011000": 1306
+      },
+      "leader_stocks": [
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "274090",
+          "name": "켄코아에어로스페이스",
+          "theme": "방산/우주항공"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력/전선"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "투자/벤처캐피탈"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "288180",
+      "name": "케이피항공산업",
+      "theme": "방위/항공우주",
+      "market": "KOSPI",
+      "buy_price": 43850,
+      "close_price": 43850,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 43850,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 42800,
+      "low_profit_rate": -2.39,
+      "low_profit_amount": -1050,
+      "low_time": "09:02"
+    },
+    {
+      "code": "274090",
+      "name": "켄코아에어로스페이스",
+      "theme": "방위/항공우주",
+      "market": "KOSPI",
+      "buy_price": 30150,
+      "close_price": 28450,
+      "profit_rate": -5.64,
+      "profit_amount": -1700,
+      "high_price": 32950,
+      "high_time": "09:16",
+      "high_profit_rate": 9.29,
+      "high_profit_amount": 2800,
+      "low_price": 26100,
+      "low_profit_rate": -13.43,
+      "low_profit_amount": -4050,
+      "low_time": "11:51"
+    },
+    {
+      "code": "000500",
+      "name": "가온전선",
+      "theme": "전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 440000,
+      "close_price": 388000,
+      "profit_rate": -11.82,
+      "profit_amount": -52000,
+      "high_price": 433000,
+      "high_time": "09:17",
+      "high_profit_rate": -1.59,
+      "high_profit_amount": -7000,
+      "low_price": 361000,
+      "low_profit_rate": -17.95,
+      "low_profit_amount": -79000,
+      "low_time": "13:49"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "차세대 반도체 장비",
+      "market": "KOSPI",
+      "buy_price": 194700,
+      "close_price": 176900,
+      "profit_rate": -9.14,
+      "profit_amount": -17800,
+      "high_price": 193900,
+      "high_time": "09:12",
+      "high_profit_rate": -0.41,
+      "high_profit_amount": -800,
+      "low_price": 168500,
+      "low_profit_rate": -13.46,
+      "low_profit_amount": -26200,
+      "low_time": "11:37"
+    },
+    {
+      "code": "196170",
+      "name": "알테오젠",
+      "theme": "바이오시밀러/신약 개발",
+      "market": "KOSPI",
+      "buy_price": 378500,
+      "close_price": 366500,
+      "profit_rate": -3.17,
+      "profit_amount": -12000,
+      "high_price": 379500,
+      "high_time": "09:12",
+      "high_profit_rate": 0.26,
+      "high_profit_amount": 1000,
+      "low_price": 355500,
+      "low_profit_rate": -6.08,
+      "low_profit_amount": -23000,
+      "low_time": "12:48"
+    },
+    {
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 1291000,
+      "close_price": 1286000,
+      "profit_rate": -0.39,
+      "profit_amount": -5000,
+      "high_price": 1344000,
+      "high_time": "09:41",
+      "high_profit_rate": 4.11,
+      "high_profit_amount": 53000,
+      "low_price": 1252000,
+      "low_profit_rate": -3.02,
+      "low_profit_amount": -39000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "079550",
+      "name": "LIG디펜스앤에어로스페이스",
+      "theme": "방산/우주항공",
+      "market": "KOSPI",
+      "buy_price": 864000,
+      "close_price": 862000,
+      "profit_rate": -0.23,
+      "profit_amount": -2000,
+      "high_price": 904000,
+      "high_time": "09:41",
+      "high_profit_rate": 4.63,
+      "high_profit_amount": 40000,
+      "low_price": 841000,
+      "low_profit_rate": -2.66,
+      "low_profit_amount": -23000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "반도체",
+      "market": "KOSPI",
+      "buy_price": 93300,
+      "close_price": 95900,
+      "profit_rate": 2.79,
+      "profit_amount": 2600,
+      "high_price": 101000,
+      "high_time": "09:35",
+      "high_profit_rate": 8.25,
+      "high_profit_amount": 7700,
+      "low_price": 87800,
+      "low_profit_rate": -5.89,
+      "low_profit_amount": -5500,
+      "low_time": "09:01"
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "반도체",
+      "market": "KOSDAQ",
+      "buy_price": 105900,
+      "close_price": 107900,
+      "profit_rate": 1.89,
+      "profit_amount": 2000,
+      "high_price": 108600,
+      "high_time": "09:13",
+      "high_profit_rate": 2.55,
+      "high_profit_amount": 2700,
+      "low_price": 98800,
+      "low_profit_rate": -6.7,
+      "low_profit_amount": -7100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "투자/벤처캐피탈",
+      "market": "KOSPI",
+      "buy_price": 17630,
+      "close_price": 17280,
+      "profit_rate": -1.99,
+      "profit_amount": -350,
+      "high_price": 19950,
+      "high_time": "09:24",
+      "high_profit_rate": 13.16,
+      "high_profit_amount": 2320,
+      "low_price": 16300,
+      "low_profit_rate": -7.54,
+      "low_profit_amount": -1330,
+      "low_time": "09:01"
+    },
+    {
+      "code": "011000",
+      "name": "진원생명과학",
+      "theme": "바이오",
+      "market": "KOSPI",
+      "buy_price": 1178,
+      "close_price": 1366,
+      "profit_rate": 15.96,
+      "profit_amount": 188,
+      "high_price": 1366,
+      "high_time": "15:30",
+      "high_profit_rate": 15.96,
+      "high_profit_amount": 188,
+      "low_price": 1080,
+      "low_profit_rate": -8.32,
+      "low_profit_amount": -98,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 3,
+    "loss_stocks": 7,
+    "total_invested": 3460208,
+    "total_value": 3374146,
+    "total_profit": -86062,
+    "total_profit_rate": -2.49,
+    "high_total_value": 3562116,
+    "high_total_profit": 101908,
+    "high_total_profit_rate": 2.95,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 2
+  }
+}
