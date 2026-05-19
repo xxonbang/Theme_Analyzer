@@ -301,22 +301,25 @@ export function PaperTradingPage() {
                     {activeStocksForDay.length}/{data.stocks.length}종목
                   </span>
                   {snapshots && snapshots.length > 1 ? (
-                    <select
-                      value={currentSnapIdx}
-                      onChange={(e) => selectBuyTimestamp(date, Number(e.target.value))}
-                      className="text-base sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground"
-                    >
-                      {snapshots.map((snap, idx) => {
-                        const time = snap.timestamp.split(" ")[1]?.slice(0, 5) ?? snap.timestamp
-                        return (
-                          <option key={idx} value={idx}>
-                            매수 {time}
-                          </option>
-                        )
-                      })}
-                    </select>
+                    <div className="relative inline-flex items-center">
+                      <select
+                        value={currentSnapIdx}
+                        onChange={(e) => selectBuyTimestamp(date, Number(e.target.value))}
+                        className="appearance-none text-[11px] sm:text-xs bg-muted/60 hover:bg-muted/80 border border-border/60 rounded-md pl-2.5 pr-7 py-1 text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer transition-colors tabular-nums"
+                      >
+                        {snapshots.map((snap, idx) => {
+                          const time = snap.timestamp.split(" ")[1]?.slice(0, 5) ?? snap.timestamp
+                          return (
+                            <option key={idx} value={idx}>
+                              매수 {time}
+                            </option>
+                          )
+                        })}
+                      </select>
+                      <ChevronDown className="absolute right-1.5 w-3 h-3 text-muted-foreground pointer-events-none" />
+                    </div>
                   ) : data.morning_timestamp?.split(" ")[1]?.slice(0, 5) ? (
-                    <span className="text-[10px] sm:text-xs bg-muted/50 border border-border rounded px-1.5 py-0.5 text-foreground inline-block">
+                    <span className="text-[11px] sm:text-xs bg-muted/60 border border-border/60 rounded-md px-2.5 py-1 text-foreground font-medium inline-block tabular-nums">
                       매수 {data.morning_timestamp.split(" ")[1]?.slice(0, 5)}
                     </span>
                   ) : null}

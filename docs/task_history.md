@@ -6,6 +6,18 @@
 
 ## 2026-05-19
 
+### [UI] 모의투자 이력 시간선택 dropdown 디자인 개선 (2026-05-19 23:19 KST)
+- **변경 파일**: `frontend/src/components/PaperTradingPage.tsx`
+- **사용자 보고**: 매수 시각 select 박스의 OS 기본 ↕ 화살표가 어색
+- **수정**:
+  - `appearance-none`으로 OS 기본 화살표 제거
+  - 커스텀 ChevronDown 아이콘 (absolute right-1.5)
+  - 폰트 크기 통일 (text-[11px] sm:text-xs, font-medium)
+  - 호버 효과 (bg-muted/60 → /80) + focus ring (primary/30)
+  - rounded-md + 패딩 일관(pl-2.5 pr-7 py-1) + tabular-nums
+  - 단일 시각 표시 span도 동일 스타일로 통일
+- **검증**: tsc PASS · build PASS (3.44s)
+
 ### [진단] kis-proxy에 _krx_error 진단 필드 추가 (2026-05-19 22:07 KST)
 - **변경 파일**: `supabase/functions/kis-proxy/index.ts` (+4/-1)
 - **목적**: krx_volume 누락이 시간대별로 재발 → KIS API의 정확한 에러 메시지 캡처
