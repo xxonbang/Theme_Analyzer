@@ -6,6 +6,26 @@
 
 ## 2026-05-19
 
+### [버그픽스] stock-history UN 마이그레이션 결정 reverse + 101종목 즉시 복구 (2026-05-19 23:53 KST)
+- **변경 파일**:
+  - `modules/stock_history.py` (market_div="UN" → "J", 3곳)
+  - `frontend/public/data/stock-history.json` (101종목 J로 갱신)
+- **사용자 보고**: 대우건설 RVOL/30일 순위 미표시
+- **🔴 진단 (KIS API 자체 이슈 확인)**:
+  - 047040 일별 시세 J 호출 → 최신 2026-05-19 ✅
+  - 047040 일별 시세 **UN 호출 → 최신 2026-02-11 (3개월 stale)** ❌
+  - 005930 J/UN 모두 정상
+  - 결론: **KIS API의 UN 시장구분 일별 시세가 NXT 미상장/거래 미미 종목에서 stale 데이터 반환**
+- **5/17 결정 회고**: "stock-history UN 마이그레이션"이 잘못된 결정. UN endpoint가 모든 종목에 안전한 응답을 보장 안 함
+- **수정**: stock_history.py 모든 호출을 J로 영구 복귀
+- **즉시 backfill**:
+  - 101 stale 종목 모두 J 호출 → 갱신 성공
+  - 47040 changes[0] = 2026-05-19 close=27,050 (오늘 데이터)
+  - 전체 stale: 101 → 0
+- **추가 정리 권장 (별도)**:
+  - `RVOL_HISTORY_UN_CUTOFF_MS` 분기 의미 변경됨 — stock-history가 영구 J이므로 cutoff 분기 자체가 무의미해짐
+  - rvol-cleanup-reminder.yml의 5/31 cutoff 자동 해소 가설도 무효
+
 ### [버그픽스/PWA] iOS PWA pull-to-refresh 작동 불가 진단 + 수정 (2026-05-19 23:47 KST)
 - **변경 파일**:
   - `frontend/src/index.css` (overscroll-behavior-y: none → contain)
