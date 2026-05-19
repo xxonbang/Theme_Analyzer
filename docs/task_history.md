@@ -6,6 +6,23 @@
 
 ## 2026-05-19
 
+### [버그픽스/PWA] iOS PWA pull-to-refresh 작동 불가 진단 + 수정 (2026-05-19 23:47 KST)
+- **변경 파일**:
+  - `frontend/src/index.css` (overscroll-behavior-y: none → contain)
+  - `frontend/index.html` (apple PWA meta + manifest link 추가)
+  - `frontend/public/manifest.webmanifest` (신규)
+- **사용자 보고**: pull-to-refresh 기능 작동 안 함
+- **진단 결과 3가지 원인**:
+  1. **🔴 가장 큰**: `overscroll-behavior-y: none`이 iOS PWA에서 swipe 자체 차단
+  2. PWA 메타 누락 (apple-mobile-web-app-capable 등) → iOS가 일반 웹뷰로 취급
+  3. manifest.webmanifest 파일 자체 부재
+- **수정**:
+  - **A**: overscroll-behavior-y `none` → `contain` (페이지 끝 bounce는 막되 swipe 허용)
+  - **B-1**: apple-mobile-web-app-capable/status-bar-style/title + mobile-web-app-capable 메타 추가
+  - **B-2**: manifest.webmanifest 신규 (name, scope, display: standalone, icons 등)
+- **검증**: tsc PASS · build PASS (3.27s) · dist에 manifest 정상 포함
+- **사용자 시험 필요**: 홈 화면에서 앱 종료 후 재실행 → 페이지 최상단에서 손가락 아래로 60px+ 당김
+
 ### [UI] 모의투자 이력 시간선택 dropdown 디자인 개선 (2026-05-19 23:19 KST)
 - **변경 파일**: `frontend/src/components/PaperTradingPage.tsx`
 - **사용자 보고**: 매수 시각 select 박스의 OS 기본 ↕ 화살표가 어색

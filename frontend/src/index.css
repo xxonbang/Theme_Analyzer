@@ -136,7 +136,9 @@ html.dark {
 }
 
 html, body {
-  overscroll-behavior-y: none;
+  /* none이면 iOS PWA에서 pull-to-refresh swipe 자체가 차단됨.
+     contain은 페이지 끝 bounce는 막되 swipe 이벤트는 허용 → 커스텀 pull-to-refresh 동작. */
+  overscroll-behavior-y: contain;
 }
 
 body {

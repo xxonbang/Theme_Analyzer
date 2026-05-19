@@ -1,0 +1,32 @@
+{
+  "name": "Theme Analyzer",
+  "short_name": "ThemeAnalyzer",
+  "description": "AI 테마 분석 기반 주식 종목 선정 대시보드",
+  "start_url": "/theme-analyzer/",
+  "scope": "/theme-analyzer/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
