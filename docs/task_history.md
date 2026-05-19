@@ -6,6 +6,22 @@
 
 ## 2026-05-19
 
+### [진단] 4지표 (VWAP/RVOL/30일 순위/거래 집중) 재검증 결과 (2026-05-19 21:30 KST)
+- **검증 범위**: 5종목(005930, 000660, 006800, 047040, 000020) × 4지표 + kis-proxy 응답 안정성 5회 반복
+- **✅ 정상 (5건)**:
+  - VWAP: 5종목 모두 ±5% 합리적, 분자/분모 UN 일관성 확보
+  - stale 감지: 047040(3개월 stale), 000020(history 없음) 정확히 인식 → RVOL/30일 순위 미표시
+  - 30일 순위 평균 위치 정상 적용 (14.0, 15.0, 17.0)
+  - 거래 집중 bin 정밀도 ↑ 효과 적용 (bin_size 145/437/2850, 40 bin)
+  - D 등락률 재계산 + amber 안내 배너 정상
+- **🔴 Critical 발견**: kis-proxy `krx_volume` 5회 모두 누락
+  - 원인: `fetchStockPriceMarket` retry가 rate limit 분기만 처리 → 그 외 에러는 즉시 fail
+  - 영향: cutoff 전인데도 frontend가 UN volume으로 fallback → 단위 일부 불일치 (UN tv vs J avg 가능)
+  - frontend fallback 덕분에 RVOL 표시 자체는 정상 (null 아님)
+- **🟡 진행 중**: stock-history staleness 32% (149종목 중 48종목만 최신)
+  - main.py union 변경(`aefe858a`)은 다음 cron부터 자동 반영 예정
+- **결론**: 4지표 로직 자체는 정확. kis-proxy retry 강화 권장 (별도 진행)
+
 ### [버그픽스/인프라] stock-history stale 감지 + 차트 안내 + 누락 종목 union 수집 (2026-05-19 20:30 KST)
 - **변경 파일**:
   - `frontend/src/lib/market-metrics.ts` (isHistoryStale 헬퍼)
