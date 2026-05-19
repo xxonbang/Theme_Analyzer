@@ -103,9 +103,11 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
 
   // CLEANUP after 2026-05-31: cutoff 도래 후 KRX 별도 호출 자동 stop, krx_volume undefined.
   let krxVolume: number | undefined
+  let krxError: string | null = null  // [DIAG] 진단용 — 정상화 후 제거
   if (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS) {
-    const { output: oKrx } = await fetchStockPriceMarket(creds, code, "J")
+    const { output: oKrx, errorMsg: krxMsg } = await fetchStockPriceMarket(creds, code, "J")
     if (oKrx) krxVolume = parseInt(oKrx.acml_vol) || 0
+    else krxError = krxMsg  // [DIAG]
   }
 
   return {
@@ -118,6 +120,7 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
       volume: parseInt(o.acml_vol) || 0,
       trading_value: parseInt(o.acml_tr_pbmn) || 0,  // 누적 거래대금 (VWAP 계산용)
       ...(krxVolume !== undefined ? { krx_volume: krxVolume } : {}),  // CLEANUP after 2026-05-31
+      ...(krxError ? { _krx_error: krxError } : {}),  // [DIAG] 진단용
       market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
       w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,
       w52_lwpr: parseInt(o.stck_dryy_lwpr) || 0,

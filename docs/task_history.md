@@ -6,6 +6,16 @@
 
 ## 2026-05-19
 
+### [진단] kis-proxy에 _krx_error 진단 필드 추가 (2026-05-19 22:07 KST)
+- **변경 파일**: `supabase/functions/kis-proxy/index.ts` (+4/-1)
+- **목적**: krx_volume 누락이 시간대별로 재발 → KIS API의 정확한 에러 메시지 캡처
+- **추가**: J 호출 실패 시 응답에 `_krx_error: "<msg>"` 임시 필드 (성공 시 미포함)
+- **재배포 완료**: 직후 검증 15/15 정상 (재배포 직후 일시 정상화는 일관된 패턴)
+- **현재 평가**: 4지표 로직 자체는 정확. krx_volume 누락은 frontend UN fallback으로 표시 끊김 없음
+  - 부풀림(대장주 RVOL 1.5~2배)은 5/31 cutoff에 자동 해소 (stock-history가 UN으로 차오르면서)
+  - 진단 코드는 다음 누락 발생 시 자동으로 에러 캡처 → 영구 원인 파악
+- **추가 작업 없음**: 지켜보기가 최선
+
 ### [버그픽스] kis-proxy 배포 누락 → krx_volume 필드명 불일치 해결 (2026-05-19 21:42 KST)
 - **재검증 진단**: 5/18 작업 시 분석한 "rate limit retry 부족"은 부정확 — 모든 시나리오(단일/bulk/5초 대기)에서 일관 누락이라 rate limit 원인 기각
 - **(A) 배포 코드 download + diff 진행**:
