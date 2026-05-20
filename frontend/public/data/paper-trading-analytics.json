@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-05-19 15:42:29",
+  "generated_at": "2026-05-20 15:42:34",
   "period": {
     "start": "2026-04-20",
-    "end": "2026-05-19",
-    "trading_days": 22
+    "end": "2026-05-20",
+    "trading_days": 23
   },
   "overall": {
-    "cumulative_return": 30.13,
-    "cumulative_high_return": 233.45,
-    "avg_daily_return": 1.29,
-    "volatility": 4.36,
-    "sharpe_ratio": 0.29,
-    "max_drawdown": 12.8,
-    "win_rate": 54.5,
+    "cumulative_return": 26.36,
+    "cumulative_high_return": 250.96,
+    "avg_daily_return": 1.11,
+    "volatility": 4.34,
+    "sharpe_ratio": 0.25,
+    "max_drawdown": 15.33,
+    "win_rate": 52.2,
     "win_days": 12,
-    "loss_days": 9,
+    "loss_days": 10,
     "flat_days": 1,
     "avg_win": 4.18,
-    "avg_loss": -2.42,
-    "profit_loss_ratio": 1.73,
+    "avg_loss": -2.46,
+    "profit_loss_ratio": 1.7,
     "max_win_streak": 4,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -1.72,
+    "avg_return": -2.19,
     "win_rate": 20.0
   },
   "theme_performance": [
@@ -176,6 +176,13 @@
       "total_return": -13.2
     },
     {
+      "theme": "첨단 반도체 소재 및 장비",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -3.76,
+      "total_return": -11.29
+    },
+    {
       "theme": "로봇",
       "count": 4,
       "win_rate": 0.0,
@@ -204,6 +211,13 @@
       "total_return": -21.89
     },
     {
+      "theme": "AI 및 로보틱스 혁신",
+      "count": 3,
+      "win_rate": 33.3,
+      "avg_return": -5.71,
+      "total_return": -17.13
+    },
+    {
       "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)",
       "count": 3,
       "win_rate": 0.0,
@@ -214,15 +228,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 161,
-      "win_rate": 50.3,
-      "avg_return": 1.67
+      "count": 170,
+      "win_rate": 48.8,
+      "avg_return": 1.48
     },
     {
       "market": "KOSDAQ",
-      "count": 51,
-      "win_rate": 41.2,
-      "avg_return": -1.24
+      "count": 54,
+      "win_rate": 40.7,
+      "avg_return": -1.15
     }
   ],
   "cumulative_series": [
@@ -313,6 +327,10 @@
     {
       "date": "2026-05-19",
       "cumulative_return": 30.13
+    },
+    {
+      "date": "2026-05-20",
+      "cumulative_return": 26.36
     }
   ]
 }

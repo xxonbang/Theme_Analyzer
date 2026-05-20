@@ -1,0 +1,543 @@
+{
+  "trade_date": "2026-05-20",
+  "morning_timestamp": "2026-05-20 09:12:11",
+  "collected_at": "2026-05-20 15:41:25",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-20 09:12:11",
+      "prices": {
+        "477850": 60000,
+        "439960": 55300,
+        "066430": 4505,
+        "007660": 128900,
+        "036930": 188100,
+        "440110": 112800,
+        "142280": 5290,
+        "001440": 54700,
+        "047040": 27300,
+        "011000": 1685,
+        "005950": 13000,
+        "018880": 4525
+      },
+      "leader_stocks": [
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로보틱스 혁신"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로보틱스 혁신"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "AI 및 로보틱스 혁신"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "첨단 반도체 소재 및 장비"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 소재 및 장비"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 소재 및 장비"
+        },
+        {
+          "code": "142280",
+          "name": "녹십자엠에스",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "인프라 및 전력망 고도화"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "인프라 및 전력망 고도화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-20 09:32:48",
+      "prices": {
+        "477850": 60000,
+        "439960": 55300,
+        "066430": 4505,
+        "007660": 125300,
+        "036930": 203000,
+        "440110": 112800,
+        "142280": 5290,
+        "001440": 51700,
+        "047040": 26000,
+        "011000": 1685,
+        "005950": 13000,
+        "018880": 4410
+      },
+      "leader_stocks": [
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로보틱스 혁신"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로보틱스 혁신"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "AI 및 로보틱스 혁신"
+        },
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "theme": "첨단 반도체 소재 및 장비"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 소재 및 장비"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 소재 및 장비"
+        },
+        {
+          "code": "142280",
+          "name": "녹십자엠에스",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "001440",
+          "name": "대한전선",
+          "theme": "인프라 및 전력망 고도화"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "인프라 및 전력망 고도화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-20 09:34:53",
+      "prices": {
+        "477850": 60000,
+        "439960": 51500,
+        "066430": 4250,
+        "007660": 127300,
+        "036930": 208000,
+        "440110": 112300,
+        "142280": 5835,
+        "001440": 52100,
+        "047040": 26300,
+        "011000": 1648,
+        "005950": 13900,
+        "018880": 4465
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오/헬스케어 (mRNA 백신 및 진단)"
+        },
+        {
+          "code": "005950",
+          "name": "이수화학",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-20 10:02:46",
+      "prices": {
+        "477850": 60000,
+        "439960": 51500,
+        "066430": 4305,
+        "007660": 120200,
+        "036930": 194000,
+        "440110": 112300,
+        "142280": 5835,
+        "001440": 51400,
+        "047040": 25750,
+        "011000": 1648,
+        "005950": 13380,
+        "018880": 4370
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오/헬스케어 (mRNA 백신 및 진단)"
+        },
+        {
+          "code": "005950",
+          "name": "이수화학",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-20 13:26:43",
+      "prices": {
+        "477850": 60000,
+        "439960": 51500,
+        "066430": 4000,
+        "007660": 121100,
+        "036930": 190700,
+        "440110": 112300,
+        "142280": 5835,
+        "001440": 51700,
+        "047040": 26450,
+        "011000": 1648,
+        "005950": 13260,
+        "018880": 4345
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오/헬스케어 (mRNA 백신 및 진단)"
+        },
+        {
+          "code": "005950",
+          "name": "이수화학",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-20 14:36:36",
+      "prices": {
+        "477850": 60000,
+        "439960": 51500,
+        "066430": 3930,
+        "007660": 121100,
+        "036930": 182800,
+        "440110": 112300,
+        "142280": 5835,
+        "001440": 51700,
+        "047040": 26350,
+        "011000": 1648,
+        "005950": 13860,
+        "018880": 4360
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇 및 차세대 반도체 장비"
+        },
+        {
+          "code": "011000",
+          "name": "진원생명과학",
+          "theme": "바이오/헬스케어 (mRNA 백신 및 진단)"
+        },
+        {
+          "code": "005950",
+          "name": "이수화학",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 부품 및 차세대 열관리 솔루션"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI 및 로보틱스 혁신",
+      "market": "KOSDAQ",
+      "buy_price": 60000,
+      "close_price": 60000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 60000,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 60000,
+      "low_profit_rate": 0.0,
+      "low_profit_amount": 0,
+      "low_time": "15:30"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "AI 및 로보틱스 혁신",
+      "market": "KOSDAQ",
+      "buy_price": 55300,
+      "close_price": 56200,
+      "profit_rate": 1.63,
+      "profit_amount": 900,
+      "high_price": 62800,
+      "high_time": "14:14",
+      "high_profit_rate": 13.56,
+      "high_profit_amount": 7500,
+      "low_price": 48800,
+      "low_profit_rate": -11.75,
+      "low_profit_amount": -6500,
+      "low_time": "11:09"
+    },
+    {
+      "code": "066430",
+      "name": "아이로보틱스",
+      "theme": "AI 및 로보틱스 혁신",
+      "market": "KOSPI",
+      "buy_price": 4505,
+      "close_price": 3660,
+      "profit_rate": -18.76,
+      "profit_amount": -845,
+      "high_price": 4775,
+      "high_time": "09:13",
+      "high_profit_rate": 5.99,
+      "high_profit_amount": 270,
+      "low_price": 3500,
+      "low_profit_rate": -22.31,
+      "low_profit_amount": -1005,
+      "low_time": "15:12"
+    },
+    {
+      "code": "007660",
+      "name": "이수페타시스",
+      "theme": "첨단 반도체 소재 및 장비",
+      "market": "KOSPI",
+      "buy_price": 128900,
+      "close_price": 121600,
+      "profit_rate": -5.66,
+      "profit_amount": -7300,
+      "high_price": 127800,
+      "high_time": "09:30",
+      "high_profit_rate": -0.85,
+      "high_profit_amount": -1100,
+      "low_price": 119500,
+      "low_profit_rate": -7.29,
+      "low_profit_amount": -9400,
+      "low_time": "12:26"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "첨단 반도체 소재 및 장비",
+      "market": "KOSPI",
+      "buy_price": 188100,
+      "close_price": 178500,
+      "profit_rate": -5.1,
+      "profit_amount": -9600,
+      "high_price": 214000,
+      "high_time": "09:32",
+      "high_profit_rate": 13.77,
+      "high_profit_amount": 25900,
+      "low_price": 169000,
+      "low_profit_rate": -10.15,
+      "low_profit_amount": -19100,
+      "low_time": "14:49"
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "첨단 반도체 소재 및 장비",
+      "market": "KOSDAQ",
+      "buy_price": 112800,
+      "close_price": 112200,
+      "profit_rate": -0.53,
+      "profit_amount": -600,
+      "high_price": 114300,
+      "high_time": "11:24",
+      "high_profit_rate": 1.33,
+      "high_profit_amount": 1500,
+      "low_price": 105400,
+      "low_profit_rate": -6.56,
+      "low_profit_amount": -7400,
+      "low_time": "10:01"
+    },
+    {
+      "code": "142280",
+      "name": "녹십자엠에스",
+      "theme": "바이오/헬스케어 혁신",
+      "market": "KOSPI",
+      "buy_price": 5290,
+      "close_price": 6230,
+      "profit_rate": 17.77,
+      "profit_amount": 940,
+      "high_price": 6310,
+      "high_time": "15:29",
+      "high_profit_rate": 19.28,
+      "high_profit_amount": 1020,
+      "low_price": 4760,
+      "low_profit_rate": -10.02,
+      "low_profit_amount": -530,
+      "low_time": "09:00"
+    },
+    {
+      "code": "001440",
+      "name": "대한전선",
+      "theme": "인프라 및 전력망 고도화",
+      "market": "KOSPI",
+      "buy_price": 54700,
+      "close_price": 52000,
+      "profit_rate": -4.94,
+      "profit_amount": -2700,
+      "high_price": 53200,
+      "high_time": "09:13",
+      "high_profit_rate": -2.74,
+      "high_profit_amount": -1500,
+      "low_price": 50400,
+      "low_profit_rate": -7.86,
+      "low_profit_amount": -4300,
+      "low_time": "09:50"
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "인프라 및 전력망 고도화",
+      "market": "KOSPI",
+      "buy_price": 27300,
+      "close_price": 26650,
+      "profit_rate": -2.38,
+      "profit_amount": -650,
+      "high_price": 26750,
+      "high_time": "13:14",
+      "high_profit_rate": -2.01,
+      "high_profit_amount": -550,
+      "low_price": 25600,
+      "low_profit_rate": -6.23,
+      "low_profit_amount": -1700,
+      "low_time": "09:19"
+    },
+    {
+      "code": "011000",
+      "name": "진원생명과학",
+      "theme": "바이오/헬스케어 (mRNA 백신 및 진단)",
+      "market": "KOSPI",
+      "buy_price": 1685,
+      "close_price": 1634,
+      "profit_rate": -3.03,
+      "profit_amount": -51,
+      "high_price": 1740,
+      "high_time": "14:59",
+      "high_profit_rate": 3.26,
+      "high_profit_amount": 55,
+      "low_price": 1450,
+      "low_profit_rate": -13.95,
+      "low_profit_amount": -235,
+      "low_time": "09:03"
+    },
+    {
+      "code": "005950",
+      "name": "이수화학",
+      "theme": "전기차 부품 및 차세대 열관리 솔루션",
+      "market": "KOSPI",
+      "buy_price": 13000,
+      "close_price": 14080,
+      "profit_rate": 8.31,
+      "profit_amount": 1080,
+      "high_price": 14400,
+      "high_time": "14:35",
+      "high_profit_rate": 10.77,
+      "high_profit_amount": 1400,
+      "low_price": 12330,
+      "low_profit_rate": -5.15,
+      "low_profit_amount": -670,
+      "low_time": "09:00"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "theme": "전기차 부품 및 차세대 열관리 솔루션",
+      "market": "KOSPI",
+      "buy_price": 4525,
+      "close_price": 4355,
+      "profit_rate": -3.76,
+      "profit_amount": -170,
+      "high_price": 4485,
+      "high_time": "09:30",
+      "high_profit_rate": -0.88,
+      "high_profit_amount": -40,
+      "low_price": 4260,
+      "low_profit_rate": -5.86,
+      "low_profit_amount": -265,
+      "low_time": "11:38"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 3,
+    "loss_stocks": 8,
+    "total_invested": 656105,
+    "total_value": 637109,
+    "total_profit": -18996,
+    "total_profit_rate": -2.9,
+    "high_total_value": 690560,
+    "high_total_profit": 34455,
+    "high_total_profit_rate": 5.25,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 4
+  }
+}
