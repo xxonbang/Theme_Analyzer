@@ -6,6 +6,19 @@
 
 ## 2026-05-20
 
+### [설정/배포] gitignore 로컬 산출물 5종 추가 + kis-proxy 재배포 (2026-05-20 11:13 KST)
+- **변경 파일**:
+  - `.gitignore` (+7 — `.superpowers/`, `supabase/.temp/`, `data/`, `backtest_monthly_ma10.py`, `test_overseas_api.py`)
+- **gitignore 결정 근거**:
+  - `.superpowers/brainstorm/` — superpowers 도구 산출물
+  - `supabase/.temp/` — supabase CLI 캐시 (project-ref 등)
+  - `data/investor_backtest/` — 백테스트 데이터 (운영 데이터 `frontend/public/data/`와 별개)
+  - `backtest_monthly_ma10.py` / `test_overseas_api.py` — 개인 실험 스크립트 (root level, modules/scripts 외)
+- **kis-proxy 배포**:
+  - `supabase functions deploy kis-proxy` 실행 → Deployed Functions on project fyklcplybyfrfryopzvx
+  - 직전 커밋(`3cf131b6` UN→J 정리)의 cutoff 분기 + `_krx_error` 제거 반영
+  - 검증: 사용자 측 frontend에서 응답 확인 가능 (krx_volume 정상, _krx_error 없음)
+
 ### [리팩토링] UN→J 복귀 후속 정리: cutoff 분기 + reminder workflow + 진단 필드 제거 (2026-05-20 10:44 KST)
 - **변경 파일** (+13/-111):
   - `frontend/src/lib/market-metrics.ts` (RVOL_HISTORY_UN_CUTOFF_MS 상수 + 주석 제거)
