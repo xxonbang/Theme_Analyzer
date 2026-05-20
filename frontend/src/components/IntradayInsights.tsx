@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect, useCallback } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Activity, Sparkles, TrendingUp, TrendingDown, ChevronDown, ChevronUp, ShieldAlert, ExternalLink, Send, History, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { tossWebUrl, handleTossLinkClick } from "@/lib/toss-link"
 import type { ThemeAnalysis, IntradayHistoryData, InvestorIntraday, ThemeForecast } from "@/types/stock"
 
 interface InsightsSnapshot {
@@ -520,11 +521,11 @@ export function IntradayInsights({
               onClick={e => e.stopPropagation()}
             >
               <a
-                href={`https://www.tossinvest.com/stocks/A${actionPopup.code}/order`}
+                href={tossWebUrl(actionPopup.code)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-muted transition-colors"
-                onClick={() => setActionPopup(null)}
+                onClick={(e) => { handleTossLinkClick(actionPopup.code, e); setActionPopup(null) }}
               >
                 <ExternalLink className="w-4 h-4 text-emerald-500" />
                 네이버 보기

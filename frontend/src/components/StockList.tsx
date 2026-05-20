@@ -3,6 +3,7 @@ import { TrendingUp, TrendingDown, BarChart3, ExternalLink, Crown, ChevronDown }
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { StockCard } from "@/components/StockCard"
+import { tossWebUrl, handleTossLinkClick } from "@/lib/toss-link"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, formatNetBuy, getNetBuyColor } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { getInvestorScheduleInfo } from "@/lib/investor-schedule"
@@ -161,7 +162,8 @@ function CompactHeader({ showTradingValue, hasMemberData, investorEstimated, inv
 // 컴팩트 모드용 간단한 종목 행 (flex: sticky left + scrollable right)
 function CompactStockRow({ stock, history, type, showTradingValue, investorInfo, investorEstimated, investorUpdatedAt, investorIntraday, memberInfo, hasMemberData, criteria, isAdmin, volumeProfile, intradayDays }: { stock: Stock; history?: StockHistory; type: "rising" | "falling" | "neutral"; showTradingValue?: boolean; investorInfo?: InvestorInfo; investorEstimated?: boolean; investorUpdatedAt?: string; investorIntraday?: InvestorIntraday; memberInfo?: MemberInfo; hasMemberData?: boolean; criteria?: StockCriteria; isAdmin?: boolean; volumeProfile?: StockVolumeProfile; intradayDays?: IntradayDay[] }) {
   const effectiveRising = type === "neutral" ? stock.change_rate >= 0 : type === "rising"
-  const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
+  const tossUrl = tossWebUrl(stock.code)
+  const onTossClick = (e: React.MouseEvent) => handleTossLinkClick(stock.code, e)
   const allMet = isAdmin && criteria?.all_met
   const shortWarning = isAdmin && criteria?.short_selling?.met
   const overheatWarning = isAdmin && criteria?.overheating?.met
@@ -208,6 +210,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             href={tossUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={onTossClick}
             className="flex items-center gap-1"
           >
             <span className="font-medium text-xs">{stock.name}</span>
@@ -239,7 +242,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
 
       {/* Scrollable right: Data columns */}
       <div className="flex items-center shrink-0">
-        <a href={tossUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+        <a href={tossUrl} target="_blank" rel="noopener noreferrer" onClick={onTossClick} className="flex items-center">
           <span className="text-xs font-medium tabular-nums text-right w-16 sm:w-20">
             {formatPrice(stock.current_price)}<span className="text-[10px] text-muted-foreground">원</span>
           </span>
@@ -286,7 +289,7 @@ function CompactStockRow({ stock, history, type, showTradingValue, investorInfo,
             )}
           </button>
         )}
-        <a href={tossUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+        <a href={tossUrl} target="_blank" rel="noopener noreferrer" onClick={onTossClick} className="flex items-center">
           {isAdmin && (
             <span className={cn("text-[10px] tabular-nums text-right w-14 sm:w-16", investorInfo ? getNetBuyColor(investorInfo.foreign_net) : "text-muted-foreground")}>
               {investorInfo ? formatNetBuy(investorInfo.foreign_net) : "-"}

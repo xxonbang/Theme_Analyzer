@@ -6,6 +6,35 @@
 
 ## 2026-05-20
 
+### [기능] 종목 링크 모바일에서 토스증권 앱 deep link로 자동 분기 (2026-05-20 23:14 KST)
+- **사용자 요청**:
+  1) 종목명 클릭 시 링크 팝업이 뜨는 경우 → '토스증권' 버튼 추가, 클릭 시 토스증권 앱 해당 종목 화면으로 이동
+  2) 종목명 클릭 시 바로 네이버 증권 링크로 이동하는 경우 → 토스증권 앱으로 변경
+  - 링크 구성 방법은 theme_lab 프로젝트 소스 참조
+- **theme_lab 분석** (`StockDetailModal.tsx:224-260`):
+  - AppsFlyer OneLink로 모바일은 토스 앱 강제 분기, 데스크탑은 web 새 탭
+  - 흐름: nextLandingUrl → service.tossinvest.com → supertoss:// scheme → OneLink로 wrapping
+  - 핵심 파라미터: `af_force_deeplink=true`, `af_dp=<supertoss URL>`, `af_web_dp=<contents URL>`
+- **현재 상태 진단**:
+  - 외부 링크 모음 팝업은 별도로 없음 — 모든 종목명 클릭이 직접 `<a>` 또는 `window.open`으로 이동
+  - 모든 곳이 이미 `tossinvest.com/stocks/A{code}/order` URL 사용 중 (모바일에서 web으로 열려 앱 진입에 추가 클릭 필요)
+  - PortfolioPage 라벨만 "네이버 증권"으로 잘못 표시
+- **수정**:
+  - `frontend/src/lib/toss-link.ts` (신규):
+    - `buildTossDeepUrl(code)`: theme_lab과 동일한 OneLink URL 생성
+    - `tossWebUrl(code)`: 데스크탑/web fallback URL
+    - `handleTossLinkClick(code, e)`: `<a>` 태그용 — 모바일 시 preventDefault + deep link로 location.href
+    - `openTossLink(code)`: `window.open` 패턴용 — 모바일/데스크탑 자동 분기
+  - 8개 컴포넌트에 적용:
+    - `StockCard.tsx`, `StockList.tsx` (3개 a 태그), `ThemeForecastPage.tsx`, `PredictionHistory.tsx`, `PaperTradingStockCard.tsx`, `IntradayInsights.tsx` (action popup): `<a>` 패턴에 `onClick={handleTossLinkClick}` 추가
+    - `AIThemeAnalysis.tsx`: `window.open` → `openTossLink(code)` 교체
+    - `PortfolioPage.tsx`: 라벨 "네이버 증권" → **"토스증권"** + `onClick` 추가
+  - 검증: 컴포넌트 잔재 0건 (`tossinvest.com/stocks` grep — 헬퍼 파일만 남음)
+- **사용자 경험**:
+  - 모바일 (iOS/Android): 종목명 탭 → 토스 앱 설치 시 앱으로 바로 이동 (해당 종목 화면), 미설치 시 OneLink가 앱스토어로 안내
+  - 데스크탑: 새 탭에서 web으로 진입 (기존 동작 유지)
+- **검증**: tsc PASS · build PASS (3.35s)
+
 ### [정확도] 거시지표 카드별 시각 — cron 시각 → 실제 가격 시각(price_at) (2026-05-20 22:46 KST)
 - **사용자 보고**: "각 지표명 우측 시각이 실제 수집 시각이 맞는지 검증"
 - **🔴 발견된 문제**: 17개 지표 모두 동일한 시각(예: "18:10") 표시 — 실제로는 cron 실행 시각(`collected_at`)일 뿐, **개별 지표의 가격 시점과 무관**

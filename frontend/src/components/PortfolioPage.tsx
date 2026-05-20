@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/hooks/useAuth"
 import { fetchKisPrices, searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import { getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration, isHistoryStale } from "@/lib/market-metrics"
+import { tossWebUrl, handleTossLinkClick } from "@/lib/toss-link"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import type {
   StockData, FundamentalInfo, InvestorInfo, VolumeProfileData,
@@ -1237,13 +1238,14 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
                     {/* Naver link + 물타기 버튼 */}
                     <div className="flex items-center gap-3">
                       <a
-                        href={`https://www.tossinvest.com/stocks/A${h.code}/order`}
+                        href={tossWebUrl(h.code)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => handleTossLinkClick(h.code, e)}
                         className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
                       >
                         <ExternalLink className="w-3 h-3" />
-                        네이버 증권
+                        토스증권
                       </a>
                       <button
                         onClick={() => setCalcOpenId(calcOpenId === h.id ? null : h.id)}

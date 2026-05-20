@@ -6,6 +6,7 @@ import { Sparkles, TrendingUp, Calendar, Clock, ExternalLink, ChevronDown, Chevr
 import { cn, parseKST } from "@/lib/utils"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
+import { tossWebUrl, handleTossLinkClick } from "@/lib/toss-link"
 import { useSwipeToDismiss } from "@/hooks/useSwipeToDismiss"
 import { useScrollLock } from "@/hooks/useScrollLock"
 import { useThemeForecast } from "@/hooks/useThemeForecast"
@@ -68,7 +69,7 @@ function LegendExplainPopup({ legendKey, onClose }: { legendKey: string; onClose
 
 function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastStock; criteria?: StockCriteria; showCriteria?: boolean }) {
   const [showPopup, setShowPopup] = useState(false)
-  const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
+  const tossUrl = tossWebUrl(stock.code)
 
   const metDots = showCriteria && criteria ? CRITERIA_CONFIG.filter(({ key }) => {
     const c = criteria[key as keyof StockCriteria]
@@ -116,6 +117,7 @@ function LeaderStockChip({ stock, criteria, showCriteria }: { stock: ForecastSto
         href={tossUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={(e) => handleTossLinkClick(stock.code, e)}
         className="inline-flex items-center gap-1 hover:underline"
       >
         {stock.name}

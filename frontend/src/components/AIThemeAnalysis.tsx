@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Sparkles, ChevronDown, ChevronUp, ExternalLink, Navigation } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { openTossLink } from "@/lib/toss-link"
 import { CRITERIA_CONFIG } from "@/lib/criteria"
 import { CriteriaPopup } from "@/components/CriteriaPopup"
 import type { ThemeAnalysis, MarketTheme, StockCriteria } from "@/types/stock"
@@ -119,7 +120,7 @@ function ThemeCard({ theme, index, criteriaData, isAdmin, stockMarketMap, stockT
                 <div ref={popoverRef} className="absolute top-full left-0 mt-1.5 bg-popover border border-border/80 rounded-lg shadow-xl p-1 z-30 min-w-[160px]">
                   <button
                     onClick={() => {
-                      window.open(`https://www.tossinvest.com/stocks/A${stock.code}/order`, '_blank')
+                      openTossLink(stock.code)
                       setPopoverCode(null)
                     }}
                     className="flex items-center gap-2.5 w-full px-3 py-2 hover:bg-muted rounded-md cursor-pointer text-left text-[13px] font-medium text-foreground/90 transition-colors"

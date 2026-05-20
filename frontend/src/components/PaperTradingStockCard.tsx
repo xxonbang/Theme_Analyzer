@@ -1,6 +1,7 @@
 import { useState, memo } from "react"
 import { ExternalLink, X, Plus, ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { tossWebUrl, handleTossLinkClick } from "@/lib/toss-link"
 import { TakeProfitSlider, applyTPSL, type TPSLValues } from "@/components/TakeProfitSlider"
 import type { PaperTradingStock, PaperTradingMode, InvestMode } from "@/types/stock"
 import { EQUAL_INVEST_AMOUNT } from "@/hooks/usePaperTradingData"
@@ -59,9 +60,10 @@ export const PaperTradingStockCard = memo(function PaperTradingStockCard({ stock
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 mb-1">
             <a
-              href={`https://www.tossinvest.com/stocks/A${stock.code}/order`}
+              href={tossWebUrl(stock.code)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => handleTossLinkClick(stock.code, e)}
               className="font-semibold text-sm sm:text-base hover:text-primary transition-colors inline-flex items-center gap-1"
             >
               {stock.name}

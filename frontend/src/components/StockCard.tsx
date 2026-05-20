@@ -3,6 +3,7 @@ import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, Chevron
 import { getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration, isHistoryStale } from "@/lib/market-metrics"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import { searchKisStock, type KisStockPrice } from "@/lib/kis-api"
+import { tossWebUrl, handleTossLinkClick } from "@/lib/toss-link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn, formatPrice, formatVolume, formatChangeRate, formatTradingValue, getChangeBgColor, formatNetBuy, getNetBuyColor } from "@/lib/utils"
@@ -62,7 +63,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   const effectiveType = type === "neutral" ? (stock.change_rate >= 0 ? "rising" : "falling") : type
   const isRising = effectiveType === "rising"
   const TrendIcon = isRising ? TrendingUp : TrendingDown
-  const tossUrl = `https://www.tossinvest.com/stocks/A${stock.code}/order`
+  const tossUrl = tossWebUrl(stock.code)
 
   // 시장 지표 (VWAP/RVOL/30일 순위/거래 집중) — lazy expand 시 fetch.
   // KIS API 호출 폭증 회피: 사용자가 펼칠 때만 kis-proxy 호출.
@@ -170,6 +171,7 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
                 href={tossUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => handleTossLinkClick(stock.code, e)}
                 className="font-semibold text-sm sm:text-base text-foreground hover:text-primary transition-colors flex items-center gap-1"
               >
                 <span>{stock.name}</span>
