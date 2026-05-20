@@ -231,8 +231,6 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
       setTargetPrice("")
     }
     setSearchQuery("")
-    // 폼이 보이는 위치로 스크롤 (모바일에서 폼이 위에 있어 자연 이동)
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
   const preview = useMemo(() => {
@@ -340,25 +338,116 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
 
   const canDelete = state.tabs.length > 1
 
+  // 폼 입력 영역 — 상단 카드(신규 추가) / 편집 모드 (누적 리스트 항목 안) 양쪽에서 재사용.
+  // selectedStock이 필요 — 상단은 검색 후 set, 편집 모드는 startEditItem이 set.
+  const formInputsBlock = selectedStock ? (
+    <>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1.5">
+          <label className="text-[11px] text-muted-foreground font-medium block">가정 매수가 (원)</label>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={assumedPrice}
+            onChange={e => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
+            placeholder={livePrices[selectedStock.code] ? formatPrice(livePrices[selectedStock.code].current_price) : "매수가"}
+            className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
+          />
+        </div>
+        <div className="space-y-1.5">
+          <label className="text-[11px] text-muted-foreground font-medium block">수량 (주)</label>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={quantity}
+            onChange={e => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
+            placeholder="수량"
+            className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-3 items-end">
+        <div className="space-y-1.5">
+          <label className="text-[11px] text-muted-foreground font-medium block">비교 기준</label>
+          <div className="inline-flex w-full bg-muted/40 p-0.5 rounded-lg">
+            <button
+              type="button"
+              onClick={() => setComparisonMode("current")}
+              className={cn(
+                "flex-1 px-2 py-1.5 text-xs font-medium rounded-md transition-colors",
+                comparisonMode === "current" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              현재가
+            </button>
+            <button
+              type="button"
+              onClick={() => setComparisonMode("target")}
+              className={cn(
+                "flex-1 px-2 py-1.5 text-xs font-medium rounded-md transition-colors",
+                comparisonMode === "target" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              목표가
+            </button>
+          </div>
+        </div>
+        {comparisonMode === "target" ? (
+          <div className="space-y-1.5">
+            <label className="text-[11px] text-muted-foreground font-medium block">목표가 (원)</label>
+            <input
+              type="text"
+              inputMode="numeric"
+              value={targetPrice}
+              onChange={e => setTargetPrice(e.target.value.replace(/[^0-9]/g, ""))}
+              placeholder="도달 가정 가격"
+              className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
+            />
+          </div>
+        ) : (
+          <div className="space-y-1.5">
+            <div className="text-[11px] text-muted-foreground/70 block">자동</div>
+            <div className="w-full px-3 py-2.5 rounded-lg bg-muted/30 border border-border/40 text-sm tabular-nums text-foreground/70">
+              {livePrices[selectedStock.code]
+                ? `${formatPrice(livePrices[selectedStock.code].current_price)}원`
+                : "현재가 조회 중…"}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  ) : null
+
+  const previewBlock = preview ? (
+    <div className="mt-3 p-3.5 bg-muted/40 rounded-lg space-y-2">
+      <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[13px]">
+        <span className="text-muted-foreground/80">매수금액</span>
+        <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.invest)}원</span>
+        <span className="text-muted-foreground/80">
+          {preview.isTarget ? "목표 평가금액" : "평가금액"}
+        </span>
+        <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.evalAmt)}원</span>
+        <span className="text-muted-foreground/80">손익</span>
+        <span className={cn("text-right font-semibold tabular-nums", preview.profit >= 0 ? "text-red-500" : "text-blue-500")}>
+          {preview.profit >= 0 ? "+" : ""}{formatPrice(preview.profit)}원
+        </span>
+      </div>
+      <div className="flex items-center justify-between pt-2 border-t border-border/40">
+        <span className="text-[13px] text-muted-foreground/80">
+          {preview.isTarget ? "목표가 도달 시 수익률" : "수익률"}
+        </span>
+        <span className={cn("font-bold tabular-nums px-2.5 py-1 rounded-md text-sm", getChangeBgColor(preview.rate))}>
+          {preview.rate >= 0 ? "+" : ""}{preview.rate.toFixed(2)}%
+        </span>
+      </div>
+    </div>
+  ) : null
+
   return (
     <div className="space-y-3">
-      <div className={cn(
-        "bg-card rounded-lg border p-3 space-y-2",
-        editingItemId ? "border-primary/40 ring-1 ring-primary/20" : "border-border",
-      )}>
-        <div className="flex items-center justify-between">
-          <div className="text-xs font-semibold text-muted-foreground">
-            {editingItemId ? "종목 수정" : "종목 추가"}
-          </div>
-          {editingItemId && (
-            <button
-              onClick={resetForm}
-              className="text-[11px] text-muted-foreground hover:text-foreground transition-colors"
-            >
-              취소
-            </button>
-          )}
-        </div>
+      {editingItemId === null && (
+      <div className="bg-card rounded-lg border border-border p-3 space-y-2">
+        <div className="text-xs font-semibold text-muted-foreground">종목 추가</div>
 
         {!selectedStock ? (
           <div className="relative">
@@ -493,123 +582,19 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
           </button>
         </div>
 
-        {selectedStock && (
-          <>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <label className="text-[11px] text-muted-foreground font-medium block">가정 매수가 (원)</label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={assumedPrice}
-                  onChange={e => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
-                  placeholder={livePrices[selectedStock.code] ? formatPrice(livePrices[selectedStock.code].current_price) : "매수가"}
-                  className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[11px] text-muted-foreground font-medium block">수량 (주)</label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={quantity}
-                  onChange={e => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
-                  placeholder="수량"
-                  className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
-                />
-              </div>
-            </div>
-            {/* 비교 기준 토글 + 목표가 입력 */}
-            <div className="grid grid-cols-2 gap-3 items-end">
-              <div className="space-y-1.5">
-                <label className="text-[11px] text-muted-foreground font-medium block">비교 기준</label>
-                <div className="inline-flex w-full bg-muted/40 p-0.5 rounded-lg">
-                  <button
-                    type="button"
-                    onClick={() => setComparisonMode("current")}
-                    className={cn(
-                      "flex-1 px-2 py-1.5 text-xs font-medium rounded-md transition-colors",
-                      comparisonMode === "current"
-                        ? "bg-card text-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    현재가
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setComparisonMode("target")}
-                    className={cn(
-                      "flex-1 px-2 py-1.5 text-xs font-medium rounded-md transition-colors",
-                      comparisonMode === "target"
-                        ? "bg-card text-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    목표가
-                  </button>
-                </div>
-              </div>
-              {comparisonMode === "target" ? (
-                <div className="space-y-1.5">
-                  <label className="text-[11px] text-muted-foreground font-medium block">목표가 (원)</label>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    value={targetPrice}
-                    onChange={e => setTargetPrice(e.target.value.replace(/[^0-9]/g, ""))}
-                    placeholder="도달 가정 가격"
-                    className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
-                  />
-                </div>
-              ) : (
-                <div className="space-y-1.5">
-                  <div className="text-[11px] text-muted-foreground/70 block">자동</div>
-                  <div className="w-full px-3 py-2.5 rounded-lg bg-muted/30 border border-border/40 text-sm tabular-nums text-foreground/70">
-                    {livePrices[selectedStock.code]
-                      ? `${formatPrice(livePrices[selectedStock.code].current_price)}원`
-                      : "현재가 조회 중…"}
-                  </div>
-                </div>
-              )}
-            </div>
-          </>
-        )}
-
-        {preview && (
-          <div className="mt-3 p-3.5 bg-muted/40 rounded-lg space-y-2">
-            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[13px]">
-              <span className="text-muted-foreground/80">매수금액</span>
-              <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.invest)}원</span>
-              <span className="text-muted-foreground/80">
-                {preview.isTarget ? "목표 평가금액" : "평가금액"}
-              </span>
-              <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.evalAmt)}원</span>
-              <span className="text-muted-foreground/80">손익</span>
-              <span className={cn("text-right font-semibold tabular-nums", preview.profit >= 0 ? "text-red-500" : "text-blue-500")}>
-                {preview.profit >= 0 ? "+" : ""}{formatPrice(preview.profit)}원
-              </span>
-            </div>
-            <div className="flex items-center justify-between pt-2 border-t border-border/40">
-              <span className="text-[13px] text-muted-foreground/80">
-                {preview.isTarget ? "목표가 도달 시 수익률" : "수익률"}
-              </span>
-              <span className={cn("font-bold tabular-nums px-2.5 py-1 rounded-md text-sm", getChangeBgColor(preview.rate))}>
-                {preview.rate >= 0 ? "+" : ""}{preview.rate.toFixed(2)}%
-              </span>
-            </div>
-          </div>
-        )}
+        {formInputsBlock}
+        {previewBlock}
 
         {preview && (
           <button
             onClick={addItem}
             className="w-full mt-3 px-3 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm"
           >
-            {editingItemId ? "수정 저장" : "누적 리스트에 추가"}
+            누적 리스트에 추가
           </button>
         )}
       </div>
+      )}
 
       {summary && (
         <div className="bg-card rounded-xl border border-border p-4">
@@ -678,57 +663,81 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
               const isTarget = it.targetPrice != null
               return (
                 <li key={it.id} className={cn(
-                  "flex items-center gap-3 py-3 first:pt-0 last:pb-0 -mx-2 px-2 rounded transition-colors",
+                  "py-3 first:pt-0 last:pb-0 -mx-2 px-2 rounded transition-colors",
                   editingItemId === it.id && "bg-primary/5 ring-1 ring-primary/20",
                 )}>
-                  <div className="min-w-0 flex-1 space-y-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-semibold text-sm truncate text-foreground">{it.name}</span>
-                      <span className="text-[10px] text-muted-foreground/70 tabular-nums shrink-0">{it.code}</span>
-                      {isTarget && (
-                        <span className="text-[9px] font-medium px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0">목표</span>
-                      )}
-                    </div>
-                    <div className="text-[11px] text-muted-foreground tabular-nums space-y-0.5">
-                      <div className="whitespace-nowrap">
-                        <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                  <div className="flex items-center gap-3">
+                    <div className="min-w-0 flex-1 space-y-1">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-semibold text-sm truncate text-foreground">{it.name}</span>
+                        <span className="text-[10px] text-muted-foreground/70 tabular-nums shrink-0">{it.code}</span>
+                        {isTarget && (
+                          <span className="text-[9px] font-medium px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0">목표</span>
+                        )}
                       </div>
-                      {isTarget ? (
-                        <div className="whitespace-nowrap text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</div>
-                      ) : live != null ? (
-                        <div className="whitespace-nowrap text-muted-foreground/60">현재 {formatPrice(live)}원</div>
-                      ) : null}
+                      <div className="text-[11px] text-muted-foreground tabular-nums space-y-0.5">
+                        <div className="whitespace-nowrap">
+                          <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                        </div>
+                        {isTarget ? (
+                          <div className="whitespace-nowrap text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</div>
+                        ) : live != null ? (
+                          <div className="whitespace-nowrap text-muted-foreground/60">현재 {formatPrice(live)}원</div>
+                        ) : null}
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0 space-y-1">
+                      <div className={cn("text-[13px] font-bold tabular-nums leading-tight", profit >= 0 ? "text-red-500" : "text-blue-500")}>
+                        {profit >= 0 ? "+" : ""}{formatPrice(profit)}원
+                      </div>
+                      <div className={cn("inline-block text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded leading-tight", getChangeBgColor(rate))}>
+                        {rate >= 0 ? "+" : ""}{rate.toFixed(2)}%
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-0.5 shrink-0">
+                      <button
+                        onClick={() => editingItemId === it.id ? resetForm() : startEditItem(it)}
+                        className={cn(
+                          "p-1.5 transition-colors",
+                          editingItemId === it.id
+                            ? "text-primary"
+                            : "text-muted-foreground/40 hover:text-foreground",
+                        )}
+                        aria-label={editingItemId === it.id ? "수정 취소" : "수정"}
+                      >
+                        <Pencil className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => removeItem(it.id)}
+                        className="text-muted-foreground/40 hover:text-destructive p-1.5 transition-colors"
+                        aria-label="삭제"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   </div>
-                  <div className="text-right shrink-0 space-y-1">
-                    <div className={cn("text-[13px] font-bold tabular-nums leading-tight", profit >= 0 ? "text-red-500" : "text-blue-500")}>
-                      {profit >= 0 ? "+" : ""}{formatPrice(profit)}원
+                  {/* 편집 모드: 해당 항목 아래에 폼 펼침 */}
+                  {editingItemId === it.id && (
+                    <div className="mt-3 pt-3 border-t border-primary/20 space-y-2">
+                      {formInputsBlock}
+                      {previewBlock}
+                      <div className="grid grid-cols-2 gap-2 mt-3">
+                        <button
+                          onClick={resetForm}
+                          className="px-3 py-2.5 text-sm font-medium rounded-lg border border-border bg-background hover:bg-muted/60 transition-colors"
+                        >
+                          취소
+                        </button>
+                        <button
+                          onClick={addItem}
+                          disabled={!preview}
+                          className="px-3 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-50 disabled:pointer-events-none"
+                        >
+                          수정 저장
+                        </button>
+                      </div>
                     </div>
-                    <div className={cn("inline-block text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded leading-tight", getChangeBgColor(rate))}>
-                      {rate >= 0 ? "+" : ""}{rate.toFixed(2)}%
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-center gap-0.5 shrink-0">
-                    <button
-                      onClick={() => startEditItem(it)}
-                      className={cn(
-                        "p-1.5 transition-colors",
-                        editingItemId === it.id
-                          ? "text-primary"
-                          : "text-muted-foreground/40 hover:text-foreground",
-                      )}
-                      aria-label="수정"
-                    >
-                      <Pencil className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                      onClick={() => removeItem(it.id)}
-                      className="text-muted-foreground/40 hover:text-destructive p-1.5 transition-colors"
-                      aria-label="삭제"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                  )}
                 </li>
               )
             })}
