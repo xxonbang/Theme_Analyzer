@@ -183,12 +183,12 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
         </div>
 
         {/* 탭 + 범례 */}
-        <div className="flex items-center mb-3">
-          <div className="flex gap-1">
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <div className="flex gap-1 shrink-0">
             <button
               onClick={() => setActiveTab("daily")}
               className={cn(
-                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors whitespace-nowrap",
                 activeTab === "daily" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
               )}
             >
@@ -197,14 +197,14 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
             <button
               onClick={() => setActiveTab("intraday")}
               className={cn(
-                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors",
+                "px-3 py-1 text-[11px] font-medium rounded-md transition-colors whitespace-nowrap",
                 activeTab === "intraday" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
               )}
             >
               장중
             </button>
           </div>
-          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground ml-auto flex-wrap">
+          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground ml-auto flex-wrap justify-end">
             {(() => {
               const legendItems = [
                 { key: "f" as const, label: "외국인", color: "bg-red-500", active: "bg-red-500/10 border-red-500/25 hover:bg-red-500/15" },
@@ -224,7 +224,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                     }
                   }}
                   className={cn(
-                    "px-1.5 py-0.5 rounded-full border transition-all select-none",
+                    "px-1.5 py-0.5 rounded-full border transition-all select-none whitespace-nowrap",
                     allOn ? "bg-muted/60 border-border/50 hover:bg-muted" : "border-transparent opacity-50 hover:opacity-75"
                   )}
                 >
@@ -237,7 +237,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
                       key={key}
                       onClick={() => setVisibleLines(v => ({ ...v, [key]: !v[key as keyof typeof v] }))}
                       className={cn(
-                        "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
+                        "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none whitespace-nowrap",
                         isActive ? active : "border-transparent opacity-35 hover:opacity-55"
                       )}
                     >
@@ -252,7 +252,7 @@ export function InvestorChartPopup({ stockName, investorInfo, stockCode, investo
               <button
                 onClick={() => setShowCr(v => !v)}
                 className={cn(
-                  "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none",
+                  "flex items-center gap-1 px-1.5 py-0.5 rounded-full border transition-all select-none whitespace-nowrap",
                   showCr ? "bg-amber-500/10 border-amber-500/25 hover:bg-amber-500/15" : "border-transparent opacity-35 hover:opacity-55"
                 )}
               >

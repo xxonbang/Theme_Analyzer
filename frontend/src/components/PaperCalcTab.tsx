@@ -631,12 +631,14 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
                         <span className="text-[9px] font-medium px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0">목표</span>
                       )}
                     </div>
-                    <div className="text-[11px] text-muted-foreground tabular-nums">
-                      <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                    <div className="text-[11px] text-muted-foreground tabular-nums flex flex-wrap gap-x-2">
+                      <span className="whitespace-nowrap">
+                        <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
+                      </span>
                       {isTarget ? (
-                        <span className="ml-2 text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</span>
+                        <span className="whitespace-nowrap text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</span>
                       ) : live != null ? (
-                        <span className="ml-2 text-muted-foreground/60">현재 {formatPrice(live)}원</span>
+                        <span className="whitespace-nowrap text-muted-foreground/60">현재 {formatPrice(live)}원</span>
                       ) : null}
                     </div>
                   </div>

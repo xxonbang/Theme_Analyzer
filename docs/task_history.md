@@ -6,6 +6,21 @@
 
 ## 2026-05-20
 
+### [UI] 좁은 화면 텍스트 단어 깨짐 2건 수정 (2026-05-20 21:49 KST)
+- **사용자 보고 1**: InvestorChartPopup의 "일봉"/"장중" 탭 버튼 텍스트가 좁은 화면에서 1글자씩 세로로 깨짐
+  - 원인: 부모 `flex items-center`에 wrap 없음 + 우측 범례가 공간 차지하면 좌측 탭 압축 + 버튼에 `whitespace-nowrap` 없어 텍스트가 글자 단위 wrap
+  - 수정 (`InvestorChartPopup.tsx`):
+    - 부모 컨테이너: `flex items-center` → `flex items-center gap-2 flex-wrap`
+    - 탭 컨테이너: `shrink-0` 추가 (압축 차단)
+    - 탭/범례 버튼: 모두 `whitespace-nowrap` 추가
+    - 우측 범례: `justify-end` 추가 (wrap 후 정렬 일관)
+- **사용자 보고 2**: PaperCalcTab 누적 리스트에서 "1,562,333원 × 12주 목표 1,900,000원"의 "원"이 다음 줄로 떨어짐
+  - 원인: 텍스트 노드와 inline 표현이 섞여 있어 단어("원") 단위 wrap 발생
+  - 수정 (`PaperCalcTab.tsx`):
+    - 컨테이너: `flex flex-wrap gap-x-2` 적용 (chunk 단위 wrap)
+    - 매수가/수량 chunk와 비교가 chunk를 각각 `whitespace-nowrap` span으로 묶음 → chunk 단위로 떨어지고 "원" 분리 안 됨
+- **검증**: tsc PASS · build PASS (2.93s)
+
 ### [기능] 가상계산기 — 비교 기준 토글 (현재가 / 목표가) 추가 (2026-05-20 21:44 KST)
 - **사용자 요청**: "현재는 가정 매수가만 입력 가능하고 그 기준 현재가와의 수익률 자동 계산. 목표 금액을 자동 fetch되는 '현재가' 또는 직접 입력하는 '목표가' 중 1개 선택 가능하게"
 - **변경 파일**:
