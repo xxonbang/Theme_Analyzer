@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment, memo } from "react"
 import { TrendingUp, TrendingDown, ExternalLink, Newspaper, ChevronDown, ChevronUp, Crown, Maximize2, Banknote, Users, Building2, BarChart3, Sparkles, HelpCircle, Loader2, BarChart2 } from "lucide-react"
-import { RVOL_HISTORY_UN_CUTOFF_MS, getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration, isHistoryStale } from "@/lib/market-metrics"
+import { getMarketElapsedRatio, calculateVwap, calculateRvol, calculateRank30, calculateConcentration, isHistoryStale } from "@/lib/market-metrics"
 import { MetricsInfoModal, type MetricsPopupType } from "@/components/MetricsInfoModal"
 import { searchKisStock, type KisStockPrice } from "@/lib/kis-api"
 import { Card, CardContent } from "@/components/ui/card"
@@ -91,18 +91,16 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   // 계산 (live 우선, 없으면 정적 stock 폴백)
   // ⚠️ VWAP과 RVOL은 다른 volume 변수 사용 — 단위 일관성 필수.
   //   VWAP: trading_value와 volume이 같은 시장구분(UN)이어야 함.
-  //   RVOL/30일 순위: stock-history 단위(현재 J 우세, 5/31 cutoff 후 UN)와 일치하는 currentVol 사용.
+  //   RVOL/30일 순위: stock-history(J=KRX 단독)와 일치하는 krx_volume 사용.
   const liveCur = livePrice?.current_price ?? null
   // VWAP용: UN 일관 (분자/분모 모두 UN)
   const vwapVol = livePrice?.volume ?? stock.volume ?? 0
   const vwapTv = livePrice?.trading_value ?? stock.trading_value ?? 0
   const vwapCur = liveCur ?? stock.current_price
   const { vwap, vwapDiffPct } = calculateVwap(vwapTv, vwapVol, vwapCur)
-  // RVOL/30일 순위용: cutoff 전엔 krx_volume(KRX 단독), 없으면 volume(UN) fallback
+  // RVOL/30일 순위용: krx_volume(KRX 단독) 우선, 누락 시 volume(UN) fallback.
   const rvolVol = livePrice
-    ? (Date.now() < RVOL_HISTORY_UN_CUTOFF_MS
-        ? (livePrice.krx_volume && livePrice.krx_volume > 0 ? livePrice.krx_volume : livePrice.volume)
-        : livePrice.volume)
+    ? (livePrice.krx_volume && livePrice.krx_volume > 0 ? livePrice.krx_volume : livePrice.volume)
     : stock.volume ?? 0
   const changes = history?.changes ?? []
   // stock-history가 stale(5영업일 이상 옛날)이면 RVOL/30일 순위는 의미 없음 → null로 미표시.

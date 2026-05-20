@@ -4,6 +4,34 @@
 
 ---
 
+## 2026-05-20
+
+### [리팩토링] UN→J 복귀 후속 정리: cutoff 분기 + reminder workflow + 진단 필드 제거 (2026-05-20 10:44 KST)
+- **변경 파일** (+13/-111):
+  - `frontend/src/lib/market-metrics.ts` (RVOL_HISTORY_UN_CUTOFF_MS 상수 + 주석 제거)
+  - `frontend/src/components/PortfolioPage.tsx` (import 정리 + currentVol 단일 경로)
+  - `frontend/src/components/StockCard.tsx` (import 정리 + rvolVol 단일 경로 + 주석 갱신)
+  - `supabase/functions/kis-proxy/index.ts` (cutoff 분기 + RVOL_HISTORY_UN_CUTOFF_MS 상수 + `_krx_error` 진단 필드 제거)
+  - `.github/workflows/rvol-cleanup-reminder.yml` (git rm — 임시 워크플로 삭제)
+- **배경**: 5/19 작업(stock-history UN→J 영구 복귀) 회고에서 명시한 후속 정리 항목.
+- **단순화 결정**:
+  - stock-history가 영구 J(KRX 단독)이므로 currentVol/rvolVol도 KRX 단독을 우선해야 단위 일관.
+  - cutoff 분기는 5/31 이후 `live.volume`(UN)을 currentVol로 쓰는 분기였는데, 영구 J 상황에서는 잘못된 단위 → 분기 자체 제거.
+  - 새 단일 경로: `krx_volume`(KRX 단독) 우선, 누락/0이면 `volume`(UN) fallback — 표시 끊김 회피 목적.
+  - kis-proxy도 항상 J 호출하여 krx_volume 채움 (retry 1회 유지).
+- **rvol-cleanup-reminder.yml 삭제 근거**:
+  - 5/17 추가된 1회성 임시 워크플로(5/31 cron 1회 실행)
+  - 본문: "stock-history UN 마이그레이션 완료 → 임시 코드 제거" 이슈 자동 생성 예정이었음
+  - UN 마이그레이션 자체가 5/19에 reverse + 이번 작업에서 cutoff 분기 코드 소멸 → 이슈 생성해도 처리 대상 없음
+  - 운영 13개 cron 보호 정신 외 — 임시 워크플로이므로 삭제 가능
+- **`_krx_error` 진단 필드 제거 근거**:
+  - 5/19 22:07 임시 추가 (J 호출 실패 시 응답에 에러 메시지 캡처)
+  - 영구 J 복귀로 J 호출이 핵심 경로가 됨 → 진단 가설 변경, 임시 코드 정리
+- **검증**: tsc PASS · build PASS (3.42s, PortfolioPage 77.18 kB, index 678 kB) · grep 잔재 0건
+- **🔴 사용자 액션 필요**: `supabase functions deploy kis-proxy` 재배포 (frontend 빌드만으론 Edge Function 코드 미반영)
+
+---
+
 ## 2026-05-19
 
 ### [버그픽스] stock-history UN 마이그레이션 결정 reverse + 101종목 즉시 복구 (2026-05-19 23:53 KST)

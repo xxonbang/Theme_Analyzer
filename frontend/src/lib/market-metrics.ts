@@ -19,9 +19,6 @@ export function isHistoryStale(latestChangeDate: string | undefined | null): boo
   return diffDays > STALE_THRESHOLD_DAYS
 }
 
-// CLEANUP after 2026-05-31: stock-history가 UN으로 완전 마이그레이션되면 분기 제거.
-export const RVOL_HISTORY_UN_CUTOFF_MS = new Date("2026-05-31T15:30:00+09:00").getTime()
-
 // 정규장 09:00~15:30 경과 비율 (KST). 장 시작 전이면 null.
 // 휴장일(주말)에는 KIS UN 시세가 직전 영업일 마감 데이터를 반환하므로 elapsed=1로 처리
 // — VWAP·현재가 등 다른 지표와 동일한 정책으로 일관성 유지.
