@@ -6,6 +6,18 @@
 
 ## 2026-05-20
 
+### [진단/회고] PortfolioPage 화면 안 보임 = 이전 PTR hook 부작용 (2026-05-20 13:55 KST)
+- **사용자 보고**: "포트폴리오 화면 고장났어. 아예 안보여."
+- **정적 분석 결과**: PortfolioPage.tsx의 currentVol 단순화 변경은 명백한 버그 없음
+- **원인 가설 검증**: 13:46 작업(usePullToRefresh standalone 검사 추가) 배포 후 사용자 "포트폴리오 화면 보임" 확인
+- **🔴 진짜 원인**:
+  - 이전 `usePullToRefresh` hook은 standalone 검사 없이 모든 환경(desktop/일반 Safari/Chrome)에서 `document.touchmove`에 listener 등록
+  - `dy > 0`일 때 무조건 `e.preventDefault()` 호출
+  - 사용자 환경에서 PortfolioPage의 touch 인터랙션(스크롤/카드 확장 등)을 막아 화면 표시 차단
+  - 13:46 standalone 검사 추가로 일반 환경에서 listener 자체 등록 안 됨 → 자동 해소
+- **회고**: "PortfolioPage 코드를 의심"한 초기 가설이 빗나갔음. 추측으로 코드를 건드리지 않고 정적 분석으로 명백한 원인 없음을 확인 후 진단 정보 요청 — 올바른 접근. 이번 PTR fix가 우연히 두 문제를 동시에 해결.
+- **교훈**: touch event를 document level에 등록하면서 preventDefault 호출 시, 활성 조건(여기선 standalone 모드)을 명확히 검사할 것. 광범위한 부작용 위험.
+
 ### [개선] usePullToRefresh iOS PWA standalone 모드 한정 활성 (2026-05-20 13:46 KST)
 - **사용자 보고**: "iOS PWA 웹앱에서 pull-to-refresh 전혀 동작 안 함"
 - **웹검색 진단** (magicbell, dev.to, heltweg 등):
