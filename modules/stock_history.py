@@ -3,12 +3,33 @@
 """
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime, timedelta
 
 from modules.kis_client import KISClient
 
 logger = logging.getLogger(__name__)
+
+
+# UN 응답이 stale로 간주되는 일수. 7일 = 약 5영업일 — 시장 휴장 고려.
+# UN(KRX+NXT) endpoint는 NXT 미상장 종목에서 빈 응답 또는 옛 데이터 반환
+# (2026-05-20 진단: 231종목 중 163개=70.6% 위험).
+_UN_STALE_DAYS = 7
+
+
+def _is_fresh(items: List[Dict[str, Any]], date_field: str = "stck_bsop_date") -> bool:
+    """KIS 응답 items가 최근 _UN_STALE_DAYS 이내 데이터를 포함하는지."""
+    if not items:
+        return False
+    dates = [i.get(date_field, "") for i in items if i.get(date_field)]
+    if not dates:
+        return False
+    try:
+        latest_dt = datetime.strptime(max(dates), "%Y%m%d")
+    except ValueError:
+        return False
+    cutoff = datetime.now() - timedelta(days=_UN_STALE_DAYS)
+    return latest_dt >= cutoff
 
 
 class StockHistoryAPI:
@@ -21,8 +42,44 @@ class StockHistoryAPI:
         """
         self.client = client or KISClient()
 
+    def _get_daily_price_with_fallback(
+        self,
+        stock_code: str,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        adj_price: bool = False,
+    ) -> Tuple[str, Dict[str, Any]]:
+        """`inquire-daily-itemchartprice` (FHKST03010100) UN 우선 + J 폴백.
+
+        Returns:
+            (used_market_div, result). UN 응답이 fresh면 ('UN', result),
+            아니면 J로 폴백 ('J', result).
+        """
+        r_un = self.client.get_stock_daily_price(
+            stock_code, start_date=start_date, end_date=end_date,
+            adj_price=adj_price, market_div="UN",
+        )
+        if r_un.get("rt_cd") == "0" and _is_fresh(r_un.get("output2", [])):
+            return "UN", r_un
+        r_j = self.client.get_stock_daily_price(
+            stock_code, start_date=start_date, end_date=end_date,
+            adj_price=adj_price, market_div="J",
+        )
+        return "J", r_j
+
+    def _get_daily_ohlcv_with_fallback(
+        self,
+        stock_code: str,
+    ) -> Tuple[str, Dict[str, Any]]:
+        """`inquire-daily-price` (FHKST01010400) UN 우선 + J 폴백."""
+        r_un = self.client.get_stock_daily_ohlcv(stock_code, market_div="UN")
+        if r_un.get("rt_cd") == "0" and _is_fresh(r_un.get("output", [])):
+            return "UN", r_un
+        r_j = self.client.get_stock_daily_ohlcv(stock_code, market_div="J")
+        return "J", r_j
+
     def _fetch_daily_volume(self, stock_code: str) -> Dict[str, int]:
-        """inquire-daily-price API로 일별 거래량 조회
+        """inquire-daily-price API로 일별 거래량 조회 (UN 우선 + J 폴백).
 
         inquire-daily-itemchartprice(FHKST03010100)에서 acml_vol이
         누락되는 경우의 보정용.
@@ -31,7 +88,7 @@ class StockHistoryAPI:
             {"20260227": 40374743, ...} 날짜→거래량 딕셔너리
         """
         try:
-            result = self.client.get_stock_daily_ohlcv(stock_code, market_div="J")
+            _, result = self._get_daily_ohlcv_with_fallback(stock_code)
             if result.get("rt_cd") != "0":
                 return {}
 
@@ -68,7 +125,7 @@ class StockHistoryAPI:
             }
         """
         try:
-            result = self.client.get_stock_daily_price(stock_code, adj_price=False, market_div="J")
+            used_div, result = self._get_daily_price_with_fallback(stock_code, adj_price=False)
 
             if result.get("rt_cd") != "0":
                 return {"code": stock_code, "changes": [], "total_change_rate": 0}
@@ -76,6 +133,7 @@ class StockHistoryAPI:
             output2 = result.get("output2", [])
 
             # KIS API는 1회 최대 100건 반환 → MA120 계산에 120건 이상 필요
+            # 추가 조회는 메인과 동일한 market_div 사용 (단위 일관)
             if len(output2) >= 100:
                 oldest_date = output2[-1].get("stck_bsop_date", "")
                 if oldest_date:
@@ -84,7 +142,8 @@ class StockHistoryAPI:
                         new_end = (oldest_dt - timedelta(days=1)).strftime("%Y%m%d")
                         new_start = (oldest_dt - timedelta(days=180)).strftime("%Y%m%d")
                         result2 = self.client.get_stock_daily_price(
-                            stock_code, start_date=new_start, end_date=new_end, adj_price=False, market_div="J"
+                            stock_code, start_date=new_start, end_date=new_end,
+                            adj_price=False, market_div=used_div,
                         )
                         if result2.get("rt_cd") == "0":
                             extra = result2.get("output2", [])

@@ -6,6 +6,43 @@
 
 ## 2026-05-20
 
+### [방향전환] stock-history UN 우선 + J 폴백 — 사용자 의도(KRX+NXT 전체 시장) 반영 (2026-05-20 13:02 KST)
+- **사용자 명시 의도**: "market_div='UN'으로 설정해야 내가 의도한 바와 같아. KRX+NXT 전체 시장 데이터를 반영하려고 하는게 맞아."
+- **D 단계 진단 (`scripts/diag_un_vs_j_20260520.py`)**:
+  - 231종목 전체 J vs UN 호출 비교 → `docs/research/2026-05-20-un-stale-diag.json`
+  - 양쪽 fresh: 66 (28.6%)
+  - 🔴 UN stale (옛 데이터 잔존): 42 (18.2%)
+  - 🔴 UN 빈 응답 (NXT 미상장): 121 (52.4%)
+  - **▶ UN 마이그레이션 위험 종목: 163/231 (70.6%)** — J 폴백 필수
+- **A 단계 구현 — UN 우선 + J 폴백**:
+  - `modules/stock_history.py`:
+    - `_is_fresh` 헬퍼 + `_get_daily_price_with_fallback`, `_get_daily_ohlcv_with_fallback` 메서드 추가
+    - 3 호출 지점 모두 폴백 헬퍼 사용 (메인 + 추가 조회 + _fetch_daily_volume)
+    - 추가 조회는 메인과 동일한 market_div 사용 (단위 일관)
+  - `modules/kis_client.py`: 두 메서드 docstring 정정 (UN 우선 + J 폴백 정책 안내)
+- **결정적 진단 — `inquire-price` API는 NXT 미상장 종목도 UN으로 정상 응답**:
+  - 008290/037460/031330 등 NXT 미상장 종목: UN과 J 응답 완전 동일 (price/vol/tv)
+  - 005930/000660 등 NXT 활발: UN = J + NXT (정상 합산)
+  - → kis-proxy의 J 별도 호출 불필요, `krx_volume` 필드 제거 가능
+- **kis-proxy 단순화**:
+  - `supabase/functions/kis-proxy/index.ts`: `fetchStockPrice`에서 J 별도 호출 + `krx_volume` 응답 필드 제거
+  - `frontend/src/lib/kis-api.ts`: `KisStockPrice.krx_volume?` 타입 제거
+  - 재배포 완료 (project fyklcplybyfrfryopzvx)
+- **frontend currentVol 단순화**:
+  - `PortfolioPage.tsx`: `live.krx_volume ?? live.volume` → `live.volume` 단독
+  - `StockCard.tsx`: 동일하게 `livePrice.volume` 단독, 주석 갱신
+- **즉시 backfill (`scripts/backfill_un_first_20260520.py`)**:
+  - 231 종목 UN 우선 + J 폴백 일괄 호출 → 227 갱신, 4 timeout (기존 데이터 유지)
+  - 검증:
+    - SK하이닉스 5/19 거래량: J 4,575,855주 → **UN 7,805,248주** (+70%, NXT 분량 정확 반영)
+    - 삼성전자 5/19 거래량: **UN 55,578,031주**
+    - 대우건설(NXT 미상장): J 폴백 적용 → 5/20 6,845,181주 정상
+    - 008290(NXT 미상장): J 폴백 → 117,540주 정상
+- **검증**: tsc PASS · build PASS (2.42s) · Python AST PASS · krx_volume 잔재 0건 · kis-proxy 배포 PASS
+- **🔄 회고 — 5/19 결정의 부분 정당성**:
+  - 5/19 "UN→J 영구 복귀"는 stale 회피엔 옳았지만 사용자 의도(NXT 통합 반영)와 반대
+  - 이번 폴백 패턴이 양자 모두 충족 (UN 통합 + stale 회피)
+
 ### [버그픽스/문서] 거래집중 bin_count=40 의도 반영 + kis_client 주석 cleanup (2026-05-20 12:26 KST)
 - **변경 파일**:
   - `collect_volume_profile.py` (+3/-1, line 101): `calc_volume_profile(minute, num_bins=40)` 인자 추가

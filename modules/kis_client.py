@@ -564,7 +564,8 @@ class KISClient:
         """국내주식기간별시세 조회 (일봉/주봉/월봉)
 
         market_div: "J"=KRX, "NX"=NXT, "UN"=KRX+NXT 통합 (거래량 합산).
-        stock-history 갱신은 "UN"(통합) 사용 — 현재가/RVOL 일관성.
+        stock-history는 `StockHistoryAPI._get_daily_price_with_fallback`을 통해
+        "UN" 우선 + 빈응답/stale 시 "J" 폴백.
         """
         path = "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
         tr_id = "FHKST03010100"
@@ -595,7 +596,9 @@ class KISClient:
         inquire-daily-itemchartprice(FHKST03010100)와 달리
         거래량(acml_vol)을 정확히 반환합니다.
 
-        market_div: "J"=KRX, "UN"=KRX+NXT 통합. stock-history는 "J"(KRX 단독, 5/19 영구 복귀).
+        market_div: "J"=KRX, "UN"=KRX+NXT 통합.
+        stock-history는 `StockHistoryAPI._get_daily_ohlcv_with_fallback`을 통해
+        "UN" 우선 + 빈응답/stale 시 "J" 폴백.
         """
         path = "/uapi/domestic-stock/v1/quotations/inquire-daily-price"
         tr_id = "FHKST01010400"

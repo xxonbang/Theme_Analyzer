@@ -69,6 +69,6 @@ results/kis/rankings*.json
 # Local tooling / experiments (개인 작업 공간)
 .superpowers/
 supabase/.temp/
-data/
+/data/
 backtest_monthly_ma10.py
 test_overseas_api.py

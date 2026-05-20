@@ -94,13 +94,10 @@ async function fetchStockPriceMarket(
 }
 
 async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ price: Record<string, unknown> | null; errorMsg: string | null }> {
-  // 가격/등락률/거래대금: UN(KRX+NXT 통합) — VWAP 정확도
-  // krx_volume: J(KRX 단독) — stock-history 단위와 일치 (RVOL/30일 순위)
+  // UN(KRX+NXT 통합) 단일 호출. inquire-price API는 NXT 미상장 종목에서도
+  // J와 동일한 KRX 단독 값을 UN으로 반환 → 단위 자연 일관 (2026-05-20 진단).
   const { output: o, errorMsg } = await fetchStockPriceMarket(creds, code, "UN")
   if (!o) return { price: null, errorMsg }
-
-  const { output: oKrx } = await fetchStockPriceMarket(creds, code, "J")
-  const krxVolume: number | undefined = oKrx ? (parseInt(oKrx.acml_vol) || 0) : undefined
 
   return {
     price: {
@@ -111,7 +108,6 @@ async function fetchStockPrice(creds: KisCredentials, code: string): Promise<{ p
       change_amount: parseInt(o.prdy_vrss) || 0,
       volume: parseInt(o.acml_vol) || 0,
       trading_value: parseInt(o.acml_tr_pbmn) || 0,  // 누적 거래대금 (VWAP 계산용)
-      ...(krxVolume !== undefined ? { krx_volume: krxVolume } : {}),
       market_cap: parseInt(o.hts_avls) || 0,  // 시가총액(억)
       w52_hgpr: parseInt(o.stck_dryy_hgpr) || 0,
       w52_lwpr: parseInt(o.stck_dryy_lwpr) || 0,

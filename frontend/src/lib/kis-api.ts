@@ -7,9 +7,8 @@ export interface KisStockPrice {
   current_price: number
   change_rate: number
   change_amount: number
-  volume: number
+  volume: number  // UN(KRX+NXT 통합). NXT 미상장 종목은 J와 동일 값으로 자연 일관.
   trading_value: number
-  krx_volume?: number  // CLEANUP after 2026-05-31: stock-history UN 마이그레이션 완료 후 제거
   market_cap: number
   w52_hgpr: number
   w52_lwpr: number

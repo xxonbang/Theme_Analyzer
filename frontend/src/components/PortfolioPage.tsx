@@ -496,11 +496,9 @@ export function PortfolioPage({ stockData, volumeProfileData, themeForecast, his
       const changes = hist?.changes ?? []
       // stock-history가 stale이면 RVOL/30일 순위는 의미 없는 값 → null로 표시 안 함.
       const historyStale = isHistoryStale(changes[0]?.date)
-      // stock-history가 J(KRX 단독)이므로 currentVol도 KRX 단독을 우선.
-      // krx_volume이 누락/0이면 live.volume(UN)으로 fallback — 표시 끊김 회피 목적.
-      const currentVol = live
-        ? (live.krx_volume && live.krx_volume > 0 ? live.krx_volume : live.volume)
-        : 0
+      // stock-history는 UN 우선 + J 폴백(NXT 미상장 종목).
+      // inquire-price(UN) 응답은 NXT 미상장 종목에서 J와 동일 → live.volume 단독으로 단위 일관 보장.
+      const currentVol = live ? live.volume : 0
       const recent20 = historyStale ? [] : changes.slice(1, 21).map(c => c.volume ?? 0).filter(v => v > 0)
       const rvol = calculateRvol(currentVol, recent20, getMarketElapsedRatio())
       const historicalVols30 = historyStale ? [] : changes.slice(1, 30).map(c => c.volume ?? 0).filter(v => v > 0)

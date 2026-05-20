@@ -89,19 +89,15 @@ export const StockCard = memo(function StockCard({ stock, history, news, type, i
   }
 
   // 계산 (live 우선, 없으면 정적 stock 폴백)
-  // ⚠️ VWAP과 RVOL은 다른 volume 변수 사용 — 단위 일관성 필수.
-  //   VWAP: trading_value와 volume이 같은 시장구분(UN)이어야 함.
-  //   RVOL/30일 순위: stock-history(J=KRX 단독)와 일치하는 krx_volume 사용.
+  // VWAP/RVOL/30일 순위 모두 live.volume(UN) 또는 stock.volume(J) 단일 단위 사용.
+  // stock-history는 UN 우선 + J 폴백(NXT 미상장 종목)이며,
+  // inquire-price(UN) 응답이 NXT 미상장 종목에서 J와 동일 → 단위 자연 일관.
   const liveCur = livePrice?.current_price ?? null
-  // VWAP용: UN 일관 (분자/분모 모두 UN)
   const vwapVol = livePrice?.volume ?? stock.volume ?? 0
   const vwapTv = livePrice?.trading_value ?? stock.trading_value ?? 0
   const vwapCur = liveCur ?? stock.current_price
   const { vwap, vwapDiffPct } = calculateVwap(vwapTv, vwapVol, vwapCur)
-  // RVOL/30일 순위용: krx_volume(KRX 단독) 우선, 누락 시 volume(UN) fallback.
-  const rvolVol = livePrice
-    ? (livePrice.krx_volume && livePrice.krx_volume > 0 ? livePrice.krx_volume : livePrice.volume)
-    : stock.volume ?? 0
+  const rvolVol = livePrice ? livePrice.volume : (stock.volume ?? 0)
   const changes = history?.changes ?? []
   // stock-history가 stale(5영업일 이상 옛날)이면 RVOL/30일 순위는 의미 없음 → null로 미표시.
   const historyStale = isHistoryStale(changes[0]?.date)
