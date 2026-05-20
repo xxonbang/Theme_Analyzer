@@ -595,7 +595,7 @@ class KISClient:
         inquire-daily-itemchartprice(FHKST03010100)와 달리
         거래량(acml_vol)을 정확히 반환합니다.
 
-        market_div: "J"=KRX, "UN"=KRX+NXT 통합. stock-history는 "UN".
+        market_div: "J"=KRX, "UN"=KRX+NXT 통합. stock-history는 "J"(KRX 단독, 5/19 영구 복귀).
         """
         path = "/uapi/domestic-stock/v1/quotations/inquire-daily-price"
         tr_id = "FHKST01010400"

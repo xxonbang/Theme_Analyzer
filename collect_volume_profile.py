@@ -98,7 +98,9 @@ def main():
             minute = fetch_minute_candles(client, code)
             if not minute:
                 return code, {}, []
-            vp = calc_volume_profile(minute)
+            # 당일 분봉 매물대는 가격대 정밀도 ↑를 위해 num_bins=40
+            # (modules/volume_profile.py의 collect_full/collect_intraday와 일관)
+            vp = calc_volume_profile(minute, num_bins=40)
             if not vp:
                 return code, {}, minute
             return code, {"today": vp}, minute

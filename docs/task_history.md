@@ -6,6 +6,33 @@
 
 ## 2026-05-20
 
+### [버그픽스/문서] 거래집중 bin_count=40 의도 반영 + kis_client 주석 cleanup (2026-05-20 12:26 KST)
+- **변경 파일**:
+  - `collect_volume_profile.py` (+3/-1, line 101): `calc_volume_profile(minute, num_bins=40)` 인자 추가
+  - `modules/kis_client.py` (1줄): `get_stock_daily_price` market_div 주석 정정 (UN→J)
+- **사용자 검증 요청 결과 — 4지표 정확성 면밀 검증 후 발견**:
+  - SK하이닉스 MTS 캡쳐(11:24, UN) 기준 4지표(VWAP/RVOL/30일 순위/거래집중) 산식·단위·시점 일관성 모두 정확
+  - 발견된 실제 버그: today 매물대 bin_count=20 (의도 40)
+- **🔴 버그 원인 (5/18 22:14 작업 누락)**:
+  - 5/18에 `modules/volume_profile.py`의 `collect_full`/`collect_intraday` 함수에 num_bins=40 추가
+  - 그러나 cron 실행 경로인 `collect_volume_profile.py:101`은 그 함수들을 우회하고 `calc_volume_profile()`을 직접 호출
+  - 직접 호출 시 num_bins 인자 미지정 → 기본값 20 적용 → 데이터에 bin_count=20 저장
+  - cron 매핑 검증:
+    - `refresh-data.yml` / `theme-forecast-intraday.yml` → `collect_volume_profile.py --intraday` (영향 받음)
+    - `collect-paper-trading.yml` → 옵션 없음 모드(`collect_full` 경유, num_bins=40 적용) (영향 없음)
+- **역산 검증**:
+  - SK하이닉스 today: bin_size=3,400원, price_low=1,690,000, price_high=1,758,000
+  - (1,758,000-1,690,000)/20 = 3,400 ✅ (현재 20 적용)
+  - 의도 40이면 bin_size=1,700원이어야 함
+- **수정 후 효과**:
+  - 다음 cron(refresh-data 또는 theme-forecast-intraday)부터 today.bins[].length=40
+  - 고가 종목(SK하이닉스 등) 가격대 정밀도 2배 향상 (예: 3,400원 → 1,700원 단위)
+- **`kis_client.py:598` 주석 cleanup**:
+  - 기존: "stock-history는 'UN'."
+  - 실제(5/19 영구 복귀): `modules/stock_history.py`의 3개 호출 모두 `market_div="J"`
+  - 수정: "stock-history는 'J'(KRX 단독, 5/19 영구 복귀)."
+- **검증**: Python AST PASS (2개 파일)
+
 ### [설정/배포] gitignore 로컬 산출물 5종 추가 + kis-proxy 재배포 (2026-05-20 11:13 KST)
 - **변경 파일**:
   - `.gitignore` (+7 — `.superpowers/`, `supabase/.temp/`, `data/`, `backtest_monthly_ma10.py`, `test_overseas_api.py`)
