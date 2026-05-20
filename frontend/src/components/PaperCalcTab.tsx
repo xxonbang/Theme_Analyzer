@@ -57,6 +57,8 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
   // 비교 기준: 자동 fetch되는 현재가 vs 사용자가 직접 입력한 목표가
   const [comparisonMode, setComparisonMode] = useState<"current" | "target">("current")
   const [targetPrice, setTargetPrice] = useState("")
+  // 편집 모드: null이면 신규 추가, 값이면 해당 id 항목 수정 중
+  const [editingItemId, setEditingItemId] = useState<string | null>(null)
   const [kisSearching, setKisSearching] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -210,8 +212,27 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
     setQuantity("")
     setComparisonMode("current")
     setTargetPrice("")
+    setEditingItemId(null)
     setSearchQuery("")
     searchInputRef.current?.focus()
+  }, [])
+
+  // 누적 리스트 항목 → 입력 폼으로 로드 (편집 모드 진입)
+  const startEditItem = useCallback((item: PaperCalcItem) => {
+    setEditingItemId(item.id)
+    setSelectedStock({ code: item.code, name: item.name })
+    setAssumedPrice(String(item.assumedPrice))
+    setQuantity(String(item.quantity))
+    if (item.targetPrice != null) {
+      setComparisonMode("target")
+      setTargetPrice(String(item.targetPrice))
+    } else {
+      setComparisonMode("current")
+      setTargetPrice("")
+    }
+    setSearchQuery("")
+    // 폼이 보이는 위치로 스크롤 (모바일에서 폼이 위에 있어 자연 이동)
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
   const preview = useMemo(() => {
@@ -241,18 +262,37 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
 
   const addItem = useCallback(() => {
     if (!selectedStock || !preview) return
-    const newItem: PaperCalcItem = {
-      id: crypto.randomUUID(),
-      code: selectedStock.code,
-      name: selectedStock.name,
-      assumedPrice: preview.p,
-      quantity: preview.q,
-      ...(preview.isTarget ? { targetPrice: preview.cur } : {}),
-      addedAt: new Date().toISOString(),
+    if (editingItemId) {
+      // 편집 모드: 해당 id 항목 update (targetPrice 변경 시 explicit delete로 키 제거)
+      updateActiveTabItems(prev => prev.map(it => {
+        if (it.id !== editingItemId) return it
+        const next: PaperCalcItem = {
+          ...it,
+          assumedPrice: preview.p,
+          quantity: preview.q,
+        }
+        if (preview.isTarget) {
+          next.targetPrice = preview.cur
+        } else {
+          delete next.targetPrice
+        }
+        return next
+      }))
+    } else {
+      // 신규 추가
+      const newItem: PaperCalcItem = {
+        id: crypto.randomUUID(),
+        code: selectedStock.code,
+        name: selectedStock.name,
+        assumedPrice: preview.p,
+        quantity: preview.q,
+        ...(preview.isTarget ? { targetPrice: preview.cur } : {}),
+        addedAt: new Date().toISOString(),
+      }
+      updateActiveTabItems(prev => [newItem, ...prev])
     }
-    updateActiveTabItems(prev => [newItem, ...prev])
     resetForm()
-  }, [selectedStock, preview, resetForm, updateActiveTabItems])
+  }, [selectedStock, preview, editingItemId, resetForm, updateActiveTabItems])
 
   const removeItem = useCallback((id: string) => {
     updateActiveTabItems(prev => prev.filter(it => it.id !== id))
@@ -302,8 +342,23 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
 
   return (
     <div className="space-y-3">
-      <div className="bg-card rounded-lg border border-border p-3 space-y-2">
-        <div className="text-xs font-semibold text-muted-foreground">종목 추가</div>
+      <div className={cn(
+        "bg-card rounded-lg border p-3 space-y-2",
+        editingItemId ? "border-primary/40 ring-1 ring-primary/20" : "border-border",
+      )}>
+        <div className="flex items-center justify-between">
+          <div className="text-xs font-semibold text-muted-foreground">
+            {editingItemId ? "종목 수정" : "종목 추가"}
+          </div>
+          {editingItemId && (
+            <button
+              onClick={resetForm}
+              className="text-[11px] text-muted-foreground hover:text-foreground transition-colors"
+            >
+              취소
+            </button>
+          )}
+        </div>
 
         {!selectedStock ? (
           <div className="relative">
@@ -551,7 +606,7 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
             onClick={addItem}
             className="w-full mt-3 px-3 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm"
           >
-            누적 리스트에 추가
+            {editingItemId ? "수정 저장" : "누적 리스트에 추가"}
           </button>
         )}
       </div>
@@ -622,7 +677,10 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
               const rate = cmp != null ? ((cmp - it.assumedPrice) / it.assumedPrice) * 100 : 0
               const isTarget = it.targetPrice != null
               return (
-                <li key={it.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                <li key={it.id} className={cn(
+                  "flex items-center gap-3 py-3 first:pt-0 last:pb-0 -mx-2 px-2 rounded transition-colors",
+                  editingItemId === it.id && "bg-primary/5 ring-1 ring-primary/20",
+                )}>
                   <div className="min-w-0 flex-1 space-y-1">
                     <div className="flex items-baseline gap-2">
                       <span className="font-semibold text-sm truncate text-foreground">{it.name}</span>
@@ -631,14 +689,14 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
                         <span className="text-[9px] font-medium px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0">목표</span>
                       )}
                     </div>
-                    <div className="text-[11px] text-muted-foreground tabular-nums flex flex-wrap gap-x-2">
-                      <span className="whitespace-nowrap">
+                    <div className="text-[11px] text-muted-foreground tabular-nums space-y-0.5">
+                      <div className="whitespace-nowrap">
                         <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
-                      </span>
+                      </div>
                       {isTarget ? (
-                        <span className="whitespace-nowrap text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</span>
+                        <div className="whitespace-nowrap text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</div>
                       ) : live != null ? (
-                        <span className="whitespace-nowrap text-muted-foreground/60">현재 {formatPrice(live)}원</span>
+                        <div className="whitespace-nowrap text-muted-foreground/60">현재 {formatPrice(live)}원</div>
                       ) : null}
                     </div>
                   </div>
@@ -650,13 +708,27 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
                       {rate >= 0 ? "+" : ""}{rate.toFixed(2)}%
                     </div>
                   </div>
-                  <button
-                    onClick={() => removeItem(it.id)}
-                    className="text-muted-foreground/40 hover:text-destructive p-1.5 shrink-0 transition-colors"
-                    aria-label="삭제"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
+                  <div className="flex flex-col items-center gap-0.5 shrink-0">
+                    <button
+                      onClick={() => startEditItem(it)}
+                      className={cn(
+                        "p-1.5 transition-colors",
+                        editingItemId === it.id
+                          ? "text-primary"
+                          : "text-muted-foreground/40 hover:text-foreground",
+                      )}
+                      aria-label="수정"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => removeItem(it.id)}
+                      className="text-muted-foreground/40 hover:text-destructive p-1.5 transition-colors"
+                      aria-label="삭제"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </li>
               )
             })}

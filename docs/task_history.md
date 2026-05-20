@@ -6,6 +6,26 @@
 
 ## 2026-05-20
 
+### [기능/UI] 가상계산기 누적 리스트 수정 기능 + 항상 두 줄 표시 (2026-05-20 21:54 KST)
+- **변경 파일**: `frontend/src/components/PaperCalcTab.tsx`
+- **사용자 요청 1**: SK하이닉스처럼 항상 줄바꿈 (좁든 넓든)
+  - `flex flex-wrap` → `space-y-0.5` + `<div>` 2개 → 강제 두 줄
+- **사용자 요청 2**: 누적 리스트 종목 **수정 기능** 추가
+  - state: `editingItemId: string | null`
+  - `startEditItem(item)`: 항목 → 입력 폼 값 채움 + 편집 모드 진입 + 폼 위치로 smooth scroll
+  - `addItem`: 편집 모드면 해당 id update (`targetPrice` 변경 시 explicit `delete next.targetPrice`), 아니면 신규 추가
+  - `resetForm`: `setEditingItemId(null)` 포함 (취소 버튼 = resetForm)
+  - 폼 UI:
+    - 헤더 "종목 추가" → 편집 모드 시 "종목 수정" + 우측 "취소" 버튼
+    - 편집 모드 시 border `primary/40` + ring `primary/20`로 강조
+    - 추가 버튼 "누적 리스트에 추가" → 편집 시 "수정 저장"
+  - 누적 리스트 항목:
+    - ✏️ Pencil 아이콘 추가 (X 위)
+    - 편집 중인 항목은 `bg-primary/5 ring-primary/20`로 강조
+- **사용자 질문**: "목표가도 supabase에 저장되도록 구성된거 맞아?"
+  - 답: 네, paper_calc_history.tabs가 jsonb 컬럼이라 PaperCalcItem 전체가 직렬화. `targetPrice` 필드도 자동 포함 (number 시 키-값 저장, undefined 시 키 누락 — JSON 표준)
+- **검증**: tsc PASS · build PASS (2.93s)
+
 ### [UI] 좁은 화면 텍스트 단어 깨짐 2건 수정 (2026-05-20 21:49 KST)
 - **사용자 보고 1**: InvestorChartPopup의 "일봉"/"장중" 탭 버튼 텍스트가 좁은 화면에서 1글자씩 세로로 깨짐
   - 원인: 부모 `flex items-center`에 wrap 없음 + 우측 범례가 공간 차지하면 좌측 탭 압축 + 버튼에 `whitespace-nowrap` 없어 텍스트가 글자 단위 wrap
