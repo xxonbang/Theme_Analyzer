@@ -252,11 +252,14 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
   )
 }
 
+// 입력 v 단위: 만원 (KIS FHPTJ04040000의 _ntby_tr_pbmn raw 단위)
+//   abs ≥ 1,000만원 (= 1억) → "억"
+//   abs ≥ 10,000,000만원 (= 1조) → "조"
 function formatAmount(v: number): string {
   const abs = Math.abs(v)
   if (abs >= 10_000_000) return (v / 10_000_000).toFixed(1) + "조"
   if (abs >= 1_000) return (v / 10_000).toFixed(1) + "억"
-  return v.toFixed(0) + "백만"
+  return v.toFixed(0) + "만"
 }
 
 function InvestorTrendBar({ data, updatedAt, history, historyLoading, onRequestHistory }: { data: InvestorTrendDay[]; updatedAt?: string; history?: IndicatorHistoryData | null; historyLoading?: boolean; onRequestHistory?: () => void }) {

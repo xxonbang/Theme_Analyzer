@@ -302,7 +302,8 @@ def collect_market_investor_trend(client: KISClient, days: int = 20) -> list[dic
 
     Returns:
         [{"date": "2026-03-13", "kospi": {...}, "kosdaq": {...}}, ...]
-        각 시장: {index, change_pct, foreign, individual, institution} (금액 백만원)
+        각 시장: {index, change_pct, foreign, individual, institution} (금액 만원)
+        - KIS FHPTJ04040000의 _ntby_tr_pbmn 응답 단위는 만원 (raw / 10,000 = 억원)
     """
     markets = {
         "kospi": {"iscd": "0001", "iscd1": "KSP", "iscd2": "0001"},
