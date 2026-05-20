@@ -30,6 +30,7 @@ export function usePullToRefresh({
   const containerRef = useRef<HTMLDivElement>(null)
   const [pullDistance, setPullDistance] = useState(0)
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const [justCompleted, setJustCompleted] = useState(false)
 
   const startY = useRef(0)
   const pulling = useRef(false)
@@ -89,6 +90,9 @@ export function usePullToRefresh({
         setPullDistance(0)
         onRefreshRef.current().finally(() => {
           setIsRefreshing(false)
+          // 완료 메시지 1.2초 표시 (refresh 효과 명확히)
+          setJustCompleted(true)
+          setTimeout(() => setJustCompleted(false), 1200)
         })
       } else {
         setPullDistance(0)
@@ -109,5 +113,5 @@ export function usePullToRefresh({
     }
   }, [threshold])
 
-  return { containerRef, pullDistance, isRefreshing, canRelease }
+  return { containerRef, pullDistance, isRefreshing, canRelease, justCompleted }
 }

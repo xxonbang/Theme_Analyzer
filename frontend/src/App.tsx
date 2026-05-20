@@ -360,9 +360,13 @@ function App() {
 
   const apiAlerts = useApiAlerts(isAdmin)
   const { data: currentData, loading, error, refetch, refreshFromAPI, cancelRefresh, refreshElapsed } = useStockData()
-  const { history: stockHistoryData } = useStockHistory()
-  const { containerRef, pullDistance, isRefreshing, canRelease } = usePullToRefresh({
-    onRefresh: refetch,
+  const { history: stockHistoryData, refetchHistory } = useStockHistory()
+  // PTR refresh: 4개 데이터 소스 모두 동시 갱신 (사용자 의도적 새로고침)
+  const handlePtrRefresh = useCallback(async () => {
+    await Promise.all([refetch(), refetchVP(), refetchForecast(), refetchHistory()])
+  }, [refetch, refetchVP, refetchForecast, refetchHistory])
+  const { containerRef, pullDistance, isRefreshing, canRelease, justCompleted } = usePullToRefresh({
+    onRefresh: handlePtrRefresh,
     enabled: !loading,
   })
   const {
@@ -965,7 +969,7 @@ function App() {
         <SchedulePanel onClose={() => setScheduleOpen(false)} />
       )}
 
-      <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} />
+      <PullToRefreshIndicator pullDistance={pullDistance} canRelease={canRelease} isRefreshing={isRefreshing} justCompleted={justCompleted} />
 
       {/* 모의투자 페이지 */}
       {currentPage === "paper-trading" && (

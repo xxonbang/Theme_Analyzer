@@ -6,6 +6,19 @@
 
 ## 2026-05-20
 
+### [개선] PTR refresh 4개 데이터 통합 + "✓ 갱신 완료" 피드백 (2026-05-20 14:13 KST)
+- **사용자 보고**: "PTR 시각 동작은 OK인데 실제 refresh 되는지 확인이 어려움"
+- **원인**: `onRefresh: refetch`가 useStockData만 갱신 → portfolio 페이지의 다른 데이터(vp/forecast/history)는 변화 없어 사용자가 새로고침 인지 어려움
+- **수정**:
+  - `App.tsx`: `handlePtrRefresh` 콜백 추가 — `Promise.all([refetch, refetchVP, refetchForecast, refetchHistory])` 4개 동시 호출
+  - `useStockHistory`에서 `refetchHistory` 반환값 활용
+  - `usePullToRefresh.ts`: `justCompleted` state 추가 — refresh 완료 후 1.2초 표시
+  - `PullToRefreshIndicator.tsx`: 3가지 상태 표시
+    - 끌어내리는 중: ↓ 화살표 (60px 넘으면 primary 색상)
+    - 갱신 중: ⟳ 스피너 + "갱신 중…" 텍스트
+    - **완료: ✓ 체크 + "갱신 완료" (emerald 색상) 1.2초 표시**
+- **검증**: tsc PASS · build PASS (3.17s)
+
 ### [진단/회고] PortfolioPage 화면 안 보임 = 이전 PTR hook 부작용 (2026-05-20 13:55 KST)
 - **사용자 보고**: "포트폴리오 화면 고장났어. 아예 안보여."
 - **정적 분석 결과**: PortfolioPage.tsx의 currentVol 단순화 변경은 명백한 버그 없음
