@@ -6,6 +6,22 @@
 
 ## 2026-05-20
 
+### [기능] 가상계산기 — 비교 기준 토글 (현재가 / 목표가) 추가 (2026-05-20 21:44 KST)
+- **사용자 요청**: "현재는 가정 매수가만 입력 가능하고 그 기준 현재가와의 수익률 자동 계산. 목표 금액을 자동 fetch되는 '현재가' 또는 직접 입력하는 '목표가' 중 1개 선택 가능하게"
+- **변경 파일**:
+  - `frontend/src/lib/paper-calc-history.ts`: `PaperCalcItem.targetPrice?` 추가 (undefined = 현재가 기준)
+  - `frontend/src/components/PaperCalcTab.tsx`:
+    - state: `comparisonMode: "current" | "target"`, `targetPrice` 추가
+    - 입력 폼: 매수가/수량 grid 아래에 **비교 기준 토글(segmented)** + 목표가 입력 필드(목표가 모드 시)
+    - 현재가 모드: 자동 fetch된 가격을 read-only 박스로 표시 (UI 일관성)
+    - preview 계산: 모드에 따라 `cur` 분기 (현재가 vs 목표가)
+    - preview 라벨: 목표가 모드일 때 "목표 평가금액", "목표가 도달 시 수익률"로 변경
+    - addItem: `targetPrice` 모드일 때만 저장 (undefined 분기)
+    - summary/누적 리스트 계산: `it.targetPrice ?? livePrices[...].current_price`
+    - 누적 리스트 항목: 목표가 항목은 amber "목표" 뱃지 + "목표 N원" 라벨 표시
+- **저장 호환**: PaperCalcItem이 Supabase에 jsonb로 저장이라 새 필드 자동 호환 (기존 항목은 targetPrice=undefined → 현재가 기준 유지)
+- **검증**: tsc PASS · build PASS (3.83s, PortfolioPage 77.14 → 79.52 kB)
+
 ### [개선] PTR refresh 4개 데이터 통합 + "✓ 갱신 완료" 피드백 (2026-05-20 14:13 KST)
 - **사용자 보고**: "PTR 시각 동작은 OK인데 실제 refresh 되는지 확인이 어려움"
 - **원인**: `onRefresh: refetch`가 useStockData만 갱신 → portfolio 페이지의 다른 데이터(vp/forecast/history)는 변화 없어 사용자가 새로고침 인지 어려움

@@ -54,6 +54,9 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
   const [selectedStock, setSelectedStock] = useState<{ code: string; name: string } | null>(null)
   const [assumedPrice, setAssumedPrice] = useState("")
   const [quantity, setQuantity] = useState("")
+  // 비교 기준: 자동 fetch되는 현재가 vs 사용자가 직접 입력한 목표가
+  const [comparisonMode, setComparisonMode] = useState<"current" | "target">("current")
+  const [targetPrice, setTargetPrice] = useState("")
   const [kisSearching, setKisSearching] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -205,6 +208,8 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
     setSelectedStock(null)
     setAssumedPrice("")
     setQuantity("")
+    setComparisonMode("current")
+    setTargetPrice("")
     setSearchQuery("")
     searchInputRef.current?.focus()
   }, [])
@@ -214,13 +219,25 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
     const p = parseInt(assumedPrice.replace(/,/g, ""))
     const q = parseInt(quantity.replace(/,/g, ""))
     if (!p || !q || p <= 0 || q <= 0) return null
-    const cur = livePrices[selectedStock.code]?.current_price ?? p
+
+    // 비교 가격: 모드에 따라 현재가 또는 목표가
+    let cur: number
+    let isTarget = false
+    if (comparisonMode === "target") {
+      const t = parseInt(targetPrice.replace(/,/g, ""))
+      if (!t || t <= 0) return null  // 목표가 미입력 시 preview 미표시
+      cur = t
+      isTarget = true
+    } else {
+      cur = livePrices[selectedStock.code]?.current_price ?? p
+    }
+
     const invest = p * q
     const evalAmt = cur * q
     const profit = evalAmt - invest
     const rate = ((cur - p) / p) * 100
-    return { p, q, cur, invest, evalAmt, profit, rate }
-  }, [selectedStock, assumedPrice, quantity, livePrices])
+    return { p, q, cur, invest, evalAmt, profit, rate, isTarget }
+  }, [selectedStock, assumedPrice, quantity, livePrices, comparisonMode, targetPrice])
 
   const addItem = useCallback(() => {
     if (!selectedStock || !preview) return
@@ -230,6 +247,7 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
       name: selectedStock.name,
       assumedPrice: preview.p,
       quantity: preview.q,
+      ...(preview.isTarget ? { targetPrice: preview.cur } : {}),
       addedAt: new Date().toISOString(),
     }
     updateActiveTabItems(prev => [newItem, ...prev])
@@ -264,11 +282,12 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
     let totalEval = 0
     let evalAvailable = true
     for (const it of items) {
-      const cur = livePrices[it.code]?.current_price
+      // 목표가 설정된 항목은 그것을, 아니면 현재가 사용
+      const cmp = it.targetPrice ?? livePrices[it.code]?.current_price
       const invest = it.assumedPrice * it.quantity
       totalInvest += invest
-      if (cur != null) {
-        totalEval += cur * it.quantity
+      if (cmp != null) {
+        totalEval += cmp * it.quantity
       } else {
         evalAvailable = false
         totalEval += invest
@@ -420,30 +439,86 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
         </div>
 
         {selectedStock && (
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-[11px] text-muted-foreground font-medium block">가정 매수가 (원)</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                value={assumedPrice}
-                onChange={e => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
-                placeholder={livePrices[selectedStock.code] ? formatPrice(livePrices[selectedStock.code].current_price) : "매수가"}
-                className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
-              />
+          <>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="text-[11px] text-muted-foreground font-medium block">가정 매수가 (원)</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={assumedPrice}
+                  onChange={e => setAssumedPrice(e.target.value.replace(/[^0-9]/g, ""))}
+                  placeholder={livePrices[selectedStock.code] ? formatPrice(livePrices[selectedStock.code].current_price) : "매수가"}
+                  className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[11px] text-muted-foreground font-medium block">수량 (주)</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={quantity}
+                  onChange={e => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
+                  placeholder="수량"
+                  className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
+                />
+              </div>
             </div>
-            <div className="space-y-1.5">
-              <label className="text-[11px] text-muted-foreground font-medium block">수량 (주)</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                value={quantity}
-                onChange={e => setQuantity(e.target.value.replace(/[^0-9]/g, ""))}
-                placeholder="수량"
-                className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
-              />
+            {/* 비교 기준 토글 + 목표가 입력 */}
+            <div className="grid grid-cols-2 gap-3 items-end">
+              <div className="space-y-1.5">
+                <label className="text-[11px] text-muted-foreground font-medium block">비교 기준</label>
+                <div className="inline-flex w-full bg-muted/40 p-0.5 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={() => setComparisonMode("current")}
+                    className={cn(
+                      "flex-1 px-2 py-1.5 text-xs font-medium rounded-md transition-colors",
+                      comparisonMode === "current"
+                        ? "bg-card text-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    현재가
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setComparisonMode("target")}
+                    className={cn(
+                      "flex-1 px-2 py-1.5 text-xs font-medium rounded-md transition-colors",
+                      comparisonMode === "target"
+                        ? "bg-card text-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    목표가
+                  </button>
+                </div>
+              </div>
+              {comparisonMode === "target" ? (
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-muted-foreground font-medium block">목표가 (원)</label>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={targetPrice}
+                    onChange={e => setTargetPrice(e.target.value.replace(/[^0-9]/g, ""))}
+                    placeholder="도달 가정 가격"
+                    className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-base sm:text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-shadow"
+                  />
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  <div className="text-[11px] text-muted-foreground/70 block">자동</div>
+                  <div className="w-full px-3 py-2.5 rounded-lg bg-muted/30 border border-border/40 text-sm tabular-nums text-foreground/70">
+                    {livePrices[selectedStock.code]
+                      ? `${formatPrice(livePrices[selectedStock.code].current_price)}원`
+                      : "현재가 조회 중…"}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
+          </>
         )}
 
         {preview && (
@@ -451,7 +526,9 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
             <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[13px]">
               <span className="text-muted-foreground/80">매수금액</span>
               <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.invest)}원</span>
-              <span className="text-muted-foreground/80">평가금액</span>
+              <span className="text-muted-foreground/80">
+                {preview.isTarget ? "목표 평가금액" : "평가금액"}
+              </span>
               <span className="text-right font-medium tabular-nums text-foreground/90">{formatPrice(preview.evalAmt)}원</span>
               <span className="text-muted-foreground/80">손익</span>
               <span className={cn("text-right font-semibold tabular-nums", preview.profit >= 0 ? "text-red-500" : "text-blue-500")}>
@@ -459,7 +536,9 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
               </span>
             </div>
             <div className="flex items-center justify-between pt-2 border-t border-border/40">
-              <span className="text-[13px] text-muted-foreground/80">수익률</span>
+              <span className="text-[13px] text-muted-foreground/80">
+                {preview.isTarget ? "목표가 도달 시 수익률" : "수익률"}
+              </span>
               <span className={cn("font-bold tabular-nums px-2.5 py-1 rounded-md text-sm", getChangeBgColor(preview.rate))}>
                 {preview.rate >= 0 ? "+" : ""}{preview.rate.toFixed(2)}%
               </span>
@@ -535,23 +614,30 @@ export function PaperCalcTab({ masterStocks }: PaperCalcTabProps) {
           </div>
           <ul className="divide-y divide-border/40">
             {items.map(it => {
-              const cur = livePrices[it.code]?.current_price
+              const live = livePrices[it.code]?.current_price
+              const cmp = it.targetPrice ?? live
               const invest = it.assumedPrice * it.quantity
-              const evalAmt = cur != null ? cur * it.quantity : invest
+              const evalAmt = cmp != null ? cmp * it.quantity : invest
               const profit = evalAmt - invest
-              const rate = cur != null ? ((cur - it.assumedPrice) / it.assumedPrice) * 100 : 0
+              const rate = cmp != null ? ((cmp - it.assumedPrice) / it.assumedPrice) * 100 : 0
+              const isTarget = it.targetPrice != null
               return (
                 <li key={it.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
                   <div className="min-w-0 flex-1 space-y-1">
                     <div className="flex items-baseline gap-2">
                       <span className="font-semibold text-sm truncate text-foreground">{it.name}</span>
                       <span className="text-[10px] text-muted-foreground/70 tabular-nums shrink-0">{it.code}</span>
+                      {isTarget && (
+                        <span className="text-[9px] font-medium px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0">목표</span>
+                      )}
                     </div>
                     <div className="text-[11px] text-muted-foreground tabular-nums">
                       <span className="font-medium text-foreground/70">{formatPrice(it.assumedPrice)}</span>원 × {it.quantity.toLocaleString()}주
-                      {cur != null && (
-                        <span className="ml-2 text-muted-foreground/60">현재 {formatPrice(cur)}원</span>
-                      )}
+                      {isTarget ? (
+                        <span className="ml-2 text-amber-600 dark:text-amber-400">목표 {formatPrice(it.targetPrice!)}원</span>
+                      ) : live != null ? (
+                        <span className="ml-2 text-muted-foreground/60">현재 {formatPrice(live)}원</span>
+                      ) : null}
                     </div>
                   </div>
                   <div className="text-right shrink-0 space-y-1">

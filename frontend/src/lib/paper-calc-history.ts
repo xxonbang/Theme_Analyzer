@@ -6,6 +6,9 @@ export interface PaperCalcItem {
   name: string
   assumedPrice: number
   quantity: number
+  // 비교 기준 가격. 미설정(undefined)이면 자동으로 현재가 사용.
+  // 설정 시 그 값을 고정 비교 기준으로 사용 ("If 목표가 도달 시 수익률").
+  targetPrice?: number
   addedAt: string
 }
 
