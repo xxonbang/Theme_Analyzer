@@ -18,8 +18,9 @@ from __future__ import annotations
 import json
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import requests
 
@@ -30,6 +31,62 @@ from modules.utils import KST
 ROOT_DIR = Path(__file__).parent
 OUTPUT_PATH = ROOT_DIR / "frontend" / "public" / "data" / "macro-indicators.json"
 HISTORY_PATH = ROOT_DIR / "frontend" / "public" / "data" / "indicator-history.json"
+
+
+# ============ 가격 시각(price_at) 계산 ============
+# 각 지표의 실제 시장 마감 시각(KST). cron 시각(collected_at)과 별개로
+# 사용자에게 "이 가격이 언제 측정됐는지" 정확히 표시하기 위해 사용.
+#
+# 매핑: 심볼 → (시장 timezone, 마감 시각 hh, mm)
+# - 진행 중인 시장(야간선물, 24h 상품)은 매핑에서 제외 → cron 시각 그대로 사용.
+MARKET_CLOSE_MAP: dict[str, tuple[str, int, int]] = {
+    # 미국 주식/지수 (NYSE/NASDAQ 16:00 ET)
+    "^DJI":      ("America/New_York", 16, 0),
+    "^GSPC":     ("America/New_York", 16, 0),
+    "^IXIC":     ("America/New_York", 16, 0),
+    "^VIX":      ("America/New_York", 16, 15),  # VIX는 15분 후 정산
+    "MU":        ("America/New_York", 16, 0),
+    "SOXX":      ("America/New_York", 16, 0),
+    "EWY":       ("America/New_York", 16, 0),
+    "KORU":      ("America/New_York", 16, 0),
+    # 일본 (TSE 15:00 JST)
+    "^N225":     ("Asia/Tokyo",       15, 0),
+    # 중국 (SSE 15:00 CST)
+    "000001.SS": ("Asia/Shanghai",    15, 0),
+    # 유럽 (Eurex 22:00 CET까지 거래, 정규 17:30)
+    "^STOXX50E": ("Europe/Berlin",    17, 30),
+    # 한국 (KRX 15:30 KST)
+    "^KS11":     ("Asia/Seoul",       15, 30),
+    "^KQ11":     ("Asia/Seoul",       15, 30),
+    "^KS200":    ("Asia/Seoul",       15, 30),
+    "KOSPI200":  ("Asia/Seoul",       15, 30),
+    "K200F_DAY": ("Asia/Seoul",       15, 30),  # 코스피200 주간선물
+    # 야간/24h 상품은 cron 시각 사용 (매핑 제외):
+    #   NQ=F, K200F_NGT, SPX_F, OIL_F, GOLD_F, FNG
+}
+
+
+def _last_market_close_kst(symbol: str, now_kst: datetime) -> str | None:
+    """주어진 symbol의 가장 최근 시장 마감 시각을 KST 문자열로 반환.
+
+    오늘 마감 시각이 이미 지났으면 오늘 마감, 아직 안 지났으면 어제 마감.
+    매핑에 없는 symbol(진행 중 거래 상품)은 None 반환 → cron 시각 fallback.
+    """
+    spec = MARKET_CLOSE_MAP.get(symbol)
+    if not spec:
+        return None
+    tz_name, h, m = spec
+    tz = ZoneInfo(tz_name)
+    now_local = now_kst.astimezone(tz)
+    # 오늘 마감 시각 (시장 timezone 기준)
+    candidate = now_local.replace(hour=h, minute=m, second=0, microsecond=0)
+    # 마감 시각 아직 안 지났으면 어제로
+    if candidate > now_local:
+        candidate -= timedelta(days=1)
+    # 주말 보정 — 금요일 마감까지 되돌림 (단순 매핑, 휴장일은 무시)
+    while candidate.weekday() >= 5:  # 토(5), 일(6)
+        candidate -= timedelta(days=1)
+    return candidate.astimezone(KST).strftime("%Y-%m-%d %H:%M")
 
 # 해외 종목 목록: (symbol, exchange, name)
 OVERSEAS_ITEMS = [
@@ -460,13 +517,22 @@ def main():
 
     print(f"  수집 완료: {len(indicators)}/8")
 
-    # 개별 지표 수집 시각 기록
-    now_str = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
+    # 개별 지표 수집 시각 기록 + 가격 시점 추정
+    # - collected_at: cron이 데이터를 fetch한 시각 (모든 지표 동일)
+    # - price_at: 가격이 실제로 측정된 시각 (시장 마감 시각, 진행 중 상품은 None)
+    now_kst = datetime.now(KST)
+    now_str = now_kst.strftime("%Y-%m-%d %H:%M")
     for item in indicators:
         item["collected_at"] = now_str
+        price_at = _last_market_close_kst(item.get("symbol", ""), now_kst)
+        if price_at:
+            item["price_at"] = price_at
     if esignal_futures:
         for item in esignal_futures:
             item["collected_at"] = now_str
+            price_at = _last_market_close_kst(item.get("symbol", ""), now_kst)
+            if price_at:
+                item["price_at"] = price_at
 
     output = {
         "updated_at": datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),

@@ -6,6 +6,32 @@
 
 ## 2026-05-20
 
+### [정확도] 거시지표 카드별 시각 — cron 시각 → 실제 가격 시각(price_at) (2026-05-20 22:46 KST)
+- **사용자 보고**: "각 지표명 우측 시각이 실제 수집 시각이 맞는지 검증"
+- **🔴 발견된 문제**: 17개 지표 모두 동일한 시각(예: "18:10") 표시 — 실제로는 cron 실행 시각(`collected_at`)일 뿐, **개별 지표의 가격 시점과 무관**
+  - 예: 다우존스 가격은 미국 마감(한국 05:00 KST) 데이터지만 화면엔 "18:10"
+  - 코스피는 마감 15:30 KST 데이터지만 "18:10"
+- **🔴 사용자 오해 가능**: 마치 18:10에 각 지표가 갱신된 것처럼 보임
+- **수정** — 시장 마감 시각 정적 매핑으로 `price_at` 계산:
+  - `collect_macro_indicators.py`:
+    - `MARKET_CLOSE_MAP` 추가: 14개 심볼별 (timezone, hh, mm)
+    - `_last_market_close_kst()` 헬퍼: 가장 최근 마감 시각 KST 반환 (주말 보정 포함)
+    - 진행 중 상품(NQ=F, K200F_NGT, OIL_F, GOLD_F, SPX_F, FNG)은 매핑 제외 → `collected_at` 자동 fallback
+    - 각 indicator/futures에 `price_at` 필드 추가
+  - `frontend/src/hooks/useMacroIndicators.ts`: `MacroIndicator`/`FuturesItem`에 `price_at?: string` 추가
+  - `frontend/src/components/MacroIndicators.tsx`:
+    - `pickTimestamp()` 헬퍼: price_at 우선, 없으면 collected_at fallback
+    - `title` 속성으로 hover 시 "가격 시각 (시장 마감)" 또는 "cron 수집 시각" 안내
+    - 카드 2곳(접힌 상태/펼친 상태) 모두 적용
+- **단위 테스트** (5/20 22:30 KST 기준):
+  - `^DJI` → 2026-05-20 05:00 (미국 마감) ✅
+  - `^N225` → 2026-05-20 15:00 (일본 마감) ✅
+  - `^STOXX50E` → 2026-05-20 00:30 (어제 유럽 마감, 오늘 마감 아직 안 옴) ✅
+  - `^KS11` → 2026-05-20 15:30 (한국 마감) ✅
+  - `NQ=F` → None (진행 중 → collected_at fallback) ✅
+- **데이터 적용 시점**: 다음 cron이 `collect_macro_indicators.py` 호출 시부터 `price_at` 필드 포함 (collect-investor-data / collect-macro-futures / collect-macro-premarket 등)
+- **검증**: tsc PASS · build PASS (3.23s) · Python AST PASS · 헬퍼 단위 테스트 통과
+
 ### [문서/UI] 투자자 수급 단위 라벨 정정 — 백만원 → 만원 (2026-05-20 22:27 KST)
 - **사용자 요청**: "투자자 수급 데이터 정확한지 검증"
 - **검증 결과**:

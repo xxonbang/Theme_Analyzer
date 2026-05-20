@@ -161,7 +161,7 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
                 <div className={`absolute left-0 top-2 bottom-2 w-[2px] rounded-full ${isUp ? "bg-red-400/60" : isDown ? "bg-blue-400/60" : "bg-border/40"}`} />
                 <div className="flex items-center gap-1">
                   <span className="text-[10px] text-muted-foreground/60 font-medium truncate">{item.name}</span>
-                  {item.collected_at && <span className="text-[8px] text-muted-foreground/30 tabular-nums shrink-0">{item.collected_at.slice(0, 10) === TODAY_KST ? item.collected_at.slice(11) : item.collected_at.slice(5).replace(" ", " ")}</span>}
+                  {(() => { const ts = pickTimestamp(item, TODAY_KST); return ts && <span className="text-[8px] text-muted-foreground/30 tabular-nums shrink-0" title={item.price_at ? `가격 시각 (시장 마감)` : `cron 수집 시각`}>{ts}</span> })()}
                 </div>
                 <span className="text-[14px] font-bold tabular-nums tracking-tight text-foreground leading-snug">{priceStr}</span>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -250,6 +250,15 @@ function FuturesBar({ data, updatedAt, history, historyLoading, onRequestHistory
       )}
     </div>
   )
+}
+
+// 시각 표시 — price_at(가격 시점) 우선, 없으면 collected_at(cron 시각) fallback.
+// 형식: 오늘이면 "HH:MM", 다른 날이면 "MM-DD HH:MM".
+function pickTimestamp(item: { price_at?: string; collected_at?: string }, todayKst: string): string | null {
+  const ts = item.price_at || item.collected_at
+  if (!ts) return null
+  if (ts.slice(0, 10) === todayKst) return ts.slice(11, 16)
+  return ts.slice(5, 16)  // "MM-DD HH:MM"
 }
 
 // 입력 v 단위: 만원 (KIS FHPTJ04040000의 _ntby_tr_pbmn raw 단위)
@@ -796,10 +805,11 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
             ? item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
             : item.price.toLocaleString()
 
-        const MacroCard = ({ item, onClick }: { item: { symbol: string; name: string; price: number; change: number; change_pct: number; source: string; collected_at?: string }; onClick?: () => void }) => {
+        const MacroCard = ({ item, onClick }: { item: { symbol: string; name: string; price: number; change: number; change_pct: number; source: string; collected_at?: string; price_at?: string }; onClick?: () => void }) => {
           const isUp = item.change_pct > 0
           const isDown = item.change_pct < 0
           const prev = item.price - item.change
+          const ts = pickTimestamp(item, TODAY_KST)
           return (
             <div
               onClick={onClick}
@@ -810,7 +820,7 @@ export function MacroIndicators({ data, history, historyLoading, onRequestHistor
               <div className={`absolute left-0 top-2 bottom-2 w-[2px] rounded-full ${isUp ? "bg-red-400/60" : isDown ? "bg-blue-400/60" : "bg-border/40"}`} />
               <div className="flex items-center gap-1">
                 <span className="text-[10px] text-muted-foreground/60 font-medium truncate">{item.name}</span>
-                {item.collected_at && <span className="text-[8px] text-muted-foreground/30 tabular-nums shrink-0">{item.collected_at.slice(0, 10) === TODAY_KST ? item.collected_at.slice(11) : item.collected_at.slice(5).replace(" ", " ")}</span>}
+                {ts && <span className="text-[8px] text-muted-foreground/30 tabular-nums shrink-0" title={item.price_at ? "가격 시각 (시장 마감)" : "cron 수집 시각"}>{ts}</span>}
               </div>
               <span className="text-[14px] font-bold tabular-nums tracking-tight text-foreground leading-snug">{fmtPrice(item)}</span>
               <div className="flex items-center gap-1.5 mt-0.5">

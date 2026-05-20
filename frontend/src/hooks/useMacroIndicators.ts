@@ -10,7 +10,8 @@ export interface MacroIndicator {
   change: number
   change_pct: number
   source: string
-  collected_at?: string
+  collected_at?: string  // cron이 데이터를 fetch한 시각
+  price_at?: string       // 가격이 실제로 측정된 시각 (시장 마감 시각). 진행 중 상품은 없음
 }
 
 export interface MarketInvestorEntry {
@@ -35,7 +36,8 @@ export interface FuturesItem {
   change_pct: number
   status: string
   source: string
-  collected_at?: string
+  collected_at?: string  // cron이 데이터를 fetch한 시각
+  price_at?: string       // 가격이 실제로 측정된 시각 (시장 마감 시각). 진행 중 상품은 없음
 }
 
 export interface MacroIndicatorsData {
