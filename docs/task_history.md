@@ -6,6 +6,20 @@
 
 ## 2026-05-20
 
+### [개선] usePullToRefresh iOS PWA standalone 모드 한정 활성 (2026-05-20 13:46 KST)
+- **사용자 보고**: "iOS PWA 웹앱에서 pull-to-refresh 전혀 동작 안 함"
+- **웹검색 진단** (magicbell, dev.to, heltweg 등):
+  - iOS Safari standalone 모드(PWA)는 Safari UI 자체가 없어 **native pull-to-refresh가 원천 불가능**
+  - `overscroll-behavior-y` CSS 속성은 iOS Safari가 미지원 (Chrome/Firefox만)
+  - 즉 manifest의 `apple-mobile-web-app-capable: yes`(5/19 추가)로 standalone 활성 → native PTR 사라짐 → **커스텀 JS 구현 필수**
+- **회고**: 5/19 작업 시 "overscroll-behavior contain으로 변경하면 동작" 가설은 iOS Safari 미지원이라 무효. 실제로 동일 5/19에 `usePullToRefresh` hook + `PullToRefreshIndicator` 추가되어 있었으나 standalone 검사 없어 동작 보장 안 됨
+- **수정** (`frontend/src/hooks/usePullToRefresh.ts`):
+  - `isIOSStandalone()` 헬퍼: `window.navigator.standalone === true` 검사
+  - useEffect 시작에서 standalone 아니면 listener 자체 등록 안 함 — 일반 브라우저는 native PTR 유지
+  - `dy > 10`에서만 `preventDefault` (작은 움직임은 일반 스크롤로 양보)
+  - `touchcancel` 리스너 추가 (시스템 인터럽트 대응)
+- **검증**: tsc PASS · build PASS (3.37s, PortfolioPage 77.14 kB)
+
 ### [방향전환] stock-history UN 우선 + J 폴백 — 사용자 의도(KRX+NXT 전체 시장) 반영 (2026-05-20 13:02 KST)
 - **사용자 명시 의도**: "market_div='UN'으로 설정해야 내가 의도한 바와 같아. KRX+NXT 전체 시장 데이터를 반영하려고 하는게 맞아."
 - **D 단계 진단 (`scripts/diag_un_vs_j_20260520.py`)**:
