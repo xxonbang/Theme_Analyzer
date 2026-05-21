@@ -1,0 +1,777 @@
+{
+  "trade_date": "2026-05-21",
+  "morning_timestamp": "2026-05-21 09:12:20",
+  "collected_at": "2026-05-21 15:41:20",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-21 09:12:20",
+      "prices": {
+        "009150": 1196000,
+        "439960": 61900,
+        "477850": 78000,
+        "006340": 15770,
+        "012330": 609000,
+        "027360": 17310,
+        "005930": 289000,
+        "000660": 1808000,
+        "017900": 13220,
+        "005380": 618000,
+        "004870": 495,
+        "319400": 34300,
+        "010120": 256000
+      },
+      "leader_stocks": [
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI/로봇 및 첨단 IT 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇 및 첨단 IT 부품"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇 및 첨단 IT 부품"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "미래 모빌리티 및 로봇"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 09:32:45",
+      "prices": {
+        "009150": 1152000,
+        "439960": 61900,
+        "477850": 78000,
+        "006340": 15770,
+        "012330": 627000,
+        "027360": 17310,
+        "005930": 294500,
+        "000660": 1831000,
+        "017900": 13515,
+        "005380": 640000,
+        "004870": 495,
+        "319400": 35800,
+        "010120": 256500
+      },
+      "leader_stocks": [
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI/로봇 및 첨단 IT 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇 및 첨단 IT 부품"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇 및 첨단 IT 부품"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "미래 모빌리티 및 로봇"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 09:37:41",
+      "prices": {
+        "009150": 1153000,
+        "439960": 57500,
+        "477850": 78000,
+        "006340": 14720,
+        "012330": 632000,
+        "027360": 16300,
+        "005930": 293000,
+        "000660": 1824000,
+        "017900": 13790,
+        "005380": 636500,
+        "004870": 520,
+        "319400": 35450,
+        "010120": 256000
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "004870",
+          "name": "티웨이홀딩스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/건설"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/건설"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 10:02:37",
+      "prices": {
+        "009150": 1186000,
+        "439960": 57900,
+        "477850": 78000,
+        "006340": 14370,
+        "012330": 617000,
+        "027360": 16420,
+        "005930": 291750,
+        "000660": 1885000,
+        "017900": 13790,
+        "005380": 633000,
+        "004870": 520,
+        "319400": 35450,
+        "010120": 257500
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "004870",
+          "name": "티웨이홀딩스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/건설"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/건설"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 12:02:01",
+      "prices": {
+        "009150": 1190000,
+        "439960": 56750,
+        "477850": 78000,
+        "006340": 15070,
+        "012330": 635000,
+        "027360": 16020,
+        "005930": 293000,
+        "000660": 1936000,
+        "017900": 13790,
+        "005380": 649000,
+        "004870": 520,
+        "319400": 35450,
+        "010120": 265000
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "004870",
+          "name": "티웨이홀딩스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/건설"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/건설"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 12:36:38",
+      "prices": {
+        "009150": 1194000,
+        "439960": 57100,
+        "477850": 78000,
+        "006340": 15250,
+        "012330": 636000,
+        "027360": 16040,
+        "005930": 295750,
+        "000660": 1949000,
+        "017900": 14000,
+        "005380": 648000,
+        "004870": 477,
+        "319400": 36100,
+        "010120": 266500
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "004870",
+          "name": "티웨이홀딩스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/건설"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/건설"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 13:26:41",
+      "prices": {
+        "009150": 1191000,
+        "439960": 56400,
+        "477850": 78000,
+        "006340": 15150,
+        "012330": 647000,
+        "027360": 16410,
+        "005930": 297000,
+        "000660": 1942000,
+        "017900": 14140,
+        "005380": 658000,
+        "004870": 477,
+        "319400": 36100,
+        "010120": 267500
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "004870",
+          "name": "티웨이홀딩스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/건설"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/건설"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21 14:36:45",
+      "prices": {
+        "009150": 1195000,
+        "439960": 53700,
+        "477850": 78000,
+        "006340": 15320,
+        "012330": 673000,
+        "027360": 16230,
+        "005930": 298750,
+        "000660": 1939500,
+        "017900": 13550,
+        "005380": 668000,
+        "004870": 477,
+        "319400": 36100,
+        "010120": 272000
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "004870",
+          "name": "티웨이홀딩스",
+          "theme": "모빌리티 (자동차 & 항공/물류)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라/건설"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/건설"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "AI/로봇 및 첨단 IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1196000,
+      "close_price": 1204000,
+      "profit_rate": 0.67,
+      "profit_amount": 8000,
+      "high_price": 1207000,
+      "high_time": "13:58",
+      "high_profit_rate": 0.92,
+      "high_profit_amount": 11000,
+      "low_price": 1135000,
+      "low_profit_rate": -5.1,
+      "low_profit_amount": -61000,
+      "low_time": "09:31"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "AI/로봇 및 첨단 IT 부품",
+      "market": "KOSDAQ",
+      "buy_price": 61900,
+      "close_price": 54400,
+      "profit_rate": -12.12,
+      "profit_amount": -7500,
+      "high_price": 61800,
+      "high_time": "09:14",
+      "high_profit_rate": -0.16,
+      "high_profit_amount": -100,
+      "low_price": 52200,
+      "low_profit_rate": -15.67,
+      "low_profit_amount": -9700,
+      "low_time": "14:17"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/로봇 및 첨단 IT 부품",
+      "market": "KOSDAQ",
+      "buy_price": 78000,
+      "close_price": 78000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 78000,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 77700,
+      "low_profit_rate": -0.38,
+      "low_profit_amount": -300,
+      "low_time": "09:32"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전력 인프라 및 전선",
+      "market": "KOSPI",
+      "buy_price": 15770,
+      "close_price": 15220,
+      "profit_rate": -3.49,
+      "profit_amount": -550,
+      "high_price": 15800,
+      "high_time": "12:14",
+      "high_profit_rate": 0.19,
+      "high_profit_amount": 30,
+      "low_price": 14320,
+      "low_profit_rate": -9.19,
+      "low_profit_amount": -1450,
+      "low_time": "10:04"
+    },
+    {
+      "code": "012330",
+      "name": "현대모비스",
+      "theme": "미래 모빌리티 및 로봇",
+      "market": "KOSPI",
+      "buy_price": 609000,
+      "close_price": 670000,
+      "profit_rate": 10.02,
+      "profit_amount": 61000,
+      "high_price": 680000,
+      "high_time": "14:05",
+      "high_profit_rate": 11.66,
+      "high_profit_amount": 71000,
+      "low_price": 565000,
+      "low_profit_rate": -7.22,
+      "low_profit_amount": -44000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "벤처캐피탈/투자",
+      "market": "KOSPI",
+      "buy_price": 17310,
+      "close_price": 16020,
+      "profit_rate": -7.45,
+      "profit_amount": -1290,
+      "high_price": 17190,
+      "high_time": "09:16",
+      "high_profit_rate": -0.69,
+      "high_profit_amount": -120,
+      "low_price": 15870,
+      "low_profit_rate": -8.32,
+      "low_profit_amount": -1440,
+      "low_time": "10:58"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT",
+      "market": "KOSPI",
+      "buy_price": 289000,
+      "close_price": 299500,
+      "profit_rate": 3.63,
+      "profit_amount": 10500,
+      "high_price": 299500,
+      "high_time": "15:30",
+      "high_profit_rate": 3.63,
+      "high_profit_amount": 10500,
+      "low_price": 287000,
+      "low_profit_rate": -0.69,
+      "low_profit_amount": -2000,
+      "low_time": "09:08"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT",
+      "market": "KOSPI",
+      "buy_price": 1808000,
+      "close_price": 1940000,
+      "profit_rate": 7.3,
+      "profit_amount": 132000,
+      "high_price": 1954000,
+      "high_time": "15:10",
+      "high_profit_rate": 8.08,
+      "high_profit_amount": 146000,
+      "low_price": 1796000,
+      "low_profit_rate": -0.66,
+      "low_profit_amount": -12000,
+      "low_time": "09:01"
+    },
+    {
+      "code": "017900",
+      "name": "광전자",
+      "theme": "반도체/IT",
+      "market": "KOSPI",
+      "buy_price": 13220,
+      "close_price": 13700,
+      "profit_rate": 3.63,
+      "profit_amount": 480,
+      "high_price": 15470,
+      "high_time": "10:02",
+      "high_profit_rate": 17.02,
+      "high_profit_amount": 2250,
+      "low_price": 12850,
+      "low_profit_rate": -2.8,
+      "low_profit_amount": -370,
+      "low_time": "09:05"
+    },
+    {
+      "code": "005380",
+      "name": "현대차",
+      "theme": "모빌리티 (자동차 & 항공/물류)",
+      "market": "KOSPI",
+      "buy_price": 618000,
+      "close_price": 666000,
+      "profit_rate": 7.77,
+      "profit_amount": 48000,
+      "high_price": 672000,
+      "high_time": "14:26",
+      "high_profit_rate": 8.74,
+      "high_profit_amount": 54000,
+      "low_price": 607000,
+      "low_profit_rate": -1.78,
+      "low_profit_amount": -11000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "004870",
+      "name": "티웨이홀딩스",
+      "theme": "모빌리티 (자동차 & 항공/물류)",
+      "market": "KOSPI",
+      "buy_price": 495,
+      "close_price": 471,
+      "profit_rate": -4.85,
+      "profit_amount": -24,
+      "high_price": 520,
+      "high_time": "09:40",
+      "high_profit_rate": 5.05,
+      "high_profit_amount": 25,
+      "low_price": 425,
+      "low_profit_rate": -14.14,
+      "low_profit_amount": -70,
+      "low_time": "09:00"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 34300,
+      "close_price": 38500,
+      "profit_rate": 12.24,
+      "profit_amount": 4200,
+      "high_price": 39400,
+      "high_time": "14:29",
+      "high_profit_rate": 14.87,
+      "high_profit_amount": 5100,
+      "low_price": 33650,
+      "low_profit_rate": -1.9,
+      "low_profit_amount": -650,
+      "low_time": "09:03"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력 인프라/건설",
+      "market": "KOSPI",
+      "buy_price": 256000,
+      "close_price": 271500,
+      "profit_rate": 6.05,
+      "profit_amount": 15500,
+      "high_price": 273000,
+      "high_time": "14:45",
+      "high_profit_rate": 6.64,
+      "high_profit_amount": 17000,
+      "low_price": 247500,
+      "low_profit_rate": -3.32,
+      "low_profit_amount": -8500,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 13,
+    "profit_stocks": 8,
+    "loss_stocks": 4,
+    "total_invested": 4996995,
+    "total_value": 5267311,
+    "total_profit": 270316,
+    "total_profit_rate": 5.41,
+    "high_total_value": 5313680,
+    "high_total_profit": 316685,
+    "high_total_profit_rate": 6.34,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 2
+  }
+}
