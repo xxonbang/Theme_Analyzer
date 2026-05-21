@@ -647,7 +647,9 @@ def main():
 
         # 신규 진입 종목 데이터 보충 (history + criteria + member)
         # 랭킹 갱신으로 새로 나타난 종목은 history 등이 없으므로 보충
-        existing_history = latest.get("history") or {}
+        # main.py가 history를 stock-history.json에 분리 저장하므로 latest["history"]는 항상 비어있음
+        # → stock-history.json에서 직접 로드하여 신규 종목 판정 (이전 버그: 매 cron마다 전 종목이 "신규" 판정되어 fundamental 없이 재평가됨)
+        existing_history = load_json(STOCK_HISTORY_PATH) or {}
         new_codes = set()
         for section_key in ["volume", "trading_value"]:
             for market in ["kospi", "kosdaq"]:
@@ -691,9 +693,13 @@ def main():
                             code = stock.get("code", "")
                             if code in new_codes and code not in new_stock_map:
                                 new_stock_map[code] = stock
+                # fundamental_data는 latest.json에 보존된 기존 데이터 재사용 (collect_investor_data는 펀더멘탈 수집 안 함)
+                # 진짜 신규 종목은 fundamental 매칭 안 되어 market_cap/program_trading "데이터 없음"으로 정상 처리됨
+                existing_fundamental = latest.get("fundamental_data") or {}
                 new_criteria = evaluate_all_stocks(
                     all_stocks=list(new_stock_map.values()),
                     history_data=existing_history,
+                    fundamental_data=existing_fundamental,
                     investor_data=investor_data,
                     trading_value_data=latest.get("trading_value", {}),
                 )

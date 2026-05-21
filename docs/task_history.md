@@ -6,6 +6,25 @@
 
 ## 2026-05-21
 
+### [버그픽스] criteria_data fundamental 누락 — 신규 판정 로직이 매 cron마다 전 종목을 "신규" 오판 (2026-05-21 13:58 KST)
+- **사용자 보고**: 장중 진단 ②에서 발견 — `market_cap` 163/163 "데이터 없음", `program_trading` 163/163 "데이터 없음", `all_met` 0종목 (12:39 Refresh 시점은 150종목/all_met=2였음)
+- **원인** (`collect_investor_data.py:650`):
+  - `existing_history = latest.get("history") or {}` 사용
+  - `main.py:758`이 `history_data = latest.pop("history", {})`로 history를 stock-history.json에 분리 저장 → latest.json에 `history` 키 없음
+  - → `existing_history = {}` 빈 dict → 매 cron마다 전 종목(153개)이 "신규" 오판 → fundamental 없이 재평가하여 기존 fundamental 평가 결과 손상
+  - 추가로 `evaluate_all_stocks` 호출(line 694)에 `fundamental_data` 인자 누락
+- **수정**:
+  - `existing_history = load_json(STOCK_HISTORY_PATH) or {}` (stock-history.json 직접 로드)
+  - `existing_fundamental = latest.get("fundamental_data") or {}` + evaluate_all_stocks 호출에 `fundamental_data=existing_fundamental` 전달
+- **검증** (origin/main 실데이터 시뮬레이션):
+  - 수정 전: new_codes=153 (전 종목 오판)
+  - 수정 후: new_codes=3 (실제 신규: 089230, 291810, 347860)
+- **운영 영향**:
+  - 다음 Collect Investor Data cron(14:31)부터 market_cap, program_trading, w52_hgpr 기준이 정상 평가됨
+  - all_met 종목(노란색 ring) 표시 회복 예상
+  - 매 cron마다 발생하던 fundamental 평가 손상 차단
+- **검증**: Python AST PASS
+
 ### [버그픽스] 공매도 수집 날짜 파라미터 today → yesterday 수정 (2026-05-21 13:38 KST)
 - **변경 파일**: `main.py`, `tests/test_short_selling_date.py` (신규)
 - **원인**: `get_daily_short_sale(code, today, today)` 호출 시 KIS가 당일 장 마감 전 공매도 집계 미확정 상태로 `ssts_vol_rlim=0.00` 반환 → `ratio > 0` 필터에 의해 173종목 전부 누락. D-1 기준으로 변경하면 확정 데이터 수신 가능함을 삼성전자(005930) API 직접 확인으로 검증.
