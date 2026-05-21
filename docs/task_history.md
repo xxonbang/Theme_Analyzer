@@ -6,6 +6,11 @@
 
 ## 2026-05-21
 
+### [버그픽스] 공매도 수집 날짜 파라미터 today → yesterday 수정 (2026-05-21 13:38 KST)
+- **변경 파일**: `main.py`, `tests/test_short_selling_date.py` (신규)
+- **원인**: `get_daily_short_sale(code, today, today)` 호출 시 KIS가 당일 장 마감 전 공매도 집계 미확정 상태로 `ssts_vol_rlim=0.00` 반환 → `ratio > 0` 필터에 의해 173종목 전부 누락. D-1 기준으로 변경하면 확정 데이터 수신 가능함을 삼성전자(005930) API 직접 확인으로 검증.
+- **수정 내용**: `today` → `yesterday` (D-1) 로 변경. ruff clean, 테스트 30 passed.
+
 ### [설정] GitHub Actions Node.js 20 → 24 deprecation 대응 — actions 버전 일괄 bump (2026-05-21 13:35 KST)
 - **사용자 요청**: 2026-06-02 Node.js 24 강제 적용 전 13개 워크플로 전체 actions 버전 업그레이드
 - **변경 파일**: `.github/workflows/*.yml` 전체 13개

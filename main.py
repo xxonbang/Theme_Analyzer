@@ -453,12 +453,14 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
     if short_target_codes:
         print(f"\n[8-2/13] 공매도 비중 수집 중... ({len(short_target_codes)}개 종목)")
         try:
-            today = datetime.now(KST).strftime("%Y%m%d")
+            # KIS 공매도 집계는 장 마감 후 확정 → 당일(today) 요청 시 0 반환
+            # D-1 기준으로 조회해야 실제 비중 데이터 수신 가능
+            yesterday = (datetime.now(KST) - timedelta(days=1)).strftime("%Y%m%d")
             target_list = [s for s in all_stocks if s.get("code", "") in short_target_codes]
             for idx, stock in enumerate(target_list):
                 code = stock.get("code", "")
                 try:
-                    resp = client.get_daily_short_sale(code, today, today)
+                    resp = client.get_daily_short_sale(code, yesterday, yesterday)
                     if resp.get("rt_cd") == "0":
                         output2 = resp.get("output2", [])
                         if output2:
