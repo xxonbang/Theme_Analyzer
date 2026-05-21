@@ -6,6 +6,21 @@
 
 ## 2026-05-21
 
+### [설정] GitHub Actions Node.js 20 → 24 deprecation 대응 — actions 버전 일괄 bump (2026-05-21 13:35 KST)
+- **사용자 요청**: 2026-06-02 Node.js 24 강제 적용 전 13개 워크플로 전체 actions 버전 업그레이드
+- **변경 파일**: `.github/workflows/*.yml` 전체 13개
+- **변경 내용**:
+  - `actions/checkout` v4 → v5 (Node 24 지원: v5.0.0)
+  - `actions/setup-python` v5 → v6 (Node 24 지원: v6.0.0)
+  - `actions/cache`, `cache/save`, `cache/restore` v4 → v5 (Node 24 지원: v5.0.0)
+  - `actions/setup-node` v4 → v5 (Node 24 지원: v5.0.0) — deploy-pages.yml 1곳
+  - `actions/configure-pages` v4 → v6 (Node 24 지원: v6.0.0) — deploy-pages.yml 1곳
+  - `actions/upload-pages-artifact` v3 → v4 — composite action, Node 직접 미해당
+  - `actions/deploy-pages` v4 → v5 (Node 24 지원: v5.0.0) — deploy-pages.yml 1곳
+- **검증**: 13개 YAML 구문 python yaml.safe_load 전수 통과, cron/concurrency/dispatch 트리거 무변경
+- **diff 통계**: 13 files changed, 47 insertions(+), 47 deletions(-) (버전 문자열 교체만)
+- **커밋**: 상위 에이전트 검토 후 진행 예정
+
 ### [진단/버그픽스] 장중 진단 후속 조치 — 069500 price_at 매핑 + 환율 stale timestamp 처리 (2026-05-21 11:29 KST)
 - **사용자 요청**: "현재 장중. 객관·보수적 관점으로 상태/성능/데이터수집/계산로직 면밀히 진단·검증" → "확인 및 조치 실시"
 - **장중 진단 요약 (10:10 KST 기준)**:

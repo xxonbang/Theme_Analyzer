@@ -37,12 +37,12 @@ jobs:
             -d parse_mode="HTML"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
@@ -73,7 +73,7 @@ jobs:
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Restore KIS token cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .kis_token_cache.json
           key: kis-token-${{ steps.cache-date.outputs.date }}
@@ -106,7 +106,7 @@ jobs:
 
       - name: Save KIS token cache
         if: always()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: .kis_token_cache.json
           key: kis-token-${{ steps.cache-date.outputs.date }}
