@@ -6,6 +6,21 @@
 
 ## 2026-05-21
 
+### [버그픽스] update-stock-master 워크플로 5주 연속 실패 — dependencies 누락 (2026-05-21 14:08 KST)
+- **사용자 보고**: 진단 ② 후속 잔여 이슈 점검 중 발견
+- **증상**:
+  - stock-master.json `updated_at: 20260319` (2개월 묵음)
+  - update-stock-master.yml이 매주 월요일 06:30 KST 자동 실행되지만 4/19, 4/26, 5/03, 5/10, 5/17 **5회 연속 failure**
+  - 결과: 신규 상장 종목(477850 마키나락스, 439960 코스모로보틱스 등) stock-master에 누락
+  - 영향: theme-forecast의 leader_stocks에 등장한 신규 상장 종목이 stock-master에 없어 사용자 화면 일부 정보 누락 가능
+- **원인** (`.github/workflows/update-stock-master.yml:27`):
+  - `pip install -q requests`만 설치
+  - 그러나 `scripts/generate_stock_master.py` → `modules/kis_client.py` → `config/settings.py` → `from dotenv import load_dotenv`
+  - python-dotenv 패키지 미설치 → `ModuleNotFoundError: No module named 'dotenv'`
+- **수정**: `pip install -q requests` → `pip install -r requirements.txt` (다른 12개 워크플로와 동일 패턴)
+- **검증**: YAML PASS, cron 보존 (월요일 06:30 KST)
+- **다음 단계**: workflow_dispatch로 수동 실행하여 즉시 stock-master 갱신 가능 (사용자 결정 필요)
+
 ### [버그픽스] criteria_data fundamental 누락 — 신규 판정 로직이 매 cron마다 전 종목을 "신규" 오판 (2026-05-21 13:58 KST)
 - **사용자 보고**: 장중 진단 ②에서 발견 — `market_cap` 163/163 "데이터 없음", `program_trading` 163/163 "데이터 없음", `all_met` 0종목 (12:39 Refresh 시점은 150종목/all_met=2였음)
 - **원인** (`collect_investor_data.py:650`):
