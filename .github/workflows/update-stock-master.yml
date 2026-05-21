@@ -58,6 +58,14 @@ jobs:
           fi
 
           COUNT=$(python3 -c "import json; print(json.load(open('frontend/public/data/stock-master.json'))['count'])")
+
+          # 안전판: 비현실적 데이터 손실 방지 (KOSPI ~900 + KOSDAQ ~1,800 ≈ 2,700)
+          # 2,000개 미만은 스크립트 오류 또는 API 응답 이상으로 판단하여 commit 중단
+          if [ "$COUNT" -lt 2000 ]; then
+            echo "❌ count $COUNT < 2000 — 비정상 데이터 손실로 판단, commit 중단"
+            exit 1
+          fi
+
           git add frontend/public/data/stock-master.json
           git commit -m "chore: 종목 마스터 주간 업데이트 (${COUNT}종목)"
 

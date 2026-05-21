@@ -6,6 +6,22 @@
 
 ## 2026-05-21
 
+### [개선/안전판] stock-master 시스템 정상화 — 스크립트 재작성 + 워크플로 count 안전판 (2026-05-21 15:30 KST)
+- **사용자 요청**: 14:56 KST rollback(`becd9e54`) 후 재발 방지(안전판) + 스크립트 정상화 둘 다
+- **Step 1 — 안전판** (`.github/workflows/update-stock-master.yml`):
+  - Commit step에 `if [ "$COUNT" -lt 2000 ]; then exit 1; fi` 추가
+  - 5/25(월) 06:30 KST 다음 자동 cron에서 비정상 데이터 손실 발생 시 commit/push 차단
+- **Step 2 — 스크립트 정상화** (`scripts/generate_stock_master.py`, `tests/test_generate_stock_master.py` 신규):
+  - KIS volume-rank API (~100종목) → pykrx `상장종목검색().fetch('ALL')` 교체
+  - KONEX 제외 + 스팩(이름 키워드 "스팩"/"SPAC") 필터링 + KOSDAQ GLOBAL → KOSDAQ 정규화
+  - KIS 환경변수 의존성 완전 제거 → GitHub Actions 안정 재현
+- **검증 (로컬 실행)**:
+  - count: 2,697 (KOSPI 948 + KOSDAQ 1,749) — 안전판 통과
+  - 검증 8종목 전부 포함 (삼성전자/카카오/에코프로비엠/레인보우로보틱스/마키나락스/코스모로보틱스/THE E&M/핀텔)
+  - ETF 3종목 정확히 제외 (069500/360750/148070)
+  - pytest: 17 신규 테스트 추가 PASS
+- **운영 영향**: 다음 5/25 cron부터 매주 KRX 전종목(~2,700) 자동 갱신, 신규 상장 즉시 반영. 안전판으로 회귀 차단.
+
 ### [버그픽스] update-stock-master 워크플로 5주 연속 실패 — dependencies 누락 (2026-05-21 14:08 KST)
 - **사용자 보고**: 진단 ② 후속 잔여 이슈 점검 중 발견
 - **증상**:
