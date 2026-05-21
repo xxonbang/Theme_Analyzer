@@ -4,6 +4,33 @@
 
 ---
 
+## 2026-05-21
+
+### [진단/버그픽스] 장중 진단 후속 조치 — 069500 price_at 매핑 + 환율 stale timestamp 처리 (2026-05-21 11:29 KST)
+- **사용자 요청**: "현재 장중. 객관·보수적 관점으로 상태/성능/데이터수집/계산로직 면밀히 진단·검증" → "확인 및 조치 실시"
+- **장중 진단 요약 (10:10 KST 기준)**:
+  - 13개 cron 모두 정상 실행 (07:02~10:05). push 경합 자동 retry 동작 정상
+  - 데이터 신선도: latest(10:02), macro(10:05), theme-forecast(10:03), volume-profile(10:05), intraday-history(09:50, 다음 10:15 예정)
+  - 13-criteria 분포 합리적 (momentum_history 83.2%, golden_cross 35.8% 등). all_met=0/173 정상
+  - golden_cross signal_count 분포 `{0:111, 1:37, 2:12, 3:9, 4:4}` 점진 감소 정상
+- **확정 이슈 4건**:
+  1. **069500 (KODEX 200) price_at 누락** — 어제 22:46 MARKET_CLOSE_MAP 작업의 미커버 종목 → **조치**
+  2. **환율 timestamp 4/30 노출** — 한국수출입은행 API 외부 장애. 백엔드는 4/30 정적 데이터 보존(main.py:643), 프론트엔드는 KIS API로 rate/change overlay. 사용자 화면 라벨 "04/30 · 15:52 실시간"으로 모순 노출 → **조치**
+  3. `short_selling`/`reverse_alignment` reason=None 173/173 — UI는 `met`만 보고 reason 미사용 → **조치 안 함** (Surgical 원칙)
+  4. GitHub Actions Node 20 deprecation (2026-06-02부터 강제) — **별도 대응 필요**
+- **수정**:
+  - `collect_macro_indicators.py:62`: `MARKET_CLOSE_MAP`에 `"069500": ("Asia/Seoul", 15, 30)` 추가
+  - `frontend/src/components/ExchangeRate.tsx:165-176`: KIS overlay 발생 시(`liveRates` 비어있지 않음) 4/30 timestamp 숨김 → "KIS 실시간"만 표시. KIS 실패 시에는 기존대로 정적 timestamp 노출(사용자가 stale 인지 가능)
+- **검증**:
+  - 069500 price_at = "2026-05-20 15:30" (현재 11:29 < 15:30 → 어제 마감 fallback 정상)
+  - 기존 매핑 회귀 통과 (^DJI/N225/STOXX50E/KS11/KOSPI200/MU/NQ=F/FNG 모두 정상)
+  - Python AST PASS · tsc PASS · build PASS (4.07s)
+- **운영 영향**:
+  - 069500: 다음 macro cron 실행 시 (예: 10:30 Theme Forecast Intraday 내 collect_intraday_volume_profile, 또는 다음 collect_macro_indicators 호출) `price_at: "2026-05-20 15:30"` 반영
+  - 환율 UI: 다음 페이지 새로고침 시 KIS 보정 발생하면 "KIS 실시간" 표시, 백엔드 4/30 timestamp 숨김
+
+---
+
 ## 2026-05-20
 
 ### [기능] 종목 링크 모바일에서 토스증권 앱 deep link로 자동 분기 (2026-05-20 23:14 KST)

@@ -61,6 +61,7 @@ MARKET_CLOSE_MAP: dict[str, tuple[str, int, int]] = {
     "^KS200":    ("Asia/Seoul",       15, 30),
     "KOSPI200":  ("Asia/Seoul",       15, 30),
     "K200F_DAY": ("Asia/Seoul",       15, 30),  # 코스피200 주간선물
+    "069500":    ("Asia/Seoul",       15, 30),  # KODEX 200 ETF
     # 야간/24h 상품은 cron 시각 사용 (매핑 제외):
     #   NQ=F, K200F_NGT, SPX_F, OIL_F, GOLD_F, FNG
 }

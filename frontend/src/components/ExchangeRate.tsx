@@ -164,9 +164,14 @@ export function ExchangeRate({ exchange, history, historyLoading, onRequestHisto
           <span className="text-xs font-semibold text-foreground/80 ml-1.5">환율</span>
           {exchange.timestamp && (
             <span className="text-[10px] text-muted-foreground/60 tabular-nums ml-1.5">
-              {exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}
-              {Object.keys(liveRates).length > 0 && <span className="ml-1 text-emerald-500">실시간</span>}
-              {liveFetching && <span className="ml-1 animate-pulse">조회 중</span>}
+              {Object.keys(liveRates).length > 0 ? (
+                <span className="text-emerald-500">KIS 실시간</span>
+              ) : (
+                <>
+                  {exchange.timestamp.slice(5, 10).replace("-", "/")} · {exchange.timestamp.slice(11, 16)}
+                  {liveFetching && <span className="ml-1 animate-pulse">조회 중</span>}
+                </>
+              )}
             </span>
           )}
           {/* History 버튼 */}
