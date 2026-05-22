@@ -1,0 +1,691 @@
+{
+  "trade_date": "2026-05-22",
+  "morning_timestamp": "2026-05-22 09:11:57",
+  "collected_at": "2026-05-22 15:41:34",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-22 09:11:57",
+      "prices": {
+        "046970": 10530,
+        "356680": 21300,
+        "203650": 3860,
+        "010060": 324000,
+        "322000": 208000,
+        "336260": 95900,
+        "006260": 579000,
+        "125020": 10210,
+        "024840": 7980,
+        "069540": 5580,
+        "048410": 12700,
+        "476830": 139500
+      },
+      "leader_stocks": [
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 보안 및 양자 기술"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 보안 및 양자 기술"
+        },
+        {
+          "code": "203650",
+          "name": "드림시큐리티",
+          "theme": "IT 보안 및 양자 기술"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 친환경 산업"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 친환경 산업"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "신재생에너지 및 친환경 산업"
+        },
+        {
+          "code": "006260",
+          "name": "LS",
+          "theme": "첨단소재 및 전력 인프라"
+        },
+        {
+          "code": "125020",
+          "name": "티씨머티리얼즈",
+          "theme": "첨단소재 및 전력 인프라"
+        },
+        {
+          "code": "024840",
+          "name": "KBI메탈",
+          "theme": "첨단소재 및 전력 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 09:32:47",
+      "prices": {
+        "046970": 10530,
+        "356680": 21300,
+        "203650": 3860,
+        "010060": 324000,
+        "322000": 207000,
+        "336260": 100900,
+        "006260": 571000,
+        "125020": 9650,
+        "024840": 7980,
+        "069540": 6270,
+        "086520": 145600,
+        "048410": 13590,
+        "476830": 146000
+      },
+      "leader_stocks": [
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 보안 및 양자 기술"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 보안 및 양자 기술"
+        },
+        {
+          "code": "203650",
+          "name": "드림시큐리티",
+          "theme": "IT 보안 및 양자 기술"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 친환경 산업"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 친환경 산업"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "신재생에너지 및 친환경 산업"
+        },
+        {
+          "code": "006260",
+          "name": "LS",
+          "theme": "첨단소재 및 전력 인프라"
+        },
+        {
+          "code": "125020",
+          "name": "티씨머티리얼즈",
+          "theme": "첨단소재 및 전력 인프라"
+        },
+        {
+          "code": "024840",
+          "name": "KBI메탈",
+          "theme": "첨단소재 및 전력 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 09:35:21",
+      "prices": {
+        "046970": 10455,
+        "356680": 20950,
+        "203650": 3710,
+        "010060": 323000,
+        "322000": 207000,
+        "336260": 100400,
+        "006260": 568000,
+        "125020": 9760,
+        "024840": 7400,
+        "069540": 6400,
+        "086520": 146700,
+        "048410": 13300,
+        "476830": 145500
+      },
+      "leader_stocks": [
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 10:02:47",
+      "prices": {
+        "046970": 10455,
+        "356680": 20950,
+        "203650": 3710,
+        "010060": 313000,
+        "322000": 199600,
+        "336260": 100400,
+        "006260": 556000,
+        "125020": 9440,
+        "024840": 7450,
+        "069540": 6400,
+        "086520": 149100,
+        "048410": 13300,
+        "476830": 152400
+      },
+      "leader_stocks": [
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 12:02:00",
+      "prices": {
+        "046970": 10455,
+        "356680": 20950,
+        "203650": 3710,
+        "322000": 205000,
+        "336260": 100400,
+        "006260": 551000,
+        "125020": 9900,
+        "024840": 7210,
+        "069540": 6400,
+        "086520": 145900,
+        "048410": 13300,
+        "476830": 147800
+      },
+      "leader_stocks": [
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 12:36:09",
+      "prices": {
+        "046970": 9880,
+        "356680": 20550,
+        "203650": 3555,
+        "322000": 204000,
+        "336260": 100400,
+        "006260": 545000,
+        "125020": 9750,
+        "024840": 7240,
+        "069540": 6610,
+        "086520": 144700,
+        "048410": 13330,
+        "476830": 148200
+      },
+      "leader_stocks": [
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 13:26:48",
+      "prices": {
+        "046970": 9880,
+        "356680": 20550,
+        "203650": 3555,
+        "322000": 203500,
+        "336260": 101300,
+        "125020": 9630,
+        "024840": 7420,
+        "069540": 6610,
+        "086520": 145600,
+        "048410": 13330,
+        "476830": 147500
+      },
+      "leader_stocks": [
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-22 14:36:48",
+      "prices": {
+        "046970": 9880,
+        "356680": 20550,
+        "203650": 3555,
+        "336260": 100400,
+        "125020": 9380,
+        "024840": 7460,
+        "069540": 6610,
+        "086520": 144900,
+        "048410": 13330,
+        "476830": 145100
+      },
+      "leader_stocks": [
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "046970",
+          "name": "우리로",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "IT 하드웨어 및 사이버 보안"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "이차전지 및 신재생 에너지"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "046970",
+      "name": "우리로",
+      "theme": "IT 보안 및 양자 기술",
+      "market": "KOSPI",
+      "buy_price": 10530,
+      "close_price": 9600,
+      "profit_rate": -8.83,
+      "profit_amount": -930,
+      "high_price": 11140,
+      "high_time": "09:18",
+      "high_profit_rate": 5.79,
+      "high_profit_amount": 610,
+      "low_price": 9510,
+      "low_profit_rate": -9.69,
+      "low_profit_amount": -1020,
+      "low_time": "13:06"
+    },
+    {
+      "code": "356680",
+      "name": "엑스게이트",
+      "theme": "IT 보안 및 양자 기술",
+      "market": "KOSDAQ",
+      "buy_price": 21300,
+      "close_price": 21200,
+      "profit_rate": -0.47,
+      "profit_amount": -100,
+      "high_price": 22150,
+      "high_time": "09:16",
+      "high_profit_rate": 3.99,
+      "high_profit_amount": 850,
+      "low_price": 19700,
+      "low_profit_rate": -7.51,
+      "low_profit_amount": -1600,
+      "low_time": "10:00"
+    },
+    {
+      "code": "203650",
+      "name": "드림시큐리티",
+      "theme": "IT 보안 및 양자 기술",
+      "market": "KOSPI",
+      "buy_price": 3860,
+      "close_price": 3550,
+      "profit_rate": -8.03,
+      "profit_amount": -310,
+      "high_price": 4030,
+      "high_time": "09:13",
+      "high_profit_rate": 4.4,
+      "high_profit_amount": 170,
+      "low_price": 3450,
+      "low_profit_rate": -10.62,
+      "low_profit_amount": -410,
+      "low_time": "13:10"
+    },
+    {
+      "code": "010060",
+      "name": "OCI홀딩스",
+      "theme": "신재생에너지 및 친환경 산업",
+      "market": "KOSPI",
+      "buy_price": 324000,
+      "close_price": 314500,
+      "profit_rate": -2.93,
+      "profit_amount": -9500,
+      "high_price": 331000,
+      "high_time": "09:39",
+      "high_profit_rate": 2.16,
+      "high_profit_amount": 7000,
+      "low_price": 309500,
+      "low_profit_rate": -4.48,
+      "low_profit_amount": -14500,
+      "low_time": "13:17"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지 및 친환경 산업",
+      "market": "KOSDAQ",
+      "buy_price": 208000,
+      "close_price": 203000,
+      "profit_rate": -2.4,
+      "profit_amount": -5000,
+      "high_price": 210000,
+      "high_time": "09:30",
+      "high_profit_rate": 0.96,
+      "high_profit_amount": 2000,
+      "low_price": 198600,
+      "low_profit_rate": -4.52,
+      "low_profit_amount": -9400,
+      "low_time": "10:05"
+    },
+    {
+      "code": "336260",
+      "name": "두산퓨얼셀",
+      "theme": "신재생에너지 및 친환경 산업",
+      "market": "KOSDAQ",
+      "buy_price": 95900,
+      "close_price": 98200,
+      "profit_rate": 2.4,
+      "profit_amount": 2300,
+      "high_price": 106000,
+      "high_time": "09:52",
+      "high_profit_rate": 10.53,
+      "high_profit_amount": 10100,
+      "low_price": 92000,
+      "low_profit_rate": -4.07,
+      "low_profit_amount": -3900,
+      "low_time": "09:02"
+    },
+    {
+      "code": "006260",
+      "name": "LS",
+      "theme": "첨단소재 및 전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 579000,
+      "close_price": 544000,
+      "profit_rate": -6.04,
+      "profit_amount": -35000,
+      "high_price": 583000,
+      "high_time": "09:14",
+      "high_profit_rate": 0.69,
+      "high_profit_amount": 4000,
+      "low_price": 536000,
+      "low_profit_rate": -7.43,
+      "low_profit_amount": -43000,
+      "low_time": "15:01"
+    },
+    {
+      "code": "125020",
+      "name": "티씨머티리얼즈",
+      "theme": "첨단소재 및 전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 10210,
+      "close_price": 9190,
+      "profit_rate": -9.99,
+      "profit_amount": -1020,
+      "high_price": 10250,
+      "high_time": "09:14",
+      "high_profit_rate": 0.39,
+      "high_profit_amount": 40,
+      "low_price": 9150,
+      "low_profit_rate": -10.38,
+      "low_profit_amount": -1060,
+      "low_time": "15:08"
+    },
+    {
+      "code": "024840",
+      "name": "KBI메탈",
+      "theme": "첨단소재 및 전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 7980,
+      "close_price": 7640,
+      "profit_rate": -4.26,
+      "profit_amount": -340,
+      "high_price": 8010,
+      "high_time": "09:48",
+      "high_profit_rate": 0.38,
+      "high_profit_amount": 30,
+      "low_price": 7090,
+      "low_profit_rate": -11.15,
+      "low_profit_amount": -890,
+      "low_time": "12:24"
+    },
+    {
+      "code": "069540",
+      "name": "빛과전자",
+      "theme": "IT 하드웨어 및 사이버 보안",
+      "market": "KOSPI",
+      "buy_price": 5580,
+      "close_price": 6610,
+      "profit_rate": 18.46,
+      "profit_amount": 1030,
+      "high_price": 6610,
+      "high_time": "15:30",
+      "high_profit_rate": 18.46,
+      "high_profit_amount": 1030,
+      "low_price": 5130,
+      "low_profit_rate": -8.06,
+      "low_profit_amount": -450,
+      "low_time": "09:00"
+    },
+    {
+      "code": "048410",
+      "name": "현대바이오",
+      "theme": "바이오/헬스케어",
+      "market": "KOSPI",
+      "buy_price": 12700,
+      "close_price": 13450,
+      "profit_rate": 5.91,
+      "profit_amount": 750,
+      "high_price": 14450,
+      "high_time": "10:08",
+      "high_profit_rate": 13.78,
+      "high_profit_amount": 1750,
+      "low_price": 11300,
+      "low_profit_rate": -11.02,
+      "low_profit_amount": -1400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "476830",
+      "name": "알지노믹스",
+      "theme": "바이오/헬스케어",
+      "market": "KOSDAQ",
+      "buy_price": 139500,
+      "close_price": 145500,
+      "profit_rate": 4.3,
+      "profit_amount": 6000,
+      "high_price": 153600,
+      "high_time": "10:02",
+      "high_profit_rate": 10.11,
+      "high_profit_amount": 14100,
+      "low_price": 134200,
+      "low_profit_rate": -3.8,
+      "low_profit_amount": -5300,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 4,
+    "loss_stocks": 8,
+    "total_invested": 1418560,
+    "total_value": 1376440,
+    "total_profit": -42120,
+    "total_profit_rate": -2.97,
+    "high_total_value": 1460240,
+    "high_total_profit": 41680,
+    "high_total_profit_rate": 2.94,
+    "high_profit_stocks": 12,
+    "high_loss_stocks": 0
+  }
+}
