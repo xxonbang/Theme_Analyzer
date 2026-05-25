@@ -1,0 +1,767 @@
+{
+  "trade_date": "2026-05-25",
+  "morning_timestamp": "2026-05-25 09:12:39",
+  "collected_at": "2026-05-25 15:41:22",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-25 09:12:39",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 및 IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체 및 IT 부품"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 및 IT 부품"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 IT 솔루션"
+        },
+        {
+          "code": "203650",
+          "name": "드림시큐리티",
+          "theme": "사이버 보안 및 IT 솔루션"
+        },
+        {
+          "code": "358570",
+          "name": "지아이이노베이션",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "수소/친환경 에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 09:32:42",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 및 IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체 및 IT 부품"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "반도체 및 IT 부품"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 IT 솔루션"
+        },
+        {
+          "code": "203650",
+          "name": "드림시큐리티",
+          "theme": "사이버 보안 및 IT 솔루션"
+        },
+        {
+          "code": "358570",
+          "name": "지아이이노베이션",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "336260",
+          "name": "두산퓨얼셀",
+          "theme": "수소/친환경 에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 09:38:38",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 10:02:41",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 12:01:56",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 12:36:54",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 13:26:40",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-25 14:36:38",
+      "prices": {
+        "036930": 224000,
+        "009150": 1340000,
+        "036540": 10250,
+        "356680": 21200,
+        "203650": 3550,
+        "358570": 13930,
+        "048410": 13450,
+        "336260": 98200,
+        "440110": 128300,
+        "086520": 146500,
+        "006400": 647000,
+        "476830": 145500,
+        "050890": 18130
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "036540",
+          "name": "SFA반도체",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "첨단 반도체 및 AI 인프라"
+        },
+        {
+          "code": "086520",
+          "name": "에코프로",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 전기차 소재"
+        },
+        {
+          "code": "048410",
+          "name": "현대바이오",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 및 헬스케어 혁신"
+        },
+        {
+          "code": "050890",
+          "name": "쏠리드",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "사이버 보안 및 네트워크 솔루션"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체 및 IT 부품",
+      "market": "KOSPI",
+      "buy_price": 224000,
+      "close_price": 224000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 231500,
+      "high_time": "14:35",
+      "high_profit_rate": 3.35,
+      "high_profit_amount": 7500,
+      "low_price": 185200,
+      "low_profit_rate": -17.32,
+      "low_profit_amount": -38800,
+      "low_time": "09:00"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "반도체 및 IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1340000,
+      "close_price": 1340000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1363000,
+      "high_time": "14:40",
+      "high_profit_rate": 1.72,
+      "high_profit_amount": 23000,
+      "low_price": 1204000,
+      "low_profit_rate": -10.15,
+      "low_profit_amount": -136000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "036540",
+      "name": "SFA반도체",
+      "theme": "반도체 및 IT 부품",
+      "market": "KOSPI",
+      "buy_price": 10250,
+      "close_price": 10250,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 10960,
+      "high_time": "12:32",
+      "high_profit_rate": 6.93,
+      "high_profit_amount": 710,
+      "low_price": 8760,
+      "low_profit_rate": -14.54,
+      "low_profit_amount": -1490,
+      "low_time": "09:00"
+    },
+    {
+      "code": "356680",
+      "name": "엑스게이트",
+      "theme": "사이버 보안 및 IT 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 21200,
+      "close_price": 21200,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 22150,
+      "high_time": "09:16",
+      "high_profit_rate": 4.48,
+      "high_profit_amount": 950,
+      "low_price": 19700,
+      "low_profit_rate": -7.08,
+      "low_profit_amount": -1500,
+      "low_time": "10:00"
+    },
+    {
+      "code": "203650",
+      "name": "드림시큐리티",
+      "theme": "사이버 보안 및 IT 솔루션",
+      "market": "KOSPI",
+      "buy_price": 3550,
+      "close_price": 3550,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 4030,
+      "high_time": "09:13",
+      "high_profit_rate": 13.52,
+      "high_profit_amount": 480,
+      "low_price": 3450,
+      "low_profit_rate": -2.82,
+      "low_profit_amount": -100,
+      "low_time": "13:10"
+    },
+    {
+      "code": "358570",
+      "name": "지아이이노베이션",
+      "theme": "바이오/헬스케어",
+      "market": "KOSDAQ",
+      "buy_price": 13930,
+      "close_price": 13930,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 14500,
+      "high_time": "10:07",
+      "high_profit_rate": 4.09,
+      "high_profit_amount": 570,
+      "low_price": 12890,
+      "low_profit_rate": -7.47,
+      "low_profit_amount": -1040,
+      "low_time": "09:22"
+    },
+    {
+      "code": "048410",
+      "name": "현대바이오",
+      "theme": "바이오/헬스케어",
+      "market": "KOSPI",
+      "buy_price": 13450,
+      "close_price": 13450,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 14450,
+      "high_time": "10:08",
+      "high_profit_rate": 7.43,
+      "high_profit_amount": 1000,
+      "low_price": 11300,
+      "low_profit_rate": -15.99,
+      "low_profit_amount": -2150,
+      "low_time": "09:00"
+    },
+    {
+      "code": "336260",
+      "name": "두산퓨얼셀",
+      "theme": "수소/친환경 에너지",
+      "market": "KOSDAQ",
+      "buy_price": 98200,
+      "close_price": 98200,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 106000,
+      "high_time": "09:52",
+      "high_profit_rate": 7.94,
+      "high_profit_amount": 7800,
+      "low_price": 92000,
+      "low_profit_rate": -6.31,
+      "low_profit_amount": -6200,
+      "low_time": "09:02"
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "첨단 반도체 및 AI 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 128300,
+      "close_price": 128300,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 129400,
+      "high_time": "14:55",
+      "high_profit_rate": 0.86,
+      "high_profit_amount": 1100,
+      "low_price": 116400,
+      "low_profit_rate": -9.28,
+      "low_profit_amount": -11900,
+      "low_time": "09:01"
+    },
+    {
+      "code": "086520",
+      "name": "에코프로",
+      "theme": "2차전지 및 전기차 소재",
+      "market": "KOSPI",
+      "buy_price": 146500,
+      "close_price": 146500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 151700,
+      "high_time": "09:51",
+      "high_profit_rate": 3.55,
+      "high_profit_amount": 5200,
+      "low_price": 132100,
+      "low_profit_rate": -9.83,
+      "low_profit_amount": -14400,
+      "low_time": "09:01"
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "2차전지 및 전기차 소재",
+      "market": "KOSPI",
+      "buy_price": 647000,
+      "close_price": 647000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 657000,
+      "high_time": "11:17",
+      "high_profit_rate": 1.55,
+      "high_profit_amount": 10000,
+      "low_price": 627000,
+      "low_profit_rate": -3.09,
+      "low_profit_amount": -20000,
+      "low_time": "09:02"
+    },
+    {
+      "code": "476830",
+      "name": "알지노믹스",
+      "theme": "바이오 및 헬스케어 혁신",
+      "market": "KOSDAQ",
+      "buy_price": 145500,
+      "close_price": 145500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 153600,
+      "high_time": "10:02",
+      "high_profit_rate": 5.57,
+      "high_profit_amount": 8100,
+      "low_price": 134200,
+      "low_profit_rate": -7.77,
+      "low_profit_amount": -11300,
+      "low_time": "09:00"
+    },
+    {
+      "code": "050890",
+      "name": "쏠리드",
+      "theme": "사이버 보안 및 네트워크 솔루션",
+      "market": "KOSPI",
+      "buy_price": 18130,
+      "close_price": 18130,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 18670,
+      "high_time": "14:10",
+      "high_profit_rate": 2.98,
+      "high_profit_amount": 540,
+      "low_price": 16440,
+      "low_profit_rate": -9.32,
+      "low_profit_amount": -1690,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 13,
+    "profit_stocks": 0,
+    "loss_stocks": 0,
+    "total_invested": 2810010,
+    "total_value": 2810010,
+    "total_profit": 0,
+    "total_profit_rate": 0.0,
+    "high_total_value": 2876960,
+    "high_total_profit": 66950,
+    "high_total_profit_rate": 2.38,
+    "high_profit_stocks": 13,
+    "high_loss_stocks": 0
+  }
+}
