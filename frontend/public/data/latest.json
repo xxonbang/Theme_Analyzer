@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-25 10:02:41",
+  "timestamp": "2026-05-25 12:01:56",
   "exchange": {
     "timestamp": "2026-04-30 15:52:33",
     "search_date": "20260430",
@@ -6837,7 +6837,8 @@
         {
           "foreign_net": 186931,
           "institution_net": 6832,
-          "individual_net": -185490
+          "individual_net": -185490,
+          "program_net": 1117945
         },
         {
           "foreign_net": -182253,
@@ -6897,7 +6898,8 @@
         {
           "foreign_net": -1146304,
           "institution_net": 74467,
-          "individual_net": 1067103
+          "individual_net": 1067103,
+          "program_net": 5992264
         },
         {
           "foreign_net": 361221,
@@ -6957,7 +6959,8 @@
         {
           "foreign_net": -343135,
           "institution_net": 0,
-          "individual_net": 340131
+          "individual_net": 340131,
+          "program_net": 1181242
         },
         {
           "foreign_net": 147345,
@@ -7017,7 +7020,8 @@
         {
           "foreign_net": 100463,
           "institution_net": 0,
-          "individual_net": -127461
+          "individual_net": -127461,
+          "program_net": -141551
         },
         {
           "foreign_net": -166383,
@@ -7077,7 +7081,8 @@
         {
           "foreign_net": -103045,
           "institution_net": -34519,
-          "individual_net": 139725
+          "individual_net": 139725,
+          "program_net": 1854703
         },
         {
           "foreign_net": -159972,
@@ -7137,7 +7142,8 @@
         {
           "foreign_net": -906195,
           "institution_net": -7003,
-          "individual_net": 922788
+          "individual_net": 922788,
+          "program_net": 349060
         },
         {
           "foreign_net": -115510,
@@ -7197,7 +7203,8 @@
         {
           "foreign_net": -4275,
           "institution_net": 4163,
-          "individual_net": -3026
+          "individual_net": -3026,
+          "program_net": 114024
         },
         {
           "foreign_net": -35144,
@@ -7257,7 +7264,8 @@
         {
           "foreign_net": 103116,
           "institution_net": -15959,
-          "individual_net": -88804
+          "individual_net": -88804,
+          "program_net": 706390
         },
         {
           "foreign_net": 120845,
@@ -7302,66 +7310,6 @@
       ],
       "program_net": 706390
     },
-    "475430": {
-      "name": "키스트론",
-      "foreign_net": -188000,
-      "institution_net": -10000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 3571,
-          "institution_net": -2291,
-          "individual_net": -16346,
-          "program_net": -295822
-        },
-        {
-          "foreign_net": 1546,
-          "institution_net": -7,
-          "individual_net": -1539
-        },
-        {
-          "foreign_net": 36677,
-          "institution_net": 102,
-          "individual_net": -36779
-        },
-        {
-          "foreign_net": 29330,
-          "institution_net": 7116,
-          "individual_net": -36876
-        },
-        {
-          "foreign_net": 117865,
-          "institution_net": -13573,
-          "individual_net": -103846
-        },
-        {
-          "foreign_net": -13747,
-          "institution_net": 9570,
-          "individual_net": 3778
-        },
-        {
-          "foreign_net": 1504,
-          "institution_net": 1,
-          "individual_net": -1805
-        },
-        {
-          "foreign_net": 146154,
-          "institution_net": -27279,
-          "individual_net": -97349
-        },
-        {
-          "foreign_net": 94631,
-          "institution_net": 3734,
-          "individual_net": -100051
-        },
-        {
-          "foreign_net": -25701,
-          "institution_net": 0,
-          "individual_net": 8701
-        }
-      ],
-      "program_net": -295822
-    },
     "357880": {
       "name": "SKAI",
       "foreign_net": -247000,
@@ -7377,7 +7325,8 @@
         {
           "foreign_net": -179634,
           "institution_net": 35582,
-          "individual_net": 148394
+          "individual_net": 148394,
+          "program_net": 52057
         },
         {
           "foreign_net": 243054,
@@ -7437,7 +7386,8 @@
         {
           "foreign_net": 206558,
           "institution_net": -24748,
-          "individual_net": -172960
+          "individual_net": -172960,
+          "program_net": 4523
         },
         {
           "foreign_net": -22588,
@@ -7497,7 +7447,8 @@
         {
           "foreign_net": -68761,
           "institution_net": -80011,
-          "individual_net": 143066
+          "individual_net": 143066,
+          "program_net": 37379
         },
         {
           "foreign_net": -25959,
@@ -7557,7 +7508,8 @@
         {
           "foreign_net": -491914,
           "institution_net": 64780,
-          "individual_net": 424634
+          "individual_net": 424634,
+          "program_net": 590104
         },
         {
           "foreign_net": -50053,
@@ -7617,7 +7569,8 @@
         {
           "foreign_net": 38596,
           "institution_net": -7793,
-          "individual_net": -52869
+          "individual_net": -52869,
+          "program_net": 240993
         },
         {
           "foreign_net": 132515,
@@ -7662,6 +7615,67 @@
       ],
       "program_net": 240993
     },
+    "475430": {
+      "name": "키스트론",
+      "foreign_net": -188000,
+      "institution_net": -10000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 3571,
+          "institution_net": -2291,
+          "individual_net": -16346,
+          "program_net": -295822
+        },
+        {
+          "foreign_net": 1546,
+          "institution_net": -7,
+          "individual_net": -1539,
+          "program_net": -295822
+        },
+        {
+          "foreign_net": 36677,
+          "institution_net": 102,
+          "individual_net": -36779
+        },
+        {
+          "foreign_net": 29330,
+          "institution_net": 7116,
+          "individual_net": -36876
+        },
+        {
+          "foreign_net": 117865,
+          "institution_net": -13573,
+          "individual_net": -103846
+        },
+        {
+          "foreign_net": -13747,
+          "institution_net": 9570,
+          "individual_net": 3778
+        },
+        {
+          "foreign_net": 1504,
+          "institution_net": 1,
+          "individual_net": -1805
+        },
+        {
+          "foreign_net": 146154,
+          "institution_net": -27279,
+          "individual_net": -97349
+        },
+        {
+          "foreign_net": 94631,
+          "institution_net": 3734,
+          "individual_net": -100051
+        },
+        {
+          "foreign_net": -25701,
+          "institution_net": 0,
+          "individual_net": 8701
+        }
+      ],
+      "program_net": -295822
+    },
     "321260": {
       "name": "프로이천",
       "foreign_net": -21000,
@@ -7677,7 +7691,8 @@
         {
           "foreign_net": -60895,
           "institution_net": -875,
-          "individual_net": 20738
+          "individual_net": 20738,
+          "program_net": 71475
         },
         {
           "foreign_net": 30154,
@@ -7737,7 +7752,8 @@
         {
           "foreign_net": -174683,
           "institution_net": 0,
-          "individual_net": 175171
+          "individual_net": 175171,
+          "program_net": 109737
         },
         {
           "foreign_net": -73460,
@@ -7797,7 +7813,8 @@
         {
           "foreign_net": -656881,
           "institution_net": -3506,
-          "individual_net": 653279
+          "individual_net": 653279,
+          "program_net": 0
         },
         {
           "foreign_net": -4418294,
@@ -7857,7 +7874,8 @@
         {
           "foreign_net": -732179,
           "institution_net": 7443,
-          "individual_net": 650736
+          "individual_net": 650736,
+          "program_net": -410537
         },
         {
           "foreign_net": 241528,
@@ -7902,6 +7920,67 @@
       ],
       "program_net": -410537
     },
+    "021880": {
+      "name": "메이슨캐피탈",
+      "foreign_net": 4000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 116563,
+          "institution_net": 0,
+          "individual_net": -124106,
+          "program_net": -139856
+        },
+        {
+          "foreign_net": -83405,
+          "institution_net": -18327,
+          "individual_net": 171235,
+          "program_net": -139856
+        },
+        {
+          "foreign_net": -1239898,
+          "institution_net": -677,
+          "individual_net": 2307477
+        },
+        {
+          "foreign_net": 689625,
+          "institution_net": 19004,
+          "individual_net": -845034
+        },
+        {
+          "foreign_net": -1217148,
+          "institution_net": -2341,
+          "individual_net": 1252420
+        },
+        {
+          "foreign_net": -51882,
+          "institution_net": -471,
+          "individual_net": 19424
+        },
+        {
+          "foreign_net": -823867,
+          "institution_net": 2812,
+          "individual_net": 837569
+        },
+        {
+          "foreign_net": -5845,
+          "institution_net": -9,
+          "individual_net": 5854
+        },
+        {
+          "foreign_net": -231497,
+          "institution_net": 9,
+          "individual_net": 231488
+        },
+        {
+          "foreign_net": 124046,
+          "institution_net": 0,
+          "individual_net": -124046
+        }
+      ],
+      "program_net": -139856
+    },
     "125020": {
       "name": "티씨머티리얼즈",
       "foreign_net": 6000,
@@ -7917,7 +7996,8 @@
         {
           "foreign_net": -117362,
           "institution_net": 26658,
-          "individual_net": 91099
+          "individual_net": 91099,
+          "program_net": 322704
         },
         {
           "foreign_net": -174830,
@@ -7977,7 +8057,8 @@
         {
           "foreign_net": -191709,
           "institution_net": -1107,
-          "individual_net": 196732
+          "individual_net": 196732,
+          "program_net": -281811
         },
         {
           "foreign_net": 16907,
@@ -8037,7 +8118,8 @@
         {
           "foreign_net": -124352,
           "institution_net": -24494,
-          "individual_net": 151346
+          "individual_net": 151346,
+          "program_net": -1308415
         },
         {
           "foreign_net": 69628,
@@ -8082,6 +8164,67 @@
       ],
       "program_net": -1308415
     },
+    "288980": {
+      "name": "모아데이타",
+      "foreign_net": -111000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -161285,
+          "institution_net": 5044,
+          "individual_net": 144757,
+          "program_net": -214628
+        },
+        {
+          "foreign_net": 69501,
+          "institution_net": 0,
+          "individual_net": -69501,
+          "program_net": -214628
+        },
+        {
+          "foreign_net": -19852,
+          "institution_net": 0,
+          "individual_net": 9635
+        },
+        {
+          "foreign_net": 82315,
+          "institution_net": -549,
+          "individual_net": -81765
+        },
+        {
+          "foreign_net": 90634,
+          "institution_net": -419,
+          "individual_net": -65152
+        },
+        {
+          "foreign_net": -292162,
+          "institution_net": -53720,
+          "individual_net": 355576
+        },
+        {
+          "foreign_net": -7710,
+          "institution_net": 30,
+          "individual_net": 11383
+        },
+        {
+          "foreign_net": -64714,
+          "institution_net": 833,
+          "individual_net": 50270
+        },
+        {
+          "foreign_net": -87100,
+          "institution_net": 0,
+          "individual_net": 97200
+        },
+        {
+          "foreign_net": -15726,
+          "institution_net": -1433,
+          "individual_net": 17493
+        }
+      ],
+      "program_net": -214628
+    },
     "185490": {
       "name": "아이진",
       "foreign_net": -410000,
@@ -8097,7 +8240,8 @@
         {
           "foreign_net": 428955,
           "institution_net": 8977,
-          "individual_net": -440932
+          "individual_net": -440932,
+          "program_net": -555336
         },
         {
           "foreign_net": 75173,
@@ -8157,7 +8301,8 @@
         {
           "foreign_net": -26946,
           "institution_net": -78257,
-          "individual_net": 122062
+          "individual_net": 122062,
+          "program_net": -1676
         }
       ],
       "program_net": -1676
@@ -8177,7 +8322,8 @@
         {
           "foreign_net": 25673,
           "institution_net": 0,
-          "individual_net": -16253
+          "individual_net": -16253,
+          "program_net": -337414
         },
         {
           "foreign_net": -113687,
@@ -8237,7 +8383,8 @@
         {
           "foreign_net": -41440,
           "institution_net": -1352,
-          "individual_net": 83733
+          "individual_net": 83733,
+          "program_net": -210928
         },
         {
           "foreign_net": 201260,
@@ -8292,7 +8439,8 @@
         {
           "foreign_net": 0,
           "institution_net": 0,
-          "individual_net": 0
+          "individual_net": 0,
+          "program_net": 25551
         },
         {
           "foreign_net": 0,
@@ -8337,6 +8485,47 @@
       ],
       "program_net": 25551
     },
+    "487580": {
+      "name": "폴레드",
+      "foreign_net": -11000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -28522,
+          "institution_net": -88,
+          "individual_net": 34765,
+          "program_net": 16709
+        },
+        {
+          "foreign_net": 14858,
+          "institution_net": -129,
+          "individual_net": -19192,
+          "program_net": 16709
+        },
+        {
+          "foreign_net": -144055,
+          "institution_net": -1180,
+          "individual_net": 141206
+        },
+        {
+          "foreign_net": 156597,
+          "institution_net": -2833,
+          "individual_net": -116460
+        },
+        {
+          "foreign_net": -29076,
+          "institution_net": -560420,
+          "individual_net": 1562767
+        },
+        {
+          "foreign_net": -132600,
+          "institution_net": -986572,
+          "individual_net": 1421414
+        }
+      ],
+      "program_net": 16709
+    },
     "304840": {
       "name": "피플바이오",
       "foreign_net": -82000,
@@ -8352,7 +8541,8 @@
         {
           "foreign_net": 1122,
           "institution_net": 287,
-          "individual_net": -3909
+          "individual_net": -3909,
+          "program_net": -99711
         },
         {
           "foreign_net": 397,
@@ -8412,7 +8602,8 @@
         {
           "foreign_net": -19057,
           "institution_net": 26884,
-          "individual_net": -11925
+          "individual_net": -11925,
+          "program_net": -601853
         },
         {
           "foreign_net": 6690,
@@ -8457,66 +8648,6 @@
       ],
       "program_net": -601853
     },
-    "288980": {
-      "name": "모아데이타",
-      "foreign_net": -111000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -161285,
-          "institution_net": 5044,
-          "individual_net": 144757,
-          "program_net": -214628
-        },
-        {
-          "foreign_net": 69501,
-          "institution_net": 0,
-          "individual_net": -69501
-        },
-        {
-          "foreign_net": -19852,
-          "institution_net": 0,
-          "individual_net": 9635
-        },
-        {
-          "foreign_net": 82315,
-          "institution_net": -549,
-          "individual_net": -81765
-        },
-        {
-          "foreign_net": 90634,
-          "institution_net": -419,
-          "individual_net": -65152
-        },
-        {
-          "foreign_net": -292162,
-          "institution_net": -53720,
-          "individual_net": 355576
-        },
-        {
-          "foreign_net": -7710,
-          "institution_net": 30,
-          "individual_net": 11383
-        },
-        {
-          "foreign_net": -64714,
-          "institution_net": 833,
-          "individual_net": 50270
-        },
-        {
-          "foreign_net": -87100,
-          "institution_net": 0,
-          "individual_net": 97200
-        },
-        {
-          "foreign_net": -15726,
-          "institution_net": -1433,
-          "individual_net": 17493
-        }
-      ],
-      "program_net": -214628
-    },
     "049080": {
       "name": "기가레인",
       "foreign_net": 711000,
@@ -8532,7 +8663,8 @@
         {
           "foreign_net": -1064556,
           "institution_net": -2543080,
-          "individual_net": 3564689
+          "individual_net": 3564689,
+          "program_net": 3155502
         },
         {
           "foreign_net": 426587,
@@ -8577,66 +8709,6 @@
       ],
       "program_net": 3155502
     },
-    "046970": {
-      "name": "우리로",
-      "foreign_net": 95000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 247488,
-          "institution_net": 0,
-          "individual_net": -244715,
-          "program_net": 380675
-        },
-        {
-          "foreign_net": -286115,
-          "institution_net": 0,
-          "individual_net": 291456
-        },
-        {
-          "foreign_net": -503708,
-          "institution_net": 10,
-          "individual_net": 503546
-        },
-        {
-          "foreign_net": 13042,
-          "institution_net": 0,
-          "individual_net": -17662
-        },
-        {
-          "foreign_net": 145030,
-          "institution_net": 0,
-          "individual_net": -136140
-        },
-        {
-          "foreign_net": 207255,
-          "institution_net": 0,
-          "individual_net": -205458
-        },
-        {
-          "foreign_net": 17650,
-          "institution_net": 0,
-          "individual_net": -23570
-        },
-        {
-          "foreign_net": -288257,
-          "institution_net": 0,
-          "individual_net": 288414
-        },
-        {
-          "foreign_net": 393554,
-          "institution_net": 0,
-          "individual_net": -373716
-        },
-        {
-          "foreign_net": 14100,
-          "institution_net": 0,
-          "individual_net": -4323
-        }
-      ],
-      "program_net": 380675
-    },
     "005930": {
       "name": "삼성전자",
       "foreign_net": -2438000,
@@ -8652,7 +8724,8 @@
         {
           "foreign_net": -5733354,
           "institution_net": 2756787,
-          "individual_net": 2765915
+          "individual_net": 2765915,
+          "program_net": -3392576
         },
         {
           "foreign_net": -9263047,
@@ -8712,7 +8785,8 @@
         {
           "foreign_net": 910009,
           "institution_net": -1737701,
-          "individual_net": 1523642
+          "individual_net": 1523642,
+          "program_net": -734253
         },
         {
           "foreign_net": 49015,
@@ -8772,7 +8846,8 @@
         {
           "foreign_net": 208763,
           "institution_net": 67229,
-          "individual_net": -316846
+          "individual_net": -316846,
+          "program_net": 2171774
         },
         {
           "foreign_net": 228106,
@@ -8817,66 +8892,6 @@
       ],
       "program_net": 2171774
     },
-    "010170": {
-      "name": "대한광통신",
-      "foreign_net": 56000,
-      "institution_net": -1000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -147447,
-          "institution_net": 5074,
-          "individual_net": 119556,
-          "program_net": 351118
-        },
-        {
-          "foreign_net": -121685,
-          "institution_net": 96618,
-          "individual_net": 52150
-        },
-        {
-          "foreign_net": -62522,
-          "institution_net": -26963,
-          "individual_net": 52041
-        },
-        {
-          "foreign_net": -362051,
-          "institution_net": 30394,
-          "individual_net": 495863
-        },
-        {
-          "foreign_net": 447780,
-          "institution_net": -26613,
-          "individual_net": -266604
-        },
-        {
-          "foreign_net": 124235,
-          "institution_net": -112090,
-          "individual_net": -14987
-        },
-        {
-          "foreign_net": -4528183,
-          "institution_net": -252585,
-          "individual_net": 4380813
-        },
-        {
-          "foreign_net": -2772502,
-          "institution_net": 42301,
-          "individual_net": 2801975
-        },
-        {
-          "foreign_net": 3135305,
-          "institution_net": 216775,
-          "individual_net": -3332560
-        },
-        {
-          "foreign_net": 210919,
-          "institution_net": -32848,
-          "individual_net": -277147
-        }
-      ],
-      "program_net": 351118
-    },
     "215790": {
       "name": "이노인스트루먼트",
       "foreign_net": 9000,
@@ -8892,7 +8907,8 @@
         {
           "foreign_net": -521301,
           "institution_net": 39875,
-          "individual_net": 404536
+          "individual_net": 404536,
+          "program_net": -122475
         },
         {
           "foreign_net": 358377,
@@ -8937,46 +8953,6 @@
       ],
       "program_net": -122475
     },
-    "487580": {
-      "name": "폴레드",
-      "foreign_net": -11000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -28522,
-          "institution_net": -88,
-          "individual_net": 34765,
-          "program_net": 16709
-        },
-        {
-          "foreign_net": 14858,
-          "institution_net": -129,
-          "individual_net": -19192
-        },
-        {
-          "foreign_net": -144055,
-          "institution_net": -1180,
-          "individual_net": 141206
-        },
-        {
-          "foreign_net": 156597,
-          "institution_net": -2833,
-          "individual_net": -116460
-        },
-        {
-          "foreign_net": -29076,
-          "institution_net": -560420,
-          "individual_net": 1562767
-        },
-        {
-          "foreign_net": -132600,
-          "institution_net": -986572,
-          "individual_net": 1421414
-        }
-      ],
-      "program_net": 16709
-    },
     "034220": {
       "name": "LG디스플레이",
       "foreign_net": 1120000,
@@ -8992,7 +8968,8 @@
         {
           "foreign_net": -379927,
           "institution_net": -315458,
-          "individual_net": 671086
+          "individual_net": 671086,
+          "program_net": 2635839
         },
         {
           "foreign_net": -1399477,
@@ -9052,7 +9029,8 @@
         {
           "foreign_net": -391379,
           "institution_net": -31854,
-          "individual_net": 423293
+          "individual_net": 423293,
+          "program_net": -3050
         },
         {
           "foreign_net": 2902163,
@@ -9112,7 +9090,8 @@
         {
           "foreign_net": 1268364,
           "institution_net": -10168,
-          "individual_net": -1107626
+          "individual_net": -1107626,
+          "program_net": 790246
         },
         {
           "foreign_net": 1075274,
@@ -9172,7 +9151,8 @@
         {
           "foreign_net": -299181,
           "institution_net": -44376,
-          "individual_net": 334524
+          "individual_net": 334524,
+          "program_net": 304325
         },
         {
           "foreign_net": 16298,
@@ -9232,7 +9212,8 @@
         {
           "foreign_net": 1598220,
           "institution_net": -231019,
-          "individual_net": -1353963
+          "individual_net": -1353963,
+          "program_net": -1249907
         },
         {
           "foreign_net": 503903,
@@ -9277,6 +9258,67 @@
       ],
       "program_net": -1249907
     },
+    "066980": {
+      "name": "한성크린텍",
+      "foreign_net": 71000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -649263,
+          "institution_net": 0,
+          "individual_net": 669956,
+          "program_net": 601854
+        },
+        {
+          "foreign_net": 423159,
+          "institution_net": 0,
+          "individual_net": -445682,
+          "program_net": 601854
+        },
+        {
+          "foreign_net": -790212,
+          "institution_net": -353,
+          "individual_net": 803285
+        },
+        {
+          "foreign_net": 32063,
+          "institution_net": 353,
+          "individual_net": -32416
+        },
+        {
+          "foreign_net": -189626,
+          "institution_net": 0,
+          "individual_net": 189626
+        },
+        {
+          "foreign_net": 14088,
+          "institution_net": -640,
+          "individual_net": -13448
+        },
+        {
+          "foreign_net": -17655,
+          "institution_net": 640,
+          "individual_net": 17015
+        },
+        {
+          "foreign_net": -157371,
+          "institution_net": 0,
+          "individual_net": 157371
+        },
+        {
+          "foreign_net": 144874,
+          "institution_net": -925,
+          "individual_net": -156449
+        },
+        {
+          "foreign_net": -57835,
+          "institution_net": 0,
+          "individual_net": 57835
+        }
+      ],
+      "program_net": 601854
+    },
     "014910": {
       "name": "성문전자",
       "foreign_net": 5000,
@@ -9292,7 +9334,8 @@
         {
           "foreign_net": 4812,
           "institution_net": 625,
-          "individual_net": -31200
+          "individual_net": -31200,
+          "program_net": -9070
         },
         {
           "foreign_net": -59375,
@@ -9352,7 +9395,8 @@
         {
           "foreign_net": 35114,
           "institution_net": 42703,
-          "individual_net": -80937
+          "individual_net": -80937,
+          "program_net": 95899
         },
         {
           "foreign_net": -72519,
@@ -9397,6 +9441,67 @@
       ],
       "program_net": 95899
     },
+    "010170": {
+      "name": "대한광통신",
+      "foreign_net": 56000,
+      "institution_net": -1000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -147447,
+          "institution_net": 5074,
+          "individual_net": 119556,
+          "program_net": 351118
+        },
+        {
+          "foreign_net": -121685,
+          "institution_net": 96618,
+          "individual_net": 52150,
+          "program_net": 351118
+        },
+        {
+          "foreign_net": -62522,
+          "institution_net": -26963,
+          "individual_net": 52041
+        },
+        {
+          "foreign_net": -362051,
+          "institution_net": 30394,
+          "individual_net": 495863
+        },
+        {
+          "foreign_net": 447780,
+          "institution_net": -26613,
+          "individual_net": -266604
+        },
+        {
+          "foreign_net": 124235,
+          "institution_net": -112090,
+          "individual_net": -14987
+        },
+        {
+          "foreign_net": -4528183,
+          "institution_net": -252585,
+          "individual_net": 4380813
+        },
+        {
+          "foreign_net": -2772502,
+          "institution_net": 42301,
+          "individual_net": 2801975
+        },
+        {
+          "foreign_net": 3135305,
+          "institution_net": 216775,
+          "individual_net": -3332560
+        },
+        {
+          "foreign_net": 210919,
+          "institution_net": -32848,
+          "individual_net": -277147
+        }
+      ],
+      "program_net": 351118
+    },
     "088350": {
       "name": "한화생명",
       "foreign_net": -87000,
@@ -9412,7 +9517,8 @@
         {
           "foreign_net": 10886,
           "institution_net": 663195,
-          "individual_net": -479786
+          "individual_net": -479786,
+          "program_net": 978056
         },
         {
           "foreign_net": -541235,
@@ -9457,6 +9563,67 @@
       ],
       "program_net": 978056
     },
+    "452260": {
+      "name": "한화갤러리아",
+      "foreign_net": 206000,
+      "institution_net": 41000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 197503,
+          "institution_net": 47825,
+          "individual_net": -213926,
+          "program_net": 159279
+        },
+        {
+          "foreign_net": 201956,
+          "institution_net": -41572,
+          "individual_net": -166323,
+          "program_net": 159279
+        },
+        {
+          "foreign_net": -578169,
+          "institution_net": -35,
+          "individual_net": 589300
+        },
+        {
+          "foreign_net": 848111,
+          "institution_net": 831,
+          "individual_net": -857945
+        },
+        {
+          "foreign_net": 627704,
+          "institution_net": 48473,
+          "individual_net": -810230
+        },
+        {
+          "foreign_net": 1490898,
+          "institution_net": 64499,
+          "individual_net": 2224145
+        },
+        {
+          "foreign_net": -1815198,
+          "institution_net": -3943,
+          "individual_net": -2080086
+        },
+        {
+          "foreign_net": 322151,
+          "institution_net": -404,
+          "individual_net": -335968
+        },
+        {
+          "foreign_net": -154752,
+          "institution_net": -716,
+          "individual_net": 159468
+        },
+        {
+          "foreign_net": 187779,
+          "institution_net": 1175,
+          "individual_net": -173742
+        }
+      ],
+      "program_net": 159279
+    },
     "373110": {
       "name": "엑셀세라퓨틱스",
       "foreign_net": -116000,
@@ -9472,7 +9639,8 @@
         {
           "foreign_net": -1602,
           "institution_net": 25,
-          "individual_net": 1515
+          "individual_net": 1515,
+          "program_net": -259564
         },
         {
           "foreign_net": -6086,
@@ -9532,7 +9700,8 @@
         {
           "foreign_net": 136227,
           "institution_net": 544,
-          "individual_net": -117978
+          "individual_net": -117978,
+          "program_net": 367777
         },
         {
           "foreign_net": 491002,
@@ -9592,7 +9761,8 @@
         {
           "foreign_net": 238420,
           "institution_net": -367576,
-          "individual_net": 132494
+          "individual_net": 132494,
+          "program_net": -31114
         },
         {
           "foreign_net": 147570,
@@ -9652,7 +9822,8 @@
         {
           "foreign_net": 196336,
           "institution_net": -60146,
-          "individual_net": -139079
+          "individual_net": -139079,
+          "program_net": 118162
         },
         {
           "foreign_net": -72498,
@@ -9712,7 +9883,8 @@
         {
           "foreign_net": 55637,
           "institution_net": 24710,
-          "individual_net": -92081
+          "individual_net": -92081,
+          "program_net": -164954
         },
         {
           "foreign_net": 190119,
@@ -9772,7 +9944,8 @@
         {
           "foreign_net": 26342,
           "institution_net": -10984,
-          "individual_net": -13599
+          "individual_net": -13599,
+          "program_net": -15991
         },
         {
           "foreign_net": 44284,
@@ -9832,7 +10005,8 @@
         {
           "foreign_net": 136302,
           "institution_net": 5276,
-          "individual_net": -143778
+          "individual_net": -143778,
+          "program_net": 347110
         },
         {
           "foreign_net": 52019,
@@ -9892,7 +10066,8 @@
         {
           "foreign_net": 38553,
           "institution_net": -41616,
-          "individual_net": 1072
+          "individual_net": 1072,
+          "program_net": 396791
         },
         {
           "foreign_net": -107041,
@@ -9937,66 +10112,6 @@
       ],
       "program_net": 396791
     },
-    "452260": {
-      "name": "한화갤러리아",
-      "foreign_net": 206000,
-      "institution_net": 41000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 197503,
-          "institution_net": 47825,
-          "individual_net": -213926,
-          "program_net": 159279
-        },
-        {
-          "foreign_net": 201956,
-          "institution_net": -41572,
-          "individual_net": -166323
-        },
-        {
-          "foreign_net": -578169,
-          "institution_net": -35,
-          "individual_net": 589300
-        },
-        {
-          "foreign_net": 848111,
-          "institution_net": 831,
-          "individual_net": -857945
-        },
-        {
-          "foreign_net": 627704,
-          "institution_net": 48473,
-          "individual_net": -810230
-        },
-        {
-          "foreign_net": 1490898,
-          "institution_net": 64499,
-          "individual_net": 2224145
-        },
-        {
-          "foreign_net": -1815198,
-          "institution_net": -3943,
-          "individual_net": -2080086
-        },
-        {
-          "foreign_net": 322151,
-          "institution_net": -404,
-          "individual_net": -335968
-        },
-        {
-          "foreign_net": -154752,
-          "institution_net": -716,
-          "individual_net": 159468
-        },
-        {
-          "foreign_net": 187779,
-          "institution_net": 1175,
-          "individual_net": -173742
-        }
-      ],
-      "program_net": 159279
-    },
     "316140": {
       "name": "우리금융지주",
       "foreign_net": 351000,
@@ -10012,7 +10127,8 @@
         {
           "foreign_net": -123574,
           "institution_net": 38050,
-          "individual_net": 100340
+          "individual_net": 100340,
+          "program_net": -35151
         },
         {
           "foreign_net": -384282,
@@ -10072,7 +10188,8 @@
         {
           "foreign_net": -109382,
           "institution_net": 72472,
-          "individual_net": 37436
+          "individual_net": 37436,
+          "program_net": -49939
         },
         {
           "foreign_net": -115813,
@@ -10132,7 +10249,8 @@
         {
           "foreign_net": 183336,
           "institution_net": 6023,
-          "individual_net": -192075
+          "individual_net": -192075,
+          "program_net": 145265
         },
         {
           "foreign_net": 79514,
@@ -10192,7 +10310,8 @@
         {
           "foreign_net": -2227,
           "institution_net": 0,
-          "individual_net": 1301
+          "individual_net": 1301,
+          "program_net": 120455
         },
         {
           "foreign_net": -36242,
@@ -10252,7 +10371,8 @@
         {
           "foreign_net": -704213,
           "institution_net": 240569,
-          "individual_net": 447712
+          "individual_net": 447712,
+          "program_net": -362967
         },
         {
           "foreign_net": -1128221,
@@ -10312,7 +10432,8 @@
         {
           "foreign_net": -111248,
           "institution_net": 82167,
-          "individual_net": 24301
+          "individual_net": 24301,
+          "program_net": 17789
         },
         {
           "foreign_net": -150669,
@@ -10372,7 +10493,8 @@
         {
           "foreign_net": -75492,
           "institution_net": -20496,
-          "individual_net": 120529
+          "individual_net": 120529,
+          "program_net": 163092
         },
         {
           "foreign_net": -324345,
@@ -10432,7 +10554,8 @@
         {
           "foreign_net": -76959,
           "institution_net": 112733,
-          "individual_net": -40427
+          "individual_net": -40427,
+          "program_net": -390224
         },
         {
           "foreign_net": 38516,
@@ -10477,6 +10600,67 @@
       ],
       "program_net": -390224
     },
+    "080220": {
+      "name": "제주반도체",
+      "foreign_net": -11000,
+      "institution_net": -5000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 160475,
+          "institution_net": 42774,
+          "individual_net": -186588,
+          "program_net": -37411
+        },
+        {
+          "foreign_net": -50105,
+          "institution_net": -30894,
+          "individual_net": 68503,
+          "program_net": -37411
+        },
+        {
+          "foreign_net": -8428,
+          "institution_net": 95543,
+          "individual_net": -54313
+        },
+        {
+          "foreign_net": -191047,
+          "institution_net": 183421,
+          "individual_net": 25144
+        },
+        {
+          "foreign_net": 322101,
+          "institution_net": 95018,
+          "individual_net": -404875
+        },
+        {
+          "foreign_net": -244775,
+          "institution_net": 137379,
+          "individual_net": 107577
+        },
+        {
+          "foreign_net": 524419,
+          "institution_net": 63220,
+          "individual_net": -605893
+        },
+        {
+          "foreign_net": 50697,
+          "institution_net": 93290,
+          "individual_net": -175711
+        },
+        {
+          "foreign_net": -49722,
+          "institution_net": 31650,
+          "individual_net": 3486
+        },
+        {
+          "foreign_net": -27837,
+          "institution_net": 49374,
+          "individual_net": -32064
+        }
+      ],
+      "program_net": -37411
+    },
     "005380": {
       "name": "현대차",
       "foreign_net": -141000,
@@ -10492,7 +10676,8 @@
         {
           "foreign_net": -58792,
           "institution_net": 24770,
-          "individual_net": 47549
+          "individual_net": 47549,
+          "program_net": -140754
         },
         {
           "foreign_net": -621315,
@@ -10552,7 +10737,8 @@
         {
           "foreign_net": -318602,
           "institution_net": 29637,
-          "individual_net": 260485
+          "individual_net": 260485,
+          "program_net": -278891
         },
         {
           "foreign_net": -70650,
@@ -10612,7 +10798,8 @@
         {
           "foreign_net": 162689,
           "institution_net": -169613,
-          "individual_net": -5131
+          "individual_net": -5131,
+          "program_net": 0
         },
         {
           "foreign_net": -813906,
@@ -10672,7 +10859,8 @@
         {
           "foreign_net": 268896,
           "institution_net": -13084,
-          "individual_net": -256082
+          "individual_net": -256082,
+          "program_net": 341240
         },
         {
           "foreign_net": 104232,
@@ -10732,7 +10920,8 @@
         {
           "foreign_net": 147072,
           "institution_net": -29929,
-          "individual_net": -106062
+          "individual_net": -106062,
+          "program_net": 62739
         },
         {
           "foreign_net": 48431,
@@ -10777,6 +10966,67 @@
       ],
       "program_net": 62739
     },
+    "046970": {
+      "name": "우리로",
+      "foreign_net": 95000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 247488,
+          "institution_net": 0,
+          "individual_net": -244715,
+          "program_net": 380675
+        },
+        {
+          "foreign_net": -286115,
+          "institution_net": 0,
+          "individual_net": 291456,
+          "program_net": 380675
+        },
+        {
+          "foreign_net": -503708,
+          "institution_net": 10,
+          "individual_net": 503546
+        },
+        {
+          "foreign_net": 13042,
+          "institution_net": 0,
+          "individual_net": -17662
+        },
+        {
+          "foreign_net": 145030,
+          "institution_net": 0,
+          "individual_net": -136140
+        },
+        {
+          "foreign_net": 207255,
+          "institution_net": 0,
+          "individual_net": -205458
+        },
+        {
+          "foreign_net": 17650,
+          "institution_net": 0,
+          "individual_net": -23570
+        },
+        {
+          "foreign_net": -288257,
+          "institution_net": 0,
+          "individual_net": 288414
+        },
+        {
+          "foreign_net": 393554,
+          "institution_net": 0,
+          "individual_net": -373716
+        },
+        {
+          "foreign_net": 14100,
+          "institution_net": 0,
+          "individual_net": -4323
+        }
+      ],
+      "program_net": 380675
+    },
     "034020": {
       "name": "두산에너빌리티",
       "foreign_net": -652000,
@@ -10792,7 +11042,8 @@
         {
           "foreign_net": 250758,
           "institution_net": -281486,
-          "individual_net": 38177
+          "individual_net": 38177,
+          "program_net": -728860
         },
         {
           "foreign_net": -498402,
@@ -10852,7 +11103,8 @@
         {
           "foreign_net": 24279,
           "institution_net": -42614,
-          "individual_net": 13232
+          "individual_net": 13232,
+          "program_net": -135421
         },
         {
           "foreign_net": -444253,
@@ -10897,186 +11149,6 @@
       ],
       "program_net": -135421
     },
-    "012450": {
-      "name": "한화에어로스페이스",
-      "foreign_net": -31000,
-      "institution_net": 2000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -9628,
-          "institution_net": -16211,
-          "individual_net": 24842,
-          "program_net": 38116
-        },
-        {
-          "foreign_net": -20539,
-          "institution_net": 19335,
-          "individual_net": 267
-        },
-        {
-          "foreign_net": 17497,
-          "institution_net": 39872,
-          "individual_net": -57156
-        },
-        {
-          "foreign_net": -8211,
-          "institution_net": 5034,
-          "individual_net": 2728
-        },
-        {
-          "foreign_net": -13131,
-          "institution_net": -23190,
-          "individual_net": 35925
-        },
-        {
-          "foreign_net": 7022,
-          "institution_net": 6533,
-          "individual_net": -13501
-        },
-        {
-          "foreign_net": 1021,
-          "institution_net": -10380,
-          "individual_net": 8883
-        },
-        {
-          "foreign_net": -25743,
-          "institution_net": -11118,
-          "individual_net": 36258
-        },
-        {
-          "foreign_net": 42800,
-          "institution_net": -31458,
-          "individual_net": -11820
-        },
-        {
-          "foreign_net": -37090,
-          "institution_net": -4484,
-          "individual_net": 40918
-        }
-      ],
-      "program_net": 38116
-    },
-    "080220": {
-      "name": "제주반도체",
-      "foreign_net": -11000,
-      "institution_net": -5000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 160475,
-          "institution_net": 42774,
-          "individual_net": -186588,
-          "program_net": -37411
-        },
-        {
-          "foreign_net": -50105,
-          "institution_net": -30894,
-          "individual_net": 68503
-        },
-        {
-          "foreign_net": -8428,
-          "institution_net": 95543,
-          "individual_net": -54313
-        },
-        {
-          "foreign_net": -191047,
-          "institution_net": 183421,
-          "individual_net": 25144
-        },
-        {
-          "foreign_net": 322101,
-          "institution_net": 95018,
-          "individual_net": -404875
-        },
-        {
-          "foreign_net": -244775,
-          "institution_net": 137379,
-          "individual_net": 107577
-        },
-        {
-          "foreign_net": 524419,
-          "institution_net": 63220,
-          "individual_net": -605893
-        },
-        {
-          "foreign_net": 50697,
-          "institution_net": 93290,
-          "individual_net": -175711
-        },
-        {
-          "foreign_net": -49722,
-          "institution_net": 31650,
-          "individual_net": 3486
-        },
-        {
-          "foreign_net": -27837,
-          "institution_net": 49374,
-          "individual_net": -32064
-        }
-      ],
-      "program_net": -37411
-    },
-    "066980": {
-      "name": "한성크린텍",
-      "foreign_net": 71000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -649263,
-          "institution_net": 0,
-          "individual_net": 669956,
-          "program_net": 601854
-        },
-        {
-          "foreign_net": 423159,
-          "institution_net": 0,
-          "individual_net": -445682
-        },
-        {
-          "foreign_net": -790212,
-          "institution_net": -353,
-          "individual_net": 803285
-        },
-        {
-          "foreign_net": 32063,
-          "institution_net": 353,
-          "individual_net": -32416
-        },
-        {
-          "foreign_net": -189626,
-          "institution_net": 0,
-          "individual_net": 189626
-        },
-        {
-          "foreign_net": 14088,
-          "institution_net": -640,
-          "individual_net": -13448
-        },
-        {
-          "foreign_net": -17655,
-          "institution_net": 640,
-          "individual_net": 17015
-        },
-        {
-          "foreign_net": -157371,
-          "institution_net": 0,
-          "individual_net": 157371
-        },
-        {
-          "foreign_net": 144874,
-          "institution_net": -925,
-          "individual_net": -156449
-        },
-        {
-          "foreign_net": -57835,
-          "institution_net": 0,
-          "individual_net": 57835
-        }
-      ],
-      "program_net": 601854
-    },
     "196170": {
       "name": "알테오젠",
       "foreign_net": 98000,
@@ -11092,7 +11164,8 @@
         {
           "foreign_net": -47664,
           "institution_net": 47417,
-          "individual_net": 224
+          "individual_net": 224,
+          "program_net": 152558
         },
         {
           "foreign_net": -42540,
@@ -11152,7 +11225,8 @@
         {
           "foreign_net": 124428,
           "institution_net": 2174,
-          "individual_net": -112717
+          "individual_net": -112717,
+          "program_net": 398028
         },
         {
           "foreign_net": 98480,
@@ -11212,7 +11286,8 @@
         {
           "foreign_net": -52011,
           "institution_net": 102516,
-          "individual_net": -43388
+          "individual_net": -43388,
+          "program_net": 92866
         },
         {
           "foreign_net": -30054,
@@ -11257,66 +11332,6 @@
       ],
       "program_net": 92866
     },
-    "247540": {
-      "name": "에코프로비엠",
-      "foreign_net": 305000,
-      "institution_net": 13000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 46825,
-          "institution_net": 38506,
-          "individual_net": -89034,
-          "program_net": 274255
-        },
-        {
-          "foreign_net": 28517,
-          "institution_net": -12434,
-          "individual_net": -16672
-        },
-        {
-          "foreign_net": -96128,
-          "institution_net": -1125,
-          "individual_net": 97810
-        },
-        {
-          "foreign_net": -47809,
-          "institution_net": -22820,
-          "individual_net": 68446
-        },
-        {
-          "foreign_net": -61738,
-          "institution_net": -149455,
-          "individual_net": 205652
-        },
-        {
-          "foreign_net": -35301,
-          "institution_net": 12795,
-          "individual_net": 24670
-        },
-        {
-          "foreign_net": -107473,
-          "institution_net": -93600,
-          "individual_net": 204928
-        },
-        {
-          "foreign_net": -30512,
-          "institution_net": -175783,
-          "individual_net": 208820
-        },
-        {
-          "foreign_net": -166595,
-          "institution_net": -135911,
-          "individual_net": 304085
-        },
-        {
-          "foreign_net": 68160,
-          "institution_net": -1495,
-          "individual_net": -63970
-        }
-      ],
-      "program_net": 274255
-    },
     "079550": {
       "name": "LIG디펜스앤에어로스페이스",
       "foreign_net": 75000,
@@ -11332,7 +11347,8 @@
         {
           "foreign_net": 5812,
           "institution_net": 18049,
-          "individual_net": -24899
+          "individual_net": -24899,
+          "program_net": 39184
         },
         {
           "foreign_net": 11678,
@@ -11392,7 +11408,8 @@
         {
           "foreign_net": -177558,
           "institution_net": -120513,
-          "individual_net": 292941
+          "individual_net": 292941,
+          "program_net": -40135
         },
         {
           "foreign_net": -117733,
@@ -11452,7 +11469,8 @@
         {
           "foreign_net": -42875,
           "institution_net": 59555,
-          "individual_net": -17038
+          "individual_net": -17038,
+          "program_net": 31807
         },
         {
           "foreign_net": -28561,
@@ -11512,7 +11530,8 @@
         {
           "foreign_net": -31940,
           "institution_net": 32270,
-          "individual_net": 529
+          "individual_net": 529,
+          "program_net": -47517
         },
         {
           "foreign_net": -77755,
@@ -11572,7 +11591,8 @@
         {
           "foreign_net": 95544,
           "institution_net": -33554,
-          "individual_net": -61246
+          "individual_net": -61246,
+          "program_net": -654900
         },
         {
           "foreign_net": 143649,
@@ -11632,7 +11652,8 @@
         {
           "foreign_net": 23124,
           "institution_net": -132,
-          "individual_net": -19647
+          "individual_net": -19647,
+          "program_net": -49466
         },
         {
           "foreign_net": 33654,
@@ -11692,7 +11713,8 @@
         {
           "foreign_net": -31485,
           "institution_net": 26029,
-          "individual_net": 4484
+          "individual_net": 4484,
+          "program_net": -47002
         },
         {
           "foreign_net": -23403,
@@ -11752,7 +11774,8 @@
         {
           "foreign_net": -36298,
           "institution_net": 108069,
-          "individual_net": -73449
+          "individual_net": -73449,
+          "program_net": -28069
         },
         {
           "foreign_net": -8736,
@@ -11797,6 +11820,67 @@
       ],
       "program_net": -28069
     },
+    "247540": {
+      "name": "에코프로비엠",
+      "foreign_net": 305000,
+      "institution_net": 13000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 46825,
+          "institution_net": 38506,
+          "individual_net": -89034,
+          "program_net": 274255
+        },
+        {
+          "foreign_net": 28517,
+          "institution_net": -12434,
+          "individual_net": -16672,
+          "program_net": 274255
+        },
+        {
+          "foreign_net": -96128,
+          "institution_net": -1125,
+          "individual_net": 97810
+        },
+        {
+          "foreign_net": -47809,
+          "institution_net": -22820,
+          "individual_net": 68446
+        },
+        {
+          "foreign_net": -61738,
+          "institution_net": -149455,
+          "individual_net": 205652
+        },
+        {
+          "foreign_net": -35301,
+          "institution_net": 12795,
+          "individual_net": 24670
+        },
+        {
+          "foreign_net": -107473,
+          "institution_net": -93600,
+          "individual_net": 204928
+        },
+        {
+          "foreign_net": -30512,
+          "institution_net": -175783,
+          "individual_net": 208820
+        },
+        {
+          "foreign_net": -166595,
+          "institution_net": -135911,
+          "individual_net": 304085
+        },
+        {
+          "foreign_net": 68160,
+          "institution_net": -1495,
+          "individual_net": -63970
+        }
+      ],
+      "program_net": 274255
+    },
     "373220": {
       "name": "LG에너지솔루션",
       "foreign_net": -29000,
@@ -11812,7 +11896,8 @@
         {
           "foreign_net": 30803,
           "institution_net": -19959,
-          "individual_net": 18287
+          "individual_net": 18287,
+          "program_net": -63572
         },
         {
           "foreign_net": 5884,
@@ -11872,7 +11957,8 @@
         {
           "foreign_net": -368661,
           "institution_net": -9123,
-          "individual_net": 367674
+          "individual_net": 367674,
+          "program_net": -1987
         },
         {
           "foreign_net": 4173371,
@@ -11932,7 +12018,8 @@
         {
           "foreign_net": 24491,
           "institution_net": -7881,
-          "individual_net": -17601
+          "individual_net": -17601,
+          "program_net": -946
         },
         {
           "foreign_net": 76648,
@@ -11992,7 +12079,8 @@
         {
           "foreign_net": 24873,
           "institution_net": 18338,
-          "individual_net": -46768
+          "individual_net": -46768,
+          "program_net": 6437
         },
         {
           "foreign_net": 32307,
@@ -12052,7 +12140,8 @@
         {
           "foreign_net": 23518,
           "institution_net": 4858,
-          "individual_net": -29630
+          "individual_net": -29630,
+          "program_net": 26740
         },
         {
           "foreign_net": 37983,
@@ -12112,7 +12201,8 @@
         {
           "foreign_net": -40095,
           "institution_net": 18558,
-          "individual_net": 18014
+          "individual_net": 18014,
+          "program_net": -31297
         },
         {
           "foreign_net": -68707,
@@ -12172,7 +12262,8 @@
         {
           "foreign_net": 23980,
           "institution_net": -172024,
-          "individual_net": 141518
+          "individual_net": 141518,
+          "program_net": -140846
         },
         {
           "foreign_net": -473023,
@@ -12232,7 +12323,8 @@
         {
           "foreign_net": 141046,
           "institution_net": -85481,
-          "individual_net": -56974
+          "individual_net": -56974,
+          "program_net": -77703
         },
         {
           "foreign_net": 130801,
@@ -12292,7 +12384,8 @@
         {
           "foreign_net": 22736,
           "institution_net": -4888,
-          "individual_net": -18217
+          "individual_net": -18217,
+          "program_net": 14186
         },
         {
           "foreign_net": 11675,
@@ -12352,7 +12445,8 @@
         {
           "foreign_net": -8820,
           "institution_net": 2461,
-          "individual_net": 926
+          "individual_net": 926,
+          "program_net": 20533
         },
         {
           "foreign_net": 22498,
@@ -12412,7 +12506,8 @@
         {
           "foreign_net": 156005,
           "institution_net": -50244,
-          "individual_net": -106287
+          "individual_net": -106287,
+          "program_net": -94707
         },
         {
           "foreign_net": 26552,
@@ -12472,7 +12567,8 @@
         {
           "foreign_net": 3516,
           "institution_net": 15844,
-          "individual_net": -20335
+          "individual_net": -20335,
+          "program_net": -18398
         },
         {
           "foreign_net": 21441,
@@ -12532,7 +12628,8 @@
         {
           "foreign_net": 40115,
           "institution_net": -8,
-          "individual_net": -36407
+          "individual_net": -36407,
+          "program_net": 47682
         },
         {
           "foreign_net": -18740,
@@ -12592,7 +12689,8 @@
         {
           "foreign_net": -101403,
           "institution_net": -227,
-          "individual_net": 92130
+          "individual_net": 92130,
+          "program_net": -70065
         },
         {
           "foreign_net": 38862,
@@ -12652,7 +12750,8 @@
         {
           "foreign_net": -6398,
           "institution_net": 0,
-          "individual_net": 11583
+          "individual_net": 11583,
+          "program_net": -21192
         },
         {
           "foreign_net": -8792,
@@ -12712,7 +12811,8 @@
         {
           "foreign_net": -6735,
           "institution_net": 11,
-          "individual_net": 6724
+          "individual_net": 6724,
+          "program_net": -14012
         },
         {
           "foreign_net": 3950,
@@ -12772,7 +12872,8 @@
         {
           "foreign_net": -39207,
           "institution_net": 40380,
-          "individual_net": -529
+          "individual_net": -529,
+          "program_net": -140458
         },
         {
           "foreign_net": 164208,
@@ -12832,7 +12933,8 @@
         {
           "foreign_net": 100634,
           "institution_net": -317,
-          "individual_net": -102044
+          "individual_net": -102044,
+          "program_net": -99932
         },
         {
           "foreign_net": 103792,
@@ -12892,7 +12994,8 @@
         {
           "foreign_net": -43210,
           "institution_net": -14515,
-          "individual_net": 58620
+          "individual_net": 58620,
+          "program_net": 449230
         },
         {
           "foreign_net": 8579,
@@ -12952,7 +13055,8 @@
         {
           "foreign_net": 33191,
           "institution_net": 219,
-          "individual_net": -33410
+          "individual_net": -33410,
+          "program_net": 23425
         },
         {
           "foreign_net": 14004,
@@ -13012,7 +13116,8 @@
         {
           "foreign_net": 137150,
           "institution_net": -87665,
-          "individual_net": -47981
+          "individual_net": -47981,
+          "program_net": 211129
         },
         {
           "foreign_net": -5035,
@@ -13057,6 +13162,67 @@
       ],
       "program_net": 211129
     },
+    "012450": {
+      "name": "한화에어로스페이스",
+      "foreign_net": -31000,
+      "institution_net": 2000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -9628,
+          "institution_net": -16211,
+          "individual_net": 24842,
+          "program_net": 38116
+        },
+        {
+          "foreign_net": -20539,
+          "institution_net": 19335,
+          "individual_net": 267,
+          "program_net": 38116
+        },
+        {
+          "foreign_net": 17497,
+          "institution_net": 39872,
+          "individual_net": -57156
+        },
+        {
+          "foreign_net": -8211,
+          "institution_net": 5034,
+          "individual_net": 2728
+        },
+        {
+          "foreign_net": -13131,
+          "institution_net": -23190,
+          "individual_net": 35925
+        },
+        {
+          "foreign_net": 7022,
+          "institution_net": 6533,
+          "individual_net": -13501
+        },
+        {
+          "foreign_net": 1021,
+          "institution_net": -10380,
+          "individual_net": 8883
+        },
+        {
+          "foreign_net": -25743,
+          "institution_net": -11118,
+          "individual_net": 36258
+        },
+        {
+          "foreign_net": 42800,
+          "institution_net": -31458,
+          "individual_net": -11820
+        },
+        {
+          "foreign_net": -37090,
+          "institution_net": -4484,
+          "individual_net": 40918
+        }
+      ],
+      "program_net": 38116
+    },
     "090460": {
       "name": "비에이치",
       "foreign_net": 26000,
@@ -13072,7 +13238,8 @@
         {
           "foreign_net": 30492,
           "institution_net": -32655,
-          "individual_net": 10824
+          "individual_net": 10824,
+          "program_net": 71409
         },
         {
           "foreign_net": -310752,
@@ -13132,7 +13299,8 @@
         {
           "foreign_net": -45493,
           "institution_net": -49409,
-          "individual_net": 93449
+          "individual_net": 93449,
+          "program_net": -465831
         },
         {
           "foreign_net": 130574,
@@ -13192,7 +13360,8 @@
         {
           "foreign_net": -428810,
           "institution_net": -35617,
-          "individual_net": 479562
+          "individual_net": 479562,
+          "program_net": 241753
         },
         {
           "foreign_net": 0,
@@ -13252,7 +13421,8 @@
         {
           "foreign_net": 13562,
           "institution_net": 24004,
-          "individual_net": -42235
+          "individual_net": -42235,
+          "program_net": 23606
         },
         {
           "foreign_net": -62151,
@@ -13312,7 +13482,8 @@
         {
           "foreign_net": -21192,
           "institution_net": -15592,
-          "individual_net": 32278
+          "individual_net": 32278,
+          "program_net": 52715
         },
         {
           "foreign_net": 1885,
@@ -13372,7 +13543,8 @@
         {
           "foreign_net": 73225,
           "institution_net": 39,
-          "individual_net": -73140
+          "individual_net": -73140,
+          "program_net": -77136
         },
         {
           "foreign_net": -133212,
@@ -13432,7 +13604,8 @@
         {
           "foreign_net": 12960,
           "institution_net": -3865,
-          "individual_net": -3896
+          "individual_net": -3896,
+          "program_net": 147250
         },
         {
           "foreign_net": 48986,
@@ -13492,7 +13665,8 @@
         {
           "foreign_net": -131005,
           "institution_net": 108350,
-          "individual_net": 17319
+          "individual_net": 17319,
+          "program_net": 612054
         },
         {
           "foreign_net": -145896,
@@ -13552,7 +13726,8 @@
         {
           "foreign_net": -72748,
           "institution_net": -34640,
-          "individual_net": 103346
+          "individual_net": 103346,
+          "program_net": 596954
         },
         {
           "foreign_net": 133030,
@@ -13612,7 +13787,8 @@
         {
           "foreign_net": -30244,
           "institution_net": 0,
-          "individual_net": 30244
+          "individual_net": 30244,
+          "program_net": 645841
         },
         {
           "foreign_net": 46818,
@@ -13672,7 +13848,8 @@
         {
           "foreign_net": -31688,
           "institution_net": 334,
-          "individual_net": 31354
+          "individual_net": 31354,
+          "program_net": 289835
         },
         {
           "foreign_net": 40979,
@@ -13717,6 +13894,128 @@
       ],
       "program_net": 289835
     },
+    "148780": {
+      "name": "비큐AI",
+      "foreign_net": 303000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 2930,
+          "institution_net": 0,
+          "individual_net": -2930,
+          "program_net": 283474
+        },
+        {
+          "foreign_net": -49618,
+          "institution_net": 21,
+          "individual_net": 49597,
+          "program_net": 283474
+        },
+        {
+          "foreign_net": 8412,
+          "institution_net": -960,
+          "individual_net": -7452
+        },
+        {
+          "foreign_net": 33993,
+          "institution_net": 1070,
+          "individual_net": -35063
+        },
+        {
+          "foreign_net": -50771,
+          "institution_net": -625,
+          "individual_net": 51396
+        },
+        {
+          "foreign_net": 3529,
+          "institution_net": -12,
+          "individual_net": -3517
+        },
+        {
+          "foreign_net": -21597,
+          "institution_net": 225,
+          "individual_net": 21372
+        },
+        {
+          "foreign_net": -26066,
+          "institution_net": 537,
+          "individual_net": 31529
+        },
+        {
+          "foreign_net": -19690,
+          "institution_net": -283,
+          "individual_net": 19973
+        },
+        {
+          "foreign_net": 5631,
+          "institution_net": -438,
+          "individual_net": -5193
+        }
+      ],
+      "program_net": 283474
+    },
+    "007610": {
+      "name": "선도전기",
+      "foreign_net": -11000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 175555,
+          "institution_net": -55,
+          "individual_net": -177185,
+          "program_net": -139012
+        },
+        {
+          "foreign_net": -55647,
+          "institution_net": -31,
+          "individual_net": 55600,
+          "program_net": -139012
+        },
+        {
+          "foreign_net": -19365,
+          "institution_net": -248,
+          "individual_net": 19823
+        },
+        {
+          "foreign_net": -49698,
+          "institution_net": -2975,
+          "individual_net": 52898
+        },
+        {
+          "foreign_net": 123565,
+          "institution_net": 3257,
+          "individual_net": -127506
+        },
+        {
+          "foreign_net": -168664,
+          "institution_net": 0,
+          "individual_net": 183870
+        },
+        {
+          "foreign_net": -71312,
+          "institution_net": 685,
+          "individual_net": 65867
+        },
+        {
+          "foreign_net": 67042,
+          "institution_net": -16106,
+          "individual_net": -59874
+        },
+        {
+          "foreign_net": -35973,
+          "institution_net": 12831,
+          "individual_net": 19968
+        },
+        {
+          "foreign_net": -206421,
+          "institution_net": 1202,
+          "individual_net": 427105
+        }
+      ],
+      "program_net": -139012
+    },
     "065770": {
       "name": "CS",
       "foreign_net": 8000,
@@ -13732,7 +14031,8 @@
         {
           "foreign_net": 0,
           "institution_net": 0,
-          "individual_net": 0
+          "individual_net": 0,
+          "program_net": 985
         },
         {
           "foreign_net": 0,
@@ -13792,7 +14092,8 @@
         {
           "foreign_net": 0,
           "institution_net": 0,
-          "individual_net": 0
+          "individual_net": 0,
+          "program_net": -203321
         },
         {
           "foreign_net": 0,
@@ -13837,426 +14138,6 @@
       ],
       "program_net": -203321
     },
-    "204620": {
-      "name": "글로벌텍스프리",
-      "foreign_net": 215000,
-      "institution_net": -375000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -3974,
-          "institution_net": -166628,
-          "individual_net": 161706,
-          "program_net": -415009
-        },
-        {
-          "foreign_net": 222711,
-          "institution_net": -105219,
-          "individual_net": -128676
-        },
-        {
-          "foreign_net": 377781,
-          "institution_net": -201420,
-          "individual_net": -199971
-        },
-        {
-          "foreign_net": -481141,
-          "institution_net": -141470,
-          "individual_net": 530338
-        },
-        {
-          "foreign_net": 22656,
-          "institution_net": 901259,
-          "individual_net": -884946
-        },
-        {
-          "foreign_net": -75944,
-          "institution_net": 683380,
-          "individual_net": -503948
-        },
-        {
-          "foreign_net": -90824,
-          "institution_net": 278540,
-          "individual_net": -204495
-        },
-        {
-          "foreign_net": 12353,
-          "institution_net": 295088,
-          "individual_net": -302753
-        },
-        {
-          "foreign_net": -75551,
-          "institution_net": -158952,
-          "individual_net": 302334
-        },
-        {
-          "foreign_net": -423181,
-          "institution_net": 271341,
-          "individual_net": 134919
-        }
-      ],
-      "program_net": -415009
-    },
-    "086960": {
-      "name": "MDS테크",
-      "foreign_net": 55000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 426554,
-          "institution_net": 54821,
-          "individual_net": -480162,
-          "program_net": -4204
-        },
-        {
-          "foreign_net": -3427,
-          "institution_net": 34371,
-          "individual_net": -30138
-        },
-        {
-          "foreign_net": -16229,
-          "institution_net": 65273,
-          "individual_net": -41495
-        },
-        {
-          "foreign_net": -67147,
-          "institution_net": -18,
-          "individual_net": 61239
-        },
-        {
-          "foreign_net": -255593,
-          "institution_net": -7,
-          "individual_net": 244090
-        },
-        {
-          "foreign_net": 1924,
-          "institution_net": -6,
-          "individual_net": 16247
-        },
-        {
-          "foreign_net": -116525,
-          "institution_net": 1,
-          "individual_net": 101341
-        },
-        {
-          "foreign_net": 23118,
-          "institution_net": 0,
-          "individual_net": -4490
-        },
-        {
-          "foreign_net": -298596,
-          "institution_net": 6,
-          "individual_net": 321172
-        },
-        {
-          "foreign_net": 207789,
-          "institution_net": -116131,
-          "individual_net": -119957
-        }
-      ],
-      "program_net": -4204
-    },
-    "131760": {
-      "name": "파인텍",
-      "foreign_net": 12000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0,
-          "program_net": -3171
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        }
-      ],
-      "program_net": -3171
-    },
-    "036090": {
-      "name": "위지트",
-      "foreign_net": -278000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -226294,
-          "institution_net": -69,
-          "individual_net": 225963,
-          "program_net": -361042
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        },
-        {
-          "foreign_net": 0,
-          "institution_net": 0,
-          "individual_net": 0
-        }
-      ],
-      "program_net": -361042
-    },
-    "067310": {
-      "name": "하나마이크론",
-      "foreign_net": -211000,
-      "institution_net": -38000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 475936,
-          "institution_net": 126738,
-          "individual_net": -574211,
-          "program_net": -300285
-        },
-        {
-          "foreign_net": -64230,
-          "institution_net": 59309,
-          "individual_net": -4077
-        },
-        {
-          "foreign_net": 11582,
-          "institution_net": 105488,
-          "individual_net": -134796
-        },
-        {
-          "foreign_net": -108010,
-          "institution_net": -475,
-          "individual_net": 101646
-        },
-        {
-          "foreign_net": 1781097,
-          "institution_net": 32048,
-          "individual_net": -1794826
-        },
-        {
-          "foreign_net": -326325,
-          "institution_net": 138980,
-          "individual_net": 179113
-        },
-        {
-          "foreign_net": 80781,
-          "institution_net": 72433,
-          "individual_net": -163949
-        },
-        {
-          "foreign_net": 423146,
-          "institution_net": 31023,
-          "individual_net": -440153
-        },
-        {
-          "foreign_net": -161437,
-          "institution_net": 15861,
-          "individual_net": 153219
-        },
-        {
-          "foreign_net": 86307,
-          "institution_net": 38649,
-          "individual_net": -125265
-        }
-      ],
-      "program_net": -300285
-    },
-    "090360": {
-      "name": "로보스타",
-      "foreign_net": 27000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -1873,
-          "institution_net": -4018,
-          "individual_net": 3362,
-          "program_net": 19150
-        },
-        {
-          "foreign_net": 24460,
-          "institution_net": 5317,
-          "individual_net": -29850
-        },
-        {
-          "foreign_net": 4396,
-          "institution_net": 12121,
-          "individual_net": -11090
-        },
-        {
-          "foreign_net": -71262,
-          "institution_net": 10534,
-          "individual_net": 59632
-        },
-        {
-          "foreign_net": 61534,
-          "institution_net": 11003,
-          "individual_net": -72813
-        },
-        {
-          "foreign_net": 14505,
-          "institution_net": 5505,
-          "individual_net": -18151
-        },
-        {
-          "foreign_net": -33537,
-          "institution_net": 9511,
-          "individual_net": 27133
-        },
-        {
-          "foreign_net": 4383,
-          "institution_net": 7826,
-          "individual_net": -13288
-        },
-        {
-          "foreign_net": 13987,
-          "institution_net": 1765,
-          "individual_net": -16318
-        },
-        {
-          "foreign_net": 6422,
-          "institution_net": -13493,
-          "individual_net": 6459
-        }
-      ],
-      "program_net": 19150
-    },
-    "012200": {
-      "name": "계양전기",
-      "foreign_net": 90000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -390119,
-          "institution_net": -18564,
-          "individual_net": 400903,
-          "program_net": 67800
-        },
-        {
-          "foreign_net": 89841,
-          "institution_net": -43726,
-          "individual_net": -44730
-        },
-        {
-          "foreign_net": 59721,
-          "institution_net": 12439,
-          "individual_net": -73745
-        },
-        {
-          "foreign_net": 103437,
-          "institution_net": 11163,
-          "individual_net": -112570
-        },
-        {
-          "foreign_net": 590173,
-          "institution_net": 25422,
-          "individual_net": -608069
-        },
-        {
-          "foreign_net": 292955,
-          "institution_net": 303,
-          "individual_net": -248649
-        },
-        {
-          "foreign_net": 81384,
-          "institution_net": -19983,
-          "individual_net": -88767
-        },
-        {
-          "foreign_net": 182246,
-          "institution_net": -14,
-          "individual_net": -166046
-        },
-        {
-          "foreign_net": -210860,
-          "institution_net": 63309,
-          "individual_net": 160814
-        },
-        {
-          "foreign_net": 287061,
-          "institution_net": 870,
-          "individual_net": -259856
-        }
-      ],
-      "program_net": 67800
-    },
     "177350": {
       "name": "베셀",
       "foreign_net": 30000,
@@ -14272,7 +14153,8 @@
         {
           "foreign_net": -198421,
           "institution_net": 0,
-          "individual_net": 199021
+          "individual_net": 199021,
+          "program_net": -25882
         },
         {
           "foreign_net": -249929,
@@ -14332,7 +14214,8 @@
         {
           "foreign_net": 10245,
           "institution_net": 0,
-          "individual_net": -10297
+          "individual_net": -10297,
+          "program_net": 0
         },
         {
           "foreign_net": -4935,
@@ -14377,6 +14260,494 @@
       ],
       "program_net": 0
     },
+    "204620": {
+      "name": "글로벌텍스프리",
+      "foreign_net": 215000,
+      "institution_net": -375000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -3974,
+          "institution_net": -166628,
+          "individual_net": 161706,
+          "program_net": -415009
+        },
+        {
+          "foreign_net": 222711,
+          "institution_net": -105219,
+          "individual_net": -128676,
+          "program_net": -415009
+        },
+        {
+          "foreign_net": 377781,
+          "institution_net": -201420,
+          "individual_net": -199971
+        },
+        {
+          "foreign_net": -481141,
+          "institution_net": -141470,
+          "individual_net": 530338
+        },
+        {
+          "foreign_net": 22656,
+          "institution_net": 901259,
+          "individual_net": -884946
+        },
+        {
+          "foreign_net": -75944,
+          "institution_net": 683380,
+          "individual_net": -503948
+        },
+        {
+          "foreign_net": -90824,
+          "institution_net": 278540,
+          "individual_net": -204495
+        },
+        {
+          "foreign_net": 12353,
+          "institution_net": 295088,
+          "individual_net": -302753
+        },
+        {
+          "foreign_net": -75551,
+          "institution_net": -158952,
+          "individual_net": 302334
+        },
+        {
+          "foreign_net": -423181,
+          "institution_net": 271341,
+          "individual_net": 134919
+        }
+      ],
+      "program_net": -415009
+    },
+    "086960": {
+      "name": "MDS테크",
+      "foreign_net": 55000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 426554,
+          "institution_net": 54821,
+          "individual_net": -480162,
+          "program_net": -4204
+        },
+        {
+          "foreign_net": -3427,
+          "institution_net": 34371,
+          "individual_net": -30138,
+          "program_net": -4204
+        },
+        {
+          "foreign_net": -16229,
+          "institution_net": 65273,
+          "individual_net": -41495
+        },
+        {
+          "foreign_net": -67147,
+          "institution_net": -18,
+          "individual_net": 61239
+        },
+        {
+          "foreign_net": -255593,
+          "institution_net": -7,
+          "individual_net": 244090
+        },
+        {
+          "foreign_net": 1924,
+          "institution_net": -6,
+          "individual_net": 16247
+        },
+        {
+          "foreign_net": -116525,
+          "institution_net": 1,
+          "individual_net": 101341
+        },
+        {
+          "foreign_net": 23118,
+          "institution_net": 0,
+          "individual_net": -4490
+        },
+        {
+          "foreign_net": -298596,
+          "institution_net": 6,
+          "individual_net": 321172
+        },
+        {
+          "foreign_net": 207789,
+          "institution_net": -116131,
+          "individual_net": -119957
+        }
+      ],
+      "program_net": -4204
+    },
+    "131760": {
+      "name": "파인텍",
+      "foreign_net": 12000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0,
+          "program_net": -3171
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0,
+          "program_net": -3171
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        }
+      ],
+      "program_net": -3171
+    },
+    "036090": {
+      "name": "위지트",
+      "foreign_net": -278000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -226294,
+          "institution_net": -69,
+          "individual_net": 225963,
+          "program_net": -361042
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0,
+          "program_net": -361042
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        },
+        {
+          "foreign_net": 0,
+          "institution_net": 0,
+          "individual_net": 0
+        }
+      ],
+      "program_net": -361042
+    },
+    "067310": {
+      "name": "하나마이크론",
+      "foreign_net": -211000,
+      "institution_net": -38000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 475936,
+          "institution_net": 126738,
+          "individual_net": -574211,
+          "program_net": -300285
+        },
+        {
+          "foreign_net": -64230,
+          "institution_net": 59309,
+          "individual_net": -4077,
+          "program_net": -300285
+        },
+        {
+          "foreign_net": 11582,
+          "institution_net": 105488,
+          "individual_net": -134796
+        },
+        {
+          "foreign_net": -108010,
+          "institution_net": -475,
+          "individual_net": 101646
+        },
+        {
+          "foreign_net": 1781097,
+          "institution_net": 32048,
+          "individual_net": -1794826
+        },
+        {
+          "foreign_net": -326325,
+          "institution_net": 138980,
+          "individual_net": 179113
+        },
+        {
+          "foreign_net": 80781,
+          "institution_net": 72433,
+          "individual_net": -163949
+        },
+        {
+          "foreign_net": 423146,
+          "institution_net": 31023,
+          "individual_net": -440153
+        },
+        {
+          "foreign_net": -161437,
+          "institution_net": 15861,
+          "individual_net": 153219
+        },
+        {
+          "foreign_net": 86307,
+          "institution_net": 38649,
+          "individual_net": -125265
+        }
+      ],
+      "program_net": -300285
+    },
+    "090360": {
+      "name": "로보스타",
+      "foreign_net": 27000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -1873,
+          "institution_net": -4018,
+          "individual_net": 3362,
+          "program_net": 19150
+        },
+        {
+          "foreign_net": 24460,
+          "institution_net": 5317,
+          "individual_net": -29850,
+          "program_net": 19150
+        },
+        {
+          "foreign_net": 4396,
+          "institution_net": 12121,
+          "individual_net": -11090
+        },
+        {
+          "foreign_net": -71262,
+          "institution_net": 10534,
+          "individual_net": 59632
+        },
+        {
+          "foreign_net": 61534,
+          "institution_net": 11003,
+          "individual_net": -72813
+        },
+        {
+          "foreign_net": 14505,
+          "institution_net": 5505,
+          "individual_net": -18151
+        },
+        {
+          "foreign_net": -33537,
+          "institution_net": 9511,
+          "individual_net": 27133
+        },
+        {
+          "foreign_net": 4383,
+          "institution_net": 7826,
+          "individual_net": -13288
+        },
+        {
+          "foreign_net": 13987,
+          "institution_net": 1765,
+          "individual_net": -16318
+        },
+        {
+          "foreign_net": 6422,
+          "institution_net": -13493,
+          "individual_net": 6459
+        }
+      ],
+      "program_net": 19150
+    },
+    "012200": {
+      "name": "계양전기",
+      "foreign_net": 90000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -390119,
+          "institution_net": -18564,
+          "individual_net": 400903,
+          "program_net": 67800
+        },
+        {
+          "foreign_net": 89841,
+          "institution_net": -43726,
+          "individual_net": -44730,
+          "program_net": 67800
+        },
+        {
+          "foreign_net": 59721,
+          "institution_net": 12439,
+          "individual_net": -73745
+        },
+        {
+          "foreign_net": 103437,
+          "institution_net": 11163,
+          "individual_net": -112570
+        },
+        {
+          "foreign_net": 590173,
+          "institution_net": 25422,
+          "individual_net": -608069
+        },
+        {
+          "foreign_net": 292955,
+          "institution_net": 303,
+          "individual_net": -248649
+        },
+        {
+          "foreign_net": 81384,
+          "institution_net": -19983,
+          "individual_net": -88767
+        },
+        {
+          "foreign_net": 182246,
+          "institution_net": -14,
+          "individual_net": -166046
+        },
+        {
+          "foreign_net": -210860,
+          "institution_net": 63309,
+          "individual_net": 160814
+        },
+        {
+          "foreign_net": 287061,
+          "institution_net": 870,
+          "individual_net": -259856
+        }
+      ],
+      "program_net": 67800
+    },
+    "006340": {
+      "name": "대원전선",
+      "foreign_net": -313000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -731027,
+          "institution_net": 44679,
+          "individual_net": 696295,
+          "program_net": -713058
+        },
+        {
+          "foreign_net": 376024,
+          "institution_net": -26963,
+          "individual_net": -344633,
+          "program_net": -713058
+        },
+        {
+          "foreign_net": -644565,
+          "institution_net": 18120,
+          "individual_net": 636061
+        },
+        {
+          "foreign_net": 240342,
+          "institution_net": -175059,
+          "individual_net": -59100
+        },
+        {
+          "foreign_net": 476606,
+          "institution_net": -128429,
+          "individual_net": -353872
+        },
+        {
+          "foreign_net": 45348,
+          "institution_net": 32174,
+          "individual_net": -128342
+        },
+        {
+          "foreign_net": 207716,
+          "institution_net": -24276,
+          "individual_net": -128690
+        },
+        {
+          "foreign_net": 562888,
+          "institution_net": -69959,
+          "individual_net": -524215
+        },
+        {
+          "foreign_net": -351750,
+          "institution_net": 41429,
+          "individual_net": 308756
+        },
+        {
+          "foreign_net": 520706,
+          "institution_net": 32931,
+          "individual_net": -537876
+        }
+      ],
+      "program_net": -713058
+    },
     "046890": {
       "name": "서울반도체",
       "foreign_net": 90000,
@@ -14392,7 +14763,8 @@
         {
           "foreign_net": -467561,
           "institution_net": -72848,
-          "individual_net": 529436
+          "individual_net": 529436,
+          "program_net": -51669
         },
         {
           "foreign_net": 125687,
@@ -14452,7 +14824,8 @@
         {
           "foreign_net": -32266,
           "institution_net": -41009,
-          "individual_net": 167704
+          "individual_net": 167704,
+          "program_net": -6269
         },
         {
           "foreign_net": 68768,
@@ -14477,7 +14850,8 @@
         {
           "foreign_net": 109821,
           "institution_net": 52110,
-          "individual_net": -158472
+          "individual_net": -158472,
+          "program_net": -96816
         },
         {
           "foreign_net": -421,
@@ -14537,7 +14911,8 @@
         {
           "foreign_net": 4153,
           "institution_net": -24836,
-          "individual_net": 17199
+          "individual_net": 17199,
+          "program_net": -47496
         },
         {
           "foreign_net": 6888,
@@ -14597,7 +14972,8 @@
         {
           "foreign_net": -221452,
           "institution_net": 7,
-          "individual_net": 226445
+          "individual_net": 226445,
+          "program_net": 60391
         },
         {
           "foreign_net": 138071,
@@ -14642,6 +15018,67 @@
       ],
       "program_net": 60391
     },
+    "376930": {
+      "name": "노을",
+      "foreign_net": 102000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -33808,
+          "institution_net": 3173,
+          "individual_net": 30635,
+          "program_net": 159516
+        },
+        {
+          "foreign_net": -3140,
+          "institution_net": -501,
+          "individual_net": 3641,
+          "program_net": 159516
+        },
+        {
+          "foreign_net": 55324,
+          "institution_net": 519,
+          "individual_net": -55843
+        },
+        {
+          "foreign_net": 229734,
+          "institution_net": -2607,
+          "individual_net": -227127
+        },
+        {
+          "foreign_net": 78075,
+          "institution_net": 1823,
+          "individual_net": -68502
+        },
+        {
+          "foreign_net": -48360,
+          "institution_net": 1119,
+          "individual_net": 47253
+        },
+        {
+          "foreign_net": -250666,
+          "institution_net": -1323,
+          "individual_net": 251989
+        },
+        {
+          "foreign_net": -23335,
+          "institution_net": 1346,
+          "individual_net": 21989
+        },
+        {
+          "foreign_net": 440679,
+          "institution_net": -353,
+          "individual_net": -440326
+        },
+        {
+          "foreign_net": -54013,
+          "institution_net": 239,
+          "individual_net": 53399
+        }
+      ],
+      "program_net": 159516
+    },
     "066575": {
       "name": "LG전자우",
       "foreign_net": -38000,
@@ -14651,7 +15088,8 @@
         {
           "foreign_net": -71969,
           "institution_net": 106816,
-          "individual_net": -20109
+          "individual_net": -20109,
+          "program_net": 0
         },
         {
           "foreign_net": 121622,
@@ -14701,66 +15139,6 @@
       ],
       "program_net": 0
     },
-    "376930": {
-      "name": "노을",
-      "foreign_net": 102000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -33808,
-          "institution_net": 3173,
-          "individual_net": 30635,
-          "program_net": 159516
-        },
-        {
-          "foreign_net": -3140,
-          "institution_net": -501,
-          "individual_net": 3641
-        },
-        {
-          "foreign_net": 55324,
-          "institution_net": 519,
-          "individual_net": -55843
-        },
-        {
-          "foreign_net": 229734,
-          "institution_net": -2607,
-          "individual_net": -227127
-        },
-        {
-          "foreign_net": 78075,
-          "institution_net": 1823,
-          "individual_net": -68502
-        },
-        {
-          "foreign_net": -48360,
-          "institution_net": 1119,
-          "individual_net": 47253
-        },
-        {
-          "foreign_net": -250666,
-          "institution_net": -1323,
-          "individual_net": 251989
-        },
-        {
-          "foreign_net": -23335,
-          "institution_net": 1346,
-          "individual_net": 21989
-        },
-        {
-          "foreign_net": 440679,
-          "institution_net": -353,
-          "individual_net": -440326
-        },
-        {
-          "foreign_net": -54013,
-          "institution_net": 239,
-          "individual_net": 53399
-        }
-      ],
-      "program_net": 159516
-    },
     "403490": {
       "name": "우듬지팜",
       "foreign_net": 186000,
@@ -14776,7 +15154,8 @@
         {
           "foreign_net": 58934,
           "institution_net": -554,
-          "individual_net": -58680
+          "individual_net": -58680,
+          "program_net": 294983
         },
         {
           "foreign_net": 5706,
@@ -14821,126 +15200,6 @@
       ],
       "program_net": 294983
     },
-    "006340": {
-      "name": "대원전선",
-      "foreign_net": -313000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -731027,
-          "institution_net": 44679,
-          "individual_net": 696295,
-          "program_net": -713058
-        },
-        {
-          "foreign_net": 376024,
-          "institution_net": -26963,
-          "individual_net": -344633
-        },
-        {
-          "foreign_net": -644565,
-          "institution_net": 18120,
-          "individual_net": 636061
-        },
-        {
-          "foreign_net": 240342,
-          "institution_net": -175059,
-          "individual_net": -59100
-        },
-        {
-          "foreign_net": 476606,
-          "institution_net": -128429,
-          "individual_net": -353872
-        },
-        {
-          "foreign_net": 45348,
-          "institution_net": 32174,
-          "individual_net": -128342
-        },
-        {
-          "foreign_net": 207716,
-          "institution_net": -24276,
-          "individual_net": -128690
-        },
-        {
-          "foreign_net": 562888,
-          "institution_net": -69959,
-          "individual_net": -524215
-        },
-        {
-          "foreign_net": -351750,
-          "institution_net": 41429,
-          "individual_net": 308756
-        },
-        {
-          "foreign_net": 520706,
-          "institution_net": 32931,
-          "individual_net": -537876
-        }
-      ],
-      "program_net": -713058
-    },
-    "021880": {
-      "name": "메이슨캐피탈",
-      "foreign_net": 4000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 116563,
-          "institution_net": 0,
-          "individual_net": -124106,
-          "program_net": -139856
-        },
-        {
-          "foreign_net": -83405,
-          "institution_net": -18327,
-          "individual_net": 171235
-        },
-        {
-          "foreign_net": -1239898,
-          "institution_net": -677,
-          "individual_net": 2307477
-        },
-        {
-          "foreign_net": 689625,
-          "institution_net": 19004,
-          "individual_net": -845034
-        },
-        {
-          "foreign_net": -1217148,
-          "institution_net": -2341,
-          "individual_net": 1252420
-        },
-        {
-          "foreign_net": -51882,
-          "institution_net": -471,
-          "individual_net": 19424
-        },
-        {
-          "foreign_net": -823867,
-          "institution_net": 2812,
-          "individual_net": 837569
-        },
-        {
-          "foreign_net": -5845,
-          "institution_net": -9,
-          "individual_net": 5854
-        },
-        {
-          "foreign_net": -231497,
-          "institution_net": 9,
-          "individual_net": 231488
-        },
-        {
-          "foreign_net": 124046,
-          "institution_net": 0,
-          "individual_net": -124046
-        }
-      ],
-      "program_net": -139856
-    },
     "456160": {
       "name": "지투지바이오",
       "foreign_net": 66000,
@@ -14956,7 +15215,8 @@
         {
           "foreign_net": 104361,
           "institution_net": -17130,
-          "individual_net": -78311
+          "individual_net": -78311,
+          "program_net": 40663
         },
         {
           "foreign_net": 49577,
@@ -15016,7 +15276,8 @@
         {
           "foreign_net": 7993,
           "institution_net": 0,
-          "individual_net": -7993
+          "individual_net": -7993,
+          "program_net": 38747
         },
         {
           "foreign_net": 27672,
@@ -15076,7 +15337,8 @@
         {
           "foreign_net": 6499,
           "institution_net": -18568,
-          "individual_net": 12069
+          "individual_net": 12069,
+          "program_net": 295840
         },
         {
           "foreign_net": 453694,
@@ -15136,7 +15398,8 @@
         {
           "foreign_net": 24433,
           "institution_net": -1,
-          "individual_net": -24432
+          "individual_net": -24432,
+          "program_net": 76257
         },
         {
           "foreign_net": -34532,
@@ -15181,186 +15444,6 @@
       ],
       "program_net": 76257
     },
-    "489790": {
-      "name": "한화비전",
-      "foreign_net": -45000,
-      "institution_net": -11000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 11748,
-          "institution_net": 17530,
-          "individual_net": -58680,
-          "program_net": -29227
-        },
-        {
-          "foreign_net": 66995,
-          "institution_net": -48085,
-          "individual_net": -22542
-        },
-        {
-          "foreign_net": -6830,
-          "institution_net": -83813,
-          "individual_net": 94004
-        },
-        {
-          "foreign_net": 81793,
-          "institution_net": -48512,
-          "individual_net": -40658
-        },
-        {
-          "foreign_net": 23262,
-          "institution_net": -267040,
-          "individual_net": 243981
-        },
-        {
-          "foreign_net": -99000,
-          "institution_net": -41559,
-          "individual_net": 141539
-        },
-        {
-          "foreign_net": -5382,
-          "institution_net": 8083,
-          "individual_net": -12286
-        },
-        {
-          "foreign_net": 361089,
-          "institution_net": 37340,
-          "individual_net": -394511
-        },
-        {
-          "foreign_net": 29987,
-          "institution_net": -37107,
-          "individual_net": 19125
-        },
-        {
-          "foreign_net": -25300,
-          "institution_net": -85295,
-          "individual_net": 128438
-        }
-      ],
-      "program_net": -29227
-    },
-    "148780": {
-      "name": "비큐AI",
-      "foreign_net": 303000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 2930,
-          "institution_net": 0,
-          "individual_net": -2930,
-          "program_net": 283474
-        },
-        {
-          "foreign_net": -49618,
-          "institution_net": 21,
-          "individual_net": 49597
-        },
-        {
-          "foreign_net": 8412,
-          "institution_net": -960,
-          "individual_net": -7452
-        },
-        {
-          "foreign_net": 33993,
-          "institution_net": 1070,
-          "individual_net": -35063
-        },
-        {
-          "foreign_net": -50771,
-          "institution_net": -625,
-          "individual_net": 51396
-        },
-        {
-          "foreign_net": 3529,
-          "institution_net": -12,
-          "individual_net": -3517
-        },
-        {
-          "foreign_net": -21597,
-          "institution_net": 225,
-          "individual_net": 21372
-        },
-        {
-          "foreign_net": -26066,
-          "institution_net": 537,
-          "individual_net": 31529
-        },
-        {
-          "foreign_net": -19690,
-          "institution_net": -283,
-          "individual_net": 19973
-        },
-        {
-          "foreign_net": 5631,
-          "institution_net": -438,
-          "individual_net": -5193
-        }
-      ],
-      "program_net": 283474
-    },
-    "025560": {
-      "name": "미래산업",
-      "foreign_net": 10000,
-      "institution_net": 5000,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 13769,
-          "institution_net": 6081,
-          "individual_net": -19186,
-          "program_net": 149097
-        },
-        {
-          "foreign_net": -10451,
-          "institution_net": 21151,
-          "individual_net": -10363
-        },
-        {
-          "foreign_net": -69262,
-          "institution_net": 76725,
-          "individual_net": 37
-        },
-        {
-          "foreign_net": -10720,
-          "institution_net": 50854,
-          "individual_net": -39580
-        },
-        {
-          "foreign_net": 8254,
-          "institution_net": -4741,
-          "individual_net": -3590
-        },
-        {
-          "foreign_net": -3735,
-          "institution_net": -37,
-          "individual_net": -2446
-        },
-        {
-          "foreign_net": -22196,
-          "institution_net": -422,
-          "individual_net": 21085
-        },
-        {
-          "foreign_net": 12011,
-          "institution_net": 1160,
-          "individual_net": -13158
-        },
-        {
-          "foreign_net": -11017,
-          "institution_net": -16,
-          "individual_net": 11041
-        },
-        {
-          "foreign_net": -3109,
-          "institution_net": -123,
-          "individual_net": 3446
-        }
-      ],
-      "program_net": 149097
-    },
     "300120": {
       "name": "라온피플",
       "foreign_net": 39000,
@@ -15376,7 +15459,8 @@
         {
           "foreign_net": 150874,
           "institution_net": 1,
-          "individual_net": -141664
+          "individual_net": -141664,
+          "program_net": 42057
         },
         {
           "foreign_net": 7350,
@@ -15421,6 +15505,128 @@
       ],
       "program_net": 42057
     },
+    "489790": {
+      "name": "한화비전",
+      "foreign_net": -45000,
+      "institution_net": -11000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 11748,
+          "institution_net": 17530,
+          "individual_net": -58680,
+          "program_net": -29227
+        },
+        {
+          "foreign_net": 66995,
+          "institution_net": -48085,
+          "individual_net": -22542,
+          "program_net": -29227
+        },
+        {
+          "foreign_net": -6830,
+          "institution_net": -83813,
+          "individual_net": 94004
+        },
+        {
+          "foreign_net": 81793,
+          "institution_net": -48512,
+          "individual_net": -40658
+        },
+        {
+          "foreign_net": 23262,
+          "institution_net": -267040,
+          "individual_net": 243981
+        },
+        {
+          "foreign_net": -99000,
+          "institution_net": -41559,
+          "individual_net": 141539
+        },
+        {
+          "foreign_net": -5382,
+          "institution_net": 8083,
+          "individual_net": -12286
+        },
+        {
+          "foreign_net": 361089,
+          "institution_net": 37340,
+          "individual_net": -394511
+        },
+        {
+          "foreign_net": 29987,
+          "institution_net": -37107,
+          "individual_net": 19125
+        },
+        {
+          "foreign_net": -25300,
+          "institution_net": -85295,
+          "individual_net": 128438
+        }
+      ],
+      "program_net": -29227
+    },
+    "025560": {
+      "name": "미래산업",
+      "foreign_net": 10000,
+      "institution_net": 5000,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": 13769,
+          "institution_net": 6081,
+          "individual_net": -19186,
+          "program_net": 149097
+        },
+        {
+          "foreign_net": -10451,
+          "institution_net": 21151,
+          "individual_net": -10363,
+          "program_net": 149097
+        },
+        {
+          "foreign_net": -69262,
+          "institution_net": 76725,
+          "individual_net": 37
+        },
+        {
+          "foreign_net": -10720,
+          "institution_net": 50854,
+          "individual_net": -39580
+        },
+        {
+          "foreign_net": 8254,
+          "institution_net": -4741,
+          "individual_net": -3590
+        },
+        {
+          "foreign_net": -3735,
+          "institution_net": -37,
+          "individual_net": -2446
+        },
+        {
+          "foreign_net": -22196,
+          "institution_net": -422,
+          "individual_net": 21085
+        },
+        {
+          "foreign_net": 12011,
+          "institution_net": 1160,
+          "individual_net": -13158
+        },
+        {
+          "foreign_net": -11017,
+          "institution_net": -16,
+          "individual_net": 11041
+        },
+        {
+          "foreign_net": -3109,
+          "institution_net": -123,
+          "individual_net": 3446
+        }
+      ],
+      "program_net": 149097
+    },
     "149950": {
       "name": "아바텍",
       "foreign_net": 75000,
@@ -15436,7 +15642,8 @@
         {
           "foreign_net": -10082,
           "institution_net": 622,
-          "individual_net": 9460
+          "individual_net": 9460,
+          "program_net": 95017
         },
         {
           "foreign_net": 2939,
@@ -15496,7 +15703,8 @@
         {
           "foreign_net": -15493,
           "institution_net": -1245,
-          "individual_net": 13838
+          "individual_net": 13838,
+          "program_net": 115246
         },
         {
           "foreign_net": -12319,
@@ -15556,7 +15764,8 @@
         {
           "foreign_net": -5716,
           "institution_net": -6,
-          "individual_net": 5722
+          "individual_net": 5722,
+          "program_net": 73093
         },
         {
           "foreign_net": -1269,
@@ -15616,7 +15825,8 @@
         {
           "foreign_net": -27149,
           "institution_net": -832,
-          "individual_net": 27981
+          "individual_net": 27981,
+          "program_net": -26826
         },
         {
           "foreign_net": -8978,
@@ -15676,7 +15886,8 @@
         {
           "foreign_net": -126256,
           "institution_net": 94121,
-          "individual_net": 47298
+          "individual_net": 47298,
+          "program_net": -32663
         },
         {
           "foreign_net": 77257,
@@ -15736,7 +15947,8 @@
         {
           "foreign_net": -7918,
           "institution_net": -491,
-          "individual_net": 2409
+          "individual_net": 2409,
+          "program_net": 126647
         },
         {
           "foreign_net": 14175,
@@ -15781,246 +15993,6 @@
       ],
       "program_net": 126647
     },
-    "457370": {
-      "name": "한켐",
-      "foreign_net": 57000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -5,
-          "institution_net": -62,
-          "individual_net": 199,
-          "program_net": 136533
-        },
-        {
-          "foreign_net": 6405,
-          "institution_net": 0,
-          "individual_net": -6537
-        },
-        {
-          "foreign_net": 24088,
-          "institution_net": -1484,
-          "individual_net": -22604
-        },
-        {
-          "foreign_net": 10931,
-          "institution_net": 0,
-          "individual_net": -11055
-        },
-        {
-          "foreign_net": -11751,
-          "institution_net": 36,
-          "individual_net": 11598
-        },
-        {
-          "foreign_net": 2839,
-          "institution_net": 0,
-          "individual_net": -2816
-        },
-        {
-          "foreign_net": 242,
-          "institution_net": -39,
-          "individual_net": -203
-        },
-        {
-          "foreign_net": 216,
-          "institution_net": -19,
-          "individual_net": -220
-        },
-        {
-          "foreign_net": 2084,
-          "institution_net": 58,
-          "individual_net": -2253
-        },
-        {
-          "foreign_net": 2400,
-          "institution_net": 0,
-          "individual_net": -2400
-        }
-      ],
-      "program_net": 136533
-    },
-    "459100": {
-      "name": "위츠",
-      "foreign_net": 26000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -2942,
-          "institution_net": 0,
-          "individual_net": 3020,
-          "program_net": 50237
-        },
-        {
-          "foreign_net": -11273,
-          "institution_net": -79,
-          "individual_net": 10944
-        },
-        {
-          "foreign_net": -21113,
-          "institution_net": 79,
-          "individual_net": 20994
-        },
-        {
-          "foreign_net": -4747,
-          "institution_net": -87,
-          "individual_net": 4824
-        },
-        {
-          "foreign_net": -4949,
-          "institution_net": -196,
-          "individual_net": 5145
-        },
-        {
-          "foreign_net": -15122,
-          "institution_net": 283,
-          "individual_net": 14839
-        },
-        {
-          "foreign_net": 29486,
-          "institution_net": -437,
-          "individual_net": -29069
-        },
-        {
-          "foreign_net": 28212,
-          "institution_net": 292,
-          "individual_net": -28524
-        },
-        {
-          "foreign_net": -22044,
-          "institution_net": 0,
-          "individual_net": 22029
-        },
-        {
-          "foreign_net": -13824,
-          "institution_net": 0,
-          "individual_net": 13824
-        }
-      ],
-      "program_net": 50237
-    },
-    "007610": {
-      "name": "선도전기",
-      "foreign_net": -11000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": 175555,
-          "institution_net": -55,
-          "individual_net": -177185,
-          "program_net": -139012
-        },
-        {
-          "foreign_net": -55647,
-          "institution_net": -31,
-          "individual_net": 55600
-        },
-        {
-          "foreign_net": -19365,
-          "institution_net": -248,
-          "individual_net": 19823
-        },
-        {
-          "foreign_net": -49698,
-          "institution_net": -2975,
-          "individual_net": 52898
-        },
-        {
-          "foreign_net": 123565,
-          "institution_net": 3257,
-          "individual_net": -127506
-        },
-        {
-          "foreign_net": -168664,
-          "institution_net": 0,
-          "individual_net": 183870
-        },
-        {
-          "foreign_net": -71312,
-          "institution_net": 685,
-          "individual_net": 65867
-        },
-        {
-          "foreign_net": 67042,
-          "institution_net": -16106,
-          "individual_net": -59874
-        },
-        {
-          "foreign_net": -35973,
-          "institution_net": 12831,
-          "individual_net": 19968
-        },
-        {
-          "foreign_net": -206421,
-          "institution_net": 1202,
-          "individual_net": 427105
-        }
-      ],
-      "program_net": -139012
-    },
-    "310870": {
-      "name": "디와이씨",
-      "foreign_net": 45000,
-      "institution_net": 0,
-      "individual_net": null,
-      "history": [
-        {
-          "foreign_net": -75495,
-          "institution_net": 30,
-          "individual_net": 67803,
-          "program_net": 84007
-        },
-        {
-          "foreign_net": 150049,
-          "institution_net": 0,
-          "individual_net": -158386
-        },
-        {
-          "foreign_net": 165615,
-          "institution_net": -1191,
-          "individual_net": -171251
-        },
-        {
-          "foreign_net": 340769,
-          "institution_net": 1191,
-          "individual_net": -321042
-        },
-        {
-          "foreign_net": -23872,
-          "institution_net": 0,
-          "individual_net": 84381
-        },
-        {
-          "foreign_net": -4830,
-          "institution_net": -741,
-          "individual_net": 5571
-        },
-        {
-          "foreign_net": 28165,
-          "institution_net": 662,
-          "individual_net": -28827
-        },
-        {
-          "foreign_net": -73124,
-          "institution_net": 59,
-          "individual_net": 69290
-        },
-        {
-          "foreign_net": -8112,
-          "institution_net": -604,
-          "individual_net": 8366
-        },
-        {
-          "foreign_net": -37347,
-          "institution_net": 0,
-          "individual_net": 37347
-        }
-      ],
-      "program_net": 84007
-    },
     "274090": {
       "name": "켄코아에어로스페이스",
       "foreign_net": 75000,
@@ -16036,7 +16008,8 @@
         {
           "foreign_net": 213761,
           "institution_net": -4966,
-          "individual_net": -205049
+          "individual_net": -205049,
+          "program_net": 19911
         },
         {
           "foreign_net": -65536,
@@ -16081,6 +16054,67 @@
       ],
       "program_net": 19911
     },
+    "457370": {
+      "name": "한켐",
+      "foreign_net": 57000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -5,
+          "institution_net": -62,
+          "individual_net": 199,
+          "program_net": 136533
+        },
+        {
+          "foreign_net": 6405,
+          "institution_net": 0,
+          "individual_net": -6537,
+          "program_net": 136533
+        },
+        {
+          "foreign_net": 24088,
+          "institution_net": -1484,
+          "individual_net": -22604
+        },
+        {
+          "foreign_net": 10931,
+          "institution_net": 0,
+          "individual_net": -11055
+        },
+        {
+          "foreign_net": -11751,
+          "institution_net": 36,
+          "individual_net": 11598
+        },
+        {
+          "foreign_net": 2839,
+          "institution_net": 0,
+          "individual_net": -2816
+        },
+        {
+          "foreign_net": 242,
+          "institution_net": -39,
+          "individual_net": -203
+        },
+        {
+          "foreign_net": 216,
+          "institution_net": -19,
+          "individual_net": -220
+        },
+        {
+          "foreign_net": 2084,
+          "institution_net": 58,
+          "individual_net": -2253
+        },
+        {
+          "foreign_net": 2400,
+          "institution_net": 0,
+          "individual_net": -2400
+        }
+      ],
+      "program_net": 136533
+    },
     "446540": {
       "name": "메가터치",
       "foreign_net": 65000,
@@ -16096,7 +16130,8 @@
         {
           "foreign_net": 3508,
           "institution_net": 0,
-          "individual_net": -8403
+          "individual_net": -8403,
+          "program_net": 139322
         },
         {
           "foreign_net": 33054,
@@ -16140,6 +16175,128 @@
         }
       ],
       "program_net": 139322
+    },
+    "459100": {
+      "name": "위츠",
+      "foreign_net": 26000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -2942,
+          "institution_net": 0,
+          "individual_net": 3020,
+          "program_net": 50237
+        },
+        {
+          "foreign_net": -11273,
+          "institution_net": -79,
+          "individual_net": 10944,
+          "program_net": 50237
+        },
+        {
+          "foreign_net": -21113,
+          "institution_net": 79,
+          "individual_net": 20994
+        },
+        {
+          "foreign_net": -4747,
+          "institution_net": -87,
+          "individual_net": 4824
+        },
+        {
+          "foreign_net": -4949,
+          "institution_net": -196,
+          "individual_net": 5145
+        },
+        {
+          "foreign_net": -15122,
+          "institution_net": 283,
+          "individual_net": 14839
+        },
+        {
+          "foreign_net": 29486,
+          "institution_net": -437,
+          "individual_net": -29069
+        },
+        {
+          "foreign_net": 28212,
+          "institution_net": 292,
+          "individual_net": -28524
+        },
+        {
+          "foreign_net": -22044,
+          "institution_net": 0,
+          "individual_net": 22029
+        },
+        {
+          "foreign_net": -13824,
+          "institution_net": 0,
+          "individual_net": 13824
+        }
+      ],
+      "program_net": 50237
+    },
+    "310870": {
+      "name": "디와이씨",
+      "foreign_net": 45000,
+      "institution_net": 0,
+      "individual_net": null,
+      "history": [
+        {
+          "foreign_net": -75495,
+          "institution_net": 30,
+          "individual_net": 67803,
+          "program_net": 84007
+        },
+        {
+          "foreign_net": 150049,
+          "institution_net": 0,
+          "individual_net": -158386,
+          "program_net": 84007
+        },
+        {
+          "foreign_net": 165615,
+          "institution_net": -1191,
+          "individual_net": -171251
+        },
+        {
+          "foreign_net": 340769,
+          "institution_net": 1191,
+          "individual_net": -321042
+        },
+        {
+          "foreign_net": -23872,
+          "institution_net": 0,
+          "individual_net": 84381
+        },
+        {
+          "foreign_net": -4830,
+          "institution_net": -741,
+          "individual_net": 5571
+        },
+        {
+          "foreign_net": 28165,
+          "institution_net": 662,
+          "individual_net": -28827
+        },
+        {
+          "foreign_net": -73124,
+          "institution_net": 59,
+          "individual_net": 69290
+        },
+        {
+          "foreign_net": -8112,
+          "institution_net": -604,
+          "individual_net": 8366
+        },
+        {
+          "foreign_net": -37347,
+          "institution_net": 0,
+          "individual_net": 37347
+        }
+      ],
+      "program_net": 84007
     }
   },
   "investor_estimated": true,
@@ -32393,7 +32550,7 @@
       "foreign_net": -118998
     }
   },
-  "investor_updated_at": "2026-05-25 10:02:41",
+  "investor_updated_at": "2026-05-25 12:01:56",
   "fundamental_data": {
     "000660": {
       "per": 32.92,
@@ -34314,6 +34471,6 @@
         "nabt_ntby_amt": 569433
       }
     ],
-    "updated_at": "2026-05-25 10:02:41"
+    "updated_at": "2026-05-25 12:01:56"
   }
 }
