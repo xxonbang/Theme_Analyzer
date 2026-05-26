@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-05-25 15:42:23",
+  "generated_at": "2026-05-26 15:42:35",
   "period": {
     "start": "2026-04-27",
-    "end": "2026-05-25",
-    "trading_days": 21
+    "end": "2026-05-26",
+    "trading_days": 22
   },
   "overall": {
-    "cumulative_return": 7.41,
-    "cumulative_high_return": 161.89,
-    "avg_daily_return": 0.41,
-    "volatility": 3.92,
-    "sharpe_ratio": 0.1,
+    "cumulative_return": 11.65,
+    "cumulative_high_return": 182.13,
+    "avg_daily_return": 0.57,
+    "volatility": 3.9,
+    "sharpe_ratio": 0.14,
     "max_drawdown": 15.33,
-    "win_rate": 42.9,
-    "win_days": 9,
+    "win_rate": 45.5,
+    "win_days": 10,
     "loss_days": 10,
     "flat_days": 2,
-    "avg_win": 3.78,
+    "avg_win": 3.79,
     "avg_loss": -2.53,
-    "profit_loss_ratio": 1.49,
+    "profit_loss_ratio": 1.5,
     "max_win_streak": 4,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -0.59,
-    "win_rate": 20.0
+    "avg_return": 0.7,
+    "win_rate": 40.0
   },
   "theme_performance": [
     {
@@ -62,6 +62,20 @@
       "win_rate": 71.4,
       "avg_return": 3.73,
       "total_return": 26.14
+    },
+    {
+      "theme": "사이버 보안 및 네트워크 솔루션",
+      "count": 3,
+      "win_rate": 33.3,
+      "avg_return": 3.26,
+      "total_return": 9.77
+    },
+    {
+      "theme": "AI 반도체 및 고부가 전자부품",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 2.63,
+      "total_return": 7.89
     },
     {
       "theme": "방산/수소",
@@ -99,6 +113,13 @@
       "total_return": 5.22
     },
     {
+      "theme": "첨단 반도체 및 AI 인프라",
+      "count": 4,
+      "win_rate": 50.0,
+      "avg_return": 1.5,
+      "total_return": 6.02
+    },
+    {
       "theme": "차세대 반도체 장비 및 부품",
       "count": 3,
       "win_rate": 66.7,
@@ -132,6 +153,13 @@
       "win_rate": 0.0,
       "avg_return": 0.0,
       "total_return": 0.0
+    },
+    {
+      "theme": "2차전지 및 전기차 소재",
+      "count": 4,
+      "win_rate": 0.0,
+      "avg_return": -0.95,
+      "total_return": -3.79
     },
     {
       "theme": "신재생에너지 및 친환경 산업",
@@ -235,15 +263,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 164,
-      "win_rate": 42.7,
-      "avg_return": 0.58
+      "count": 174,
+      "win_rate": 44.3,
+      "avg_return": 0.77
     },
     {
       "market": "KOSDAQ",
-      "count": 55,
-      "win_rate": 36.4,
-      "avg_return": -0.98
+      "count": 59,
+      "win_rate": 35.6,
+      "avg_return": -0.9
     }
   ],
   "cumulative_series": [
@@ -330,6 +358,10 @@
     {
       "date": "2026-05-25",
       "cumulative_return": 7.41
+    },
+    {
+      "date": "2026-05-26",
+      "cumulative_return": 11.65
     }
   ]
 }
