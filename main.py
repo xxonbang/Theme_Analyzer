@@ -454,13 +454,28 @@ def main(test_mode: bool = False, skip_news: bool = False, skip_investor: bool =
         print(f"\n[8-2/13] 공매도 비중 수집 중... ({len(short_target_codes)}개 종목)")
         try:
             # KIS 공매도 집계는 장 마감 후 확정 → 당일(today) 요청 시 0 반환
-            # D-1 기준으로 조회해야 실제 비중 데이터 수신 가능
-            yesterday = (datetime.now(KST) - timedelta(days=1)).strftime("%Y%m%d")
+            # 직전 거래일 결정: D-1 ~ D-5 순차 시도 (휴장일 대응)
+            # 005930 삼성전자로 응답 테스트 → output2가 비어있지 않은 첫 날짜 선택
+            target_date = None
+            for delta in range(1, 6):
+                d = (datetime.now(KST) - timedelta(days=delta)).strftime("%Y%m%d")
+                test_resp = client.get_daily_short_sale("005930", d, d)
+                if test_resp.get("rt_cd") == "0":
+                    test_out = test_resp.get("output2", [])
+                    if any(o for o in test_out):
+                        target_date = d
+                        break
+
+            if target_date is None:
+                print("  ⚠ 5일 이내 거래일 없음 — 공매도 수집 건너뜀")
+                raise RuntimeError("no recent trading day for short-sale")
+
+            print(f"  대상일: {target_date}")
             target_list = [s for s in all_stocks if s.get("code", "") in short_target_codes]
             for idx, stock in enumerate(target_list):
                 code = stock.get("code", "")
                 try:
-                    resp = client.get_daily_short_sale(code, yesterday, yesterday)
+                    resp = client.get_daily_short_sale(code, target_date, target_date)
                     if resp.get("rt_cd") == "0":
                         output2 = resp.get("output2", [])
                         if output2:
