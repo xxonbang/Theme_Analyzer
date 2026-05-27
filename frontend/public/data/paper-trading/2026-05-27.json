@@ -1,0 +1,540 @@
+{
+  "trade_date": "2026-05-27",
+  "morning_timestamp": "2026-05-27 09:11:59",
+  "collected_at": "2026-05-27 15:41:36",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-27 09:11:59",
+      "prices": {
+        "000660": 2242000,
+        "005930": 319500,
+        "440110": 126400,
+        "402340": 1289000,
+        "356680": 28100,
+        "018880": 5590,
+        "001740": 12600,
+        "456010": 36200,
+        "439960": 45600
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "AI/IT 인프라"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "AI/IT 인프라"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "미래 모빌리티"
+        },
+        {
+          "code": "001740",
+          "name": "SK네트웍스",
+          "theme": "미래 모빌리티"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 09:33:06",
+      "prices": {
+        "000660": 2248000,
+        "005930": 319500,
+        "440110": 126400,
+        "402340": 1313000,
+        "356680": 28100,
+        "018880": 5590,
+        "001740": 12600,
+        "456010": 36200,
+        "439960": 45600,
+        "018260": 230000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "반도체"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "AI/IT 인프라"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "AI/IT 인프라"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "미래 모빌리티"
+        },
+        {
+          "code": "001740",
+          "name": "SK네트웍스",
+          "theme": "미래 모빌리티"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 09:36:42",
+      "prices": {
+        "000660": 2238000,
+        "005930": 317500,
+        "440110": 124000,
+        "402340": 1303000,
+        "356680": 28150,
+        "018880": 5730,
+        "001740": 13050,
+        "456010": 38250,
+        "439960": 47850,
+        "018260": 233000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 10:02:46",
+      "prices": {
+        "000660": 2248000,
+        "005930": 317500,
+        "440110": 124000,
+        "402340": 1297000,
+        "356680": 28150,
+        "018880": 5730,
+        "001740": 13050,
+        "456010": 38250,
+        "439960": 47850,
+        "018260": 230500
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 12:02:04",
+      "prices": {
+        "000660": 2333000,
+        "005930": 317500,
+        "440110": 124000,
+        "402340": 1309000,
+        "356680": 28150,
+        "018880": 5730,
+        "001740": 13050,
+        "456010": 38250,
+        "439960": 47850,
+        "018260": 250000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 12:36:52",
+      "prices": {
+        "000660": 2328000,
+        "005930": 320000,
+        "440110": 119450,
+        "402340": 1302000,
+        "356680": 26050,
+        "018880": 5460,
+        "001740": 12800,
+        "456010": 36600,
+        "439960": 43700,
+        "018260": 248000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 13:26:49",
+      "prices": {
+        "000660": 2283000,
+        "005930": 316000,
+        "440110": 119450,
+        "402340": 1280000,
+        "356680": 26050,
+        "018880": 5290,
+        "001740": 12800,
+        "456010": 36600,
+        "439960": 43700,
+        "018260": 250000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-27 14:36:42",
+      "prices": {
+        "000660": 2278000,
+        "005930": 312500,
+        "440110": 119450,
+        "402340": 1273000,
+        "356680": 26050,
+        "018880": 5310,
+        "001740": 12800,
+        "456010": 36600,
+        "439960": 43700,
+        "018260": 248500
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체",
+      "market": "KOSPI",
+      "buy_price": 2242000,
+      "close_price": 2243000,
+      "profit_rate": 0.04,
+      "profit_amount": 1000,
+      "high_price": 2358000,
+      "high_time": "11:40",
+      "high_profit_rate": 5.17,
+      "high_profit_amount": 116000,
+      "low_price": 2200000,
+      "low_profit_rate": -1.87,
+      "low_profit_amount": -42000,
+      "low_time": "09:22"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체",
+      "market": "KOSPI",
+      "buy_price": 319500,
+      "close_price": 307000,
+      "profit_rate": -3.91,
+      "profit_amount": -12500,
+      "high_price": 321500,
+      "high_time": "12:37",
+      "high_profit_rate": 0.63,
+      "high_profit_amount": 2000,
+      "low_price": 306000,
+      "low_profit_rate": -4.23,
+      "low_profit_amount": -13500,
+      "low_time": "15:29"
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "반도체",
+      "market": "KOSDAQ",
+      "buy_price": 126400,
+      "close_price": 116900,
+      "profit_rate": -7.52,
+      "profit_amount": -9500,
+      "high_price": 126000,
+      "high_time": "09:14",
+      "high_profit_rate": -0.32,
+      "high_profit_amount": -400,
+      "low_price": 114200,
+      "low_profit_rate": -9.65,
+      "low_profit_amount": -12200,
+      "low_time": "10:05"
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "theme": "AI/IT 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 1289000,
+      "close_price": 1276000,
+      "profit_rate": -1.01,
+      "profit_amount": -13000,
+      "high_price": 1337000,
+      "high_time": "09:15",
+      "high_profit_rate": 3.72,
+      "high_profit_amount": 48000,
+      "low_price": 1264000,
+      "low_profit_rate": -1.94,
+      "low_profit_amount": -25000,
+      "low_time": "14:50"
+    },
+    {
+      "code": "356680",
+      "name": "엑스게이트",
+      "theme": "AI/IT 인프라",
+      "market": "KOSDAQ",
+      "buy_price": 28100,
+      "close_price": 25750,
+      "profit_rate": -8.36,
+      "profit_amount": -2350,
+      "high_price": 30550,
+      "high_time": "09:19",
+      "high_profit_rate": 8.72,
+      "high_profit_amount": 2450,
+      "low_price": 24750,
+      "low_profit_rate": -11.92,
+      "low_profit_amount": -3350,
+      "low_time": "14:03"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "theme": "미래 모빌리티",
+      "market": "KOSPI",
+      "buy_price": 5590,
+      "close_price": 5280,
+      "profit_rate": -5.55,
+      "profit_amount": -310,
+      "high_price": 5940,
+      "high_time": "09:43",
+      "high_profit_rate": 6.26,
+      "high_profit_amount": 350,
+      "low_price": 5060,
+      "low_profit_rate": -9.48,
+      "low_profit_amount": -530,
+      "low_time": "09:00"
+    },
+    {
+      "code": "001740",
+      "name": "SK네트웍스",
+      "theme": "미래 모빌리티",
+      "market": "KOSPI",
+      "buy_price": 12600,
+      "close_price": 11380,
+      "profit_rate": -9.68,
+      "profit_amount": -1220,
+      "high_price": 13960,
+      "high_time": "09:15",
+      "high_profit_rate": 10.79,
+      "high_profit_amount": 1360,
+      "low_price": 11250,
+      "low_profit_rate": -10.71,
+      "low_profit_amount": -1350,
+      "low_time": "15:11"
+    },
+    {
+      "code": "456010",
+      "name": "아이씨티케이",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 36200,
+      "close_price": 36350,
+      "profit_rate": 0.41,
+      "profit_amount": 150,
+      "high_price": 39950,
+      "high_time": "09:32",
+      "high_profit_rate": 10.36,
+      "high_profit_amount": 3750,
+      "low_price": 30950,
+      "low_profit_rate": -14.5,
+      "low_profit_amount": -5250,
+      "low_time": "09:01"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇",
+      "market": "KOSDAQ",
+      "buy_price": 45600,
+      "close_price": 40500,
+      "profit_rate": -11.18,
+      "profit_amount": -5100,
+      "high_price": 49950,
+      "high_time": "09:24",
+      "high_profit_rate": 9.54,
+      "high_profit_amount": 4350,
+      "low_price": 40000,
+      "low_profit_rate": -12.28,
+      "low_profit_amount": -5600,
+      "low_time": "15:19"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 2,
+    "loss_stocks": 7,
+    "total_invested": 4104990,
+    "total_value": 4062160,
+    "total_profit": -42830,
+    "total_profit_rate": -1.04,
+    "high_total_value": 4282850,
+    "high_total_profit": 177860,
+    "high_total_profit_rate": 4.33,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 1
+  }
+}
