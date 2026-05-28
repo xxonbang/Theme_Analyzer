@@ -1,0 +1,625 @@
+{
+  "trade_date": "2026-05-28",
+  "morning_timestamp": "2026-05-28 09:13:21",
+  "collected_at": "2026-05-28 15:41:24",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-05-28 09:13:21",
+      "prices": {
+        "000660": 2195500,
+        "005930": 303500,
+        "456010": 33500,
+        "439960": 44650,
+        "018260": 243000,
+        "066970": 168800,
+        "373220": 425000,
+        "393890": 17070,
+        "034220": 15720,
+        "001820": 126100,
+        "347850": 108200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 09:32:47",
+      "prices": {
+        "000660": 2244500,
+        "005930": 302000,
+        "456010": 33500,
+        "439960": 44650,
+        "018260": 248000,
+        "066970": 171600,
+        "373220": 431000,
+        "393890": 18310,
+        "034220": 15720,
+        "001820": 147000,
+        "347850": 108200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "456010",
+          "name": "아이씨티케이",
+          "theme": "AI/HBM 반도체"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 09:35:15",
+      "prices": {
+        "000660": 2247000,
+        "005930": 303000,
+        "456010": 32400,
+        "439960": 43350,
+        "018260": 249000,
+        "066970": 174200,
+        "373220": 435500,
+        "393890": 17710,
+        "034220": 15330,
+        "001820": 143700,
+        "347850": 104600
+      },
+      "leader_stocks": [
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "393890",
+          "name": "더블유씨피",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "제약/바이오 (비만 치료제)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 10:02:57",
+      "prices": {
+        "000660": 2272000,
+        "005930": 303750,
+        "456010": 32400,
+        "439960": 43350,
+        "018260": 249500,
+        "066970": 170600,
+        "373220": 424500,
+        "393890": 17710,
+        "034220": 15330,
+        "001820": 146900,
+        "347850": 104600
+      },
+      "leader_stocks": [
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "393890",
+          "name": "더블유씨피",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "제약/바이오 (비만 치료제)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 12:02:11",
+      "prices": {
+        "000660": 2242000,
+        "005930": 299250,
+        "456010": 32400,
+        "439960": 43350,
+        "018260": 247000,
+        "066970": 166300,
+        "373220": 432250,
+        "393890": 17710,
+        "034220": 15330,
+        "001820": 155950,
+        "347850": 104600
+      },
+      "leader_stocks": [
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "393890",
+          "name": "더블유씨피",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "제약/바이오 (비만 치료제)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 12:36:56",
+      "prices": {
+        "000660": 2209000,
+        "005930": 296250,
+        "456010": 31200,
+        "439960": 43600,
+        "018260": 242500,
+        "066970": 164200,
+        "373220": 426750,
+        "393890": 17610,
+        "034220": 14150,
+        "001820": 146300,
+        "347850": 105400
+      },
+      "leader_stocks": [
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "393890",
+          "name": "더블유씨피",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "제약/바이오 (비만 치료제)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 13:26:48",
+      "prices": {
+        "000660": 2165000,
+        "005930": 289000,
+        "456010": 31200,
+        "439960": 43600,
+        "018260": 239500,
+        "066970": 161600,
+        "373220": 426750,
+        "393890": 17610,
+        "034220": 13830,
+        "001820": 145200,
+        "347850": 105400
+      },
+      "leader_stocks": [
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "393890",
+          "name": "더블유씨피",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "제약/바이오 (비만 치료제)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28 14:36:42",
+      "prices": {
+        "000660": 2246000,
+        "005930": 297000,
+        "456010": 31200,
+        "439960": 43600,
+        "018260": 248500,
+        "066970": 165900,
+        "373220": 426750,
+        "393890": 17610,
+        "034220": 14130,
+        "001820": 154100,
+        "347850": 105400
+      },
+      "leader_stocks": [
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "393890",
+          "name": "더블유씨피",
+          "theme": "2차전지/전기차 부품"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "theme": "IT 하드웨어/디스플레이"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "제약/바이오 (비만 치료제)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSPI",
+      "buy_price": 2195500,
+      "close_price": 2289000,
+      "profit_rate": 4.26,
+      "profit_amount": 93500,
+      "high_price": 2305000,
+      "high_time": "09:59",
+      "high_profit_rate": 4.99,
+      "high_profit_amount": 109500,
+      "low_price": 2151000,
+      "low_profit_rate": -2.03,
+      "low_profit_amount": -44500,
+      "low_time": "13:22"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSPI",
+      "buy_price": 303500,
+      "close_price": 299500,
+      "profit_rate": -1.32,
+      "profit_amount": -4000,
+      "high_price": 306500,
+      "high_time": "10:00",
+      "high_profit_rate": 0.99,
+      "high_profit_amount": 3000,
+      "low_price": 287500,
+      "low_profit_rate": -5.27,
+      "low_profit_amount": -16000,
+      "low_time": "13:22"
+    },
+    {
+      "code": "456010",
+      "name": "아이씨티케이",
+      "theme": "AI/HBM 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 33500,
+      "close_price": 31350,
+      "profit_rate": -6.42,
+      "profit_amount": -2150,
+      "high_price": 33400,
+      "high_time": "09:16",
+      "high_profit_rate": -0.3,
+      "high_profit_amount": -100,
+      "low_price": 30600,
+      "low_profit_rate": -8.66,
+      "low_profit_amount": -2900,
+      "low_time": "13:28"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇",
+      "market": "KOSDAQ",
+      "buy_price": 44650,
+      "close_price": 41300,
+      "profit_rate": -7.5,
+      "profit_amount": -3350,
+      "high_price": 47550,
+      "high_time": "09:15",
+      "high_profit_rate": 6.49,
+      "high_profit_amount": 2900,
+      "low_price": 40450,
+      "low_profit_rate": -9.41,
+      "low_profit_amount": -4200,
+      "low_time": "14:06"
+    },
+    {
+      "code": "018260",
+      "name": "삼성에스디에스",
+      "theme": "IT 서비스 및 솔루션",
+      "market": "KOSPI",
+      "buy_price": 243000,
+      "close_price": 248500,
+      "profit_rate": 2.26,
+      "profit_amount": 5500,
+      "high_price": 254000,
+      "high_time": "11:38",
+      "high_profit_rate": 4.53,
+      "high_profit_amount": 11000,
+      "low_price": 238000,
+      "low_profit_rate": -2.06,
+      "low_profit_amount": -5000,
+      "low_time": "13:15"
+    },
+    {
+      "code": "066970",
+      "name": "엘앤에프",
+      "theme": "2차전지/전기차 부품",
+      "market": "KOSPI",
+      "buy_price": 168800,
+      "close_price": 169200,
+      "profit_rate": 0.24,
+      "profit_amount": 400,
+      "high_price": 177500,
+      "high_time": "10:19",
+      "high_profit_rate": 5.15,
+      "high_profit_amount": 8700,
+      "low_price": 159900,
+      "low_profit_rate": -5.27,
+      "low_profit_amount": -8900,
+      "low_time": "09:03"
+    },
+    {
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "theme": "2차전지/전기차 부품",
+      "market": "KOSDAQ",
+      "buy_price": 425000,
+      "close_price": 442000,
+      "profit_rate": 4.0,
+      "profit_amount": 17000,
+      "high_price": 447000,
+      "high_time": "11:00",
+      "high_profit_rate": 5.18,
+      "high_profit_amount": 22000,
+      "low_price": 413000,
+      "low_profit_rate": -2.82,
+      "low_profit_amount": -12000,
+      "low_time": "09:04"
+    },
+    {
+      "code": "393890",
+      "name": "더블유씨피",
+      "theme": "2차전지/전기차 부품",
+      "market": "KOSDAQ",
+      "buy_price": 17070,
+      "close_price": 17260,
+      "profit_rate": 1.11,
+      "profit_amount": 190,
+      "high_price": 19200,
+      "high_time": "10:19",
+      "high_profit_rate": 12.48,
+      "high_profit_amount": 2130,
+      "low_price": 15510,
+      "low_profit_rate": -9.14,
+      "low_profit_amount": -1560,
+      "low_time": "09:00"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "IT 하드웨어/디스플레이",
+      "market": "KOSPI",
+      "buy_price": 15720,
+      "close_price": 14420,
+      "profit_rate": -8.27,
+      "profit_amount": -1300,
+      "high_price": 16150,
+      "high_time": "09:17",
+      "high_profit_rate": 2.74,
+      "high_profit_amount": 430,
+      "low_price": 13750,
+      "low_profit_rate": -12.53,
+      "low_profit_amount": -1970,
+      "low_time": "14:06"
+    },
+    {
+      "code": "001820",
+      "name": "삼화콘덴서",
+      "theme": "IT 하드웨어/디스플레이",
+      "market": "KOSPI",
+      "buy_price": 126100,
+      "close_price": 156200,
+      "profit_rate": 23.87,
+      "profit_amount": 30100,
+      "high_price": 159200,
+      "high_time": "11:54",
+      "high_profit_rate": 26.25,
+      "high_profit_amount": 33100,
+      "low_price": 118400,
+      "low_profit_rate": -6.11,
+      "low_profit_amount": -7700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "theme": "제약/바이오 (비만 치료제)",
+      "market": "KOSDAQ",
+      "buy_price": 108200,
+      "close_price": 107500,
+      "profit_rate": -0.65,
+      "profit_amount": -700,
+      "high_price": 114700,
+      "high_time": "10:32",
+      "high_profit_rate": 6.01,
+      "high_profit_amount": 6500,
+      "low_price": 102300,
+      "low_profit_rate": -5.45,
+      "low_profit_amount": -5900,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 6,
+    "loss_stocks": 5,
+    "total_invested": 3681040,
+    "total_value": 3816230,
+    "total_profit": 135190,
+    "total_profit_rate": 3.67,
+    "high_total_value": 3880200,
+    "high_total_profit": 199160,
+    "high_total_profit_rate": 5.41,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 1
+  }
+}
