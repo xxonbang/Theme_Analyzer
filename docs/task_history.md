@@ -4,6 +4,31 @@
 
 ---
 
+## 2026-05-29
+
+### [진단/디버그] 장중 forecast 4시간 30분 누적 실패 — Gemini Search grounding 일일 quota 소진 확인 (2026-05-29 14:43 KST)
+- **사용자 보고**: 장중 시스템 점검 중 발견 — theme-forecast.json `generated_at: 10:04:21` 이후 갱신 안 됨
+- **증상**:
+  - 10:00 cron success 후 10:30/11:30/13:00/13:30/14:30 모두 "모든 Gemini API 키로 예측 실패" (워크플로 status는 success로 종료, 사용자 화면 데이터만 stale)
+  - forecast-history 5/29 파일 3개로 멈춤 (07:34, 09:34, 10:04)
+- **진단**:
+  - 로컬에서 5개 키 단순 호출(검색 도구 없음) → 5개 모두 200 OK ✅
+  - 로컬에서 5개 키 Phase 1 패턴(google_search 도구 사용):
+    - 14:33: 키 1, 4 → 429 RESOURCE_EXHAUSTED / 키 2,3,5 → 200 OK
+    - 14:40: 키 1, 2 → 503 UNAVAILABLE / 키 3,4,5 → 200 OK
+  - 워크플로 14:39 수동 트리거 결과 (logger 승격 후): 5개 키 전부 `GeminiDailyQuotaExhausted`
+- **원인 확정**: Gemini 2.5 Flash의 **Google Search grounding 무료 tier RPD(일일 요청) 한도** 별도 적용. 10:00~14:30 동안 누적 호출로 5개 키 모두 소진. 직접 호출에서 일부 키가 200 OK인 이유는 RPM(분당) 한도만 회복되고 RPD는 일일 reset 대기.
+- **logger 승격** (`modules/theme_forecast.py:1336-1380`):
+  - `logger.debug` → `print`로 5개 분기 모두 변경 (Phase 1 None, GeminiDailyQuotaExhausted, HTTPError 429/503/500/502/504, 일반 Exception)
+  - HTTPError 시 response body 200자도 캡처
+  - 운영용으로도 유용하니 유지 결정
+- **회복 예측**: Google AI PT 자정 = KST 16:00 (PDT) — 약 1시간 20분 후 quota 일일 reset. 다만 마지막 intraday cron은 14:30 → 오늘은 회복돼도 추가 실행 없음. **내일 09:30 첫 cron부터 정상화 예상**.
+- **운영 영향**: 사용자 화면 "장중 테마 예측 (today)" 영역 10:04 데이터 그대로 노출 (today 1개 테마). short_term/long_term은 무관 (장중 갱신 안 됨)
+- **권장 추가 조치 (사용자 결정 필요)**: Phase 1 5개 키 모두 quota 소진 시 `use_search=False`로 fallback 추가 — 검색 없는 일반 추론으로라도 갱신
+- **검증**: Python AST PASS, push 완료 (`02c0ad0b`)
+
+---
+
 ## 2026-05-26
 
 ### [버그픽스] 공매도 D-1 fix 휴장일 보강 — 영업일 인지 D-1~D-5 폴백 (2026-05-26 22:21 KST)
