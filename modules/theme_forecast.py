@@ -1338,13 +1338,13 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
 
     for key_idx, api_key in enumerate(api_keys):
         if api_key in _exhausted_keys:
-            logger.debug("키 %d 일일 할당 소진, 건너뜀", key_idx + 1)
+            print(f"  [경량] 키 {key_idx + 1} 일일 할당 소진 (캐시), 건너뜀")
             continue
         try:
             print(f"  Phase 1: 검색 + 추론 (키 {key_idx + 1}/{len(api_keys)})...")
             reasoning, sources = _call_gemini_phase1(phase1_prompt, api_key, use_search=True)
             if not reasoning:
-                logger.debug("Phase 1 실패, 다음 키로 전환")
+                print(f"  [경량] 키 {key_idx + 1} Phase 1 응답 비어있음 (reasoning=None), 다음 키")
                 continue
 
             print(f"  Phase 2: JSON 구조화...")
@@ -1353,20 +1353,21 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
                 result["_news_sources"] = sources
                 return result
 
-            logger.debug("Phase 2 실패, 다음 키로 전환")
+            print(f"  [경량] 키 {key_idx + 1} Phase 2 결과 None, 다음 키")
         except GeminiDailyQuotaExhausted:
             _exhausted_keys.add(api_key)
-            logger.debug("일일 할당 초과 (키 %d), 다음 키로 전환", key_idx + 1)
+            print(f"  [경량] 키 {key_idx + 1} 일일 할당 초과 (GeminiDailyQuotaExhausted), 다음 키")
             continue
         except requests.exceptions.HTTPError as e:
             status = e.response.status_code if e.response is not None else 0
+            body = e.response.text[:200] if e.response is not None else ""
             if status in (429, 503):
-                logger.debug("API 제한 (%s), 다음 키로 전환", status)
+                print(f"  [경량] 키 {key_idx + 1} HTTP {status} (제한), body={body!r}, 다음 키")
                 continue
             if status in (500, 502, 504):
-                logger.debug("서버 오류 (%s), 다음 키로 전환", status)
+                print(f"  [경량] 키 {key_idx + 1} HTTP {status} (서버 오류), 다음 키")
                 continue
-            logger.error("Gemini API 오류 (%s): %s", status, e)
+            print(f"  [경량] 키 {key_idx + 1} HTTP {status} 오류: {e}, body={body!r}")
             if status in (400, 401, 403):
                 try:
                     from modules.api_health import report_key_failure
@@ -1375,7 +1376,7 @@ def _run_intraday_lightweight(context: str, api_keys: List[str]) -> Optional[Dic
                     pass
             return None
         except Exception as e:
-            logger.warning("경량 파이프라인 오류: %s", e)
+            print(f"  [경량] 키 {key_idx + 1} 예외: {type(e).__name__}: {e}")
             continue
 
     return None
