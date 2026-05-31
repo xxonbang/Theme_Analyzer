@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-05-29 10:04:21",
+  "updated_at": "2026-06-01 07:35:37",
   "entries": [
+    {
+      "filename": "2026-06-01_0735.json",
+      "date": "2026-06-01",
+      "time": "07:35",
+      "path": "data/forecast-history/2026-06-01_0735.json"
+    },
     {
       "filename": "2026-05-29_1004.json",
       "date": "2026-05-29",
@@ -690,18 +696,6 @@
       "date": "2026-05-04",
       "time": "07:35",
       "path": "data/forecast-history/2026-05-04_0735.json"
-    },
-    {
-      "filename": "2026-05-01_1133.json",
-      "date": "2026-05-01",
-      "time": "11:33",
-      "path": "data/forecast-history/2026-05-01_1133.json"
-    },
-    {
-      "filename": "2026-05-01_0936.json",
-      "date": "2026-05-01",
-      "time": "09:36",
-      "path": "data/forecast-history/2026-05-01_0936.json"
     }
   ]
 }
