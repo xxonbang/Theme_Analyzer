@@ -1,0 +1,547 @@
+{
+  "trade_date": "2026-06-01",
+  "morning_timestamp": "2026-06-01 09:12:21",
+  "collected_at": "2026-06-01 15:41:31",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-01 09:12:21",
+      "prices": {
+        "454910": 132100,
+        "108490": 390000,
+        "066570": 380000,
+        "064400": 145400,
+        "011070": 1669000,
+        "035420": 249000,
+        "018260": 357500,
+        "307950": 1009000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로보틱스 및 AI 자동화"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로보틱스 및 AI 자동화"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/클라우드/플랫폼 서비스"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "AI/클라우드/플랫폼 서비스"
+        },
+        {
+          "code": "307950",
+          "name": "현대오토에버",
+          "theme": "AI/클라우드/플랫폼 서비스"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 09:32:39",
+      "prices": {
+        "454910": 132100,
+        "108490": 401000,
+        "066570": 380000,
+        "064400": 145400,
+        "011070": 1642000,
+        "035420": 249000,
+        "018260": 349500,
+        "307950": 986000
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로보틱스 및 AI 자동화"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로보틱스 및 AI 자동화"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/클라우드/플랫폼 서비스"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "AI/클라우드/플랫폼 서비스"
+        },
+        {
+          "code": "307950",
+          "name": "현대오토에버",
+          "theme": "AI/클라우드/플랫폼 서비스"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 09:37:29",
+      "prices": {
+        "454910": 133500,
+        "108490": 400000,
+        "066570": 373000,
+        "064400": 142400,
+        "011070": 1649000,
+        "035420": 254000,
+        "018260": 351500,
+        "307950": 986000
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 10:02:40",
+      "prices": {
+        "454910": 133500,
+        "108490": 398500,
+        "066570": 373000,
+        "064400": 142400,
+        "011070": 1584000,
+        "035420": 259000,
+        "018260": 348500,
+        "307950": 958500
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 12:01:53",
+      "prices": {
+        "454910": 133500,
+        "108490": 415000,
+        "066570": 373000,
+        "064400": 142400,
+        "011070": 1623000,
+        "035420": 269000,
+        "018260": 384000,
+        "307950": 984000
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 12:37:03",
+      "prices": {
+        "454910": 138400,
+        "108490": 411500,
+        "066570": 380500,
+        "064400": 146700,
+        "011070": 1731000,
+        "035420": 268750,
+        "018260": 380500,
+        "307950": 995000
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 13:26:44",
+      "prices": {
+        "454910": 138400,
+        "108490": 409500,
+        "066570": 380500,
+        "064400": 146700,
+        "011070": 1667000,
+        "035420": 268750,
+        "018260": 381500,
+        "307950": 1000000
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-01 14:36:46",
+      "prices": {
+        "454910": 138400,
+        "108490": 398500,
+        "066570": 380500,
+        "064400": 146700,
+        "011070": 1536000,
+        "035420": 268750,
+        "018260": 355000,
+        "307950": 943000
+      },
+      "leader_stocks": [
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "theme": "LG 그룹주 AI/로봇 신사업 시너지"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇 산업 성장"
+        },
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 서비스 및 AI 인프라 투자 확대"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로보틱스 및 AI 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 132100,
+      "close_price": 138400,
+      "profit_rate": 4.77,
+      "profit_amount": 6300,
+      "high_price": 138400,
+      "high_time": "15:30",
+      "high_profit_rate": 4.77,
+      "high_profit_amount": 6300,
+      "low_price": 123200,
+      "low_profit_rate": -6.74,
+      "low_profit_amount": -8900,
+      "low_time": "09:02"
+    },
+    {
+      "code": "108490",
+      "name": "로보티즈",
+      "theme": "로보틱스 및 AI 자동화",
+      "market": "KOSPI",
+      "buy_price": 390000,
+      "close_price": 402500,
+      "profit_rate": 3.21,
+      "profit_amount": 12500,
+      "high_price": 418000,
+      "high_time": "12:08",
+      "high_profit_rate": 7.18,
+      "high_profit_amount": 28000,
+      "low_price": 352500,
+      "low_profit_rate": -9.62,
+      "low_profit_amount": -37500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "066570",
+      "name": "LG전자",
+      "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신",
+      "market": "KOSPI",
+      "buy_price": 380000,
+      "close_price": 380500,
+      "profit_rate": 0.13,
+      "profit_amount": 500,
+      "high_price": 380500,
+      "high_time": "15:30",
+      "high_profit_rate": 0.13,
+      "high_profit_amount": 500,
+      "low_price": 358500,
+      "low_profit_rate": -5.66,
+      "low_profit_amount": -21500,
+      "low_time": "09:54"
+    },
+    {
+      "code": "064400",
+      "name": "LG씨엔에스",
+      "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신",
+      "market": "KOSPI",
+      "buy_price": 145400,
+      "close_price": 143700,
+      "profit_rate": -1.17,
+      "profit_amount": -1700,
+      "high_price": 147900,
+      "high_time": "13:41",
+      "high_profit_rate": 1.72,
+      "high_profit_amount": 2500,
+      "low_price": 134700,
+      "low_profit_rate": -7.36,
+      "low_profit_amount": -10700,
+      "low_time": "14:30"
+    },
+    {
+      "code": "011070",
+      "name": "LG이노텍",
+      "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신",
+      "market": "KOSPI",
+      "buy_price": 1669000,
+      "close_price": 1530000,
+      "profit_rate": -8.33,
+      "profit_amount": -139000,
+      "high_price": 1778000,
+      "high_time": "09:13",
+      "high_profit_rate": 6.53,
+      "high_profit_amount": 109000,
+      "low_price": 1490000,
+      "low_profit_rate": -10.72,
+      "low_profit_amount": -179000,
+      "low_time": "09:59"
+    },
+    {
+      "code": "035420",
+      "name": "NAVER",
+      "theme": "AI/클라우드/플랫폼 서비스",
+      "market": "KOSPI",
+      "buy_price": 249000,
+      "close_price": 271500,
+      "profit_rate": 9.04,
+      "profit_amount": 22500,
+      "high_price": 304000,
+      "high_time": "14:03",
+      "high_profit_rate": 22.09,
+      "high_profit_amount": 55000,
+      "low_price": 244500,
+      "low_profit_rate": -1.81,
+      "low_profit_amount": -4500,
+      "low_time": "09:05"
+    },
+    {
+      "code": "018260",
+      "name": "삼성에스디에스",
+      "theme": "AI/클라우드/플랫폼 서비스",
+      "market": "KOSPI",
+      "buy_price": 357500,
+      "close_price": 362000,
+      "profit_rate": 1.26,
+      "profit_amount": 4500,
+      "high_price": 388500,
+      "high_time": "12:08",
+      "high_profit_rate": 8.67,
+      "high_profit_amount": 31000,
+      "low_price": 314000,
+      "low_profit_rate": -12.17,
+      "low_profit_amount": -43500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "307950",
+      "name": "현대오토에버",
+      "theme": "AI/클라우드/플랫폼 서비스",
+      "market": "KOSDAQ",
+      "buy_price": 1009000,
+      "close_price": 938000,
+      "profit_rate": -7.04,
+      "profit_amount": -71000,
+      "high_price": 1066000,
+      "high_time": "09:13",
+      "high_profit_rate": 5.65,
+      "high_profit_amount": 57000,
+      "low_price": 905000,
+      "low_profit_rate": -10.31,
+      "low_profit_amount": -104000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 5,
+    "loss_stocks": 3,
+    "total_invested": 4332000,
+    "total_value": 4166600,
+    "total_profit": -165400,
+    "total_profit_rate": -3.82,
+    "high_total_value": 4621300,
+    "high_total_profit": 289300,
+    "high_total_profit_rate": 6.68,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 0
+  }
+}
