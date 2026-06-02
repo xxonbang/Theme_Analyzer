@@ -1,0 +1,700 @@
+{
+  "trade_date": "2026-06-02",
+  "morning_timestamp": "2026-06-02 09:13:30",
+  "collected_at": "2026-06-02 15:41:33",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-02 09:13:30",
+      "prices": {
+        "037560": 3600,
+        "017670": 120700,
+        "090360": 136300,
+        "454910": 149100,
+        "417860": 13710,
+        "205100": 1893,
+        "128940": 561000,
+        "347850": 88500,
+        "005930": 353500,
+        "034220": 16150,
+        "373220": 481000,
+        "131400": 1634
+      },
+      "leader_stocks": [
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신 및 미디어 콘텐츠"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신 및 미디어 콘텐츠"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 산업"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능 (AI) 및 데이터 솔루션"
+        },
+        {
+          "code": "205100",
+          "name": "엑셈",
+          "theme": "인공지능 (AI) 및 데이터 솔루션"
+        },
+        {
+          "code": "128940",
+          "name": "한미약품",
+          "theme": "헬스케어/바이오 신약 개발"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 신약 개발"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 09:31:50",
+      "prices": {
+        "037560": 3600,
+        "017670": 124600,
+        "090360": 157300,
+        "454910": 149100,
+        "417860": 13710,
+        "205100": 1893,
+        "128940": 542000,
+        "347850": 88500,
+        "005930": 353500,
+        "034220": 16150,
+        "373220": 481000,
+        "131400": 1738
+      },
+      "leader_stocks": [
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신 및 미디어 콘텐츠"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신 및 미디어 콘텐츠"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 산업"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 산업"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능 (AI) 및 데이터 솔루션"
+        },
+        {
+          "code": "205100",
+          "name": "엑셈",
+          "theme": "인공지능 (AI) 및 데이터 솔루션"
+        },
+        {
+          "code": "128940",
+          "name": "한미약품",
+          "theme": "헬스케어/바이오 신약 개발"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 신약 개발"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 09:36:44",
+      "prices": {
+        "037560": 3220,
+        "017670": 122600,
+        "090360": 151900,
+        "454910": 154500,
+        "417860": 12670,
+        "205100": 1909,
+        "128940": 540000,
+        "347850": 85200,
+        "005930": 361000,
+        "034220": 16330,
+        "373220": 479500,
+        "131400": 1773
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 10:02:41",
+      "prices": {
+        "037560": 3220,
+        "017670": 122600,
+        "090360": 158800,
+        "454910": 154500,
+        "417860": 12670,
+        "205100": 1909,
+        "347850": 85200,
+        "005930": 361000,
+        "034220": 16330,
+        "373220": 479500,
+        "131400": 1773
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 12:01:55",
+      "prices": {
+        "037560": 3220,
+        "017670": 122600,
+        "090360": 158800,
+        "454910": 154500,
+        "417860": 12720,
+        "205100": 1844,
+        "347850": 85200,
+        "005930": 361000,
+        "034220": 16330,
+        "373220": 479500,
+        "131400": 1773
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 12:37:03",
+      "prices": {
+        "037560": 3315,
+        "017670": 133600,
+        "090360": 158800,
+        "454910": 153500,
+        "347850": 88500,
+        "005930": 350500,
+        "034220": 16620,
+        "373220": 443250,
+        "131400": 1815
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 13:26:48",
+      "prices": {
+        "037560": 3315,
+        "017670": 133600,
+        "090360": 158800,
+        "454910": 153500,
+        "347850": 88500,
+        "005930": 349500,
+        "034220": 16500,
+        "373220": 442000,
+        "131400": 1815
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-02 14:36:48",
+      "prices": {
+        "037560": 3315,
+        "017670": 133600,
+        "090360": 158800,
+        "454910": 153500,
+        "347850": 88500,
+        "005930": 360500,
+        "034220": 16990,
+        "373220": 446500,
+        "131400": 1815
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "037560",
+          "name": "LG헬로비전",
+          "theme": "통신업 (Telecommunication)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "반도체/디스플레이 (Semiconductor/Display)"
+        },
+        {
+          "code": "373220",
+          "name": "LG에너지솔루션",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "037560",
+      "name": "LG헬로비전",
+      "theme": "통신 및 미디어 콘텐츠",
+      "market": "KOSPI",
+      "buy_price": 3600,
+      "close_price": 3170,
+      "profit_rate": -11.94,
+      "profit_amount": -430,
+      "high_price": 3590,
+      "high_time": "10:58",
+      "high_profit_rate": -0.28,
+      "high_profit_amount": -10,
+      "low_price": 2810,
+      "low_profit_rate": -21.94,
+      "low_profit_amount": -790,
+      "low_time": "09:40"
+    },
+    {
+      "code": "017670",
+      "name": "SK텔레콤",
+      "theme": "통신 및 미디어 콘텐츠",
+      "market": "KOSPI",
+      "buy_price": 120700,
+      "close_price": 125200,
+      "profit_rate": 3.73,
+      "profit_amount": 4500,
+      "high_price": 139500,
+      "high_time": "12:19",
+      "high_profit_rate": 15.58,
+      "high_profit_amount": 18800,
+      "low_price": 112100,
+      "low_profit_rate": -7.13,
+      "low_profit_amount": -8600,
+      "low_time": "09:08"
+    },
+    {
+      "code": "090360",
+      "name": "로보스타",
+      "theme": "로봇 산업",
+      "market": "KOSPI",
+      "buy_price": 136300,
+      "close_price": 158800,
+      "profit_rate": 16.51,
+      "profit_amount": 22500,
+      "high_price": 158800,
+      "high_time": "15:30",
+      "high_profit_rate": 16.51,
+      "high_profit_amount": 22500,
+      "low_price": 135000,
+      "low_profit_rate": -0.95,
+      "low_profit_amount": -1300,
+      "low_time": "09:09"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇 산업",
+      "market": "KOSDAQ",
+      "buy_price": 149100,
+      "close_price": 166700,
+      "profit_rate": 11.8,
+      "profit_amount": 17600,
+      "high_price": 168500,
+      "high_time": "14:28",
+      "high_profit_rate": 13.01,
+      "high_profit_amount": 19400,
+      "low_price": 146000,
+      "low_profit_rate": -2.08,
+      "low_profit_amount": -3100,
+      "low_time": "09:16"
+    },
+    {
+      "code": "417860",
+      "name": "오브젠",
+      "theme": "인공지능 (AI) 및 데이터 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 13710,
+      "close_price": 10540,
+      "profit_rate": -23.12,
+      "profit_amount": -3170,
+      "high_price": 13820,
+      "high_time": "09:17",
+      "high_profit_rate": 0.8,
+      "high_profit_amount": 110,
+      "low_price": 10390,
+      "low_profit_rate": -24.22,
+      "low_profit_amount": -3320,
+      "low_time": "14:15"
+    },
+    {
+      "code": "205100",
+      "name": "엑셈",
+      "theme": "인공지능 (AI) 및 데이터 솔루션",
+      "market": "KOSPI",
+      "buy_price": 1893,
+      "close_price": 1803,
+      "profit_rate": -4.75,
+      "profit_amount": -90,
+      "high_price": 1975,
+      "high_time": "09:22",
+      "high_profit_rate": 4.33,
+      "high_profit_amount": 82,
+      "low_price": 1800,
+      "low_profit_rate": -4.91,
+      "low_profit_amount": -93,
+      "low_time": "09:00"
+    },
+    {
+      "code": "128940",
+      "name": "한미약품",
+      "theme": "헬스케어/바이오 신약 개발",
+      "market": "KOSPI",
+      "buy_price": 561000,
+      "close_price": 507000,
+      "profit_rate": -9.63,
+      "profit_amount": -54000,
+      "high_price": 552000,
+      "high_time": "10:08",
+      "high_profit_rate": -1.6,
+      "high_profit_amount": -9000,
+      "low_price": 503000,
+      "low_profit_rate": -10.34,
+      "low_profit_amount": -58000,
+      "low_time": "15:19"
+    },
+    {
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "theme": "헬스케어/바이오 신약 개발",
+      "market": "KOSDAQ",
+      "buy_price": 88500,
+      "close_price": 84100,
+      "profit_rate": -4.97,
+      "profit_amount": -4400,
+      "high_price": 90000,
+      "high_time": "12:08",
+      "high_profit_rate": 1.69,
+      "high_profit_amount": 1500,
+      "low_price": 77700,
+      "low_profit_rate": -12.2,
+      "low_profit_amount": -10800,
+      "low_time": "09:02"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/디스플레이 (Semiconductor/Display)",
+      "market": "KOSPI",
+      "buy_price": 353500,
+      "close_price": 360500,
+      "profit_rate": 1.98,
+      "profit_amount": 7000,
+      "high_price": 366500,
+      "high_time": "09:34",
+      "high_profit_rate": 3.68,
+      "high_profit_amount": 13000,
+      "low_price": 347000,
+      "low_profit_rate": -1.84,
+      "low_profit_amount": -6500,
+      "low_time": "11:09"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "반도체/디스플레이 (Semiconductor/Display)",
+      "market": "KOSPI",
+      "buy_price": 16150,
+      "close_price": 16690,
+      "profit_rate": 3.34,
+      "profit_amount": 540,
+      "high_price": 17750,
+      "high_time": "09:50",
+      "high_profit_rate": 9.91,
+      "high_profit_amount": 1600,
+      "low_price": 15250,
+      "low_profit_rate": -5.57,
+      "low_profit_amount": -900,
+      "low_time": "09:09"
+    },
+    {
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)",
+      "market": "KOSDAQ",
+      "buy_price": 481000,
+      "close_price": 442500,
+      "profit_rate": -8.0,
+      "profit_amount": -38500,
+      "high_price": 495000,
+      "high_time": "09:17",
+      "high_profit_rate": 2.91,
+      "high_profit_amount": 14000,
+      "low_price": 438000,
+      "low_profit_rate": -8.94,
+      "low_profit_amount": -43000,
+      "low_time": "13:45"
+    },
+    {
+      "code": "131400",
+      "name": "이브이첨단소재",
+      "theme": "2차전지/전기차 소재 (Secondary Battery/EV Materials)",
+      "market": "KOSPI",
+      "buy_price": 1634,
+      "close_price": 1633,
+      "profit_rate": -0.06,
+      "profit_amount": -1,
+      "high_price": 1910,
+      "high_time": "10:26",
+      "high_profit_rate": 16.89,
+      "high_profit_amount": 276,
+      "low_price": 1487,
+      "low_profit_rate": -9.0,
+      "low_profit_amount": -147,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 12,
+    "profit_stocks": 5,
+    "loss_stocks": 7,
+    "total_invested": 1927087,
+    "total_value": 1878636,
+    "total_profit": -48451,
+    "total_profit_rate": -2.51,
+    "high_total_value": 2009345,
+    "high_total_profit": 82258,
+    "high_total_profit_rate": 4.27,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 2
+  }
+}
