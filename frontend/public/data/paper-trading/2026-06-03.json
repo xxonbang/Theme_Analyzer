@@ -1,0 +1,329 @@
+{
+  "trade_date": "2026-06-03",
+  "morning_timestamp": "2026-06-03 09:13:29",
+  "collected_at": "2026-06-03 15:41:28",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-03 09:13:29",
+      "prices": {
+        "454910": 166700,
+        "090360": 158800,
+        "017670": 125200,
+        "402340": 1346000,
+        "034220": 16690,
+        "043260": 47500
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 인공지능 (Robotics & AI)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 및 인공지능 (Robotics & AI)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신 및 IT 서비스 (Telecommunications & IT Services)"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "통신 및 IT 서비스 (Telecommunications & IT Services)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이 및 전자부품 (Display & Electronic Components)"
+        },
+        {
+          "code": "043260",
+          "name": "성호전자",
+          "theme": "디스플레이 및 전자부품 (Display & Electronic Components)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-03 09:32:38",
+      "prices": {
+        "454910": 166700,
+        "090360": 158800,
+        "017670": 125200,
+        "402340": 1346000,
+        "034220": 16690,
+        "043260": 47500
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 인공지능 (Robotics & AI)"
+        },
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 및 인공지능 (Robotics & AI)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신 및 IT 서비스 (Telecommunications & IT Services)"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "통신 및 IT 서비스 (Telecommunications & IT Services)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이 및 전자부품 (Display & Electronic Components)"
+        },
+        {
+          "code": "043260",
+          "name": "성호전자",
+          "theme": "디스플레이 및 전자부품 (Display & Electronic Components)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-03 09:36:02",
+      "prices": {
+        "454910": 166700,
+        "090360": 158800,
+        "017670": 125200,
+        "402340": 1346000,
+        "034220": 16690,
+        "043260": 47500
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 로봇"
+        },
+        {
+          "code": "043260",
+          "name": "성호전자",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-03 10:02:51",
+      "prices": {
+        "454910": 166700,
+        "090360": 158800,
+        "017670": 125200,
+        "402340": 1346000,
+        "034220": 16690,
+        "043260": 47500
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 로봇"
+        },
+        {
+          "code": "043260",
+          "name": "성호전자",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-03 12:02:03",
+      "prices": {
+        "454910": 166700,
+        "090360": 158800,
+        "017670": 125200,
+        "402340": 1346000,
+        "034220": 16690,
+        "043260": 47500
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 로봇"
+        },
+        {
+          "code": "043260",
+          "name": "성호전자",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-03 13:26:41",
+      "prices": {
+        "454910": 166700,
+        "090360": 158800,
+        "017670": 125200,
+        "402340": 1346000,
+        "034220": 16690,
+        "043260": 47500
+      },
+      "leader_stocks": [
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI 로봇"
+        },
+        {
+          "code": "043260",
+          "name": "성호전자",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "AI 인프라 및 차세대 디스플레이"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇 및 인공지능 (Robotics & AI)",
+      "market": "KOSDAQ",
+      "buy_price": 166700,
+      "close_price": 166700,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 168500,
+      "high_time": "14:28",
+      "high_profit_rate": 1.08,
+      "high_profit_amount": 1800,
+      "low_price": 146000,
+      "low_profit_rate": -12.42,
+      "low_profit_amount": -20700,
+      "low_time": "09:16"
+    },
+    {
+      "code": "090360",
+      "name": "로보스타",
+      "theme": "로봇 및 인공지능 (Robotics & AI)",
+      "market": "KOSPI",
+      "buy_price": 158800,
+      "close_price": 158800,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 158800,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 135000,
+      "low_profit_rate": -14.99,
+      "low_profit_amount": -23800,
+      "low_time": "09:09"
+    },
+    {
+      "code": "017670",
+      "name": "SK텔레콤",
+      "theme": "통신 및 IT 서비스 (Telecommunications & IT Services)",
+      "market": "KOSPI",
+      "buy_price": 125200,
+      "close_price": 125200,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 139500,
+      "high_time": "12:19",
+      "high_profit_rate": 11.42,
+      "high_profit_amount": 14300,
+      "low_price": 112100,
+      "low_profit_rate": -10.46,
+      "low_profit_amount": -13100,
+      "low_time": "09:08"
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "theme": "통신 및 IT 서비스 (Telecommunications & IT Services)",
+      "market": "KOSDAQ",
+      "buy_price": 1346000,
+      "close_price": 1346000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1375000,
+      "high_time": "14:50",
+      "high_profit_rate": 2.15,
+      "high_profit_amount": 29000,
+      "low_price": 1212000,
+      "low_profit_rate": -9.96,
+      "low_profit_amount": -134000,
+      "low_time": "09:16"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "디스플레이 및 전자부품 (Display & Electronic Components)",
+      "market": "KOSPI",
+      "buy_price": 16690,
+      "close_price": 16690,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 17750,
+      "high_time": "09:50",
+      "high_profit_rate": 6.35,
+      "high_profit_amount": 1060,
+      "low_price": 15250,
+      "low_profit_rate": -8.63,
+      "low_profit_amount": -1440,
+      "low_time": "09:09"
+    },
+    {
+      "code": "043260",
+      "name": "성호전자",
+      "theme": "디스플레이 및 전자부품 (Display & Electronic Components)",
+      "market": "KOSPI",
+      "buy_price": 47500,
+      "close_price": 47500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 49600,
+      "high_time": "14:20",
+      "high_profit_rate": 4.42,
+      "high_profit_amount": 2100,
+      "low_price": 39700,
+      "low_profit_rate": -16.42,
+      "low_profit_amount": -7800,
+      "low_time": "09:19"
+    }
+  ],
+  "summary": {
+    "total_stocks": 6,
+    "profit_stocks": 0,
+    "loss_stocks": 0,
+    "total_invested": 1860890,
+    "total_value": 1860890,
+    "total_profit": 0,
+    "total_profit_rate": 0.0,
+    "high_total_value": 1909150,
+    "high_total_profit": 48260,
+    "high_total_profit_rate": 2.59,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 0
+  }
+}
