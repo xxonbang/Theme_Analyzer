@@ -1,0 +1,612 @@
+{
+  "trade_date": "2026-06-04",
+  "morning_timestamp": "2026-06-04 09:14:14",
+  "collected_at": "2026-06-04 15:41:33",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-04 09:14:14",
+      "prices": {
+        "440110": 115300,
+        "319660": 104600,
+        "240810": 116800,
+        "003780": 5950,
+        "010640": 2280,
+        "100250": 3190,
+        "010170": 21700,
+        "036930": 211500,
+        "051630": 2045,
+        "486990": 39450,
+        "454910": 153900
+      },
+      "leader_stocks": [
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹"
+        },
+        {
+          "code": "100250",
+          "name": "진양홀딩스",
+          "theme": "진양그룹"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신 인프라 / 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04 09:32:41",
+      "prices": {
+        "440110": 115300,
+        "319660": 108600,
+        "240810": 127200,
+        "003780": 5950,
+        "010640": 2280,
+        "100250": 3200,
+        "010170": 21700,
+        "036930": 239500,
+        "051630": 2045,
+        "486990": 39450,
+        "454910": 153900
+      },
+      "leader_stocks": [
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI/반도체"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹"
+        },
+        {
+          "code": "100250",
+          "name": "진양홀딩스",
+          "theme": "진양그룹"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "통신 인프라 / 광통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04 09:37:19",
+      "prices": {
+        "440110": 111000,
+        "319660": 106600,
+        "240810": 124900,
+        "003780": 5810,
+        "010640": 2160,
+        "010170": 20400,
+        "036930": 234000,
+        "051630": 2045,
+        "486990": 38700,
+        "454910": 151700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "051630",
+          "name": "진양화학",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "486990",
+          "name": "노타",
+          "theme": "로봇 및 AI 솔루션"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 AI 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04 12:02:04",
+      "prices": {
+        "440110": 111000,
+        "319660": 115100,
+        "240810": 127200,
+        "003780": 5810,
+        "010640": 2160,
+        "010170": 20100,
+        "036930": 244000,
+        "051630": 2045,
+        "486990": 38700,
+        "454910": 151700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "051630",
+          "name": "진양화학",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "486990",
+          "name": "노타",
+          "theme": "로봇 및 AI 솔루션"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 AI 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04 12:36:59",
+      "prices": {
+        "440110": 114300,
+        "319660": 115100,
+        "240810": 127200,
+        "003780": 5250,
+        "010640": 2030,
+        "010170": 20050,
+        "036930": 240000,
+        "051630": 2030,
+        "486990": 38500,
+        "454910": 160700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "051630",
+          "name": "진양화학",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "486990",
+          "name": "노타",
+          "theme": "로봇 및 AI 솔루션"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 AI 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04 13:26:48",
+      "prices": {
+        "440110": 114500,
+        "319660": 116100,
+        "240810": 127200,
+        "003780": 5150,
+        "010640": 2030,
+        "010170": 20300,
+        "036930": 240000,
+        "051630": 2030,
+        "486990": 38650,
+        "454910": 160700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "051630",
+          "name": "진양화학",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "486990",
+          "name": "노타",
+          "theme": "로봇 및 AI 솔루션"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 AI 솔루션"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04 14:36:58",
+      "prices": {
+        "440110": 113800,
+        "319660": 114300,
+        "240810": 127200,
+        "003780": 5130,
+        "010640": 2030,
+        "010170": 20350,
+        "036930": 240000,
+        "051630": 2030,
+        "486990": 38800,
+        "454910": 160700
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "319660",
+          "name": "피에스케이",
+          "theme": "반도체 장비 및 소재"
+        },
+        {
+          "code": "051630",
+          "name": "진양화학",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "003780",
+          "name": "진양산업",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "010640",
+          "name": "진양폴리",
+          "theme": "진양그룹 관련주"
+        },
+        {
+          "code": "486990",
+          "name": "노타",
+          "theme": "로봇 및 AI 솔루션"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 AI 솔루션"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "AI/반도체",
+      "market": "KOSDAQ",
+      "buy_price": 115300,
+      "close_price": 116000,
+      "profit_rate": 0.61,
+      "profit_amount": 700,
+      "high_price": 116400,
+      "high_time": "14:53",
+      "high_profit_rate": 0.95,
+      "high_profit_amount": 1100,
+      "low_price": 110000,
+      "low_profit_rate": -4.6,
+      "low_profit_amount": -5300,
+      "low_time": "09:34"
+    },
+    {
+      "code": "319660",
+      "name": "피에스케이",
+      "theme": "AI/반도체",
+      "market": "KOSDAQ",
+      "buy_price": 104600,
+      "close_price": 114400,
+      "profit_rate": 9.37,
+      "profit_amount": 9800,
+      "high_price": 117700,
+      "high_time": "11:11",
+      "high_profit_rate": 12.52,
+      "high_profit_amount": 13100,
+      "low_price": 95200,
+      "low_profit_rate": -8.99,
+      "low_profit_amount": -9400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "240810",
+      "name": "원익IPS",
+      "theme": "AI/반도체",
+      "market": "KOSPI",
+      "buy_price": 116800,
+      "close_price": 127200,
+      "profit_rate": 8.9,
+      "profit_amount": 10400,
+      "high_price": 127200,
+      "high_time": "15:30",
+      "high_profit_rate": 8.9,
+      "high_profit_amount": 10400,
+      "low_price": 108700,
+      "low_profit_rate": -6.93,
+      "low_profit_amount": -8100,
+      "low_time": "09:02"
+    },
+    {
+      "code": "003780",
+      "name": "진양산업",
+      "theme": "진양그룹",
+      "market": "KOSPI",
+      "buy_price": 5950,
+      "close_price": 5010,
+      "profit_rate": -15.8,
+      "profit_amount": -940,
+      "high_price": 6050,
+      "high_time": "09:36",
+      "high_profit_rate": 1.68,
+      "high_profit_amount": 100,
+      "low_price": 5010,
+      "low_profit_rate": -15.8,
+      "low_profit_amount": -940,
+      "low_time": "15:30"
+    },
+    {
+      "code": "010640",
+      "name": "진양폴리",
+      "theme": "진양그룹",
+      "market": "KOSPI",
+      "buy_price": 2280,
+      "close_price": 1917,
+      "profit_rate": -15.92,
+      "profit_amount": -363,
+      "high_price": 2320,
+      "high_time": "11:01",
+      "high_profit_rate": 1.75,
+      "high_profit_amount": 40,
+      "low_price": 1905,
+      "low_profit_rate": -16.45,
+      "low_profit_amount": -375,
+      "low_time": "09:16"
+    },
+    {
+      "code": "100250",
+      "name": "진양홀딩스",
+      "theme": "진양그룹",
+      "market": "KOSPI",
+      "buy_price": 3190,
+      "close_price": 2945,
+      "profit_rate": -7.68,
+      "profit_amount": -245,
+      "high_price": 3255,
+      "high_time": "09:36",
+      "high_profit_rate": 2.04,
+      "high_profit_amount": 65,
+      "low_price": 2930,
+      "low_profit_rate": -8.15,
+      "low_profit_amount": -260,
+      "low_time": "15:15"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "통신 인프라 / 광통신",
+      "market": "KOSPI",
+      "buy_price": 21700,
+      "close_price": 20300,
+      "profit_rate": -6.45,
+      "profit_amount": -1400,
+      "high_price": 21750,
+      "high_time": "09:17",
+      "high_profit_rate": 0.23,
+      "high_profit_amount": 50,
+      "low_price": 19750,
+      "low_profit_rate": -8.99,
+      "low_profit_amount": -1950,
+      "low_time": "09:37"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체 장비 및 소재",
+      "market": "KOSPI",
+      "buy_price": 211500,
+      "close_price": 250500,
+      "profit_rate": 18.44,
+      "profit_amount": 39000,
+      "high_price": 255000,
+      "high_time": "10:39",
+      "high_profit_rate": 20.57,
+      "high_profit_amount": 43500,
+      "low_price": 190300,
+      "low_profit_rate": -10.02,
+      "low_profit_amount": -21200,
+      "low_time": "09:01"
+    },
+    {
+      "code": "051630",
+      "name": "진양화학",
+      "theme": "진양그룹 관련주",
+      "market": "KOSPI",
+      "buy_price": 2045,
+      "close_price": 2045,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2045,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1800,
+      "low_profit_rate": -11.98,
+      "low_profit_amount": -245,
+      "low_time": "09:14"
+    },
+    {
+      "code": "486990",
+      "name": "노타",
+      "theme": "로봇 및 AI 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 39450,
+      "close_price": 39100,
+      "profit_rate": -0.89,
+      "profit_amount": -350,
+      "high_price": 41000,
+      "high_time": "09:15",
+      "high_profit_rate": 3.93,
+      "high_profit_amount": 1550,
+      "low_price": 37500,
+      "low_profit_rate": -4.94,
+      "low_profit_amount": -1950,
+      "low_time": "11:04"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇 및 AI 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 153900,
+      "close_price": 157900,
+      "profit_rate": 2.6,
+      "profit_amount": 4000,
+      "high_price": 165500,
+      "high_time": "12:27",
+      "high_profit_rate": 7.54,
+      "high_profit_amount": 11600,
+      "low_price": 145100,
+      "low_profit_rate": -5.72,
+      "low_profit_amount": -8800,
+      "low_time": "09:17"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 5,
+    "loss_stocks": 5,
+    "total_invested": 776715,
+    "total_value": 837317,
+    "total_profit": 60602,
+    "total_profit_rate": 7.8,
+    "high_total_value": 858220,
+    "high_total_profit": 81505,
+    "high_total_profit_rate": 10.49,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
