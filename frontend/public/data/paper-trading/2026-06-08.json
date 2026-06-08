@@ -1,0 +1,567 @@
+{
+  "trade_date": "2026-06-08",
+  "morning_timestamp": "2026-06-08 09:12:49",
+  "collected_at": "2026-06-08 15:41:30",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-08 09:12:49",
+      "prices": {
+        "066430": 3840,
+        "271830": 2250,
+        "457370": 15330,
+        "126640": 2625,
+        "047080": 1668,
+        "090360": 145500,
+        "454910": 143700,
+        "417860": 11760,
+        "459550": 1976,
+        "017670": 106900
+      },
+      "leader_stocks": [
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "271830",
+          "name": "팸텍",
+          "theme": "반도체 장비/소재"
+        },
+        {
+          "code": "457370",
+          "name": "한켐",
+          "theme": "반도체 장비/소재"
+        },
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "전기차 부품/로봇 연계"
+        },
+        {
+          "code": "047080",
+          "name": "한빛소프트",
+          "theme": "게임/콘텐츠"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 09:32:39",
+      "prices": {
+        "066430": 3840,
+        "271830": 2250,
+        "457370": 15330,
+        "126640": 2625,
+        "047080": 1668,
+        "090360": 156300,
+        "454910": 143700,
+        "417860": 12180,
+        "459550": 1976,
+        "017670": 106900
+      },
+      "leader_stocks": [
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "271830",
+          "name": "팸텍",
+          "theme": "반도체 장비/소재"
+        },
+        {
+          "code": "457370",
+          "name": "한켐",
+          "theme": "반도체 장비/소재"
+        },
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "전기차 부품/로봇 연계"
+        },
+        {
+          "code": "047080",
+          "name": "한빛소프트",
+          "theme": "게임/콘텐츠"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 09:37:15",
+      "prices": {
+        "066430": 3960,
+        "271830": 2335,
+        "457370": 14750,
+        "126640": 2625,
+        "047080": 1580,
+        "090360": 154000,
+        "454910": 143700,
+        "417860": 12390,
+        "459550": 2020,
+        "017670": 106900
+      },
+      "leader_stocks": [
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "방어주/통신 (Defensive/Telecommunications)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 10:02:39",
+      "prices": {
+        "066430": 3960,
+        "271830": 2335,
+        "457370": 14750,
+        "126640": 2625,
+        "047080": 1631,
+        "090360": 147300,
+        "454910": 143700,
+        "417860": 12390,
+        "459550": 2020,
+        "017670": 110100
+      },
+      "leader_stocks": [
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "방어주/통신 (Defensive/Telecommunications)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 12:02:07",
+      "prices": {
+        "066430": 3960,
+        "271830": 2335,
+        "457370": 14750,
+        "126640": 2625,
+        "047080": 1585,
+        "090360": 148200,
+        "454910": 143700,
+        "417860": 12390,
+        "459550": 2020,
+        "017670": 112200
+      },
+      "leader_stocks": [
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "방어주/통신 (Defensive/Telecommunications)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 12:37:02",
+      "prices": {
+        "066430": 4270,
+        "271830": 2710,
+        "457370": 14760,
+        "126640": 2625,
+        "047080": 1619,
+        "090360": 149600,
+        "454910": 134400,
+        "417860": 13650,
+        "459550": 2160,
+        "017670": 110100
+      },
+      "leader_stocks": [
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "방어주/통신 (Defensive/Telecommunications)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 13:26:42",
+      "prices": {
+        "066430": 4270,
+        "271830": 2710,
+        "457370": 14760,
+        "126640": 2625,
+        "090360": 148750,
+        "454910": 134400,
+        "417860": 13650,
+        "459550": 2160,
+        "017670": 110900
+      },
+      "leader_stocks": [
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "방어주/통신 (Defensive/Telecommunications)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-08 14:36:44",
+      "prices": {
+        "066430": 4270,
+        "271830": 2710,
+        "457370": 14760,
+        "126640": 2625,
+        "090360": 140500,
+        "454910": 134400,
+        "417860": 13650,
+        "459550": 2160,
+        "017670": 107900
+      },
+      "leader_stocks": [
+        {
+          "code": "090360",
+          "name": "로보스타",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "066430",
+          "name": "아이로보틱스",
+          "theme": "로봇 (Robotics)"
+        },
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능/소프트웨어 (AI/Software)"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "방어주/통신 (Defensive/Telecommunications)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "066430",
+      "name": "아이로보틱스",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 3840,
+      "close_price": 4270,
+      "profit_rate": 11.2,
+      "profit_amount": 430,
+      "high_price": 4270,
+      "high_time": "15:30",
+      "high_profit_rate": 11.2,
+      "high_profit_amount": 430,
+      "low_price": 3380,
+      "low_profit_rate": -11.98,
+      "low_profit_amount": -460,
+      "low_time": "09:00"
+    },
+    {
+      "code": "271830",
+      "name": "팸텍",
+      "theme": "반도체 장비/소재",
+      "market": "KOSPI",
+      "buy_price": 2250,
+      "close_price": 2710,
+      "profit_rate": 20.44,
+      "profit_amount": 460,
+      "high_price": 2710,
+      "high_time": "15:30",
+      "high_profit_rate": 20.44,
+      "high_profit_amount": 460,
+      "low_price": 2035,
+      "low_profit_rate": -9.56,
+      "low_profit_amount": -215,
+      "low_time": "09:00"
+    },
+    {
+      "code": "457370",
+      "name": "한켐",
+      "theme": "반도체 장비/소재",
+      "market": "KOSDAQ",
+      "buy_price": 15330,
+      "close_price": 13050,
+      "profit_rate": -14.87,
+      "profit_amount": -2280,
+      "high_price": 17040,
+      "high_time": "10:57",
+      "high_profit_rate": 11.15,
+      "high_profit_amount": 1710,
+      "low_price": 13010,
+      "low_profit_rate": -15.13,
+      "low_profit_amount": -2320,
+      "low_time": "15:19"
+    },
+    {
+      "code": "126640",
+      "name": "화신정공",
+      "theme": "전기차 부품/로봇 연계",
+      "market": "KOSPI",
+      "buy_price": 2625,
+      "close_price": 2625,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2625,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2625,
+      "low_profit_rate": 0.0,
+      "low_profit_amount": 0,
+      "low_time": "15:30"
+    },
+    {
+      "code": "047080",
+      "name": "한빛소프트",
+      "theme": "게임/콘텐츠",
+      "market": "KOSPI",
+      "buy_price": 1668,
+      "close_price": 1580,
+      "profit_rate": -5.28,
+      "profit_amount": -88,
+      "high_price": 1800,
+      "high_time": "09:14",
+      "high_profit_rate": 7.91,
+      "high_profit_amount": 132,
+      "low_price": 1497,
+      "low_profit_rate": -10.25,
+      "low_profit_amount": -171,
+      "low_time": "09:01"
+    },
+    {
+      "code": "090360",
+      "name": "로보스타",
+      "theme": "로봇 (Robotics)",
+      "market": "KOSPI",
+      "buy_price": 145500,
+      "close_price": 139000,
+      "profit_rate": -4.47,
+      "profit_amount": -6500,
+      "high_price": 159100,
+      "high_time": "09:32",
+      "high_profit_rate": 9.35,
+      "high_profit_amount": 13600,
+      "low_price": 127500,
+      "low_profit_rate": -12.37,
+      "low_profit_amount": -18000,
+      "low_time": "09:02"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇 (Robotics)",
+      "market": "KOSDAQ",
+      "buy_price": 143700,
+      "close_price": 127200,
+      "profit_rate": -11.48,
+      "profit_amount": -16500,
+      "high_price": 154000,
+      "high_time": "09:39",
+      "high_profit_rate": 7.17,
+      "high_profit_amount": 10300,
+      "low_price": 126100,
+      "low_profit_rate": -12.25,
+      "low_profit_amount": -17600,
+      "low_time": "15:08"
+    },
+    {
+      "code": "417860",
+      "name": "오브젠",
+      "theme": "인공지능/소프트웨어 (AI/Software)",
+      "market": "KOSDAQ",
+      "buy_price": 11760,
+      "close_price": 13650,
+      "profit_rate": 16.07,
+      "profit_amount": 1890,
+      "high_price": 13650,
+      "high_time": "15:30",
+      "high_profit_rate": 16.07,
+      "high_profit_amount": 1890,
+      "low_price": 9630,
+      "low_profit_rate": -18.11,
+      "low_profit_amount": -2130,
+      "low_time": "09:00"
+    },
+    {
+      "code": "459550",
+      "name": "알트",
+      "theme": "인공지능/소프트웨어 (AI/Software)",
+      "market": "KOSDAQ",
+      "buy_price": 1976,
+      "close_price": 2020,
+      "profit_rate": 2.23,
+      "profit_amount": 44,
+      "high_price": 2385,
+      "high_time": "14:06",
+      "high_profit_rate": 20.7,
+      "high_profit_amount": 409,
+      "low_price": 1753,
+      "low_profit_rate": -11.29,
+      "low_profit_amount": -223,
+      "low_time": "09:00"
+    },
+    {
+      "code": "017670",
+      "name": "SK텔레콤",
+      "theme": "방어주/통신 (Defensive/Telecommunications)",
+      "market": "KOSPI",
+      "buy_price": 106900,
+      "close_price": 106700,
+      "profit_rate": -0.19,
+      "profit_amount": -200,
+      "high_price": 115700,
+      "high_time": "11:19",
+      "high_profit_rate": 8.23,
+      "high_profit_amount": 8800,
+      "low_price": 103000,
+      "low_profit_rate": -3.65,
+      "low_profit_amount": -3900,
+      "low_time": "09:01"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 4,
+    "loss_stocks": 5,
+    "total_invested": 435549,
+    "total_value": 412805,
+    "total_profit": -22744,
+    "total_profit_rate": -5.22,
+    "high_total_value": 473280,
+    "high_total_profit": 37731,
+    "high_total_profit_rate": 8.66,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 0
+  }
+}
