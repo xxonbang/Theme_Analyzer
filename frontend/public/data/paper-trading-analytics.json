@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-06-09 15:42:21",
+  "generated_at": "2026-06-10 15:42:25",
   "period": {
     "start": "2026-05-11",
-    "end": "2026-06-09",
-    "trading_days": 22
+    "end": "2026-06-10",
+    "trading_days": 23
   },
   "overall": {
-    "cumulative_return": -18.15,
-    "cumulative_high_return": 175.85,
-    "avg_daily_return": -0.83,
-    "volatility": 3.96,
-    "sharpe_ratio": -0.21,
-    "max_drawdown": 19.62,
-    "win_rate": 31.8,
+    "cumulative_return": -23.8,
+    "cumulative_high_return": 173.15,
+    "avg_daily_return": -1.1,
+    "volatility": 4.07,
+    "sharpe_ratio": -0.27,
+    "max_drawdown": 25.17,
+    "win_rate": 30.4,
     "win_days": 7,
-    "loss_days": 13,
+    "loss_days": 14,
     "flat_days": 2,
     "avg_win": 3.76,
-    "avg_loss": -3.43,
-    "profit_loss_ratio": 1.1,
+    "avg_loss": -3.68,
+    "profit_loss_ratio": 1.02,
     "max_win_streak": 2,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.02,
+    "avg_return": -3.4,
     "win_rate": 20.0
   },
   "theme_performance": [
@@ -162,6 +162,13 @@
       "total_return": -6.71
     },
     {
+      "theme": "방어주/통신 (Defensive/Telecommunications)",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -1.88,
+      "total_return": -5.65
+    },
+    {
       "theme": "LG 그룹주 재평가 및 IT 하드웨어 혁신",
       "count": 3,
       "win_rate": 33.3,
@@ -190,18 +197,18 @@
       "total_return": -12.5
     },
     {
-      "theme": "인공지능/소프트웨어 (AI/Software)",
-      "count": 4,
-      "win_rate": 50.0,
-      "avg_return": -5.08,
-      "total_return": -20.33
-    },
-    {
       "theme": "AI & 로봇 테마의 강세",
       "count": 3,
       "win_rate": 33.3,
       "avg_return": -5.29,
       "total_return": -15.88
+    },
+    {
+      "theme": "인공지능/소프트웨어 (AI/Software)",
+      "count": 5,
+      "win_rate": 40.0,
+      "avg_return": -5.56,
+      "total_return": -27.78
     },
     {
       "theme": "AI 및 로보틱스 혁신",
@@ -218,18 +225,18 @@
       "total_return": -17.33
     },
     {
-      "theme": "로봇 (Robotics)",
-      "count": 5,
-      "win_rate": 0.0,
-      "avg_return": -6.63,
-      "total_return": -33.14
-    },
-    {
       "theme": "첨단소재 및 전력 인프라",
       "count": 3,
       "win_rate": 0.0,
       "avg_return": -6.76,
       "total_return": -20.29
+    },
+    {
+      "theme": "로봇 (Robotics)",
+      "count": 7,
+      "win_rate": 0.0,
+      "avg_return": -7.65,
+      "total_return": -53.58
     },
     {
       "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)",
@@ -249,15 +256,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 154,
-      "win_rate": 42.2,
-      "avg_return": -0.18
+      "count": 156,
+      "win_rate": 41.7,
+      "avg_return": -0.26
     },
     {
       "market": "KOSDAQ",
-      "count": 72,
-      "win_rate": 34.7,
-      "avg_return": -2.5
+      "count": 74,
+      "win_rate": 33.8,
+      "avg_return": -2.66
     }
   ],
   "cumulative_series": [
@@ -348,6 +355,10 @@
     {
       "date": "2026-06-09",
       "cumulative_return": -18.15
+    },
+    {
+      "date": "2026-06-10",
+      "cumulative_return": -23.8
     }
   ]
 }
