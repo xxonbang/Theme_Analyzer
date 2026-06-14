@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-06-12 11:34:04",
+  "updated_at": "2026-06-15 07:35:18",
   "entries": [
+    {
+      "filename": "2026-06-15_0735.json",
+      "date": "2026-06-15",
+      "time": "07:35",
+      "path": "data/forecast-history/2026-06-15_0735.json"
+    },
     {
       "filename": "2026-06-12_1134.json",
       "date": "2026-06-12",
@@ -594,102 +600,6 @@
       "date": "2026-05-18",
       "time": "07:35",
       "path": "data/forecast-history/2026-05-18_0735.json"
-    },
-    {
-      "filename": "2026-05-15_1435.json",
-      "date": "2026-05-15",
-      "time": "14:35",
-      "path": "data/forecast-history/2026-05-15_1435.json"
-    },
-    {
-      "filename": "2026-05-15_1334.json",
-      "date": "2026-05-15",
-      "time": "13:34",
-      "path": "data/forecast-history/2026-05-15_1334.json"
-    },
-    {
-      "filename": "2026-05-15_1305.json",
-      "date": "2026-05-15",
-      "time": "13:05",
-      "path": "data/forecast-history/2026-05-15_1305.json"
-    },
-    {
-      "filename": "2026-05-15_1132.json",
-      "date": "2026-05-15",
-      "time": "11:32",
-      "path": "data/forecast-history/2026-05-15_1132.json"
-    },
-    {
-      "filename": "2026-05-15_1033.json",
-      "date": "2026-05-15",
-      "time": "10:33",
-      "path": "data/forecast-history/2026-05-15_1033.json"
-    },
-    {
-      "filename": "2026-05-15_1003.json",
-      "date": "2026-05-15",
-      "time": "10:03",
-      "path": "data/forecast-history/2026-05-15_1003.json"
-    },
-    {
-      "filename": "2026-05-15_0934.json",
-      "date": "2026-05-15",
-      "time": "09:34",
-      "path": "data/forecast-history/2026-05-15_0934.json"
-    },
-    {
-      "filename": "2026-05-15_0735.json",
-      "date": "2026-05-15",
-      "time": "07:35",
-      "path": "data/forecast-history/2026-05-15_0735.json"
-    },
-    {
-      "filename": "2026-05-14_1433.json",
-      "date": "2026-05-14",
-      "time": "14:33",
-      "path": "data/forecast-history/2026-05-14_1433.json"
-    },
-    {
-      "filename": "2026-05-14_1334.json",
-      "date": "2026-05-14",
-      "time": "13:34",
-      "path": "data/forecast-history/2026-05-14_1334.json"
-    },
-    {
-      "filename": "2026-05-14_1304.json",
-      "date": "2026-05-14",
-      "time": "13:04",
-      "path": "data/forecast-history/2026-05-14_1304.json"
-    },
-    {
-      "filename": "2026-05-14_1133.json",
-      "date": "2026-05-14",
-      "time": "11:33",
-      "path": "data/forecast-history/2026-05-14_1133.json"
-    },
-    {
-      "filename": "2026-05-14_1033.json",
-      "date": "2026-05-14",
-      "time": "10:33",
-      "path": "data/forecast-history/2026-05-14_1033.json"
-    },
-    {
-      "filename": "2026-05-14_1003.json",
-      "date": "2026-05-14",
-      "time": "10:03",
-      "path": "data/forecast-history/2026-05-14_1003.json"
-    },
-    {
-      "filename": "2026-05-14_0932.json",
-      "date": "2026-05-14",
-      "time": "09:32",
-      "path": "data/forecast-history/2026-05-14_0932.json"
-    },
-    {
-      "filename": "2026-05-14_0735.json",
-      "date": "2026-05-14",
-      "time": "07:35",
-      "path": "data/forecast-history/2026-05-14_0735.json"
     }
   ]
 }
