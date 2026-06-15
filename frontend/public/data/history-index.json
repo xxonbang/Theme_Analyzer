@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-06-12 12:37:48",
+  "updated_at": "2026-06-15 09:13:50",
   "entries": [
+    {
+      "filename": "2026-06-15_0913.json",
+      "date": "2026-06-15",
+      "time": "09:13",
+      "path": "data/history/2026-06-15_0913.json"
+    },
     {
       "filename": "2026-06-12_1237.json",
       "date": "2026-06-12",
@@ -36,54 +42,6 @@
       "date": "2026-06-11",
       "time": "09:13",
       "path": "data/history/2026-06-11_0913.json"
-    },
-    {
-      "filename": "2026-06-10_0936.json",
-      "date": "2026-06-10",
-      "time": "09:36",
-      "path": "data/history/2026-06-10_0936.json"
-    },
-    {
-      "filename": "2026-06-10_0913.json",
-      "date": "2026-06-10",
-      "time": "09:13",
-      "path": "data/history/2026-06-10_0913.json"
-    },
-    {
-      "filename": "2026-06-09_1237.json",
-      "date": "2026-06-09",
-      "time": "12:37",
-      "path": "data/history/2026-06-09_1237.json"
-    },
-    {
-      "filename": "2026-06-09_0937.json",
-      "date": "2026-06-09",
-      "time": "09:37",
-      "path": "data/history/2026-06-09_0937.json"
-    },
-    {
-      "filename": "2026-06-09_0912.json",
-      "date": "2026-06-09",
-      "time": "09:12",
-      "path": "data/history/2026-06-09_0912.json"
-    },
-    {
-      "filename": "2026-06-08_1237.json",
-      "date": "2026-06-08",
-      "time": "12:37",
-      "path": "data/history/2026-06-08_1237.json"
-    },
-    {
-      "filename": "2026-06-08_0937.json",
-      "date": "2026-06-08",
-      "time": "09:37",
-      "path": "data/history/2026-06-08_0937.json"
-    },
-    {
-      "filename": "2026-06-08_0912.json",
-      "date": "2026-06-08",
-      "time": "09:12",
-      "path": "data/history/2026-06-08_0912.json"
     }
   ]
 }
