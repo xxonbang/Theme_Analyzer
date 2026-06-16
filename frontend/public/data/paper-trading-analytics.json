@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-06-12 15:42:23",
+  "generated_at": "2026-06-16 15:42:33",
   "period": {
-    "start": "2026-05-13",
-    "end": "2026-06-12",
-    "trading_days": 23
+    "start": "2026-05-18",
+    "end": "2026-06-16",
+    "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -20.11,
-    "cumulative_high_return": 176.26,
-    "avg_daily_return": -0.88,
-    "volatility": 4.3,
-    "sharpe_ratio": -0.21,
+    "cumulative_return": -14.03,
+    "cumulative_high_return": 152.25,
+    "avg_daily_return": -0.63,
+    "volatility": 4.4,
+    "sharpe_ratio": -0.15,
     "max_drawdown": 22.6,
-    "win_rate": 30.4,
-    "win_days": 7,
-    "loss_days": 14,
+    "win_rate": 38.1,
+    "win_days": 8,
+    "loss_days": 11,
     "flat_days": 2,
-    "avg_win": 4.4,
-    "avg_loss": -3.65,
-    "profit_loss_ratio": 1.21,
+    "avg_win": 3.97,
+    "avg_loss": -4.08,
+    "profit_loss_ratio": 0.97,
     "max_win_streak": 2,
     "max_loss_streak": 4,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -3.51,
-    "win_rate": 20.0
+    "avg_return": -2.27,
+    "win_rate": 40.0
   },
   "theme_performance": [
     {
@@ -41,13 +41,6 @@
       "win_rate": 100.0,
       "avg_return": 6.29,
       "total_return": 18.88
-    },
-    {
-      "theme": "로봇/자동화",
-      "count": 4,
-      "win_rate": 75.0,
-      "avg_return": 6.02,
-      "total_return": 24.09
     },
     {
       "theme": "AI 반도체 및 IT 솔루션",
@@ -232,13 +225,6 @@
       "total_return": -47.34
     },
     {
-      "theme": "LG 그룹주 강세 (전자/디스플레이/IT 서비스)",
-      "count": 3,
-      "win_rate": 0.0,
-      "avg_return": -10.39,
-      "total_return": -31.17
-    },
-    {
       "theme": "진양그룹",
       "count": 3,
       "win_rate": 0.0,
@@ -249,109 +235,101 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 147,
-      "win_rate": 39.5,
-      "avg_return": -0.67
+      "count": 132,
+      "win_rate": 39.4,
+      "avg_return": -0.39
     },
     {
       "market": "KOSDAQ",
-      "count": 71,
-      "win_rate": 35.2,
-      "avg_return": -2.37
+      "count": 64,
+      "win_rate": 34.4,
+      "avg_return": -2.1
     }
   ],
   "cumulative_series": [
     {
-      "date": "2026-05-13",
-      "cumulative_return": -0.59
-    },
-    {
-      "date": "2026-05-14",
-      "cumulative_return": -0.65
-    },
-    {
-      "date": "2026-05-15",
-      "cumulative_return": -6.17
-    },
-    {
       "date": "2026-05-18",
-      "cumulative_return": -6.1
+      "cumulative_return": 0.08
     },
     {
       "date": "2026-05-19",
-      "cumulative_return": -8.44
+      "cumulative_return": -2.41
     },
     {
       "date": "2026-05-20",
-      "cumulative_return": -11.09
+      "cumulative_return": -5.24
     },
     {
       "date": "2026-05-21",
-      "cumulative_return": -6.28
+      "cumulative_return": -0.12
     },
     {
       "date": "2026-05-22",
-      "cumulative_return": -9.07
+      "cumulative_return": -3.08
     },
     {
       "date": "2026-05-25",
-      "cumulative_return": -9.07
+      "cumulative_return": -3.08
     },
     {
       "date": "2026-05-26",
-      "cumulative_return": -5.47
+      "cumulative_return": 0.75
     },
     {
       "date": "2026-05-27",
-      "cumulative_return": -6.46
+      "cumulative_return": -0.3
     },
     {
       "date": "2026-05-28",
-      "cumulative_return": -3.02
+      "cumulative_return": 3.36
     },
     {
       "date": "2026-05-29",
-      "cumulative_return": 0.44
+      "cumulative_return": 7.05
     },
     {
       "date": "2026-06-01",
-      "cumulative_return": -3.4
+      "cumulative_return": 2.96
     },
     {
       "date": "2026-06-02",
-      "cumulative_return": -5.82
+      "cumulative_return": 0.37
     },
     {
       "date": "2026-06-03",
-      "cumulative_return": -5.82
+      "cumulative_return": 0.37
     },
     {
       "date": "2026-06-04",
-      "cumulative_return": 1.52
+      "cumulative_return": 8.2
     },
     {
       "date": "2026-06-05",
-      "cumulative_return": -3.86
+      "cumulative_return": 2.47
     },
     {
       "date": "2026-06-08",
-      "cumulative_return": -8.88
+      "cumulative_return": -2.88
     },
     {
       "date": "2026-06-09",
-      "cumulative_return": -15.59
+      "cumulative_return": -10.04
     },
     {
       "date": "2026-06-10",
-      "cumulative_return": -21.42
+      "cumulative_return": -16.25
     },
     {
       "date": "2026-06-11",
-      "cumulative_return": -16.45
+      "cumulative_return": -10.95
     },
     {
       "date": "2026-06-12",
-      "cumulative_return": -20.11
+      "cumulative_return": -14.85
+    },
+    {
+      "date": "2026-06-16",
+      "cumulative_return": -14.03
     }
   ]
 }

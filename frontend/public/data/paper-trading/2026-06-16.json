@@ -1,0 +1,431 @@
+{
+  "trade_date": "2026-06-16",
+  "morning_timestamp": "2026-06-16 09:32:42",
+  "collected_at": "2026-06-16 15:41:45",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-16 09:32:42",
+      "prices": {
+        "003490": 29400,
+        "089590": 5180,
+        "000660": 2364000,
+        "009150": 2018000,
+        "010120": 262500,
+        "018880": 5720,
+        "439960": 22150
+      },
+      "leader_stocks": [
+        {
+          "code": "003490",
+          "name": "대한항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "089590",
+          "name": "제주항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트팩토리 투자 확대"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 열관리 및 자율주행 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 및 자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-16 09:36:18",
+      "prices": {
+        "000660": 2362000,
+        "009150": 2013000,
+        "010120": 261000,
+        "018880": 5410,
+        "439960": 28200
+      },
+      "leader_stocks": [
+        {
+          "code": "003490",
+          "name": "대한항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "089590",
+          "name": "제주항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트팩토리 투자 확대"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 열관리 및 자율주행 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 및 자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-16 10:02:57",
+      "prices": {
+        "000660": 2319000,
+        "009150": 2010000,
+        "010120": 260000,
+        "018880": 5410,
+        "439960": 28200
+      },
+      "leader_stocks": [
+        {
+          "code": "003490",
+          "name": "대한항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "089590",
+          "name": "제주항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트팩토리 투자 확대"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 열관리 및 자율주행 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 및 자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-16 12:38:25",
+      "prices": {
+        "000660": 2367000,
+        "009150": 2049000,
+        "010120": 261000,
+        "018880": 5340,
+        "439960": 25900
+      },
+      "leader_stocks": [
+        {
+          "code": "003490",
+          "name": "대한항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "089590",
+          "name": "제주항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트팩토리 투자 확대"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 열관리 및 자율주행 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 및 자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-16 13:26:55",
+      "prices": {
+        "000660": 2372000,
+        "009150": 2042000,
+        "018880": 5340,
+        "439960": 25900
+      },
+      "leader_stocks": [
+        {
+          "code": "003490",
+          "name": "대한항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "089590",
+          "name": "제주항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트팩토리 투자 확대"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 열관리 및 자율주행 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 및 자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-16 14:36:58",
+      "prices": {
+        "000660": 2369000,
+        "009150": 2039000,
+        "018880": 5340,
+        "439960": 25900
+      },
+      "leader_stocks": [
+        {
+          "code": "003490",
+          "name": "대한항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "089590",
+          "name": "제주항공",
+          "theme": "항공/여행 산업 회복 및 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 초호황"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트팩토리 투자 확대"
+        },
+        {
+          "code": "018880",
+          "name": "한온시스템",
+          "theme": "전기차 열관리 및 자율주행 부품"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "웨어러블 로봇 및 자동화"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "003490",
+      "name": "대한항공",
+      "theme": "항공/여행 산업 회복 및 성장",
+      "market": "KOSPI",
+      "buy_price": 29400,
+      "close_price": 29300,
+      "profit_rate": -0.34,
+      "profit_amount": -100,
+      "high_price": 29700,
+      "high_time": "11:20",
+      "high_profit_rate": 1.02,
+      "high_profit_amount": 300,
+      "low_price": 28500,
+      "low_profit_rate": -3.06,
+      "low_profit_amount": -900,
+      "low_time": "10:11"
+    },
+    {
+      "code": "089590",
+      "name": "제주항공",
+      "theme": "항공/여행 산업 회복 및 성장",
+      "market": "KOSPI",
+      "buy_price": 5180,
+      "close_price": 5120,
+      "profit_rate": -1.16,
+      "profit_amount": -60,
+      "high_price": 5200,
+      "high_time": "09:34",
+      "high_profit_rate": 0.39,
+      "high_profit_amount": 20,
+      "low_price": 5020,
+      "low_profit_rate": -3.09,
+      "low_profit_amount": -160,
+      "low_time": "10:17"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI 반도체 초호황",
+      "market": "KOSPI",
+      "buy_price": 2364000,
+      "close_price": 2382000,
+      "profit_rate": 0.76,
+      "profit_amount": 18000,
+      "high_price": 2385000,
+      "high_time": "14:20",
+      "high_profit_rate": 0.89,
+      "high_profit_amount": 21000,
+      "low_price": 2286000,
+      "low_profit_rate": -3.3,
+      "low_profit_amount": -78000,
+      "low_time": "10:10"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "AI 반도체 초호황",
+      "market": "KOSPI",
+      "buy_price": 2018000,
+      "close_price": 2048000,
+      "profit_rate": 1.49,
+      "profit_amount": 30000,
+      "high_price": 2071000,
+      "high_time": "14:10",
+      "high_profit_rate": 2.63,
+      "high_profit_amount": 53000,
+      "low_price": 1970000,
+      "low_profit_rate": -2.38,
+      "low_profit_amount": -48000,
+      "low_time": "09:04"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력 인프라 및 스마트팩토리 투자 확대",
+      "market": "KOSPI",
+      "buy_price": 262500,
+      "close_price": 257500,
+      "profit_rate": -1.9,
+      "profit_amount": -5000,
+      "high_price": 266000,
+      "high_time": "09:37",
+      "high_profit_rate": 1.33,
+      "high_profit_amount": 3500,
+      "low_price": 254000,
+      "low_profit_rate": -3.24,
+      "low_profit_amount": -8500,
+      "low_time": "14:59"
+    },
+    {
+      "code": "018880",
+      "name": "한온시스템",
+      "theme": "전기차 열관리 및 자율주행 부품",
+      "market": "KOSPI",
+      "buy_price": 5720,
+      "close_price": 5190,
+      "profit_rate": -9.27,
+      "profit_amount": -530,
+      "high_price": 5420,
+      "high_time": "09:34",
+      "high_profit_rate": -5.24,
+      "high_profit_amount": -300,
+      "low_price": 5140,
+      "low_profit_rate": -10.14,
+      "low_profit_amount": -580,
+      "low_time": "14:50"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "웨어러블 로봇 및 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 22150,
+      "close_price": 25550,
+      "profit_rate": 15.35,
+      "profit_amount": 3400,
+      "high_price": 30450,
+      "high_time": "10:09",
+      "high_profit_rate": 37.47,
+      "high_profit_amount": 8300,
+      "low_price": 24350,
+      "low_profit_rate": 9.93,
+      "low_profit_amount": 2200,
+      "low_time": "13:33"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 3,
+    "loss_stocks": 4,
+    "total_invested": 4706950,
+    "total_value": 4752660,
+    "total_profit": 45710,
+    "total_profit_rate": 0.97,
+    "high_total_value": 4792770,
+    "high_total_profit": 85820,
+    "high_total_profit_rate": 1.82,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 1
+  }
+}
