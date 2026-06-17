@@ -1,0 +1,372 @@
+{
+  "trade_date": "2026-06-17",
+  "morning_timestamp": "2026-06-17 09:13:46",
+  "collected_at": "2026-06-17 15:41:44",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-17 09:13:46",
+      "prices": {
+        "015760": 42600,
+        "088350": 6200,
+        "279570": 7180,
+        "008970": 1660,
+        "071090": 4225
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17 09:32:44",
+      "prices": {
+        "015760": 41600,
+        "088350": 6200,
+        "279570": 7210,
+        "008970": 1660,
+        "071090": 4225
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17 10:02:56",
+      "prices": {
+        "015760": 41150,
+        "088350": 6200,
+        "279570": 7190,
+        "008970": 1660,
+        "071090": 4225
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17 12:02:07",
+      "prices": {
+        "015760": 41200,
+        "088350": 6200,
+        "279570": 7120,
+        "008970": 1660,
+        "071090": 4225
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17 12:37:43",
+      "prices": {
+        "015760": 41325,
+        "088350": 5900,
+        "279570": 7200,
+        "008970": 1593,
+        "071090": 3545
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17 13:27:02",
+      "prices": {
+        "015760": 40900,
+        "088350": 5810,
+        "279570": 7140,
+        "008970": 1593,
+        "071090": 3515
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17 14:36:54",
+      "prices": {
+        "015760": 40650,
+        "088350": 5740,
+        "279570": 7180,
+        "008970": 1593,
+        "071090": 3550
+      },
+      "leader_stocks": [
+        {
+          "code": "015760",
+          "name": "한국전력",
+          "theme": "에너지/전력"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "금융/보험"
+        },
+        {
+          "code": "008970",
+          "name": "KBI동양철관",
+          "theme": "철강/강관"
+        },
+        {
+          "code": "071090",
+          "name": "하이스틸",
+          "theme": "철강/강관"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "015760",
+      "name": "한국전력",
+      "theme": "에너지/전력",
+      "market": "KOSPI",
+      "buy_price": 42600,
+      "close_price": 40500,
+      "profit_rate": -4.93,
+      "profit_amount": -2100,
+      "high_price": 42900,
+      "high_time": "09:14",
+      "high_profit_rate": 0.7,
+      "high_profit_amount": 300,
+      "low_price": 40500,
+      "low_profit_rate": -4.93,
+      "low_profit_amount": -2100,
+      "low_time": "15:30"
+    },
+    {
+      "code": "088350",
+      "name": "한화생명",
+      "theme": "금융/보험",
+      "market": "KOSPI",
+      "buy_price": 6200,
+      "close_price": 5700,
+      "profit_rate": -8.06,
+      "profit_amount": -500,
+      "high_price": 6200,
+      "high_time": "11:17",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 5610,
+      "low_profit_rate": -9.52,
+      "low_profit_amount": -590,
+      "low_time": "15:19"
+    },
+    {
+      "code": "279570",
+      "name": "케이뱅크",
+      "theme": "금융/보험",
+      "market": "KOSPI",
+      "buy_price": 7180,
+      "close_price": 7200,
+      "profit_rate": 0.28,
+      "profit_amount": 20,
+      "high_price": 7330,
+      "high_time": "13:02",
+      "high_profit_rate": 2.09,
+      "high_profit_amount": 150,
+      "low_price": 6920,
+      "low_profit_rate": -3.62,
+      "low_profit_amount": -260,
+      "low_time": "09:00"
+    },
+    {
+      "code": "008970",
+      "name": "KBI동양철관",
+      "theme": "철강/강관",
+      "market": "KOSPI",
+      "buy_price": 1660,
+      "close_price": 1550,
+      "profit_rate": -6.63,
+      "profit_amount": -110,
+      "high_price": 1820,
+      "high_time": "09:50",
+      "high_profit_rate": 9.64,
+      "high_profit_amount": 160,
+      "low_price": 1475,
+      "low_profit_rate": -11.14,
+      "low_profit_amount": -185,
+      "low_time": "09:00"
+    },
+    {
+      "code": "071090",
+      "name": "하이스틸",
+      "theme": "철강/강관",
+      "market": "KOSPI",
+      "buy_price": 4225,
+      "close_price": 3520,
+      "profit_rate": -16.69,
+      "profit_amount": -705,
+      "high_price": 4225,
+      "high_time": "10:58",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3445,
+      "low_profit_rate": -18.46,
+      "low_profit_amount": -780,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 5,
+    "profit_stocks": 1,
+    "loss_stocks": 4,
+    "total_invested": 61865,
+    "total_value": 58470,
+    "total_profit": -3395,
+    "total_profit_rate": -5.49,
+    "high_total_value": 62475,
+    "high_total_profit": 610,
+    "high_total_profit_rate": 0.99,
+    "high_profit_stocks": 3,
+    "high_loss_stocks": 0
+  }
+}
