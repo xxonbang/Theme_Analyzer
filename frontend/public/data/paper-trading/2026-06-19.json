@@ -1,0 +1,604 @@
+{
+  "trade_date": "2026-06-19",
+  "morning_timestamp": "2026-06-19 09:14:15",
+  "collected_at": "2026-06-19 15:41:43",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-19 09:14:15",
+      "prices": {
+        "000660": 2825000,
+        "042700": 327750,
+        "080220": 122300,
+        "010120": 267500,
+        "402340": 1818000,
+        "028260": 539000,
+        "009150": 2325000,
+        "298040": 3944000,
+        "462870": 36100,
+        "035420": 243250,
+        "006400": 550000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 에너지 효율화"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "지주사 및 주주환원"
+        },
+        {
+          "code": "028260",
+          "name": "삼성물산",
+          "theme": "원전 및 신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-19 09:32:45",
+      "prices": {
+        "000660": 2820000,
+        "042700": 327000,
+        "080220": 122300,
+        "010120": 271500,
+        "402340": 1859000,
+        "028260": 541000,
+        "009150": 2327000,
+        "298040": 3984000,
+        "462870": 35500,
+        "035420": 241500,
+        "006400": 558000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 에너지 효율화"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "지주사 및 주주환원"
+        },
+        {
+          "code": "028260",
+          "name": "삼성물산",
+          "theme": "원전 및 신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-19 09:37:47",
+      "prices": {
+        "000660": 2816000,
+        "042700": 326000,
+        "080220": 124900,
+        "010120": 273500,
+        "402340": 1833000,
+        "028260": 544000,
+        "009150": 2318000,
+        "298040": 3997000,
+        "462870": 35900,
+        "035420": 243000,
+        "006400": 563000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "462870",
+          "name": "시프트업",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 AI ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-19 10:02:49",
+      "prices": {
+        "000660": 2850000,
+        "042700": 324500,
+        "080220": 124900,
+        "010120": 265500,
+        "402340": 1848000,
+        "028260": 526000,
+        "009150": 2380000,
+        "298040": 3947000,
+        "462870": 35250,
+        "035420": 237500,
+        "006400": 573000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "462870",
+          "name": "시프트업",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 AI ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-19 12:02:27",
+      "prices": {
+        "000660": 2861000,
+        "042700": 304500,
+        "080220": 124900,
+        "010120": 256000,
+        "402340": 1830000,
+        "028260": 529000,
+        "009150": 2318000,
+        "298040": 3863000,
+        "035420": 234500,
+        "006400": 557000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "462870",
+          "name": "시프트업",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 AI ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-19 12:38:07",
+      "prices": {
+        "000660": 2776000,
+        "042700": 297500,
+        "080220": 117500,
+        "010120": 250500,
+        "402340": 1761000,
+        "028260": 508000,
+        "009150": 2233000,
+        "298040": 3780000,
+        "035420": 228500,
+        "006400": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "462870",
+          "name": "시프트업",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 AI ESS"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-19 13:26:52",
+      "prices": {
+        "000660": 2778000,
+        "042700": 292500,
+        "080220": 115700,
+        "010120": 249000,
+        "402340": 1761000,
+        "028260": 500000,
+        "009150": 2251000,
+        "298040": 3789000,
+        "035420": 228000,
+        "006400": 546000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "AI 반도체 및 부품"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "462870",
+          "name": "시프트업",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "게임/콘텐츠 신작 모멘텀"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "2차전지 및 AI ESS"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 2825000,
+      "close_price": 2764000,
+      "profit_rate": -2.16,
+      "profit_amount": -61000,
+      "high_price": 2891000,
+      "high_time": "10:28",
+      "high_profit_rate": 2.34,
+      "high_profit_amount": 66000,
+      "low_price": 2688000,
+      "low_profit_rate": -4.85,
+      "low_profit_amount": -137000,
+      "low_time": "12:58"
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 327750,
+      "close_price": 295000,
+      "profit_rate": -9.99,
+      "profit_amount": -32750,
+      "high_price": 330000,
+      "high_time": "09:24",
+      "high_profit_rate": 0.69,
+      "high_profit_amount": 2250,
+      "low_price": 287000,
+      "low_profit_rate": -12.43,
+      "low_profit_amount": -40750,
+      "low_time": "14:38"
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 122300,
+      "close_price": 114300,
+      "profit_rate": -6.54,
+      "profit_amount": -8000,
+      "high_price": 129100,
+      "high_time": "10:30",
+      "high_profit_rate": 5.56,
+      "high_profit_amount": 6800,
+      "low_price": 110900,
+      "low_profit_rate": -9.32,
+      "low_profit_amount": -11400,
+      "low_time": "14:37"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력 인프라 및 에너지 효율화",
+      "market": "KOSPI",
+      "buy_price": 267500,
+      "close_price": 259000,
+      "profit_rate": -3.18,
+      "profit_amount": -8500,
+      "high_price": 276000,
+      "high_time": "09:16",
+      "high_profit_rate": 3.18,
+      "high_profit_amount": 8500,
+      "low_price": 244000,
+      "low_profit_rate": -8.79,
+      "low_profit_amount": -23500,
+      "low_time": "12:58"
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "theme": "지주사 및 주주환원",
+      "market": "KOSDAQ",
+      "buy_price": 1818000,
+      "close_price": 1780000,
+      "profit_rate": -2.09,
+      "profit_amount": -38000,
+      "high_price": 1891000,
+      "high_time": "09:37",
+      "high_profit_rate": 4.02,
+      "high_profit_amount": 73000,
+      "low_price": 1724000,
+      "low_profit_rate": -5.17,
+      "low_profit_amount": -94000,
+      "low_time": "12:59"
+    },
+    {
+      "code": "028260",
+      "name": "삼성물산",
+      "theme": "원전 및 신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 539000,
+      "close_price": 491500,
+      "profit_rate": -8.81,
+      "profit_amount": -47500,
+      "high_price": 555000,
+      "high_time": "09:23",
+      "high_profit_rate": 2.97,
+      "high_profit_amount": 16000,
+      "low_price": 480500,
+      "low_profit_rate": -10.85,
+      "low_profit_amount": -58500,
+      "low_time": "14:37"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "AI 반도체 및 부품",
+      "market": "KOSPI",
+      "buy_price": 2325000,
+      "close_price": 2270000,
+      "profit_rate": -2.37,
+      "profit_amount": -55000,
+      "high_price": 2417000,
+      "high_time": "10:22",
+      "high_profit_rate": 3.96,
+      "high_profit_amount": 92000,
+      "low_price": 2169000,
+      "low_profit_rate": -6.71,
+      "low_profit_amount": -156000,
+      "low_time": "12:58"
+    },
+    {
+      "code": "298040",
+      "name": "효성중공업",
+      "theme": "전력 인프라 및 스마트그리드",
+      "market": "KOSPI",
+      "buy_price": 3944000,
+      "close_price": 3855000,
+      "profit_rate": -2.26,
+      "profit_amount": -89000,
+      "high_price": 4015000,
+      "high_time": "09:48",
+      "high_profit_rate": 1.8,
+      "high_profit_amount": 71000,
+      "low_price": 3710000,
+      "low_profit_rate": -5.93,
+      "low_profit_amount": -234000,
+      "low_time": "13:06"
+    },
+    {
+      "code": "462870",
+      "name": "시프트업",
+      "theme": "게임/콘텐츠 신작 모멘텀",
+      "market": "KOSDAQ",
+      "buy_price": 36100,
+      "close_price": 33300,
+      "profit_rate": -7.76,
+      "profit_amount": -2800,
+      "high_price": 36350,
+      "high_time": "09:24",
+      "high_profit_rate": 0.69,
+      "high_profit_amount": 250,
+      "low_price": 32300,
+      "low_profit_rate": -10.53,
+      "low_profit_amount": -3800,
+      "low_time": "14:06"
+    },
+    {
+      "code": "035420",
+      "name": "NAVER",
+      "theme": "게임/콘텐츠 신작 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 243250,
+      "close_price": 229500,
+      "profit_rate": -5.65,
+      "profit_amount": -13750,
+      "high_price": 244000,
+      "high_time": "09:32",
+      "high_profit_rate": 0.31,
+      "high_profit_amount": 750,
+      "low_price": 224000,
+      "low_profit_rate": -7.91,
+      "low_profit_amount": -19250,
+      "low_time": "14:39"
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "2차전지 및 AI ESS",
+      "market": "KOSPI",
+      "buy_price": 550000,
+      "close_price": 555000,
+      "profit_rate": 0.91,
+      "profit_amount": 5000,
+      "high_price": 582000,
+      "high_time": "10:16",
+      "high_profit_rate": 5.82,
+      "high_profit_amount": 32000,
+      "low_price": 527000,
+      "low_profit_rate": -4.18,
+      "low_profit_amount": -23000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 1,
+    "loss_stocks": 10,
+    "total_invested": 12997900,
+    "total_value": 12646600,
+    "total_profit": -351300,
+    "total_profit_rate": -2.7,
+    "high_total_value": 13366450,
+    "high_total_profit": 368550,
+    "high_total_profit_rate": 2.84,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 0
+  }
+}
