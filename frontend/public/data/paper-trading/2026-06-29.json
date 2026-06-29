@@ -1,0 +1,631 @@
+{
+  "trade_date": "2026-06-29",
+  "morning_timestamp": "2026-06-29 09:15:53",
+  "collected_at": "2026-06-29 15:41:58",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-06-29 09:15:53",
+      "prices": {
+        "141080": 162200,
+        "347850": 84500,
+        "476830": 45500,
+        "375500": 61500,
+        "002990": 8610,
+        "058730": 4070,
+        "009150": 2079000,
+        "036930": 177300,
+        "403870": 54400,
+        "001210": 1098,
+        "073240": 5780,
+        "226950": 151600,
+        "153890": 33150,
+        "454910": 86200
+      },
+      "leader_stocks": [
+        {
+          "code": "141080",
+          "name": "리가켐바이오",
+          "theme": "바이오 신약 개발 및 기술이전"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "바이오 신약 개발 및 기술이전"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 신약 개발 및 기술이전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "058730",
+          "name": "다스코",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 장비/부품"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 장비/부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 반도체 장비/부품"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "금호그룹 계열사 재평가"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "금호그룹 계열사 재평가"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-29 09:32:43",
+      "prices": {
+        "141080": 168800,
+        "347850": 84500,
+        "476830": 46600,
+        "375500": 62600,
+        "002990": 8610,
+        "058730": 4070,
+        "009150": 2001000,
+        "036930": 178100,
+        "403870": 54400,
+        "001210": 1098,
+        "073240": 5780,
+        "226950": 169500,
+        "153890": 33150,
+        "454910": 88400
+      },
+      "leader_stocks": [
+        {
+          "code": "141080",
+          "name": "리가켐바이오",
+          "theme": "바이오 신약 개발 및 기술이전"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "바이오 신약 개발 및 기술이전"
+        },
+        {
+          "code": "476830",
+          "name": "알지노믹스",
+          "theme": "바이오 신약 개발 및 기술이전"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "058730",
+          "name": "다스코",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "AI 반도체 장비/부품"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI 반도체 장비/부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 반도체 장비/부품"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "금호그룹 계열사 재평가"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "금호그룹 계열사 재평가"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-29 09:38:03",
+      "prices": {
+        "141080": 166900,
+        "347850": 89900,
+        "476830": 47000,
+        "375500": 62600,
+        "002990": 8610,
+        "058730": 3990,
+        "009150": 2018000,
+        "036930": 175900,
+        "403870": 54300,
+        "001210": 1098,
+        "073240": 5290,
+        "226950": 163700,
+        "153890": 40100,
+        "454910": 88900
+      },
+      "leader_stocks": [
+        {
+          "code": "141080",
+          "name": "리가켐바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "226950",
+          "name": "올릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "058730",
+          "name": "다스코",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "153890",
+          "name": "져스텍",
+          "theme": "로봇/스마트팩토리"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/스마트팩토리"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-29 10:02:48",
+      "prices": {
+        "141080": 167000,
+        "347850": 89900,
+        "476830": 46550,
+        "375500": 63300,
+        "002990": 8610,
+        "058730": 3990,
+        "009150": 2053000,
+        "036930": 173300,
+        "403870": 54300,
+        "001210": 1098,
+        "073240": 5310,
+        "226950": 167000,
+        "153890": 40100,
+        "454910": 88800
+      },
+      "leader_stocks": [
+        {
+          "code": "141080",
+          "name": "리가켐바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "226950",
+          "name": "올릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "058730",
+          "name": "다스코",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "153890",
+          "name": "져스텍",
+          "theme": "로봇/스마트팩토리"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/스마트팩토리"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-29 12:38:17",
+      "prices": {
+        "141080": 165500,
+        "347850": 95800,
+        "476830": 45850,
+        "375500": 65100,
+        "002990": 8610,
+        "058730": 4290,
+        "009150": 1991000,
+        "036930": 177400,
+        "403870": 52600,
+        "001210": 1098,
+        "073240": 5320,
+        "226950": 168800,
+        "153890": 31300,
+        "454910": 89700
+      },
+      "leader_stocks": [
+        {
+          "code": "141080",
+          "name": "리가켐바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "226950",
+          "name": "올릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "058730",
+          "name": "다스코",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "153890",
+          "name": "져스텍",
+          "theme": "로봇/스마트팩토리"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/스마트팩토리"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-29 14:36:48",
+      "prices": {
+        "141080": 161400,
+        "347850": 95800,
+        "476830": 44500,
+        "375500": 65700,
+        "002990": 8610,
+        "058730": 4290,
+        "009150": 2017000,
+        "036930": 174700,
+        "403870": 52600,
+        "001210": 1098,
+        "073240": 5080,
+        "226950": 164600,
+        "153890": 31300,
+        "454910": 92000
+      },
+      "leader_stocks": [
+        {
+          "code": "141080",
+          "name": "리가켐바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "226950",
+          "name": "올릭스",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "058730",
+          "name": "다스코",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "153890",
+          "name": "져스텍",
+          "theme": "로봇/스마트팩토리"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/스마트팩토리"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "141080",
+      "name": "리가켐바이오",
+      "theme": "바이오 신약 개발 및 기술이전",
+      "market": "KOSPI",
+      "buy_price": 162200,
+      "close_price": 162900,
+      "profit_rate": 0.43,
+      "profit_amount": 700,
+      "high_price": 173800,
+      "high_time": "09:54",
+      "high_profit_rate": 7.15,
+      "high_profit_amount": 11600,
+      "low_price": 150800,
+      "low_profit_rate": -7.03,
+      "low_profit_amount": -11400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "theme": "바이오 신약 개발 및 기술이전",
+      "market": "KOSDAQ",
+      "buy_price": 84500,
+      "close_price": 92500,
+      "profit_rate": 9.47,
+      "profit_amount": 8000,
+      "high_price": 96900,
+      "high_time": "11:28",
+      "high_profit_rate": 14.67,
+      "high_profit_amount": 12400,
+      "low_price": 79900,
+      "low_profit_rate": -5.44,
+      "low_profit_amount": -4600,
+      "low_time": "09:00"
+    },
+    {
+      "code": "476830",
+      "name": "알지노믹스",
+      "theme": "바이오 신약 개발 및 기술이전",
+      "market": "KOSDAQ",
+      "buy_price": 45500,
+      "close_price": 44900,
+      "profit_rate": -1.32,
+      "profit_amount": -600,
+      "high_price": 48500,
+      "high_time": "09:43",
+      "high_profit_rate": 6.59,
+      "high_profit_amount": 3000,
+      "low_price": 42800,
+      "low_profit_rate": -5.93,
+      "low_profit_amount": -2700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "건설 및 인프라 투자 확대",
+      "market": "KOSDAQ",
+      "buy_price": 61500,
+      "close_price": 65500,
+      "profit_rate": 6.5,
+      "profit_amount": 4000,
+      "high_price": 66300,
+      "high_time": "15:01",
+      "high_profit_rate": 7.8,
+      "high_profit_amount": 4800,
+      "low_price": 60000,
+      "low_profit_rate": -2.44,
+      "low_profit_amount": -1500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설 및 인프라 투자 확대",
+      "market": "KOSPI",
+      "buy_price": 8610,
+      "close_price": 8610,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 8610,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 8130,
+      "low_profit_rate": -5.57,
+      "low_profit_amount": -480,
+      "low_time": "09:02"
+    },
+    {
+      "code": "058730",
+      "name": "다스코",
+      "theme": "건설 및 인프라 투자 확대",
+      "market": "KOSPI",
+      "buy_price": 4070,
+      "close_price": 4465,
+      "profit_rate": 9.71,
+      "profit_amount": 395,
+      "high_price": 4465,
+      "high_time": "15:30",
+      "high_profit_rate": 9.71,
+      "high_profit_amount": 395,
+      "low_price": 3750,
+      "low_profit_rate": -7.86,
+      "low_profit_amount": -320,
+      "low_time": "09:00"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "AI 반도체 장비/부품",
+      "market": "KOSPI",
+      "buy_price": 2079000,
+      "close_price": 2038000,
+      "profit_rate": -1.97,
+      "profit_amount": -41000,
+      "high_price": 2104000,
+      "high_time": "10:45",
+      "high_profit_rate": 1.2,
+      "high_profit_amount": 25000,
+      "low_price": 1984000,
+      "low_profit_rate": -4.57,
+      "low_profit_amount": -95000,
+      "low_time": "09:48"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "AI 반도체 장비/부품",
+      "market": "KOSPI",
+      "buy_price": 177300,
+      "close_price": 176600,
+      "profit_rate": -0.39,
+      "profit_amount": -700,
+      "high_price": 189000,
+      "high_time": "09:18",
+      "high_profit_rate": 6.6,
+      "high_profit_amount": 11700,
+      "low_price": 167800,
+      "low_profit_rate": -5.36,
+      "low_profit_amount": -9500,
+      "low_time": "09:01"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "AI 반도체 장비/부품",
+      "market": "KOSDAQ",
+      "buy_price": 54400,
+      "close_price": 53700,
+      "profit_rate": -1.29,
+      "profit_amount": -700,
+      "high_price": 57900,
+      "high_time": "09:19",
+      "high_profit_rate": 6.43,
+      "high_profit_amount": 3500,
+      "low_price": 51200,
+      "low_profit_rate": -5.88,
+      "low_profit_amount": -3200,
+      "low_time": "11:36"
+    },
+    {
+      "code": "001210",
+      "name": "금호전기",
+      "theme": "금호그룹 계열사 재평가",
+      "market": "KOSPI",
+      "buy_price": 1098,
+      "close_price": 1098,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1098,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1008,
+      "low_profit_rate": -8.2,
+      "low_profit_amount": -90,
+      "low_time": "09:02"
+    },
+    {
+      "code": "073240",
+      "name": "금호타이어",
+      "theme": "금호그룹 계열사 재평가",
+      "market": "KOSPI",
+      "buy_price": 5780,
+      "close_price": 5320,
+      "profit_rate": -7.96,
+      "profit_amount": -460,
+      "high_price": 5480,
+      "high_time": "11:16",
+      "high_profit_rate": -5.19,
+      "high_profit_amount": -300,
+      "low_price": 4995,
+      "low_profit_rate": -13.58,
+      "low_profit_amount": -785,
+      "low_time": "14:31"
+    },
+    {
+      "code": "226950",
+      "name": "올릭스",
+      "theme": "바이오/헬스케어",
+      "market": "KOSPI",
+      "buy_price": 151600,
+      "close_price": 167200,
+      "profit_rate": 10.29,
+      "profit_amount": 15600,
+      "high_price": 172500,
+      "high_time": "09:27",
+      "high_profit_rate": 13.79,
+      "high_profit_amount": 20900,
+      "low_price": 144800,
+      "low_profit_rate": -4.49,
+      "low_profit_amount": -6800,
+      "low_time": "09:00"
+    },
+    {
+      "code": "153890",
+      "name": "져스텍",
+      "theme": "로봇/스마트팩토리",
+      "market": "KOSPI",
+      "buy_price": 33150,
+      "close_price": 17530,
+      "profit_rate": -47.12,
+      "profit_amount": -15620,
+      "high_price": 42500,
+      "high_time": "09:36",
+      "high_profit_rate": 28.21,
+      "high_profit_amount": 9350,
+      "low_price": 17070,
+      "low_profit_rate": -48.51,
+      "low_profit_amount": -16080,
+      "low_time": "15:17"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇/스마트팩토리",
+      "market": "KOSDAQ",
+      "buy_price": 86200,
+      "close_price": 91600,
+      "profit_rate": 6.26,
+      "profit_amount": 5400,
+      "high_price": 92900,
+      "high_time": "15:00",
+      "high_profit_rate": 7.77,
+      "high_profit_amount": 6700,
+      "low_price": 83200,
+      "low_profit_rate": -3.48,
+      "low_profit_amount": -3000,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 14,
+    "profit_stocks": 6,
+    "loss_stocks": 6,
+    "total_invested": 2954908,
+    "total_value": 2929923,
+    "total_profit": -24985,
+    "total_profit_rate": -0.85,
+    "high_total_value": 3063953,
+    "high_total_profit": 109045,
+    "high_total_profit_rate": 3.69,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 1
+  }
+}
