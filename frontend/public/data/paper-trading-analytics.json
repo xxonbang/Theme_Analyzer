@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-06-29 15:42:59",
+  "generated_at": "2026-06-30 15:42:49",
   "period": {
     "start": "2026-06-01",
-    "end": "2026-06-29",
-    "trading_days": 19
+    "end": "2026-06-30",
+    "trading_days": 20
   },
   "overall": {
-    "cumulative_return": -35.85,
-    "cumulative_high_return": 83.13,
-    "avg_daily_return": -2.22,
+    "cumulative_return": -34.5,
+    "cumulative_high_return": 92.5,
+    "avg_daily_return": -2.01,
     "volatility": 4.29,
-    "sharpe_ratio": -0.52,
+    "sharpe_ratio": -0.47,
     "max_drawdown": 36.54,
-    "win_rate": 21.1,
-    "win_days": 4,
+    "win_rate": 25.0,
+    "win_days": 5,
     "loss_days": 14,
     "flat_days": 1,
-    "avg_win": 3.95,
+    "avg_win": 3.58,
     "avg_loss": -4.14,
-    "profit_loss_ratio": 0.95,
+    "profit_loss_ratio": 0.86,
     "max_win_streak": 1,
     "max_loss_streak": 6,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.86,
-    "win_rate": 0.0
+    "avg_return": -2.41,
+    "win_rate": 20.0
   },
   "theme_performance": [
     {
@@ -76,6 +76,13 @@
       "win_rate": 66.7,
       "avg_return": 1.09,
       "total_return": 3.26
+    },
+    {
+      "theme": "첨단 반도체 장비 및 부품",
+      "count": 4,
+      "win_rate": 50.0,
+      "avg_return": 1.02,
+      "total_return": 4.1
     },
     {
       "theme": "AI 반도체 장비/부품",
@@ -164,16 +171,16 @@
   ],
   "market_performance": [
     {
-      "market": "KOSDAQ",
-      "count": 49,
-      "win_rate": 36.7,
-      "avg_return": -2.55
+      "market": "KOSPI",
+      "count": 118,
+      "win_rate": 31.4,
+      "avg_return": -2.44
     },
     {
-      "market": "KOSPI",
-      "count": 111,
-      "win_rate": 29.7,
-      "avg_return": -2.73
+      "market": "KOSDAQ",
+      "count": 53,
+      "win_rate": 35.8,
+      "avg_return": -3.01
     }
   ],
   "cumulative_series": [
@@ -252,6 +259,10 @@
     {
       "date": "2026-06-29",
       "cumulative_return": -35.85
+    },
+    {
+      "date": "2026-06-30",
+      "cumulative_return": -34.5
     }
   ]
 }

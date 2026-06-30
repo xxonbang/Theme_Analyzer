@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-06-29 15:41:58",
+  "updated_at": "2026-06-30 15:41:55",
   "entries": [
+    {
+      "date": "2026-06-30",
+      "filename": "2026-06-30.json",
+      "total_profit_rate": 2.11,
+      "stock_count": 11
+    },
     {
       "date": "2026-06-29",
       "filename": "2026-06-29.json",
