@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-06-30 15:42:49",
+  "generated_at": "2026-07-01 15:42:44",
   "period": {
     "start": "2026-06-01",
-    "end": "2026-06-30",
-    "trading_days": 20
+    "end": "2026-07-01",
+    "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -34.5,
-    "cumulative_high_return": 92.5,
-    "avg_daily_return": -2.01,
-    "volatility": 4.29,
-    "sharpe_ratio": -0.47,
+    "cumulative_return": -33.84,
+    "cumulative_high_return": 102.65,
+    "avg_daily_return": -1.86,
+    "volatility": 4.23,
+    "sharpe_ratio": -0.44,
     "max_drawdown": 36.54,
-    "win_rate": 25.0,
-    "win_days": 5,
+    "win_rate": 28.6,
+    "win_days": 6,
     "loss_days": 14,
     "flat_days": 1,
-    "avg_win": 3.58,
+    "avg_win": 3.15,
     "avg_loss": -4.14,
-    "profit_loss_ratio": 0.86,
-    "max_win_streak": 1,
+    "profit_loss_ratio": 0.76,
+    "max_win_streak": 2,
     "max_loss_streak": 6,
     "best_day": {
       "date": "2026-06-04",
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.41,
-    "win_rate": 20.0
+    "avg_return": -0.54,
+    "win_rate": 40.0
   },
   "theme_performance": [
     {
@@ -69,6 +69,13 @@
       "win_rate": 66.7,
       "avg_return": 2.86,
       "total_return": 8.58
+    },
+    {
+      "theme": "전력 인프라 및 중전기기",
+      "count": 3,
+      "win_rate": 100.0,
+      "avg_return": 2.71,
+      "total_return": 8.12
     },
     {
       "theme": "AI/클라우드/플랫폼 서비스",
@@ -172,15 +179,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 118,
-      "win_rate": 31.4,
-      "avg_return": -2.44
+      "count": 127,
+      "win_rate": 35.4,
+      "avg_return": -1.86
     },
     {
       "market": "KOSDAQ",
-      "count": 53,
-      "win_rate": 35.8,
-      "avg_return": -3.01
+      "count": 55,
+      "win_rate": 38.2,
+      "avg_return": -2.84
     }
   ],
   "cumulative_series": [
@@ -263,6 +270,10 @@
     {
       "date": "2026-06-30",
       "cumulative_return": -34.5
+    },
+    {
+      "date": "2026-07-01",
+      "cumulative_return": -33.84
     }
   ]
 }

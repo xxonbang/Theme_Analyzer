@@ -1,0 +1,605 @@
+{
+  "trade_date": "2026-07-01",
+  "morning_timestamp": "2026-07-01 09:15:21",
+  "collected_at": "2026-07-01 15:41:54",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-01 09:15:21",
+      "prices": {
+        "002990": 14540,
+        "023410": 4045,
+        "010120": 260000,
+        "000500": 282250,
+        "298040": 3707000,
+        "322000": 147400,
+        "389260": 16180,
+        "006360": 28500,
+        "006340": 11210,
+        "240810": 162200,
+        "039440": 30350
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 건설자재"
+        },
+        {
+          "code": "023410",
+          "name": "유진기업",
+          "theme": "건설 및 건설자재"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 중전기기"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 중전기기"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 중전기기"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "389260",
+          "name": "대명에너지",
+          "theme": "신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 09:32:46",
+      "prices": {
+        "002990": 14540,
+        "023410": 4045,
+        "010120": 259500,
+        "000500": 274000,
+        "298040": 3719000,
+        "322000": 153400,
+        "389260": 16230,
+        "006360": 28500,
+        "006340": 11210,
+        "240810": 185300,
+        "039440": 32700
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 건설자재"
+        },
+        {
+          "code": "023410",
+          "name": "유진기업",
+          "theme": "건설 및 건설자재"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 중전기기"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 중전기기"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 중전기기"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "389260",
+          "name": "대명에너지",
+          "theme": "신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 09:38:59",
+      "prices": {
+        "002990": 14540,
+        "023410": 4090,
+        "010120": 261500,
+        "000500": 273500,
+        "298040": 3722000,
+        "322000": 152100,
+        "389260": 16170,
+        "006360": 29950,
+        "006340": 11880,
+        "240810": 182000,
+        "039440": 32500
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        },
+        {
+          "code": "039440",
+          "name": "에스티아이",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 10:02:51",
+      "prices": {
+        "002990": 14540,
+        "023410": 4090,
+        "010120": 267500,
+        "000500": 275000,
+        "298040": 3805000,
+        "322000": 161000,
+        "389260": 16700,
+        "006360": 29950,
+        "006340": 11880,
+        "240810": 180200,
+        "039440": 32400
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        },
+        {
+          "code": "039440",
+          "name": "에스티아이",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 12:02:15",
+      "prices": {
+        "002990": 14540,
+        "023410": 4090,
+        "010120": 262500,
+        "298040": 3699000,
+        "322000": 153600,
+        "389260": 16720,
+        "006360": 29950,
+        "006340": 11880,
+        "240810": 159400
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        },
+        {
+          "code": "039440",
+          "name": "에스티아이",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 12:38:09",
+      "prices": {
+        "002990": 14540,
+        "023410": 4515,
+        "010120": 261000,
+        "298040": 3699000,
+        "389260": 16650,
+        "006360": 29550,
+        "006340": 12740,
+        "240810": 159000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        },
+        {
+          "code": "039440",
+          "name": "에스티아이",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 13:26:47",
+      "prices": {
+        "002990": 14540,
+        "023410": 4515,
+        "010120": 262500,
+        "298040": 3739000,
+        "389260": 16410,
+        "006360": 29550,
+        "006340": 12740,
+        "240810": 159000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        },
+        {
+          "code": "039440",
+          "name": "에스티아이",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-01 14:36:56",
+      "prices": {
+        "002990": 14540,
+        "023410": 4515,
+        "010120": 262000,
+        "000500": 300000,
+        "298040": 3700000,
+        "389260": 16310,
+        "006360": 29550,
+        "006340": 12740,
+        "240810": 159000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설업 재도약 및 인프라 투자 확대"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "000500",
+          "name": "가온전선",
+          "theme": "전력 인프라 및 전선 고도화"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        },
+        {
+          "code": "039440",
+          "name": "에스티아이",
+          "theme": "AI 반도체 및 첨단 패키징 장비"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설 및 건설자재",
+      "market": "KOSPI",
+      "buy_price": 14540,
+      "close_price": 14540,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 14540,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 11520,
+      "low_profit_rate": -20.77,
+      "low_profit_amount": -3020,
+      "low_time": "09:00"
+    },
+    {
+      "code": "023410",
+      "name": "유진기업",
+      "theme": "건설 및 건설자재",
+      "market": "KOSPI",
+      "buy_price": 4045,
+      "close_price": 4515,
+      "profit_rate": 11.62,
+      "profit_amount": 470,
+      "high_price": 4515,
+      "high_time": "15:30",
+      "high_profit_rate": 11.62,
+      "high_profit_amount": 470,
+      "low_price": 3545,
+      "low_profit_rate": -12.36,
+      "low_profit_amount": -500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력 인프라 및 중전기기",
+      "market": "KOSPI",
+      "buy_price": 260000,
+      "close_price": 263500,
+      "profit_rate": 1.35,
+      "profit_amount": 3500,
+      "high_price": 270000,
+      "high_time": "09:52",
+      "high_profit_rate": 3.85,
+      "high_profit_amount": 10000,
+      "low_price": 245000,
+      "low_profit_rate": -5.77,
+      "low_profit_amount": -15000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000500",
+      "name": "가온전선",
+      "theme": "전력 인프라 및 중전기기",
+      "market": "KOSPI",
+      "buy_price": 282250,
+      "close_price": 300500,
+      "profit_rate": 6.47,
+      "profit_amount": 18250,
+      "high_price": 303500,
+      "high_time": "15:18",
+      "high_profit_rate": 7.53,
+      "high_profit_amount": 21250,
+      "low_price": 257000,
+      "low_profit_rate": -8.95,
+      "low_profit_amount": -25250,
+      "low_time": "09:03"
+    },
+    {
+      "code": "298040",
+      "name": "효성중공업",
+      "theme": "전력 인프라 및 중전기기",
+      "market": "KOSPI",
+      "buy_price": 3707000,
+      "close_price": 3718000,
+      "profit_rate": 0.3,
+      "profit_amount": 11000,
+      "high_price": 3873000,
+      "high_time": "09:51",
+      "high_profit_rate": 4.48,
+      "high_profit_amount": 166000,
+      "low_price": 3538000,
+      "low_profit_rate": -4.56,
+      "low_profit_amount": -169000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 147400,
+      "close_price": 152200,
+      "profit_rate": 3.26,
+      "profit_amount": 4800,
+      "high_price": 162500,
+      "high_time": "10:02",
+      "high_profit_rate": 10.24,
+      "high_profit_amount": 15100,
+      "low_price": 142400,
+      "low_profit_rate": -3.39,
+      "low_profit_amount": -5000,
+      "low_time": "09:03"
+    },
+    {
+      "code": "389260",
+      "name": "대명에너지",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 16180,
+      "close_price": 16200,
+      "profit_rate": 0.12,
+      "profit_amount": 20,
+      "high_price": 16940,
+      "high_time": "11:56",
+      "high_profit_rate": 4.7,
+      "high_profit_amount": 760,
+      "low_price": 15620,
+      "low_profit_rate": -3.46,
+      "low_profit_amount": -560,
+      "low_time": "09:02"
+    },
+    {
+      "code": "006360",
+      "name": "GS건설",
+      "theme": "건설업 재도약 및 인프라 투자 확대",
+      "market": "KOSPI",
+      "buy_price": 28500,
+      "close_price": 30100,
+      "profit_rate": 5.61,
+      "profit_amount": 1600,
+      "high_price": 30400,
+      "high_time": "09:35",
+      "high_profit_rate": 6.67,
+      "high_profit_amount": 1900,
+      "low_price": 26100,
+      "low_profit_rate": -8.42,
+      "low_profit_amount": -2400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전력 인프라 및 전선 고도화",
+      "market": "KOSPI",
+      "buy_price": 11210,
+      "close_price": 13400,
+      "profit_rate": 19.54,
+      "profit_amount": 2190,
+      "high_price": 13400,
+      "high_time": "15:30",
+      "high_profit_rate": 19.54,
+      "high_profit_amount": 2190,
+      "low_price": 10610,
+      "low_profit_rate": -5.35,
+      "low_profit_amount": -600,
+      "low_time": "09:03"
+    },
+    {
+      "code": "240810",
+      "name": "원익IPS",
+      "theme": "AI 반도체 및 첨단 패키징 장비",
+      "market": "KOSPI",
+      "buy_price": 162200,
+      "close_price": 165600,
+      "profit_rate": 2.1,
+      "profit_amount": 3400,
+      "high_price": 187800,
+      "high_time": "09:36",
+      "high_profit_rate": 15.78,
+      "high_profit_amount": 25600,
+      "low_price": 156100,
+      "low_profit_rate": -3.76,
+      "low_profit_amount": -6100,
+      "low_time": "11:10"
+    },
+    {
+      "code": "039440",
+      "name": "에스티아이",
+      "theme": "AI 반도체 및 첨단 패키징 장비",
+      "market": "KOSPI",
+      "buy_price": 30350,
+      "close_price": 31600,
+      "profit_rate": 4.12,
+      "profit_amount": 1250,
+      "high_price": 33000,
+      "high_time": "11:00",
+      "high_profit_rate": 8.73,
+      "high_profit_amount": 2650,
+      "low_price": 29100,
+      "low_profit_rate": -4.12,
+      "low_profit_amount": -1250,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 10,
+    "loss_stocks": 0,
+    "total_invested": 4663675,
+    "total_value": 4710155,
+    "total_profit": 46480,
+    "total_profit_rate": 1.0,
+    "high_total_value": 4909595,
+    "high_total_profit": 245920,
+    "high_total_profit_rate": 5.27,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
