@@ -1,0 +1,427 @@
+{
+  "trade_date": "2026-07-02",
+  "morning_timestamp": "2026-07-02 09:14:01",
+  "collected_at": "2026-07-02 15:42:06",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-02 09:14:01",
+      "prices": {
+        "002990": 18340,
+        "042660": 112900,
+        "403870": 50600,
+        "002780": 980,
+        "477850": 17690,
+        "372800": 2465,
+        "012450": 1140000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/환경 인프라"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "방산/조선"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "첨단 반도체 소재/장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-02 09:33:17",
+      "prices": {
+        "002990": 18340,
+        "042660": 112900,
+        "403870": 50600,
+        "002780": 980,
+        "477850": 17690,
+        "372800": 2465,
+        "012450": 1125000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/환경 인프라"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "방산/조선"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "첨단 반도체 소재/장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-02 09:39:14",
+      "prices": {
+        "002990": 17260,
+        "042660": 107600,
+        "403870": 46900,
+        "002780": 1142,
+        "477850": 20550,
+        "372800": 2610,
+        "012450": 1121000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "372800",
+          "name": "아이티아이즈",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 테마"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "조선/방산 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-02 10:02:48",
+      "prices": {
+        "002990": 17260,
+        "042660": 107600,
+        "403870": 46900,
+        "002780": 1142,
+        "477850": 20550,
+        "372800": 2610,
+        "012450": 1128000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "372800",
+          "name": "아이티아이즈",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 테마"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "조선/방산 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-02 12:02:13",
+      "prices": {
+        "002990": 17260,
+        "042660": 107600,
+        "403870": 46900,
+        "002780": 1142,
+        "477850": 20550,
+        "372800": 2610,
+        "012450": 1179000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "372800",
+          "name": "아이티아이즈",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 테마"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "조선/방산 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-02 12:38:02",
+      "prices": {
+        "002990": 12890,
+        "042660": 107200,
+        "403870": 45150,
+        "002780": 1142,
+        "477850": 19220,
+        "372800": 2465,
+        "012450": 1171000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "372800",
+          "name": "아이티아이즈",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 테마"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "조선/방산 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-02 13:26:50",
+      "prices": {
+        "002990": 12890,
+        "042660": 106900,
+        "403870": 45150,
+        "002780": 1142,
+        "477850": 19220,
+        "372800": 2465,
+        "012450": 1158000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/재건 테마"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "372800",
+          "name": "아이티아이즈",
+          "theme": "AI/IT 솔루션 테마"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 테마"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "조선/방산 테마"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/환경 인프라",
+      "market": "KOSPI",
+      "buy_price": 18340,
+      "close_price": 11730,
+      "profit_rate": -36.04,
+      "profit_amount": -6610,
+      "high_price": 17990,
+      "high_time": "09:17",
+      "high_profit_rate": -1.91,
+      "high_profit_amount": -350,
+      "low_price": 10180,
+      "low_profit_rate": -44.49,
+      "low_profit_amount": -8160,
+      "low_time": "15:15"
+    },
+    {
+      "code": "042660",
+      "name": "한화오션",
+      "theme": "방산/조선",
+      "market": "KOSPI",
+      "buy_price": 112900,
+      "close_price": 104500,
+      "profit_rate": -7.44,
+      "profit_amount": -8400,
+      "high_price": 110300,
+      "high_time": "09:38",
+      "high_profit_rate": -2.3,
+      "high_profit_amount": -2600,
+      "low_price": 103700,
+      "low_profit_rate": -8.15,
+      "low_profit_amount": -9200,
+      "low_time": "15:12"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "첨단 반도체 소재/장비",
+      "market": "KOSDAQ",
+      "buy_price": 50600,
+      "close_price": 43700,
+      "profit_rate": -13.64,
+      "profit_amount": -6900,
+      "high_price": 47550,
+      "high_time": "09:15",
+      "high_profit_rate": -6.03,
+      "high_profit_amount": -3050,
+      "low_price": 43500,
+      "low_profit_rate": -14.03,
+      "low_profit_amount": -7100,
+      "low_time": "15:18"
+    },
+    {
+      "code": "002780",
+      "name": "진흥기업",
+      "theme": "건설/재건 테마",
+      "market": "KOSPI",
+      "buy_price": 980,
+      "close_price": 1142,
+      "profit_rate": 16.53,
+      "profit_amount": 162,
+      "high_price": 1142,
+      "high_time": "15:30",
+      "high_profit_rate": 16.53,
+      "high_profit_amount": 162,
+      "low_price": 860,
+      "low_profit_rate": -12.24,
+      "low_profit_amount": -120,
+      "low_time": "09:02"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/IT 솔루션 테마",
+      "market": "KOSDAQ",
+      "buy_price": 17690,
+      "close_price": 21300,
+      "profit_rate": 20.41,
+      "profit_amount": 3610,
+      "high_price": 21300,
+      "high_time": "15:30",
+      "high_profit_rate": 20.41,
+      "high_profit_amount": 3610,
+      "low_price": 16930,
+      "low_profit_rate": -4.3,
+      "low_profit_amount": -760,
+      "low_time": "09:00"
+    },
+    {
+      "code": "372800",
+      "name": "아이티아이즈",
+      "theme": "AI/IT 솔루션 테마",
+      "market": "KOSDAQ",
+      "buy_price": 2465,
+      "close_price": 2530,
+      "profit_rate": 2.64,
+      "profit_amount": 65,
+      "high_price": 2780,
+      "high_time": "09:41",
+      "high_profit_rate": 12.78,
+      "high_profit_amount": 315,
+      "low_price": 2145,
+      "low_profit_rate": -12.98,
+      "low_profit_amount": -320,
+      "low_time": "09:00"
+    },
+    {
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "theme": "조선/방산 테마",
+      "market": "KOSPI",
+      "buy_price": 1140000,
+      "close_price": 1116000,
+      "profit_rate": -2.11,
+      "profit_amount": -24000,
+      "high_price": 1197000,
+      "high_time": "11:05",
+      "high_profit_rate": 5.0,
+      "high_profit_amount": 57000,
+      "low_price": 1096000,
+      "low_profit_rate": -3.86,
+      "low_profit_amount": -44000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 3,
+    "loss_stocks": 4,
+    "total_invested": 1342975,
+    "total_value": 1300902,
+    "total_profit": -42073,
+    "total_profit_rate": -3.13,
+    "high_total_value": 1398062,
+    "high_total_profit": 55087,
+    "high_total_profit_rate": 4.1,
+    "high_profit_stocks": 4,
+    "high_loss_stocks": 3
+  }
+}
