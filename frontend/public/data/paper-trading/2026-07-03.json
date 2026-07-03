@@ -1,0 +1,625 @@
+{
+  "trade_date": "2026-07-03",
+  "morning_timestamp": "2026-07-03 09:14:54",
+  "collected_at": "2026-07-03 15:42:05",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-03 09:14:54",
+      "prices": {
+        "005930": 296500,
+        "000660": 2230000,
+        "403870": 45350,
+        "002990": 12920,
+        "002780": 1354,
+        "477850": 23900,
+        "301300": 1854,
+        "378800": 555,
+        "034940": 582,
+        "122350": 2345,
+        "419050": 2230
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/신기술"
+        },
+        {
+          "code": "301300",
+          "name": "바이브컴퍼니",
+          "theme": "AI/신기술"
+        },
+        {
+          "code": "378800",
+          "name": "샤페론",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 09:32:54",
+      "prices": {
+        "005930": 296500,
+        "000660": 2105000,
+        "403870": 45350,
+        "002990": 12920,
+        "002780": 1354,
+        "477850": 23900,
+        "301300": 1854,
+        "378800": 555,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2230
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/신기술"
+        },
+        {
+          "code": "301300",
+          "name": "바이브컴퍼니",
+          "theme": "AI/신기술"
+        },
+        {
+          "code": "378800",
+          "name": "샤페론",
+          "theme": "바이오/헬스케어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 09:40:03",
+      "prices": {
+        "005930": 288000,
+        "000660": 2116000,
+        "403870": 45050,
+        "002990": 10320,
+        "002780": 1268,
+        "477850": 24000,
+        "301300": 1819,
+        "378800": 529,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2395
+      },
+      "leader_stocks": [
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "034940",
+          "name": "조아제약",
+          "theme": "제약/바이오 섹터 재부각"
+        },
+        {
+          "code": "122350",
+          "name": "삼기",
+          "theme": "로봇 부품"
+        },
+        {
+          "code": "419050",
+          "name": "삼기에너지솔루션즈",
+          "theme": "EV 부품 및 에너지 저장 시스템 (ESS)"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설 섹터 턴어라운드 및 지역 개발 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 10:02:46",
+      "prices": {
+        "005930": 289000,
+        "000660": 2089000,
+        "403870": 45050,
+        "002990": 10320,
+        "002780": 1268,
+        "477850": 24000,
+        "301300": 1819,
+        "378800": 529,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2395
+      },
+      "leader_stocks": [
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "034940",
+          "name": "조아제약",
+          "theme": "제약/바이오 섹터 재부각"
+        },
+        {
+          "code": "122350",
+          "name": "삼기",
+          "theme": "로봇 부품"
+        },
+        {
+          "code": "419050",
+          "name": "삼기에너지솔루션즈",
+          "theme": "EV 부품 및 에너지 저장 시스템 (ESS)"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설 섹터 턴어라운드 및 지역 개발 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 12:02:15",
+      "prices": {
+        "005930": 304500,
+        "000660": 2286000,
+        "403870": 45050,
+        "002990": 10320,
+        "002780": 1268,
+        "477850": 24000,
+        "301300": 1819,
+        "378800": 529,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2395
+      },
+      "leader_stocks": [
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "034940",
+          "name": "조아제약",
+          "theme": "제약/바이오 섹터 재부각"
+        },
+        {
+          "code": "122350",
+          "name": "삼기",
+          "theme": "로봇 부품"
+        },
+        {
+          "code": "419050",
+          "name": "삼기에너지솔루션즈",
+          "theme": "EV 부품 및 에너지 저장 시스템 (ESS)"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설 섹터 턴어라운드 및 지역 개발 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 12:38:34",
+      "prices": {
+        "005930": 305500,
+        "000660": 2290000,
+        "403870": 46350,
+        "002990": 10160,
+        "002780": 964,
+        "477850": 19740,
+        "301300": 1540,
+        "378800": 561,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2090
+      },
+      "leader_stocks": [
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "034940",
+          "name": "조아제약",
+          "theme": "제약/바이오 섹터 재부각"
+        },
+        {
+          "code": "122350",
+          "name": "삼기",
+          "theme": "로봇 부품"
+        },
+        {
+          "code": "419050",
+          "name": "삼기에너지솔루션즈",
+          "theme": "EV 부품 및 에너지 저장 시스템 (ESS)"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설 섹터 턴어라운드 및 지역 개발 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 13:26:52",
+      "prices": {
+        "005930": 305500,
+        "000660": 2348000,
+        "403870": 46350,
+        "002990": 10160,
+        "002780": 964,
+        "477850": 19740,
+        "301300": 1540,
+        "378800": 561,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2090
+      },
+      "leader_stocks": [
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "034940",
+          "name": "조아제약",
+          "theme": "제약/바이오 섹터 재부각"
+        },
+        {
+          "code": "122350",
+          "name": "삼기",
+          "theme": "로봇 부품"
+        },
+        {
+          "code": "419050",
+          "name": "삼기에너지솔루션즈",
+          "theme": "EV 부품 및 에너지 저장 시스템 (ESS)"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설 섹터 턴어라운드 및 지역 개발 수혜"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-03 14:36:56",
+      "prices": {
+        "005930": 305500,
+        "000660": 2442000,
+        "403870": 46350,
+        "002990": 10160,
+        "002780": 964,
+        "477850": 19740,
+        "301300": 1540,
+        "378800": 561,
+        "034940": 656,
+        "122350": 2345,
+        "419050": 2090
+      },
+      "leader_stocks": [
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 첨단 반도체 장비"
+        },
+        {
+          "code": "034940",
+          "name": "조아제약",
+          "theme": "제약/바이오 섹터 재부각"
+        },
+        {
+          "code": "122350",
+          "name": "삼기",
+          "theme": "로봇 부품"
+        },
+        {
+          "code": "419050",
+          "name": "삼기에너지솔루션즈",
+          "theme": "EV 부품 및 에너지 저장 시스템 (ESS)"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설 섹터 턴어라운드 및 지역 개발 수혜"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 296500,
+      "close_price": 309500,
+      "profit_rate": 4.38,
+      "profit_amount": 13000,
+      "high_price": 313000,
+      "high_time": "13:54",
+      "high_profit_rate": 5.56,
+      "high_profit_amount": 16500,
+      "low_price": 283500,
+      "low_profit_rate": -4.38,
+      "low_profit_amount": -13000,
+      "low_time": "09:59"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 2230000,
+      "close_price": 2425000,
+      "profit_rate": 8.74,
+      "profit_amount": 195000,
+      "high_price": 2454000,
+      "high_time": "14:35",
+      "high_profit_rate": 10.04,
+      "high_profit_amount": 224000,
+      "low_price": 2045000,
+      "low_profit_rate": -8.3,
+      "low_profit_amount": -185000,
+      "low_time": "10:00"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSDAQ",
+      "buy_price": 45350,
+      "close_price": 48500,
+      "profit_rate": 6.95,
+      "profit_amount": 3150,
+      "high_price": 49200,
+      "high_time": "15:02",
+      "high_profit_rate": 8.49,
+      "high_profit_amount": 3850,
+      "low_price": 43850,
+      "low_profit_rate": -3.31,
+      "low_profit_amount": -1500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 12920,
+      "close_price": 9500,
+      "profit_rate": -26.47,
+      "profit_amount": -3420,
+      "high_price": 11410,
+      "high_time": "09:15",
+      "high_profit_rate": -11.69,
+      "high_profit_amount": -1510,
+      "low_price": 9220,
+      "low_profit_rate": -28.64,
+      "low_profit_amount": -3700,
+      "low_time": "14:45"
+    },
+    {
+      "code": "002780",
+      "name": "진흥기업",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 1354,
+      "close_price": 936,
+      "profit_rate": -30.87,
+      "profit_amount": -418,
+      "high_price": 1360,
+      "high_time": "09:16",
+      "high_profit_rate": 0.44,
+      "high_profit_amount": 6,
+      "low_price": 900,
+      "low_profit_rate": -33.53,
+      "low_profit_amount": -454,
+      "low_time": "14:51"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/신기술",
+      "market": "KOSDAQ",
+      "buy_price": 23900,
+      "close_price": 23400,
+      "profit_rate": -2.09,
+      "profit_amount": -500,
+      "high_price": 25500,
+      "high_time": "10:02",
+      "high_profit_rate": 6.69,
+      "high_profit_amount": 1600,
+      "low_price": 19520,
+      "low_profit_rate": -18.33,
+      "low_profit_amount": -4380,
+      "low_time": "12:29"
+    },
+    {
+      "code": "301300",
+      "name": "바이브컴퍼니",
+      "theme": "AI/신기술",
+      "market": "KOSDAQ",
+      "buy_price": 1854,
+      "close_price": 1458,
+      "profit_rate": -21.36,
+      "profit_amount": -396,
+      "high_price": 1950,
+      "high_time": "09:23",
+      "high_profit_rate": 5.18,
+      "high_profit_amount": 96,
+      "low_price": 1429,
+      "low_profit_rate": -22.92,
+      "low_profit_amount": -425,
+      "low_time": "14:47"
+    },
+    {
+      "code": "378800",
+      "name": "샤페론",
+      "theme": "바이오/헬스케어",
+      "market": "KOSDAQ",
+      "buy_price": 555,
+      "close_price": 604,
+      "profit_rate": 8.83,
+      "profit_amount": 49,
+      "high_price": 615,
+      "high_time": "14:27",
+      "high_profit_rate": 10.81,
+      "high_profit_amount": 60,
+      "low_price": 520,
+      "low_profit_rate": -6.31,
+      "low_profit_amount": -35,
+      "low_time": "09:18"
+    },
+    {
+      "code": "034940",
+      "name": "조아제약",
+      "theme": "제약/바이오 섹터 재부각",
+      "market": "KOSPI",
+      "buy_price": 582,
+      "close_price": 656,
+      "profit_rate": 12.71,
+      "profit_amount": 74,
+      "high_price": 656,
+      "high_time": "15:30",
+      "high_profit_rate": 12.71,
+      "high_profit_amount": 74,
+      "low_price": 505,
+      "low_profit_rate": -13.23,
+      "low_profit_amount": -77,
+      "low_time": "09:00"
+    },
+    {
+      "code": "122350",
+      "name": "삼기",
+      "theme": "로봇 부품",
+      "market": "KOSPI",
+      "buy_price": 2345,
+      "close_price": 1801,
+      "profit_rate": -23.2,
+      "profit_amount": -544,
+      "high_price": 2345,
+      "high_time": "14:27",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1790,
+      "low_profit_rate": -23.67,
+      "low_profit_amount": -555,
+      "low_time": "14:47"
+    },
+    {
+      "code": "419050",
+      "name": "삼기에너지솔루션즈",
+      "theme": "EV 부품 및 에너지 저장 시스템 (ESS)",
+      "market": "KOSDAQ",
+      "buy_price": 2230,
+      "close_price": 1735,
+      "profit_rate": -22.2,
+      "profit_amount": -495,
+      "high_price": 2465,
+      "high_time": "09:37",
+      "high_profit_rate": 10.54,
+      "high_profit_amount": 235,
+      "low_price": 1649,
+      "low_profit_rate": -26.05,
+      "low_profit_amount": -581,
+      "low_time": "14:47"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 5,
+    "loss_stocks": 6,
+    "total_invested": 2617590,
+    "total_value": 2823090,
+    "total_profit": 205500,
+    "total_profit_rate": 7.85,
+    "high_total_value": 2862501,
+    "high_total_profit": 244911,
+    "high_total_profit_rate": 9.36,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 1
+  }
+}
