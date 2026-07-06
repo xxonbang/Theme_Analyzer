@@ -1,0 +1,569 @@
+{
+  "trade_date": "2026-07-06",
+  "morning_timestamp": "2026-07-06 09:14:12",
+  "collected_at": "2026-07-06 15:42:04",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-06 09:14:12",
+      "prices": {
+        "005930": 323000,
+        "011070": 916000,
+        "042660": 115800,
+        "005880": 2020,
+        "002780": 1136,
+        "375500": 65300,
+        "365660": 16320,
+        "272210": 82400,
+        "037070": 7760,
+        "002700": 1249
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/IT/반도체"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "AI/IT/반도체"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운/방산"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운/방산"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/부동산"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/부동산"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/의료 AI"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-06 09:32:45",
+      "prices": {
+        "005930": 319500,
+        "011070": 875000,
+        "042660": 115800,
+        "005880": 2020,
+        "002780": 1136,
+        "375500": 66800,
+        "365660": 16320,
+        "006360": 30650,
+        "272210": 83300,
+        "037070": 7760,
+        "002700": 1249
+      },
+      "leader_stocks": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/IT/반도체"
+        },
+        {
+          "code": "011070",
+          "name": "LG이노텍",
+          "theme": "AI/IT/반도체"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운/방산"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운/방산"
+        },
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/부동산"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설/부동산"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/의료 AI"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-06 09:38:31",
+      "prices": {
+        "005930": 318500,
+        "011070": 879000,
+        "042660": 117400,
+        "005880": 1976,
+        "002780": 1216,
+        "375500": 66900,
+        "365660": 16440,
+        "006360": 31150,
+        "272210": 82900,
+        "037070": 8490,
+        "002700": 1336
+      },
+      "leader_stocks": [
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-06 10:02:52",
+      "prices": {
+        "005930": 319500,
+        "011070": 871000,
+        "042660": 117400,
+        "005880": 1987,
+        "002780": 1216,
+        "375500": 67000,
+        "365660": 16440,
+        "272210": 82800,
+        "037070": 8490,
+        "002700": 1336
+      },
+      "leader_stocks": [
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-06 12:38:09",
+      "prices": {
+        "005930": 310250,
+        "011070": 832000,
+        "042660": 111900,
+        "005880": 1897,
+        "002780": 1216,
+        "375500": 65600,
+        "365660": 16840,
+        "006360": 30300,
+        "037070": 8870,
+        "002700": 1371
+      },
+      "leader_stocks": [
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-06 13:26:48",
+      "prices": {
+        "005930": 311750,
+        "011070": 832000,
+        "042660": 112300,
+        "005880": 1910,
+        "002780": 1216,
+        "375500": 65600,
+        "365660": 16840,
+        "006360": 30300,
+        "037070": 8870,
+        "002700": 1371
+      },
+      "leader_stocks": [
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-06 14:36:54",
+      "prices": {
+        "005930": 313000,
+        "011070": 844000,
+        "042660": 115200,
+        "005880": 1917,
+        "002780": 1216,
+        "375500": 65600,
+        "365660": 16840,
+        "006360": 30300,
+        "037070": 8870,
+        "002700": 1371
+      },
+      "leader_stocks": [
+        {
+          "code": "002780",
+          "name": "진흥기업",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라 투자 확대"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "272210",
+          "name": "한화시스템",
+          "theme": "조선/방산 수출 확대"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절가전 수요 증가"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "AI/IT/반도체",
+      "market": "KOSPI",
+      "buy_price": 323000,
+      "close_price": 318000,
+      "profit_rate": -1.55,
+      "profit_amount": -5000,
+      "high_price": 325000,
+      "high_time": "09:16",
+      "high_profit_rate": 0.62,
+      "high_profit_amount": 2000,
+      "low_price": 303000,
+      "low_profit_rate": -6.19,
+      "low_profit_amount": -20000,
+      "low_time": "11:51"
+    },
+    {
+      "code": "011070",
+      "name": "LG이노텍",
+      "theme": "AI/IT/반도체",
+      "market": "KOSPI",
+      "buy_price": 916000,
+      "close_price": 855000,
+      "profit_rate": -6.66,
+      "profit_amount": -61000,
+      "high_price": 907000,
+      "high_time": "09:15",
+      "high_profit_rate": -0.98,
+      "high_profit_amount": -9000,
+      "low_price": 817000,
+      "low_profit_rate": -10.81,
+      "low_profit_amount": -99000,
+      "low_time": "11:51"
+    },
+    {
+      "code": "042660",
+      "name": "한화오션",
+      "theme": "조선/해운/방산",
+      "market": "KOSPI",
+      "buy_price": 115800,
+      "close_price": 116100,
+      "profit_rate": 0.26,
+      "profit_amount": 300,
+      "high_price": 123000,
+      "high_time": "09:20",
+      "high_profit_rate": 6.22,
+      "high_profit_amount": 7200,
+      "low_price": 109500,
+      "low_profit_rate": -5.44,
+      "low_profit_amount": -6300,
+      "low_time": "11:42"
+    },
+    {
+      "code": "005880",
+      "name": "대한해운",
+      "theme": "조선/해운/방산",
+      "market": "KOSPI",
+      "buy_price": 2020,
+      "close_price": 1921,
+      "profit_rate": -4.9,
+      "profit_amount": -99,
+      "high_price": 2015,
+      "high_time": "09:15",
+      "high_profit_rate": -0.25,
+      "high_profit_amount": -5,
+      "low_price": 1852,
+      "low_profit_rate": -8.32,
+      "low_profit_amount": -168,
+      "low_time": "11:55"
+    },
+    {
+      "code": "002780",
+      "name": "진흥기업",
+      "theme": "건설/부동산",
+      "market": "KOSPI",
+      "buy_price": 1136,
+      "close_price": 1070,
+      "profit_rate": -5.81,
+      "profit_amount": -66,
+      "high_price": 1216,
+      "high_time": "14:29",
+      "high_profit_rate": 7.04,
+      "high_profit_amount": 80,
+      "low_price": 982,
+      "low_profit_rate": -13.56,
+      "low_profit_amount": -154,
+      "low_time": "09:00"
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "건설/부동산",
+      "market": "KOSDAQ",
+      "buy_price": 65300,
+      "close_price": 66600,
+      "profit_rate": 1.99,
+      "profit_amount": 1300,
+      "high_price": 68100,
+      "high_time": "09:49",
+      "high_profit_rate": 4.29,
+      "high_profit_amount": 2800,
+      "low_price": 63600,
+      "low_profit_rate": -2.6,
+      "low_profit_amount": -1700,
+      "low_time": "09:03"
+    },
+    {
+      "code": "365660",
+      "name": "레몬헬스케어",
+      "theme": "헬스케어/의료 AI",
+      "market": "KOSDAQ",
+      "buy_price": 16320,
+      "close_price": 9400,
+      "profit_rate": -42.4,
+      "profit_amount": -6920,
+      "high_price": 20300,
+      "high_time": "10:47",
+      "high_profit_rate": 24.39,
+      "high_profit_amount": 3980,
+      "low_price": 9370,
+      "low_profit_rate": -42.59,
+      "low_profit_amount": -6950,
+      "low_time": "15:15"
+    },
+    {
+      "code": "272210",
+      "name": "한화시스템",
+      "theme": "조선/방산 수출 확대",
+      "market": "KOSPI",
+      "buy_price": 82400,
+      "close_price": 80900,
+      "profit_rate": -1.82,
+      "profit_amount": -1500,
+      "high_price": 87900,
+      "high_time": "09:19",
+      "high_profit_rate": 6.67,
+      "high_profit_amount": 5500,
+      "low_price": 77100,
+      "low_profit_rate": -6.43,
+      "low_profit_amount": -5300,
+      "low_time": "09:02"
+    },
+    {
+      "code": "037070",
+      "name": "파세코",
+      "theme": "여름 계절가전 수요 증가",
+      "market": "KOSPI",
+      "buy_price": 7760,
+      "close_price": 8870,
+      "profit_rate": 14.3,
+      "profit_amount": 1110,
+      "high_price": 8870,
+      "high_time": "15:30",
+      "high_profit_rate": 14.3,
+      "high_profit_amount": 1110,
+      "low_price": 6990,
+      "low_profit_rate": -9.92,
+      "low_profit_amount": -770,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002700",
+      "name": "신일전자",
+      "theme": "여름 계절가전 수요 증가",
+      "market": "KOSPI",
+      "buy_price": 1249,
+      "close_price": 1284,
+      "profit_rate": 2.8,
+      "profit_amount": 35,
+      "high_price": 1430,
+      "high_time": "09:39",
+      "high_profit_rate": 14.49,
+      "high_profit_amount": 181,
+      "low_price": 1177,
+      "low_profit_rate": -5.76,
+      "low_profit_amount": -72,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 4,
+    "loss_stocks": 6,
+    "total_invested": 1530985,
+    "total_value": 1459145,
+    "total_profit": -71840,
+    "total_profit_rate": -4.69,
+    "high_total_value": 1544831,
+    "high_total_profit": 13846,
+    "high_total_profit_rate": 0.9,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 2
+  }
+}
