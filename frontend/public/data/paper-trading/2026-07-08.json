@@ -1,0 +1,459 @@
+{
+  "trade_date": "2026-07-08",
+  "morning_timestamp": "2026-07-08 09:14:32",
+  "collected_at": "2026-07-08 15:42:21",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-08 09:14:32",
+      "prices": {
+        "049480": 2110,
+        "365660": 13080,
+        "298000": 73400,
+        "034220": 11430,
+        "109610": 2810,
+        "477850": 26050,
+        "066570": 192800
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI/소프트웨어/데이터 솔루션"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 / 의료 AI"
+        },
+        {
+          "code": "298000",
+          "name": "효성화학",
+          "theme": "스페셜티 화학 / 첨단 소재 (실적 턴어라운드)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이 기술 / IT 부품 (OLED 및 신사업 기대)"
+        },
+        {
+          "code": "109610",
+          "name": "에스와이",
+          "theme": "건설 / 모듈러 주택 (개별 종목 강세)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 09:33:14",
+      "prices": {
+        "049480": 2110,
+        "365660": 13080,
+        "298000": 71700,
+        "034220": 11430,
+        "109610": 2810,
+        "477850": 26050,
+        "066570": 194900
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI/소프트웨어/데이터 솔루션"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 / 의료 AI"
+        },
+        {
+          "code": "298000",
+          "name": "효성화학",
+          "theme": "스페셜티 화학 / 첨단 소재 (실적 턴어라운드)"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "디스플레이 기술 / IT 부품 (OLED 및 신사업 기대)"
+        },
+        {
+          "code": "109610",
+          "name": "에스와이",
+          "theme": "건설 / 모듈러 주택 (개별 종목 강세)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 09:39:10",
+      "prices": {
+        "049480": 1937,
+        "365660": 13350,
+        "034220": 11710,
+        "109610": 2620,
+        "477850": 25950,
+        "066570": 198300
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 10:02:54",
+      "prices": {
+        "049480": 1937,
+        "365660": 13350,
+        "034220": 11710,
+        "109610": 2545,
+        "477850": 25950,
+        "066570": 202000
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 12:02:29",
+      "prices": {
+        "049480": 1937,
+        "365660": 13350,
+        "298000": 70300,
+        "034220": 11710,
+        "109610": 2570,
+        "477850": 25950,
+        "066570": 198000
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 12:39:15",
+      "prices": {
+        "049480": 1901,
+        "365660": 13470,
+        "298000": 69900,
+        "034220": 11290,
+        "109610": 2805,
+        "477850": 28700,
+        "066570": 198900
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 13:26:54",
+      "prices": {
+        "049480": 1878,
+        "365660": 13470,
+        "298000": 69000,
+        "034220": 11020,
+        "109610": 2805,
+        "477850": 28700,
+        "066570": 194800
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-08 14:37:04",
+      "prices": {
+        "049480": 1880,
+        "365660": 13470,
+        "298000": 68300,
+        "034220": 10970,
+        "109610": 2805,
+        "477850": 28700,
+        "066570": 193200
+      },
+      "leader_stocks": [
+        {
+          "code": "049480",
+          "name": "오픈베이스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 IT 인프라 솔루션"
+        },
+        {
+          "code": "066570",
+          "name": "LG전자",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "034220",
+          "name": "LG디스플레이",
+          "theme": "프리미엄 가전 및 디스플레이"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "049480",
+      "name": "오픈베이스",
+      "theme": "AI/소프트웨어/데이터 솔루션",
+      "market": "KOSPI",
+      "buy_price": 2110,
+      "close_price": 1900,
+      "profit_rate": -9.95,
+      "profit_amount": -210,
+      "high_price": 2065,
+      "high_time": "11:20",
+      "high_profit_rate": -2.13,
+      "high_profit_amount": -45,
+      "low_price": 1851,
+      "low_profit_rate": -12.27,
+      "low_profit_amount": -259,
+      "low_time": "13:40"
+    },
+    {
+      "code": "365660",
+      "name": "레몬헬스케어",
+      "theme": "디지털 헬스케어 / 의료 AI",
+      "market": "KOSDAQ",
+      "buy_price": 13080,
+      "close_price": 10190,
+      "profit_rate": -22.09,
+      "profit_amount": -2890,
+      "high_price": 14540,
+      "high_time": "10:55",
+      "high_profit_rate": 11.16,
+      "high_profit_amount": 1460,
+      "low_price": 9800,
+      "low_profit_rate": -25.08,
+      "low_profit_amount": -3280,
+      "low_time": "15:11"
+    },
+    {
+      "code": "298000",
+      "name": "효성화학",
+      "theme": "스페셜티 화학 / 첨단 소재 (실적 턴어라운드)",
+      "market": "KOSPI",
+      "buy_price": 73400,
+      "close_price": 69900,
+      "profit_rate": -4.77,
+      "profit_amount": -3500,
+      "high_price": 72900,
+      "high_time": "09:15",
+      "high_profit_rate": -0.68,
+      "high_profit_amount": -500,
+      "low_price": 62500,
+      "low_profit_rate": -14.85,
+      "low_profit_amount": -10900,
+      "low_time": "09:57"
+    },
+    {
+      "code": "034220",
+      "name": "LG디스플레이",
+      "theme": "디스플레이 기술 / IT 부품 (OLED 및 신사업 기대)",
+      "market": "KOSPI",
+      "buy_price": 11430,
+      "close_price": 11240,
+      "profit_rate": -1.66,
+      "profit_amount": -190,
+      "high_price": 11900,
+      "high_time": "09:22",
+      "high_profit_rate": 4.11,
+      "high_profit_amount": 470,
+      "low_price": 10660,
+      "low_profit_rate": -6.74,
+      "low_profit_amount": -770,
+      "low_time": "09:00"
+    },
+    {
+      "code": "109610",
+      "name": "에스와이",
+      "theme": "건설 / 모듈러 주택 (개별 종목 강세)",
+      "market": "KOSPI",
+      "buy_price": 2810,
+      "close_price": 2505,
+      "profit_rate": -10.85,
+      "profit_amount": -305,
+      "high_price": 2850,
+      "high_time": "12:33",
+      "high_profit_rate": 1.42,
+      "high_profit_amount": 40,
+      "low_price": 2430,
+      "low_profit_rate": -13.52,
+      "low_profit_amount": -380,
+      "low_time": "11:45"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI 및 IT 인프라 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 26050,
+      "close_price": 27100,
+      "profit_rate": 4.03,
+      "profit_amount": 1050,
+      "high_price": 30300,
+      "high_time": "10:17",
+      "high_profit_rate": 16.31,
+      "high_profit_amount": 4250,
+      "low_price": 23350,
+      "low_profit_rate": -10.36,
+      "low_profit_amount": -2700,
+      "low_time": "09:01"
+    },
+    {
+      "code": "066570",
+      "name": "LG전자",
+      "theme": "프리미엄 가전 및 디스플레이",
+      "market": "KOSPI",
+      "buy_price": 192800,
+      "close_price": 195800,
+      "profit_rate": 1.56,
+      "profit_amount": 3000,
+      "high_price": 206000,
+      "high_time": "09:58",
+      "high_profit_rate": 6.85,
+      "high_profit_amount": 13200,
+      "low_price": 186400,
+      "low_profit_rate": -3.32,
+      "low_profit_amount": -6400,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 2,
+    "loss_stocks": 5,
+    "total_invested": 321680,
+    "total_value": 318635,
+    "total_profit": -3045,
+    "total_profit_rate": -0.95,
+    "high_total_value": 340555,
+    "high_total_profit": 18875,
+    "high_total_profit_rate": 5.87,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 2
+  }
+}
