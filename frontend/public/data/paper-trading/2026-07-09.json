@@ -1,0 +1,633 @@
+{
+  "trade_date": "2026-07-09",
+  "morning_timestamp": "2026-07-09 09:14:23",
+  "collected_at": "2026-07-09 15:42:19",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-09 09:14:23",
+      "prices": {
+        "000660": 2248000,
+        "005930": 289000,
+        "042700": 214000,
+        "002990": 17040,
+        "263800": 6600,
+        "189330": 12570,
+        "477850": 28800,
+        "347850": 83100,
+        "365660": 10800
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI 데이터 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 09:32:40",
+      "prices": {
+        "000660": 2248000,
+        "005930": 285500,
+        "042700": 214500,
+        "002990": 17040,
+        "263800": 6600,
+        "189330": 15380,
+        "477850": 28800,
+        "347850": 89700,
+        "365660": 10800
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI 데이터 플랫폼"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 09:38:26",
+      "prices": {
+        "000660": 2259000,
+        "005930": 289250,
+        "042700": 215000,
+        "002990": 16000,
+        "263800": 7720,
+        "189330": 15820,
+        "477850": 30000,
+        "347850": 89200,
+        "365660": 11030
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "189330",
+          "name": "씨이랩",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 (Construction)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 10:02:49",
+      "prices": {
+        "000660": 2259000,
+        "005930": 286000,
+        "042700": 216500,
+        "002990": 16000,
+        "263800": 7720,
+        "189330": 15820,
+        "477850": 30000,
+        "347850": 89200,
+        "365660": 11030
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "189330",
+          "name": "씨이랩",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 (Construction)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 12:02:32",
+      "prices": {
+        "000660": 2259000,
+        "005930": 271000,
+        "042700": 207500,
+        "002990": 16000,
+        "263800": 7720,
+        "189330": 15820,
+        "477850": 30000,
+        "347850": 89200,
+        "365660": 11030
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "189330",
+          "name": "씨이랩",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 (Construction)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 12:39:02",
+      "prices": {
+        "000660": 2167000,
+        "005930": 277000,
+        "042700": 213250,
+        "002990": 15160,
+        "263800": 7720,
+        "189330": 14070,
+        "477850": 29100,
+        "347850": 86800,
+        "365660": 10380
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "189330",
+          "name": "씨이랩",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 (Construction)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 13:26:54",
+      "prices": {
+        "000660": 2143000,
+        "005930": 273500,
+        "042700": 210750,
+        "002990": 15160,
+        "263800": 7720,
+        "189330": 14070,
+        "477850": 29100,
+        "347850": 86800,
+        "365660": 10380
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "189330",
+          "name": "씨이랩",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 (Construction)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-09 14:37:44",
+      "prices": {
+        "000660": 2146500,
+        "005930": 273500,
+        "042700": 212000,
+        "002990": 15160,
+        "263800": 7720,
+        "189330": 14070,
+        "477850": 29100,
+        "347850": 86800,
+        "365660": 10380
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "263800",
+          "name": "데이타솔루션",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "189330",
+          "name": "씨이랩",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/데이터 솔루션 (AI/Data Solutions)"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/바이오 (Healthcare/Bio)"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 (Construction)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 2248000,
+      "close_price": 2186000,
+      "profit_rate": -2.76,
+      "profit_amount": -62000,
+      "high_price": 2270000,
+      "high_time": "09:23",
+      "high_profit_rate": 0.98,
+      "high_profit_amount": 22000,
+      "low_price": 2091000,
+      "low_profit_rate": -6.98,
+      "low_profit_amount": -157000,
+      "low_time": "12:12"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 289000,
+      "close_price": 278000,
+      "profit_rate": -3.81,
+      "profit_amount": -11000,
+      "high_price": 291500,
+      "high_time": "09:15",
+      "high_profit_rate": 0.87,
+      "high_profit_amount": 2500,
+      "low_price": 267500,
+      "low_profit_rate": -7.44,
+      "low_profit_amount": -21500,
+      "low_time": "12:14"
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 214000,
+      "close_price": 215500,
+      "profit_rate": 0.7,
+      "profit_amount": 1500,
+      "high_price": 223000,
+      "high_time": "10:20",
+      "high_profit_rate": 4.21,
+      "high_profit_amount": 9000,
+      "low_price": 201500,
+      "low_profit_rate": -5.84,
+      "low_profit_amount": -12500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/재건",
+      "market": "KOSPI",
+      "buy_price": 17040,
+      "close_price": 17310,
+      "profit_rate": 1.58,
+      "profit_amount": 270,
+      "high_price": 18000,
+      "high_time": "14:20",
+      "high_profit_rate": 5.63,
+      "high_profit_amount": 960,
+      "low_price": 14060,
+      "low_profit_rate": -17.49,
+      "low_profit_amount": -2980,
+      "low_time": "12:05"
+    },
+    {
+      "code": "263800",
+      "name": "데이타솔루션",
+      "theme": "AI 데이터 플랫폼",
+      "market": "KOSPI",
+      "buy_price": 6600,
+      "close_price": 7720,
+      "profit_rate": 16.97,
+      "profit_amount": 1120,
+      "high_price": 7720,
+      "high_time": "15:30",
+      "high_profit_rate": 16.97,
+      "high_profit_amount": 1120,
+      "low_price": 6200,
+      "low_profit_rate": -6.06,
+      "low_profit_amount": -400,
+      "low_time": "09:04"
+    },
+    {
+      "code": "189330",
+      "name": "씨이랩",
+      "theme": "AI/데이터 솔루션 (AI/Data Solutions)",
+      "market": "KOSPI",
+      "buy_price": 12570,
+      "close_price": 13130,
+      "profit_rate": 4.46,
+      "profit_amount": 560,
+      "high_price": 16000,
+      "high_time": "09:31",
+      "high_profit_rate": 27.29,
+      "high_profit_amount": 3430,
+      "low_price": 11800,
+      "low_profit_rate": -6.13,
+      "low_profit_amount": -770,
+      "low_time": "09:07"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/데이터 솔루션 (AI/Data Solutions)",
+      "market": "KOSDAQ",
+      "buy_price": 28800,
+      "close_price": 29650,
+      "profit_rate": 2.95,
+      "profit_amount": 850,
+      "high_price": 31400,
+      "high_time": "09:37",
+      "high_profit_rate": 9.03,
+      "high_profit_amount": 2600,
+      "low_price": 26750,
+      "low_profit_rate": -7.12,
+      "low_profit_amount": -2050,
+      "low_time": "09:00"
+    },
+    {
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "theme": "헬스케어/바이오 (Healthcare/Bio)",
+      "market": "KOSDAQ",
+      "buy_price": 83100,
+      "close_price": 86600,
+      "profit_rate": 4.21,
+      "profit_amount": 3500,
+      "high_price": 92600,
+      "high_time": "09:42",
+      "high_profit_rate": 11.43,
+      "high_profit_amount": 9500,
+      "low_price": 81100,
+      "low_profit_rate": -2.41,
+      "low_profit_amount": -2000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "365660",
+      "name": "레몬헬스케어",
+      "theme": "헬스케어/바이오 (Healthcare/Bio)",
+      "market": "KOSDAQ",
+      "buy_price": 10800,
+      "close_price": 9850,
+      "profit_rate": -8.8,
+      "profit_amount": -950,
+      "high_price": 11740,
+      "high_time": "09:18",
+      "high_profit_rate": 8.7,
+      "high_profit_amount": 940,
+      "low_price": 9350,
+      "low_profit_rate": -13.43,
+      "low_profit_amount": -1450,
+      "low_time": "12:21"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 6,
+    "loss_stocks": 3,
+    "total_invested": 2909910,
+    "total_value": 2843760,
+    "total_profit": -66150,
+    "total_profit_rate": -2.27,
+    "high_total_value": 2961960,
+    "high_total_profit": 52050,
+    "high_total_profit_rate": 1.79,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 0
+  }
+}
