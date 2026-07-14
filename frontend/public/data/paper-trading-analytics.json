@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-07-13 15:43:09",
+  "generated_at": "2026-07-14 15:43:10",
   "period": {
     "start": "2026-06-16",
-    "end": "2026-07-13",
-    "trading_days": 18
+    "end": "2026-07-14",
+    "trading_days": 19
   },
   "overall": {
-    "cumulative_return": -27.39,
-    "cumulative_high_return": 79.77,
-    "avg_daily_return": -1.68,
-    "volatility": 4.01,
-    "sharpe_ratio": -0.42,
-    "max_drawdown": 28.08,
-    "win_rate": 33.3,
+    "cumulative_return": -28.67,
+    "cumulative_high_return": 91.87,
+    "avg_daily_return": -1.69,
+    "volatility": 3.9,
+    "sharpe_ratio": -0.44,
+    "max_drawdown": 29.36,
+    "win_rate": 31.6,
     "win_days": 6,
-    "loss_days": 12,
+    "loss_days": 13,
     "flat_days": 0,
     "avg_win": 2.14,
-    "avg_loss": -3.6,
-    "profit_loss_ratio": 0.59,
+    "avg_loss": -3.46,
+    "profit_loss_ratio": 0.62,
     "max_win_streak": 2,
     "max_loss_streak": 6,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -3.46,
+    "avg_return": -2.88,
     "win_rate": 20.0
   },
   "theme_performance": [
@@ -120,6 +120,13 @@
       "total_return": -20.05
     },
     {
+      "theme": "건설/부동산",
+      "count": 3,
+      "win_rate": 33.3,
+      "avg_return": -5.31,
+      "total_return": -15.93
+    },
+    {
       "theme": "전력 인프라 및 스마트그리드",
       "count": 4,
       "win_rate": 0.0,
@@ -137,9 +144,9 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 119,
-      "win_rate": 38.7,
-      "avg_return": -2.2
+      "count": 126,
+      "win_rate": 38.9,
+      "avg_return": -2.21
     },
     {
       "market": "KOSDAQ",
@@ -220,6 +227,10 @@
     {
       "date": "2026-07-13",
       "cumulative_return": -27.39
+    },
+    {
+      "date": "2026-07-14",
+      "cumulative_return": -28.67
     }
   ]
 }

@@ -1,0 +1,422 @@
+{
+  "trade_date": "2026-07-14",
+  "morning_timestamp": "2026-07-14 09:14:31",
+  "collected_at": "2026-07-14 15:42:18",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-14 09:14:31",
+      "prices": {
+        "024060": 13940,
+        "003280": 1954,
+        "002990": 15440,
+        "089030": 47350,
+        "044340": 5400,
+        "003680": 10270,
+        "218150": 2095
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유가 관련주"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/부동산"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비"
+        },
+        {
+          "code": "044340",
+          "name": "위닉스",
+          "theme": "계절성 가전"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-14 09:32:50",
+      "prices": {
+        "024060": 13940,
+        "003280": 1954,
+        "002990": 14550,
+        "089030": 50500,
+        "044340": 5400,
+        "003680": 11170,
+        "218150": 2380
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유가 관련주"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/부동산"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비"
+        },
+        {
+          "code": "044340",
+          "name": "위닉스",
+          "theme": "계절성 가전"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-14 09:40:16",
+      "prices": {
+        "024060": 13250,
+        "003280": 1919,
+        "002990": 14550,
+        "089030": 50200,
+        "044340": 5480,
+        "003680": 11390,
+        "218150": 2380
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유류 테마"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 테마"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "218150",
+          "name": "미래생명자원",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-14 10:02:51",
+      "prices": {
+        "024060": 13250,
+        "003280": 1919,
+        "002990": 14550,
+        "089030": 50500,
+        "044340": 5010,
+        "003680": 11390,
+        "218150": 2380
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유류 테마"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 테마"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "218150",
+          "name": "미래생명자원",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-14 12:38:26",
+      "prices": {
+        "024060": 13230,
+        "003280": 1841,
+        "002990": 14340,
+        "089030": 47400,
+        "044340": 5270,
+        "003680": 11010,
+        "218150": 2380
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유류 테마"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 테마"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "218150",
+          "name": "미래생명자원",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-14 13:26:57",
+      "prices": {
+        "024060": 13230,
+        "003280": 1841,
+        "002990": 14340,
+        "089030": 47650,
+        "044340": 5270,
+        "003680": 11010,
+        "218150": 2380
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유류 테마"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 테마"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "218150",
+          "name": "미래생명자원",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비 테마"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-14 14:36:53",
+      "prices": {
+        "024060": 13230,
+        "003280": 1841,
+        "002990": 13990,
+        "089030": 49400,
+        "044340": 5270,
+        "003680": 11010,
+        "218150": 2380
+      },
+      "leader_stocks": [
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "에너지/유류 테마"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류 테마"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "218150",
+          "name": "미래생명자원",
+          "theme": "사료/곡물 테마"
+        },
+        {
+          "code": "089030",
+          "name": "테크윙",
+          "theme": "반도체 장비 테마"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "024060",
+      "name": "흥구석유",
+      "theme": "에너지/유가 관련주",
+      "market": "KOSPI",
+      "buy_price": 13940,
+      "close_price": 12680,
+      "profit_rate": -9.04,
+      "profit_amount": -1260,
+      "high_price": 13850,
+      "high_time": "09:20",
+      "high_profit_rate": -0.65,
+      "high_profit_amount": -90,
+      "low_price": 12310,
+      "low_profit_rate": -11.69,
+      "low_profit_amount": -1630,
+      "low_time": "14:34"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 1954,
+      "close_price": 1825,
+      "profit_rate": -6.6,
+      "profit_amount": -129,
+      "high_price": 1957,
+      "high_time": "09:23",
+      "high_profit_rate": 0.15,
+      "high_profit_amount": 3,
+      "low_price": 1773,
+      "low_profit_rate": -9.26,
+      "low_profit_amount": -181,
+      "low_time": "14:12"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/부동산",
+      "market": "KOSPI",
+      "buy_price": 15440,
+      "close_price": 13570,
+      "profit_rate": -12.11,
+      "profit_amount": -1870,
+      "high_price": 15280,
+      "high_time": "10:52",
+      "high_profit_rate": -1.04,
+      "high_profit_amount": -160,
+      "low_price": 13050,
+      "low_profit_rate": -15.48,
+      "low_profit_amount": -2390,
+      "low_time": "15:09"
+    },
+    {
+      "code": "089030",
+      "name": "테크윙",
+      "theme": "반도체 장비",
+      "market": "KOSPI",
+      "buy_price": 47350,
+      "close_price": 48450,
+      "profit_rate": 2.32,
+      "profit_amount": 1100,
+      "high_price": 51800,
+      "high_time": "09:56",
+      "high_profit_rate": 9.4,
+      "high_profit_amount": 4450,
+      "low_price": 44200,
+      "low_profit_rate": -6.65,
+      "low_profit_amount": -3150,
+      "low_time": "09:00"
+    },
+    {
+      "code": "044340",
+      "name": "위닉스",
+      "theme": "계절성 가전",
+      "market": "KOSPI",
+      "buy_price": 5400,
+      "close_price": 4670,
+      "profit_rate": -13.52,
+      "profit_amount": -730,
+      "high_price": 5670,
+      "high_time": "11:26",
+      "high_profit_rate": 5.0,
+      "high_profit_amount": 270,
+      "low_price": 4340,
+      "low_profit_rate": -19.63,
+      "low_profit_amount": -1060,
+      "low_time": "14:32"
+    },
+    {
+      "code": "003680",
+      "name": "한성기업",
+      "theme": "사료/곡물 테마",
+      "market": "KOSPI",
+      "buy_price": 10270,
+      "close_price": 11170,
+      "profit_rate": 8.76,
+      "profit_amount": 900,
+      "high_price": 12000,
+      "high_time": "09:21",
+      "high_profit_rate": 16.85,
+      "high_profit_amount": 1730,
+      "low_price": 9490,
+      "low_profit_rate": -7.59,
+      "low_profit_amount": -780,
+      "low_time": "09:00"
+    },
+    {
+      "code": "218150",
+      "name": "미래생명자원",
+      "theme": "사료/곡물 테마",
+      "market": "KOSPI",
+      "buy_price": 2095,
+      "close_price": 2380,
+      "profit_rate": 13.6,
+      "profit_amount": 285,
+      "high_price": 2380,
+      "high_time": "15:30",
+      "high_profit_rate": 13.6,
+      "high_profit_amount": 285,
+      "low_price": 1833,
+      "low_profit_rate": -12.51,
+      "low_profit_amount": -262,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 3,
+    "loss_stocks": 4,
+    "total_invested": 96449,
+    "total_value": 94745,
+    "total_profit": -1704,
+    "total_profit_rate": -1.77,
+    "high_total_value": 102937,
+    "high_total_profit": 6488,
+    "high_total_profit_rate": 6.73,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 2
+  }
+}
