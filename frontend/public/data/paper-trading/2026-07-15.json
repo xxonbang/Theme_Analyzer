@@ -1,0 +1,451 @@
+{
+  "trade_date": "2026-07-15",
+  "morning_timestamp": "2026-07-15 09:14:16",
+  "collected_at": "2026-07-15 15:42:24",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-15 09:14:16",
+      "prices": {
+        "000660": 2085000,
+        "042700": 238500,
+        "028300": 33750,
+        "454910": 69900,
+        "477850": 29250,
+        "004310": 7300,
+        "347850": 75200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 슈퍼사이클 및 AI 반도체"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 슈퍼사이클 및 AI 반도체"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "HLB 그룹 신약 개발 모멘텀"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "인공지능 및 로봇 산업 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "인공지능 및 로봇 산업 성장"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "개별 제약/바이오 신약 및 파이프라인 모멘텀"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "개별 제약/바이오 신약 및 파이프라인 모멘텀"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 09:32:43",
+      "prices": {
+        "000660": 2085000,
+        "042700": 246000,
+        "028300": 34700,
+        "454910": 71600,
+        "477850": 29250,
+        "004310": 7300,
+        "347850": 75200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 슈퍼사이클 및 AI 반도체"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "반도체 슈퍼사이클 및 AI 반도체"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "HLB 그룹 신약 개발 모멘텀"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "인공지능 및 로봇 산업 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "인공지능 및 로봇 산업 성장"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "개별 제약/바이오 신약 및 파이프라인 모멘텀"
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "theme": "개별 제약/바이오 신약 및 파이프라인 모멘텀"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 09:38:42",
+      "prices": {
+        "000660": 2148000,
+        "042700": 245500,
+        "028300": 34700,
+        "454910": 71000,
+        "477850": 28600,
+        "004310": 6950,
+        "347850": 76000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "바이오 신약 개발 (HLB 그룹)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 10:02:50",
+      "prices": {
+        "000660": 2148000,
+        "042700": 252000,
+        "028300": 34700,
+        "454910": 70700,
+        "477850": 28550,
+        "004310": 6950,
+        "347850": 76000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "바이오 신약 개발 (HLB 그룹)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 12:02:32",
+      "prices": {
+        "000660": 2148000,
+        "042700": 263000,
+        "028300": 34700,
+        "454910": 70700,
+        "477850": 30450,
+        "004310": 6950,
+        "347850": 76000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "바이오 신약 개발 (HLB 그룹)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 12:38:53",
+      "prices": {
+        "000660": 2141000,
+        "042700": 264500,
+        "028300": 34700,
+        "454910": 71000,
+        "477850": 30700,
+        "004310": 6730,
+        "347850": 78300
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "바이오 신약 개발 (HLB 그룹)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 13:26:52",
+      "prices": {
+        "000660": 2154000,
+        "042700": 264500,
+        "028300": 34700,
+        "454910": 71100,
+        "477850": 30700,
+        "004310": 6900,
+        "347850": 78200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "바이오 신약 개발 (HLB 그룹)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-15 14:36:50",
+      "prices": {
+        "000660": 2109000,
+        "042700": 268500,
+        "028300": 34700,
+        "454910": 70400,
+        "477850": 30700,
+        "004310": 6700,
+        "347850": 76200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 (HBM)"
+        },
+        {
+          "code": "028300",
+          "name": "HLB",
+          "theme": "바이오 신약 개발 (HLB 그룹)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체 슈퍼사이클 및 AI 반도체",
+      "market": "KOSPI",
+      "buy_price": 2085000,
+      "close_price": 2082000,
+      "profit_rate": -0.14,
+      "profit_amount": -3000,
+      "high_price": 2171000,
+      "high_time": "12:57",
+      "high_profit_rate": 4.12,
+      "high_profit_amount": 86000,
+      "low_price": 2070000,
+      "low_profit_rate": -0.72,
+      "low_profit_amount": -15000,
+      "low_time": "10:45"
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "반도체 슈퍼사이클 및 AI 반도체",
+      "market": "KOSPI",
+      "buy_price": 238500,
+      "close_price": 269500,
+      "profit_rate": 13.0,
+      "profit_amount": 31000,
+      "high_price": 269500,
+      "high_time": "15:30",
+      "high_profit_rate": 13.0,
+      "high_profit_amount": 31000,
+      "low_price": 224000,
+      "low_profit_rate": -6.08,
+      "low_profit_amount": -14500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "028300",
+      "name": "HLB",
+      "theme": "HLB 그룹 신약 개발 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 33750,
+      "close_price": 34700,
+      "profit_rate": 2.81,
+      "profit_amount": 950,
+      "high_price": 34700,
+      "high_time": "15:30",
+      "high_profit_rate": 2.81,
+      "high_profit_amount": 950,
+      "low_price": 29900,
+      "low_profit_rate": -11.41,
+      "low_profit_amount": -3850,
+      "low_time": "09:02"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "인공지능 및 로봇 산업 성장",
+      "market": "KOSDAQ",
+      "buy_price": 69900,
+      "close_price": 70600,
+      "profit_rate": 1.0,
+      "profit_amount": 700,
+      "high_price": 72500,
+      "high_time": "11:04",
+      "high_profit_rate": 3.72,
+      "high_profit_amount": 2600,
+      "low_price": 68100,
+      "low_profit_rate": -2.58,
+      "low_profit_amount": -1800,
+      "low_time": "09:00"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "인공지능 및 로봇 산업 성장",
+      "market": "KOSDAQ",
+      "buy_price": 29250,
+      "close_price": 30150,
+      "profit_rate": 3.08,
+      "profit_amount": 900,
+      "high_price": 31350,
+      "high_time": "12:12",
+      "high_profit_rate": 7.18,
+      "high_profit_amount": 2100,
+      "low_price": 28100,
+      "low_profit_rate": -3.93,
+      "low_profit_amount": -1150,
+      "low_time": "09:41"
+    },
+    {
+      "code": "004310",
+      "name": "현대약품",
+      "theme": "개별 제약/바이오 신약 및 파이프라인 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 7300,
+      "close_price": 6710,
+      "profit_rate": -8.08,
+      "profit_amount": -590,
+      "high_price": 7280,
+      "high_time": "09:21",
+      "high_profit_rate": -0.27,
+      "high_profit_amount": -20,
+      "low_price": 6470,
+      "low_profit_rate": -11.37,
+      "low_profit_amount": -830,
+      "low_time": "13:12"
+    },
+    {
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "theme": "개별 제약/바이오 신약 및 파이프라인 모멘텀",
+      "market": "KOSDAQ",
+      "buy_price": 75200,
+      "close_price": 76000,
+      "profit_rate": 1.06,
+      "profit_amount": 800,
+      "high_price": 78800,
+      "high_time": "09:55",
+      "high_profit_rate": 4.79,
+      "high_profit_amount": 3600,
+      "low_price": 73100,
+      "low_profit_rate": -2.79,
+      "low_profit_amount": -2100,
+      "low_time": "09:01"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 5,
+    "loss_stocks": 2,
+    "total_invested": 2538900,
+    "total_value": 2569660,
+    "total_profit": 30760,
+    "total_profit_rate": 1.21,
+    "high_total_value": 2665130,
+    "high_total_profit": 126230,
+    "high_total_profit_rate": 4.97,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 1
+  }
+}

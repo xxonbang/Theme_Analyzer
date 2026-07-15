@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-07-14 15:43:10",
+  "generated_at": "2026-07-15 15:43:01",
   "period": {
     "start": "2026-06-16",
-    "end": "2026-07-14",
-    "trading_days": 19
+    "end": "2026-07-15",
+    "trading_days": 20
   },
   "overall": {
-    "cumulative_return": -28.67,
-    "cumulative_high_return": 91.87,
-    "avg_daily_return": -1.69,
-    "volatility": 3.9,
-    "sharpe_ratio": -0.44,
+    "cumulative_return": -27.81,
+    "cumulative_high_return": 101.4,
+    "avg_daily_return": -1.54,
+    "volatility": 3.85,
+    "sharpe_ratio": -0.4,
     "max_drawdown": 29.36,
-    "win_rate": 31.6,
-    "win_days": 6,
+    "win_rate": 35.0,
+    "win_days": 7,
     "loss_days": 13,
     "flat_days": 0,
-    "avg_win": 2.14,
+    "avg_win": 2.0,
     "avg_loss": -3.46,
-    "profit_loss_ratio": 0.62,
+    "profit_loss_ratio": 0.58,
     "max_win_streak": 2,
     "max_loss_streak": 6,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.88,
-    "win_rate": 20.0
+    "avg_return": -2.45,
+    "win_rate": 40.0
   },
   "theme_performance": [
     {
@@ -144,15 +144,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 126,
-      "win_rate": 38.9,
-      "avg_return": -2.21
+      "count": 130,
+      "win_rate": 39.2,
+      "avg_return": -2.08
     },
     {
       "market": "KOSDAQ",
-      "count": 47,
-      "win_rate": 44.7,
-      "avg_return": -3.4
+      "count": 50,
+      "win_rate": 48.0,
+      "avg_return": -3.09
     }
   ],
   "cumulative_series": [
@@ -231,6 +231,10 @@
     {
       "date": "2026-07-14",
       "cumulative_return": -28.67
+    },
+    {
+      "date": "2026-07-15",
+      "cumulative_return": -27.81
     }
   ]
 }
