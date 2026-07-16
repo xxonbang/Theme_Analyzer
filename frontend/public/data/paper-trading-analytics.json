@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-07-15 15:43:01",
+  "generated_at": "2026-07-16 15:43:07",
   "period": {
     "start": "2026-06-16",
-    "end": "2026-07-15",
-    "trading_days": 20
+    "end": "2026-07-16",
+    "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -27.81,
-    "cumulative_high_return": 101.4,
-    "avg_daily_return": -1.54,
-    "volatility": 3.85,
-    "sharpe_ratio": -0.4,
-    "max_drawdown": 29.36,
-    "win_rate": 35.0,
+    "cumulative_return": -31.38,
+    "cumulative_high_return": 107.36,
+    "avg_daily_return": -1.71,
+    "volatility": 3.82,
+    "sharpe_ratio": -0.45,
+    "max_drawdown": 32.04,
+    "win_rate": 33.3,
     "win_days": 7,
-    "loss_days": 13,
+    "loss_days": 14,
     "flat_days": 0,
     "avg_win": 2.0,
-    "avg_loss": -3.46,
-    "profit_loss_ratio": 0.58,
+    "avg_loss": -3.56,
+    "profit_loss_ratio": 0.56,
     "max_win_streak": 2,
     "max_loss_streak": 6,
     "best_day": {
@@ -31,7 +31,7 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.45,
+    "avg_return": -2.98,
     "win_rate": 40.0
   },
   "theme_performance": [
@@ -62,6 +62,13 @@
       "win_rate": 60.0,
       "avg_return": 2.11,
       "total_return": 10.56
+    },
+    {
+      "theme": "제약/바이오",
+      "count": 3,
+      "win_rate": 66.7,
+      "avg_return": 1.23,
+      "total_return": 3.68
     },
     {
       "theme": "첨단 반도체 장비 및 부품",
@@ -144,15 +151,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 130,
-      "win_rate": 39.2,
-      "avg_return": -2.08
+      "count": 137,
+      "win_rate": 38.0,
+      "avg_return": -2.41
     },
     {
       "market": "KOSDAQ",
-      "count": 50,
-      "win_rate": 48.0,
-      "avg_return": -3.09
+      "count": 51,
+      "win_rate": 47.1,
+      "avg_return": -3.07
     }
   ],
   "cumulative_series": [
@@ -235,6 +242,10 @@
     {
       "date": "2026-07-15",
       "cumulative_return": -27.81
+    },
+    {
+      "date": "2026-07-16",
+      "cumulative_return": -31.38
     }
   ]
 }

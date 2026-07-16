@@ -1,0 +1,511 @@
+{
+  "trade_date": "2026-07-16",
+  "morning_timestamp": "2026-07-16 09:15:48",
+  "collected_at": "2026-07-16 15:42:21",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-16 09:15:48",
+      "prices": {
+        "017670": 91000,
+        "049080": 14810,
+        "067290": 2115,
+        "000020": 7060,
+        "005360": 4400,
+        "011090": 2755,
+        "004310": 7100,
+        "406820": 2055
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신 서비스 및 5G 인프라"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "통신 서비스 및 5G 인프라"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 개별 모멘텀"
+        },
+        {
+          "code": "000020",
+          "name": "동화약품",
+          "theme": "제약/바이오 개별 모멘텀"
+        },
+        {
+          "code": "005360",
+          "name": "모나미",
+          "theme": "내수 소비재 (문구/생활용품)"
+        },
+        {
+          "code": "011090",
+          "name": "에넥스",
+          "theme": "리모델링/인테리어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 09:32:50",
+      "prices": {
+        "017670": 89700,
+        "049080": 14810,
+        "067290": 2115,
+        "000020": 7060,
+        "005360": 4400,
+        "011090": 2755,
+        "004310": 8110,
+        "033340": 530,
+        "406820": 2055,
+        "279570": 6550
+      },
+      "leader_stocks": [
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신 서비스 및 5G 인프라"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "통신 서비스 및 5G 인프라"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 개별 모멘텀"
+        },
+        {
+          "code": "000020",
+          "name": "동화약품",
+          "theme": "제약/바이오 개별 모멘텀"
+        },
+        {
+          "code": "005360",
+          "name": "모나미",
+          "theme": "내수 소비재 (문구/생활용품)"
+        },
+        {
+          "code": "011090",
+          "name": "에넥스",
+          "theme": "리모델링/인테리어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 09:39:28",
+      "prices": {
+        "017670": 91100,
+        "049080": 13290,
+        "067290": 2145,
+        "000020": 7010,
+        "005360": 4475,
+        "011090": 2755,
+        "004310": 7890,
+        "033340": 530,
+        "406820": 2195,
+        "279570": 6830
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "033340",
+          "name": "좋은사람들",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신/네트워크 장비"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷은행/핀테크"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 10:02:50",
+      "prices": {
+        "017670": 90000,
+        "049080": 13290,
+        "067290": 2145,
+        "000020": 7010,
+        "005360": 4475,
+        "011090": 2755,
+        "004310": 7890,
+        "033340": 530,
+        "406820": 2195,
+        "279570": 6830
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "033340",
+          "name": "좋은사람들",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신/네트워크 장비"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷은행/핀테크"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 12:02:26",
+      "prices": {
+        "017670": 89200,
+        "049080": 13290,
+        "067290": 2145,
+        "000020": 7010,
+        "005360": 4475,
+        "011090": 2755,
+        "004310": 7890,
+        "033340": 530,
+        "406820": 2195,
+        "279570": 6830
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "033340",
+          "name": "좋은사람들",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신/네트워크 장비"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷은행/핀테크"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 12:39:23",
+      "prices": {
+        "017670": 89300,
+        "049080": 14400,
+        "067290": 2115,
+        "000020": 6590,
+        "005360": 4270,
+        "011090": 2755,
+        "004310": 8040,
+        "033340": 530,
+        "406820": 2245,
+        "279570": 6110
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "033340",
+          "name": "좋은사람들",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신/네트워크 장비"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷은행/핀테크"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 13:26:56",
+      "prices": {
+        "017670": 89100,
+        "049080": 14400,
+        "067290": 2115,
+        "000020": 6510,
+        "005360": 4270,
+        "011090": 2755,
+        "004310": 8040,
+        "033340": 530,
+        "406820": 2245,
+        "279570": 6120
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "033340",
+          "name": "좋은사람들",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신/네트워크 장비"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷은행/핀테크"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16 14:36:49",
+      "prices": {
+        "017670": 89900,
+        "049080": 14400,
+        "067290": 2115,
+        "000020": 6240,
+        "005360": 4270,
+        "011090": 2755,
+        "004310": 8040,
+        "033340": 530,
+        "406820": 2245,
+        "279570": 6300
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "033340",
+          "name": "좋은사람들",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/의류"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신/네트워크 장비"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷은행/핀테크"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "017670",
+      "name": "SK텔레콤",
+      "theme": "통신 서비스 및 5G 인프라",
+      "market": "KOSPI",
+      "buy_price": 91000,
+      "close_price": 89700,
+      "profit_rate": -1.43,
+      "profit_amount": -1300,
+      "high_price": 92700,
+      "high_time": "09:21",
+      "high_profit_rate": 1.87,
+      "high_profit_amount": 1700,
+      "low_price": 88500,
+      "low_profit_rate": -2.75,
+      "low_profit_amount": -2500,
+      "low_time": "11:17"
+    },
+    {
+      "code": "049080",
+      "name": "기가레인",
+      "theme": "통신 서비스 및 5G 인프라",
+      "market": "KOSPI",
+      "buy_price": 14810,
+      "close_price": 11290,
+      "profit_rate": -23.77,
+      "profit_amount": -3520,
+      "high_price": 14700,
+      "high_time": "12:08",
+      "high_profit_rate": -0.74,
+      "high_profit_amount": -110,
+      "low_price": 10750,
+      "low_profit_rate": -27.41,
+      "low_profit_amount": -4060,
+      "low_time": "15:18"
+    },
+    {
+      "code": "067290",
+      "name": "JW신약",
+      "theme": "제약/바이오 개별 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 2115,
+      "close_price": 1970,
+      "profit_rate": -6.86,
+      "profit_amount": -145,
+      "high_price": 2260,
+      "high_time": "11:23",
+      "high_profit_rate": 6.86,
+      "high_profit_amount": 145,
+      "low_price": 1943,
+      "low_profit_rate": -8.13,
+      "low_profit_amount": -172,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000020",
+      "name": "동화약품",
+      "theme": "제약/바이오 개별 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 7060,
+      "close_price": 5740,
+      "profit_rate": -18.7,
+      "profit_amount": -1320,
+      "high_price": 7560,
+      "high_time": "09:18",
+      "high_profit_rate": 7.08,
+      "high_profit_amount": 500,
+      "low_price": 5650,
+      "low_profit_rate": -19.97,
+      "low_profit_amount": -1410,
+      "low_time": "15:14"
+    },
+    {
+      "code": "005360",
+      "name": "모나미",
+      "theme": "내수 소비재 (문구/생활용품)",
+      "market": "KOSPI",
+      "buy_price": 4400,
+      "close_price": 3730,
+      "profit_rate": -15.23,
+      "profit_amount": -670,
+      "high_price": 4475,
+      "high_time": "09:34",
+      "high_profit_rate": 1.7,
+      "high_profit_amount": 75,
+      "low_price": 3725,
+      "low_profit_rate": -15.34,
+      "low_profit_amount": -675,
+      "low_time": "15:19"
+    },
+    {
+      "code": "011090",
+      "name": "에넥스",
+      "theme": "리모델링/인테리어",
+      "market": "KOSPI",
+      "buy_price": 2755,
+      "close_price": 2755,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2755,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2455,
+      "low_profit_rate": -10.89,
+      "low_profit_amount": -300,
+      "low_time": "09:02"
+    },
+    {
+      "code": "004310",
+      "name": "현대약품",
+      "theme": "제약/바이오",
+      "market": "KOSPI",
+      "buy_price": 7100,
+      "close_price": 7600,
+      "profit_rate": 7.04,
+      "profit_amount": 500,
+      "high_price": 8470,
+      "high_time": "11:05",
+      "high_profit_rate": 19.3,
+      "high_profit_amount": 1370,
+      "low_price": 6710,
+      "low_profit_rate": -5.49,
+      "low_profit_amount": -390,
+      "low_time": "09:01"
+    },
+    {
+      "code": "406820",
+      "name": "뷰티스킨",
+      "theme": "소비재/의류",
+      "market": "KOSDAQ",
+      "buy_price": 2055,
+      "close_price": 2015,
+      "profit_rate": -1.95,
+      "profit_amount": -40,
+      "high_price": 2260,
+      "high_time": "12:33",
+      "high_profit_rate": 9.98,
+      "high_profit_amount": 205,
+      "low_price": 1802,
+      "low_profit_rate": -12.31,
+      "low_profit_amount": -253,
+      "low_time": "09:01"
+    }
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "profit_stocks": 1,
+    "loss_stocks": 6,
+    "total_invested": 131295,
+    "total_value": 124800,
+    "total_profit": -6495,
+    "total_profit_rate": -4.95,
+    "high_total_value": 135180,
+    "high_total_profit": 3885,
+    "high_total_profit_rate": 2.96,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 1
+  }
+}
