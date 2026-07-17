@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-07-16 15:43:07",
+  "generated_at": "2026-07-17 15:42:48",
   "period": {
-    "start": "2026-06-16",
-    "end": "2026-07-16",
+    "start": "2026-06-17",
+    "end": "2026-07-17",
     "trading_days": 21
   },
   "overall": {
-    "cumulative_return": -31.38,
-    "cumulative_high_return": 107.36,
-    "avg_daily_return": -1.71,
-    "volatility": 3.82,
-    "sharpe_ratio": -0.45,
+    "cumulative_return": -32.04,
+    "cumulative_high_return": 106.1,
+    "avg_daily_return": -1.75,
+    "volatility": 3.79,
+    "sharpe_ratio": -0.47,
     "max_drawdown": 32.04,
-    "win_rate": 33.3,
-    "win_days": 7,
+    "win_rate": 28.6,
+    "win_days": 6,
     "loss_days": 14,
-    "flat_days": 0,
-    "avg_win": 2.0,
+    "flat_days": 1,
+    "avg_win": 2.18,
     "avg_loss": -3.56,
-    "profit_loss_ratio": 0.56,
+    "profit_loss_ratio": 0.61,
     "max_win_streak": 2,
     "max_loss_streak": 6,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -2.98,
-    "win_rate": 40.0
+    "avg_return": -3.02,
+    "win_rate": 20.0
   },
   "theme_performance": [
     {
@@ -64,18 +64,18 @@
       "total_return": 10.56
     },
     {
-      "theme": "제약/바이오",
-      "count": 3,
-      "win_rate": 66.7,
-      "avg_return": 1.23,
-      "total_return": 3.68
-    },
-    {
       "theme": "첨단 반도체 장비 및 부품",
       "count": 4,
       "win_rate": 50.0,
       "avg_return": 1.02,
       "total_return": 4.1
+    },
+    {
+      "theme": "제약/바이오",
+      "count": 4,
+      "win_rate": 50.0,
+      "avg_return": 0.92,
+      "total_return": 3.68
     },
     {
       "theme": "AI/반도체",
@@ -151,101 +151,101 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 137,
-      "win_rate": 38.0,
-      "avg_return": -2.41
+      "count": 135,
+      "win_rate": 37.0,
+      "avg_return": -2.37
     },
     {
       "market": "KOSDAQ",
-      "count": 51,
-      "win_rate": 47.1,
-      "avg_return": -3.07
+      "count": 53,
+      "win_rate": 43.4,
+      "avg_return": -3.24
     }
   ],
   "cumulative_series": [
     {
-      "date": "2026-06-16",
-      "cumulative_return": 0.97
-    },
-    {
       "date": "2026-06-17",
-      "cumulative_return": -4.57
+      "cumulative_return": -5.49
     },
     {
       "date": "2026-06-18",
-      "cumulative_return": -3.91
+      "cumulative_return": -4.83
     },
     {
       "date": "2026-06-19",
-      "cumulative_return": -6.5
+      "cumulative_return": -7.4
     },
     {
       "date": "2026-06-22",
-      "cumulative_return": -6.64
+      "cumulative_return": -7.54
     },
     {
       "date": "2026-06-23",
-      "cumulative_return": -14.46
+      "cumulative_return": -15.29
     },
     {
       "date": "2026-06-24",
-      "cumulative_return": -15.19
+      "cumulative_return": -16.01
     },
     {
       "date": "2026-06-26",
-      "cumulative_return": -18.66
+      "cumulative_return": -19.44
     },
     {
       "date": "2026-06-29",
-      "cumulative_return": -19.35
+      "cumulative_return": -20.13
     },
     {
       "date": "2026-06-30",
-      "cumulative_return": -17.65
+      "cumulative_return": -18.44
     },
     {
       "date": "2026-07-01",
-      "cumulative_return": -16.83
+      "cumulative_return": -17.62
     },
     {
       "date": "2026-07-02",
-      "cumulative_return": -19.43
+      "cumulative_return": -20.2
     },
     {
       "date": "2026-07-03",
-      "cumulative_return": -13.1
+      "cumulative_return": -13.94
     },
     {
       "date": "2026-07-06",
-      "cumulative_return": -17.18
+      "cumulative_return": -17.98
     },
     {
       "date": "2026-07-08",
-      "cumulative_return": -17.97
+      "cumulative_return": -18.75
     },
     {
       "date": "2026-07-09",
-      "cumulative_return": -19.83
+      "cumulative_return": -20.6
     },
     {
       "date": "2026-07-10",
-      "cumulative_return": -19.68
+      "cumulative_return": -20.45
     },
     {
       "date": "2026-07-13",
-      "cumulative_return": -27.39
+      "cumulative_return": -28.08
     },
     {
       "date": "2026-07-14",
-      "cumulative_return": -28.67
+      "cumulative_return": -29.36
     },
     {
       "date": "2026-07-15",
-      "cumulative_return": -27.81
+      "cumulative_return": -28.5
     },
     {
       "date": "2026-07-16",
-      "cumulative_return": -31.38
+      "cumulative_return": -32.04
+    },
+    {
+      "date": "2026-07-17",
+      "cumulative_return": -32.04
     }
   ]
 }

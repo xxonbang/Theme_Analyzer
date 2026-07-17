@@ -1,0 +1,541 @@
+{
+  "trade_date": "2026-07-17",
+  "morning_timestamp": "2026-07-17 09:15:03",
+  "collected_at": "2026-07-17 15:42:20",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-17 09:15:03",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 09:32:51",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 09:41:34",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 10:02:46",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 12:02:20",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 12:38:42",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 13:27:04",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-17 14:36:58",
+      "prices": {
+        "004310": 7600,
+        "012690": 2170,
+        "406820": 2015,
+        "279570": 6390,
+        "323410": 23000,
+        "329180": 484000,
+        "042660": 86700
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "012690",
+          "name": "모나리자",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "406820",
+          "name": "뷰티스킨",
+          "theme": "소비재/생활용품"
+        },
+        {
+          "code": "279570",
+          "name": "케이뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "323410",
+          "name": "카카오뱅크",
+          "theme": "인터넷전문은행/핀테크"
+        },
+        {
+          "code": "329180",
+          "name": "HD현대중공업",
+          "theme": "조선/방산/중공업"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/방산/중공업"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "004310",
+      "name": "현대약품",
+      "theme": "제약/바이오",
+      "market": "KOSPI",
+      "buy_price": 7600,
+      "close_price": 7600,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 8470,
+      "high_time": "11:05",
+      "high_profit_rate": 11.45,
+      "high_profit_amount": 870,
+      "low_price": 6710,
+      "low_profit_rate": -11.71,
+      "low_profit_amount": -890,
+      "low_time": "09:01"
+    },
+    {
+      "code": "012690",
+      "name": "모나리자",
+      "theme": "소비재/생활용품",
+      "market": "KOSPI",
+      "buy_price": 2170,
+      "close_price": 2170,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2170,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1760,
+      "low_profit_rate": -18.89,
+      "low_profit_amount": -410,
+      "low_time": "09:00"
+    },
+    {
+      "code": "406820",
+      "name": "뷰티스킨",
+      "theme": "소비재/생활용품",
+      "market": "KOSDAQ",
+      "buy_price": 2015,
+      "close_price": 2015,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2260,
+      "high_time": "12:33",
+      "high_profit_rate": 12.16,
+      "high_profit_amount": 245,
+      "low_price": 1802,
+      "low_profit_rate": -10.57,
+      "low_profit_amount": -213,
+      "low_time": "09:01"
+    },
+    {
+      "code": "279570",
+      "name": "케이뱅크",
+      "theme": "인터넷전문은행/핀테크",
+      "market": "KOSPI",
+      "buy_price": 6390,
+      "close_price": 6390,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 6850,
+      "high_time": "09:30",
+      "high_profit_rate": 7.2,
+      "high_profit_amount": 460,
+      "low_price": 5750,
+      "low_profit_rate": -10.02,
+      "low_profit_amount": -640,
+      "low_time": "09:00"
+    },
+    {
+      "code": "323410",
+      "name": "카카오뱅크",
+      "theme": "인터넷전문은행/핀테크",
+      "market": "KOSDAQ",
+      "buy_price": 23000,
+      "close_price": 23000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 23150,
+      "high_time": "09:31",
+      "high_profit_rate": 0.65,
+      "high_profit_amount": 150,
+      "low_price": 22050,
+      "low_profit_rate": -4.13,
+      "low_profit_amount": -950,
+      "low_time": "11:18"
+    },
+    {
+      "code": "329180",
+      "name": "HD현대중공업",
+      "theme": "조선/방산/중공업",
+      "market": "KOSDAQ",
+      "buy_price": 484000,
+      "close_price": 484000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 489000,
+      "high_time": "14:28",
+      "high_profit_rate": 1.03,
+      "high_profit_amount": 5000,
+      "low_price": 463500,
+      "low_profit_rate": -4.24,
+      "low_profit_amount": -20500,
+      "low_time": "11:17"
+    },
+    {
+      "code": "042660",
+      "name": "한화오션",
+      "theme": "조선/방산/중공업",
+      "market": "KOSPI",
+      "buy_price": 86700,
+      "close_price": 86700,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 87300,
+      "high_time": "14:27",
+      "high_profit_rate": 0.69,
+      "high_profit_amount": 600,
+      "low_price": 81500,
+      "low_profit_rate": -6.0,
+      "low_profit_amount": -5200,
+      "low_time": "11:17"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 0,
+    "loss_stocks": 0,
+    "total_invested": 611875,
+    "total_value": 611875,
+    "total_profit": 0,
+    "total_profit_rate": 0.0,
+    "high_total_value": 619200,
+    "high_total_profit": 7325,
+    "high_total_profit_rate": 1.2,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 0
+  }
+}
