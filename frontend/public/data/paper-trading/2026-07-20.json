@@ -1,0 +1,423 @@
+{
+  "trade_date": "2026-07-20",
+  "morning_timestamp": "2026-07-20 09:14:25",
+  "collected_at": "2026-07-20 15:42:11",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-20 09:14:25",
+      "prices": {
+        "067310": 40300,
+        "024060": 12690,
+        "003280": 1830,
+        "320000": 14360,
+        "475150": 54900,
+        "003680": 15920
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 후공정 및 패키징"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "중동 지정학적 리스크 (유가 및 해운 운임 상승)"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "중동 지정학적 리스크 (유가 및 해운 운임 상승)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-20 09:38:46",
+      "prices": {
+        "067310": 38550,
+        "024060": 13160,
+        "003280": 1849,
+        "320000": 17000,
+        "475150": 55700,
+        "322000": 118000,
+        "003680": 15630
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "320000",
+          "name": "한울반도체",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "유가 상승 및 에너지 안보"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "애국 소비 및 착한 기업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-20 10:02:53",
+      "prices": {
+        "067310": 38550,
+        "024060": 13160,
+        "003280": 1874,
+        "320000": 17000,
+        "475150": 55700,
+        "322000": 118500,
+        "003680": 15630
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "320000",
+          "name": "한울반도체",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "유가 상승 및 에너지 안보"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "애국 소비 및 착한 기업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-20 12:02:08",
+      "prices": {
+        "067310": 38550,
+        "024060": 13160,
+        "003280": 1863,
+        "320000": 17000,
+        "475150": 55700,
+        "322000": 116000,
+        "003680": 15630
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "320000",
+          "name": "한울반도체",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "유가 상승 및 에너지 안보"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "애국 소비 및 착한 기업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-20 12:38:36",
+      "prices": {
+        "067310": 36750,
+        "024060": 13380,
+        "003280": 1840,
+        "320000": 17000,
+        "475150": 56800,
+        "322000": 115800,
+        "003680": 10550
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "320000",
+          "name": "한울반도체",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "유가 상승 및 에너지 안보"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "애국 소비 및 착한 기업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-20 13:26:53",
+      "prices": {
+        "067310": 36800,
+        "024060": 13380,
+        "003280": 1813,
+        "320000": 17000,
+        "475150": 56800,
+        "322000": 117000,
+        "003680": 10550
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "320000",
+          "name": "한울반도체",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "유가 상승 및 에너지 안보"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "애국 소비 및 착한 기업"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-20 14:36:58",
+      "prices": {
+        "067310": 36850,
+        "024060": 13380,
+        "003280": 1788,
+        "320000": 17000,
+        "475150": 56800,
+        "322000": 117400,
+        "003680": 10550
+      },
+      "leader_stocks": [
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "320000",
+          "name": "한울반도체",
+          "theme": "반도체 및 AI 기반 첨단 기술"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "024060",
+          "name": "흥구석유",
+          "theme": "유가 상승 및 에너지 안보"
+        },
+        {
+          "code": "003680",
+          "name": "한성기업",
+          "theme": "애국 소비 및 착한 기업"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "067310",
+      "name": "하나마이크론",
+      "theme": "반도체 후공정 및 패키징",
+      "market": "KOSPI",
+      "buy_price": 40300,
+      "close_price": 36650,
+      "profit_rate": -9.06,
+      "profit_amount": -3650,
+      "high_price": 39550,
+      "high_time": "09:39",
+      "high_profit_rate": -1.86,
+      "high_profit_amount": -750,
+      "low_price": 36150,
+      "low_profit_rate": -10.3,
+      "low_profit_amount": -4150,
+      "low_time": "13:19"
+    },
+    {
+      "code": "024060",
+      "name": "흥구석유",
+      "theme": "중동 지정학적 리스크 (유가 및 해운 운임 상승)",
+      "market": "KOSPI",
+      "buy_price": 12690,
+      "close_price": 13440,
+      "profit_rate": 5.91,
+      "profit_amount": 750,
+      "high_price": 13800,
+      "high_time": "10:43",
+      "high_profit_rate": 8.75,
+      "high_profit_amount": 1110,
+      "low_price": 12550,
+      "low_profit_rate": -1.1,
+      "low_profit_amount": -140,
+      "low_time": "09:07"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "중동 지정학적 리스크 (유가 및 해운 운임 상승)",
+      "market": "KOSPI",
+      "buy_price": 1830,
+      "close_price": 1821,
+      "profit_rate": -0.49,
+      "profit_amount": -9,
+      "high_price": 1905,
+      "high_time": "10:43",
+      "high_profit_rate": 4.1,
+      "high_profit_amount": 75,
+      "low_price": 1783,
+      "low_profit_rate": -2.57,
+      "low_profit_amount": -47,
+      "low_time": "14:17"
+    },
+    {
+      "code": "320000",
+      "name": "한울반도체",
+      "theme": "반도체 및 AI 기반 첨단 기술",
+      "market": "KOSDAQ",
+      "buy_price": 14360,
+      "close_price": 15970,
+      "profit_rate": 11.21,
+      "profit_amount": 1610,
+      "high_price": 17000,
+      "high_time": "15:11",
+      "high_profit_rate": 18.38,
+      "high_profit_amount": 2640,
+      "low_price": 13090,
+      "low_profit_rate": -8.84,
+      "low_profit_amount": -1270,
+      "low_time": "09:01"
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "친환경/신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 54900,
+      "close_price": 55900,
+      "profit_rate": 1.82,
+      "profit_amount": 1000,
+      "high_price": 58500,
+      "high_time": "10:41",
+      "high_profit_rate": 6.56,
+      "high_profit_amount": 3600,
+      "low_price": 50800,
+      "low_profit_rate": -7.47,
+      "low_profit_amount": -4100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "003680",
+      "name": "한성기업",
+      "theme": "애국 소비 및 착한 기업",
+      "market": "KOSPI",
+      "buy_price": 15920,
+      "close_price": 10170,
+      "profit_rate": -36.12,
+      "profit_amount": -5750,
+      "high_price": 16250,
+      "high_time": "09:17",
+      "high_profit_rate": 2.07,
+      "high_profit_amount": 330,
+      "low_price": 10170,
+      "low_profit_rate": -36.12,
+      "low_profit_amount": -5750,
+      "low_time": "15:30"
+    }
+  ],
+  "summary": {
+    "total_stocks": 6,
+    "profit_stocks": 3,
+    "loss_stocks": 3,
+    "total_invested": 140000,
+    "total_value": 133951,
+    "total_profit": -6049,
+    "total_profit_rate": -4.32,
+    "high_total_value": 147005,
+    "high_total_profit": 7005,
+    "high_total_profit_rate": 5.0,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 1
+  }
+}
