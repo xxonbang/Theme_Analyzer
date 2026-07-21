@@ -1,0 +1,432 @@
+{
+  "trade_date": "2026-07-21",
+  "morning_timestamp": "2026-07-21 09:16:27",
+  "collected_at": "2026-07-21 15:42:11",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-21 09:16:27",
+      "prices": {
+        "004310": 7260,
+        "067290": 2295,
+        "353200": 125000,
+        "475150": 58000,
+        "365660": 7550,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-21 09:32:44",
+      "prices": {
+        "004310": 7260,
+        "067290": 2295,
+        "353200": 125000,
+        "475150": 58000,
+        "365660": 7550,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-21 10:02:46",
+      "prices": {
+        "004310": 7260,
+        "067290": 2295,
+        "353200": 125000,
+        "475150": 58000,
+        "365660": 7550,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-21 12:02:12",
+      "prices": {
+        "004310": 7260,
+        "067290": 2295,
+        "353200": 125000,
+        "475150": 58000,
+        "365660": 7550,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-21 12:38:47",
+      "prices": {
+        "004310": 7040,
+        "067290": 2200,
+        "353200": 119200,
+        "475150": 58250,
+        "365660": 6510,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-21 13:26:56",
+      "prices": {
+        "004310": 7040,
+        "067290": 2200,
+        "353200": 119200,
+        "475150": 58250,
+        "365660": 6510,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-21 14:37:01",
+      "prices": {
+        "004310": 7040,
+        "067290": 2200,
+        "353200": 119200,
+        "475150": 58250,
+        "365660": 6510,
+        "208640": 1228
+      },
+      "leader_stocks": [
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "AI 시대 고부가 IT 부품 투자 확대"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "디지털 헬스케어 플랫폼 성장 기대"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "게임/콘텐츠 산업 반등 기대"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "004310",
+      "name": "현대약품",
+      "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 7260,
+      "close_price": 6830,
+      "profit_rate": -5.92,
+      "profit_amount": -430,
+      "high_price": 7540,
+      "high_time": "10:52",
+      "high_profit_rate": 3.86,
+      "high_profit_amount": 280,
+      "low_price": 6210,
+      "low_profit_rate": -14.46,
+      "low_profit_amount": -1050,
+      "low_time": "09:00"
+    },
+    {
+      "code": "067290",
+      "name": "JW신약",
+      "theme": "제약/바이오 섹터 실적 개선 및 신약 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 2295,
+      "close_price": 2145,
+      "profit_rate": -6.54,
+      "profit_amount": -150,
+      "high_price": 2275,
+      "high_time": "10:53",
+      "high_profit_rate": -0.87,
+      "high_profit_amount": -20,
+      "low_price": 2040,
+      "low_profit_rate": -11.11,
+      "low_profit_amount": -255,
+      "low_time": "13:04"
+    },
+    {
+      "code": "353200",
+      "name": "대덕전자",
+      "theme": "AI 시대 고부가 IT 부품 투자 확대",
+      "market": "KOSDAQ",
+      "buy_price": 125000,
+      "close_price": 120500,
+      "profit_rate": -3.6,
+      "profit_amount": -4500,
+      "high_price": 128800,
+      "high_time": "09:49",
+      "high_profit_rate": 3.04,
+      "high_profit_amount": 3800,
+      "low_price": 116200,
+      "low_profit_rate": -7.04,
+      "low_profit_amount": -8800,
+      "low_time": "11:19"
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "AI 시대 고부가 IT 부품 투자 확대",
+      "market": "KOSDAQ",
+      "buy_price": 58000,
+      "close_price": 55900,
+      "profit_rate": -3.62,
+      "profit_amount": -2100,
+      "high_price": 60500,
+      "high_time": "10:36",
+      "high_profit_rate": 4.31,
+      "high_profit_amount": 2500,
+      "low_price": 54800,
+      "low_profit_rate": -5.52,
+      "low_profit_amount": -3200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "365660",
+      "name": "레몬헬스케어",
+      "theme": "디지털 헬스케어 플랫폼 성장 기대",
+      "market": "KOSDAQ",
+      "buy_price": 7550,
+      "close_price": 6350,
+      "profit_rate": -15.89,
+      "profit_amount": -1200,
+      "high_price": 7650,
+      "high_time": "09:22",
+      "high_profit_rate": 1.32,
+      "high_profit_amount": 100,
+      "low_price": 6140,
+      "low_profit_rate": -18.68,
+      "low_profit_amount": -1410,
+      "low_time": "15:05"
+    },
+    {
+      "code": "208640",
+      "name": "썸에이지",
+      "theme": "게임/콘텐츠 산업 반등 기대",
+      "market": "KOSPI",
+      "buy_price": 1228,
+      "close_price": 1228,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1228,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1011,
+      "low_profit_rate": -17.67,
+      "low_profit_amount": -217,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 6,
+    "profit_stocks": 0,
+    "loss_stocks": 5,
+    "total_invested": 201333,
+    "total_value": 192953,
+    "total_profit": -8380,
+    "total_profit_rate": -4.16,
+    "high_total_value": 207993,
+    "high_total_profit": 6660,
+    "high_total_profit_rate": 3.31,
+    "high_profit_stocks": 4,
+    "high_loss_stocks": 1
+  }
+}
