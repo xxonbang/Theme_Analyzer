@@ -1,0 +1,655 @@
+{
+  "trade_date": "2026-07-23",
+  "morning_timestamp": "2026-07-23 09:15:03",
+  "collected_at": "2026-07-23 15:42:11",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-23 09:15:03",
+      "prices": {
+        "000660": 1914000,
+        "009150": 1449000,
+        "080220": 80700,
+        "477850": 23550,
+        "010120": 204000,
+        "475150": 70200,
+        "322000": 147000,
+        "277810": 496000,
+        "439960": 16690,
+        "002990": 11760,
+        "100090": 15350
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 신재생 에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "전력 인프라 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "전력 인프라 및 신재생 에너지"
+        },
+        {
+          "code": "277810",
+          "name": "레인보우로보틱스",
+          "theme": "로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 09:32:50",
+      "prices": {
+        "000660": 1913000,
+        "009150": 1431000,
+        "080220": 80700,
+        "477850": 23550,
+        "010120": 203500,
+        "475150": 70200,
+        "322000": 147000,
+        "277810": 503000,
+        "439960": 16690,
+        "002990": 11760,
+        "100090": 15760
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "반도체 및 AI"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 신재생 에너지"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "전력 인프라 및 신재생 에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "전력 인프라 및 신재생 에너지"
+        },
+        {
+          "code": "277810",
+          "name": "레인보우로보틱스",
+          "theme": "로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 09:39:27",
+      "prices": {
+        "000660": 1907000,
+        "009150": 1422000,
+        "080220": 80100,
+        "477850": 23700,
+        "010120": 202000,
+        "475150": 73300,
+        "322000": 146500,
+        "277810": 502000,
+        "439960": 17840,
+        "002990": 11520,
+        "100090": 15690
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "신재생에너지 인프라"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 10:02:45",
+      "prices": {
+        "000660": 1935000,
+        "009150": 1445000,
+        "080220": 81300,
+        "477850": 23700,
+        "010120": 204500,
+        "475150": 73300,
+        "322000": 148500,
+        "277810": 490500,
+        "439960": 17780,
+        "002990": 11520,
+        "100090": 15690
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "신재생에너지 인프라"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 12:02:04",
+      "prices": {
+        "000660": 1878000,
+        "009150": 1398000,
+        "080220": 78100,
+        "477850": 23700,
+        "010120": 205000,
+        "475150": 73300,
+        "322000": 147700,
+        "277810": 482000,
+        "439960": 16300,
+        "002990": 11520,
+        "100090": 15690
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "신재생에너지 인프라"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 12:39:06",
+      "prices": {
+        "000660": 1890500,
+        "009150": 1409000,
+        "080220": 78700,
+        "477850": 23500,
+        "010120": 207000,
+        "475150": 76400,
+        "322000": 148200,
+        "277810": 487000,
+        "439960": 16940,
+        "002990": 10800,
+        "100090": 17410
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "신재생에너지 인프라"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 13:26:55",
+      "prices": {
+        "000660": 1921000,
+        "009150": 1434000,
+        "080220": 80000,
+        "477850": 23500,
+        "010120": 211500,
+        "475150": 76400,
+        "322000": 151800,
+        "277810": 502000,
+        "439960": 16940,
+        "002990": 11020,
+        "100090": 17410
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "신재생에너지 인프라"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-23 14:36:56",
+      "prices": {
+        "000660": 1919000,
+        "009150": 1449000,
+        "080220": 80200,
+        "477850": 23500,
+        "010120": 219750,
+        "475150": 76400,
+        "322000": 169000,
+        "277810": 510000,
+        "439960": 16940,
+        "002990": 11310,
+        "100090": 17410
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI 및 로봇 성장"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "첨단 반도체 및 IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "신재생에너지 인프라"
+        },
+        {
+          "code": "100090",
+          "name": "SK오션플랜트",
+          "theme": "신재생에너지 인프라"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체 및 AI",
+      "market": "KOSPI",
+      "buy_price": 1914000,
+      "close_price": 1919000,
+      "profit_rate": 0.26,
+      "profit_amount": 5000,
+      "high_price": 1948000,
+      "high_time": "10:15",
+      "high_profit_rate": 1.78,
+      "high_profit_amount": 34000,
+      "low_price": 1845000,
+      "low_profit_rate": -3.61,
+      "low_profit_amount": -69000,
+      "low_time": "11:27"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "반도체 및 AI",
+      "market": "KOSPI",
+      "buy_price": 1449000,
+      "close_price": 1448000,
+      "profit_rate": -0.07,
+      "profit_amount": -1000,
+      "high_price": 1475000,
+      "high_time": "09:17",
+      "high_profit_rate": 1.79,
+      "high_profit_amount": 26000,
+      "low_price": 1380000,
+      "low_profit_rate": -4.76,
+      "low_profit_amount": -69000,
+      "low_time": "11:27"
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "반도체 및 AI",
+      "market": "KOSPI",
+      "buy_price": 80700,
+      "close_price": 80900,
+      "profit_rate": 0.25,
+      "profit_amount": 200,
+      "high_price": 82500,
+      "high_time": "09:52",
+      "high_profit_rate": 2.23,
+      "high_profit_amount": 1800,
+      "low_price": 77500,
+      "low_profit_rate": -3.97,
+      "low_profit_amount": -3200,
+      "low_time": "11:41"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "반도체 및 AI",
+      "market": "KOSDAQ",
+      "buy_price": 23550,
+      "close_price": 23450,
+      "profit_rate": -0.42,
+      "profit_amount": -100,
+      "high_price": 25000,
+      "high_time": "10:21",
+      "high_profit_rate": 6.16,
+      "high_profit_amount": 1450,
+      "low_price": 22750,
+      "low_profit_rate": -3.4,
+      "low_profit_amount": -800,
+      "low_time": "09:01"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력 인프라 및 신재생 에너지",
+      "market": "KOSPI",
+      "buy_price": 204000,
+      "close_price": 223500,
+      "profit_rate": 9.56,
+      "profit_amount": 19500,
+      "high_price": 224000,
+      "high_time": "15:15",
+      "high_profit_rate": 9.8,
+      "high_profit_amount": 20000,
+      "low_price": 195600,
+      "low_profit_rate": -4.12,
+      "low_profit_amount": -8400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "전력 인프라 및 신재생 에너지",
+      "market": "KOSDAQ",
+      "buy_price": 70200,
+      "close_price": 80600,
+      "profit_rate": 14.81,
+      "profit_amount": 10400,
+      "high_price": 80600,
+      "high_time": "15:30",
+      "high_profit_rate": 14.81,
+      "high_profit_amount": 10400,
+      "low_price": 63500,
+      "low_profit_rate": -9.54,
+      "low_profit_amount": -6700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "전력 인프라 및 신재생 에너지",
+      "market": "KOSDAQ",
+      "buy_price": 147000,
+      "close_price": 171500,
+      "profit_rate": 16.67,
+      "profit_amount": 24500,
+      "high_price": 171800,
+      "high_time": "15:19",
+      "high_profit_rate": 16.87,
+      "high_profit_amount": 24800,
+      "low_price": 133300,
+      "low_profit_rate": -9.32,
+      "low_profit_amount": -13700,
+      "low_time": "09:00"
+    },
+    {
+      "code": "277810",
+      "name": "레인보우로보틱스",
+      "theme": "로봇",
+      "market": "KOSPI",
+      "buy_price": 496000,
+      "close_price": 508000,
+      "profit_rate": 2.42,
+      "profit_amount": 12000,
+      "high_price": 514000,
+      "high_time": "14:36",
+      "high_profit_rate": 3.63,
+      "high_profit_amount": 18000,
+      "low_price": 476000,
+      "low_profit_rate": -4.03,
+      "low_profit_amount": -20000,
+      "low_time": "11:43"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "AI 및 로봇 성장",
+      "market": "KOSDAQ",
+      "buy_price": 16690,
+      "close_price": 16450,
+      "profit_rate": -1.44,
+      "profit_amount": -240,
+      "high_price": 18730,
+      "high_time": "09:33",
+      "high_profit_rate": 12.22,
+      "high_profit_amount": 2040,
+      "low_price": 15880,
+      "low_profit_rate": -4.85,
+      "low_profit_amount": -810,
+      "low_time": "09:16"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "신재생에너지 인프라",
+      "market": "KOSPI",
+      "buy_price": 11760,
+      "close_price": 11300,
+      "profit_rate": -3.91,
+      "profit_amount": -460,
+      "high_price": 11930,
+      "high_time": "09:21",
+      "high_profit_rate": 1.45,
+      "high_profit_amount": 170,
+      "low_price": 10650,
+      "low_profit_rate": -9.44,
+      "low_profit_amount": -1110,
+      "low_time": "12:13"
+    },
+    {
+      "code": "100090",
+      "name": "SK오션플랜트",
+      "theme": "신재생에너지 인프라",
+      "market": "KOSPI",
+      "buy_price": 15350,
+      "close_price": 17260,
+      "profit_rate": 12.44,
+      "profit_amount": 1910,
+      "high_price": 18590,
+      "high_time": "14:03",
+      "high_profit_rate": 21.11,
+      "high_profit_amount": 3240,
+      "low_price": 14430,
+      "low_profit_rate": -5.99,
+      "low_profit_amount": -920,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 7,
+    "loss_stocks": 4,
+    "total_invested": 4428250,
+    "total_value": 4499960,
+    "total_profit": 71710,
+    "total_profit_rate": 1.62,
+    "high_total_value": 4570150,
+    "high_total_profit": 141900,
+    "high_total_profit_rate": 3.2,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 0
+  }
+}
