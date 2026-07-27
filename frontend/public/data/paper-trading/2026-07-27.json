@@ -1,0 +1,682 @@
+{
+  "trade_date": "2026-07-27",
+  "morning_timestamp": "2026-07-27 09:14:47",
+  "collected_at": "2026-07-27 15:42:23",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-27 09:14:47",
+      "prices": {
+        "035420": 223000,
+        "347860": 1813,
+        "439960": 16870,
+        "484810": 13130,
+        "037070": 7730,
+        "002700": 1103,
+        "036930": 147400,
+        "319400": 20150,
+        "052460": 4030,
+        "950160": 15480,
+        "403870": 36100
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/소프트웨어/IT 서비스"
+        },
+        {
+          "code": "347860",
+          "name": "알체라",
+          "theme": "AI/소프트웨어/IT 서비스"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절 가전"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절 가전"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 09:32:49",
+      "prices": {
+        "035420": 223000,
+        "347860": 1813,
+        "439960": 16870,
+        "484810": 14300,
+        "037070": 7730,
+        "002700": 1103,
+        "036930": 150300,
+        "319400": 21600,
+        "052460": 4030,
+        "950160": 16420,
+        "207940": 1560000,
+        "403870": 38000
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/소프트웨어/IT 서비스"
+        },
+        {
+          "code": "347860",
+          "name": "알체라",
+          "theme": "AI/소프트웨어/IT 서비스"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇"
+        },
+        {
+          "code": "037070",
+          "name": "파세코",
+          "theme": "여름 계절 가전"
+        },
+        {
+          "code": "002700",
+          "name": "신일전자",
+          "theme": "여름 계절 가전"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 09:39:34",
+      "prices": {
+        "035420": 228000,
+        "347860": 1641,
+        "439960": 15990,
+        "484810": 13950,
+        "037070": 7600,
+        "002700": 1120,
+        "036930": 151900,
+        "319400": 21550,
+        "052460": 4390,
+        "950160": 16600,
+        "207940": 1564000,
+        "403870": 37850
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "950160",
+          "name": "코오롱티슈진",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "207940",
+          "name": "삼성바이오로직스",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼 & 소프트웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 & 소재"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 & 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 10:02:51",
+      "prices": {
+        "035420": 228000,
+        "347860": 1641,
+        "439960": 15990,
+        "484810": 14070,
+        "037070": 7600,
+        "002700": 1120,
+        "036930": 148600,
+        "319400": 21550,
+        "052460": 4390,
+        "950160": 16600,
+        "207940": 1540000,
+        "403870": 37850
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "950160",
+          "name": "코오롱티슈진",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "207940",
+          "name": "삼성바이오로직스",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼 & 소프트웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 & 소재"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 & 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 12:01:59",
+      "prices": {
+        "035420": 228000,
+        "347860": 1641,
+        "439960": 15990,
+        "484810": 13650,
+        "037070": 7600,
+        "002700": 1120,
+        "036930": 146400,
+        "319400": 21550,
+        "052460": 4390,
+        "950160": 16600,
+        "207940": 1543000,
+        "403870": 37850
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "950160",
+          "name": "코오롱티슈진",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "207940",
+          "name": "삼성바이오로직스",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼 & 소프트웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 & 소재"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 & 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 12:38:38",
+      "prices": {
+        "035420": 223000,
+        "347860": 1598,
+        "439960": 14710,
+        "484810": 13230,
+        "037070": 7730,
+        "002700": 1117,
+        "036930": 147300,
+        "319400": 22500,
+        "052460": 4420,
+        "950160": 15890,
+        "207940": 1543000,
+        "403870": 37250
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "950160",
+          "name": "코오롱티슈진",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "207940",
+          "name": "삼성바이오로직스",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼 & 소프트웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 & 소재"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 & 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 13:26:52",
+      "prices": {
+        "035420": 225000,
+        "347860": 1598,
+        "439960": 14710,
+        "484810": 13230,
+        "037070": 7730,
+        "002700": 1117,
+        "036930": 147700,
+        "319400": 22500,
+        "052460": 4420,
+        "950160": 15890,
+        "207940": 1537000,
+        "403870": 37200
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "950160",
+          "name": "코오롱티슈진",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "207940",
+          "name": "삼성바이오로직스",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼 & 소프트웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 & 소재"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 & 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27 14:36:59",
+      "prices": {
+        "035420": 227250,
+        "347860": 1598,
+        "439960": 14710,
+        "484810": 13230,
+        "037070": 7730,
+        "002700": 1117,
+        "036930": 150100,
+        "319400": 22500,
+        "052460": 4420,
+        "950160": 15890,
+        "207940": 1545000,
+        "403870": 37600
+      },
+      "leader_stocks": [
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI & 로봇"
+        },
+        {
+          "code": "950160",
+          "name": "코오롱티슈진",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "207940",
+          "name": "삼성바이오로직스",
+          "theme": "바이오 & 헬스케어"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼 & 소프트웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 & 소재"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 & 소재"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "035420",
+      "name": "NAVER",
+      "theme": "AI/소프트웨어/IT 서비스",
+      "market": "KOSPI",
+      "buy_price": 223000,
+      "close_price": 225000,
+      "profit_rate": 0.9,
+      "profit_amount": 2000,
+      "high_price": 234500,
+      "high_time": "09:16",
+      "high_profit_rate": 5.16,
+      "high_profit_amount": 11500,
+      "low_price": 219000,
+      "low_profit_rate": -1.79,
+      "low_profit_amount": -4000,
+      "low_time": "09:05"
+    },
+    {
+      "code": "347860",
+      "name": "알체라",
+      "theme": "AI/소프트웨어/IT 서비스",
+      "market": "KOSDAQ",
+      "buy_price": 1813,
+      "close_price": 1482,
+      "profit_rate": -18.26,
+      "profit_amount": -331,
+      "high_price": 1734,
+      "high_time": "09:15",
+      "high_profit_rate": -4.36,
+      "high_profit_amount": -79,
+      "low_price": 1422,
+      "low_profit_rate": -21.57,
+      "low_profit_amount": -391,
+      "low_time": "14:56"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇",
+      "market": "KOSDAQ",
+      "buy_price": 16870,
+      "close_price": 14320,
+      "profit_rate": -15.12,
+      "profit_amount": -2550,
+      "high_price": 17270,
+      "high_time": "09:39",
+      "high_profit_rate": 2.37,
+      "high_profit_amount": 400,
+      "low_price": 14200,
+      "low_profit_rate": -15.83,
+      "low_profit_amount": -2670,
+      "low_time": "14:46"
+    },
+    {
+      "code": "484810",
+      "name": "티엑스알로보틱스",
+      "theme": "로봇",
+      "market": "KOSDAQ",
+      "buy_price": 13130,
+      "close_price": 13440,
+      "profit_rate": 2.36,
+      "profit_amount": 310,
+      "high_price": 14900,
+      "high_time": "09:35",
+      "high_profit_rate": 13.48,
+      "high_profit_amount": 1770,
+      "low_price": 12300,
+      "low_profit_rate": -6.32,
+      "low_profit_amount": -830,
+      "low_time": "09:02"
+    },
+    {
+      "code": "037070",
+      "name": "파세코",
+      "theme": "여름 계절 가전",
+      "market": "KOSPI",
+      "buy_price": 7730,
+      "close_price": 7200,
+      "profit_rate": -6.86,
+      "profit_amount": -530,
+      "high_price": 8220,
+      "high_time": "12:08",
+      "high_profit_rate": 6.34,
+      "high_profit_amount": 490,
+      "low_price": 7190,
+      "low_profit_rate": -6.99,
+      "low_profit_amount": -540,
+      "low_time": "15:11"
+    },
+    {
+      "code": "002700",
+      "name": "신일전자",
+      "theme": "여름 계절 가전",
+      "market": "KOSPI",
+      "buy_price": 1103,
+      "close_price": 1108,
+      "profit_rate": 0.45,
+      "profit_amount": 5,
+      "high_price": 1198,
+      "high_time": "12:00",
+      "high_profit_rate": 8.61,
+      "high_profit_amount": 95,
+      "low_price": 1088,
+      "low_profit_rate": -1.36,
+      "low_profit_amount": -15,
+      "low_time": "09:00"
+    },
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체 장비",
+      "market": "KOSPI",
+      "buy_price": 147400,
+      "close_price": 149900,
+      "profit_rate": 1.7,
+      "profit_amount": 2500,
+      "high_price": 153000,
+      "high_time": "09:50",
+      "high_profit_rate": 3.8,
+      "high_profit_amount": 5600,
+      "low_price": 143000,
+      "low_profit_rate": -2.99,
+      "low_profit_amount": -4400,
+      "low_time": "10:22"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "AI & 로봇",
+      "market": "KOSDAQ",
+      "buy_price": 20150,
+      "close_price": 21850,
+      "profit_rate": 8.44,
+      "profit_amount": 1700,
+      "high_price": 24200,
+      "high_time": "10:03",
+      "high_profit_rate": 20.1,
+      "high_profit_amount": 4050,
+      "low_price": 19750,
+      "low_profit_rate": -1.99,
+      "low_profit_amount": -400,
+      "low_time": "09:02"
+    },
+    {
+      "code": "052460",
+      "name": "아이크래프트",
+      "theme": "AI & 로봇",
+      "market": "KOSPI",
+      "buy_price": 4030,
+      "close_price": 4420,
+      "profit_rate": 9.68,
+      "profit_amount": 390,
+      "high_price": 4420,
+      "high_time": "15:30",
+      "high_profit_rate": 9.68,
+      "high_profit_amount": 390,
+      "low_price": 3860,
+      "low_profit_rate": -4.22,
+      "low_profit_amount": -170,
+      "low_time": "09:19"
+    },
+    {
+      "code": "950160",
+      "name": "코오롱티슈진",
+      "theme": "바이오 & 헬스케어",
+      "market": "KOSPI",
+      "buy_price": 15480,
+      "close_price": 15910,
+      "profit_rate": 2.78,
+      "profit_amount": 430,
+      "high_price": 17130,
+      "high_time": "09:51",
+      "high_profit_rate": 10.66,
+      "high_profit_amount": 1650,
+      "low_price": 14800,
+      "low_profit_rate": -4.39,
+      "low_profit_amount": -680,
+      "low_time": "09:01"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체 장비 & 소재",
+      "market": "KOSDAQ",
+      "buy_price": 36100,
+      "close_price": 37500,
+      "profit_rate": 3.88,
+      "profit_amount": 1400,
+      "high_price": 38350,
+      "high_time": "09:50",
+      "high_profit_rate": 6.23,
+      "high_profit_amount": 2250,
+      "low_price": 35650,
+      "low_profit_rate": -1.25,
+      "low_profit_amount": -450,
+      "low_time": "09:11"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 8,
+    "loss_stocks": 3,
+    "total_invested": 486806,
+    "total_value": 492130,
+    "total_profit": 5324,
+    "total_profit_rate": 1.09,
+    "high_total_value": 514922,
+    "high_total_profit": 28116,
+    "high_total_profit_rate": 5.78,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 1
+  }
+}
