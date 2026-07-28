@@ -1,0 +1,562 @@
+{
+  "trade_date": "2026-07-28",
+  "morning_timestamp": "2026-07-28 09:14:45",
+  "collected_at": "2026-07-28 15:42:24",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-28 09:14:45",
+      "prices": {
+        "417860": 9830,
+        "108860": 9390,
+        "199730": 2645,
+        "299660": 1702,
+        "044340": 6010,
+        "413630": 4210,
+        "068270": 181900,
+        "003280": 1659,
+        "368600": 1342,
+        "208640": 1367
+      },
+      "leader_stocks": [
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "AI 소프트웨어 및 서비스"
+        },
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI 소프트웨어 및 서비스"
+        },
+        {
+          "code": "199730",
+          "name": "바이오인프라",
+          "theme": "바이오/제약 (실적 턴어라운드 및 파이프라인 모멘텀)"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/제약 (실적 턴어라운드 및 파이프라인 모멘텀)"
+        },
+        {
+          "code": "044340",
+          "name": "위닉스",
+          "theme": "여름 계절가전"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 09:32:52",
+      "prices": {
+        "417860": 9830,
+        "108860": 9390,
+        "299660": 1702,
+        "044340": 6010,
+        "413630": 4210,
+        "068270": 185300,
+        "003280": 1614,
+        "368600": 1342,
+        "208640": 1367
+      },
+      "leader_stocks": [
+        {
+          "code": "417860",
+          "name": "오브젠",
+          "theme": "AI 소프트웨어 및 서비스"
+        },
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI 소프트웨어 및 서비스"
+        },
+        {
+          "code": "199730",
+          "name": "바이오인프라",
+          "theme": "바이오/제약 (실적 턴어라운드 및 파이프라인 모멘텀)"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/제약 (실적 턴어라운드 및 파이프라인 모멘텀)"
+        },
+        {
+          "code": "044340",
+          "name": "위닉스",
+          "theme": "여름 계절가전"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 09:38:54",
+      "prices": {
+        "417860": 9670,
+        "108860": 9210,
+        "299660": 1777,
+        "044340": 5910,
+        "413630": 4640,
+        "068270": 185700,
+        "003280": 1621,
+        "368600": 1342,
+        "208640": 1477
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 10:02:51",
+      "prices": {
+        "417860": 9670,
+        "108860": 9210,
+        "299660": 1777,
+        "044340": 5910,
+        "413630": 4640,
+        "068270": 182600,
+        "003280": 1602,
+        "368600": 1342,
+        "208640": 1477
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 12:02:16",
+      "prices": {
+        "417860": 9670,
+        "108860": 9210,
+        "299660": 1777,
+        "044340": 5910,
+        "413630": 4640,
+        "068270": 178800,
+        "003280": 1596,
+        "368600": 1342,
+        "208640": 1477
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 12:38:47",
+      "prices": {
+        "417860": 9000,
+        "108860": 8590,
+        "299660": 1777,
+        "044340": 6040,
+        "413630": 4690,
+        "068270": 179100,
+        "003280": 1599,
+        "368600": 1342,
+        "208640": 1300
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 13:26:52",
+      "prices": {
+        "417860": 9000,
+        "108860": 8590,
+        "299660": 1777,
+        "044340": 6040,
+        "413630": 4690,
+        "068270": 178600,
+        "003280": 1600,
+        "368600": 1342,
+        "208640": 1300
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-28 14:36:58",
+      "prices": {
+        "417860": 9000,
+        "108860": 8590,
+        "299660": 1777,
+        "044340": 6040,
+        "413630": 4690,
+        "068270": 176700,
+        "003280": 1592,
+        "368600": 1342,
+        "208640": 1300
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "417860",
+      "name": "오브젠",
+      "theme": "AI 소프트웨어 및 서비스",
+      "market": "KOSDAQ",
+      "buy_price": 9830,
+      "close_price": 8610,
+      "profit_rate": -12.41,
+      "profit_amount": -1220,
+      "high_price": 10300,
+      "high_time": "09:23",
+      "high_profit_rate": 4.78,
+      "high_profit_amount": 470,
+      "low_price": 8010,
+      "low_profit_rate": -18.51,
+      "low_profit_amount": -1820,
+      "low_time": "09:00"
+    },
+    {
+      "code": "108860",
+      "name": "셀바스AI",
+      "theme": "AI 소프트웨어 및 서비스",
+      "market": "KOSPI",
+      "buy_price": 9390,
+      "close_price": 9020,
+      "profit_rate": -3.94,
+      "profit_amount": -370,
+      "high_price": 9470,
+      "high_time": "14:45",
+      "high_profit_rate": 0.85,
+      "high_profit_amount": 80,
+      "low_price": 8420,
+      "low_profit_rate": -10.33,
+      "low_profit_amount": -970,
+      "low_time": "11:36"
+    },
+    {
+      "code": "199730",
+      "name": "바이오인프라",
+      "theme": "바이오/제약 (실적 턴어라운드 및 파이프라인 모멘텀)",
+      "market": "KOSPI",
+      "buy_price": 2645,
+      "close_price": 2645,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2645,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2645,
+      "low_profit_rate": 0.0,
+      "low_profit_amount": 0,
+      "low_time": "15:30"
+    },
+    {
+      "code": "299660",
+      "name": "셀리드",
+      "theme": "바이오/제약 (실적 턴어라운드 및 파이프라인 모멘텀)",
+      "market": "KOSPI",
+      "buy_price": 1702,
+      "close_price": 1777,
+      "profit_rate": 4.41,
+      "profit_amount": 75,
+      "high_price": 1777,
+      "high_time": "15:30",
+      "high_profit_rate": 4.41,
+      "high_profit_amount": 75,
+      "low_price": 1440,
+      "low_profit_rate": -15.39,
+      "low_profit_amount": -262,
+      "low_time": "09:02"
+    },
+    {
+      "code": "044340",
+      "name": "위닉스",
+      "theme": "여름 계절가전",
+      "market": "KOSPI",
+      "buy_price": 6010,
+      "close_price": 5290,
+      "profit_rate": -11.98,
+      "profit_amount": -720,
+      "high_price": 6320,
+      "high_time": "09:48",
+      "high_profit_rate": 5.16,
+      "high_profit_amount": 310,
+      "low_price": 4995,
+      "low_profit_rate": -16.89,
+      "low_profit_amount": -1015,
+      "low_time": "15:09"
+    },
+    {
+      "code": "413630",
+      "name": "씨피시스템",
+      "theme": "AI/로봇 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 4210,
+      "close_price": 4200,
+      "profit_rate": -0.24,
+      "profit_amount": -10,
+      "high_price": 5100,
+      "high_time": "11:07",
+      "high_profit_rate": 21.14,
+      "high_profit_amount": 890,
+      "low_price": 4030,
+      "low_profit_rate": -4.28,
+      "low_profit_amount": -180,
+      "low_time": "15:06"
+    },
+    {
+      "code": "068270",
+      "name": "셀트리온",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 181900,
+      "close_price": 177400,
+      "profit_rate": -2.47,
+      "profit_amount": -4500,
+      "high_price": 186400,
+      "high_time": "09:26",
+      "high_profit_rate": 2.47,
+      "high_profit_amount": 4500,
+      "low_price": 176000,
+      "low_profit_rate": -3.24,
+      "low_profit_amount": -5900,
+      "low_time": "14:59"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "산업 및 해운 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 1659,
+      "close_price": 1584,
+      "profit_rate": -4.52,
+      "profit_amount": -75,
+      "high_price": 1643,
+      "high_time": "09:18",
+      "high_profit_rate": -0.96,
+      "high_profit_amount": -16,
+      "low_price": 1580,
+      "low_profit_rate": -4.76,
+      "low_profit_amount": -79,
+      "low_time": "10:11"
+    },
+    {
+      "code": "368600",
+      "name": "아이씨에이치",
+      "theme": "개별 성장 모멘텀 (소형/중형주)",
+      "market": "KOSDAQ",
+      "buy_price": 1342,
+      "close_price": 1342,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1342,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1136,
+      "low_profit_rate": -15.35,
+      "low_profit_amount": -206,
+      "low_time": "09:02"
+    },
+    {
+      "code": "208640",
+      "name": "썸에이지",
+      "theme": "개별 성장 모멘텀 (소형/중형주)",
+      "market": "KOSPI",
+      "buy_price": 1367,
+      "close_price": 1248,
+      "profit_rate": -8.71,
+      "profit_amount": -119,
+      "high_price": 1504,
+      "high_time": "09:55",
+      "high_profit_rate": 10.02,
+      "high_profit_amount": 137,
+      "low_price": 1120,
+      "low_profit_rate": -18.07,
+      "low_profit_amount": -247,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 1,
+    "loss_stocks": 7,
+    "total_invested": 220055,
+    "total_value": 213116,
+    "total_profit": -6939,
+    "total_profit_rate": -3.15,
+    "high_total_value": 226501,
+    "high_total_profit": 6446,
+    "high_total_profit_rate": 2.93,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 1
+  }
+}
