@@ -1,0 +1,683 @@
+{
+  "trade_date": "2026-07-29",
+  "morning_timestamp": "2026-07-29 09:15:32",
+  "collected_at": "2026-07-29 15:42:26",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-29 09:15:32",
+      "prices": {
+        "108860": 8370,
+        "413630": 4420,
+        "068270": 184700,
+        "003280": 1615,
+        "368600": 1337,
+        "208640": 1220,
+        "319400": 24050,
+        "484810": 13940,
+        "058610": 80700,
+        "005930": 229000,
+        "005935": 165700,
+        "052460": 4185,
+        "291810": 1143
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 09:32:59",
+      "prices": {
+        "108860": 8370,
+        "413630": 4420,
+        "068270": 184450,
+        "003280": 1620,
+        "368600": 1337,
+        "208640": 1119,
+        "319400": 24050,
+        "484810": 13940,
+        "058610": 77700,
+        "005930": 225250,
+        "005935": 163000,
+        "052460": 4185,
+        "291810": 1143
+      },
+      "leader_stocks": [
+        {
+          "code": "108860",
+          "name": "셀바스AI",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "413630",
+          "name": "씨피시스템",
+          "theme": "AI/로봇 자동화"
+        },
+        {
+          "code": "068270",
+          "name": "셀트리온",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "산업 및 해운 모멘텀"
+        },
+        {
+          "code": "368600",
+          "name": "아이씨에이치",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        },
+        {
+          "code": "208640",
+          "name": "썸에이지",
+          "theme": "개별 성장 모멘텀 (소형/중형주)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 09:39:54",
+      "prices": {
+        "108860": 8410,
+        "413630": 4535,
+        "068270": 184900,
+        "003280": 1608,
+        "368600": 1295,
+        "208640": 1118,
+        "319400": 22550,
+        "484810": 14460,
+        "058610": 79200,
+        "005930": 228500,
+        "005935": 165500,
+        "052460": 4575,
+        "291810": 1184
+      },
+      "leader_stocks": [
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI (인공지능)"
+        },
+        {
+          "code": "291810",
+          "name": "핀텔",
+          "theme": "AI (인공지능)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 10:03:05",
+      "prices": {
+        "413630": 4535,
+        "068270": 187800,
+        "003280": 1610,
+        "368600": 1295,
+        "208640": 1114,
+        "319400": 22550,
+        "484810": 14460,
+        "058610": 77100,
+        "005930": 228500,
+        "005935": 165500,
+        "052460": 4575,
+        "291810": 1184
+      },
+      "leader_stocks": [
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI (인공지능)"
+        },
+        {
+          "code": "291810",
+          "name": "핀텔",
+          "theme": "AI (인공지능)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 12:02:08",
+      "prices": {
+        "108860": 7730,
+        "413630": 4535,
+        "068270": 180100,
+        "003280": 1535,
+        "368600": 1295,
+        "208640": 1043,
+        "319400": 22550,
+        "484810": 14460,
+        "058610": 70600,
+        "005930": 228500,
+        "005935": 165500,
+        "052460": 4575,
+        "291810": 1184
+      },
+      "leader_stocks": [
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI (인공지능)"
+        },
+        {
+          "code": "291810",
+          "name": "핀텔",
+          "theme": "AI (인공지능)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 12:38:33",
+      "prices": {
+        "413630": 4475,
+        "068270": 181300,
+        "003280": 1532,
+        "368600": 1274,
+        "208640": 1010,
+        "319400": 22900,
+        "484810": 13690,
+        "058610": 71300,
+        "005930": 202500,
+        "005935": 145800,
+        "052460": 4125,
+        "291810": 1293
+      },
+      "leader_stocks": [
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI (인공지능)"
+        },
+        {
+          "code": "291810",
+          "name": "핀텔",
+          "theme": "AI (인공지능)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 13:27:05",
+      "prices": {
+        "413630": 4475,
+        "068270": 177500,
+        "003280": 1560,
+        "368600": 1274,
+        "208640": 1000,
+        "319400": 22900,
+        "484810": 13410,
+        "058610": 71000,
+        "005930": 191900,
+        "005935": 141400,
+        "052460": 4125,
+        "291810": 1293
+      },
+      "leader_stocks": [
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI (인공지능)"
+        },
+        {
+          "code": "291810",
+          "name": "핀텔",
+          "theme": "AI (인공지능)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29 14:36:54",
+      "prices": {
+        "108860": 7690,
+        "413630": 4475,
+        "068270": 181000,
+        "003280": 1560,
+        "368600": 1274,
+        "319400": 22900,
+        "484810": 14260,
+        "058610": 78600,
+        "005930": 206500,
+        "005935": 152100,
+        "052460": 4125,
+        "291810": 1293
+      },
+      "leader_stocks": [
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체/IT"
+        },
+        {
+          "code": "052460",
+          "name": "아이크래프트",
+          "theme": "AI (인공지능)"
+        },
+        {
+          "code": "291810",
+          "name": "핀텔",
+          "theme": "AI (인공지능)"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "108860",
+      "name": "셀바스AI",
+      "theme": "AI/로봇 자동화",
+      "market": "KOSPI",
+      "buy_price": 8370,
+      "close_price": 7970,
+      "profit_rate": -4.78,
+      "profit_amount": -400,
+      "high_price": 8890,
+      "high_time": "10:08",
+      "high_profit_rate": 6.21,
+      "high_profit_amount": 520,
+      "low_price": 7430,
+      "low_profit_rate": -11.23,
+      "low_profit_amount": -940,
+      "low_time": "13:19"
+    },
+    {
+      "code": "413630",
+      "name": "씨피시스템",
+      "theme": "AI/로봇 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 4420,
+      "close_price": 3950,
+      "profit_rate": -10.63,
+      "profit_amount": -470,
+      "high_price": 4830,
+      "high_time": "10:18",
+      "high_profit_rate": 9.28,
+      "high_profit_amount": 410,
+      "low_price": 3755,
+      "low_profit_rate": -15.05,
+      "low_profit_amount": -665,
+      "low_time": "15:15"
+    },
+    {
+      "code": "068270",
+      "name": "셀트리온",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 184700,
+      "close_price": 180000,
+      "profit_rate": -2.54,
+      "profit_amount": -4700,
+      "high_price": 188800,
+      "high_time": "10:28",
+      "high_profit_rate": 2.22,
+      "high_profit_amount": 4100,
+      "low_price": 177300,
+      "low_profit_rate": -4.01,
+      "low_profit_amount": -7400,
+      "low_time": "13:30"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "산업 및 해운 모멘텀",
+      "market": "KOSPI",
+      "buy_price": 1615,
+      "close_price": 1529,
+      "profit_rate": -5.33,
+      "profit_amount": -86,
+      "high_price": 1737,
+      "high_time": "11:01",
+      "high_profit_rate": 7.55,
+      "high_profit_amount": 122,
+      "low_price": 1524,
+      "low_profit_rate": -5.63,
+      "low_profit_amount": -91,
+      "low_time": "12:15"
+    },
+    {
+      "code": "368600",
+      "name": "아이씨에이치",
+      "theme": "개별 성장 모멘텀 (소형/중형주)",
+      "market": "KOSDAQ",
+      "buy_price": 1337,
+      "close_price": 1340,
+      "profit_rate": 0.22,
+      "profit_amount": 3,
+      "high_price": 1475,
+      "high_time": "09:22",
+      "high_profit_rate": 10.32,
+      "high_profit_amount": 138,
+      "low_price": 1110,
+      "low_profit_rate": -16.98,
+      "low_profit_amount": -227,
+      "low_time": "13:50"
+    },
+    {
+      "code": "208640",
+      "name": "썸에이지",
+      "theme": "개별 성장 모멘텀 (소형/중형주)",
+      "market": "KOSPI",
+      "buy_price": 1220,
+      "close_price": 1098,
+      "profit_rate": -10.0,
+      "profit_amount": -122,
+      "high_price": 1170,
+      "high_time": "10:09",
+      "high_profit_rate": -4.1,
+      "high_profit_amount": -50,
+      "low_price": 980,
+      "low_profit_rate": -19.67,
+      "low_profit_amount": -240,
+      "low_time": "11:49"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 24050,
+      "close_price": 23450,
+      "profit_rate": -2.49,
+      "profit_amount": -600,
+      "high_price": 24000,
+      "high_time": "09:19",
+      "high_profit_rate": -0.21,
+      "high_profit_amount": -50,
+      "low_price": 21550,
+      "low_profit_rate": -10.4,
+      "low_profit_amount": -2500,
+      "low_time": "11:01"
+    },
+    {
+      "code": "484810",
+      "name": "티엑스알로보틱스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 13940,
+      "close_price": 13870,
+      "profit_rate": -0.5,
+      "profit_amount": -70,
+      "high_price": 14460,
+      "high_time": "14:52",
+      "high_profit_rate": 3.73,
+      "high_profit_amount": 520,
+      "low_price": 12480,
+      "low_profit_rate": -10.47,
+      "low_profit_amount": -1460,
+      "low_time": "09:02"
+    },
+    {
+      "code": "058610",
+      "name": "에스피지",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 80700,
+      "close_price": 81800,
+      "profit_rate": 1.36,
+      "profit_amount": 1100,
+      "high_price": 82800,
+      "high_time": "15:03",
+      "high_profit_rate": 2.6,
+      "high_profit_amount": 2100,
+      "low_price": 68700,
+      "low_profit_rate": -14.87,
+      "low_profit_amount": -12000,
+      "low_time": "12:53"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT",
+      "market": "KOSPI",
+      "buy_price": 229000,
+      "close_price": 208500,
+      "profit_rate": -8.95,
+      "profit_amount": -20500,
+      "high_price": 232000,
+      "high_time": "09:21",
+      "high_profit_rate": 1.31,
+      "high_profit_amount": 3000,
+      "low_price": 189200,
+      "low_profit_rate": -17.38,
+      "low_profit_amount": -39800,
+      "low_time": "13:32"
+    },
+    {
+      "code": "005935",
+      "name": "삼성전자우",
+      "theme": "반도체/IT",
+      "market": "KOSPI",
+      "buy_price": 165700,
+      "close_price": 153400,
+      "profit_rate": -7.42,
+      "profit_amount": -12300,
+      "high_price": 169500,
+      "high_time": "09:19",
+      "high_profit_rate": 2.29,
+      "high_profit_amount": 3800,
+      "low_price": 139600,
+      "low_profit_rate": -15.75,
+      "low_profit_amount": -26100,
+      "low_time": "13:33"
+    },
+    {
+      "code": "052460",
+      "name": "아이크래프트",
+      "theme": "AI (인공지능)",
+      "market": "KOSPI",
+      "buy_price": 4185,
+      "close_price": 4400,
+      "profit_rate": 5.14,
+      "profit_amount": 215,
+      "high_price": 4685,
+      "high_time": "09:36",
+      "high_profit_rate": 11.95,
+      "high_profit_amount": 500,
+      "low_price": 3600,
+      "low_profit_rate": -13.98,
+      "low_profit_amount": -585,
+      "low_time": "09:00"
+    },
+    {
+      "code": "291810",
+      "name": "핀텔",
+      "theme": "AI (인공지능)",
+      "market": "KOSPI",
+      "buy_price": 1143,
+      "close_price": 1215,
+      "profit_rate": 6.3,
+      "profit_amount": 72,
+      "high_price": 1354,
+      "high_time": "15:12",
+      "high_profit_rate": 18.46,
+      "high_profit_amount": 211,
+      "low_price": 1050,
+      "low_profit_rate": -8.14,
+      "low_profit_amount": -93,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 13,
+    "profit_stocks": 4,
+    "loss_stocks": 9,
+    "total_invested": 720380,
+    "total_value": 682522,
+    "total_profit": -37858,
+    "total_profit_rate": -5.26,
+    "high_total_value": 735701,
+    "high_total_profit": 15321,
+    "high_total_profit_rate": 2.13,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 2
+  }
+}
