@@ -1,0 +1,491 @@
+{
+  "trade_date": "2026-07-30",
+  "morning_timestamp": "2026-07-30 09:15:17",
+  "collected_at": "2026-07-30 15:42:10",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-30 09:15:17",
+      "prices": {
+        "003280": 1618,
+        "005880": 1760,
+        "255440": 4740,
+        "454910": 59100,
+        "322000": 106600,
+        "045520": 3135,
+        "051900": 289500,
+        "002990": 8270,
+        "042660": 76800
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "255440",
+          "name": "야스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "045520",
+          "name": "크린앤사이언스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-30 09:33:02",
+      "prices": {
+        "003280": 1618,
+        "005880": 1760,
+        "255440": 4740,
+        "454910": 57800,
+        "322000": 104100,
+        "051900": 309500,
+        "002990": 8270,
+        "042660": 79200
+      },
+      "leader_stocks": [
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "해운/물류"
+        },
+        {
+          "code": "255440",
+          "name": "야스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "045520",
+          "name": "크린앤사이언스",
+          "theme": "친환경/신재생에너지"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-30 09:41:04",
+      "prices": {
+        "003280": 1608,
+        "005880": 1790,
+        "255440": 4965,
+        "454910": 58600,
+        "322000": 106100,
+        "045520": 2650,
+        "051900": 306000,
+        "002990": 9490,
+        "042660": 80400
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 관련주"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/2차전지 소재 산업 성장"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재 업황 회복 기대감"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-30 10:02:57",
+      "prices": {
+        "003280": 1537,
+        "005880": 1764,
+        "255440": 4965,
+        "454910": 57600,
+        "322000": 104100,
+        "045520": 2370,
+        "051900": 296000,
+        "002990": 9490,
+        "042660": 78200
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 관련주"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/2차전지 소재 산업 성장"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재 업황 회복 기대감"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-30 12:02:07",
+      "prices": {
+        "003280": 1566,
+        "005880": 1780,
+        "255440": 4965,
+        "454910": 56700,
+        "322000": 104000,
+        "045520": 2410,
+        "051900": 288000,
+        "002990": 9490,
+        "042660": 81200
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 관련주"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/2차전지 소재 산업 성장"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재 업황 회복 기대감"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-30 13:27:04",
+      "prices": {
+        "003280": 1568,
+        "005880": 1766,
+        "255440": 4965,
+        "454910": 56300,
+        "322000": 103300,
+        "045520": 2310,
+        "051900": 288000,
+        "002990": 9490,
+        "042660": 80300
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 관련주"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/2차전지 소재 산업 성장"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재 업황 회복 기대감"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-30 14:37:11",
+      "prices": {
+        "003280": 1559,
+        "005880": 1745,
+        "255440": 4965,
+        "454910": 55400,
+        "322000": 101200,
+        "045520": 2305,
+        "051900": 289500,
+        "002990": 9490,
+        "042660": 79000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/재건 관련주"
+        },
+        {
+          "code": "042660",
+          "name": "한화오션",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "005880",
+          "name": "대한해운",
+          "theme": "조선/해운 업황 개선"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지/2차전지 소재 산업 성장"
+        },
+        {
+          "code": "051900",
+          "name": "LG생활건강",
+          "theme": "화장품/소비재 업황 회복 기대감"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 1618,
+      "close_price": 1569,
+      "profit_rate": -3.03,
+      "profit_amount": -49,
+      "high_price": 1641,
+      "high_time": "09:17",
+      "high_profit_rate": 1.42,
+      "high_profit_amount": 23,
+      "low_price": 1532,
+      "low_profit_rate": -5.32,
+      "low_profit_amount": -86,
+      "low_time": "09:00"
+    },
+    {
+      "code": "005880",
+      "name": "대한해운",
+      "theme": "해운/물류",
+      "market": "KOSPI",
+      "buy_price": 1760,
+      "close_price": 1734,
+      "profit_rate": -1.48,
+      "profit_amount": -26,
+      "high_price": 1824,
+      "high_time": "10:46",
+      "high_profit_rate": 3.64,
+      "high_profit_amount": 64,
+      "low_price": 1651,
+      "low_profit_rate": -6.19,
+      "low_profit_amount": -109,
+      "low_time": "09:00"
+    },
+    {
+      "code": "255440",
+      "name": "야스",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 4740,
+      "close_price": 4965,
+      "profit_rate": 4.75,
+      "profit_amount": 225,
+      "high_price": 4965,
+      "high_time": "15:30",
+      "high_profit_rate": 4.75,
+      "high_profit_amount": 225,
+      "low_price": 3820,
+      "low_profit_rate": -19.41,
+      "low_profit_amount": -920,
+      "low_time": "09:02"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "로봇/자동화",
+      "market": "KOSDAQ",
+      "buy_price": 59100,
+      "close_price": 55400,
+      "profit_rate": -6.26,
+      "profit_amount": -3700,
+      "high_price": 60100,
+      "high_time": "09:16",
+      "high_profit_rate": 1.69,
+      "high_profit_amount": 1000,
+      "low_price": 55100,
+      "low_profit_rate": -6.77,
+      "low_profit_amount": -4000,
+      "low_time": "14:59"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "친환경/신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 106600,
+      "close_price": 101100,
+      "profit_rate": -5.16,
+      "profit_amount": -5500,
+      "high_price": 111900,
+      "high_time": "10:43",
+      "high_profit_rate": 4.97,
+      "high_profit_amount": 5300,
+      "low_price": 95000,
+      "low_profit_rate": -10.88,
+      "low_profit_amount": -11600,
+      "low_time": "09:00"
+    },
+    {
+      "code": "045520",
+      "name": "크린앤사이언스",
+      "theme": "친환경/신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 3135,
+      "close_price": 2250,
+      "profit_rate": -28.23,
+      "profit_amount": -885,
+      "high_price": 3135,
+      "high_time": "09:18",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2250,
+      "low_profit_rate": -28.23,
+      "low_profit_amount": -885,
+      "low_time": "15:30"
+    },
+    {
+      "code": "051900",
+      "name": "LG생활건강",
+      "theme": "화장품/소비재",
+      "market": "KOSPI",
+      "buy_price": 289500,
+      "close_price": 292000,
+      "profit_rate": 0.86,
+      "profit_amount": 2500,
+      "high_price": 314500,
+      "high_time": "09:40",
+      "high_profit_rate": 8.64,
+      "high_profit_amount": 25000,
+      "low_price": 270000,
+      "low_profit_rate": -6.74,
+      "low_profit_amount": -19500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/재건 관련주",
+      "market": "KOSPI",
+      "buy_price": 8270,
+      "close_price": 9490,
+      "profit_rate": 14.75,
+      "profit_amount": 1220,
+      "high_price": 9490,
+      "high_time": "15:30",
+      "high_profit_rate": 14.75,
+      "high_profit_amount": 1220,
+      "low_price": 7670,
+      "low_profit_rate": -7.26,
+      "low_profit_amount": -600,
+      "low_time": "09:15"
+    },
+    {
+      "code": "042660",
+      "name": "한화오션",
+      "theme": "조선/해운 업황 개선",
+      "market": "KOSPI",
+      "buy_price": 76800,
+      "close_price": 79300,
+      "profit_rate": 3.26,
+      "profit_amount": 2500,
+      "high_price": 83600,
+      "high_time": "11:09",
+      "high_profit_rate": 8.85,
+      "high_profit_amount": 6800,
+      "low_price": 71700,
+      "low_profit_rate": -6.64,
+      "low_profit_amount": -5100,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 4,
+    "loss_stocks": 5,
+    "total_invested": 551523,
+    "total_value": 547808,
+    "total_profit": -3715,
+    "total_profit_rate": -0.67,
+    "high_total_value": 591155,
+    "high_total_profit": 39632,
+    "high_total_profit_rate": 7.19,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 0
+  }
+}
