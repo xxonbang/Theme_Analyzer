@@ -1,0 +1,649 @@
+{
+  "trade_date": "2026-07-31",
+  "morning_timestamp": "2026-07-31 09:14:59",
+  "collected_at": "2026-07-31 15:43:03",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-07-31 09:14:59",
+      "prices": {
+        "000660": 1595000,
+        "005930": 244000,
+        "009150": 1080000,
+        "454910": 58500,
+        "319400": 20450,
+        "365660": 5880,
+        "010120": 166900,
+        "042700": 198800,
+        "298040": 2169000,
+        "006340": 11560
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇 (AI/Robotics)"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI/로봇 (AI/Robotics)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/정밀의료 (Healthcare/Precision Medicine)"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력/에너지 효율 (Power/Energy Efficiency)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 09:32:54",
+      "prices": {
+        "000660": 1595000,
+        "005930": 244000,
+        "009150": 1142000,
+        "454910": 60900,
+        "319400": 20450,
+        "365660": 5880,
+        "010120": 182400,
+        "042700": 211500,
+        "298040": 2358000,
+        "006340": 13140
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체 (Semiconductor)"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇 (AI/Robotics)"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "AI/로봇 (AI/Robotics)"
+        },
+        {
+          "code": "365660",
+          "name": "레몬헬스케어",
+          "theme": "헬스케어/정밀의료 (Healthcare/Precision Medicine)"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력/에너지 효율 (Power/Energy Efficiency)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 09:39:28",
+      "prices": {
+        "000660": 1651000,
+        "005930": 250500,
+        "009150": 1142000,
+        "454910": 60600,
+        "319400": 21200,
+        "365660": 5640,
+        "010120": 181600,
+        "042700": 211250,
+        "298040": 2340000,
+        "006340": 13000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 해저케이블"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 10:03:10",
+      "prices": {
+        "000660": 1651000,
+        "005930": 250500,
+        "009150": 1142000,
+        "454910": 61400,
+        "319400": 21200,
+        "365660": 5740,
+        "010120": 183300,
+        "042700": 211000,
+        "298040": 2370000,
+        "006340": 13000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 해저케이블"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 12:02:06",
+      "prices": {
+        "000660": 1651000,
+        "005930": 250500,
+        "009150": 1142000,
+        "454910": 59600,
+        "319400": 21200,
+        "365660": 5900,
+        "010120": 178200,
+        "042700": 202000,
+        "298040": 2325000,
+        "006340": 13000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 해저케이블"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 12:38:59",
+      "prices": {
+        "000660": 1660000,
+        "005930": 250500,
+        "009150": 1142000,
+        "454910": 60000,
+        "319400": 21300,
+        "365660": 5810,
+        "010120": 178000,
+        "042700": 202500,
+        "298040": 2342000,
+        "006340": 12960
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 해저케이블"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 13:26:59",
+      "prices": {
+        "000660": 1660000,
+        "005930": 250500,
+        "009150": 1142000,
+        "454910": 60700,
+        "319400": 21300,
+        "365660": 5810,
+        "010120": 180400,
+        "042700": 206500,
+        "298040": 2397000,
+        "006340": 12960
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 해저케이블"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-31 14:36:58",
+      "prices": {
+        "000660": 1660000,
+        "005930": 250500,
+        "009150": 1142000,
+        "454910": 61600,
+        "319400": 21300,
+        "365660": 5810,
+        "010120": 181800,
+        "042700": 211000,
+        "298040": 2394000,
+        "006340": 12960
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "042700",
+          "name": "한미반도체",
+          "theme": "AI 반도체 및 HBM"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "298040",
+          "name": "효성중공업",
+          "theme": "전력 인프라 및 스마트 그리드"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선 및 해저케이블"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체 (Semiconductor)",
+      "market": "KOSPI",
+      "buy_price": 1595000,
+      "close_price": 1718000,
+      "profit_rate": 7.71,
+      "profit_amount": 123000,
+      "high_price": 1718000,
+      "high_time": "15:30",
+      "high_profit_rate": 7.71,
+      "high_profit_amount": 123000,
+      "low_price": 1586000,
+      "low_profit_rate": -0.56,
+      "low_profit_amount": -9000,
+      "low_time": "09:07"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체 (Semiconductor)",
+      "market": "KOSPI",
+      "buy_price": 244000,
+      "close_price": 262500,
+      "profit_rate": 7.58,
+      "profit_amount": 18500,
+      "high_price": 267000,
+      "high_time": "15:07",
+      "high_profit_rate": 9.43,
+      "high_profit_amount": 23000,
+      "low_price": 243000,
+      "low_profit_rate": -0.41,
+      "low_profit_amount": -1000,
+      "low_time": "11:17"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "반도체 (Semiconductor)",
+      "market": "KOSPI",
+      "buy_price": 1080000,
+      "close_price": 1142000,
+      "profit_rate": 5.74,
+      "profit_amount": 62000,
+      "high_price": 1142000,
+      "high_time": "15:30",
+      "high_profit_rate": 5.74,
+      "high_profit_amount": 62000,
+      "low_price": 1024000,
+      "low_profit_rate": -5.19,
+      "low_profit_amount": -56000,
+      "low_time": "09:04"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "AI/로봇 (AI/Robotics)",
+      "market": "KOSDAQ",
+      "buy_price": 58500,
+      "close_price": 61600,
+      "profit_rate": 5.3,
+      "profit_amount": 3100,
+      "high_price": 62300,
+      "high_time": "14:49",
+      "high_profit_rate": 6.5,
+      "high_profit_amount": 3800,
+      "low_price": 56300,
+      "low_profit_rate": -3.76,
+      "low_profit_amount": -2200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "AI/로봇 (AI/Robotics)",
+      "market": "KOSDAQ",
+      "buy_price": 20450,
+      "close_price": 21300,
+      "profit_rate": 4.16,
+      "profit_amount": 850,
+      "high_price": 22050,
+      "high_time": "10:21",
+      "high_profit_rate": 7.82,
+      "high_profit_amount": 1600,
+      "low_price": 19970,
+      "low_profit_rate": -2.35,
+      "low_profit_amount": -480,
+      "low_time": "09:10"
+    },
+    {
+      "code": "365660",
+      "name": "레몬헬스케어",
+      "theme": "헬스케어/정밀의료 (Healthcare/Precision Medicine)",
+      "market": "KOSDAQ",
+      "buy_price": 5880,
+      "close_price": 5350,
+      "profit_rate": -9.01,
+      "profit_amount": -530,
+      "high_price": 6300,
+      "high_time": "10:39",
+      "high_profit_rate": 7.14,
+      "high_profit_amount": 420,
+      "low_price": 5240,
+      "low_profit_rate": -10.88,
+      "low_profit_amount": -640,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력/에너지 효율 (Power/Energy Efficiency)",
+      "market": "KOSPI",
+      "buy_price": 166900,
+      "close_price": 184800,
+      "profit_rate": 10.72,
+      "profit_amount": 17900,
+      "high_price": 186800,
+      "high_time": "15:11",
+      "high_profit_rate": 11.92,
+      "high_profit_amount": 19900,
+      "low_price": 165400,
+      "low_profit_rate": -0.9,
+      "low_profit_amount": -1500,
+      "low_time": "09:02"
+    },
+    {
+      "code": "042700",
+      "name": "한미반도체",
+      "theme": "AI 반도체 및 HBM",
+      "market": "KOSPI",
+      "buy_price": 198800,
+      "close_price": 214500,
+      "profit_rate": 7.9,
+      "profit_amount": 15700,
+      "high_price": 217000,
+      "high_time": "15:03",
+      "high_profit_rate": 9.15,
+      "high_profit_amount": 18200,
+      "low_price": 193200,
+      "low_profit_rate": -2.82,
+      "low_profit_amount": -5600,
+      "low_time": "09:08"
+    },
+    {
+      "code": "298040",
+      "name": "효성중공업",
+      "theme": "전력 인프라 및 스마트 그리드",
+      "market": "KOSPI",
+      "buy_price": 2169000,
+      "close_price": 2417000,
+      "profit_rate": 11.43,
+      "profit_amount": 248000,
+      "high_price": 2462000,
+      "high_time": "14:09",
+      "high_profit_rate": 13.51,
+      "high_profit_amount": 293000,
+      "low_price": 2125000,
+      "low_profit_rate": -2.03,
+      "low_profit_amount": -44000,
+      "low_time": "09:02"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전선 및 해저케이블",
+      "market": "KOSPI",
+      "buy_price": 11560,
+      "close_price": 13000,
+      "profit_rate": 12.46,
+      "profit_amount": 1440,
+      "high_price": 13270,
+      "high_time": "09:54",
+      "high_profit_rate": 14.79,
+      "high_profit_amount": 1710,
+      "low_price": 11400,
+      "low_profit_rate": -1.38,
+      "low_profit_amount": -160,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 9,
+    "loss_stocks": 1,
+    "total_invested": 5550090,
+    "total_value": 6040050,
+    "total_profit": 489960,
+    "total_profit_rate": 8.83,
+    "high_total_value": 6096720,
+    "high_total_profit": 546630,
+    "high_total_profit_rate": 9.85,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}
