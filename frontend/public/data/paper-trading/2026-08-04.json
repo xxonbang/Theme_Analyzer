@@ -1,0 +1,922 @@
+{
+  "trade_date": "2026-08-04",
+  "morning_timestamp": "2026-08-04 09:14:55",
+  "collected_at": "2026-08-04 15:42:31",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-04 09:14:55",
+      "prices": {
+        "477850": 22100,
+        "355390": 2100,
+        "006340": 14550,
+        "010170": 10170,
+        "010060": 231500,
+        "322000": 134600,
+        "000660": 1603000,
+        "475150": 53050,
+        "403870": 35350,
+        "035420": 217000,
+        "049080": 8550,
+        "002990": 9280,
+        "375500": 62900,
+        "119850": 47050,
+        "028670": 5460,
+        "003280": 1623
+      },
+      "leader_stocks": [
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/소프트웨어/로봇"
+        },
+        {
+          "code": "355390",
+          "name": "크라우드웍스",
+          "theme": "AI/소프트웨어/로봇"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 09:32:45",
+      "prices": {
+        "477850": 22100,
+        "355390": 2115,
+        "006340": 14550,
+        "010170": 10170,
+        "010060": 224000,
+        "322000": 135700,
+        "000660": 1537000,
+        "475150": 53050,
+        "403870": 35350,
+        "035420": 229000,
+        "049080": 9300,
+        "002990": 9330,
+        "006360": 26200,
+        "375500": 64300,
+        "119850": 51000,
+        "028670": 5460,
+        "003280": 1632
+      },
+      "leader_stocks": [
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/소프트웨어/로봇"
+        },
+        {
+          "code": "355390",
+          "name": "크라우드웍스",
+          "theme": "AI/소프트웨어/로봇"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/전력설비"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "475150",
+          "name": "SK이터닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 09:39:22",
+      "prices": {
+        "477850": 21900,
+        "355390": 2115,
+        "006340": 13760,
+        "010170": 10010,
+        "010060": 227500,
+        "322000": 134700,
+        "000660": 1547000,
+        "475150": 54900,
+        "403870": 34450,
+        "035420": 225500,
+        "049080": 9430,
+        "002990": 9480,
+        "006360": 26450,
+        "375500": 64500,
+        "119850": 51900,
+        "028670": 5540,
+        "003280": 1625
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "028670",
+          "name": "팬오션",
+          "theme": "해운 및 물류"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 및 물류"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 10:02:48",
+      "prices": {
+        "477850": 21900,
+        "355390": 2020,
+        "006340": 13460,
+        "010170": 9620,
+        "010060": 214000,
+        "322000": 138300,
+        "000660": 1547000,
+        "475150": 54900,
+        "403870": 33900,
+        "035420": 225500,
+        "049080": 9430,
+        "002990": 8980,
+        "006360": 26300,
+        "375500": 62900,
+        "119850": 51900,
+        "028670": 5540,
+        "003280": 1611
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "028670",
+          "name": "팬오션",
+          "theme": "해운 및 물류"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 및 물류"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 12:02:03",
+      "prices": {
+        "477850": 21900,
+        "355390": 2115,
+        "006340": 13590,
+        "010170": 10030,
+        "010060": 227000,
+        "322000": 133200,
+        "000660": 1547000,
+        "475150": 54900,
+        "403870": 34700,
+        "035420": 224000,
+        "049080": 9430,
+        "002990": 9280,
+        "006360": 27850,
+        "375500": 64500,
+        "119850": 51900,
+        "028670": 5540,
+        "003280": 1632
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "028670",
+          "name": "팬오션",
+          "theme": "해운 및 물류"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 및 물류"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 12:39:22",
+      "prices": {
+        "477850": 21950,
+        "355390": 2115,
+        "006340": 13640,
+        "010170": 10020,
+        "010060": 226500,
+        "322000": 132400,
+        "000660": 1537000,
+        "475150": 57400,
+        "403870": 34700,
+        "035420": 224500,
+        "049080": 8840,
+        "002990": 9320,
+        "006360": 27850,
+        "375500": 64800,
+        "119850": 51800,
+        "028670": 5600,
+        "003280": 1632
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "028670",
+          "name": "팬오션",
+          "theme": "해운 및 물류"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 및 물류"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 13:27:01",
+      "prices": {
+        "477850": 23150,
+        "355390": 2115,
+        "006340": 13650,
+        "010170": 10020,
+        "010060": 229000,
+        "322000": 131200,
+        "000660": 1537000,
+        "475150": 57400,
+        "403870": 34700,
+        "035420": 223500,
+        "049080": 8840,
+        "002990": 9290,
+        "006360": 27850,
+        "375500": 64800,
+        "119850": 51800,
+        "028670": 5600,
+        "003280": 1632
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "028670",
+          "name": "팬오션",
+          "theme": "해운 및 물류"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 및 물류"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-04 14:37:06",
+      "prices": {
+        "477850": 22900,
+        "355390": 2115,
+        "006340": 13690,
+        "010170": 10080,
+        "010060": 224000,
+        "322000": 130600,
+        "000660": 1537000,
+        "475150": 57400,
+        "403870": 35050,
+        "035420": 225500,
+        "049080": 8840,
+        "002990": 9470,
+        "006360": 27850,
+        "375500": 66000,
+        "119850": 51800,
+        "028670": 5600,
+        "003280": 1635
+      },
+      "leader_stocks": [
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "049080",
+          "name": "기가레인",
+          "theme": "AI/IT 신기술 및 로봇"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "375500",
+          "name": "DL이앤씨",
+          "theme": "건설 및 인프라 투자"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "신재생에너지 및 전력 인프라"
+        },
+        {
+          "code": "028670",
+          "name": "팬오션",
+          "theme": "해운 및 물류"
+        },
+        {
+          "code": "003280",
+          "name": "흥아해운",
+          "theme": "해운 및 물류"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/소프트웨어/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 22100,
+      "close_price": 22950,
+      "profit_rate": 3.85,
+      "profit_amount": 850,
+      "high_price": 23900,
+      "high_time": "14:57",
+      "high_profit_rate": 8.14,
+      "high_profit_amount": 1800,
+      "low_price": 21150,
+      "low_profit_rate": -4.3,
+      "low_profit_amount": -950,
+      "low_time": "10:20"
+    },
+    {
+      "code": "355390",
+      "name": "크라우드웍스",
+      "theme": "AI/소프트웨어/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 2100,
+      "close_price": 2115,
+      "profit_rate": 0.71,
+      "profit_amount": 15,
+      "high_price": 2115,
+      "high_time": "15:30",
+      "high_profit_rate": 0.71,
+      "high_profit_amount": 15,
+      "low_price": 1700,
+      "low_profit_rate": -19.05,
+      "low_profit_amount": -400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 14550,
+      "close_price": 13790,
+      "profit_rate": -5.22,
+      "profit_amount": -760,
+      "high_price": 14280,
+      "high_time": "09:21",
+      "high_profit_rate": -1.86,
+      "high_profit_amount": -270,
+      "low_price": 13330,
+      "low_profit_rate": -8.38,
+      "low_profit_amount": -1220,
+      "low_time": "10:04"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "전선/전력설비",
+      "market": "KOSPI",
+      "buy_price": 10170,
+      "close_price": 10180,
+      "profit_rate": 0.1,
+      "profit_amount": 10,
+      "high_price": 10250,
+      "high_time": "09:24",
+      "high_profit_rate": 0.79,
+      "high_profit_amount": 80,
+      "low_price": 9550,
+      "low_profit_rate": -6.1,
+      "low_profit_amount": -620,
+      "low_time": "10:01"
+    },
+    {
+      "code": "010060",
+      "name": "OCI홀딩스",
+      "theme": "신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 231500,
+      "close_price": 225000,
+      "profit_rate": -2.81,
+      "profit_amount": -6500,
+      "high_price": 234000,
+      "high_time": "11:14",
+      "high_profit_rate": 1.08,
+      "high_profit_amount": 2500,
+      "low_price": 213000,
+      "low_profit_rate": -7.99,
+      "low_profit_amount": -18500,
+      "low_time": "10:03"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 134600,
+      "close_price": 129000,
+      "profit_rate": -4.16,
+      "profit_amount": -5600,
+      "high_price": 142900,
+      "high_time": "09:53",
+      "high_profit_rate": 6.17,
+      "high_profit_amount": 8300,
+      "low_price": 128800,
+      "low_profit_rate": -4.31,
+      "low_profit_amount": -5800,
+      "low_time": "15:19"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 1603000,
+      "close_price": 1577000,
+      "profit_rate": -1.62,
+      "profit_amount": -26000,
+      "high_price": 1593000,
+      "high_time": "09:15",
+      "high_profit_rate": -0.62,
+      "high_profit_amount": -10000,
+      "low_price": 1483000,
+      "low_profit_rate": -7.49,
+      "low_profit_amount": -120000,
+      "low_time": "10:04"
+    },
+    {
+      "code": "475150",
+      "name": "SK이터닉스",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSDAQ",
+      "buy_price": 53050,
+      "close_price": 55800,
+      "profit_rate": 5.18,
+      "profit_amount": 2750,
+      "high_price": 58600,
+      "high_time": "11:40",
+      "high_profit_rate": 10.46,
+      "high_profit_amount": 5550,
+      "low_price": 48950,
+      "low_profit_rate": -7.73,
+      "low_profit_amount": -4100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSDAQ",
+      "buy_price": 35350,
+      "close_price": 35400,
+      "profit_rate": 0.14,
+      "profit_amount": 50,
+      "high_price": 35550,
+      "high_time": "10:55",
+      "high_profit_rate": 0.57,
+      "high_profit_amount": 200,
+      "low_price": 33550,
+      "low_profit_rate": -5.09,
+      "low_profit_amount": -1800,
+      "low_time": "10:00"
+    },
+    {
+      "code": "035420",
+      "name": "NAVER",
+      "theme": "AI/IT 신기술 및 로봇",
+      "market": "KOSPI",
+      "buy_price": 217000,
+      "close_price": 226500,
+      "profit_rate": 4.38,
+      "profit_amount": 9500,
+      "high_price": 231500,
+      "high_time": "09:21",
+      "high_profit_rate": 6.68,
+      "high_profit_amount": 14500,
+      "low_price": 215000,
+      "low_profit_rate": -0.92,
+      "low_profit_amount": -2000,
+      "low_time": "09:06"
+    },
+    {
+      "code": "049080",
+      "name": "기가레인",
+      "theme": "AI/IT 신기술 및 로봇",
+      "market": "KOSPI",
+      "buy_price": 8550,
+      "close_price": 9020,
+      "profit_rate": 5.5,
+      "profit_amount": 470,
+      "high_price": 9620,
+      "high_time": "09:18",
+      "high_profit_rate": 12.51,
+      "high_profit_amount": 1070,
+      "low_price": 7540,
+      "low_profit_rate": -11.81,
+      "low_profit_amount": -1010,
+      "low_time": "09:01"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설 및 인프라 투자",
+      "market": "KOSPI",
+      "buy_price": 9280,
+      "close_price": 9610,
+      "profit_rate": 3.56,
+      "profit_amount": 330,
+      "high_price": 9730,
+      "high_time": "14:39",
+      "high_profit_rate": 4.85,
+      "high_profit_amount": 450,
+      "low_price": 8920,
+      "low_profit_rate": -3.88,
+      "low_profit_amount": -360,
+      "low_time": "09:00"
+    },
+    {
+      "code": "375500",
+      "name": "DL이앤씨",
+      "theme": "건설 및 인프라 투자",
+      "market": "KOSDAQ",
+      "buy_price": 62900,
+      "close_price": 66000,
+      "profit_rate": 4.93,
+      "profit_amount": 3100,
+      "high_price": 66200,
+      "high_time": "15:19",
+      "high_profit_rate": 5.25,
+      "high_profit_amount": 3300,
+      "low_price": 60700,
+      "low_profit_rate": -3.5,
+      "low_profit_amount": -2200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "119850",
+      "name": "지엔씨에너지",
+      "theme": "신재생에너지 및 전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 47050,
+      "close_price": 51200,
+      "profit_rate": 8.82,
+      "profit_amount": 4150,
+      "high_price": 54600,
+      "high_time": "09:39",
+      "high_profit_rate": 16.05,
+      "high_profit_amount": 7550,
+      "low_price": 43950,
+      "low_profit_rate": -6.59,
+      "low_profit_amount": -3100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "028670",
+      "name": "팬오션",
+      "theme": "해운 및 물류",
+      "market": "KOSPI",
+      "buy_price": 5460,
+      "close_price": 5640,
+      "profit_rate": 3.3,
+      "profit_amount": 180,
+      "high_price": 5660,
+      "high_time": "11:49",
+      "high_profit_rate": 3.66,
+      "high_profit_amount": 200,
+      "low_price": 4970,
+      "low_profit_rate": -8.97,
+      "low_profit_amount": -490,
+      "low_time": "09:00"
+    },
+    {
+      "code": "003280",
+      "name": "흥아해운",
+      "theme": "해운 및 물류",
+      "market": "KOSPI",
+      "buy_price": 1623,
+      "close_price": 1653,
+      "profit_rate": 1.85,
+      "profit_amount": 30,
+      "high_price": 1654,
+      "high_time": "15:07",
+      "high_profit_rate": 1.91,
+      "high_profit_amount": 31,
+      "low_price": 1567,
+      "low_profit_rate": -3.45,
+      "low_profit_amount": -56,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 16,
+    "profit_stocks": 12,
+    "loss_stocks": 4,
+    "total_invested": 2458283,
+    "total_value": 2440858,
+    "total_profit": -17425,
+    "total_profit_rate": -0.71,
+    "high_total_value": 2493559,
+    "high_total_profit": 35276,
+    "high_total_profit_rate": 1.43,
+    "high_profit_stocks": 14,
+    "high_loss_stocks": 2
+  }
+}
