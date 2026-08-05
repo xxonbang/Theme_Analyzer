@@ -1,0 +1,787 @@
+{
+  "trade_date": "2026-08-05",
+  "morning_timestamp": "2026-08-05 09:15:19",
+  "collected_at": "2026-08-05 15:42:24",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-05 09:15:19",
+      "prices": {
+        "000660": 1676000,
+        "005930": 251000,
+        "477850": 27700,
+        "002990": 10580,
+        "006360": 31000,
+        "010120": 210500,
+        "322000": 136100,
+        "006340": 15330,
+        "010170": 11400,
+        "215790": 988,
+        "454910": 69600,
+        "047040": 16300,
+        "009150": 1330000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/반도체/IT 부품"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체/IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "전력 인프라/신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 09:32:55",
+      "prices": {
+        "000660": 1693000,
+        "005930": 250500,
+        "477850": 27700,
+        "002990": 10580,
+        "006360": 31000,
+        "010120": 210500,
+        "322000": 138800,
+        "006340": 15330,
+        "010170": 11400,
+        "215790": 988,
+        "454910": 71200,
+        "047040": 16300,
+        "009150": 1329000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI/반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI/반도체/IT 부품"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체/IT 부품"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "010120",
+          "name": "LS ELECTRIC",
+          "theme": "전력 인프라/신재생에너지"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "전력 인프라/신재생에너지"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 09:39:59",
+      "prices": {
+        "000660": 1697000,
+        "005930": 250500,
+        "477850": 29750,
+        "002990": 10060,
+        "006360": 31950,
+        "010120": 212500,
+        "322000": 140900,
+        "006340": 15970,
+        "010170": 11750,
+        "215790": 988,
+        "454910": 71700,
+        "047040": 16300,
+        "009150": 1327000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 10:02:53",
+      "prices": {
+        "000660": 1652000,
+        "005930": 246000,
+        "477850": 29750,
+        "002990": 9945,
+        "006360": 31950,
+        "010120": 208000,
+        "322000": 133600,
+        "006340": 15970,
+        "010170": 11750,
+        "215790": 988,
+        "454910": 70700,
+        "047040": 16120,
+        "009150": 1295000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 12:02:00",
+      "prices": {
+        "000660": 1675000,
+        "005930": 248000,
+        "477850": 29750,
+        "002990": 9950,
+        "006360": 31950,
+        "010120": 210000,
+        "322000": 132400,
+        "006340": 15970,
+        "010170": 11750,
+        "215790": 988,
+        "454910": 71800,
+        "047040": 16160,
+        "009150": 1321000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 12:39:34",
+      "prices": {
+        "000660": 1677000,
+        "005930": 248500,
+        "477850": 29800,
+        "002990": 9960,
+        "006360": 31150,
+        "010120": 209000,
+        "322000": 132000,
+        "006340": 15560,
+        "010170": 12180,
+        "215790": 988,
+        "454910": 71400,
+        "047040": 16160,
+        "009150": 1321000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 13:26:59",
+      "prices": {
+        "000660": 1675000,
+        "005930": 247250,
+        "477850": 29800,
+        "002990": 9860,
+        "006360": 31450,
+        "010120": 209000,
+        "322000": 133000,
+        "006340": 15560,
+        "010170": 12180,
+        "215790": 988,
+        "454910": 72200,
+        "047040": 16150,
+        "009150": 1336000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-05 14:36:50",
+      "prices": {
+        "000660": 1681000,
+        "005930": 248250,
+        "477850": 29800,
+        "002990": 9900,
+        "006360": 31600,
+        "010120": 212000,
+        "322000": 134900,
+        "006340": 15560,
+        "010170": 12180,
+        "215790": 988,
+        "454910": 72600,
+        "047040": 16180,
+        "009150": 1358000
+      },
+      "leader_stocks": [
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "215790",
+          "name": "이노인스트루먼트",
+          "theme": "전선/광통신"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI/반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1676000,
+      "close_price": 1668000,
+      "profit_rate": -0.48,
+      "profit_amount": -8000,
+      "high_price": 1701000,
+      "high_time": "09:38",
+      "high_profit_rate": 1.49,
+      "high_profit_amount": 25000,
+      "low_price": 1647000,
+      "low_profit_rate": -1.73,
+      "low_profit_amount": -29000,
+      "low_time": "10:27"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "AI/반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 251000,
+      "close_price": 246000,
+      "profit_rate": -1.99,
+      "profit_amount": -5000,
+      "high_price": 252000,
+      "high_time": "09:39",
+      "high_profit_rate": 0.4,
+      "high_profit_amount": 1000,
+      "low_price": 244000,
+      "low_profit_rate": -2.79,
+      "low_profit_amount": -7000,
+      "low_time": "10:29"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/반도체/IT 부품",
+      "market": "KOSDAQ",
+      "buy_price": 27700,
+      "close_price": 29800,
+      "profit_rate": 7.58,
+      "profit_amount": 2100,
+      "high_price": 29800,
+      "high_time": "15:30",
+      "high_profit_rate": 7.58,
+      "high_profit_amount": 2100,
+      "low_price": 23850,
+      "low_profit_rate": -13.9,
+      "low_profit_amount": -3850,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 10580,
+      "close_price": 9770,
+      "profit_rate": -7.66,
+      "profit_amount": -810,
+      "high_price": 10560,
+      "high_time": "09:16",
+      "high_profit_rate": -0.19,
+      "high_profit_amount": -20,
+      "low_price": 9770,
+      "low_profit_rate": -7.66,
+      "low_profit_amount": -810,
+      "low_time": "15:30"
+    },
+    {
+      "code": "006360",
+      "name": "GS건설",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 31000,
+      "close_price": 31150,
+      "profit_rate": 0.48,
+      "profit_amount": 150,
+      "high_price": 32350,
+      "high_time": "09:30",
+      "high_profit_rate": 4.35,
+      "high_profit_amount": 1350,
+      "low_price": 28000,
+      "low_profit_rate": -9.68,
+      "low_profit_amount": -3000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "theme": "전력 인프라/신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 210500,
+      "close_price": 212000,
+      "profit_rate": 0.71,
+      "profit_amount": 1500,
+      "high_price": 213000,
+      "high_time": "09:30",
+      "high_profit_rate": 1.19,
+      "high_profit_amount": 2500,
+      "low_price": 205000,
+      "low_profit_rate": -2.61,
+      "low_profit_amount": -5500,
+      "low_time": "10:27"
+    },
+    {
+      "code": "322000",
+      "name": "HD현대에너지솔루션",
+      "theme": "전력 인프라/신재생에너지",
+      "market": "KOSDAQ",
+      "buy_price": 136100,
+      "close_price": 135900,
+      "profit_rate": -0.15,
+      "profit_amount": -200,
+      "high_price": 142000,
+      "high_time": "09:31",
+      "high_profit_rate": 4.34,
+      "high_profit_amount": 5900,
+      "low_price": 131000,
+      "low_profit_rate": -3.75,
+      "low_profit_amount": -5100,
+      "low_time": "10:45"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전선/광통신",
+      "market": "KOSPI",
+      "buy_price": 15330,
+      "close_price": 15450,
+      "profit_rate": 0.78,
+      "profit_amount": 120,
+      "high_price": 16370,
+      "high_time": "09:49",
+      "high_profit_rate": 6.78,
+      "high_profit_amount": 1040,
+      "low_price": 14340,
+      "low_profit_rate": -6.46,
+      "low_profit_amount": -990,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "전선/광통신",
+      "market": "KOSPI",
+      "buy_price": 11400,
+      "close_price": 12070,
+      "profit_rate": 5.88,
+      "profit_amount": 670,
+      "high_price": 12760,
+      "high_time": "11:37",
+      "high_profit_rate": 11.93,
+      "high_profit_amount": 1360,
+      "low_price": 11030,
+      "low_profit_rate": -3.25,
+      "low_profit_amount": -370,
+      "low_time": "09:10"
+    },
+    {
+      "code": "215790",
+      "name": "이노인스트루먼트",
+      "theme": "전선/광통신",
+      "market": "KOSPI",
+      "buy_price": 988,
+      "close_price": 988,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 988,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 851,
+      "low_profit_rate": -13.87,
+      "low_profit_amount": -137,
+      "low_time": "09:02"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "AI/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 69600,
+      "close_price": 73000,
+      "profit_rate": 4.89,
+      "profit_amount": 3400,
+      "high_price": 73400,
+      "high_time": "14:50",
+      "high_profit_rate": 5.46,
+      "high_profit_amount": 3800,
+      "low_price": 68800,
+      "low_profit_rate": -1.15,
+      "low_profit_amount": -800,
+      "low_time": "09:04"
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 16300,
+      "close_price": 16230,
+      "profit_rate": -0.43,
+      "profit_amount": -70,
+      "high_price": 16520,
+      "high_time": "09:16",
+      "high_profit_rate": 1.35,
+      "high_profit_amount": 220,
+      "low_price": 15710,
+      "low_profit_rate": -3.62,
+      "low_profit_amount": -590,
+      "low_time": "10:27"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1330000,
+      "close_price": 1356000,
+      "profit_rate": 1.95,
+      "profit_amount": 26000,
+      "high_price": 1370000,
+      "high_time": "14:25",
+      "high_profit_rate": 3.01,
+      "high_profit_amount": 40000,
+      "low_price": 1290000,
+      "low_profit_rate": -3.01,
+      "low_profit_amount": -40000,
+      "low_time": "10:26"
+    }
+  ],
+  "summary": {
+    "total_stocks": 13,
+    "profit_stocks": 7,
+    "loss_stocks": 5,
+    "total_invested": 3786498,
+    "total_value": 3806358,
+    "total_profit": 19860,
+    "total_profit_rate": 0.52,
+    "high_total_value": 3870748,
+    "high_total_profit": 84250,
+    "high_total_profit_rate": 2.23,
+    "high_profit_stocks": 11,
+    "high_loss_stocks": 1
+  }
+}
