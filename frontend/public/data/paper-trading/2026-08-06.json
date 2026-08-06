@@ -1,0 +1,575 @@
+{
+  "trade_date": "2026-08-06",
+  "morning_timestamp": "2026-08-06 09:15:44",
+  "collected_at": "2026-08-06 15:42:54",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-06 09:15:44",
+      "prices": {
+        "466100": 33900,
+        "439960": 20800,
+        "058610": 113700,
+        "047040": 16820,
+        "006360": 31850,
+        "073240": 8130,
+        "222800": 114800,
+        "069540": 3115,
+        "067290": 2055,
+        "477850": 30650
+      },
+      "leader_stocks": [
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇 및 자동화"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 및 자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇 및 자동화"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품 및 타이어"
+        },
+        {
+          "code": "222800",
+          "name": "심텍",
+          "theme": "반도체/IT 부품 및 데이터센터"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "반도체/IT 부품 및 데이터센터"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 09:32:48",
+      "prices": {
+        "466100": 33900,
+        "439960": 20800,
+        "058610": 108300,
+        "047040": 16820,
+        "006360": 32500,
+        "073240": 8130,
+        "222800": 110500,
+        "069540": 3115,
+        "067290": 2455,
+        "004310": 6790,
+        "477850": 30650
+      },
+      "leader_stocks": [
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇 및 자동화"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "로봇 및 자동화"
+        },
+        {
+          "code": "058610",
+          "name": "에스피지",
+          "theme": "로봇 및 자동화"
+        },
+        {
+          "code": "047040",
+          "name": "대우건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "006360",
+          "name": "GS건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품 및 타이어"
+        },
+        {
+          "code": "222800",
+          "name": "심텍",
+          "theme": "반도체/IT 부품 및 데이터센터"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "반도체/IT 부품 및 데이터센터"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 09:39:17",
+      "prices": {
+        "466100": 31850,
+        "439960": 19130,
+        "058610": 108100,
+        "047040": 16520,
+        "006360": 32200,
+        "073240": 7930,
+        "222800": 109100,
+        "069540": 2850,
+        "067290": 2450,
+        "004310": 6870,
+        "477850": 30200
+      },
+      "leader_stocks": [
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "타이어/자동차 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 10:02:43",
+      "prices": {
+        "466100": 31850,
+        "439960": 19130,
+        "058610": 108700,
+        "047040": 16390,
+        "006360": 32300,
+        "073240": 7930,
+        "222800": 109600,
+        "069540": 2940,
+        "067290": 2450,
+        "004310": 6870,
+        "477850": 30200
+      },
+      "leader_stocks": [
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "타이어/자동차 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 12:02:03",
+      "prices": {
+        "466100": 31850,
+        "439960": 19130,
+        "058610": 110600,
+        "047040": 16980,
+        "006360": 33200,
+        "073240": 7930,
+        "222800": 109800,
+        "069540": 2935,
+        "067290": 2450,
+        "004310": 6870,
+        "477850": 30200
+      },
+      "leader_stocks": [
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "타이어/자동차 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 12:38:56",
+      "prices": {
+        "466100": 31600,
+        "439960": 18940,
+        "058610": 109400,
+        "047040": 16700,
+        "006360": 33000,
+        "073240": 7870,
+        "222800": 108300,
+        "069540": 2860,
+        "067290": 2355,
+        "004310": 6640,
+        "477850": 31150
+      },
+      "leader_stocks": [
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "타이어/자동차 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 13:27:01",
+      "prices": {
+        "466100": 31900,
+        "439960": 18940,
+        "058610": 110000,
+        "047040": 16760,
+        "006360": 33000,
+        "073240": 7870,
+        "222800": 107600,
+        "069540": 2805,
+        "067290": 2355,
+        "004310": 6640,
+        "477850": 31150
+      },
+      "leader_stocks": [
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "타이어/자동차 부품"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06 14:36:58",
+      "prices": {
+        "466100": 31500,
+        "439960": 18940,
+        "047040": 16930,
+        "006360": 33000,
+        "073240": 7870,
+        "222800": 106600,
+        "069540": 2882,
+        "067290": 2355,
+        "004310": 6640,
+        "477850": 31150
+      },
+      "leader_stocks": [
+        {
+          "code": "067290",
+          "name": "JW신약",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "004310",
+          "name": "현대약품",
+          "theme": "제약/바이오"
+        },
+        {
+          "code": "439960",
+          "name": "코스모로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "타이어/자동차 부품"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "466100",
+      "name": "클로봇",
+      "theme": "로봇 및 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 33900,
+      "close_price": 31450,
+      "profit_rate": -7.23,
+      "profit_amount": -2450,
+      "high_price": 32900,
+      "high_time": "09:41",
+      "high_profit_rate": -2.95,
+      "high_profit_amount": -1000,
+      "low_price": 30900,
+      "low_profit_rate": -8.85,
+      "low_profit_amount": -3000,
+      "low_time": "09:22"
+    },
+    {
+      "code": "439960",
+      "name": "코스모로보틱스",
+      "theme": "로봇 및 자동화",
+      "market": "KOSDAQ",
+      "buy_price": 20800,
+      "close_price": 18460,
+      "profit_rate": -11.25,
+      "profit_amount": -2340,
+      "high_price": 19680,
+      "high_time": "09:17",
+      "high_profit_rate": -5.38,
+      "high_profit_amount": -1120,
+      "low_price": 18410,
+      "low_profit_rate": -11.49,
+      "low_profit_amount": -2390,
+      "low_time": "10:39"
+    },
+    {
+      "code": "058610",
+      "name": "에스피지",
+      "theme": "로봇 및 자동화",
+      "market": "KOSPI",
+      "buy_price": 113700,
+      "close_price": 108400,
+      "profit_rate": -4.66,
+      "profit_amount": -5300,
+      "high_price": 111900,
+      "high_time": "09:19",
+      "high_profit_rate": -1.58,
+      "high_profit_amount": -1800,
+      "low_price": 106900,
+      "low_profit_rate": -5.98,
+      "low_profit_amount": -6800,
+      "low_time": "09:29"
+    },
+    {
+      "code": "047040",
+      "name": "대우건설",
+      "theme": "건설 및 인프라",
+      "market": "KOSPI",
+      "buy_price": 16820,
+      "close_price": 16870,
+      "profit_rate": 0.3,
+      "profit_amount": 50,
+      "high_price": 17440,
+      "high_time": "09:17",
+      "high_profit_rate": 3.69,
+      "high_profit_amount": 620,
+      "low_price": 15900,
+      "low_profit_rate": -5.47,
+      "low_profit_amount": -920,
+      "low_time": "10:36"
+    },
+    {
+      "code": "006360",
+      "name": "GS건설",
+      "theme": "건설 및 인프라",
+      "market": "KOSPI",
+      "buy_price": 31850,
+      "close_price": 32600,
+      "profit_rate": 2.35,
+      "profit_amount": 750,
+      "high_price": 33900,
+      "high_time": "13:11",
+      "high_profit_rate": 6.44,
+      "high_profit_amount": 2050,
+      "low_price": 30700,
+      "low_profit_rate": -3.61,
+      "low_profit_amount": -1150,
+      "low_time": "09:00"
+    },
+    {
+      "code": "073240",
+      "name": "금호타이어",
+      "theme": "자동차 부품 및 타이어",
+      "market": "KOSPI",
+      "buy_price": 8130,
+      "close_price": 7940,
+      "profit_rate": -2.34,
+      "profit_amount": -190,
+      "high_price": 8470,
+      "high_time": "09:16",
+      "high_profit_rate": 4.18,
+      "high_profit_amount": 340,
+      "low_price": 7120,
+      "low_profit_rate": -12.42,
+      "low_profit_amount": -1010,
+      "low_time": "09:00"
+    },
+    {
+      "code": "222800",
+      "name": "심텍",
+      "theme": "반도체/IT 부품 및 데이터센터",
+      "market": "KOSPI",
+      "buy_price": 114800,
+      "close_price": 106000,
+      "profit_rate": -7.67,
+      "profit_amount": -8800,
+      "high_price": 112500,
+      "high_time": "10:11",
+      "high_profit_rate": -2.0,
+      "high_profit_amount": -2300,
+      "low_price": 105200,
+      "low_profit_rate": -8.36,
+      "low_profit_amount": -9600,
+      "low_time": "14:52"
+    },
+    {
+      "code": "069540",
+      "name": "빛과전자",
+      "theme": "반도체/IT 부품 및 데이터센터",
+      "market": "KOSPI",
+      "buy_price": 3115,
+      "close_price": 2910,
+      "profit_rate": -6.58,
+      "profit_amount": -205,
+      "high_price": 3050,
+      "high_time": "09:46",
+      "high_profit_rate": -2.09,
+      "high_profit_amount": -65,
+      "low_price": 2720,
+      "low_profit_rate": -12.68,
+      "low_profit_amount": -395,
+      "low_time": "09:19"
+    },
+    {
+      "code": "067290",
+      "name": "JW신약",
+      "theme": "제약/바이오",
+      "market": "KOSPI",
+      "buy_price": 2055,
+      "close_price": 2330,
+      "profit_rate": 13.38,
+      "profit_amount": 275,
+      "high_price": 2535,
+      "high_time": "09:35",
+      "high_profit_rate": 23.36,
+      "high_profit_amount": 480,
+      "low_price": 2005,
+      "low_profit_rate": -2.43,
+      "low_profit_amount": -50,
+      "low_time": "09:00"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 30650,
+      "close_price": 31900,
+      "profit_rate": 4.08,
+      "profit_amount": 1250,
+      "high_price": 33450,
+      "high_time": "13:48",
+      "high_profit_rate": 9.14,
+      "high_profit_amount": 2800,
+      "low_price": 28750,
+      "low_profit_rate": -6.2,
+      "low_profit_amount": -1900,
+      "low_time": "09:01"
+    }
+  ],
+  "summary": {
+    "total_stocks": 10,
+    "profit_stocks": 4,
+    "loss_stocks": 6,
+    "total_invested": 375820,
+    "total_value": 358860,
+    "total_profit": -16960,
+    "total_profit_rate": -4.51,
+    "high_total_value": 375825,
+    "high_total_profit": 5,
+    "high_total_profit_rate": 0.0,
+    "high_profit_stocks": 5,
+    "high_loss_stocks": 5
+  }
+}
