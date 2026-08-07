@@ -1,0 +1,743 @@
+{
+  "trade_date": "2026-08-07",
+  "morning_timestamp": "2026-08-07 09:14:51",
+  "collected_at": "2026-08-07 15:42:36",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-07 09:14:51",
+      "prices": {
+        "009830": 36100,
+        "010060": 270500,
+        "003670": 159500,
+        "066970": 89300,
+        "005930": 238000,
+        "000660": 1527000,
+        "353200": 104700,
+        "454910": 72500,
+        "466100": 32800,
+        "131400": 874,
+        "006400": 454000,
+        "069540": 3090,
+        "017900": 7100,
+        "095910": 876
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광/ESS)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 (태양광/ESS)"
+        },
+        {
+          "code": "003670",
+          "name": "포스코퓨처엠",
+          "theme": "2차전지 소재/리튬"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 소재/리튬"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 09:32:42",
+      "prices": {
+        "009830": 36100,
+        "010060": 261000,
+        "003670": 157900,
+        "066970": 90900,
+        "005930": 235000,
+        "000660": 1484000,
+        "353200": 105000,
+        "454910": 71000,
+        "466100": 32800,
+        "131400": 874,
+        "006400": 463500,
+        "069540": 3295,
+        "017900": 8130,
+        "095910": 876
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지 (태양광/ESS)"
+        },
+        {
+          "code": "010060",
+          "name": "OCI홀딩스",
+          "theme": "신재생에너지 (태양광/ESS)"
+        },
+        {
+          "code": "003670",
+          "name": "포스코퓨처엠",
+          "theme": "2차전지 소재/리튬"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 소재/리튬"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "theme": "반도체/IT 부품"
+        },
+        {
+          "code": "454910",
+          "name": "두산로보틱스",
+          "theme": "AI/로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 09:39:51",
+      "prices": {
+        "009830": 34900,
+        "010060": 259500,
+        "003670": 156500,
+        "066970": 88600,
+        "005930": 234250,
+        "000660": 1483000,
+        "353200": 103900,
+        "454910": 70500,
+        "466100": 32350,
+        "131400": 839,
+        "006400": 458000,
+        "069540": 3385,
+        "017900": 8270,
+        "095910": 895
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 및 태양광"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 10:03:22",
+      "prices": {
+        "009830": 34900,
+        "010060": 257500,
+        "003670": 155300,
+        "066970": 89600,
+        "005930": 235500,
+        "000660": 1468000,
+        "353200": 104700,
+        "454910": 70300,
+        "466100": 32350,
+        "131400": 839,
+        "006400": 456000,
+        "069540": 3385,
+        "017900": 8270,
+        "095910": 895
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 및 태양광"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 12:02:13",
+      "prices": {
+        "009830": 34900,
+        "010060": 249500,
+        "003670": 152900,
+        "066970": 85500,
+        "005930": 233500,
+        "000660": 1436000,
+        "353200": 103700,
+        "454910": 68900,
+        "466100": 29950,
+        "131400": 839,
+        "006400": 449000,
+        "069540": 3385,
+        "017900": 8270,
+        "095910": 895
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 및 태양광"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 12:39:52",
+      "prices": {
+        "009830": 33150,
+        "010060": 250500,
+        "003670": 152600,
+        "066970": 84200,
+        "005930": 232500,
+        "000660": 1429000,
+        "353200": 102800,
+        "454910": 68800,
+        "466100": 29950,
+        "131400": 819,
+        "006400": 445500,
+        "069540": 2975,
+        "017900": 7750,
+        "095910": 735
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 및 태양광"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 13:26:49",
+      "prices": {
+        "009830": 33150,
+        "010060": 246500,
+        "003670": 151300,
+        "066970": 84400,
+        "005930": 233000,
+        "000660": 1421000,
+        "353200": 102800,
+        "454910": 69000,
+        "466100": 29350,
+        "131400": 819,
+        "006400": 446000,
+        "069540": 3050,
+        "017900": 7750,
+        "095910": 735
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 및 태양광"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-07 14:37:09",
+      "prices": {
+        "009830": 33150,
+        "010060": 259500,
+        "003670": 153700,
+        "066970": 88800,
+        "005930": 232500,
+        "000660": 1419000,
+        "353200": 103900,
+        "454910": 69700,
+        "466100": 30250,
+        "131400": 819,
+        "006400": 454500,
+        "069540": 2990,
+        "017900": 7750,
+        "095910": 735
+      },
+      "leader_stocks": [
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "131400",
+          "name": "이브이첨단소재",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "006400",
+          "name": "삼성SDI",
+          "theme": "첨단소재 및 2차전지"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "069540",
+          "name": "빛과전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "017900",
+          "name": "광전자",
+          "theme": "IT 및 반도체 부품"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지 및 태양광"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "009830",
+      "name": "한화솔루션",
+      "theme": "신재생에너지 (태양광/ESS)",
+      "market": "KOSPI",
+      "buy_price": 36100,
+      "close_price": 33900,
+      "profit_rate": -6.09,
+      "profit_amount": -2200,
+      "high_price": 38550,
+      "high_time": "09:15",
+      "high_profit_rate": 6.79,
+      "high_profit_amount": 2450,
+      "low_price": 31900,
+      "low_profit_rate": -11.63,
+      "low_profit_amount": -4200,
+      "low_time": "11:28"
+    },
+    {
+      "code": "010060",
+      "name": "OCI홀딩스",
+      "theme": "신재생에너지 (태양광/ESS)",
+      "market": "KOSPI",
+      "buy_price": 270500,
+      "close_price": 272500,
+      "profit_rate": 0.74,
+      "profit_amount": 2000,
+      "high_price": 288500,
+      "high_time": "09:17",
+      "high_profit_rate": 6.65,
+      "high_profit_amount": 18000,
+      "low_price": 235000,
+      "low_profit_rate": -13.12,
+      "low_profit_amount": -35500,
+      "low_time": "12:56"
+    },
+    {
+      "code": "003670",
+      "name": "포스코퓨처엠",
+      "theme": "2차전지 소재/리튬",
+      "market": "KOSPI",
+      "buy_price": 159500,
+      "close_price": 155800,
+      "profit_rate": -2.32,
+      "profit_amount": -3700,
+      "high_price": 160900,
+      "high_time": "09:15",
+      "high_profit_rate": 0.88,
+      "high_profit_amount": 1400,
+      "low_price": 150200,
+      "low_profit_rate": -5.83,
+      "low_profit_amount": -9300,
+      "low_time": "10:40"
+    },
+    {
+      "code": "066970",
+      "name": "엘앤에프",
+      "theme": "2차전지 소재/리튬",
+      "market": "KOSPI",
+      "buy_price": 89300,
+      "close_price": 90200,
+      "profit_rate": 1.01,
+      "profit_amount": 900,
+      "high_price": 97600,
+      "high_time": "09:15",
+      "high_profit_rate": 9.29,
+      "high_profit_amount": 8300,
+      "low_price": 83000,
+      "low_profit_rate": -7.05,
+      "low_profit_amount": -6300,
+      "low_time": "13:01"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 238000,
+      "close_price": 231000,
+      "profit_rate": -2.94,
+      "profit_amount": -7000,
+      "high_price": 237500,
+      "high_time": "09:15",
+      "high_profit_rate": -0.21,
+      "high_profit_amount": -500,
+      "low_price": 229000,
+      "low_profit_rate": -3.78,
+      "low_profit_amount": -9000,
+      "low_time": "10:43"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT 부품",
+      "market": "KOSPI",
+      "buy_price": 1527000,
+      "close_price": 1422000,
+      "profit_rate": -6.88,
+      "profit_amount": -105000,
+      "high_price": 1512000,
+      "high_time": "09:15",
+      "high_profit_rate": -0.98,
+      "high_profit_amount": -15000,
+      "low_price": 1409000,
+      "low_profit_rate": -7.73,
+      "low_profit_amount": -118000,
+      "low_time": "10:40"
+    },
+    {
+      "code": "353200",
+      "name": "대덕전자",
+      "theme": "반도체/IT 부품",
+      "market": "KOSDAQ",
+      "buy_price": 104700,
+      "close_price": 103800,
+      "profit_rate": -0.86,
+      "profit_amount": -900,
+      "high_price": 105800,
+      "high_time": "09:35",
+      "high_profit_rate": 1.05,
+      "high_profit_amount": 1100,
+      "low_price": 100100,
+      "low_profit_rate": -4.39,
+      "low_profit_amount": -4600,
+      "low_time": "09:01"
+    },
+    {
+      "code": "454910",
+      "name": "두산로보틱스",
+      "theme": "AI/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 72500,
+      "close_price": 70700,
+      "profit_rate": -2.48,
+      "profit_amount": -1800,
+      "high_price": 71400,
+      "high_time": "09:34",
+      "high_profit_rate": -1.52,
+      "high_profit_amount": -1100,
+      "low_price": 68100,
+      "low_profit_rate": -6.07,
+      "low_profit_amount": -4400,
+      "low_time": "10:53"
+    },
+    {
+      "code": "466100",
+      "name": "클로봇",
+      "theme": "AI/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 32800,
+      "close_price": 31800,
+      "profit_rate": -3.05,
+      "profit_amount": -1000,
+      "high_price": 32750,
+      "high_time": "09:35",
+      "high_profit_rate": -0.15,
+      "high_profit_amount": -50,
+      "low_price": 28300,
+      "low_profit_rate": -13.72,
+      "low_profit_amount": -4500,
+      "low_time": "11:36"
+    },
+    {
+      "code": "131400",
+      "name": "이브이첨단소재",
+      "theme": "첨단소재 및 2차전지",
+      "market": "KOSPI",
+      "buy_price": 874,
+      "close_price": 718,
+      "profit_rate": -17.85,
+      "profit_amount": -156,
+      "high_price": 874,
+      "high_time": "09:15",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 711,
+      "low_profit_rate": -18.65,
+      "low_profit_amount": -163,
+      "low_time": "09:00"
+    },
+    {
+      "code": "006400",
+      "name": "삼성SDI",
+      "theme": "첨단소재 및 2차전지",
+      "market": "KOSPI",
+      "buy_price": 454000,
+      "close_price": 459000,
+      "profit_rate": 1.1,
+      "profit_amount": 5000,
+      "high_price": 468000,
+      "high_time": "09:15",
+      "high_profit_rate": 3.08,
+      "high_profit_amount": 14000,
+      "low_price": 439000,
+      "low_profit_rate": -3.3,
+      "low_profit_amount": -15000,
+      "low_time": "10:40"
+    },
+    {
+      "code": "069540",
+      "name": "빛과전자",
+      "theme": "IT 및 반도체 부품",
+      "market": "KOSPI",
+      "buy_price": 3090,
+      "close_price": 3005,
+      "profit_rate": -2.75,
+      "profit_amount": -85,
+      "high_price": 3440,
+      "high_time": "09:38",
+      "high_profit_rate": 11.33,
+      "high_profit_amount": 350,
+      "low_price": 2820,
+      "low_profit_rate": -8.74,
+      "low_profit_amount": -270,
+      "low_time": "09:01"
+    },
+    {
+      "code": "017900",
+      "name": "광전자",
+      "theme": "IT 및 반도체 부품",
+      "market": "KOSPI",
+      "buy_price": 7100,
+      "close_price": 7810,
+      "profit_rate": 10.0,
+      "profit_amount": 710,
+      "high_price": 8570,
+      "high_time": "09:40",
+      "high_profit_rate": 20.7,
+      "high_profit_amount": 1470,
+      "low_price": 6710,
+      "low_profit_rate": -5.49,
+      "low_profit_amount": -390,
+      "low_time": "09:01"
+    },
+    {
+      "code": "095910",
+      "name": "에스에너지",
+      "theme": "신재생에너지 및 태양광",
+      "market": "KOSPI",
+      "buy_price": 876,
+      "close_price": 723,
+      "profit_rate": -17.47,
+      "profit_amount": -153,
+      "high_price": 895,
+      "high_time": "09:36",
+      "high_profit_rate": 2.17,
+      "high_profit_amount": 19,
+      "low_price": 706,
+      "low_profit_rate": -19.41,
+      "low_profit_amount": -170,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 14,
+    "profit_stocks": 4,
+    "loss_stocks": 10,
+    "total_invested": 2996340,
+    "total_value": 2882956,
+    "total_profit": -113384,
+    "total_profit_rate": -3.78,
+    "high_total_value": 3026779,
+    "high_total_profit": 30439,
+    "high_total_profit_rate": 1.02,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 4
+  }
+}
