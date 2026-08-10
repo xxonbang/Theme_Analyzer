@@ -1,0 +1,675 @@
+{
+  "trade_date": "2026-08-10",
+  "morning_timestamp": "2026-08-10 09:15:04",
+  "collected_at": "2026-08-10 15:42:39",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-10 09:15:04",
+      "prices": {
+        "036930": 140400,
+        "080220": 80300,
+        "403870": 35900,
+        "477850": 31650,
+        "356680": 12150,
+        "062040": 180700,
+        "010170": 12180,
+        "079550": 808000,
+        "203400": 841,
+        "196170": 328000,
+        "100790": 15990
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 장비 및 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 및 부품"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇 및 소프트웨어"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "AI/로봇 및 소프트웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "전력 인프라 / 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 / 전선"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 09:32:50",
+      "prices": {
+        "036930": 141100,
+        "080220": 81100,
+        "403870": 36150,
+        "477850": 31650,
+        "356680": 12150,
+        "062040": 185100,
+        "010170": 13150,
+        "079550": 812000,
+        "203400": 841,
+        "196170": 341500,
+        "100790": 16260
+      },
+      "leader_stocks": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "반도체 장비 및 부품"
+        },
+        {
+          "code": "080220",
+          "name": "제주반도체",
+          "theme": "반도체 장비 및 부품"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체 장비 및 부품"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/로봇 및 소프트웨어"
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "theme": "AI/로봇 및 소프트웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "전력 인프라 / 전선"
+        },
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "전력 인프라 / 전선"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 09:42:25",
+      "prices": {
+        "036930": 141000,
+        "080220": 81500,
+        "403870": 36200,
+        "477850": 32600,
+        "356680": 11970,
+        "062040": 183400,
+        "010170": 13370,
+        "079550": 815000,
+        "203400": 841,
+        "196170": 341000,
+        "100790": 16590
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 10:02:54",
+      "prices": {
+        "036930": 137900,
+        "080220": 82400,
+        "403870": 36000,
+        "477850": 32600,
+        "356680": 11970,
+        "062040": 181000,
+        "010170": 13370,
+        "079550": 819000,
+        "203400": 841,
+        "196170": 346000,
+        "100790": 16590
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 12:02:12",
+      "prices": {
+        "036930": 142600,
+        "080220": 88200,
+        "403870": 36550,
+        "477850": 32600,
+        "356680": 11970,
+        "062040": 182900,
+        "010170": 13370,
+        "079550": 821000,
+        "203400": 841,
+        "196170": 350000,
+        "100790": 16590
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 12:39:29",
+      "prices": {
+        "036930": 142000,
+        "080220": 89600,
+        "403870": 36500,
+        "477850": 31800,
+        "356680": 11980,
+        "062040": 181700,
+        "010170": 13490,
+        "079550": 814000,
+        "203400": 841,
+        "196170": 349000,
+        "100790": 16490
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 13:26:52",
+      "prices": {
+        "036930": 143100,
+        "080220": 89600,
+        "403870": 37000,
+        "477850": 31800,
+        "356680": 11890,
+        "062040": 181200,
+        "010170": 13490,
+        "079550": 835000,
+        "203400": 841,
+        "196170": 347000,
+        "100790": 17100
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-10 14:36:58",
+      "prices": {
+        "036930": 143700,
+        "080220": 89600,
+        "403870": 36750,
+        "477850": 31800,
+        "356680": 11860,
+        "062040": 181700,
+        "010170": 13490,
+        "079550": 828000,
+        "203400": 841,
+        "196170": 344000,
+        "100790": 16530
+      },
+      "leader_stocks": [
+        {
+          "code": "010170",
+          "name": "대한광통신",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "477850",
+          "name": "마키나락스",
+          "theme": "AI/반도체 및 IT 하드웨어"
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "079550",
+          "name": "LIG디펜스앤에어로스페이스",
+          "theme": "산업재 및 전력 인프라"
+        },
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/헬스케어 (개별 모멘텀)"
+        },
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "벤처투자/신기술 투자"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "theme": "반도체 장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 140400,
+      "close_price": 144800,
+      "profit_rate": 3.13,
+      "profit_amount": 4400,
+      "high_price": 145500,
+      "high_time": "13:11",
+      "high_profit_rate": 3.63,
+      "high_profit_amount": 5100,
+      "low_price": 127800,
+      "low_profit_rate": -8.97,
+      "low_profit_amount": -12600,
+      "low_time": "09:00"
+    },
+    {
+      "code": "080220",
+      "name": "제주반도체",
+      "theme": "반도체 장비 및 부품",
+      "market": "KOSPI",
+      "buy_price": 80300,
+      "close_price": 87700,
+      "profit_rate": 9.22,
+      "profit_amount": 7400,
+      "high_price": 92800,
+      "high_time": "13:12",
+      "high_profit_rate": 15.57,
+      "high_profit_amount": 12500,
+      "low_price": 74900,
+      "low_profit_rate": -6.72,
+      "low_profit_amount": -5400,
+      "low_time": "09:02"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체 장비 및 부품",
+      "market": "KOSDAQ",
+      "buy_price": 35900,
+      "close_price": 36950,
+      "profit_rate": 2.92,
+      "profit_amount": 1050,
+      "high_price": 37250,
+      "high_time": "13:15",
+      "high_profit_rate": 3.76,
+      "high_profit_amount": 1350,
+      "low_price": 34500,
+      "low_profit_rate": -3.9,
+      "low_profit_amount": -1400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "477850",
+      "name": "마키나락스",
+      "theme": "AI/로봇 및 소프트웨어",
+      "market": "KOSDAQ",
+      "buy_price": 31650,
+      "close_price": 32850,
+      "profit_rate": 3.79,
+      "profit_amount": 1200,
+      "high_price": 34350,
+      "high_time": "09:57",
+      "high_profit_rate": 8.53,
+      "high_profit_amount": 2700,
+      "low_price": 30200,
+      "low_profit_rate": -4.58,
+      "low_profit_amount": -1450,
+      "low_time": "09:00"
+    },
+    {
+      "code": "356680",
+      "name": "엑스게이트",
+      "theme": "AI/로봇 및 소프트웨어",
+      "market": "KOSDAQ",
+      "buy_price": 12150,
+      "close_price": 12000,
+      "profit_rate": -1.23,
+      "profit_amount": -150,
+      "high_price": 12060,
+      "high_time": "12:24",
+      "high_profit_rate": -0.74,
+      "high_profit_amount": -90,
+      "low_price": 11660,
+      "low_profit_rate": -4.03,
+      "low_profit_amount": -490,
+      "low_time": "13:57"
+    },
+    {
+      "code": "062040",
+      "name": "산일전기",
+      "theme": "전력 인프라 / 전선",
+      "market": "KOSPI",
+      "buy_price": 180700,
+      "close_price": 183800,
+      "profit_rate": 1.72,
+      "profit_amount": 3100,
+      "high_price": 186600,
+      "high_time": "11:27",
+      "high_profit_rate": 3.27,
+      "high_profit_amount": 5900,
+      "low_price": 169100,
+      "low_profit_rate": -6.42,
+      "low_profit_amount": -11600,
+      "low_time": "09:00"
+    },
+    {
+      "code": "010170",
+      "name": "대한광통신",
+      "theme": "전력 인프라 / 전선",
+      "market": "KOSPI",
+      "buy_price": 12180,
+      "close_price": 14040,
+      "profit_rate": 15.27,
+      "profit_amount": 1860,
+      "high_price": 14220,
+      "high_time": "10:51",
+      "high_profit_rate": 16.75,
+      "high_profit_amount": 2040,
+      "low_price": 11750,
+      "low_profit_rate": -3.53,
+      "low_profit_amount": -430,
+      "low_time": "09:00"
+    },
+    {
+      "code": "079550",
+      "name": "LIG디펜스앤에어로스페이스",
+      "theme": "산업재 및 전력 인프라",
+      "market": "KOSPI",
+      "buy_price": 808000,
+      "close_price": 823000,
+      "profit_rate": 1.86,
+      "profit_amount": 15000,
+      "high_price": 839000,
+      "high_time": "13:20",
+      "high_profit_rate": 3.84,
+      "high_profit_amount": 31000,
+      "low_price": 764000,
+      "low_profit_rate": -5.45,
+      "low_profit_amount": -44000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "203400",
+      "name": "에이비온",
+      "theme": "바이오/헬스케어 (개별 모멘텀)",
+      "market": "KOSPI",
+      "buy_price": 841,
+      "close_price": 841,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 841,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 727,
+      "low_profit_rate": -13.56,
+      "low_profit_amount": -114,
+      "low_time": "09:02"
+    },
+    {
+      "code": "196170",
+      "name": "알테오젠",
+      "theme": "바이오/헬스케어 (개별 모멘텀)",
+      "market": "KOSPI",
+      "buy_price": 328000,
+      "close_price": 348000,
+      "profit_rate": 6.1,
+      "profit_amount": 20000,
+      "high_price": 356000,
+      "high_time": "10:52",
+      "high_profit_rate": 8.54,
+      "high_profit_amount": 28000,
+      "low_price": 313000,
+      "low_profit_rate": -4.57,
+      "low_profit_amount": -15000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "100790",
+      "name": "미래에셋벤처투자",
+      "theme": "벤처투자/신기술 투자",
+      "market": "KOSPI",
+      "buy_price": 15990,
+      "close_price": 16350,
+      "profit_rate": 2.25,
+      "profit_amount": 360,
+      "high_price": 17800,
+      "high_time": "13:20",
+      "high_profit_rate": 11.32,
+      "high_profit_amount": 1810,
+      "low_price": 15010,
+      "low_profit_rate": -6.13,
+      "low_profit_amount": -980,
+      "low_time": "09:01"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 9,
+    "loss_stocks": 1,
+    "total_invested": 1646111,
+    "total_value": 1700331,
+    "total_profit": 54220,
+    "total_profit_rate": 3.29,
+    "high_total_value": 1736421,
+    "high_total_profit": 90310,
+    "high_total_profit_rate": 5.49,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 1
+  }
+}
