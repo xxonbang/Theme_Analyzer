@@ -1,0 +1,705 @@
+{
+  "trade_date": "2026-08-11",
+  "morning_timestamp": "2026-08-11 09:15:35",
+  "collected_at": "2026-08-11 15:42:29",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-11 09:15:35",
+      "prices": {
+        "203400": 1078,
+        "354200": 2595,
+        "214450": 422500,
+        "003010": 7040,
+        "002990": 9910,
+        "241710": 108700,
+        "484810": 18760,
+        "466100": 31350,
+        "095910": 769,
+        "009830": 34100,
+        "377220": 4325,
+        "000660": 1395000,
+        "417840": 11940
+      },
+      "leader_stocks": [
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "제약/바이오 신약 개발 및 진단 기술"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "제약/바이오 신약 개발 및 진단 기술"
+        },
+        {
+          "code": "214450",
+          "name": "파마리서치",
+          "theme": "제약/바이오 신약 개발 및 진단 기술"
+        },
+        {
+          "code": "003010",
+          "name": "혜인",
+          "theme": "건설/건설장비 인프라 투자 및 안전 강화"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/건설장비 인프라 투자 및 안전 강화"
+        },
+        {
+          "code": "241710",
+          "name": "코스메카코리아",
+          "theme": "K-뷰티 글로벌 확장"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화 기술 혁신"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇/자동화 기술 혁신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 09:32:53",
+      "prices": {
+        "203400": 1078,
+        "354200": 2595,
+        "003010": 7040,
+        "002990": 9910,
+        "241710": 109300,
+        "484810": 18760,
+        "466100": 31350,
+        "095910": 870,
+        "009830": 36050,
+        "377220": 4325,
+        "000660": 1391000,
+        "417840": 11940
+      },
+      "leader_stocks": [
+        {
+          "code": "203400",
+          "name": "에이비온",
+          "theme": "제약/바이오 신약 개발 및 진단 기술"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "제약/바이오 신약 개발 및 진단 기술"
+        },
+        {
+          "code": "214450",
+          "name": "파마리서치",
+          "theme": "제약/바이오 신약 개발 및 진단 기술"
+        },
+        {
+          "code": "003010",
+          "name": "혜인",
+          "theme": "건설/건설장비 인프라 투자 및 안전 강화"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/건설장비 인프라 투자 및 안전 강화"
+        },
+        {
+          "code": "241710",
+          "name": "코스메카코리아",
+          "theme": "K-뷰티 글로벌 확장"
+        },
+        {
+          "code": "484810",
+          "name": "티엑스알로보틱스",
+          "theme": "로봇/자동화 기술 혁신"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇/자동화 기술 혁신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 09:40:57",
+      "prices": {
+        "203400": 1035,
+        "354200": 2595,
+        "003010": 7040,
+        "002990": 10900,
+        "241710": 109000,
+        "484810": 17960,
+        "466100": 31100,
+        "095910": 859,
+        "009830": 35800,
+        "377220": 4325,
+        "000660": 1391000,
+        "417840": 12490
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "377220",
+          "name": "프롬바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI/로봇"
+        },
+        {
+          "code": "417840",
+          "name": "저스템",
+          "theme": "반도체/AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 10:03:21",
+      "prices": {
+        "203400": 1035,
+        "354200": 2385,
+        "214450": 432000,
+        "003010": 7040,
+        "002990": 10900,
+        "241710": 111000,
+        "484810": 17960,
+        "466100": 31100,
+        "095910": 859,
+        "009830": 36000,
+        "377220": 4325,
+        "000660": 1379000,
+        "417840": 12490
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "377220",
+          "name": "프롬바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI/로봇"
+        },
+        {
+          "code": "417840",
+          "name": "저스템",
+          "theme": "반도체/AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 12:02:07",
+      "prices": {
+        "203400": 1035,
+        "354200": 2400,
+        "214450": 428500,
+        "003010": 7040,
+        "002990": 10900,
+        "241710": 113800,
+        "484810": 17960,
+        "466100": 31100,
+        "095910": 859,
+        "009830": 36500,
+        "377220": 4325,
+        "000660": 1424000,
+        "417840": 12490
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "377220",
+          "name": "프롬바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI/로봇"
+        },
+        {
+          "code": "417840",
+          "name": "저스템",
+          "theme": "반도체/AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 12:39:46",
+      "prices": {
+        "203400": 959,
+        "354200": 2365,
+        "214450": 418500,
+        "003010": 7560,
+        "002990": 11490,
+        "241710": 111100,
+        "484810": 17130,
+        "466100": 30800,
+        "095910": 825,
+        "009830": 36400,
+        "377220": 3945,
+        "000660": 1434000,
+        "417840": 12210
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "377220",
+          "name": "프롬바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI/로봇"
+        },
+        {
+          "code": "417840",
+          "name": "저스템",
+          "theme": "반도체/AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 13:26:59",
+      "prices": {
+        "203400": 959,
+        "354200": 2365,
+        "214450": 414000,
+        "003010": 7560,
+        "002990": 11490,
+        "241710": 106400,
+        "484810": 17130,
+        "466100": 30800,
+        "095910": 825,
+        "009830": 36450,
+        "377220": 3945,
+        "000660": 1446000,
+        "417840": 12210
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "377220",
+          "name": "프롬바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI/로봇"
+        },
+        {
+          "code": "417840",
+          "name": "저스템",
+          "theme": "반도체/AI/로봇"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-11 14:37:11",
+      "prices": {
+        "203400": 959,
+        "354200": 2365,
+        "214450": 416000,
+        "003010": 7560,
+        "002990": 11490,
+        "241710": 108300,
+        "484810": 17130,
+        "466100": 30800,
+        "095910": 825,
+        "009830": 36650,
+        "377220": 3945,
+        "000660": 1433000,
+        "417840": 12210
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "095910",
+          "name": "에스에너지",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "009830",
+          "name": "한화솔루션",
+          "theme": "신재생에너지"
+        },
+        {
+          "code": "354200",
+          "name": "엔젠바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "377220",
+          "name": "프롬바이오",
+          "theme": "바이오/헬스케어"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI/로봇"
+        },
+        {
+          "code": "417840",
+          "name": "저스템",
+          "theme": "반도체/AI/로봇"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "203400",
+      "name": "에이비온",
+      "theme": "제약/바이오 신약 개발 및 진단 기술",
+      "market": "KOSPI",
+      "buy_price": 1078,
+      "close_price": 980,
+      "profit_rate": -9.09,
+      "profit_amount": -98,
+      "high_price": 1055,
+      "high_time": "09:26",
+      "high_profit_rate": -2.13,
+      "high_profit_amount": -23,
+      "low_price": 913,
+      "low_profit_rate": -15.31,
+      "low_profit_amount": -165,
+      "low_time": "14:23"
+    },
+    {
+      "code": "354200",
+      "name": "엔젠바이오",
+      "theme": "제약/바이오 신약 개발 및 진단 기술",
+      "market": "KOSDAQ",
+      "buy_price": 2595,
+      "close_price": 2275,
+      "profit_rate": -12.33,
+      "profit_amount": -320,
+      "high_price": 2595,
+      "high_time": "09:46",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2170,
+      "low_profit_rate": -16.38,
+      "low_profit_amount": -425,
+      "low_time": "09:00"
+    },
+    {
+      "code": "214450",
+      "name": "파마리서치",
+      "theme": "제약/바이오 신약 개발 및 진단 기술",
+      "market": "KOSPI",
+      "buy_price": 422500,
+      "close_price": 417000,
+      "profit_rate": -1.3,
+      "profit_amount": -5500,
+      "high_price": 439000,
+      "high_time": "10:11",
+      "high_profit_rate": 3.91,
+      "high_profit_amount": 16500,
+      "low_price": 406000,
+      "low_profit_rate": -3.91,
+      "low_profit_amount": -16500,
+      "low_time": "09:05"
+    },
+    {
+      "code": "003010",
+      "name": "혜인",
+      "theme": "건설/건설장비 인프라 투자 및 안전 강화",
+      "market": "KOSPI",
+      "buy_price": 7040,
+      "close_price": 7080,
+      "profit_rate": 0.57,
+      "profit_amount": 40,
+      "high_price": 7700,
+      "high_time": "11:05",
+      "high_profit_rate": 9.38,
+      "high_profit_amount": 660,
+      "low_price": 6150,
+      "low_profit_rate": -12.64,
+      "low_profit_amount": -890,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/건설장비 인프라 투자 및 안전 강화",
+      "market": "KOSPI",
+      "buy_price": 9910,
+      "close_price": 11490,
+      "profit_rate": 15.94,
+      "profit_amount": 1580,
+      "high_price": 11490,
+      "high_time": "15:30",
+      "high_profit_rate": 15.94,
+      "high_profit_amount": 1580,
+      "low_price": 8940,
+      "low_profit_rate": -9.79,
+      "low_profit_amount": -970,
+      "low_time": "09:00"
+    },
+    {
+      "code": "241710",
+      "name": "코스메카코리아",
+      "theme": "K-뷰티 글로벌 확장",
+      "market": "KOSPI",
+      "buy_price": 108700,
+      "close_price": 109400,
+      "profit_rate": 0.64,
+      "profit_amount": 700,
+      "high_price": 116800,
+      "high_time": "11:31",
+      "high_profit_rate": 7.45,
+      "high_profit_amount": 8100,
+      "low_price": 102400,
+      "low_profit_rate": -5.8,
+      "low_profit_amount": -6300,
+      "low_time": "09:00"
+    },
+    {
+      "code": "484810",
+      "name": "티엑스알로보틱스",
+      "theme": "로봇/자동화 기술 혁신",
+      "market": "KOSDAQ",
+      "buy_price": 18760,
+      "close_price": 17160,
+      "profit_rate": -8.53,
+      "profit_amount": -1600,
+      "high_price": 18420,
+      "high_time": "09:16",
+      "high_profit_rate": -1.81,
+      "high_profit_amount": -340,
+      "low_price": 16830,
+      "low_profit_rate": -10.29,
+      "low_profit_amount": -1930,
+      "low_time": "12:58"
+    },
+    {
+      "code": "466100",
+      "name": "클로봇",
+      "theme": "로봇/자동화 기술 혁신",
+      "market": "KOSDAQ",
+      "buy_price": 31350,
+      "close_price": 31050,
+      "profit_rate": -0.96,
+      "profit_amount": -300,
+      "high_price": 31950,
+      "high_time": "09:49",
+      "high_profit_rate": 1.91,
+      "high_profit_amount": 600,
+      "low_price": 30300,
+      "low_profit_rate": -3.35,
+      "low_profit_amount": -1050,
+      "low_time": "14:34"
+    },
+    {
+      "code": "095910",
+      "name": "에스에너지",
+      "theme": "신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 769,
+      "close_price": 829,
+      "profit_rate": 7.8,
+      "profit_amount": 60,
+      "high_price": 890,
+      "high_time": "09:20",
+      "high_profit_rate": 15.73,
+      "high_profit_amount": 121,
+      "low_price": 688,
+      "low_profit_rate": -10.53,
+      "low_profit_amount": -81,
+      "low_time": "09:01"
+    },
+    {
+      "code": "009830",
+      "name": "한화솔루션",
+      "theme": "신재생에너지",
+      "market": "KOSPI",
+      "buy_price": 34100,
+      "close_price": 36350,
+      "profit_rate": 6.6,
+      "profit_amount": 2250,
+      "high_price": 38250,
+      "high_time": "09:18",
+      "high_profit_rate": 12.17,
+      "high_profit_amount": 4150,
+      "low_price": 32900,
+      "low_profit_rate": -3.52,
+      "low_profit_amount": -1200,
+      "low_time": "09:03"
+    },
+    {
+      "code": "377220",
+      "name": "프롬바이오",
+      "theme": "바이오/헬스케어",
+      "market": "KOSDAQ",
+      "buy_price": 4325,
+      "close_price": 3685,
+      "profit_rate": -14.8,
+      "profit_amount": -640,
+      "high_price": 4325,
+      "high_time": "09:33",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3390,
+      "low_profit_rate": -21.62,
+      "low_profit_amount": -935,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/AI/로봇",
+      "market": "KOSPI",
+      "buy_price": 1395000,
+      "close_price": 1425000,
+      "profit_rate": 2.15,
+      "profit_amount": 30000,
+      "high_price": 1455000,
+      "high_time": "13:50",
+      "high_profit_rate": 4.3,
+      "high_profit_amount": 60000,
+      "low_price": 1373000,
+      "low_profit_rate": -1.58,
+      "low_profit_amount": -22000,
+      "low_time": "10:09"
+    },
+    {
+      "code": "417840",
+      "name": "저스템",
+      "theme": "반도체/AI/로봇",
+      "market": "KOSDAQ",
+      "buy_price": 11940,
+      "close_price": 12390,
+      "profit_rate": 3.77,
+      "profit_amount": 450,
+      "high_price": 12840,
+      "high_time": "10:17",
+      "high_profit_rate": 7.54,
+      "high_profit_amount": 900,
+      "low_price": 11310,
+      "low_profit_rate": -5.28,
+      "low_profit_amount": -630,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 13,
+    "profit_stocks": 7,
+    "loss_stocks": 6,
+    "total_invested": 2048067,
+    "total_value": 2074689,
+    "total_profit": 26622,
+    "total_profit_rate": 1.3,
+    "high_total_value": 2140315,
+    "high_total_profit": 92248,
+    "high_total_profit_rate": 4.5,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 2
+  }
+}
