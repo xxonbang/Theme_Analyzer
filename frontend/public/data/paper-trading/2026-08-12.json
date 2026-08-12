@@ -1,0 +1,538 @@
+{
+  "trade_date": "2026-08-12",
+  "morning_timestamp": "2026-08-12 09:15:38",
+  "collected_at": "2026-08-12 15:42:44",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-12 09:15:38",
+      "prices": {
+        "002990": 13890,
+        "103590": 70900,
+        "181710": 62400,
+        "402340": 993000,
+        "003350": 10980,
+        "192820": 235000,
+        "006340": 15280,
+        "005930": 243750,
+        "000660": 1450000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라 투자 확대 기대감"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 확충 수혜주"
+        },
+        {
+          "code": "181710",
+          "name": "NHN",
+          "theme": "AI/플랫폼 서비스 확장 수혜"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "AI/플랫폼 서비스 확장 수혜"
+        },
+        {
+          "code": "003350",
+          "name": "한국화장품제조",
+          "theme": "화장품/뷰티 산업 회복 및 K-뷰티 재도약"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "화장품/뷰티 산업 회복 및 K-뷰티 재도약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-12 09:32:51",
+      "prices": {
+        "002990": 13890,
+        "103590": 71800,
+        "181710": 60400,
+        "402340": 1008000,
+        "003350": 10980,
+        "192820": 247250,
+        "161890": 127100,
+        "006340": 15360,
+        "005930": 248250,
+        "000660": 1460000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라 투자 확대 기대감"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 확충 수혜주"
+        },
+        {
+          "code": "181710",
+          "name": "NHN",
+          "theme": "AI/플랫폼 서비스 확장 수혜"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "AI/플랫폼 서비스 확장 수혜"
+        },
+        {
+          "code": "003350",
+          "name": "한국화장품제조",
+          "theme": "화장품/뷰티 산업 회복 및 K-뷰티 재도약"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "화장품/뷰티 산업 회복 및 K-뷰티 재도약"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-12 09:42:15",
+      "prices": {
+        "002990": 14170,
+        "103590": 72900,
+        "181710": 59300,
+        "402340": 1010000,
+        "003350": 11710,
+        "192820": 246500,
+        "161890": 125500,
+        "006340": 15490,
+        "005930": 249000,
+        "000660": 1466000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "161890",
+          "name": "한국콜마",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 및 반도체 대형주 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 및 반도체 대형주 강세"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-12 10:02:46",
+      "prices": {
+        "002990": 14170,
+        "103590": 72400,
+        "181710": 59200,
+        "402340": 1002000,
+        "003350": 11710,
+        "192820": 254500,
+        "161890": 137100,
+        "006340": 15610,
+        "005930": 248000,
+        "000660": 1446000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "161890",
+          "name": "한국콜마",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 및 반도체 대형주 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 및 반도체 대형주 강세"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-12 12:02:06",
+      "prices": {
+        "002990": 14170,
+        "103590": 71950,
+        "181710": 60100,
+        "402340": 1039000,
+        "003350": 11710,
+        "192820": 241000,
+        "161890": 134000,
+        "006340": 15880,
+        "005930": 258500,
+        "000660": 1531000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "161890",
+          "name": "한국콜마",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 및 반도체 대형주 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 및 반도체 대형주 강세"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-12 12:40:09",
+      "prices": {
+        "002990": 14930,
+        "103590": 71600,
+        "181710": 61900,
+        "402340": 1050000,
+        "003350": 11260,
+        "192820": 239500,
+        "161890": 134900,
+        "006340": 15640,
+        "005930": 259500,
+        "000660": 1532000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "161890",
+          "name": "한국콜마",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 및 반도체 대형주 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 및 반도체 대형주 강세"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-12 13:26:55",
+      "prices": {
+        "002990": 14930,
+        "103590": 71400,
+        "181710": 60700,
+        "402340": 1035000,
+        "003350": 11260,
+        "192820": 244500,
+        "161890": 133300,
+        "006340": 15660,
+        "005930": 258000,
+        "000660": 1524000
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라 투자 확대"
+        },
+        {
+          "code": "161890",
+          "name": "한국콜마",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "192820",
+          "name": "코스맥스",
+          "theme": "글로벌 K-뷰티 성장"
+        },
+        {
+          "code": "103590",
+          "name": "일진전기",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "006340",
+          "name": "대원전선",
+          "theme": "전력 인프라 및 스마트그리드"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "AI 및 반도체 대형주 강세"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "AI 및 반도체 대형주 강세"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/인프라 투자 확대 기대감",
+      "market": "KOSPI",
+      "buy_price": 13890,
+      "close_price": 14930,
+      "profit_rate": 7.49,
+      "profit_amount": 1040,
+      "high_price": 14930,
+      "high_time": "15:30",
+      "high_profit_rate": 7.49,
+      "high_profit_amount": 1040,
+      "low_price": 11340,
+      "low_profit_rate": -18.36,
+      "low_profit_amount": -2550,
+      "low_time": "09:00"
+    },
+    {
+      "code": "103590",
+      "name": "일진전기",
+      "theme": "전력 인프라 확충 수혜주",
+      "market": "KOSPI",
+      "buy_price": 70900,
+      "close_price": 72500,
+      "profit_rate": 2.26,
+      "profit_amount": 1600,
+      "high_price": 74400,
+      "high_time": "09:24",
+      "high_profit_rate": 4.94,
+      "high_profit_amount": 3500,
+      "low_price": 69200,
+      "low_profit_rate": -2.4,
+      "low_profit_amount": -1700,
+      "low_time": "09:08"
+    },
+    {
+      "code": "181710",
+      "name": "NHN",
+      "theme": "AI/플랫폼 서비스 확장 수혜",
+      "market": "KOSPI",
+      "buy_price": 62400,
+      "close_price": 61300,
+      "profit_rate": -1.76,
+      "profit_amount": -1100,
+      "high_price": 63500,
+      "high_time": "12:26",
+      "high_profit_rate": 1.76,
+      "high_profit_amount": 1100,
+      "low_price": 56400,
+      "low_profit_rate": -9.62,
+      "low_profit_amount": -6000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "theme": "AI/플랫폼 서비스 확장 수혜",
+      "market": "KOSDAQ",
+      "buy_price": 993000,
+      "close_price": 1024000,
+      "profit_rate": 3.12,
+      "profit_amount": 31000,
+      "high_price": 1053000,
+      "high_time": "12:32",
+      "high_profit_rate": 6.04,
+      "high_profit_amount": 60000,
+      "low_price": 970000,
+      "low_profit_rate": -2.32,
+      "low_profit_amount": -23000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "003350",
+      "name": "한국화장품제조",
+      "theme": "화장품/뷰티 산업 회복 및 K-뷰티 재도약",
+      "market": "KOSPI",
+      "buy_price": 10980,
+      "close_price": 11850,
+      "profit_rate": 7.92,
+      "profit_amount": 870,
+      "high_price": 12650,
+      "high_time": "10:09",
+      "high_profit_rate": 15.21,
+      "high_profit_amount": 1670,
+      "low_price": 10590,
+      "low_profit_rate": -3.55,
+      "low_profit_amount": -390,
+      "low_time": "09:00"
+    },
+    {
+      "code": "192820",
+      "name": "코스맥스",
+      "theme": "화장품/뷰티 산업 회복 및 K-뷰티 재도약",
+      "market": "KOSPI",
+      "buy_price": 235000,
+      "close_price": 249500,
+      "profit_rate": 6.17,
+      "profit_amount": 14500,
+      "high_price": 260000,
+      "high_time": "10:08",
+      "high_profit_rate": 10.64,
+      "high_profit_amount": 25000,
+      "low_price": 212500,
+      "low_profit_rate": -9.57,
+      "low_profit_amount": -22500,
+      "low_time": "09:03"
+    },
+    {
+      "code": "006340",
+      "name": "대원전선",
+      "theme": "전력 인프라 및 스마트그리드",
+      "market": "KOSPI",
+      "buy_price": 15280,
+      "close_price": 16030,
+      "profit_rate": 4.91,
+      "profit_amount": 750,
+      "high_price": 16080,
+      "high_time": "14:36",
+      "high_profit_rate": 5.24,
+      "high_profit_amount": 800,
+      "low_price": 15020,
+      "low_profit_rate": -1.7,
+      "low_profit_amount": -260,
+      "low_time": "09:00"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "AI 및 반도체 대형주 강세",
+      "market": "KOSPI",
+      "buy_price": 243750,
+      "close_price": 255500,
+      "profit_rate": 4.82,
+      "profit_amount": 11750,
+      "high_price": 260500,
+      "high_time": "12:31",
+      "high_profit_rate": 6.87,
+      "high_profit_amount": 16750,
+      "low_price": 241000,
+      "low_profit_rate": -1.13,
+      "low_profit_amount": -2750,
+      "low_time": "09:01"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "AI 및 반도체 대형주 강세",
+      "market": "KOSPI",
+      "buy_price": 1450000,
+      "close_price": 1504000,
+      "profit_rate": 3.72,
+      "profit_amount": 54000,
+      "high_price": 1549000,
+      "high_time": "12:14",
+      "high_profit_rate": 6.83,
+      "high_profit_amount": 99000,
+      "low_price": 1440000,
+      "low_profit_rate": -0.69,
+      "low_profit_amount": -10000,
+      "low_time": "09:12"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 8,
+    "loss_stocks": 1,
+    "total_invested": 3095200,
+    "total_value": 3209610,
+    "total_profit": 114410,
+    "total_profit_rate": 3.7,
+    "high_total_value": 3304060,
+    "high_total_profit": 208860,
+    "high_total_profit_rate": 6.75,
+    "high_profit_stocks": 9,
+    "high_loss_stocks": 0
+  }
+}
