@@ -1,0 +1,623 @@
+{
+  "trade_date": "2026-08-13",
+  "morning_timestamp": "2026-08-13 09:17:14",
+  "collected_at": "2026-08-13 15:42:42",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-13 09:17:14",
+      "prices": {
+        "000660": 1611000,
+        "009150": 1466000,
+        "240810": 118600,
+        "088350": 5410,
+        "006800": 39650,
+        "027360": 4135,
+        "002990": 17170,
+        "091590": 7880,
+        "005930": 268750,
+        "013700": 1888,
+        "073240": 7790
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/부동산 관련주"
+        },
+        {
+          "code": "091590",
+          "name": "남화토건",
+          "theme": "건설/부동산 관련주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 09:32:45",
+      "prices": {
+        "000660": 1612000,
+        "009150": 1489000,
+        "240810": 115800,
+        "088350": 5410,
+        "006800": 39650,
+        "027360": 4135,
+        "002990": 17170,
+        "091590": 7880,
+        "005930": 265750,
+        "013700": 1838,
+        "073240": 7980
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "009150",
+          "name": "삼성전기",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "240810",
+          "name": "원익IPS",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "088350",
+          "name": "한화생명",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "006800",
+          "name": "미래에셋증권",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "금융/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/부동산 관련주"
+        },
+        {
+          "code": "091590",
+          "name": "남화토건",
+          "theme": "건설/부동산 관련주"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 09:40:15",
+      "prices": {
+        "000660": 1623000,
+        "009150": 1504000,
+        "240810": 116800,
+        "088350": 5110,
+        "006800": 39150,
+        "027360": 4585,
+        "002990": 16270,
+        "091590": 7400,
+        "005930": 267750,
+        "013700": 1850,
+        "073240": 8030
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "013700",
+          "name": "까뮤이앤씨",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품/타이어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 10:02:58",
+      "prices": {
+        "000660": 1614000,
+        "009150": 1503000,
+        "240810": 117300,
+        "088350": 5110,
+        "006800": 38650,
+        "027360": 4585,
+        "002990": 16270,
+        "091590": 7050,
+        "005930": 266000,
+        "013700": 1834,
+        "073240": 8030
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "013700",
+          "name": "까뮤이앤씨",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품/타이어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 12:02:07",
+      "prices": {
+        "000660": 1619000,
+        "009150": 1505000,
+        "240810": 116600,
+        "088350": 5110,
+        "006800": 37900,
+        "027360": 4585,
+        "002990": 16270,
+        "091590": 6850,
+        "005930": 269500,
+        "073240": 8030
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "013700",
+          "name": "까뮤이앤씨",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품/타이어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 12:39:17",
+      "prices": {
+        "000660": 1614500,
+        "009150": 1507000,
+        "240810": 117100,
+        "088350": 5110,
+        "006800": 37850,
+        "027360": 4585,
+        "002990": 15110,
+        "091590": 6650,
+        "005930": 268000,
+        "073240": 7900
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "013700",
+          "name": "까뮤이앤씨",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품/타이어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 13:26:58",
+      "prices": {
+        "000660": 1611000,
+        "009150": 1532000,
+        "240810": 118400,
+        "088350": 5010,
+        "006800": 37800,
+        "027360": 4585,
+        "002990": 15920,
+        "091590": 6650,
+        "005930": 266750,
+        "013700": 1859,
+        "073240": 7890
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "013700",
+          "name": "까뮤이앤씨",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품/타이어"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-13 14:48:33",
+      "prices": {
+        "000660": 1595000,
+        "009150": 1516000,
+        "240810": 119400,
+        "088350": 5030,
+        "006800": 37700,
+        "027360": 4585,
+        "002990": 14860,
+        "091590": 6650,
+        "005930": 266000,
+        "013700": 1860,
+        "073240": 8090
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/전기전자"
+        },
+        {
+          "code": "027360",
+          "name": "아주IB투자",
+          "theme": "벤처캐피탈/투자"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "013700",
+          "name": "까뮤이앤씨",
+          "theme": "건설/인프라"
+        },
+        {
+          "code": "073240",
+          "name": "금호타이어",
+          "theme": "자동차 부품/타이어"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 1611000,
+      "close_price": 1593000,
+      "profit_rate": -1.12,
+      "profit_amount": -18000,
+      "high_price": 1634000,
+      "high_time": "09:20",
+      "high_profit_rate": 1.43,
+      "high_profit_amount": 23000,
+      "low_price": 1567000,
+      "low_profit_rate": -2.73,
+      "low_profit_amount": -44000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "009150",
+      "name": "삼성전기",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 1466000,
+      "close_price": 1503000,
+      "profit_rate": 2.52,
+      "profit_amount": 37000,
+      "high_price": 1548000,
+      "high_time": "13:13",
+      "high_profit_rate": 5.59,
+      "high_profit_amount": 82000,
+      "low_price": 1412000,
+      "low_profit_rate": -3.68,
+      "low_profit_amount": -54000,
+      "low_time": "09:00"
+    },
+    {
+      "code": "240810",
+      "name": "원익IPS",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 118600,
+      "close_price": 120000,
+      "profit_rate": 1.18,
+      "profit_amount": 1400,
+      "high_price": 120000,
+      "high_time": "15:30",
+      "high_profit_rate": 1.18,
+      "high_profit_amount": 1400,
+      "low_price": 113500,
+      "low_profit_rate": -4.3,
+      "low_profit_amount": -5100,
+      "low_time": "09:00"
+    },
+    {
+      "code": "088350",
+      "name": "한화생명",
+      "theme": "금융/투자",
+      "market": "KOSPI",
+      "buy_price": 5410,
+      "close_price": 5030,
+      "profit_rate": -7.02,
+      "profit_amount": -380,
+      "high_price": 5280,
+      "high_time": "09:43",
+      "high_profit_rate": -2.4,
+      "high_profit_amount": -130,
+      "low_price": 4950,
+      "low_profit_rate": -8.5,
+      "low_profit_amount": -460,
+      "low_time": "13:59"
+    },
+    {
+      "code": "006800",
+      "name": "미래에셋증권",
+      "theme": "금융/투자",
+      "market": "KOSPI",
+      "buy_price": 39650,
+      "close_price": 38050,
+      "profit_rate": -4.04,
+      "profit_amount": -1600,
+      "high_price": 39750,
+      "high_time": "09:20",
+      "high_profit_rate": 0.25,
+      "high_profit_amount": 100,
+      "low_price": 37550,
+      "low_profit_rate": -5.3,
+      "low_profit_amount": -2100,
+      "low_time": "14:47"
+    },
+    {
+      "code": "027360",
+      "name": "아주IB투자",
+      "theme": "금융/투자",
+      "market": "KOSPI",
+      "buy_price": 4135,
+      "close_price": 4585,
+      "profit_rate": 10.88,
+      "profit_amount": 450,
+      "high_price": 4585,
+      "high_time": "15:30",
+      "high_profit_rate": 10.88,
+      "high_profit_amount": 450,
+      "low_price": 3680,
+      "low_profit_rate": -11.0,
+      "low_profit_amount": -455,
+      "low_time": "09:00"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설/부동산 관련주",
+      "market": "KOSPI",
+      "buy_price": 17170,
+      "close_price": 14370,
+      "profit_rate": -16.31,
+      "profit_amount": -2800,
+      "high_price": 16900,
+      "high_time": "09:18",
+      "high_profit_rate": -1.57,
+      "high_profit_amount": -270,
+      "low_price": 14170,
+      "low_profit_rate": -17.47,
+      "low_profit_amount": -3000,
+      "low_time": "15:06"
+    },
+    {
+      "code": "091590",
+      "name": "남화토건",
+      "theme": "건설/부동산 관련주",
+      "market": "KOSPI",
+      "buy_price": 7880,
+      "close_price": 6500,
+      "profit_rate": -17.51,
+      "profit_amount": -1380,
+      "high_price": 7750,
+      "high_time": "09:18",
+      "high_profit_rate": -1.65,
+      "high_profit_amount": -130,
+      "low_price": 6320,
+      "low_profit_rate": -19.8,
+      "low_profit_amount": -1560,
+      "low_time": "15:06"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/전기전자",
+      "market": "KOSPI",
+      "buy_price": 268750,
+      "close_price": 268000,
+      "profit_rate": -0.28,
+      "profit_amount": -750,
+      "high_price": 271000,
+      "high_time": "13:11",
+      "high_profit_rate": 0.84,
+      "high_profit_amount": 2250,
+      "low_price": 262500,
+      "low_profit_rate": -2.33,
+      "low_profit_amount": -6250,
+      "low_time": "09:46"
+    },
+    {
+      "code": "013700",
+      "name": "까뮤이앤씨",
+      "theme": "건설/인프라",
+      "market": "KOSPI",
+      "buy_price": 1888,
+      "close_price": 1849,
+      "profit_rate": -2.07,
+      "profit_amount": -39,
+      "high_price": 1889,
+      "high_time": "09:22",
+      "high_profit_rate": 0.05,
+      "high_profit_amount": 1,
+      "low_price": 1751,
+      "low_profit_rate": -7.26,
+      "low_profit_amount": -137,
+      "low_time": "09:42"
+    },
+    {
+      "code": "073240",
+      "name": "금호타이어",
+      "theme": "자동차 부품/타이어",
+      "market": "KOSPI",
+      "buy_price": 7790,
+      "close_price": 8140,
+      "profit_rate": 4.49,
+      "profit_amount": 350,
+      "high_price": 8390,
+      "high_time": "09:19",
+      "high_profit_rate": 7.7,
+      "high_profit_amount": 600,
+      "low_price": 7400,
+      "low_profit_rate": -5.01,
+      "low_profit_amount": -390,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 4,
+    "loss_stocks": 7,
+    "total_invested": 3548273,
+    "total_value": 3562524,
+    "total_profit": 14251,
+    "total_profit_rate": 0.4,
+    "high_total_value": 3657544,
+    "high_total_profit": 109271,
+    "high_total_profit_rate": 3.08,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 3
+  }
+}
