@@ -1,0 +1,567 @@
+{
+  "trade_date": "2026-08-17",
+  "morning_timestamp": "2026-08-17 09:15:40",
+  "collected_at": "2026-08-17 15:42:40",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-17 09:15:40",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇 및 스마트 팩토리 솔루션"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇 및 스마트 팩토리 솔루션"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "인공지능(AI) 및 고성능 반도체"
+        },
+        {
+          "code": "440110",
+          "name": "파두",
+          "theme": "인공지능(AI) 및 고성능 반도체"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "인공지능(AI) 및 고성능 반도체"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "5G/6G 통신 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-17 09:41:22",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-17 10:03:15",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-17 12:02:06",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-17 12:39:56",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-17 13:27:07",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-17 14:37:01",
+      "prices": {
+        "466100": 32700,
+        "319400": 28000,
+        "000660": 1645000,
+        "440110": 65500,
+        "459550": 2575,
+        "017670": 100500,
+        "005930": 274500,
+        "005380": 453000,
+        "012330": 547000
+      },
+      "leader_stocks": [
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇"
+        },
+        {
+          "code": "466100",
+          "name": "클로봇",
+          "theme": "로봇"
+        },
+        {
+          "code": "319400",
+          "name": "현대무벡스",
+          "theme": "로봇"
+        },
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "005380",
+          "name": "현대차",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "012330",
+          "name": "현대모비스",
+          "theme": "자동차/모빌리티"
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "theme": "통신"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "466100",
+      "name": "클로봇",
+      "theme": "로봇 및 스마트 팩토리 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 32700,
+      "close_price": 32700,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 34750,
+      "high_time": "09:43",
+      "high_profit_rate": 6.27,
+      "high_profit_amount": 2050,
+      "low_price": 28900,
+      "low_profit_rate": -11.62,
+      "low_profit_amount": -3800,
+      "low_time": "09:01"
+    },
+    {
+      "code": "319400",
+      "name": "현대무벡스",
+      "theme": "로봇 및 스마트 팩토리 솔루션",
+      "market": "KOSDAQ",
+      "buy_price": 28000,
+      "close_price": 28000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 30150,
+      "high_time": "09:16",
+      "high_profit_rate": 7.68,
+      "high_profit_amount": 2150,
+      "low_price": 25350,
+      "low_profit_rate": -9.46,
+      "low_profit_amount": -2650,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "인공지능(AI) 및 고성능 반도체",
+      "market": "KOSPI",
+      "buy_price": 1645000,
+      "close_price": 1645000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 1693000,
+      "high_time": "09:40",
+      "high_profit_rate": 2.92,
+      "high_profit_amount": 48000,
+      "low_price": 1626000,
+      "low_profit_rate": -1.16,
+      "low_profit_amount": -19000,
+      "low_time": "10:39"
+    },
+    {
+      "code": "440110",
+      "name": "파두",
+      "theme": "인공지능(AI) 및 고성능 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 65500,
+      "close_price": 65500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 69500,
+      "high_time": "09:30",
+      "high_profit_rate": 6.11,
+      "high_profit_amount": 4000,
+      "low_price": 64300,
+      "low_profit_rate": -1.83,
+      "low_profit_amount": -1200,
+      "low_time": "10:33"
+    },
+    {
+      "code": "459550",
+      "name": "알트",
+      "theme": "인공지능(AI) 및 고성능 반도체",
+      "market": "KOSDAQ",
+      "buy_price": 2575,
+      "close_price": 2575,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2575,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 1930,
+      "low_profit_rate": -25.05,
+      "low_profit_amount": -645,
+      "low_time": "09:05"
+    },
+    {
+      "code": "017670",
+      "name": "SK텔레콤",
+      "theme": "5G/6G 통신 인프라",
+      "market": "KOSPI",
+      "buy_price": 100500,
+      "close_price": 100500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 100800,
+      "high_time": "15:00",
+      "high_profit_rate": 0.3,
+      "high_profit_amount": 300,
+      "low_price": 92000,
+      "low_profit_rate": -8.46,
+      "low_profit_amount": -8500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체",
+      "market": "KOSPI",
+      "buy_price": 274500,
+      "close_price": 274500,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 274500,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 266000,
+      "low_profit_rate": -3.1,
+      "low_profit_amount": -8500,
+      "low_time": "10:34"
+    },
+    {
+      "code": "005380",
+      "name": "현대차",
+      "theme": "자동차/모빌리티",
+      "market": "KOSPI",
+      "buy_price": 453000,
+      "close_price": 453000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 456000,
+      "high_time": "13:26",
+      "high_profit_rate": 0.66,
+      "high_profit_amount": 3000,
+      "low_price": 421500,
+      "low_profit_rate": -6.95,
+      "low_profit_amount": -31500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "012330",
+      "name": "현대모비스",
+      "theme": "자동차/모빌리티",
+      "market": "KOSPI",
+      "buy_price": 547000,
+      "close_price": 547000,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 547000,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 511000,
+      "low_profit_rate": -6.58,
+      "low_profit_amount": -36000,
+      "low_time": "09:00"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 0,
+    "loss_stocks": 0,
+    "total_invested": 3148775,
+    "total_value": 3148775,
+    "total_profit": 0,
+    "total_profit_rate": 0.0,
+    "high_total_value": 3208275,
+    "high_total_profit": 59500,
+    "high_total_profit_rate": 1.89,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 0
+  }
+}
