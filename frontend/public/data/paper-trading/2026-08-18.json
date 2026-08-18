@@ -1,0 +1,682 @@
+{
+  "trade_date": "2026-08-18",
+  "morning_timestamp": "2026-08-18 09:18:16",
+  "collected_at": "2026-08-18 15:43:07",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-18 09:18:16",
+      "prices": {
+        "000660": 1741000,
+        "067310": 41950,
+        "403870": 41900,
+        "047770": 3510,
+        "026040": 2190,
+        "045390": 3190,
+        "007110": 720,
+        "002990": 14500,
+        "093370": 14090,
+        "402340": 1210000,
+        "005930": 283500
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 반도체 관련주"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체/AI 반도체 관련주"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 반도체 관련주"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "소비재/의류 리오프닝 기대감"
+        },
+        {
+          "code": "026040",
+          "name": "제이에스티나",
+          "theme": "소비재/의류 리오프닝 기대감"
+        },
+        {
+          "code": "045390",
+          "name": "대아티아이",
+          "theme": "인프라 투자/재건 관련주"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "인프라 투자/재건 관련주"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "인프라 투자/재건 관련주"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지 소재/핵심광물 관련주"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "지주사/투자회사"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 09:33:06",
+      "prices": {
+        "000660": 1781000,
+        "067310": 41950,
+        "403870": 41900,
+        "047770": 3510,
+        "026040": 2190,
+        "045390": 3190,
+        "007110": 720,
+        "002990": 14290,
+        "093370": 14090,
+        "402340": 1250000,
+        "005930": 287500,
+        "322000": 127000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/AI 반도체 관련주"
+        },
+        {
+          "code": "067310",
+          "name": "하나마이크론",
+          "theme": "반도체/AI 반도체 관련주"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/AI 반도체 관련주"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "소비재/의류 리오프닝 기대감"
+        },
+        {
+          "code": "026040",
+          "name": "제이에스티나",
+          "theme": "소비재/의류 리오프닝 기대감"
+        },
+        {
+          "code": "045390",
+          "name": "대아티아이",
+          "theme": "인프라 투자/재건 관련주"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "인프라 투자/재건 관련주"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "인프라 투자/재건 관련주"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지 소재/핵심광물 관련주"
+        },
+        {
+          "code": "402340",
+          "name": "SK스퀘어",
+          "theme": "지주사/투자회사"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 09:41:40",
+      "prices": {
+        "000660": 1768000,
+        "067310": 41900,
+        "403870": 44950,
+        "047770": 3510,
+        "026040": 2192,
+        "045390": 3150,
+        "007110": 684,
+        "002990": 14720,
+        "093370": 14610,
+        "402340": 1239000,
+        "005930": 286000,
+        "322000": 127400
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 10:02:51",
+      "prices": {
+        "000660": 1754000,
+        "067310": 41900,
+        "403870": 44950,
+        "047770": 3510,
+        "026040": 2270,
+        "045390": 3150,
+        "007110": 684,
+        "002990": 14150,
+        "093370": 14610,
+        "402340": 1230000,
+        "005930": 282250,
+        "322000": 127900
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 12:02:09",
+      "prices": {
+        "000660": 1683000,
+        "067310": 41900,
+        "403870": 44950,
+        "047770": 3510,
+        "026040": 2345,
+        "045390": 3150,
+        "007110": 684,
+        "002990": 13440,
+        "093370": 14610,
+        "402340": 1173000,
+        "005930": 272750,
+        "322000": 126200
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 12:40:02",
+      "prices": {
+        "000660": 1657000,
+        "067310": 39450,
+        "403870": 43300,
+        "047770": 3510,
+        "026040": 2340,
+        "045390": 3210,
+        "007110": 742,
+        "002990": 13340,
+        "093370": 12790,
+        "402340": 1154000,
+        "005930": 269000,
+        "322000": 123900
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 13:26:57",
+      "prices": {
+        "000660": 1688000,
+        "067310": 40900,
+        "403870": 43300,
+        "047770": 3510,
+        "026040": 2340,
+        "045390": 3210,
+        "007110": 742,
+        "002990": 13890,
+        "093370": 13280,
+        "402340": 1168000,
+        "005930": 272000,
+        "322000": 127000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-18 14:37:11",
+      "prices": {
+        "000660": 1657500,
+        "067310": 39800,
+        "403870": 43300,
+        "047770": 3510,
+        "026040": 2340,
+        "045390": 3210,
+        "007110": 742,
+        "002990": 13640,
+        "093370": 13040,
+        "402340": 1134000,
+        "005930": 267750,
+        "322000": 126000
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "007110",
+          "name": "일신석재",
+          "theme": "남북경협/인프라"
+        },
+        {
+          "code": "093370",
+          "name": "후성",
+          "theme": "2차전지/친환경 소재"
+        },
+        {
+          "code": "322000",
+          "name": "HD현대에너지솔루션",
+          "theme": "2차전지/친환경 소재"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/AI 반도체 관련주",
+      "market": "KOSPI",
+      "buy_price": 1741000,
+      "close_price": 1662000,
+      "profit_rate": -4.54,
+      "profit_amount": -79000,
+      "high_price": 1792000,
+      "high_time": "09:39",
+      "high_profit_rate": 2.93,
+      "high_profit_amount": 51000,
+      "low_price": 1640000,
+      "low_profit_rate": -5.8,
+      "low_profit_amount": -101000,
+      "low_time": "15:08"
+    },
+    {
+      "code": "067310",
+      "name": "하나마이크론",
+      "theme": "반도체/AI 반도체 관련주",
+      "market": "KOSPI",
+      "buy_price": 41950,
+      "close_price": 39200,
+      "profit_rate": -6.56,
+      "profit_amount": -2750,
+      "high_price": 42850,
+      "high_time": "10:18",
+      "high_profit_rate": 2.15,
+      "high_profit_amount": 900,
+      "low_price": 38850,
+      "low_profit_rate": -7.39,
+      "low_profit_amount": -3100,
+      "low_time": "15:08"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체/AI 반도체 관련주",
+      "market": "KOSDAQ",
+      "buy_price": 41900,
+      "close_price": 42650,
+      "profit_rate": 1.79,
+      "profit_amount": 750,
+      "high_price": 45550,
+      "high_time": "09:39",
+      "high_profit_rate": 8.71,
+      "high_profit_amount": 3650,
+      "low_price": 40750,
+      "low_profit_rate": -2.74,
+      "low_profit_amount": -1150,
+      "low_time": "09:00"
+    },
+    {
+      "code": "047770",
+      "name": "코데즈컴바인",
+      "theme": "소비재/의류 리오프닝 기대감",
+      "market": "KOSPI",
+      "buy_price": 3510,
+      "close_price": 3510,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 3510,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3330,
+      "low_profit_rate": -5.13,
+      "low_profit_amount": -180,
+      "low_time": "09:02"
+    },
+    {
+      "code": "026040",
+      "name": "제이에스티나",
+      "theme": "소비재/의류 리오프닝 기대감",
+      "market": "KOSPI",
+      "buy_price": 2190,
+      "close_price": 2165,
+      "profit_rate": -1.14,
+      "profit_amount": -25,
+      "high_price": 2410,
+      "high_time": "12:27",
+      "high_profit_rate": 10.05,
+      "high_profit_amount": 220,
+      "low_price": 2020,
+      "low_profit_rate": -7.76,
+      "low_profit_amount": -170,
+      "low_time": "14:53"
+    },
+    {
+      "code": "045390",
+      "name": "대아티아이",
+      "theme": "인프라 투자/재건 관련주",
+      "market": "KOSPI",
+      "buy_price": 3190,
+      "close_price": 3015,
+      "profit_rate": -5.49,
+      "profit_amount": -175,
+      "high_price": 3350,
+      "high_time": "09:20",
+      "high_profit_rate": 5.02,
+      "high_profit_amount": 160,
+      "low_price": 2955,
+      "low_profit_rate": -7.37,
+      "low_profit_amount": -235,
+      "low_time": "15:08"
+    },
+    {
+      "code": "007110",
+      "name": "일신석재",
+      "theme": "인프라 투자/재건 관련주",
+      "market": "KOSPI",
+      "buy_price": 720,
+      "close_price": 698,
+      "profit_rate": -3.06,
+      "profit_amount": -22,
+      "high_price": 742,
+      "high_time": "14:30",
+      "high_profit_rate": 3.06,
+      "high_profit_amount": 22,
+      "low_price": 660,
+      "low_profit_rate": -8.33,
+      "low_profit_amount": -60,
+      "low_time": "15:29"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "인프라 투자/재건 관련주",
+      "market": "KOSPI",
+      "buy_price": 14500,
+      "close_price": 13950,
+      "profit_rate": -3.79,
+      "profit_amount": -550,
+      "high_price": 15220,
+      "high_time": "09:19",
+      "high_profit_rate": 4.97,
+      "high_profit_amount": 720,
+      "low_price": 13170,
+      "low_profit_rate": -9.17,
+      "low_profit_amount": -1330,
+      "low_time": "12:22"
+    },
+    {
+      "code": "093370",
+      "name": "후성",
+      "theme": "2차전지 소재/핵심광물 관련주",
+      "market": "KOSPI",
+      "buy_price": 14090,
+      "close_price": 12970,
+      "profit_rate": -7.95,
+      "profit_amount": -1120,
+      "high_price": 14740,
+      "high_time": "09:22",
+      "high_profit_rate": 4.61,
+      "high_profit_amount": 650,
+      "low_price": 12410,
+      "low_profit_rate": -11.92,
+      "low_profit_amount": -1680,
+      "low_time": "09:00"
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "theme": "지주사/투자회사",
+      "market": "KOSDAQ",
+      "buy_price": 1210000,
+      "close_price": 1135000,
+      "profit_rate": -6.2,
+      "profit_amount": -75000,
+      "high_price": 1265000,
+      "high_time": "09:39",
+      "high_profit_rate": 4.55,
+      "high_profit_amount": 55000,
+      "low_price": 1117000,
+      "low_profit_rate": -7.69,
+      "low_profit_amount": -93000,
+      "low_time": "15:08"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체",
+      "market": "KOSPI",
+      "buy_price": 283500,
+      "close_price": 268500,
+      "profit_rate": -5.29,
+      "profit_amount": -15000,
+      "high_price": 288000,
+      "high_time": "09:40",
+      "high_profit_rate": 1.59,
+      "high_profit_amount": 4500,
+      "low_price": 265000,
+      "low_profit_rate": -6.53,
+      "low_profit_amount": -18500,
+      "low_time": "15:09"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 1,
+    "loss_stocks": 9,
+    "total_invested": 3356550,
+    "total_value": 3183658,
+    "total_profit": -172892,
+    "total_profit_rate": -5.15,
+    "high_total_value": 3473372,
+    "high_total_profit": 116822,
+    "high_total_profit_rate": 3.48,
+    "high_profit_stocks": 10,
+    "high_loss_stocks": 0
+  }
+}

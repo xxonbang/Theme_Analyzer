@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-08-17 15:43:37",
+  "generated_at": "2026-08-18 15:44:08",
   "period": {
     "start": "2026-07-20",
-    "end": "2026-08-17",
-    "trading_days": 21
+    "end": "2026-08-18",
+    "trading_days": 22
   },
   "overall": {
-    "cumulative_return": -18.18,
-    "cumulative_high_return": 135.75,
-    "avg_daily_return": -0.89,
-    "volatility": 3.64,
-    "sharpe_ratio": -0.25,
+    "cumulative_return": -22.4,
+    "cumulative_high_return": 143.95,
+    "avg_daily_return": -1.08,
+    "volatility": 3.67,
+    "sharpe_ratio": -0.3,
     "max_drawdown": 23.66,
-    "win_rate": 38.1,
+    "win_rate": 36.4,
     "win_days": 8,
-    "loss_days": 12,
+    "loss_days": 13,
     "flat_days": 1,
     "avg_win": 2.59,
-    "avg_loss": -3.28,
-    "profit_loss_ratio": 0.79,
+    "avg_loss": -3.43,
+    "profit_loss_ratio": 0.76,
     "max_win_streak": 4,
     "max_loss_streak": 3,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": 0.76,
-    "win_rate": 60.0
+    "avg_return": -0.53,
+    "win_rate": 40.0
   },
   "theme_performance": [
     {
@@ -176,6 +176,13 @@
       "total_return": -8.73
     },
     {
+      "theme": "반도체/AI 반도체 관련주",
+      "count": 3,
+      "win_rate": 33.3,
+      "avg_return": -3.1,
+      "total_return": -9.31
+    },
+    {
       "theme": "로봇",
       "count": 3,
       "win_rate": 66.7,
@@ -188,6 +195,13 @@
       "win_rate": 16.7,
       "avg_return": -3.47,
       "total_return": -20.82
+    },
+    {
+      "theme": "인프라 투자/재건 관련주",
+      "count": 3,
+      "win_rate": 0.0,
+      "avg_return": -4.11,
+      "total_return": -12.34
     },
     {
       "theme": "개별 성장 모멘텀 (소형/중형주)",
@@ -235,15 +249,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 157,
-      "win_rate": 48.4,
-      "avg_return": -0.37
+      "count": 166,
+      "win_rate": 45.8,
+      "avg_return": -0.58
     },
     {
       "market": "KOSDAQ",
-      "count": 67,
-      "win_rate": 38.8,
-      "avg_return": -0.87
+      "count": 69,
+      "win_rate": 39.1,
+      "avg_return": -0.91
     }
   ],
   "cumulative_series": [
@@ -330,6 +344,10 @@
     {
       "date": "2026-08-17",
       "cumulative_return": -18.18
+    },
+    {
+      "date": "2026-08-18",
+      "cumulative_return": -22.4
     }
   ]
 }
