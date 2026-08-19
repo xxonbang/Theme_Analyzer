@@ -1,0 +1,438 @@
+{
+  "trade_date": "2026-08-19",
+  "morning_timestamp": "2026-08-19 09:15:46",
+  "collected_at": "2026-08-19 15:43:29",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-19 09:15:46",
+      "prices": {
+        "009270": 1298,
+        "047770": 3965,
+        "012450": 1237000,
+        "950260": 19000,
+        "025980": 5360,
+        "126640": 4850,
+        "108490": 286000
+      },
+      "leader_stocks": [
+        {
+          "code": "009270",
+          "name": "신원",
+          "theme": "의류/패션 (실적 개선)"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "의류/패션 (실적 개선)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/항공우주 (미국 시장 진출)"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "제약/바이오 (신약 개발 모멘텀)"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "리오프닝/남북경협 (정치적 모멘텀)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 09:33:21",
+      "prices": {
+        "009270": 1298,
+        "047770": 3965,
+        "012450": 1173000,
+        "950260": 19000,
+        "025980": 5360,
+        "126640": 4850,
+        "257720": 46400,
+        "108490": 288000
+      },
+      "leader_stocks": [
+        {
+          "code": "009270",
+          "name": "신원",
+          "theme": "의류/패션 (실적 개선)"
+        },
+        {
+          "code": "047770",
+          "name": "코데즈컴바인",
+          "theme": "의류/패션 (실적 개선)"
+        },
+        {
+          "code": "012450",
+          "name": "한화에어로스페이스",
+          "theme": "방산/항공우주 (미국 시장 진출)"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "제약/바이오 (신약 개발 모멘텀)"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "리오프닝/남북경협 (정치적 모멘텀)"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 09:38:49",
+      "prices": {
+        "009270": 1142,
+        "047770": 3555,
+        "012450": 1160000,
+        "950260": 18100,
+        "025980": 4955,
+        "126640": 4625,
+        "257720": 46100,
+        "108490": 292000
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 10:02:54",
+      "prices": {
+        "009270": 1133,
+        "047770": 3450,
+        "012450": 1199000,
+        "950260": 16110,
+        "025980": 4955,
+        "126640": 4625,
+        "257720": 48350,
+        "108490": 291500
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 12:02:23",
+      "prices": {
+        "009270": 1219,
+        "047770": 3715,
+        "012450": 1173000,
+        "950260": 16490,
+        "025980": 4955,
+        "126640": 4625,
+        "257720": 46050,
+        "108490": 280000
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 12:39:19",
+      "prices": {
+        "009270": 1223,
+        "047770": 3735,
+        "012450": 1168000,
+        "950260": 16270,
+        "025980": 5520,
+        "126640": 5380,
+        "257720": 45800,
+        "108490": 280000
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 13:26:59",
+      "prices": {
+        "009270": 1219,
+        "047770": 3735,
+        "012450": 1169000,
+        "950260": 16270,
+        "025980": 5520,
+        "126640": 5380,
+        "257720": 45800,
+        "108490": 276500
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-19 14:36:58",
+      "prices": {
+        "009270": 1185,
+        "047770": 3735,
+        "012450": 1190000,
+        "950260": 16270,
+        "025980": 5520,
+        "126640": 5380,
+        "257720": 45750,
+        "108490": 275000
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "009270",
+      "name": "신원",
+      "theme": "의류/패션 (실적 개선)",
+      "market": "KOSPI",
+      "buy_price": 1298,
+      "close_price": 1177,
+      "profit_rate": -9.32,
+      "profit_amount": -121,
+      "high_price": 1258,
+      "high_time": "13:13",
+      "high_profit_rate": -3.08,
+      "high_profit_amount": -40,
+      "low_price": 1117,
+      "low_profit_rate": -13.94,
+      "low_profit_amount": -181,
+      "low_time": "09:55"
+    },
+    {
+      "code": "047770",
+      "name": "코데즈컴바인",
+      "theme": "의류/패션 (실적 개선)",
+      "market": "KOSPI",
+      "buy_price": 3965,
+      "close_price": 3635,
+      "profit_rate": -8.32,
+      "profit_amount": -330,
+      "high_price": 3920,
+      "high_time": "10:47",
+      "high_profit_rate": -1.13,
+      "high_profit_amount": -45,
+      "low_price": 3365,
+      "low_profit_rate": -15.13,
+      "low_profit_amount": -600,
+      "low_time": "09:41"
+    },
+    {
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "theme": "방산/항공우주 (미국 시장 진출)",
+      "market": "KOSPI",
+      "buy_price": 1237000,
+      "close_price": 1177000,
+      "profit_rate": -4.85,
+      "profit_amount": -60000,
+      "high_price": 1247000,
+      "high_time": "10:23",
+      "high_profit_rate": 0.81,
+      "high_profit_amount": 10000,
+      "low_price": 1150000,
+      "low_profit_rate": -7.03,
+      "low_profit_amount": -87000,
+      "low_time": "09:45"
+    },
+    {
+      "code": "950260",
+      "name": "인제니아테라퓨틱스(Reg.S)",
+      "theme": "제약/바이오 (신약 개발 모멘텀)",
+      "market": "KOSPI",
+      "buy_price": 19000,
+      "close_price": 14100,
+      "profit_rate": -25.79,
+      "profit_amount": -4900,
+      "high_price": 18540,
+      "high_time": "09:28",
+      "high_profit_rate": -2.42,
+      "high_profit_amount": -460,
+      "low_price": 14100,
+      "low_profit_rate": -25.79,
+      "low_profit_amount": -4900,
+      "low_time": "15:30"
+    },
+    {
+      "code": "025980",
+      "name": "아난티",
+      "theme": "리오프닝/남북경협 (정치적 모멘텀)",
+      "market": "KOSPI",
+      "buy_price": 5360,
+      "close_price": 5350,
+      "profit_rate": -0.19,
+      "profit_amount": -10,
+      "high_price": 5740,
+      "high_time": "13:14",
+      "high_profit_rate": 7.09,
+      "high_profit_amount": 380,
+      "low_price": 4750,
+      "low_profit_rate": -11.38,
+      "low_profit_amount": -610,
+      "low_time": "09:55"
+    },
+    {
+      "code": "126640",
+      "name": "화신정공",
+      "theme": "자동차 부품",
+      "market": "KOSPI",
+      "buy_price": 4850,
+      "close_price": 5380,
+      "profit_rate": 10.93,
+      "profit_amount": 530,
+      "high_price": 5380,
+      "high_time": "15:30",
+      "high_profit_rate": 10.93,
+      "high_profit_amount": 530,
+      "low_price": 4350,
+      "low_profit_rate": -10.31,
+      "low_profit_amount": -500,
+      "low_time": "09:00"
+    },
+    {
+      "code": "108490",
+      "name": "로보티즈",
+      "theme": "로봇/자동화",
+      "market": "KOSPI",
+      "buy_price": 286000,
+      "close_price": 267000,
+      "profit_rate": -6.64,
+      "profit_amount": -19000,
+      "high_price": 295500,
+      "high_time": "10:28",
+      "high_profit_rate": 3.32,
+      "high_profit_amount": 9500,
+      "low_price": 265500,
+      "low_profit_rate": -7.17,
+      "low_profit_amount": -20500,
+      "low_time": "15:19"
+    }
+  ],
+  "summary": {
+    "total_stocks": 7,
+    "profit_stocks": 1,
+    "loss_stocks": 6,
+    "total_invested": 1557473,
+    "total_value": 1473642,
+    "total_profit": -83831,
+    "total_profit_rate": -5.38,
+    "high_total_value": 1577338,
+    "high_total_profit": 19865,
+    "high_total_profit_rate": 1.28,
+    "high_profit_stocks": 4,
+    "high_loss_stocks": 3
+  }
+}
