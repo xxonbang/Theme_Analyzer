@@ -1,0 +1,711 @@
+{
+  "trade_date": "2026-08-20",
+  "morning_timestamp": "2026-08-20 09:16:34",
+  "collected_at": "2026-08-20 15:42:55",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-20 09:16:34",
+      "prices": {
+        "126640": 5030,
+        "025980": 5380,
+        "000660": 1580000,
+        "005930": 252500,
+        "403870": 48900,
+        "196170": 333000,
+        "237690": 112100,
+        "005690": 13050,
+        "035420": 212500,
+        "377300": 46600,
+        "001510": 2435
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 09:33:07",
+      "prices": {
+        "126640": 5030,
+        "025980": 5320,
+        "000660": 1626000,
+        "005930": 258750,
+        "403870": 48900,
+        "196170": 326000,
+        "237690": 105900,
+        "005690": 13050,
+        "035420": 218500,
+        "377300": 46600,
+        "001510": 2435,
+        "001290": 1037
+      },
+      "leader_stocks": [
+        {
+          "code": "126640",
+          "name": "화신정공",
+          "theme": "자동차 부품"
+        },
+        {
+          "code": "257720",
+          "name": "실리콘투",
+          "theme": "K-뷰티/이커머스"
+        },
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "theme": "로봇/자동화"
+        },
+        {
+          "code": "025980",
+          "name": "아난티",
+          "theme": "남북경협/레저"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 09:40:57",
+      "prices": {
+        "126640": 4670,
+        "025980": 5370,
+        "000660": 1622000,
+        "005930": 259500,
+        "403870": 47300,
+        "196170": 329000,
+        "237690": 108100,
+        "005690": 12320,
+        "035420": 217500,
+        "377300": 45800,
+        "001510": 2810,
+        "001290": 1061
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "237690",
+          "name": "에스티팜",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "005690",
+          "name": "파미셀",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권/금융투자"
+        },
+        {
+          "code": "001290",
+          "name": "상상인증권",
+          "theme": "증권/금융투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 10:03:01",
+      "prices": {
+        "126640": 4670,
+        "025980": 5200,
+        "000660": 1671000,
+        "005930": 265000,
+        "403870": 47300,
+        "196170": 332500,
+        "237690": 107100,
+        "005690": 12320,
+        "035420": 221000,
+        "377300": 45800,
+        "001510": 2810,
+        "001290": 1061
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "237690",
+          "name": "에스티팜",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "005690",
+          "name": "파미셀",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권/금융투자"
+        },
+        {
+          "code": "001290",
+          "name": "상상인증권",
+          "theme": "증권/금융투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 12:01:58",
+      "prices": {
+        "126640": 4670,
+        "025980": 5350,
+        "000660": 1678000,
+        "005930": 269000,
+        "403870": 47300,
+        "196170": 334000,
+        "237690": 107400,
+        "005690": 12320,
+        "035420": 220000,
+        "377300": 45100,
+        "001510": 2810,
+        "001290": 1061
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "237690",
+          "name": "에스티팜",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "005690",
+          "name": "파미셀",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권/금융투자"
+        },
+        {
+          "code": "001290",
+          "name": "상상인증권",
+          "theme": "증권/금융투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 12:39:30",
+      "prices": {
+        "126640": 4670,
+        "025980": 5250,
+        "000660": 1686000,
+        "005930": 268000,
+        "403870": 48200,
+        "196170": 337000,
+        "237690": 107900,
+        "005690": 12090,
+        "035420": 219750,
+        "377300": 44900,
+        "001510": 2810,
+        "001290": 1008
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "237690",
+          "name": "에스티팜",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "005690",
+          "name": "파미셀",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권/금융투자"
+        },
+        {
+          "code": "001290",
+          "name": "상상인증권",
+          "theme": "증권/금융투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 13:27:04",
+      "prices": {
+        "126640": 4670,
+        "025980": 5150,
+        "000660": 1686000,
+        "005930": 270000,
+        "403870": 48200,
+        "196170": 337000,
+        "237690": 112000,
+        "005690": 12040,
+        "035420": 220500,
+        "377300": 44850,
+        "001510": 2810,
+        "001290": 1016
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "237690",
+          "name": "에스티팜",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "005690",
+          "name": "파미셀",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권/금융투자"
+        },
+        {
+          "code": "001290",
+          "name": "상상인증권",
+          "theme": "증권/금융투자"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-20 14:37:21",
+      "prices": {
+        "126640": 4670,
+        "025980": 5220,
+        "000660": 1686000,
+        "005930": 269500,
+        "403870": 48200,
+        "196170": 338500,
+        "237690": 114200,
+        "005690": 12050,
+        "035420": 220500,
+        "377300": 44750,
+        "001510": 2810
+      },
+      "leader_stocks": [
+        {
+          "code": "000660",
+          "name": "SK하이닉스",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "theme": "반도체/IT 하드웨어"
+        },
+        {
+          "code": "196170",
+          "name": "알테오젠",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "237690",
+          "name": "에스티팜",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "005690",
+          "name": "파미셀",
+          "theme": "바이오/제약"
+        },
+        {
+          "code": "035420",
+          "name": "NAVER",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "377300",
+          "name": "카카오페이",
+          "theme": "IT 플랫폼/핀테크"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권/금융투자"
+        },
+        {
+          "code": "001290",
+          "name": "상상인증권",
+          "theme": "증권/금융투자"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "126640",
+      "name": "화신정공",
+      "theme": "자동차 부품",
+      "market": "KOSPI",
+      "buy_price": 5030,
+      "close_price": 4535,
+      "profit_rate": -9.84,
+      "profit_amount": -495,
+      "high_price": 4870,
+      "high_time": "09:17",
+      "high_profit_rate": -3.18,
+      "high_profit_amount": -160,
+      "low_price": 4530,
+      "low_profit_rate": -9.94,
+      "low_profit_amount": -500,
+      "low_time": "15:05"
+    },
+    {
+      "code": "025980",
+      "name": "아난티",
+      "theme": "남북경협/레저",
+      "market": "KOSPI",
+      "buy_price": 5380,
+      "close_price": 5220,
+      "profit_rate": -2.97,
+      "profit_amount": -160,
+      "high_price": 5480,
+      "high_time": "11:24",
+      "high_profit_rate": 1.86,
+      "high_profit_amount": 100,
+      "low_price": 5040,
+      "low_profit_rate": -6.32,
+      "low_profit_amount": -340,
+      "low_time": "09:00"
+    },
+    {
+      "code": "000660",
+      "name": "SK하이닉스",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 1580000,
+      "close_price": 1691000,
+      "profit_rate": 7.03,
+      "profit_amount": 111000,
+      "high_price": 1720000,
+      "high_time": "13:19",
+      "high_profit_rate": 8.86,
+      "high_profit_amount": 140000,
+      "low_price": 1576000,
+      "low_profit_rate": -0.25,
+      "low_profit_amount": -4000,
+      "low_time": "09:08"
+    },
+    {
+      "code": "005930",
+      "name": "삼성전자",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSPI",
+      "buy_price": 252500,
+      "close_price": 271000,
+      "profit_rate": 7.33,
+      "profit_amount": 18500,
+      "high_price": 273000,
+      "high_time": "11:08",
+      "high_profit_rate": 8.12,
+      "high_profit_amount": 20500,
+      "low_price": 252500,
+      "low_profit_rate": 0.0,
+      "low_profit_amount": 0,
+      "low_time": "09:08"
+    },
+    {
+      "code": "403870",
+      "name": "HPSP",
+      "theme": "반도체/IT 하드웨어",
+      "market": "KOSDAQ",
+      "buy_price": 48900,
+      "close_price": 48000,
+      "profit_rate": -1.84,
+      "profit_amount": -900,
+      "high_price": 49300,
+      "high_time": "10:05",
+      "high_profit_rate": 0.82,
+      "high_profit_amount": 400,
+      "low_price": 45250,
+      "low_profit_rate": -7.46,
+      "low_profit_amount": -3650,
+      "low_time": "09:01"
+    },
+    {
+      "code": "196170",
+      "name": "알테오젠",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 333000,
+      "close_price": 339500,
+      "profit_rate": 1.95,
+      "profit_amount": 6500,
+      "high_price": 342500,
+      "high_time": "10:32",
+      "high_profit_rate": 2.85,
+      "high_profit_amount": 9500,
+      "low_price": 324000,
+      "low_profit_rate": -2.7,
+      "low_profit_amount": -9000,
+      "low_time": "09:37"
+    },
+    {
+      "code": "237690",
+      "name": "에스티팜",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 112100,
+      "close_price": 110900,
+      "profit_rate": -1.07,
+      "profit_amount": -1200,
+      "high_price": 117100,
+      "high_time": "14:20",
+      "high_profit_rate": 4.46,
+      "high_profit_amount": 5000,
+      "low_price": 105000,
+      "low_profit_rate": -6.33,
+      "low_profit_amount": -7100,
+      "low_time": "09:32"
+    },
+    {
+      "code": "005690",
+      "name": "파미셀",
+      "theme": "바이오/제약",
+      "market": "KOSPI",
+      "buy_price": 13050,
+      "close_price": 11860,
+      "profit_rate": -9.12,
+      "profit_amount": -1190,
+      "high_price": 12480,
+      "high_time": "09:23",
+      "high_profit_rate": -4.37,
+      "high_profit_amount": -570,
+      "low_price": 11830,
+      "low_profit_rate": -9.35,
+      "low_profit_amount": -1220,
+      "low_time": "10:52"
+    },
+    {
+      "code": "035420",
+      "name": "NAVER",
+      "theme": "IT 플랫폼/핀테크",
+      "market": "KOSPI",
+      "buy_price": 212500,
+      "close_price": 219500,
+      "profit_rate": 3.29,
+      "profit_amount": 7000,
+      "high_price": 223500,
+      "high_time": "10:12",
+      "high_profit_rate": 5.18,
+      "high_profit_amount": 11000,
+      "low_price": 209500,
+      "low_profit_rate": -1.41,
+      "low_profit_amount": -3000,
+      "low_time": "09:05"
+    },
+    {
+      "code": "377300",
+      "name": "카카오페이",
+      "theme": "IT 플랫폼/핀테크",
+      "market": "KOSDAQ",
+      "buy_price": 46600,
+      "close_price": 44950,
+      "profit_rate": -3.54,
+      "profit_amount": -1650,
+      "high_price": 46250,
+      "high_time": "10:02",
+      "high_profit_rate": -0.75,
+      "high_profit_amount": -350,
+      "low_price": 44550,
+      "low_profit_rate": -4.4,
+      "low_profit_amount": -2050,
+      "low_time": "14:36"
+    },
+    {
+      "code": "001510",
+      "name": "SK증권",
+      "theme": "증권/금융투자",
+      "market": "KOSPI",
+      "buy_price": 2435,
+      "close_price": 2810,
+      "profit_rate": 15.4,
+      "profit_amount": 375,
+      "high_price": 2810,
+      "high_time": "15:30",
+      "high_profit_rate": 15.4,
+      "high_profit_amount": 375,
+      "low_price": 2360,
+      "low_profit_rate": -3.08,
+      "low_profit_amount": -75,
+      "low_time": "09:13"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 5,
+    "loss_stocks": 6,
+    "total_invested": 2611495,
+    "total_value": 2749275,
+    "total_profit": 137780,
+    "total_profit_rate": 5.28,
+    "high_total_value": 2797290,
+    "high_total_profit": 185795,
+    "high_total_profit_rate": 7.11,
+    "high_profit_stocks": 8,
+    "high_loss_stocks": 3
+  }
+}
