@@ -1,0 +1,624 @@
+{
+  "trade_date": "2026-08-21",
+  "morning_timestamp": "2026-08-21 09:15:53",
+  "collected_at": "2026-08-21 15:42:37",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-21 09:15:53",
+      "prices": {
+        "041190": 5850,
+        "234340": 22950,
+        "005935": 196800,
+        "183300": 27550,
+        "950220": 2850,
+        "900300": 3215,
+        "002990": 15540,
+        "001510": 3445,
+        "064260": 5610,
+        "950260": 18010,
+        "001210": 8330
+      },
+      "leader_stocks": [
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산/핀테크 관련주"
+        },
+        {
+          "code": "234340",
+          "name": "헥토파이낸셜",
+          "theme": "가상자산/핀테크 관련주"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체 대형주 및 소부장"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 대형주 및 소부장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 기술이전 및 신사업 확장"
+        },
+        {
+          "code": "900300",
+          "name": "오가닉티코스메틱",
+          "theme": "바이오 기술이전 및 신사업 확장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 09:33:20",
+      "prices": {
+        "041190": 5850,
+        "005935": 196800,
+        "183300": 27600,
+        "950220": 2850,
+        "900300": 3215,
+        "002990": 17600,
+        "001510": 3445,
+        "064260": 5610,
+        "950260": 18800,
+        "001210": 8330
+      },
+      "leader_stocks": [
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산/핀테크 관련주"
+        },
+        {
+          "code": "234340",
+          "name": "헥토파이낸셜",
+          "theme": "가상자산/핀테크 관련주"
+        },
+        {
+          "code": "005935",
+          "name": "삼성전자우",
+          "theme": "반도체 대형주 및 소부장"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 대형주 및 소부장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 기술이전 및 신사업 확장"
+        },
+        {
+          "code": "900300",
+          "name": "오가닉티코스메틱",
+          "theme": "바이오 기술이전 및 신사업 확장"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 09:39:35",
+      "prices": {
+        "041190": 5720,
+        "234340": 20900,
+        "005935": 197000,
+        "183300": 27650,
+        "950220": 2850,
+        "900300": 3215,
+        "002990": 17390,
+        "001510": 3235,
+        "064260": 5580,
+        "950260": 19480,
+        "001210": 9470
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 회복 및 신도시 수혜"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 10:03:08",
+      "prices": {
+        "041190": 5720,
+        "005935": 203000,
+        "183300": 27300,
+        "950220": 2850,
+        "002990": 17390,
+        "001510": 3235,
+        "064260": 5580,
+        "950260": 19480,
+        "001210": 9470
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 회복 및 신도시 수혜"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 12:02:05",
+      "prices": {
+        "041190": 5720,
+        "005935": 207000,
+        "183300": 27850,
+        "950220": 2850,
+        "002990": 17390,
+        "001510": 3235,
+        "064260": 5580,
+        "950260": 19480,
+        "001210": 9470
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 회복 및 신도시 수혜"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 12:39:22",
+      "prices": {
+        "041190": 6130,
+        "005935": 206500,
+        "183300": 27800,
+        "950220": 2850,
+        "002990": 15450,
+        "001510": 3060,
+        "064260": 5360,
+        "950260": 16780,
+        "001210": 8420
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 회복 및 신도시 수혜"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 13:26:53",
+      "prices": {
+        "041190": 6130,
+        "005935": 206500,
+        "183300": 27750,
+        "950220": 2850,
+        "002990": 15030,
+        "001510": 3060,
+        "064260": 5360,
+        "950260": 16740,
+        "001210": 8420
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 회복 및 신도시 수혜"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-21 14:36:49",
+      "prices": {
+        "041190": 6130,
+        "005935": 206500,
+        "183300": 26600,
+        "950220": 2850,
+        "002990": 15130,
+        "001510": 3060,
+        "064260": 5360,
+        "950260": 16300,
+        "001210": 8420
+      },
+      "leader_stocks": [
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설업 회복 및 신도시 수혜"
+        },
+        {
+          "code": "001510",
+          "name": "SK증권",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "064260",
+          "name": "다날",
+          "theme": "증권 및 핀테크 산업 성장"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "950260",
+          "name": "인제니아테라퓨틱스(Reg.S)",
+          "theme": "바이오 신약 기술수출 및 임상 진전"
+        },
+        {
+          "code": "183300",
+          "name": "코미코",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "반도체 장비/부품 및 액면분할 효과"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "041190",
+      "name": "우리기술투자",
+      "theme": "가상자산/핀테크 관련주",
+      "market": "KOSPI",
+      "buy_price": 5850,
+      "close_price": 5920,
+      "profit_rate": 1.2,
+      "profit_amount": 70,
+      "high_price": 6300,
+      "high_time": "13:11",
+      "high_profit_rate": 7.69,
+      "high_profit_amount": 450,
+      "low_price": 5300,
+      "low_profit_rate": -9.4,
+      "low_profit_amount": -550,
+      "low_time": "09:00"
+    },
+    {
+      "code": "234340",
+      "name": "헥토파이낸셜",
+      "theme": "가상자산/핀테크 관련주",
+      "market": "KOSPI",
+      "buy_price": 22950,
+      "close_price": 19720,
+      "profit_rate": -14.07,
+      "profit_amount": -3230,
+      "high_price": 21650,
+      "high_time": "09:24",
+      "high_profit_rate": -5.66,
+      "high_profit_amount": -1300,
+      "low_price": 19230,
+      "low_profit_rate": -16.21,
+      "low_profit_amount": -3720,
+      "low_time": "10:38"
+    },
+    {
+      "code": "005935",
+      "name": "삼성전자우",
+      "theme": "반도체 대형주 및 소부장",
+      "market": "KOSPI",
+      "buy_price": 196800,
+      "close_price": 207000,
+      "profit_rate": 5.18,
+      "profit_amount": 10200,
+      "high_price": 210000,
+      "high_time": "14:22",
+      "high_profit_rate": 6.71,
+      "high_profit_amount": 13200,
+      "low_price": 188600,
+      "low_profit_rate": -4.17,
+      "low_profit_amount": -8200,
+      "low_time": "09:00"
+    },
+    {
+      "code": "183300",
+      "name": "코미코",
+      "theme": "반도체 대형주 및 소부장",
+      "market": "KOSPI",
+      "buy_price": 27550,
+      "close_price": 27700,
+      "profit_rate": 0.54,
+      "profit_amount": 150,
+      "high_price": 28250,
+      "high_time": "11:11",
+      "high_profit_rate": 2.54,
+      "high_profit_amount": 700,
+      "low_price": 26200,
+      "low_profit_rate": -4.9,
+      "low_profit_amount": -1350,
+      "low_time": "15:11"
+    },
+    {
+      "code": "950220",
+      "name": "네오이뮨텍",
+      "theme": "바이오 기술이전 및 신사업 확장",
+      "market": "KOSPI",
+      "buy_price": 2850,
+      "close_price": 2850,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2850,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2650,
+      "low_profit_rate": -7.02,
+      "low_profit_amount": -200,
+      "low_time": "09:03"
+    },
+    {
+      "code": "900300",
+      "name": "오가닉티코스메틱",
+      "theme": "바이오 기술이전 및 신사업 확장",
+      "market": "KOSPI",
+      "buy_price": 3215,
+      "close_price": 3215,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 3215,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 3215,
+      "low_profit_rate": 0.0,
+      "low_profit_amount": 0,
+      "low_time": "15:30"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설업 회복 및 신도시 수혜",
+      "market": "KOSPI",
+      "buy_price": 15540,
+      "close_price": 14750,
+      "profit_rate": -5.08,
+      "profit_amount": -790,
+      "high_price": 18200,
+      "high_time": "09:25",
+      "high_profit_rate": 17.12,
+      "high_profit_amount": 2660,
+      "low_price": 14600,
+      "low_profit_rate": -6.05,
+      "low_profit_amount": -940,
+      "low_time": "15:08"
+    },
+    {
+      "code": "001510",
+      "name": "SK증권",
+      "theme": "증권 및 핀테크 산업 성장",
+      "market": "KOSPI",
+      "buy_price": 3445,
+      "close_price": 2955,
+      "profit_rate": -14.22,
+      "profit_amount": -490,
+      "high_price": 3345,
+      "high_time": "09:48",
+      "high_profit_rate": -2.9,
+      "high_profit_amount": -100,
+      "low_price": 2820,
+      "low_profit_rate": -18.14,
+      "low_profit_amount": -625,
+      "low_time": "14:27"
+    },
+    {
+      "code": "064260",
+      "name": "다날",
+      "theme": "증권 및 핀테크 산업 성장",
+      "market": "KOSPI",
+      "buy_price": 5610,
+      "close_price": 5130,
+      "profit_rate": -8.56,
+      "profit_amount": -480,
+      "high_price": 5880,
+      "high_time": "09:24",
+      "high_profit_rate": 4.81,
+      "high_profit_amount": 270,
+      "low_price": 5130,
+      "low_profit_rate": -8.56,
+      "low_profit_amount": -480,
+      "low_time": "15:30"
+    },
+    {
+      "code": "950260",
+      "name": "인제니아테라퓨틱스(Reg.S)",
+      "theme": "바이오 신약 기술수출 및 임상 진전",
+      "market": "KOSPI",
+      "buy_price": 18010,
+      "close_price": 15770,
+      "profit_rate": -12.44,
+      "profit_amount": -2240,
+      "high_price": 19950,
+      "high_time": "09:59",
+      "high_profit_rate": 10.77,
+      "high_profit_amount": 1940,
+      "low_price": 15300,
+      "low_profit_rate": -15.05,
+      "low_profit_amount": -2710,
+      "low_time": "14:20"
+    },
+    {
+      "code": "001210",
+      "name": "금호전기",
+      "theme": "반도체 장비/부품 및 액면분할 효과",
+      "market": "KOSPI",
+      "buy_price": 8330,
+      "close_price": 8380,
+      "profit_rate": 0.6,
+      "profit_amount": 50,
+      "high_price": 9690,
+      "high_time": "09:45",
+      "high_profit_rate": 16.33,
+      "high_profit_amount": 1360,
+      "low_price": 7810,
+      "low_profit_rate": -6.24,
+      "low_profit_amount": -520,
+      "low_time": "09:02"
+    }
+  ],
+  "summary": {
+    "total_stocks": 11,
+    "profit_stocks": 4,
+    "loss_stocks": 5,
+    "total_invested": 310150,
+    "total_value": 313390,
+    "total_profit": 3240,
+    "total_profit_rate": 1.04,
+    "high_total_value": 329330,
+    "high_total_profit": 19180,
+    "high_total_profit_rate": 6.18,
+    "high_profit_stocks": 7,
+    "high_loss_stocks": 2
+  }
+}
