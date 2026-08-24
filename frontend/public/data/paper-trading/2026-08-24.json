@@ -1,0 +1,670 @@
+{
+  "trade_date": "2026-08-24",
+  "morning_timestamp": "2026-08-24 09:14:27",
+  "collected_at": "2026-08-24 15:42:54",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-24 09:14:27",
+      "prices": {
+        "100790": 16530,
+        "124500": 37250,
+        "304100": 17240,
+        "066970": 117600,
+        "450080": 36650,
+        "299660": 2285,
+        "950220": 3200,
+        "002990": 16090,
+        "001210": 9370
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 09:32:49",
+      "prices": {
+        "100790": 16530,
+        "124500": 38300,
+        "304100": 16860,
+        "066970": 121800,
+        "450080": 36650,
+        "299660": 2285,
+        "950220": 3200,
+        "002990": 16090,
+        "001210": 9370
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 09:40:09",
+      "prices": {
+        "100790": 16720,
+        "124500": 38900,
+        "304100": 16730,
+        "066970": 120900,
+        "450080": 36650,
+        "299660": 2250,
+        "950220": 3100,
+        "002990": 14870,
+        "001210": 8680
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 10:02:18",
+      "prices": {
+        "100790": 16720,
+        "124500": 39000,
+        "304100": 17190,
+        "066970": 121600,
+        "450080": 36850,
+        "299660": 2250,
+        "950220": 3100,
+        "002990": 15220,
+        "001210": 9050
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 12:02:05",
+      "prices": {
+        "100790": 16720,
+        "124500": 38450,
+        "304100": 17080,
+        "066970": 121000,
+        "450080": 36750,
+        "299660": 2250,
+        "950220": 3100,
+        "002990": 15050,
+        "001210": 9060
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 12:39:21",
+      "prices": {
+        "100790": 16140,
+        "124500": 38400,
+        "304100": 17100,
+        "066970": 119700,
+        "299660": 2285,
+        "950220": 3195,
+        "002990": 14870,
+        "001210": 8890
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 13:27:17",
+      "prices": {
+        "100790": 16200,
+        "124500": 38400,
+        "304100": 18280,
+        "066970": 120600,
+        "299660": 2285,
+        "950220": 3195,
+        "002990": 14810,
+        "001210": 8820
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-24 14:36:56",
+      "prices": {
+        "100790": 16010,
+        "124500": 38400,
+        "304100": 17380,
+        "066970": 121600,
+        "299660": 2285,
+        "950220": 3195,
+        "002990": 14630,
+        "001210": 8600
+      },
+      "leader_stocks": [
+        {
+          "code": "100790",
+          "name": "미래에셋벤처투자",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "124500",
+          "name": "아이티센글로벌",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "304100",
+          "name": "솔트룩스",
+          "theme": "AI & Venture Capital / IT 서비스"
+        },
+        {
+          "code": "066970",
+          "name": "엘앤에프",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "450080",
+          "name": "에코프로머티",
+          "theme": "2차전지 및 소재"
+        },
+        {
+          "code": "299660",
+          "name": "셀리드",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "950220",
+          "name": "네오이뮨텍",
+          "theme": "바이오/헬스케어 혁신"
+        },
+        {
+          "code": "002990",
+          "name": "금호건설",
+          "theme": "건설 및 인프라"
+        },
+        {
+          "code": "001210",
+          "name": "금호전기",
+          "theme": "건설 및 인프라"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "100790",
+      "name": "미래에셋벤처투자",
+      "theme": "AI & Venture Capital / IT 서비스",
+      "market": "KOSPI",
+      "buy_price": 16530,
+      "close_price": 15880,
+      "profit_rate": -3.93,
+      "profit_amount": -650,
+      "high_price": 17400,
+      "high_time": "09:51",
+      "high_profit_rate": 5.26,
+      "high_profit_amount": 870,
+      "low_price": 15880,
+      "low_profit_rate": -3.93,
+      "low_profit_amount": -650,
+      "low_time": "15:30"
+    },
+    {
+      "code": "124500",
+      "name": "아이티센글로벌",
+      "theme": "AI & Venture Capital / IT 서비스",
+      "market": "KOSPI",
+      "buy_price": 37250,
+      "close_price": 37900,
+      "profit_rate": 1.74,
+      "profit_amount": 650,
+      "high_price": 40450,
+      "high_time": "11:16",
+      "high_profit_rate": 8.59,
+      "high_profit_amount": 3200,
+      "low_price": 35200,
+      "low_profit_rate": -5.5,
+      "low_profit_amount": -2050,
+      "low_time": "09:00"
+    },
+    {
+      "code": "304100",
+      "name": "솔트룩스",
+      "theme": "AI & Venture Capital / IT 서비스",
+      "market": "KOSDAQ",
+      "buy_price": 17240,
+      "close_price": 17600,
+      "profit_rate": 2.09,
+      "profit_amount": 360,
+      "high_price": 18310,
+      "high_time": "13:26",
+      "high_profit_rate": 6.21,
+      "high_profit_amount": 1070,
+      "low_price": 16570,
+      "low_profit_rate": -3.89,
+      "low_profit_amount": -670,
+      "low_time": "09:17"
+    },
+    {
+      "code": "066970",
+      "name": "엘앤에프",
+      "theme": "2차전지 및 소재",
+      "market": "KOSPI",
+      "buy_price": 117600,
+      "close_price": 121600,
+      "profit_rate": 3.4,
+      "profit_amount": 4000,
+      "high_price": 124600,
+      "high_time": "09:15",
+      "high_profit_rate": 5.95,
+      "high_profit_amount": 7000,
+      "low_price": 110200,
+      "low_profit_rate": -6.29,
+      "low_profit_amount": -7400,
+      "low_time": "09:00"
+    },
+    {
+      "code": "450080",
+      "name": "에코프로머티",
+      "theme": "2차전지 및 소재",
+      "market": "KOSDAQ",
+      "buy_price": 36650,
+      "close_price": 37350,
+      "profit_rate": 1.91,
+      "profit_amount": 700,
+      "high_price": 37400,
+      "high_time": "15:18",
+      "high_profit_rate": 2.05,
+      "high_profit_amount": 750,
+      "low_price": 34800,
+      "low_profit_rate": -5.05,
+      "low_profit_amount": -1850,
+      "low_time": "09:00"
+    },
+    {
+      "code": "299660",
+      "name": "셀리드",
+      "theme": "바이오/헬스케어 혁신",
+      "market": "KOSPI",
+      "buy_price": 2285,
+      "close_price": 2285,
+      "profit_rate": 0.0,
+      "profit_amount": 0,
+      "high_price": 2285,
+      "high_time": "15:30",
+      "high_profit_rate": 0.0,
+      "high_profit_amount": 0,
+      "low_price": 2075,
+      "low_profit_rate": -9.19,
+      "low_profit_amount": -210,
+      "low_time": "09:02"
+    },
+    {
+      "code": "950220",
+      "name": "네오이뮨텍",
+      "theme": "바이오/헬스케어 혁신",
+      "market": "KOSPI",
+      "buy_price": 3200,
+      "close_price": 3050,
+      "profit_rate": -4.69,
+      "profit_amount": -150,
+      "high_price": 3705,
+      "high_time": "14:48",
+      "high_profit_rate": 15.78,
+      "high_profit_amount": 505,
+      "low_price": 2800,
+      "low_profit_rate": -12.5,
+      "low_profit_amount": -400,
+      "low_time": "11:03"
+    },
+    {
+      "code": "002990",
+      "name": "금호건설",
+      "theme": "건설 및 인프라",
+      "market": "KOSPI",
+      "buy_price": 16090,
+      "close_price": 14860,
+      "profit_rate": -7.64,
+      "profit_amount": -1230,
+      "high_price": 15880,
+      "high_time": "09:19",
+      "high_profit_rate": -1.31,
+      "high_profit_amount": -210,
+      "low_price": 14500,
+      "low_profit_rate": -9.88,
+      "low_profit_amount": -1590,
+      "low_time": "14:14"
+    },
+    {
+      "code": "001210",
+      "name": "금호전기",
+      "theme": "건설 및 인프라",
+      "market": "KOSPI",
+      "buy_price": 9370,
+      "close_price": 8700,
+      "profit_rate": -7.15,
+      "profit_amount": -670,
+      "high_price": 9330,
+      "high_time": "09:16",
+      "high_profit_rate": -0.43,
+      "high_profit_amount": -40,
+      "low_price": 8500,
+      "low_profit_rate": -9.28,
+      "low_profit_amount": -870,
+      "low_time": "15:09"
+    }
+  ],
+  "summary": {
+    "total_stocks": 9,
+    "profit_stocks": 4,
+    "loss_stocks": 4,
+    "total_invested": 256215,
+    "total_value": 259225,
+    "total_profit": 3010,
+    "total_profit_rate": 1.17,
+    "high_total_value": 269360,
+    "high_total_profit": 13145,
+    "high_total_profit_rate": 5.13,
+    "high_profit_stocks": 6,
+    "high_loss_stocks": 2
+  }
+}
