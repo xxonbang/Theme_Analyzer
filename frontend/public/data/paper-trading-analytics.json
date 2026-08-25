@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-08-24 15:43:43",
+  "generated_at": "2026-08-25 15:44:01",
   "period": {
     "start": "2026-07-27",
-    "end": "2026-08-24",
-    "trading_days": 21
+    "end": "2026-08-25",
+    "trading_days": 22
   },
   "overall": {
-    "cumulative_return": -6.35,
-    "cumulative_high_return": 124.89,
-    "avg_daily_return": -0.25,
-    "volatility": 3.67,
-    "sharpe_ratio": -0.07,
+    "cumulative_return": -4.4,
+    "cumulative_high_return": 135.37,
+    "avg_daily_return": -0.14,
+    "volatility": 3.61,
+    "sharpe_ratio": -0.04,
     "max_drawdown": 13.92,
-    "win_rate": 47.6,
-    "win_days": 10,
+    "win_rate": 50.0,
+    "win_days": 11,
     "loss_days": 10,
     "flat_days": 1,
-    "avg_win": 2.66,
+    "avg_win": 2.61,
     "avg_loss": -3.18,
-    "profit_loss_ratio": 0.84,
+    "profit_loss_ratio": 0.82,
     "max_win_streak": 4,
     "max_loss_streak": 3,
     "best_day": {
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": -0.61,
-    "win_rate": 60.0
+    "avg_return": 0.84,
+    "win_rate": 80.0
   },
   "theme_performance": [
     {
@@ -55,6 +55,13 @@
       "win_rate": 66.7,
       "avg_return": 2.93,
       "total_return": 8.79
+    },
+    {
+      "theme": "AI & Venture Capital / IT 서비스",
+      "count": 6,
+      "win_rate": 83.3,
+      "avg_return": 2.86,
+      "total_return": 17.14
     },
     {
       "theme": "전선/광통신",
@@ -99,13 +106,6 @@
       "total_return": 0.0
     },
     {
-      "theme": "AI & Venture Capital / IT 서비스",
-      "count": 3,
-      "win_rate": 66.7,
-      "avg_return": -0.03,
-      "total_return": -0.1
-    },
-    {
       "theme": "금융/투자",
       "count": 3,
       "win_rate": 33.3,
@@ -127,6 +127,13 @@
       "total_return": -9.78
     },
     {
+      "theme": "건설 및 인프라",
+      "count": 6,
+      "win_rate": 50.0,
+      "avg_return": -2.02,
+      "total_return": -12.12
+    },
+    {
       "theme": "반도체/IT 부품",
       "count": 4,
       "win_rate": 25.0,
@@ -141,11 +148,11 @@
       "total_return": -13.25
     },
     {
-      "theme": "건설 및 인프라",
+      "theme": "바이오/헬스케어 혁신",
       "count": 4,
-      "win_rate": 50.0,
-      "avg_return": -3.04,
-      "total_return": -12.14
+      "win_rate": 25.0,
+      "avg_return": -2.79,
+      "total_return": -11.15
     },
     {
       "theme": "반도체/AI 반도체 관련주",
@@ -200,15 +207,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 168,
-      "win_rate": 47.0,
-      "avg_return": -0.64
+      "count": 178,
+      "win_rate": 48.3,
+      "avg_return": -0.5
     },
     {
       "market": "KOSDAQ",
-      "count": 57,
-      "win_rate": 42.1,
-      "avg_return": -1.12
+      "count": 59,
+      "win_rate": 44.1,
+      "avg_return": -0.96
     }
   ],
   "cumulative_series": [
@@ -295,6 +302,10 @@
     {
       "date": "2026-08-24",
       "cumulative_return": -6.35
+    },
+    {
+      "date": "2026-08-25",
+      "cumulative_return": -4.4
     }
   ]
 }
