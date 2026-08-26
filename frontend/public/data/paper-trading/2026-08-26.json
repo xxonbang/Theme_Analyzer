@@ -1,0 +1,311 @@
+{
+  "trade_date": "2026-08-26",
+  "morning_timestamp": "2026-08-26 09:40:35",
+  "collected_at": "2026-08-26 15:42:45",
+  "price_snapshots": [
+    {
+      "timestamp": "2026-08-26 09:40:35",
+      "prices": {
+        "000720": 128900,
+        "034020": 83400,
+        "041190": 6400,
+        "459550": 2500
+      },
+      "leader_stocks": [
+        {
+          "code": "000720",
+          "name": "현대건설",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산 및 AI 투자"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇 및 AI 디바이스"
+        },
+        {
+          "code": "000880",
+          "name": "한화",
+          "theme": "지주사 재편 및 방산"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-26 10:03:06",
+      "prices": {
+        "000720": 129600,
+        "034020": 84300,
+        "041190": 6400,
+        "459550": 2500
+      },
+      "leader_stocks": [
+        {
+          "code": "000720",
+          "name": "현대건설",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산 및 AI 투자"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇 및 AI 디바이스"
+        },
+        {
+          "code": "000880",
+          "name": "한화",
+          "theme": "지주사 재편 및 방산"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-26 12:02:05",
+      "prices": {
+        "000720": 129700,
+        "034020": 84900,
+        "041190": 6400,
+        "459550": 2500
+      },
+      "leader_stocks": [
+        {
+          "code": "000720",
+          "name": "현대건설",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산 및 AI 투자"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇 및 AI 디바이스"
+        },
+        {
+          "code": "000880",
+          "name": "한화",
+          "theme": "지주사 재편 및 방산"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-26 12:39:41",
+      "prices": {
+        "000720": 130000,
+        "034020": 85300,
+        "041190": 6400,
+        "459550": 2410
+      },
+      "leader_stocks": [
+        {
+          "code": "000720",
+          "name": "현대건설",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산 및 AI 투자"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇 및 AI 디바이스"
+        },
+        {
+          "code": "000880",
+          "name": "한화",
+          "theme": "지주사 재편 및 방산"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-26 13:27:00",
+      "prices": {
+        "000720": 132500,
+        "034020": 86600,
+        "041190": 6400,
+        "459550": 2410
+      },
+      "leader_stocks": [
+        {
+          "code": "000720",
+          "name": "현대건설",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산 및 AI 투자"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇 및 AI 디바이스"
+        },
+        {
+          "code": "000880",
+          "name": "한화",
+          "theme": "지주사 재편 및 방산"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-26 14:36:55",
+      "prices": {
+        "000720": 130800,
+        "034020": 85400,
+        "041190": 6400,
+        "459550": 2410
+      },
+      "leader_stocks": [
+        {
+          "code": "000720",
+          "name": "현대건설",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "034020",
+          "name": "두산에너빌리티",
+          "theme": "건설 및 원전"
+        },
+        {
+          "code": "041190",
+          "name": "우리기술투자",
+          "theme": "가상자산 및 AI 투자"
+        },
+        {
+          "code": "459550",
+          "name": "알트",
+          "theme": "로봇 및 AI 디바이스"
+        },
+        {
+          "code": "000880",
+          "name": "한화",
+          "theme": "지주사 재편 및 방산"
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "code": "000720",
+      "name": "현대건설",
+      "theme": "건설 및 원전",
+      "market": "KOSPI",
+      "buy_price": 128900,
+      "close_price": 130400,
+      "profit_rate": 1.16,
+      "profit_amount": 1500,
+      "high_price": 132600,
+      "high_time": "13:28",
+      "high_profit_rate": 2.87,
+      "high_profit_amount": 3700,
+      "low_price": 122700,
+      "low_profit_rate": -4.81,
+      "low_profit_amount": -6200,
+      "low_time": "09:01"
+    },
+    {
+      "code": "034020",
+      "name": "두산에너빌리티",
+      "theme": "건설 및 원전",
+      "market": "KOSPI",
+      "buy_price": 83400,
+      "close_price": 85800,
+      "profit_rate": 2.88,
+      "profit_amount": 2400,
+      "high_price": 86700,
+      "high_time": "13:29",
+      "high_profit_rate": 3.96,
+      "high_profit_amount": 3300,
+      "low_price": 81100,
+      "low_profit_rate": -2.76,
+      "low_profit_amount": -2300,
+      "low_time": "09:01"
+    },
+    {
+      "code": "041190",
+      "name": "우리기술투자",
+      "theme": "가상자산 및 AI 투자",
+      "market": "KOSPI",
+      "buy_price": 6400,
+      "close_price": 6500,
+      "profit_rate": 1.56,
+      "profit_amount": 100,
+      "high_price": 6580,
+      "high_time": "15:02",
+      "high_profit_rate": 2.81,
+      "high_profit_amount": 180,
+      "low_price": 6230,
+      "low_profit_rate": -2.66,
+      "low_profit_amount": -170,
+      "low_time": "09:44"
+    },
+    {
+      "code": "459550",
+      "name": "알트",
+      "theme": "로봇 및 AI 디바이스",
+      "market": "KOSDAQ",
+      "buy_price": 2500,
+      "close_price": 2390,
+      "profit_rate": -4.4,
+      "profit_amount": -110,
+      "high_price": 2535,
+      "high_time": "10:34",
+      "high_profit_rate": 1.4,
+      "high_profit_amount": 35,
+      "low_price": 2375,
+      "low_profit_rate": -5.0,
+      "low_profit_amount": -125,
+      "low_time": "12:11"
+    }
+  ],
+  "summary": {
+    "total_stocks": 4,
+    "profit_stocks": 3,
+    "loss_stocks": 1,
+    "total_invested": 221200,
+    "total_value": 225090,
+    "total_profit": 3890,
+    "total_profit_rate": 1.76,
+    "high_total_value": 228415,
+    "high_total_profit": 7215,
+    "high_total_profit_rate": 3.26,
+    "high_profit_stocks": 4,
+    "high_loss_stocks": 0
+  }
+}

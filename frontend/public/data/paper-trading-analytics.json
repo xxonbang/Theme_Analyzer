@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-08-25 15:44:01",
+  "generated_at": "2026-08-26 15:43:08",
   "period": {
     "start": "2026-07-27",
-    "end": "2026-08-25",
-    "trading_days": 22
+    "end": "2026-08-26",
+    "trading_days": 23
   },
   "overall": {
-    "cumulative_return": -4.4,
-    "cumulative_high_return": 135.37,
-    "avg_daily_return": -0.14,
-    "volatility": 3.61,
-    "sharpe_ratio": -0.04,
+    "cumulative_return": -2.72,
+    "cumulative_high_return": 143.04,
+    "avg_daily_return": -0.06,
+    "volatility": 3.55,
+    "sharpe_ratio": -0.02,
     "max_drawdown": 13.92,
-    "win_rate": 50.0,
-    "win_days": 11,
+    "win_rate": 52.2,
+    "win_days": 12,
     "loss_days": 10,
     "flat_days": 1,
-    "avg_win": 2.61,
+    "avg_win": 2.54,
     "avg_loss": -3.18,
-    "profit_loss_ratio": 0.82,
-    "max_win_streak": 4,
+    "profit_loss_ratio": 0.8,
+    "max_win_streak": 5,
     "max_loss_streak": 3,
     "best_day": {
       "date": "2026-07-31",
@@ -31,8 +31,8 @@
     }
   },
   "recent_5d": {
-    "avg_return": 0.84,
-    "win_rate": 80.0
+    "avg_return": 2.27,
+    "win_rate": 100.0
   },
   "theme_performance": [
     {
@@ -48,6 +48,13 @@
       "win_rate": 100.0,
       "avg_return": 5.09,
       "total_return": 15.27
+    },
+    {
+      "theme": "건설 및 원전",
+      "count": 4,
+      "win_rate": 100.0,
+      "avg_return": 3.49,
+      "total_return": 13.96
     },
     {
       "theme": "로봇/스마트팩토리",
@@ -207,15 +214,15 @@
   "market_performance": [
     {
       "market": "KOSPI",
-      "count": 178,
-      "win_rate": 48.3,
-      "avg_return": -0.5
+      "count": 181,
+      "win_rate": 49.2,
+      "avg_return": -0.46
     },
     {
       "market": "KOSDAQ",
-      "count": 59,
-      "win_rate": 44.1,
-      "avg_return": -0.96
+      "count": 60,
+      "win_rate": 43.3,
+      "avg_return": -1.02
     }
   ],
   "cumulative_series": [
@@ -306,6 +313,10 @@
     {
       "date": "2026-08-25",
       "cumulative_return": -4.4
+    },
+    {
+      "date": "2026-08-26",
+      "cumulative_return": -2.72
     }
   ]
 }
