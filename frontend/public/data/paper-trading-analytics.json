@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-08-31 15:43:18",
+  "generated_at": "2026-09-01 15:43:23",
   "period": {
     "start": "2026-08-03",
-    "end": "2026-08-31",
-    "trading_days": 21
+    "end": "2026-09-01",
+    "trading_days": 22
   },
   "overall": {
-    "cumulative_return": -3.37,
-    "cumulative_high_return": 98.08,
-    "avg_daily_return": -0.12,
-    "volatility": 2.99,
-    "sharpe_ratio": -0.04,
+    "cumulative_return": -11.08,
+    "cumulative_high_return": 102.22,
+    "avg_daily_return": -0.48,
+    "volatility": 3.36,
+    "sharpe_ratio": -0.15,
     "max_drawdown": 13.22,
-    "win_rate": 52.4,
+    "win_rate": 50.0,
     "win_days": 11,
-    "loss_days": 9,
+    "loss_days": 10,
     "flat_days": 1,
     "avg_win": 2.14,
-    "avg_loss": -2.9,
-    "profit_loss_ratio": 0.74,
+    "avg_loss": -3.4,
+    "profit_loss_ratio": 0.63,
     "max_win_streak": 5,
     "max_loss_streak": 2,
     "best_day": {
@@ -26,13 +26,13 @@
       "return": 5.28
     },
     "worst_day": {
-      "date": "2026-08-19",
-      "return": -5.38
+      "date": "2026-09-01",
+      "return": -7.98
     }
   },
   "recent_5d": {
-    "avg_return": 0.71,
-    "win_rate": 60.0
+    "avg_return": -1.31,
+    "win_rate": 40.0
   },
   "theme_performance": [
     {
@@ -99,6 +99,13 @@
       "total_return": 6.89
     },
     {
+      "theme": "바이오/제약",
+      "count": 7,
+      "win_rate": 42.9,
+      "avg_return": 0.93,
+      "total_return": 6.53
+    },
+    {
       "theme": "AI/로봇",
       "count": 4,
       "win_rate": 50.0,
@@ -125,6 +132,13 @@
       "win_rate": 33.3,
       "avg_return": -0.42,
       "total_return": -1.26
+    },
+    {
+      "theme": "2차전지/전력설비",
+      "count": 4,
+      "win_rate": 50.0,
+      "avg_return": -1.8,
+      "total_return": -7.2
     },
     {
       "theme": "건설 및 인프라",
@@ -176,13 +190,6 @@
       "total_return": -12.34
     },
     {
-      "theme": "바이오/제약",
-      "count": 5,
-      "win_rate": 20.0,
-      "avg_return": -4.4,
-      "total_return": -21.98
-    },
-    {
       "theme": "제약/바이오 신약 개발 및 진단 기술",
       "count": 3,
       "win_rate": 0.0,
@@ -200,15 +207,15 @@
   "market_performance": [
     {
       "market": "KOSDAQ",
-      "count": 44,
-      "win_rate": 45.5,
-      "avg_return": -0.25
+      "count": 45,
+      "win_rate": 44.4,
+      "avg_return": -0.33
     },
     {
       "market": "KOSPI",
-      "count": 160,
-      "win_rate": 46.2,
-      "avg_return": -0.68
+      "count": 164,
+      "win_rate": 47.0,
+      "avg_return": -0.55
     }
   ],
   "cumulative_series": [
@@ -295,6 +302,10 @@
     {
       "date": "2026-08-31",
       "cumulative_return": -3.37
+    },
+    {
+      "date": "2026-09-01",
+      "cumulative_return": -11.08
     }
   ]
 }
