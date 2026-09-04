@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-09-03 15:43:50",
+  "updated_at": "2026-09-04 15:42:58",
   "entries": [
+    {
+      "date": "2026-09-04",
+      "filename": "2026-09-04.json",
+      "total_profit_rate": 1.0,
+      "stock_count": 5
+    },
     {
       "date": "2026-09-03",
       "filename": "2026-09-03.json",
@@ -132,12 +138,6 @@
       "filename": "2026-08-05.json",
       "total_profit_rate": 0.52,
       "stock_count": 13
-    },
-    {
-      "date": "2026-08-04",
-      "filename": "2026-08-04.json",
-      "total_profit_rate": -0.71,
-      "stock_count": 16
     }
   ]
 }
